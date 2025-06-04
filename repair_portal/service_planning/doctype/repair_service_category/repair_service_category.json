@@ -1,0 +1,14 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Service Category",
+  "module": "service_planning",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "category_name", "label": "Category Name", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "description", "label": "Description", "fieldtype": "Text"},
+    {"fieldname": "services", "label": "Service Items", "fieldtype": "Table", "options": "Repair Service Item"}
+  ],
+  "permissions": [
+    {"role": "Repair Administrator", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

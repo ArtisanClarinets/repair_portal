@@ -1,0 +1,12 @@
+{
+  "doctype": "DocType",
+  "name": "Repair History Log",
+  "module": "repair_logging",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {"fieldname": "repair_event_date", "fieldtype": "Date", "label": "Repair Event Date", "default": "Today"},
+    {"fieldname": "related_repair", "fieldtype": "Link", "label": "Related Repair Request", "options": "Repair Request"},
+    {"fieldname": "summary", "fieldtype": "Text", "label": "Repair Summary"}
+  ]
+}

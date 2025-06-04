@@ -1,0 +1,14 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Pads Used",
+  "module": "repair_logging",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {"fieldname": "pad_location", "label": "Pad Location", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "pad_size", "label": "Pad Size (mm)", "fieldtype": "Float", "reqd": 1},
+    {"fieldname": "pad_material", "label": "Material", "fieldtype": "Select", "options": "Leather\nSynthetic\nCork"},
+    {"fieldname": "source", "label": "Source", "fieldtype": "Select", "options": "Library\nCustom", "reqd": 1},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"}
+  ]
+}

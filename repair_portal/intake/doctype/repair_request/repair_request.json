@@ -1,0 +1,43 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Request",
+  "module": "intake",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "section_customer", "fieldtype": "Section Break", "label": "🎟️ Customer Info"},
+    {"fieldname": "customer", "fieldtype": "Link", "options": "Customer", "label": "Customer", "reqd": 1},
+    {"fieldname": "contact", "fieldtype": "Link", "options": "Contact", "label": "Contact"},
+    {"fieldname": "repair_id", "fieldtype": "Data", "label": "Repair ID", "read_only": 1},
+    {"fieldname": "section_instrument", "fieldtype": "Section Break", "label": "🎼 Instrument Details"},
+    {"fieldname": "instrument_type", "fieldtype": "Select", "label": "Instrument Type", "options": "B♭\nA\nE♭\nBass\nC"},
+    {"fieldname": "instrument_brand", "fieldtype": "Link", "options": "Brand", "label": "Instrument Brand"},
+    {"fieldname": "instrument_model", "fieldtype": "Data", "label": "Instrument Model"},
+    {"fieldname": "serial_number", "fieldtype": "Data", "label": "Serial Number", "unique": 1},
+    {"fieldname": "section_planning", "fieldtype": "Section Break", "label": "🛠️ Repair Planning"},
+    {"fieldname": "date_received", "fieldtype": "Date", "label": "Date Received", "default": "Today"},
+    {"fieldname": "requested_completion_date", "fieldtype": "Date", "label": "Requested Completion Date"},
+    {"fieldname": "priority", "fieldtype": "Select", "label": "Priority", "options": "Low\nMedium\nHigh\nCritical"},
+    {"fieldname": "repair_type", "fieldtype": "Select", "label": "Repair Type", "options": "Maintenance\nEmergency\nCustomization\nRestoration"},
+    {"fieldname": "repair_technician", "fieldtype": "Link", "options": "User", "label": "Repair Technician"},
+    {"fieldname": "repair_status", "fieldtype": "Select", "label": "Repair Status", "options": "Pending\nInspected\nQuoted\nIn Progress\nAwaiting Parts\nCompleted\nDelivered"},
+    {"fieldname": "internal_notes", "fieldtype": "Text Editor", "label": "Internal Notes"},
+    {"fieldname": "section_links", "fieldtype": "Section Break", "label": "📎 Linked Docs"},
+    {"fieldname": "quotation_reference", "fieldtype": "Link", "label": "Quotation Reference", "options": "Quotation"},
+    {"fieldname": "sales_invoice_reference", "fieldtype": "Link", "label": "Sales Invoice Reference", "options": "Sales Invoice"},
+    {"fieldname": "purchase_order_reference", "fieldtype": "Link", "label": "Purchase Order Reference", "options": "Purchase Order", "depends_on": "eval:doc.repair_type=='Restoration'"},
+    {"fieldname": "stock_entry_reference", "fieldtype": "Link", "label": "Stock Entry Reference", "options": "Stock Entry", "depends_on": "eval:doc.repair_status=='Awaiting Parts'"},
+    {"fieldname": "section_logs", "fieldtype": "Section Break", "label": "📚 Logs & Tables"},
+    {"fieldname": "repair_log", "fieldtype": "Table", "label": "Repair Log", "options": "Event"},
+    {"fieldname": "customer_communication_log", "fieldtype": "Table", "label": "Customer Communication Log", "options": "Communication"},
+    {"fieldname": "requested_services", "fieldtype": "Table", "label": "Requested Services", "options": "Requested Service"},
+    {"fieldname": "repair_pads_used", "fieldtype": "Table", "label": "Repair Pads Used", "options": "Repair Pads Used"},
+    {"fieldname": "repair_qa_checklist", "fieldtype": "Table", "label": "QA Checklist", "options": "Repair QA Step"}
+  ],
+  "permissions": [
+    {"role": "Repair Administrator", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1},
+    {"role": "Repair Technician", "read": 1, "write": 1}
+  ],
+  "autoname": "field:repair_id",
+  "is_submittable": 1,
+  "track_changes": 1
+}

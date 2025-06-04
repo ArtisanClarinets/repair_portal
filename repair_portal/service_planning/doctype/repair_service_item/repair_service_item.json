@@ -1,0 +1,13 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Service Item",
+  "module": "service_planning",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {"fieldname": "service_name", "label": "Service Name", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "estimated_hours", "label": "Estimated Hours", "fieldtype": "Float"},
+    {"fieldname": "estimated_cost", "label": "Estimated Cost", "fieldtype": "Currency"},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"}
+  ]
+}

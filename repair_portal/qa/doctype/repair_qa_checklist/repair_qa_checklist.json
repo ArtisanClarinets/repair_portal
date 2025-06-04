@@ -1,0 +1,11 @@
+{
+  "doctype": "DocType",
+  "name": "Repair QA Checklist",
+  "module": "qa",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "repair_type", "label": "Repair Type", "fieldtype": "Select", "options": "Maintenance\nEmergency\nCustomization\nRestoration", "reqd": 1},
+    {"fieldname": "instrument_model", "label": "Instrument Model", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "qa_steps", "label": "Checklist Items", "fieldtype": "Table", "options": "Repair QA Step"}
+  ]
+}

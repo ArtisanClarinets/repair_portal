@@ -1,0 +1,22 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Inspection",
+  "module": "inspection",
+  "custom": 0,
+  "autoname": "format:INS-.YYYY.-.#####",
+  "track_changes": 1,
+  "fields": [
+    {"fieldname": "repair_request", "fieldtype": "Link", "options": "Repair Request", "label": "Repair Request", "reqd": 1},
+    {"fieldname": "inspection_date", "fieldtype": "Date", "label": "Inspection Date", "default": "Today"},
+    {"fieldname": "inspector", "fieldtype": "Link", "options": "User", "label": "Inspector"},
+    {"fieldname": "condition_checklist", "fieldtype": "Table", "label": "Condition Checklist", "options": "Clarinet Anatomy Condition"},
+    {"fieldname": "interactive_anatomy_image", "fieldtype": "HTML", "label": "Interactive Anatomy Image"},
+    {"fieldname": "attached_images", "fieldtype": "Attach Image", "label": "Attached Images", "allow_multiple": 1},
+    {"fieldname": "technician_time_log", "fieldtype": "Float", "label": "Technician Time Log (hours)"},
+    {"fieldname": "additional_notes", "fieldtype": "Text Editor", "label": "Additional Notes"}
+  ],
+  "permissions": [
+    {"role": "Repair Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "Repair Administrator", "read": 1, "write": 1}
+  ]
+}

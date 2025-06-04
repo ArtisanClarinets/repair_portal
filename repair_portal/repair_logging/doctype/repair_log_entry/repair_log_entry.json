@@ -1,0 +1,16 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Log Entry",
+  "module": "repair_logging",
+  "istable": 1,
+  "custom": 0,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "note", "fieldtype": "Data", "label": "Note", "reqd": 1},
+    {"fieldname": "timestamp", "fieldtype": "Datetime", "label": "Timestamp", "default": "now"},
+    {"fieldname": "user", "fieldtype": "Link", "label": "User", "options": "User"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

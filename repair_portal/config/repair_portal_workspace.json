@@ -1,0 +1,60 @@
+{
+  "label": "Repair Portal",
+  "module": "Repair Portal",
+  "category": "Modules",
+  "icon": "octicon octicon-tools",
+  "type": "module",
+  "is_standard": 1,
+  "data": [
+    {
+      "label": "Intake",
+      "items": [
+        {"type": "doctype", "name": "Repair Request"},
+        {"type": "doctype", "name": "Requested Service"}
+      ]
+    },
+    {
+      "label": "Inspection",
+      "items": [
+        {"type": "doctype", "name": "Repair Inspection"},
+        {"type": "doctype", "name": "Inspection Finding"}
+      ]
+    },
+    {
+      "label": "Service Planning",
+      "items": [
+        {"type": "doctype", "name": "Service Plan"},
+        {"type": "doctype", "name": "Service Step"}
+      ]
+    },
+    {
+      "label": "Repair Logging",
+      "items": [
+        {"type": "doctype", "name": "Repair Task"},
+        {"type": "doctype", "name": "Repair Pads Used"}
+      ]
+    },
+    {
+      "label": "QA",
+      "items": [
+        {"type": "doctype", "name": "Repair QA Checklist"},
+        {"type": "doctype", "name": "Repair QA Step"}
+      ]
+    },
+    {
+      "label": "Tools",
+      "items": [
+        {"type": "doctype", "name": "Clarinet Pad Library"},
+        {"type": "doctype", "name": "Clarinet Pad Spec"}
+      ]
+    },
+    {
+      "label": "Dashboards & Reports",
+      "items": [
+        {"type": "report", "name": "Open Repair Requests", "is_query_report": false},
+        {"type": "report", "name": "Repair SLA Violations", "is_query_report": false},
+        {"type": "dashboard", "name": "Repair Overview"}
+      ]
+    }
+  ]
+}

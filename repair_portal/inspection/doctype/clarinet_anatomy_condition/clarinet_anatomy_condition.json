@@ -1,0 +1,19 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Anatomy Condition",
+  "module": "inspection",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {"fieldname": "clarinet_part", "fieldtype": "Select", "label": "Clarinet Part", "options": "Barrel\nUpper Joint\nLower Joint\nBell\nMouthpiece\nKeys\nPads\nSprings\nRods\nCorks"},
+    {"fieldname": "condition", "fieldtype": "Select", "label": "Condition", "options": "New\nGood\nWorn\nDamaged\nBroken\nMissing"},
+    {"fieldname": "action_required", "fieldtype": "Select", "label": "Action Required", "options": "None\nCleaning\nAdjustment\nRepair\nReplacement"},
+    {"fieldname": "recommended_part", "fieldtype": "Link", "label": "Recommended Part", "options": "Item", "depends_on": "eval:doc.action_required=='Replacement'"},
+    {"fieldname": "estimated_cost", "fieldtype": "Currency", "label": "Estimated Cost"},
+    {"fieldname": "part_image", "fieldtype": "HTML", "label": "Part Image Preview"}
+  ],
+  "permissions": [
+    {"role": "Repair Technician", "read": 1, "write": 1},
+    {"role": "Repair Administrator", "read": 1, "write": 1}
+  ]
+}

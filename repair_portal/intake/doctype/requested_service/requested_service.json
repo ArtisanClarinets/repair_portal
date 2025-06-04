@@ -1,0 +1,14 @@
+{
+  "doctype": "DocType",
+  "name": "Requested Service",
+  "module": "intake",
+  "istable": 1,
+  "custom": 0,
+  "fields": [
+    {"fieldname": "service_category", "label": "Service Category", "fieldtype": "Link", "options": "Repair Service Category", "reqd": 1},
+    {"fieldname": "service_name", "label": "Service Name", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "estimated_hours", "label": "Estimated Hours", "fieldtype": "Float"},
+    {"fieldname": "estimated_cost", "label": "Estimated Cost", "fieldtype": "Currency"},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"}
+  ]
+}
