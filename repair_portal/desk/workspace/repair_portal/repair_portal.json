@@ -1,0 +1,59 @@
+{
+  "doctype": "Workspace",
+  "name": "Repair Portal",
+  "module": "repair_portal",
+  "label": "Repair Portal",
+  "icon": "octicon octicon-wrench",
+  "public": 1,
+  "is_default": 0,
+  "content": [
+    {
+      "type": "section",
+      "label": "Intake",
+      "items": [
+        {"type": "doctype", "name": "Repair Request"},
+        {"type": "doctype", "name": "Requested Service"}
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Inspection",
+      "items": [
+        {"type": "doctype", "name": "Repair Inspection"},
+        {"type": "doctype", "name": "Clarinet Anatomy Condition"}
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Service Planning",
+      "items": [
+        {"type": "doctype", "name": "Repair Service Category"},
+        {"type": "doctype", "name": "Repair Service Item"}
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Repair Logging",
+      "items": [
+        {"type": "doctype", "name": "Repair Log Entry"},
+        {"type": "doctype", "name": "Repair Pads Used"},
+        {"type": "doctype", "name": "Repair History Log"}
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Quality Assurance",
+      "items": [
+        {"type": "doctype", "name": "Repair QA Checklist"},
+        {"type": "doctype", "name": "Repair QA Step"}
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Tools",
+      "items": [
+        {"type": "doctype", "name": "Clarinet Pad Spec"}
+      ]
+    }
+  ]
+}

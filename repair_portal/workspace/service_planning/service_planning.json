@@ -1,0 +1,15 @@
+{
+  "doctype": "Workspace",
+  "name": "Service Planning",
+  "module": "Service Planning",
+  "label": "Service Planning",
+  "title": "Service Planning",
+  "public": 1,
+  "icon": "octicon octicon-list-unordered",
+  "is_default": 0,
+  "is_hidden": 0,
+  "links": [
+    {"type": "DocType", "link_to": "Repair Service Category"},
+    {"type": "DocType", "link_to": "Repair Service Item"}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Pads Used",
+  "module": "Repair Logging",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "pad_spec",
+      "fieldtype": "Link",
+      "label": "Pad Spec",
+      "options": "Clarinet Pad Spec",
+      "reqd": 1
+    },
+    {
+      "fieldname": "qty",
+      "fieldtype": "Int",
+      "label": "Quantity",
+      "reqd": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Usage Notes"
+    }
+  ]
+}

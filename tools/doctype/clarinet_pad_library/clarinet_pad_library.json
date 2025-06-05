@@ -1,0 +1,23 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Pad Library",
+  "module": "Tools",
+  "fields": [
+    {
+      "fieldname": "model_name",
+      "fieldtype": "Data",
+      "label": "Clarinet Model"
+    },
+    {
+      "fieldname": "manufacturer",
+      "fieldtype": "Data",
+      "label": "Manufacturer"
+    },
+    {
+      "fieldname": "default_pads",
+      "fieldtype": "Table",
+      "label": "Default Pad Specs",
+      "options": "Clarinet Pad Spec"
+    }
+  ]
+}

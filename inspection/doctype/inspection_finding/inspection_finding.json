@@ -1,0 +1,24 @@
+{
+  "doctype": "DocType",
+  "name": "Inspection Finding",
+  "module": "Inspection",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "component",
+      "fieldtype": "Data",
+      "label": "Component"
+    },
+    {
+      "fieldname": "issue",
+      "fieldtype": "Data",
+      "label": "Issue"
+    },
+    {
+      "fieldname": "severity",
+      "fieldtype": "Select",
+      "label": "Severity",
+      "options": "Low\nMedium\nHigh"
+    }
+  ]
+}

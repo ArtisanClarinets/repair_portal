@@ -1,0 +1,15 @@
+{
+  "doctype": "Workspace",
+  "name": "QA",
+  "module": "QA",
+  "label": "QA",
+  "title": "QA",
+  "public": 1,
+  "icon": "octicon octicon-checklist",
+  "is_default": 0,
+  "is_hidden": 0,
+  "links": [
+    {"type": "DocType", "link_to": "Repair QA Checklist"},
+    {"type": "DocType", "link_to": "Repair QA Step"}
+  ]
+}

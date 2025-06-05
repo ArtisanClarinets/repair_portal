@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Requested Service",
+  "module": "Intake",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "service_item",
+      "fieldtype": "Link",
+      "label": "Service Item",
+      "options": "Repair Service Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Service Notes"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Log Entry",
+  "module": "Repair Logging",
+  "fields": [
+    {
+      "fieldname": "repair_request",
+      "fieldtype": "Link",
+      "label": "Repair Request",
+      "options": "Repair Request",
+      "reqd": 1
+    },
+    {
+      "fieldname": "technician",
+      "fieldtype": "Link",
+      "label": "Technician",
+      "options": "User",
+      "reqd": 1
+    },
+    {
+      "fieldname": "work_description",
+      "fieldtype": "Small Text",
+      "label": "Work Description"
+    },
+    {
+      "fieldname": "start_time",
+      "fieldtype": "Datetime",
+      "label": "Start Time"
+    },
+    {
+      "fieldname": "end_time",
+      "fieldtype": "Datetime",
+      "label": "End Time"
+    },
+    {
+      "fieldname": "pads_used",
+      "fieldtype": "Table",
+      "label": "Pads Used",
+      "options": "Repair Pads Used"
+    }
+  ]
+}

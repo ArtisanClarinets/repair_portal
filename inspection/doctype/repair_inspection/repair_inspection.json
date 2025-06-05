@@ -1,0 +1,33 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Inspection",
+  "module": "Inspection",
+  "fields": [
+    {
+      "fieldname": "repair_request",
+      "fieldtype": "Link",
+      "label": "Repair Request",
+      "options": "Repair Request",
+      "reqd": 1
+    },
+    {
+      "fieldname": "inspected_by",
+      "fieldtype": "Link",
+      "label": "Inspected By",
+      "options": "User",
+      "reqd": 1
+    },
+    {
+      "fieldname": "inspection_date",
+      "fieldtype": "Date",
+      "label": "Inspection Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "findings",
+      "fieldtype": "Table",
+      "label": "Inspection Findings",
+      "options": "Inspection Finding"
+    }
+  ]
+}

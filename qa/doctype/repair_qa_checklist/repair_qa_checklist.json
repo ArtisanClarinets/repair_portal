@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Repair QA Checklist",
+  "module": "QA",
+  "fields": [
+    {
+      "fieldname": "repair_request",
+      "fieldtype": "Link",
+      "label": "Repair Request",
+      "options": "Repair Request",
+      "reqd": 1
+    },
+    {
+      "fieldname": "qa_steps",
+      "fieldtype": "Table",
+      "label": "QA Steps",
+      "options": "Repair QA Step"
+    }
+  ]
+}

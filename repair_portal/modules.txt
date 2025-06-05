@@ -1,7 +1,7 @@
 Repair Portal
-intake
-inspection
-service_planning
-repair_logging
-qa
-tools
+Intake
+Inspection
+Service Planning
+Repair Logging
+QA
+Tools

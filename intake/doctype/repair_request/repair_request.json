@@ -1,0 +1,37 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Request",
+  "module": "Intake",
+  "fields": [
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument_type",
+      "fieldtype": "Select",
+      "label": "Instrument Type",
+      "options": "Clarinet\nBass Clarinet\nAlto Clarinet\nEb Clarinet",
+      "reqd": 1
+    },
+    {
+      "fieldname": "serial_number",
+      "fieldtype": "Data",
+      "label": "Serial Number"
+    },
+    {
+      "fieldname": "requested_services",
+      "fieldtype": "Table",
+      "label": "Requested Services",
+      "options": "Requested Service"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Additional Notes"
+    }
+  ]
+}

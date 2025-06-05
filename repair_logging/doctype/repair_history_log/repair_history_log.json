@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Repair History Log",
+  "module": "Repair Logging",
+  "fields": [
+    {
+      "fieldname": "repair_request",
+      "fieldtype": "Link",
+      "label": "Repair Request",
+      "options": "Repair Request",
+      "reqd": 1
+    },
+    {
+      "fieldname": "log_entry",
+      "fieldtype": "Table",
+      "label": "Repair Log Entries",
+      "options": "Repair Log Entry"
+    }
+  ]
+}
