@@ -15,7 +15,7 @@ def get_data():
             "module_name": "Intake",
             "category": "Modules",
             "label": "Intake",
-            "icon": "octicon octicon-inbox",
+            "icon": "quality-3",
             "type": "module",
             "description": "Manage clarinet intake requests and tracking.",
         },
