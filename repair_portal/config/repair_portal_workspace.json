@@ -23,14 +23,14 @@
     {
       "label": "Service Planning",
       "items": [
-        {"type": "doctype", "name": "Service Plan"},
-        {"type": "doctype", "name": "Service Step"}
+        {"type": "doctype", "name": "Repair Service Category"},
+        {"type": "doctype", "name": "Repair Service Item"}
       ]
     },
     {
       "label": "Repair Logging",
       "items": [
-        {"type": "doctype", "name": "Repair Task"},
+        {"type": "doctype", "name": "Repair Log Entry"},
         {"type": "doctype", "name": "Repair Pads Used"}
       ]
     },
