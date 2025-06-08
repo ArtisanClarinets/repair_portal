@@ -1,0 +1,22 @@
+[
+  {
+    "doctype": "Inspection Template",
+    "template_name": "Repair Final QA Template",
+    "inspection_type": "Final",
+    "item_quality_inspection_parameter": [
+      {"specification": "Padding Uniformity", "value": "Uniform", "description": "All pads must seal evenly"},
+      {"specification": "Key Regulation", "value": "Tuned", "description": "All keys should actuate smoothly and return with correct tension"},
+      {"specification": "Seal Test", "value": "Pass", "description": "Instrument must pass vacuum or light seal test"}
+    ]
+  },
+  {
+    "doctype": "Inspection Template",
+    "template_name": "New Instrument Setup QA Template",
+    "inspection_type": "Final",
+    "item_quality_inspection_parameter": [
+      {"specification": "Spring Tension", "value": "Balanced", "description": "Springs must return keys without excessive force"},
+      {"specification": "Bore Cleanliness", "value": "Clean", "description": "No residue or obstructions inside bore"},
+      {"specification": "Visual Check", "value": "No Defects", "description": "No cosmetic defects or tool marks"}
+    ]
+  }
+]

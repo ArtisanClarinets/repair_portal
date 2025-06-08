@@ -1,0 +1,15 @@
+{
+  "doctype": "Workflow",
+  "is_active": 1,
+  "workflow_name": "Instrument Intake Approval",
+  "document_type": "Instrument Intake Form",
+  "states": [
+    {"state": "Draft", "doc_status": 0, "update_field": "status", "allow_edit": "Workshop Manager"},
+    {"state": "Received", "doc_status": 1, "update_field": "status", "allow_edit": "Workshop Manager"},
+    {"state": "Escalated", "doc_status": 1, "update_field": "status", "allow_edit": "System Manager"}
+  ],
+  "transitions": [
+    {"state": "Draft", "action": "Receive", "next_state": "Received", "allowed": "Workshop Manager"},
+    {"state": "Received", "action": "Escalate", "next_state": "Escalated", "allowed": "System Manager"}
+  ]
+}

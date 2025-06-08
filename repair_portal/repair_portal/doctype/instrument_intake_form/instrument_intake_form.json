@@ -1,0 +1,12 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Intake Form",
+  "module": "Repair Portal",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer"},
+    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data"},
+    {"fieldname": "date_received", "label": "Date Received", "fieldtype": "Date"}
+  ],
+  "permissions": [{"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+}

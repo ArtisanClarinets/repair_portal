@@ -1,0 +1,12 @@
+{
+  "doctype": "DocType",
+  "name": "Customer Upgrade Request",
+  "module": "Repair Portal",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer"},
+    {"fieldname": "requested_upgrade", "label": "Requested Upgrade", "fieldtype": "Data"},
+    {"fieldname": "justification", "label": "Justification", "fieldtype": "Text"}
+  ],
+  "permissions": [{"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+}

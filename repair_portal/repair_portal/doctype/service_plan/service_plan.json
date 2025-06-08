@@ -1,0 +1,11 @@
+{
+  "doctype": "DocType",
+  "name": "Service Plan",
+  "module": "Repair Portal",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "plan_date", "label": "Plan Date", "fieldtype": "Date"},
+    {"fieldname": "tasks", "label": "Planned Tasks", "fieldtype": "Table", "options": "Repair Task Log"}
+  ],
+  "permissions": [{"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+}

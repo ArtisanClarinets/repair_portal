@@ -1,0 +1,9 @@
+{
+  "doctype": "Workspace",
+  "name": "repair-portal",
+  "module": "Repair Portal",
+  "label": "Repair Portal",
+  "is_standard": 1,
+  "is_public": 1,
+  "onboard": 0
+}

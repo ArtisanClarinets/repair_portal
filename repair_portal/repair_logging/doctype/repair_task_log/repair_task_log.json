@@ -1,0 +1,19 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Task Log",
+  "module": "Repair Logging",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "task_date", "fieldtype": "Date", "label": "Task Date"},
+    {"fieldname": "technician", "fieldtype": "Link", "label": "Technician", "options": "Employee"},
+    {"fieldname": "task_description", "fieldtype": "Small Text", "label": "Task Description"},
+    {"fieldname": "hours_spent", "fieldtype": "Float", "label": "Hours Spent"},
+    {"fieldname": "linked_plan", "fieldtype": "Link", "label": "Service Plan", "options": "Service Plan"},
+    {"fieldname": "qa_inspection", "fieldtype": "Link", "label": "QA Inspection", "options": "Quality Inspection"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ],
+  "istable": 0,
+  "track_changes": 1
+}

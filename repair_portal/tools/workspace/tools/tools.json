@@ -1,0 +1,20 @@
+{
+  "doctype": "Workspace",
+  "name": "Tools",
+  "label": "Tools",
+  "title": "Tools",
+  "module": "Tools",
+  "icon": "tools",
+  "type": "Workspace",
+  "parent_page": "Repair Portal",
+  "public": 1,
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Calibration Logs</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tool Calibration Log\",\"col\":3}}]",
+  "shortcuts": [
+    {
+      "label": "Tool Calibration Log",
+      "link_to": "Tool Calibration Log",
+      "type": "DocType",
+      "color": "Grey"
+    }
+  ]
+}

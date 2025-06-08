@@ -1,0 +1,11 @@
+{
+  "doctype": "DocType",
+  "name": "Setup Checklist Item",
+  "module": "Instrument Setup",
+  "istable": 1,
+  "fields": [
+    {"fieldname": "task", "fieldtype": "Data", "label": "Task", "reqd": 1},
+    {"fieldname": "completed", "fieldtype": "Check", "label": "Completed"},
+    {"fieldname": "notes", "fieldtype": "Text", "label": "Notes"}
+  ]
+}

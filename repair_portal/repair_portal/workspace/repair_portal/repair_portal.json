@@ -1,0 +1,17 @@
+{
+  "doctype": "Workspace",
+  "name": "Repair Portal",
+  "label": "Repair Portal",
+  "title": "Repair Portal",
+  "module": "Repair Portal",
+  "icon": "menu",
+  "type": "Workspace",
+  "public": 1,
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Repair Portal Modules</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Intake\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Repair Logging\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"QA\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Instrument Setup\",\"col\":3}}]",
+  "shortcuts": [
+    {"label": "Intake", "link_to": "workspace/Intake", "type": "Link", "color": "Grey"},
+    {"label": "Repair Logging", "link_to": "workspace/Repair Logging", "type": "Link", "color": "Grey"},
+    {"label": "QA", "link_to": "workspace/QA", "type": "Link", "color": "Grey"},
+    {"label": "Instrument Setup", "link_to": "workspace/Instrument Setup", "type": "Link", "color": "Grey"}
+  ]
+}

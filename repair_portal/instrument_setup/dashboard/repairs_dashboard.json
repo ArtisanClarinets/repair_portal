@@ -1,0 +1,11 @@
+{
+  "label": "Repairs Dashboard",
+  "charts": [
+    {"chart_name": "Repairs by Status", "doctype": "Clarinet Initial Setup"},
+    {"chart_name": "Common Inspection Findings", "doctype": "Clarinet Inspection"}
+  ],
+  "cards": [
+    {"label": "Average Turnaround Time (Days)", "type": "Number Card"},
+    {"label": "Open High-Severity Issues", "type": "Number Card"}
+  ]
+}

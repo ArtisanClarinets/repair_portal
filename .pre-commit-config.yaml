@@ -66,4 +66,5 @@ repos:
 ci:
     autoupdate_schedule: weekly
     skip: []
-    submodules: false
+    submodules: true
+    update_dependencies: true

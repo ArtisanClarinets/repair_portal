@@ -1,0 +1,26 @@
+{
+  "doctype": "Workspace",
+  "name": "Service Planning",
+  "label": "Service Planning",
+  "title": "Service Planning",
+  "module": "Service Planning",
+  "icon": "tools",
+  "type": "Workspace",
+  "parent_page": "Repair Portal",
+  "public": 1,
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Service Templates</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Plan\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Task\",\"col\":3}}]",
+  "shortcuts": [
+    {
+      "label": "Service Plan",
+      "link_to": "Service Plan",
+      "type": "DocType",
+      "color": "Grey"
+    },
+    {
+      "label": "Service Task",
+      "link_to": "Service Task",
+      "type": "DocType",
+      "color": "Grey"
+    }
+  ]
+}

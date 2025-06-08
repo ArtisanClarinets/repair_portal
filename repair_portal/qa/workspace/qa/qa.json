@@ -1,0 +1,20 @@
+{
+  "doctype": "Workspace",
+  "name": "Quality",
+  "label": "Quality",
+  "title": "Quality",
+  "module": "QA",
+  "icon": "quality-1",
+  "type": "Workspace",
+  "public": 1,
+  "parent_page": "Repair Portal",
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quality Goal\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quality Procedure\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quality Inspection\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quality Review\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quality Action\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Non Conformance\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports & Masters</b></span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Goal and Procedure\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Feedback\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Meeting\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Review and Action\",\"col\":4}}]",
+  "shortcuts": [
+    {"label": "Quality Goal", "link_to": "Quality Goal", "type": "DocType", "color": "Grey"},
+    {"label": "Quality Procedure", "link_to": "Quality Procedure", "type": "DocType", "color": "Grey", "doc_view": "Tree"},
+    {"label": "Quality Inspection", "link_to": "Quality Inspection", "type": "DocType", "color": "Grey"},
+    {"label": "Quality Review", "link_to": "Quality Review", "type": "DocType", "color": "Grey", "format": "{} Open", "stats_filter": "{\"status\": \"Open\"}"},
+    {"label": "Quality Action", "link_to": "Quality Action", "type": "DocType", "color": "Grey", "format": "{} Open", "stats_filter": "{\"status\": \"Open\"}"},
+    {"label": "Non Conformance", "link_to": "Non Conformance", "type": "DocType", "color": "Grey", "format": "{} Open", "stats_filter": "{\"status\": \"Open\"}"}
+  ]
+}

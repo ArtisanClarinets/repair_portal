@@ -1,0 +1,10 @@
+{
+  "doctype": "Report",
+  "name": "Parts Consumption",
+  "report_name": "Parts Consumption",
+  "ref_doctype": "Clarinet Initial Setup",
+  "report_type": "Script Report",
+  "is_standard": "Yes",
+  "module": "Instrument Setup",
+  "filters": []
+}

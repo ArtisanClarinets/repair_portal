@@ -1,0 +1,26 @@
+{
+  "doctype": "Workspace",
+  "name": "Intake",
+  "label": "Intake",
+  "title": "Intake",
+  "module": "Intake",
+  "icon": "download",
+  "type": "Workspace",
+  "public": 1,
+  "parent_page": "Repair Portal", 
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Intake & Checklists</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Instrument Intake Form\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Intake Checklist Item\",\"col\":3}}]",
+  "shortcuts": [
+    {
+      "label": "Instrument Intake Form",
+      "link_to": "Instrument Intake Form",
+      "type": "DocType",
+      "color": "Grey"
+    },
+    {
+      "label": "Intake Checklist Item",
+      "link_to": "Intake Checklist Item",
+      "type": "DocType",
+      "color": "Grey"
+    }
+  ]
+}

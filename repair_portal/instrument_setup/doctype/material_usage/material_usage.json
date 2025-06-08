@@ -1,0 +1,11 @@
+{
+  "doctype": "DocType",
+  "name": "Material Usage",
+  "module": "Instrument Setup",
+  "istable": 1,
+  "fields": [
+    {"fieldname": "item", "fieldtype": "Link", "label": "Item", "options": "Item", "reqd": 1},
+    {"fieldname": "quantity", "fieldtype": "Float", "label": "Quantity", "reqd": 1},
+    {"fieldname": "source_warehouse", "fieldtype": "Link", "label": "Source Warehouse", "options": "Warehouse"}
+  ]
+}

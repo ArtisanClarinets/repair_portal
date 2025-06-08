@@ -1,0 +1,39 @@
+{
+  "doctype": "Workspace",
+  "name": "Instrument Setup",
+  "label": "Instrument Setup",
+  "title": "Instrument Setup",
+  "module": "Instrument Setup",
+  "parent_page": "Repair Portal",
+  "is_custom": 0,
+  "icon": "quality-2",
+  "type": "Workspace",
+  "public": 1,
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Initial Setup</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Intake\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Inspection\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Initial Setup\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Setup Template\",\"col\":3}}]",
+  "shortcuts": [
+    {
+      "label": "Clarinet Intake",
+      "link_to": "Clarinet Intake",
+      "type": "DocType",
+      "color": "Grey"
+    },
+    {
+      "label": "Clarinet Inspection",
+      "link_to": "Clarinet Inspection",
+      "type": "DocType",
+      "color": "Grey"
+    },
+    {
+      "label": "Clarinet Initial Setup",
+      "link_to": "Clarinet Initial Setup",
+      "type": "DocType",
+      "color": "Grey"
+    },
+    {
+      "label": "Setup Template",
+      "link_to": "Setup Template",
+      "type": "DocType",
+      "color": "Grey"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "doctype": "DocType",
+  "name": "Service Plan",
+  "module": "Service Planning",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "plan_date", "fieldtype": "Date", "label": "Plan Date"},
+    {"fieldname": "item_code", "fieldtype": "Link", "label": "Instrument", "options": "Item"},
+    {"fieldname": "requested_services", "fieldtype": "Table", "label": "Requested Services", "options": "Service Task"},
+    {"fieldname": "technician_notes", "fieldtype": "Small Text", "label": "Technician Notes"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ],
+  "istable": 0,
+  "editable_grid": 1,
+  "track_changes": 1
+}
