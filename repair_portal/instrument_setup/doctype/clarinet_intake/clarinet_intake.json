@@ -14,7 +14,8 @@
     {"fieldname": "case_condition", "fieldtype": "Select", "label": "Case Condition", "options": "Good\nFair\nPoor"},
     {"fieldname": "mouthpiece_included", "fieldtype": "Check", "label": "Mouthpiece Included"},
     {"fieldname": "initial_photos", "fieldtype": "Attach Image", "label": "Initial Photos"},
-    {"fieldname": "attachments", "fieldtype": "Attach", "label": "Attachments"}
+    {"fieldname": "attachments", "fieldtype": "Attach", "label": "Attachments"},
+    {"fieldname": "model", "fieldtype": "Data", "label": "Model"}
   ],
   "permissions": [
     {"role": "Technician", "read": 1, "write": 1, "create": 1},

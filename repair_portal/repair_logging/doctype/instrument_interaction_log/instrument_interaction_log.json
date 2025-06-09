@@ -1,0 +1,17 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Interaction Log",
+  "module": "Repair Logging",
+  "istable": 1,
+  "fields": [
+    {"fieldname": "interaction_type", "fieldtype": "Select", "label": "Interaction Type", "options": "Intake\nInspection\nRepair\nQA\nUpgrade"},
+    {"fieldname": "reference_doctype", "fieldtype": "Data", "label": "Reference DocType"},
+    {"fieldname": "reference_name", "fieldtype": "Dynamic Link", "label": "Reference Name", "options": "reference_doctype"},
+    {"fieldname": "date", "fieldtype": "Date", "label": "Date"},
+    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "Service Manager", "read": 1, "write": 1}
+  ]
+}

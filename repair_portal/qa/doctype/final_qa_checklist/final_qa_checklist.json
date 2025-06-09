@@ -4,14 +4,9 @@
   "module": "QA",
   "custom": 0,
   "fields": [
-    {"fieldname": "qa_date", "fieldtype": "Date", "label": "QA Date"},
-    {"fieldname": "inspector", "fieldtype": "Link", "label": "Inspector", "options": "Employee"},
-    {"fieldname": "pass_all_tests", "fieldtype": "Check", "label": "Passed All Tests"},
-    {"fieldname": "qa_notes", "fieldtype": "Small Text", "label": "Notes"}
+    {"fieldname": "qa_date", "label": "QA Date", "fieldtype": "Date"},
+    {"fieldname": "passed", "label": "Passed QA", "fieldtype": "Check"},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"}
   ],
-  "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ],
-  "istable": 0,
-  "track_changes": 1
+  "permissions": [{"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
 }

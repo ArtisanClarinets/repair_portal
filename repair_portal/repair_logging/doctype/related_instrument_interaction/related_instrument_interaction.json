@@ -1,0 +1,18 @@
+{
+  "doctype": "DocType",
+  "name": "Related Instrument Interaction",
+  "module": "Repair Logging",
+  "istable": 1,
+  "fields": [
+    {"fieldname": "instrument_tracker", "fieldtype": "Link", "label": "Instrument Tracker", "options": "Instrument Tracker"},
+    {"fieldname": "interaction_type", "fieldtype": "Data", "label": "Interaction Type"},
+    {"fieldname": "reference_doctype", "fieldtype": "Data", "label": "Reference DocType"},
+    {"fieldname": "reference_name", "fieldtype": "Dynamic Link", "label": "Reference Name", "options": "reference_doctype"},
+    {"fieldname": "date", "fieldtype": "Date", "label": "Date"},
+    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1},
+    {"role": "Service Manager", "read": 1}
+  ]
+}

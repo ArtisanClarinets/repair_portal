@@ -1,0 +1,15 @@
+{
+  "doctype": "Workspace",
+  "name": "Instrument Setup",
+  "module": "Instrument Setup",
+  "label": "Instrument Setup",
+  "public": 1,
+  "content": [
+    {
+      "label": "Tables",
+      "items": [
+        {"type": "doctype", "name": "Clarinet Setup Operation"}
+      ]
+    }
+  ]
+}

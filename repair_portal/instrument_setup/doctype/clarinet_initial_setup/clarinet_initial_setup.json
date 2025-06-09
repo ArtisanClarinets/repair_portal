@@ -9,6 +9,9 @@
     {"fieldname": "technician", "fieldtype": "Link", "label": "Technician", "options": "User", "reqd": 1},
     {"fieldname": "checklist", "fieldtype": "Table", "label": "Checklist", "options": "Setup Checklist Item"},
     {"fieldname": "materials_used", "fieldtype": "Table", "label": "Materials Used", "options": "Material Usage"},
+    {"fieldname": "operations_performed", "fieldtype": "Table", "label": "Operations Performed", "options": "Clarinet Setup Operation"},
+    {"fieldname": "work_photos", "fieldtype": "Attach Image", "label": "Work Photos"},
+    {"fieldname": "technical_tags", "fieldtype": "Tag List", "label": "Technical Tags"},
     {"fieldname": "labor_hours", "fieldtype": "Float", "label": "Labor Hours"},
     {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Pending\nPass\nFail"},
     {"fieldname": "qa_inspection", "fieldtype": "Link", "label": "QA Inspection", "options": "Quality Inspection"}

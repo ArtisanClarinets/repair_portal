@@ -1,0 +1,18 @@
+{
+  "doctype": "Workspace",
+  "name": "Intake",
+  "module": "Intake",
+  "label": "Intake",
+  "public": 1,
+  "for_user": null,
+  "onboard": 0,
+  "restrict_to_domain": null,
+  "content": [
+    {
+      "label": "Forms",
+      "items": [
+        {"type": "doctype", "name": "Customer Consent Form"}
+      ]
+    }
+  ]
+}

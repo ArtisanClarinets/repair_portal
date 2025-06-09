@@ -2,10 +2,19 @@ import frappe
 from frappe.model.document import Document
 
 class FinalQAChecklist(Document):
+    def on_submit(self):
+        if not self.serial_number:
+            return
 
-    def validate(self):
-        if not self.inspector:
-            frappe.throw("Inspector is required.")
+        if not frappe.db.exists("Instrument Tracker", {"serial_number": self.serial_number}):
+            return
 
-        if not self.pass_all_tests:
-            frappe.msgprint("Please confirm that all QA tests have been passed.")
+        tracker = frappe.get_doc("Instrument Tracker", {"serial_number": self.serial_number})
+        tracker.append("interaction_logs", {
+            "interaction_type": "QA Check",
+            "reference_doctype": "Final QA Checklist",
+            "reference_name": self.name,
+            "date": self.qa_date,
+            "notes": self.technician_notes or ""
+        })
+        tracker.save(ignore_permissions=True)
