@@ -25,8 +25,8 @@
  "shortcuts": [
   {
    "color": "Grey",
-   "label": "Instrument Intake Form",
-   "link_to": "Instrument Intake Form",
+   "label": "Clainet Intake Form",
+   "link_to": "Clarinet Intake Form",
    "type": "DocType"
   }
  ],

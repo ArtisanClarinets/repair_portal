@@ -1,7 +1,7 @@
 {
   "doctype": "DocType",
   "name": "Clarinet Intake",
-  "module": "Instrument Setup",
+  "module": "Intake",
   "custom": 0,
   "autoname": "field:serial_number",
   "fields": [
@@ -15,7 +15,8 @@
     {"fieldname": "mouthpiece_included", "fieldtype": "Check", "label": "Mouthpiece Included"},
     {"fieldname": "initial_photos", "fieldtype": "Attach Image", "label": "Initial Photos"},
     {"fieldname": "attachments", "fieldtype": "Attach", "label": "Attachments"},
-    {"fieldname": "model", "fieldtype": "Data", "label": "Model"}
+    {"fieldname": "model", "fieldtype": "Data", "label": "Model"},
+    {"fieldname": "condition_notes", "fieldtype": "Text", "label": "Condition Notes"}  
   ],
   "permissions": [
     {"role": "Technician", "read": 1, "write": 1, "create": 1},

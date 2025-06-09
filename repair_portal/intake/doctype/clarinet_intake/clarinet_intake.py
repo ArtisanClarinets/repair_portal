@@ -1,3 +1,8 @@
+# File: repair_portal/repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
+# Updated: 2025-06-09
+# Version: 1.0
+# Purpose: Handles logic for Clarinet Intake DocType including submission handling
+
 import frappe
 from frappe.model.document import Document
 

@@ -9,5 +9,9 @@
     {"fieldname": "component_ref", "fieldtype": "Data", "label": "Component Ref (Tone Hole, Key, etc.)"},
     {"fieldname": "details", "fieldtype": "Text", "label": "Details / Notes"},
     {"fieldname": "completed", "fieldtype": "Check", "label": "Completed"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "Service Manager", "read": 1, "write": 1}
   ]
 }

@@ -9,5 +9,9 @@
     {"fieldname": "severity", "fieldtype": "Select", "label": "Severity", "options": "Low\nMedium\nHigh"},
     {"fieldname": "recommendation", "fieldtype": "Text", "label": "Recommendation", "reqd": 1},
     {"fieldname": "action_required", "fieldtype": "Select", "label": "Action Required", "options": "Repair\nReplace\nMonitor"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "Service Manager", "read": 1, "write": 1}
   ]
 }

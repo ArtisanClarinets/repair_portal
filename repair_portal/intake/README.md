@@ -1,23 +1,17 @@
-# Intake Module
+## Intake Module
 
-This module handles the initial customer engagement and instrument intake process.
+### DocTypes:
+- `Clarinet Intake` ← Primary master intake record
+- `Customer Consent Form`
+- `Customer Upgrade Request`
+- `Intake Checklist Item`
 
-## DocTypes
-- **Instrument Intake Form**: Captures serial number, customer, and intake date.
-- **Customer Upgrade Request**: Tracks customer-initiated requests for modifications or upgrades.
-- **Customer Consent Form**: Legal agreement authorizing inspection and repair. Also includes signature capture.
+### Workflows:
+- `Instrument Intake Form Workflow`
 
-## Purpose
-To formally document instrument reception, gather consent, and initiate service pipeline entry.
+### Workspaces:
+- `Intake`
 
-## Permissions
-- Customer (Owner): Read/Create
-- Technician: Read
-- Service Manager: Full
-
-## Linked Modules
-- Inspection (post-intake diagnostic)
-- Repair Logging (initiated after Service Plan)
-
-## Last Updated
-June 2025
+### Change Log:
+- `Clarinet Intake` updated to include `condition_notes` from deprecated `Instrument Intake Form`
+- `Instrument Intake Form` removed on 2025-06-09 due to redundancy

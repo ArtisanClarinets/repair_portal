@@ -1950,5 +1950,37 @@
   "property_type": "Check",
   "row_name": null,
   "value": "1"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Web Form",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "introduction",
+  "is_system_generated": 0,
+  "modified": "2025-06-09 12:56:13.212468",
+  "module": null,
+  "name": "Web Form-introduction-hidden",
+  "property": "hidden",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Web Form",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "success_message",
+  "is_system_generated": 0,
+  "modified": "2025-06-09 12:56:13.226250",
+  "module": null,
+  "name": "Web Form-success_message-hidden",
+  "property": "hidden",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
  }
 ]

@@ -7,5 +7,9 @@
     {"fieldname": "task", "fieldtype": "Data", "label": "Task", "reqd": 1},
     {"fieldname": "completed", "fieldtype": "Check", "label": "Completed"},
     {"fieldname": "notes", "fieldtype": "Text", "label": "Notes"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "Service Manager", "read": 1, "write": 1}
   ]
 }

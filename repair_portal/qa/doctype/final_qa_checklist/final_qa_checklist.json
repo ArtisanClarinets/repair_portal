@@ -8,5 +8,9 @@
     {"fieldname": "passed", "label": "Passed QA", "fieldtype": "Check"},
     {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"}
   ],
-  "permissions": [{"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+  "permissions": [
+    {"role": "QA Inspector", "read": 1, "write": 1, "create": 1},
+    {"role": "Service Manager", "read": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
 }
