@@ -1,0 +1,17 @@
+{
+  "doctype": "Report",
+  "name": "Inspection Failure Rates",
+  "add_total_row": 0,
+  "add_total_row_label": "Total",
+  "columns": [
+    {"fieldname": "technician", "label": "Technician", "fieldtype": "Link", "options": "User", "width": 200},
+    {"fieldname": "fail_count", "label": "Failures", "fieldtype": "Int", "width": 120},
+    {"fieldname": "total", "label": "Total Inspections", "fieldtype": "Int", "width": 150},
+    {"fieldname": "fail_rate", "label": "Failure Rate %", "fieldtype": "Percent", "width": 130}
+  ],
+  "filters": [],
+  "ref_doctype": "Clarinet Condition Assessment",
+  "report_name": "Inspection Failure Rates",
+  "report_type": "Script Report",
+  "is_standard": "Yes"
+}

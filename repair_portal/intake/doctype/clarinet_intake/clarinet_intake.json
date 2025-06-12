@@ -5,80 +5,29 @@
 	"custom": 0,
 	"autoname": "field:serial_number",
 	"fields": [
-		{
-			"fieldname": "serial_number",
-			"fieldtype": "Data",
-			"label": "Serial Number",
-			"reqd": 1,
-			"unique": 1
-		},
-		{
-			"fieldname": "item_code",
-			"fieldtype": "Link",
-			"label": "Item Code",
-			"options": "Item",
-			"reqd": 1
-		},
-		{
-			"fieldname": "supplier",
-			"fieldtype": "Link",
-			"label": "Supplier",
-			"options": "Supplier"
-		},
-		{
-			"fieldname": "customer",
-			"fieldtype": "Link",
-			"label": "Customer",
-			"options": "Customer"
-		},
-		{
-			"fieldname": "received_date",
-			"fieldtype": "Date",
-			"label": "Received Date",
-			"reqd": 1
-		},
-		{
-			"fieldname": "customer_notes",
-			"fieldtype": "Text",
-			"label": "Customer Notes"
-		},
-		{
-			"fieldname": "case_condition",
-			"fieldtype": "Select",
-			"label": "Case Condition",
-			"options": "Good\nFair\nPoor"
-		},
-		{
-			"fieldname": "mouthpiece_included",
-			"fieldtype": "Check",
-			"label": "Mouthpiece Included"
-		},
-		{
-			"fieldname": "initial_photos",
-			"fieldtype": "Attach Image",
-			"label": "Initial Photos"
-		},
-		{
-			"fieldname": "attachments",
-			"fieldtype": "Attach",
-			"label": "Attachments"
-		},
-		{ "fieldname": "model", "fieldtype": "Data", "label": "Model" },
-		{
-			"fieldname": "condition_notes",
-			"fieldtype": "Text",
-			"label": "Condition Notes"
-		}
+		{"fieldname": "serial_number", "fieldtype": "Data", "label": "Serial Number", "reqd": 1, "unique": 1},
+		{"fieldname": "make", "fieldtype": "Data", "label": "Make / Manufacturer"},
+		{"fieldname": "model", "fieldtype": "Data", "label": "Model"},
+		{"fieldname": "finish", "fieldtype": "Data", "label": "Finish"},
+		{"fieldname": "year_estimated", "fieldtype": "Int", "label": "Estimated Year of Manufacture"},
+		{"fieldname": "instrument_type", "fieldtype": "Select", "label": "Instrument Type", "options": "Bb\nA\nEb\nBass\nOther"},
+		{"fieldname": "supplier", "fieldtype": "Link", "label": "Supplier", "options": "Supplier"},
+		{"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer"},
+		{"fieldname": "received_date", "fieldtype": "Date", "label": "Received Date", "reqd": 1},
+		{"fieldname": "customer_notes", "fieldtype": "Text", "label": "Customer Notes"},
+		{"fieldname": "case_condition", "fieldtype": "Select", "label": "Case Condition", "options": "Good\nFair\nPoor"},
+		{"fieldname": "mouthpiece_included", "fieldtype": "Check", "label": "Mouthpiece Included"},
+		{"fieldname": "initial_photos", "fieldtype": "Attach Image", "label": "Initial Photos"},
+		{"fieldname": "attachments", "fieldtype": "Attach", "label": "Attachments"},
+		{"fieldname": "condition_notes", "fieldtype": "Text", "label": "Condition Notes"},
+		{"fieldname": "follow_up_due_date", "fieldtype": "Date", "label": "Follow-Up Due Date"},
+		{"fieldname": "follow_up_completed", "fieldtype": "Check", "label": "Follow-Up Completed"},
+		{"fieldname": "intake_duration", "fieldtype": "Int", "label": "Intake Duration (sec)", "hidden": 1}
 	],
 	"permissions": [
-		{ "role": "Technician", "read": 1, "write": 1, "create": 1 },
-		{
-			"role": "Service Manager",
-			"read": 1,
-			"write": 1,
-			"create": 1,
-			"delete": 1
-		},
-		{ "role": "Customer", "read": 1, "if_owner": 1 }
+		{"role": "Technician", "read": 1, "write": 1, "create": 1},
+		{"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
+		{"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
+		{"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
 	]
 }

@@ -1,0 +1,8 @@
+{
+  "doctype": "Report",
+  "name": "Loaner Return Flags",
+  "ref_doctype": "Loaner Return Check",
+  "report_type": "Script Report",
+  "is_standard": "Yes",
+  "filters": []
+}

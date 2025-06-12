@@ -1,56 +1,69 @@
 # Intake Module
 
-## 📦 Purpose
-Manages customer instrument intake for clarinet repairs. Tracks payment, loaners, checklists, communication, and document logs.
+## 🎯 Purpose
+Expanded to support customer appointments, loaner management, return inspection, and intake scheduling.
 
-## 📁 Structure
+## 📂 Structure
 ```
 intake/
-├── config/desktop.py
 ├── doctype/
+│   ├── appointment/
 │   ├── clarinet_intake/
 │   ├── customer_consent_form/
-│   ├── customer_upgrade_request/
-│   └── intake_checklist_item/
+│   ├── intake_checklist_item/
+│   ├── loaner_instrument/
+│   └── loaner_return_check/
+├── report/
+│   ├── intake_by_day/
+│   ├── loaner_turnover/
+│   ├── follow_up_compliance/
+│   ├── upcoming_appointments/
+│   ├── loaners_outstanding/
+│   └── loaner_return_flags/
 ├── dashboard_chart/
-│   ├── avg_intake_to_repair_time.json
+│   ├── overdue_intakes.json
 │   ├── intakes_due_soon.json
-│   └── overdue_intakes.json
+│   ├── avg_intake_to_repair_time.json
+│   ├── appointments_by_week.json
+│   └── loaners_checked_out.json
+├── workflow/
+│   ├── clarinet_intake_workflow.json
+│   ├── appointment_workflow.json
+│   └── loaner_return_check_workflow.json
 ├── print_format/
 │   └── intake_receipt.json
-├── report/
-│   ├── deposit_balance_aging/
-│   ├── loaner_turnover/
-│   ├── followup_compliance/
-│   └── intake_by_day/
-├── workspace/
-│   └── repair_portal/
-│       └── repair_portal.json
-├── workflow/
-│   └── clarinet_intake_workflow.json
-└── README.md (you are here)
+├── web_form/
+│   └── clarinet_intake_request/
+└── README.md
 ```
 
-## 📎 Doctypes Summary
-| Doctype                  | Description                                      | Python Controller                                      |
-|--------------------------|--------------------------------------------------|--------------------------------------------------------|
-| Clarinet Intake          | Primary intake form for clarinet service        | `clarinet_intake.py`                                   |
-| Customer Consent Form    | Linked consent documents                        | `customer_consent_form.py`                             |
-| Customer Upgrade Request | Customer-requested service upgrades             | `customer_upgrade_request.py`                          |
-| Intake Checklist Item    | Line items/checks for instrument intake review  | `intake_checklist_item.py`                             |
+## ✅ Expanded Doctypes
+- Clarinet Intake
+- Customer Consent Form
+- Intake Checklist Item (child)
+- Appointment ✅ (with workflow)
+- Loaner Instrument ✅
+- Loaner Return Check ✅ (with workflow)
 
-## 🧠 Key Functions (Clarinet Intake)
-| Function      | Purpose                                                           |
-|---------------|-------------------------------------------------------------------|
-| `on_submit()` | Create/update Instrument Tracker, append intake interaction log  |
+## 📊 Reports
+- Intake By Day
+- Loaner Turnover
+- Follow-Up Compliance
+- **Upcoming Appointments** ✅
+- **Loaners Outstanding** ✅
+- **Loaner Return Flags** ✅
 
-## 🧩 Linked Systems
-- `Instrument Tracker` (via serial number link)
-- `Repair Logging` for chronological interactions
+## 📈 Dashboards
+- Overdue Intakes
+- Intakes Due Soon
+- Avg Intake-to-Repair Time
+- **Appointments by Week** ✅
+- **Loaners Checked Out** ✅
 
-## 🔧 Status
-✅ Fully integrated and deployed
+## 🔁 Workflow
+- Clarinet Intake Workflow
+- Appointment Workflow ✅
+- Loaner Return Check Workflow ✅
 
-## 🔍 Notes
-- Intake Receipt print format uses `instrument_description`, which should be calculated.
-- Consider extending workspace with shortcuts, charts, and quick lists.
+## 🚦 Status
+Production-ready ✅

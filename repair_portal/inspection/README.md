@@ -1,29 +1,40 @@
 # Inspection Module
 
-## 🔍 Purpose
-Supports diagnostic evaluation of clarinets at the intake stage. Captures physical and functional status for service planning.
+## 🧪 Purpose
+Manage pre-service inspection of instruments, standardize checklists, and triage to setup or repair.
 
-## 📁 Structure
+## 📂 Structure
 ```
 inspection/
-├── config/desktop.py
 ├── doctype/
-│   └── clarinet_condition_assessment/
-├── workspace/
-│   └── inspection/
-│       └── inspection.json
-└── README.md (you are here)
+│   ├── clarinet_condition_assessment/
+│   ├── inspection_template/
+│   ├── inspection_checklist_section/
+│   └── inspection_checklist_item/
+├── report/
+│   ├── inspection_failure_rates/
+│   └── top_failing_categories/
+├── workspace/inspection/
+└── README.md
 ```
 
-## 📋 Doctypes
-- **Clarinet Condition Assessment**: Checklist and narrative capture of pre-repair state.
+## ✅ Core Features
+- Inspection templating for reusable workflows
+- Pass/fail logic for every checklist item
+- Automatic routing to setup or repair
+- Linkage to Instrument Tracker on submit
 
-## 🧩 Workflow Integration
-- Begins after Clarinet Intake is submitted.
-- Passes diagnostics to Service Planning.
+## 📊 Reports
+- **Inspection Failure Rates**: by technician
+- **Top Failing Categories**: most common failing items
 
-## 🧾 Workspace
-- Central dashboard for inspection queue and activity.
+## ⚙️ Automation
+- Template populates child table sections/items
+- On Submit → creates Initial Setup or Repair Log based on condition
 
-## 📎 Status
-✅ Operational and integrated with Intake & Planning
+## 🔗 Integrations
+- Links to `Clarinet Model`, `Instrument Tracker`, `Customer`
+- Passes control to downstream flows
+
+## 🚦 Status
+Production-ready with analytics, templating, and submission logic

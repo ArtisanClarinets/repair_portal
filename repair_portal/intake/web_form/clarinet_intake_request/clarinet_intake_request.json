@@ -1,0 +1,20 @@
+{
+  "doctype": "Web Form",
+  "name": "clarinet_intake_request",
+  "module": "Intake",
+  "is_standard": 1,
+  "title": "Clarinet Intake Request",
+  "doctype_name": "Clarinet Intake",
+  "login_required": 1,
+  "allow_edit": 0,
+  "fields": [
+    {"fieldname": "customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
+    {"fieldname": "serial_number", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "item_code", "fieldtype": "Link", "options": "Item", "reqd": 1},
+    {"fieldname": "received_date", "fieldtype": "Date", "reqd": 1},
+    {"fieldname": "case_condition", "fieldtype": "Select", "options": "Good\nFair\nPoor"},
+    {"fieldname": "mouthpiece_included", "fieldtype": "Check"},
+    {"fieldname": "customer_notes", "fieldtype": "Text"},
+    {"fieldname": "initial_photos", "fieldtype": "Attach Image"}
+  ]
+}

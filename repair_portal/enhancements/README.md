@@ -1,27 +1,33 @@
 # Enhancements Module
 
-## ✨ Purpose
-Track and fulfill customer-authorized upgrades to instruments, such as plating, accessories, or cosmetic repairs.
+## 🎯 Purpose
+Allow customers to request instrument upgrades, track technician review, and report on upgrade trends.
 
-## 📁 Structure
+## 📂 Structure
 ```
 enhancements/
-├── config/desktop.py
 ├── doctype/
 │   ├── customer_upgrade_request/
 │   └── upgrade_option/
-└── README.md (you are here)
+├── report/
+│   ├── upgrade_conversion_rates/
+│   └── top_upgrade_requests/
+├── workspace/
+├── config/
+└── README.md
 ```
 
-## 📋 Doctypes
-- **Customer Upgrade Request**: Logs each enhancement interest and tracks approval status.
-- **Upgrade Option**: Predefined service add-ons selectable within requests.
+## 📊 Reports
+- **Upgrade Conversion Rates**
+- **Top Upgrade Requests**
 
-## 🔁 Flow
-- Triggered post-intake
-- Can be initiated by customer or suggested by technician
-- Routed through Manager approval
-- Tracked via Instrument Tracker
+## 🔁 Workflow
+- Draft → Review → Approved → Fulfilled (WIP)
 
-## 📎 Status
-✅ Fully implemented and linkable to Instrument Tracker
+## 🛠️ Planned Additions
+- Email alerts for approvals
+- Links to material requests
+- Webform portal for customers
+
+## 🚦 Status
+Stable and production-ready with reporting and data model.

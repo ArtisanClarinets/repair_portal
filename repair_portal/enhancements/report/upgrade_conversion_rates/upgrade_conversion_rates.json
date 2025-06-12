@@ -1,0 +1,13 @@
+{
+  "doctype": "Report",
+  "name": "Upgrade Conversion Rates",
+  "report_type": "Script Report",
+  "is_standard": "Yes",
+  "ref_doctype": "Customer Upgrade Request",
+  "columns": [
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "width": 200},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Data", "width": 100},
+    {"fieldname": "count", "label": "Requests", "fieldtype": "Int", "width": 120}
+  ],
+  "filters": []
+}
