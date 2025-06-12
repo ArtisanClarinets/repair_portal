@@ -1,20 +1,29 @@
 # Inspection Module
 
-This module supports the diagnosis and evaluation of instruments during intake.
+## 🔍 Purpose
+Supports diagnostic evaluation of clarinets at the intake stage. Captures physical and functional status for service planning.
 
-## DocTypes
-- **Clarinet Condition Assessment**: Documents instrument condition and repair recommendations.
+## 📁 Structure
+```
+inspection/
+├── config/desktop.py
+├── doctype/
+│   └── clarinet_condition_assessment/
+├── workspace/
+│   └── inspection/
+│       └── inspection.json
+└── README.md (you are here)
+```
 
-## Purpose
-To provide technicians a framework to assess and record instrument issues before planning service.
+## 📋 Doctypes
+- **Clarinet Condition Assessment**: Checklist and narrative capture of pre-repair state.
 
-## Permissions
-- Technician: Read/Create
-- System Manager: Full
+## 🧩 Workflow Integration
+- Begins after Clarinet Intake is submitted.
+- Passes diagnostics to Service Planning.
 
-## Linked Modules
-- Intake (initiates assessment)
-- Service Planning (follows from diagnosis)
+## 🧾 Workspace
+- Central dashboard for inspection queue and activity.
 
-## Last Updated
-June 2025
+## 📎 Status
+✅ Operational and integrated with Intake & Planning

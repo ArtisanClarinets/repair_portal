@@ -1,39 +1,29 @@
 {
-  "doctype": "Workspace",
-  "name": "Instrument Setup",
-  "label": "Instrument Setup",
-  "title": "Instrument Setup",
-  "module": "Instrument Setup",
-  "parent_page": "Repair Portal",
-  "is_custom": 0,
-  "icon": "quality-2",
-  "type": "Workspace",
-  "public": 1,
-  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Initial Setup</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Intake\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Inspection\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Initial Setup\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Setup Template\",\"col\":3}}]",
-  "shortcuts": [
-    {
-      "label": "Clarinet Intake",
-      "link_to": "Clarinet Intake",
-      "type": "DocType",
-      "color": "Grey"
-    },
-    {
-      "label": "Clarinet Inspection",
-      "link_to": "Clarinet Inspection",
-      "type": "DocType",
-      "color": "Grey"
-    },
-    {
-      "label": "Clarinet Initial Setup",
-      "link_to": "Clarinet Initial Setup",
-      "type": "DocType",
-      "color": "Grey"
-    },
-    {
-      "label": "Setup Template",
-      "link_to": "Setup Template",
-      "type": "DocType",
-      "color": "Grey"
-    }
-  ]
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Instrument Setup\"}}]",
+ "creation": "2025-06-12 13:56:31.078747",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "tool",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Instrument Setup",
+ "links": [],
+ "modified": "2025-06-12 13:57:15.400730",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Instrument Setup",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "Repair Portal",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 25.0,
+ "shortcuts": [],
+ "title": "Instrument Setup"
 }

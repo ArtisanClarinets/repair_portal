@@ -1,17 +1,31 @@
 {
-  "doctype": "DocType",
-  "name": "Clarinet Setup Operation",
-  "module": "Instrument Setup",
-  "istable": 1,
-  "fields": [
-    {"fieldname": "operation_type", "fieldtype": "Select", "label": "Operation Type", "options": "Tone Hole Reaming\nTone Hole Repair\nChimney Leak\nTenon Fitting\nKey Height Adjustment\nSpring Tension Adjustment\nPad Leveling\nCork Replacement\nOther"},
-    {"fieldname": "section", "fieldtype": "Select", "label": "Section", "options": "Upper Joint\nLower Joint\nBarrel\nBell"},
-    {"fieldname": "component_ref", "fieldtype": "Data", "label": "Component Ref (Tone Hole, Key, etc.)"},
-    {"fieldname": "details", "fieldtype": "Text", "label": "Details / Notes"},
-    {"fieldname": "completed", "fieldtype": "Check", "label": "Completed"}
-  ],
-  "permissions": [
-    {"role": "Technician", "read": 1, "write": 1},
-    {"role": "Service Manager", "read": 1, "write": 1}
-  ]
+	"doctype": "DocType",
+	"name": "Clarinet Setup Operation",
+	"module": "Instrument Setup",
+	"istable": 1,
+	"fields": [
+		{
+			"fieldname": "operation_type",
+			"fieldtype": "Select",
+			"label": "Operation Type",
+			"options": "Tone Hole Reaming\nTone Hole Repair\nChimney Leak\nTenon Fitting\nKey Height Adjustment\nSpring Tension Adjustment\nPad Leveling\nCork Replacement\nOther"
+		},
+		{
+			"fieldname": "section",
+			"fieldtype": "Select",
+			"label": "Section",
+			"options": "Upper Joint\nLower Joint\nBarrel\nBell"
+		},
+		{
+			"fieldname": "component_ref",
+			"fieldtype": "Data",
+			"label": "Component Ref (Tone Hole, Key, etc.)"
+		},
+		{ "fieldname": "details", "fieldtype": "Text", "label": "Details / Notes" },
+		{ "fieldname": "completed", "fieldtype": "Check", "label": "Completed" }
+	],
+	"permissions": [
+		{ "role": "Technician", "read": 1, "write": 1 },
+		{ "role": "Service Manager", "read": 1, "write": 1 }
+	]
 }

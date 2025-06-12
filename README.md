@@ -1,67 +1,91 @@
 # Repair Portal for Artisan Clarinets
 
 ## 🎯 Overview
-This Frappe-based ERPNext app is a comprehensive clarinet repair and tracking system. It supports intake, inspection, service planning, repair, QA, and enhancements with timeline views across instruments, customers, and item models.
+This Frappe-based ERPNext app is a comprehensive clarinet repair and tracking system. It supports intake, inspection, service planning, repair, QA, enhancements, and interaction logging across instruments, customers, and items.
 
 ---
 
 ## 📦 Modules & Features
 
 ### 1. Intake
-- **Clarinet Intake**: Logs instrument details (serial, item, customer).
-- Auto-logs to: Instrument Tracker
+- **Clarinet Intake** and support Doctypes:
+  - Intake Followup
+  - Intake SLA
+  - Intake Photo
+  - Intake Comm Log
+  - Intake Document
+  - Clarinet Intake Payment
+  - Clarinet Loaner Instrument
+  - Intake Approval
+- Print format: Intake Receipt
+- Workflow: Clarinet Intake Workflow
+- Workspace: Intake Workspace
 
 ### 2. Repair Logging
-- **Instrument Tracker**: Central record per instrument
-  - Links to `Clarinet Intake`
-  - Contains a `interaction_logs` child table
-  - Client-side timeline UI
-  - CSV export + print format
-- Auto-populated from:
-  - Clarinet Intake
-  - Condition Assessment
-  - Service Plan
-  - Repair Task Log
-  - Final QA Checklist
-  - Upgrade Request
+- **Instrument Tracker** system
+  - Tracks from Intake through QA
+  - Reports:
+    - Deposit Balance Aging
+    - Loaner Turnover
+    - Intake by Day
+    - Followup Compliance
+  - Charts:
+    - Overdue Intakes
+    - Intakes Due Soon
+    - Avg Intake-to-Repair Time
 
-### 3. Customer Interaction Log
-- Adds `related_interactions` table to Customer
-- Populated by `Instrument Tracker` `on_update`
-- Timeline and filters included
+### 3. QA, Inspection, Enhancements
+- QA: Final QA Checklist
+- Inspection: Condition Assessment
+- Enhancements: Customer Upgrade Request
 
-### 4. Item Interaction Log
-- Adds `related_interactions` table to Item
-- Populated by `Instrument Tracker` `on_update`
-- Timeline and filters included
+### 4. Service Planning
+- Includes: Service Plan, Parts Needed, Approval Records
+
+### 5. Setup, Tools, Custom Scripts
+- Instrument Models, Parts Setup
+- Timeline-enhanced customer & item interaction logs
+- Field injection via JSON fixtures
 
 ---
 
-## 🧩 Developer Map
-
+## 🧩 Developer Map (Updated)
 ```
 repair_portal/
-├── instrument_setup/
-│   └── clarinet_intake/
-├── inspection/
-│   └── clarinet_condition_assessment/
-├── service_planning/
-│   └── service_plan/
-├── repair_logging/
-│   ├── instrument_tracker/
-│   ├── instrument_interaction_log/
-│   ├── related_instrument_interaction/
-│   ├── repair_task_log/
-│   └── print_format/instrument_tracker_log/
-├── qa/
-│   └── final_qa_checklist/
 ├── enhancements/
-│   └── customer_upgrade_request/
-└── custom/
-    ├── customer_interaction_log_field.json
-    ├── customer_interaction_timeline.js
-    └── item_interaction_timeline.js
+├── inspection/
+├── instrument_setup/
+├── intake/
+│   ├── doctype/
+│   ├── dashboard_chart/
+│   ├── report/
+│   ├── print_format/
+│   └── workspace/
+├── qa/
+├── repair_logging/
+│   ├── doctype/
+│   ├── report/
+│   └── print_format/
+├── service_planning/
+├── tools/
+├── repair_portal/
+│   ├── config/
+│   ├── workflow/
+│   └── workspace/
+└── README.md (you are here)
 ```
+
+---
+
+## 📊 Reports & Dashboards
+- Loaner Turnover
+- Intake by Day
+- Followup Compliance
+- Deposit Balance Aging
+- Dashboard Charts:
+  - Avg Intake to Repair Time
+  - Overdue Intakes
+  - Intakes Due Soon
 
 ---
 
@@ -74,14 +98,13 @@ bench --site erp.artisanclarinets.com clear-cache
 ```
 
 ## 🧪 Testing Checklist
-- [x] Submit Clarinet Intake → new Instrument Tracker created
-- [x] Submit Inspection → log appended
-- [x] Submit Repair Task → log appended
-- [x] View timeline on Instrument, Customer, Item
-- [x] Export CSV
-- [x] Print Format works
+- [x] Intake triggers Instrument Tracker
+- [x] Tracker logs events from each phase
+- [x] Dashboard charts populate correctly
+- [x] Reports display without error
+- [x] Print formats render properly
 
 ---
 
 ## 📎 Status
-✅ **Production Ready**
+✅ **Production Ready & Actively Maintained**

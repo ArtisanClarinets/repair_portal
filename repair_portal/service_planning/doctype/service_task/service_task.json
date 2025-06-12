@@ -1,15 +1,25 @@
 {
-  "doctype": "DocType",
-  "name": "Service Task",
-  "module": "Service Planning",
-  "istable": 1,
-  "custom": 0,
-  "fields": [
-    {"fieldname": "task", "fieldtype": "Data", "label": "Task", "reqd": 1},
-    {"fieldname": "estimated_time", "fieldtype": "Float", "label": "Estimated Hours"},
-    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"}
-  ],
-  "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+	"doctype": "DocType",
+	"name": "Service Task",
+	"module": "Service Planning",
+	"istable": 1,
+	"custom": 0,
+	"fields": [
+		{ "fieldname": "task", "fieldtype": "Data", "label": "Task", "reqd": 1 },
+		{
+			"fieldname": "estimated_time",
+			"fieldtype": "Float",
+			"label": "Estimated Hours"
+		},
+		{ "fieldname": "notes", "fieldtype": "Small Text", "label": "Notes" }
+	],
+	"permissions": [
+		{
+			"role": "System Manager",
+			"read": 1,
+			"write": 1,
+			"create": 1,
+			"delete": 1
+		}
+	]
 }

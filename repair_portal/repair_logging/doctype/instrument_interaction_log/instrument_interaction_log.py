@@ -10,5 +10,6 @@ Logs individual interaction entries tied to an instrument for historical trackin
 import frappe
 from frappe.model.document import Document
 
+
 class InstrumentInteractionLog(Document):
     pass

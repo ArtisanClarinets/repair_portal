@@ -9,5 +9,6 @@ Captures user-initiated requests for upgrades or modifications.
 import frappe
 from frappe.model.document import Document
 
+
 class CustomerUpgradeRequest(Document):
     pass

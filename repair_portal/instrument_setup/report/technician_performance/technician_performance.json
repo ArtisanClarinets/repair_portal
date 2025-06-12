@@ -1,10 +1,10 @@
 {
-  "doctype": "Report",
-  "name": "Technician Performance",
-  "report_name": "Technician Performance",
-  "ref_doctype": "Clarinet Initial Setup",
-  "report_type": "Script Report",
-  "is_standard": "Yes",
-  "module": "Instrument Setup",
-  "filters": []
+	"doctype": "Report",
+	"name": "Technician Performance",
+	"report_name": "Technician Performance",
+	"ref_doctype": "Clarinet Initial Setup",
+	"report_type": "Script Report",
+	"is_standard": "Yes",
+	"module": "Instrument Setup",
+	"filters": []
 }

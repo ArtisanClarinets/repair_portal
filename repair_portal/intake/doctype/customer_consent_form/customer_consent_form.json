@@ -1,31 +1,89 @@
 {
-  "doctype": "DocType",
-  "name": "Customer Consent Form",
-  "module": "Intake",
-  "autoname": "field:customer",
-  "fields": [
-    {"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer", "reqd": 1},
-    {"fieldname": "instrument_serial", "fieldtype": "Data", "label": "Instrument Serial #", "reqd": 1},
-    {"fieldname": "item_code", "fieldtype": "Link", "label": "Item Code", "options": "Item"},
-    {"fieldname": "consent_date", "fieldtype": "Date", "label": "Consent Date", "default": "Today"},
-    {"fieldname": "customer_contact", "fieldtype": "Section Break", "label": "Customer Contact"},
-    {"fieldname": "phone", "fieldtype": "Data", "label": "Phone Number"},
-    {"fieldname": "email", "fieldtype": "Data", "label": "Email Address"},
-    {"fieldname": "instrument_details", "fieldtype": "Section Break", "label": "Instrument Details"},
-    {"fieldname": "instrument_type", "fieldtype": "Data", "label": "Instrument Type"},
-    {"fieldname": "make", "fieldtype": "Data", "label": "Make"},
-    {"fieldname": "model", "fieldtype": "Data", "label": "Model"},
-    {"fieldname": "included_accessories", "fieldtype": "Small Text", "label": "Included Accessories"},
-    {"fieldname": "customer_concerns", "fieldtype": "Text", "label": "Customer's Stated Concerns & Condition"},
-    {"fieldname": "authorization_section", "fieldtype": "Section Break", "label": "Authorization Details"},
-    {"fieldname": "authorization_text", "fieldtype": "Text Editor", "label": "Legal Consent Agreement Text"},
-    {"fieldname": "authorized_by", "fieldtype": "Data", "label": "Authorized By (Full Name)", "reqd": 1},
-    {"fieldname": "signature", "fieldtype": "Attach", "label": "Signature File"},
-    {"fieldname": "notes", "fieldtype": "Text", "label": "Additional Notes"}
-  ],
-  "permissions": [
-    {"role": "Customer", "read": 1, "write": 1, "create": 1, "if_owner": 1},
-    {"role": "Service Manager", "read": 1, "write": 1, "create": 1},
-    {"role": "Technician", "read": 1}
-  ]
+	"doctype": "DocType",
+	"name": "Customer Consent Form",
+	"module": "Intake",
+	"autoname": "field:customer",
+	"fields": [
+		{
+			"fieldname": "customer",
+			"fieldtype": "Link",
+			"label": "Customer",
+			"options": "Customer",
+			"reqd": 1
+		},
+		{
+			"fieldname": "instrument_serial",
+			"fieldtype": "Data",
+			"label": "Instrument Serial #",
+			"reqd": 1
+		},
+		{
+			"fieldname": "item_code",
+			"fieldtype": "Link",
+			"label": "Item Code",
+			"options": "Item"
+		},
+		{
+			"fieldname": "consent_date",
+			"fieldtype": "Date",
+			"label": "Consent Date",
+			"default": "Today"
+		},
+		{
+			"fieldname": "customer_contact",
+			"fieldtype": "Section Break",
+			"label": "Customer Contact"
+		},
+		{ "fieldname": "phone", "fieldtype": "Data", "label": "Phone Number" },
+		{ "fieldname": "email", "fieldtype": "Data", "label": "Email Address" },
+		{
+			"fieldname": "instrument_details",
+			"fieldtype": "Section Break",
+			"label": "Instrument Details"
+		},
+		{
+			"fieldname": "instrument_type",
+			"fieldtype": "Data",
+			"label": "Instrument Type"
+		},
+		{ "fieldname": "make", "fieldtype": "Data", "label": "Make" },
+		{ "fieldname": "model", "fieldtype": "Data", "label": "Model" },
+		{
+			"fieldname": "included_accessories",
+			"fieldtype": "Small Text",
+			"label": "Included Accessories"
+		},
+		{
+			"fieldname": "customer_concerns",
+			"fieldtype": "Text",
+			"label": "Customer's Stated Concerns & Condition"
+		},
+		{
+			"fieldname": "authorization_section",
+			"fieldtype": "Section Break",
+			"label": "Authorization Details"
+		},
+		{
+			"fieldname": "authorization_text",
+			"fieldtype": "Text Editor",
+			"label": "Legal Consent Agreement Text"
+		},
+		{
+			"fieldname": "authorized_by",
+			"fieldtype": "Data",
+			"label": "Authorized By (Full Name)",
+			"reqd": 1
+		},
+		{
+			"fieldname": "signature",
+			"fieldtype": "Attach",
+			"label": "Signature File"
+		},
+		{ "fieldname": "notes", "fieldtype": "Text", "label": "Additional Notes" }
+	],
+	"permissions": [
+		{ "role": "Customer", "read": 1, "write": 1, "create": 1, "if_owner": 1 },
+		{ "role": "Service Manager", "read": 1, "write": 1, "create": 1 },
+		{ "role": "Technician", "read": 1 }
+	]
 }

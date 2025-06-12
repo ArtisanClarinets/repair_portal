@@ -1,55 +1,55 @@
 {
-  "doctype": "DocType",
-  "name": "Clarinet Condition Assessment",
-  "module": "Inspection",
-  "label": "Clarinet Condition Assessment",
-  "custom": 0,
-  "autoname": "field:assessment_id",
-  "fields": [
-    {
-      "fieldname": "assessment_id",
-      "fieldtype": "Data",
-      "label": "Assessment ID",
-      "reqd": 1
-    },
-    {
-      "fieldname": "customer",
-      "fieldtype": "Link",
-      "label": "Customer",
-      "options": "Customer",
-      "reqd": 1
-    },
-    {
-      "fieldname": "instrument_condition",
-      "fieldtype": "Text",
-      "label": "Instrument Condition",
-      "reqd": 1
-    },
-    {
-      "fieldname": "recommendations",
-      "fieldtype": "Text",
-      "label": "Repair Recommendations"
-    },
-    {
-      "fieldname": "inspection_date",
-      "fieldtype": "Date",
-      "label": "Inspection Date",
-      "reqd": 1
-    }
-  ],
-  "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    },
-    {
-      "role": "Technician",
-      "read": 1,
-      "write": 1,
-      "create": 1
-    }
-  ]
+	"doctype": "DocType",
+	"name": "Clarinet Condition Assessment",
+	"module": "Inspection",
+	"label": "Clarinet Condition Assessment",
+	"custom": 0,
+	"autoname": "field:assessment_id",
+	"fields": [
+		{
+			"fieldname": "assessment_id",
+			"fieldtype": "Data",
+			"label": "Assessment ID",
+			"reqd": 1
+		},
+		{
+			"fieldname": "customer",
+			"fieldtype": "Link",
+			"label": "Customer",
+			"options": "Customer",
+			"reqd": 1
+		},
+		{
+			"fieldname": "instrument_condition",
+			"fieldtype": "Text",
+			"label": "Instrument Condition",
+			"reqd": 1
+		},
+		{
+			"fieldname": "recommendations",
+			"fieldtype": "Text",
+			"label": "Repair Recommendations"
+		},
+		{
+			"fieldname": "inspection_date",
+			"fieldtype": "Date",
+			"label": "Inspection Date",
+			"reqd": 1
+		}
+	],
+	"permissions": [
+		{
+			"role": "System Manager",
+			"read": 1,
+			"write": 1,
+			"create": 1,
+			"delete": 1
+		},
+		{
+			"role": "Technician",
+			"read": 1,
+			"write": 1,
+			"create": 1
+		}
+	]
 }

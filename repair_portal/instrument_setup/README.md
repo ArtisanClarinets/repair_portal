@@ -1,27 +1,45 @@
-## Instrument Setup Module
+# Instrument Setup Module
 
-### DocTypes:
-- `Clarinet Setup Operation`
-- `Clarinet Initial Setup`
-- `Clarinet Inspection`
-- `Inspection Finding`
-- `Setup Checklist Item`
-- `Setup Template`
-- `Material Usage`
-- `Clarinet Setup Log`
+## 🧰 Purpose
+Defines setup steps, inspection checklists, and technician logging for instruments entering production or maintenance configuration.
 
-### Reports:
-- `Turnaround Time Analysis`
-- `Technician Performance`
-- `Parts Consumption`
+## 📁 Structure
+```
+instrument_setup/
+├── config/desktop.py
+├── dashboard/repairs_dashboard.json
+├── doctype/
+│   ├── clarinet_initial_setup/
+│   ├── clarinet_inspection/
+│   ├── clarinet_setup_log/
+│   ├── clarinet_setup_operation/
+│   ├── inspection_finding/
+│   ├── material_usage/
+│   ├── setup_checklist_item/
+│   └── setup_template/
+├── report/
+│   ├── turnaround_time_analysis/
+│   ├── technician_performance/
+│   └── parts_consumption/
+├── test/test_clarinet_initial_setup.py
+├── web_form/repair_status/
+├── workspace/instrument_setup/
+└── README.md (you are here)
+```
 
-### Dashboards:
-- `Repairs Dashboard`
+## 📋 Key Doctypes
+- **Clarinet Setup Log**: Technician time-logging and progress tracking
+- **Setup Template**: Reusable configurations for consistent setup
+- **Inspection Finding**: Flags deviations from standard
 
-### Web Forms:
-- `Repair Status`
+## 📊 Reports & Dashboard
+- Turnaround Time, Parts, and Performance analytics
+- Visual dashboard: `Repairs Dashboard`
 
-### Workspace:
-- `Instrument Setup`
+## 🧾 Workflow
+1. Intake triggers `Clarinet Initial Setup`
+2. Setup Tasks are assigned and logged
+3. Final inspection results captured before QA
 
-Note: `Clarinet Intake` was moved to the `intake` module on 2025-06-09 for domain consistency.
+## 📎 Status
+✅ All logic, dashboards, and reports active

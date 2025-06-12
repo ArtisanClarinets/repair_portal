@@ -1,15 +1,31 @@
 {
-  "doctype": "Report",
-  "report_name": "Repair Summary",
-  "ref_doctype": "Repair Task Log",
-  "report_type": "Query Report",
-  "is_standard": "Yes",
-  "module": "Repair Logging",
-  "disabled": 0,
-  "columns": [
-    {"label": "Date", "fieldname": "date", "fieldtype": "Date", "width": 100},
-    {"label": "Technician", "fieldname": "technician", "fieldtype": "Link", "options": "User", "width": 150},
-    {"label": "Hours Spent", "fieldname": "hours_spent", "fieldtype": "Float", "width": 100},
-    {"label": "Task Description", "fieldname": "description", "fieldtype": "Data", "width": 300}
-  ]
+	"doctype": "Report",
+	"report_name": "Repair Summary",
+	"ref_doctype": "Repair Task Log",
+	"report_type": "Query Report",
+	"is_standard": "Yes",
+	"module": "Repair Logging",
+	"disabled": 0,
+	"columns": [
+		{ "label": "Date", "fieldname": "date", "fieldtype": "Date", "width": 100 },
+		{
+			"label": "Technician",
+			"fieldname": "technician",
+			"fieldtype": "Link",
+			"options": "User",
+			"width": 150
+		},
+		{
+			"label": "Hours Spent",
+			"fieldname": "hours_spent",
+			"fieldtype": "Float",
+			"width": 100
+		},
+		{
+			"label": "Task Description",
+			"fieldname": "description",
+			"fieldtype": "Data",
+			"width": 300
+		}
+	]
 }

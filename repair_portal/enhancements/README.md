@@ -1,29 +1,27 @@
 # Enhancements Module
 
-## 📌 Overview
-Handles customer-requested upgrades and enhancements to clarinets during the service process. Tracks both the requests and the upgrade options available.
+## ✨ Purpose
+Track and fulfill customer-authorized upgrades to instruments, such as plating, accessories, or cosmetic repairs.
 
----
+## 📁 Structure
+```
+enhancements/
+├── config/desktop.py
+├── doctype/
+│   ├── customer_upgrade_request/
+│   └── upgrade_option/
+└── README.md (you are here)
+```
 
-## 📄 Doctypes
-- **Customer Upgrade Request**
-  - Links to Customer and Instrument
-  - Logged in Instrument Tracker
-  - Triggers workflow if enhancement is approved
-
-- **Upgrade Option**
-  - Defines predefined upgrade services
-  - Linkable from Customer Upgrade Requests
-
----
-
-## 👥 Roles
-- **Service Manager**: Full access
-- **Repair Administrator**: View only
-
----
+## 📋 Doctypes
+- **Customer Upgrade Request**: Logs each enhancement interest and tracks approval status.
+- **Upgrade Option**: Predefined service add-ons selectable within requests.
 
 ## 🔁 Flow
-1. Technician or Reception logs a request
-2. Manager reviews, links to Upgrade Option
-3. Logged to Tracker upon approval
+- Triggered post-intake
+- Can be initiated by customer or suggested by technician
+- Routed through Manager approval
+- Tracked via Instrument Tracker
+
+## 📎 Status
+✅ Fully implemented and linkable to Instrument Tracker

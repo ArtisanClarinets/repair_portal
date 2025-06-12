@@ -1,27 +1,74 @@
-import frappe
+import frappe, json
+
 
 def execute():
-    if not frappe.db.table_exists("Workspace"):
-        frappe.reload_doc("desk", "doctype", "workspace")
-        frappe.db.commit()
+    if frappe.db.exists('Workspace', 'repair-portal'):
+        frappe.delete_doc('Workspace', 'repair-portal', force=True)
 
-    if not frappe.db.exists("Workspace", "repair-portal"):
-        frappe.get_doc({
-            "doctype": "Workspace",
-            "name": "repair-portal",
-            "label": "Repair Portal",
-            "module": "Repair Portal",
-            "is_standard": 1,
-            "public": 1,
-            "content": [
-                {"type": "doctype", "data": {"name": "Instrument Intake Form", "label": "Intake", "col": 6}},
-                {"type": "doctype", "data": {"name": "Repair Task Log", "label": "Repairs", "col": 6}},
-                {"type": "doctype", "data": {"name": "Service Plan", "label": "Service Plans", "col": 6}},
-                {"type": "doctype", "data": {"name": "Final QA Checklist", "label": "Final QA", "col": 6}},
-                {"type": "doctype", "data": {"name": "Clarinet Condition Assessment", "label": "Assessments", "col": 6}},
-                {"type": "doctype", "data": {"name": "Customer Upgrade Request", "label": "Upgrades", "col": 6}},
-                {"type": "report", "data": {"report_name": "Repair Summary", "doctype": "Repair Task Log", "col": 6}},
-                {"type": "chart", "data": {"chart_name": "Open Repairs by Type", "col": 12}}
-            ]
-        }).insert(ignore_permissions=True)
-        frappe.db.commit()
+    content_blocks = [
+        {
+            'type': 'link',
+            'label': 'Intake',
+            'link_type': 'Workspace',
+            'link_to': 'intake-workspace',
+            'col': 6,
+        },
+        {
+            'type': 'link',
+            'label': 'Inspection',
+            'link_type': 'Workspace',
+            'link_to': 'inspection-workspace',
+            'col': 6,
+        },
+        {
+            'type': 'link',
+            'label': 'Service Planning',
+            'link_type': 'Workspace',
+            'link_to': 'service-planning-workspace',
+            'col': 6,
+        },
+        {
+            'type': 'link',
+            'label': 'Repair Logging',
+            'link_type': 'Workspace',
+            'link_to': 'repair-logging-workspace',
+            'col': 6,
+        },
+        {
+            'type': 'link',
+            'label': 'Final QA',
+            'link_type': 'Workspace',
+            'link_to': 'qa-workspace',
+            'col': 6,
+        },
+        {
+            'type': 'link',
+            'label': 'Repair Tools',
+            'link_type': 'Workspace',
+            'link_to': 'repair-tools-workspace',
+            'col': 6,
+        },
+        {
+            'type': 'link',
+            'label': 'Repair Enhancements',
+            'link_type': 'Workspace',
+            'link_to': 'repair-enhancements-workspace',
+            'col': 6,
+        },
+    ]
+
+    doc = frappe.get_doc(
+        {
+            'doctype': 'Workspace',
+            'name': 'repair-portal',
+            'label': 'Repair Portal',
+            'title': 'Repair Portal',
+            'module': 'Repair Portal',
+            'public': 1,
+            'is_standard': 1,
+            'content': json.dumps(content_blocks),
+        }
+    )
+
+    doc.insert(ignore_permissions=True)
+    frappe.db.commit()

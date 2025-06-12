@@ -1,18 +1,20 @@
 {
  "charts": [],
- "content": "[{\"id\":\"S3S5FK1lFY\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Intake &amp; Checklists</b></span>\",\"col\":12}},{\"id\":\"aOYeW663g5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Instrument Intake Form\",\"col\":3}}]",
- "creation": "2025-06-09 12:08:21.584250",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Intake\"}}]",
+ "creation": "2025-06-12 13:47:33.308570",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
+ "for_user": "",
  "hide_custom": 0,
- "icon": "download",
+ "icon": "edit",
  "idx": 0,
+ "indicator_color": "",
  "is_hidden": 0,
  "label": "Intake",
  "links": [],
- "modified": "2025-06-09 12:11:08.799755",
- "modified_by": "dylan@artisanclarinets.com",
+ "modified": "2025-06-12 13:52:43.779104",
+ "modified_by": "Administrator",
  "module": "Intake",
  "name": "Intake",
  "number_cards": [],
@@ -21,14 +23,7 @@
  "public": 1,
  "quick_lists": [],
  "roles": [],
- "sequence_id": 0.0,
- "shortcuts": [
-  {
-   "color": "Grey",
-   "label": "Clainet Intake Form",
-   "link_to": "Clarinet Intake Form",
-   "type": "DocType"
-  }
- ],
+ "sequence_id": 23.0,
+ "shortcuts": [],
  "title": "Intake"
 }

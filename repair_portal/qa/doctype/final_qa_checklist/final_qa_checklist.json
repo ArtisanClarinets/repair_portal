@@ -1,16 +1,22 @@
 {
-  "doctype": "DocType",
-  "name": "Final QA Checklist",
-  "module": "QA",
-  "custom": 0,
-  "fields": [
-    {"fieldname": "qa_date", "label": "QA Date", "fieldtype": "Date"},
-    {"fieldname": "passed", "label": "Passed QA", "fieldtype": "Check"},
-    {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"}
-  ],
-  "permissions": [
-    {"role": "QA Inspector", "read": 1, "write": 1, "create": 1},
-    {"role": "Service Manager", "read": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+	"doctype": "DocType",
+	"name": "Final QA Checklist",
+	"module": "QA",
+	"custom": 0,
+	"fields": [
+		{ "fieldname": "qa_date", "label": "QA Date", "fieldtype": "Date" },
+		{ "fieldname": "passed", "label": "Passed QA", "fieldtype": "Check" },
+		{ "fieldname": "notes", "label": "Notes", "fieldtype": "Text" }
+	],
+	"permissions": [
+		{ "role": "QA Inspector", "read": 1, "write": 1, "create": 1 },
+		{ "role": "Service Manager", "read": 1 },
+		{
+			"role": "System Manager",
+			"read": 1,
+			"write": 1,
+			"create": 1,
+			"delete": 1
+		}
+	]
 }

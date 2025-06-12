@@ -1,10 +1,10 @@
 {
-  "doctype": "Module Def",
-  "module_name": "repair_portal",
-  "app_name": "repair_portal",
-  "app_version": "0.0.1",
-  "custom": 0,
-  "is_custom_module": 0,
-  "label": "Repair Portal",
-  "owner": "Administrator"
+	"doctype": "Module Def",
+	"module_name": "repair_portal",
+	"app_name": "repair_portal",
+	"app_version": "0.0.1",
+	"custom": 0,
+	"is_custom_module": 0,
+	"label": "Repair Portal",
+	"owner": "Administrator"
 }

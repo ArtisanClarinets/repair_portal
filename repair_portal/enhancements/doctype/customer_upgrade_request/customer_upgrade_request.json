@@ -1,19 +1,40 @@
 {
-  "doctype": "DocType",
-  "name": "Customer Upgrade Request",
-  "module": "Enhancements",
-  "custom": 0,
-  "fields": [
-    {"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer"},
-    {"fieldname": "item_code", "fieldtype": "Link", "label": "Instrument", "options": "Item"},
-    {"fieldname": "requested_upgrades", "fieldtype": "Table", "label": "Requested Upgrades", "options": "Upgrade Option"},
-    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"}
-  ],
-  "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "Technician", "read": 1},
-    {"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-  ],
-  "istable": 0,
-  "track_changes": 1
+	"doctype": "DocType",
+	"name": "Customer Upgrade Request",
+	"module": "Enhancements",
+	"custom": 0,
+	"fields": [
+		{
+			"fieldname": "customer",
+			"fieldtype": "Link",
+			"label": "Customer",
+			"options": "Customer"
+		},
+		{
+			"fieldname": "item_code",
+			"fieldtype": "Link",
+			"label": "Instrument",
+			"options": "Item"
+		},
+		{
+			"fieldname": "requested_upgrades",
+			"fieldtype": "Table",
+			"label": "Requested Upgrades",
+			"options": "Upgrade Option"
+		},
+		{ "fieldname": "notes", "fieldtype": "Small Text", "label": "Notes" }
+	],
+	"permissions": [
+		{
+			"role": "System Manager",
+			"read": 1,
+			"write": 1,
+			"create": 1,
+			"delete": 1
+		},
+		{ "role": "Technician", "read": 1 },
+		{ "role": "Customer", "read": 1, "create": 1, "if_owner": 1 }
+	],
+	"istable": 0,
+	"track_changes": 1
 }

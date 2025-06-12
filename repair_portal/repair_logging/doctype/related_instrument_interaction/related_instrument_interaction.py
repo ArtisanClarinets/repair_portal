@@ -10,5 +10,6 @@ Represents child table entries used for tracking interactions related to instrum
 import frappe
 from frappe.model.document import Document
 
+
 class RelatedInstrumentInteraction(Document):
     pass

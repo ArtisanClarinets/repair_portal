@@ -10,5 +10,6 @@ Tracks technician tool usage during repair tasks. Links tools to users and adds 
 import frappe
 from frappe.model.document import Document
 
+
 class ToolUsageLog(Document):
     pass

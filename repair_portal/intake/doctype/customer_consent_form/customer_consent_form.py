@@ -9,5 +9,6 @@ Handles legal consent authorization including customer info, instrument details,
 import frappe
 from frappe.model.document import Document
 
+
 class CustomerConsentForm(Document):
     pass

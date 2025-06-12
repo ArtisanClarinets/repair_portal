@@ -9,5 +9,6 @@ Defines checklist items to be reviewed during instrument intake process.
 import frappe
 from frappe.model.document import Document
 
+
 class IntakeChecklistItem(Document):
     pass

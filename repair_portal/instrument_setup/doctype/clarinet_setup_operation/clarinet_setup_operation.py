@@ -10,5 +10,6 @@ Used as a child table in service workflows.
 import frappe
 from frappe.model.document import Document
 
+
 class ClarinetSetupOperation(Document):
     pass

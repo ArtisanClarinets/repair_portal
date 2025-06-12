@@ -1,0 +1,8 @@
+{
+	"scripts": {
+		"lint:frontend": "biome check .",
+		"format:frontend": "biome format . --write",
+		"lint:backend": "ruff .",
+		"format:backend": "ruff format ."
+	}
+}

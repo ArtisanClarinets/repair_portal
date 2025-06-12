@@ -1,0 +1,10 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Intakes Due Soon",
+  "chart_type": "Bar",
+  "based_on": "Daily",
+  "timespan": "Next 7 days",
+  "document_type": "Clarinet Intake",
+  "filters_json": "{\"due_date\": [\"between\", [\"today\", \"+7d\"]]}",
+  "module": "Repair Portal"
+}

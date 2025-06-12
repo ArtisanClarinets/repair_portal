@@ -9,5 +9,6 @@ Defines individual actions or subtasks within a broader Service Plan.
 import frappe
 from frappe.model.document import Document
 
+
 class ServiceTask(Document):
     pass

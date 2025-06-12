@@ -1,16 +1,41 @@
 {
-  "doctype": "Workflow",
-  "workflow_name": "Clarinet Intake Workflow",
-  "is_active": 1,
-  "document_type": "Clarinet Intake",
-  "state_field": "workflow_state",
-  "states": [
-    {"state": "New", "doc_status": 0, "update_field": "workflow_state", "allow_edit": "Technician"},
-    {"state": "Received", "doc_status": 1, "update_field": "workflow_state", "allow_edit": "Technician"},
-    {"state": "Escalated", "doc_status": 1, "update_field": "workflow_state", "allow_edit": "Service Manager"}
-  ],
-  "transitions": [
-    {"state": "New", "action": "Mark Received", "next_state": "Received", "allowed": ["Technician"]},
-    {"state": "Received", "action": "Escalate", "next_state": "Escalated", "allowed": ["Service Manager"]}
-  ]
+	"doctype": "Workflow",
+	"workflow_name": "Clarinet Intake Workflow",
+	"is_active": 1,
+	"document_type": "Clarinet Intake",
+	"state_field": "workflow_state",
+	"states": [
+		{
+			"state": "New",
+			"doc_status": 0,
+			"update_field": "workflow_state",
+			"allow_edit": "Technician"
+		},
+		{
+			"state": "Received",
+			"doc_status": 1,
+			"update_field": "workflow_state",
+			"allow_edit": "Technician"
+		},
+		{
+			"state": "Escalated",
+			"doc_status": 1,
+			"update_field": "workflow_state",
+			"allow_edit": "Service Manager"
+		}
+	],
+	"transitions": [
+		{
+			"state": "New",
+			"action": "Mark Received",
+			"next_state": "Received",
+			"allowed": ["Technician"]
+		},
+		{
+			"state": "Received",
+			"action": "Escalate",
+			"next_state": "Escalated",
+			"allowed": ["Service Manager"]
+		}
+	]
 }

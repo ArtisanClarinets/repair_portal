@@ -1,4 +1,3 @@
-Enhancements
 Inspection
 Intake
 Instrument Setup
@@ -7,3 +6,4 @@ Repair Logging
 Repair Portal
 Service Planning
 Tools
+Enhancements

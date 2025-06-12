@@ -1,17 +1,36 @@
 {
-  "doctype": "DocType",
-  "name": "Tool Calibration Log",
-  "module": "Tools",
-  "custom": 0,
-  "fields": [
-    {"fieldname": "tool_name", "fieldtype": "Data", "label": "Tool Name"},
-    {"fieldname": "calibration_date", "fieldtype": "Date", "label": "Calibration Date"},
-    {"fieldname": "calibrated_by", "fieldtype": "Link", "label": "Calibrated By", "options": "Employee"},
-    {"fieldname": "next_due", "fieldtype": "Date", "label": "Next Calibration Due"}
-  ],
-  "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ],
-  "istable": 0,
-  "track_changes": 1
+	"doctype": "DocType",
+	"name": "Tool Calibration Log",
+	"module": "Tools",
+	"custom": 0,
+	"fields": [
+		{ "fieldname": "tool_name", "fieldtype": "Data", "label": "Tool Name" },
+		{
+			"fieldname": "calibration_date",
+			"fieldtype": "Date",
+			"label": "Calibration Date"
+		},
+		{
+			"fieldname": "calibrated_by",
+			"fieldtype": "Link",
+			"label": "Calibrated By",
+			"options": "Employee"
+		},
+		{
+			"fieldname": "next_due",
+			"fieldtype": "Date",
+			"label": "Next Calibration Due"
+		}
+	],
+	"permissions": [
+		{
+			"role": "System Manager",
+			"read": 1,
+			"write": 1,
+			"create": 1,
+			"delete": 1
+		}
+	],
+	"istable": 0,
+	"track_changes": 1
 }

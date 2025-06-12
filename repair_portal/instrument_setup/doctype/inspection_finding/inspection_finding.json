@@ -1,17 +1,42 @@
 {
-  "doctype": "DocType",
-  "name": "Inspection Finding",
-  "module": "Instrument Setup",
-  "istable": 1,
-  "fields": [
-    {"fieldname": "component", "fieldtype": "Select", "label": "Component", "options": "Upper Joint\nLower Joint\nBarrel\nBell\nKeys\nPads"},
-    {"fieldname": "issue_type", "fieldtype": "Select", "label": "Issue Type", "options": "Crack\nBent Key\nPad Leak\nCork Wear\nPlating Wear"},
-    {"fieldname": "severity", "fieldtype": "Select", "label": "Severity", "options": "Low\nMedium\nHigh"},
-    {"fieldname": "recommendation", "fieldtype": "Text", "label": "Recommendation", "reqd": 1},
-    {"fieldname": "action_required", "fieldtype": "Select", "label": "Action Required", "options": "Repair\nReplace\nMonitor"}
-  ],
-  "permissions": [
-    {"role": "Technician", "read": 1, "write": 1},
-    {"role": "Service Manager", "read": 1, "write": 1}
-  ]
+	"doctype": "DocType",
+	"name": "Inspection Finding",
+	"module": "Instrument Setup",
+	"istable": 1,
+	"fields": [
+		{
+			"fieldname": "component",
+			"fieldtype": "Select",
+			"label": "Component",
+			"options": "Upper Joint\nLower Joint\nBarrel\nBell\nKeys\nPads"
+		},
+		{
+			"fieldname": "issue_type",
+			"fieldtype": "Select",
+			"label": "Issue Type",
+			"options": "Crack\nBent Key\nPad Leak\nCork Wear\nPlating Wear"
+		},
+		{
+			"fieldname": "severity",
+			"fieldtype": "Select",
+			"label": "Severity",
+			"options": "Low\nMedium\nHigh"
+		},
+		{
+			"fieldname": "recommendation",
+			"fieldtype": "Text",
+			"label": "Recommendation",
+			"reqd": 1
+		},
+		{
+			"fieldname": "action_required",
+			"fieldtype": "Select",
+			"label": "Action Required",
+			"options": "Repair\nReplace\nMonitor"
+		}
+	],
+	"permissions": [
+		{ "role": "Technician", "read": 1, "write": 1 },
+		{ "role": "Service Manager", "read": 1, "write": 1 }
+	]
 }

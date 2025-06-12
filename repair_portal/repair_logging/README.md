@@ -1,21 +1,48 @@
 # Repair Logging Module
 
-Logs detailed repair actions and technician tool usage.
+## 🛠️ Purpose
+Logs and audits all technician activities, tool usage, and instrument progress throughout the repair lifecycle.
 
-## DocTypes
-- **Repair Task Log**: Tracks individual repair actions, status, and assigned technician.
-- **Tool Usage Log**: Logs technician usage of specific tools and context. Linked to User and Session.
+## 📁 Structure
+```
+repair_logging/
+├── config/desktop.py
+├── doctype/
+│   ├── instrument_interaction_log/
+│   ├── instrument_tracker/
+│   ├── related_instrument_interaction/
+│   ├── repair_task_log/
+│   └── tool_usage_log/
+├── print_format/
+│   └── instrument_tracker_log/
+├── report/
+│   └── custom_doctype_report/
+├── custom/
+│   ├── customer_interaction_timeline.js
+│   └── item_interaction_timeline.js
+├── workspace/
+│   └── repair_logging/
+│       └── repair_logging.json
+└── README.md (you are here)
+```
 
-## Purpose
-To maintain accountability and precision documentation throughout active repair phases.
+## 🧾 Doctypes
+- **Instrument Tracker**: Central node tracking full job lifecycle.
+- **Repair Task Log**: Performed repairs and task assignments.
+- **Tool Usage Log**: Timestamped usage of technician tools.
+- **Instrument Interaction Log**: Detail-level technician interactions.
+- **Related Instrument Interaction**: Relational doctype for context.
 
-## Permissions
-- System Manager: Full
-- Technician: Create/View
+## 📊 Reports
+- **Custom Doctype Report**: Sample or dynamic report templates.
 
-## Linked Modules
-- Instrument Setup (setup operations before/after logging)
-- QA (follows repair completion)
+## 🖨️ Print Formats
+- Instrument Tracker Log
 
-## Last Updated
-June 2025
+## 🧩 Links
+- Ties directly into Intake workflow via Clarinet Intake reference.
+- Feeds forward into QA/Enhancement assessment.
+- JS injectors extend Customer and Item views.
+
+## 📎 Status
+✅ Production Ready

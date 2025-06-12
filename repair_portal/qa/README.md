@@ -1,20 +1,28 @@
-# QA Module
+# Quality Assurance (QA) Module
 
-Handles final quality verification prior to delivery.
+## ✅ Purpose
+Provides structured review and sign-off to validate repair outcomes before release to customers.
 
-## DocTypes
-- **Final QA Checklist**: Checklist for validating completed repairs before release.
+## 📁 Structure
+```
+qa/
+├── config/desktop.py
+├── doctype/
+│   └── final_qa_checklist/
+├── workspace/
+│   ├── qa/qa.json
+│   └── quality/quality.json
+└── README.md (you are here)
+```
 
-## Purpose
-Ensure all workmanship meets shop standards before returning to customer.
+## 📋 Doctypes
+- **Final QA Checklist**: Ensures all repair steps meet standards; final gate before service completion.
 
-## Permissions
-- QA Inspector: Full
-- System Manager: Full
+## 📊 Workspaces
+- QA and Quality dashboards highlight incomplete checks and statistics.
 
-## Linked Modules
-- Repair Logging (feeds into QA)
-- Intake/Contact (used to notify customer post-QA)
+## 🔗 Workflow
+- Post-Repair Logging → Final QA → Customer Notification (via Intake Comm Log)
 
-## Last Updated
-June 2025
+## 📎 Status
+✅ QA sign-off fully enforced in production
