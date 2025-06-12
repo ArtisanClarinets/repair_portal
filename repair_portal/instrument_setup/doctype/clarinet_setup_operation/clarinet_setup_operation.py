@@ -1,11 +1,7 @@
-"""
-Clarinet Setup Operation (Child Table)
-Version 1.0
-Last Updated: 2025-06-08
-
-Represents individual setup operations performed on clarinet sections.
-Used as a child table in service workflows.
-"""
+# File: repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_operation/clarinet_setup_operation.py
+# Updated: 2025-06-12
+# Version: 1.1
+# Purpose: Clarinet Setup Operation (Child Table) — tracks manual service tasks by section and type
 
 import frappe
 from frappe.model.document import Document

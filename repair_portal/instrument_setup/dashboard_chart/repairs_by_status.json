@@ -1,0 +1,11 @@
+{
+  "chart_name": "Repairs by Status",
+  "chart_type": "Group By",
+  "document_type": "Clarinet Initial Setup",
+  "field_name": "status",
+  "aggregation": "count",
+  "timespan": "Last 30 days",
+  "is_public": 0,
+  "filters_json": "{}",
+  "color": "random"
+}
