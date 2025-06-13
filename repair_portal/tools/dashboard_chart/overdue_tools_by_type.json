@@ -1,0 +1,12 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Overdue Tools by Type",
+  "chart_type": "Group By",
+  "document_type": "Tool",
+  "based_on": "modified",
+  "timespan": "Last 30 days",
+  "time_interval": "Daily",
+  "group_by_field": "tool_type",
+  "group_by_type": "Count",
+  "filters_json": "{\"requires_calibration\": 1, \"next_due\": [\"<\", \"today\"]}"
+}

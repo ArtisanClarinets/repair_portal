@@ -1,0 +1,18 @@
+{
+  "doctype": "DocType",
+  "name": "Final QA Checklist Item",
+  "module": "QA",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {"fieldname": "description", "fieldtype": "Data", "label": "Checklist Item", "reqd": 1},
+    {"fieldname": "passed", "fieldtype": "Check", "label": "Passed?"},
+    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "QA Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "Service Manager", "read": 1, "write": 1, "create": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1}
+  ]
+}

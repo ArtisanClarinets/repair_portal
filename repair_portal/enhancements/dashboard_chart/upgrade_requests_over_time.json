@@ -1,0 +1,12 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Upgrade Requests Over Time",
+  "chart_type": "Line",
+  "document_type": "Customer Upgrade Request",
+  "based_on": "creation",
+  "timespan": "Last 6 months",
+  "time_interval": "Monthly",
+  "group_by_field": "upgrade_type",
+  "group_by_type": "Count",
+  "filters_json": "{}"
+}

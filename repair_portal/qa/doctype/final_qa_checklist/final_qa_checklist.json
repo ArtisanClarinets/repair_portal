@@ -1,17 +1,18 @@
 {
-	"doctype": "DocType",
-	"name": "Final QA Checklist",
-	"module": "QA",
-	"custom": 0,
-	"fields": [
-		{ "fieldname": "qa_date", "label": "QA Date", "fieldtype": "Date" },
-		{ "fieldname": "passed", "label": "Passed QA", "fieldtype": "Check" },
-		{ "fieldname": "notes", "label": "Notes", "fieldtype": "Text" }
-	],
-	"permissions": [
-		{"role": "Technician", "read": 1, "write": 1, "create": 1},
-		{"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-	]
+  "doctype": "DocType",
+  "name": "Final QA Checklist",
+  "module": "QA",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "qa_technician", "fieldtype": "Link", "label": "QA Technician", "options": "User", "reqd": 1},
+    {"fieldname": "related_repair", "fieldtype": "Link", "label": "Repair Reference", "options": "Repair Log"},
+    {"fieldname": "checklist_items", "fieldtype": "Table", "label": "Checklist Items", "options": "Final QA Checklist Item"},
+    {"fieldname": "overall_passed", "fieldtype": "Check", "label": "Overall Passed"},
+    {"fieldname": "comments", "fieldtype": "Text", "label": "Final Comments"}
+  ],
+  "permissions": [
+    {"role": "QA Technician", "read": 1, "write": 1, "create": 1, "submit": 1},
+    {"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1}
+  ]
 }

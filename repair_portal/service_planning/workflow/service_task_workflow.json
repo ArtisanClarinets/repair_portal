@@ -1,0 +1,16 @@
+{
+  "doctype": "Workflow",
+  "workflow_name": "Service Task Workflow",
+  "document_type": "Service Task",
+  "is_active": 1,
+  "workflow_state_field": "workflow_state",
+  "states": [
+    {"state": "Scheduled", "doc_status": 0, "allow_edit": ["Technician"]},
+    {"state": "In Progress", "doc_status": 0, "allow_edit": ["Technician"]},
+    {"state": "Completed", "doc_status": 1, "allow_edit": ["Service Manager"]}
+  ],
+  "transitions": [
+    {"state": "Scheduled", "action": "Start", "next_state": "In Progress", "allowed": ["Technician"]},
+    {"state": "In Progress", "action": "Complete", "next_state": "Completed", "allowed": ["Technician"]}
+  ]
+}

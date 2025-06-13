@@ -1,24 +1,43 @@
 # Tools Module
 
-## 📌 Overview
-Manages calibration and usage tracking for technician tools and consumables during clarinet servicing.
+## 🎯 Purpose
+Track specialized and general tools, manage calibration schedules, and monitor lifecycle status of all instruments used in clarinet repair operations.
 
----
+## 📂 Structure
+```
+tools/
+├── doctype/
+│   ├── tool/
+│   └── tool_calibration_log/
+├── report/
+│   └── overdue_tool_calibrations/
+├── dashboard_chart/
+│   └── overdue_tools_by_type.json
+├── workflow/
+│   └── tool_lifecycle.json
+├── workspace/
+│   └── repair_tools_&_utilities.json
+├── config/
+│   └── desktop.py
+└── README.md
+```
 
-## 📄 Doctypes
-- **Tool Calibration Log**
-  - Calibration date, tolerance, status
-  - Assigned to technician
+## ✅ Doctypes
+- Tool
+- Tool Calibration Log
 
----
+## 📊 Reports
+- Overdue Tool Calibrations ✅
 
-## 👥 Roles
-- **Repair Technician**: Read, Create
-- **System Manager**: Full control
+## 📈 Dashboard Charts
+- Overdue Tools by Type ✅
 
----
+## 🔁 Workflows
+- Tool Lifecycle ✅
+  - States: Available → Out for Calibration → Retired
 
-## 🔁 Flow
-1. Technician logs tool usage
-2. Calibration reminders surfaced via dashboard
-3. Logs auditable per task or technician
+## 🔒 Permissions
+- `Technician` (Read), `Service Manager`, `System Manager`
+
+## 🚦 Status
+Production-ready ✅

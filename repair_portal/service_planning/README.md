@@ -1,28 +1,43 @@
 # Service Planning Module
 
-## 🗓️ Purpose
-Organizes upcoming repairs into structured, date-based service plans. Coordinates technician workload using diagnostic inputs and scheduling tools.
+## 🎯 Purpose
+Schedule and manage planned service tasks across repair bays and technician workloads.
 
-## 📁 Structure
+## 📂 Structure
 ```
 service_planning/
-├── config/desktop.py
 ├── doctype/
 │   ├── service_plan/
 │   └── service_task/
-├── workspace/service_planning/
+├── report/
+│   └── repair_bay_utilization/
+├── dashboard_chart/
+│   └── scheduled_service_tasks_by_day.json
+├── workflow/
+│   └── service_task_workflow.json
+├── workspace/
 │   └── service_planning.json
-└── README.md (you are here)
+├── config/
+│   └── desktop.py
+└── README.md
 ```
 
-## 📋 Doctypes
-- **Service Plan**: Root planning entity, linked to Instrument and Tasks
-- **Service Task**: Atomic repair task (bench-level) with schedule + technician
+## ✅ Doctypes
+- Service Plan
+- Service Task (includes scheduling, technician, repair bay)
 
-## 🔗 Workflow
-- Input from Inspection findings
-- Breaks into tasks → Assigns to available technicians
-- Tracked via Instrument Tracker & Logging
+## 📊 Reports
+- Repair Bay Utilization ✅
 
-## 📎 Status
-✅ Fully linked with Logging, QA, and Enhancements modules
+## 📈 Dashboard Charts
+- Scheduled Service Tasks by Day ✅
+
+## 🔁 Workflows
+- Service Task Workflow ✅
+  - States: Scheduled → In Progress → Completed
+
+## 🔒 Permissions
+- `Technician`, `Service Manager`
+
+## 🚦 Status
+Production-ready ✅

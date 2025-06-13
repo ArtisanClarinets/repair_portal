@@ -1,0 +1,12 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "QA Failures by Technician",
+  "chart_type": "Group By",
+  "document_type": "Final QA Checklist",
+  "based_on": "modified",
+  "timespan": "Last 30 days",
+  "time_interval": "Daily",
+  "group_by_field": "qa_technician",
+  "group_by_type": "Count",
+  "filters_json": "{\"overall_passed\": 0}"
+}

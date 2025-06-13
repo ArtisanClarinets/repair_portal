@@ -1,7 +1,7 @@
 # Enhancements Module
 
 ## 🎯 Purpose
-Allow customers to request instrument upgrades, track technician review, and report on upgrade trends.
+Track, manage, and analyze upgrade/customization requests from customers. Supports quoting, execution tracking, and customer communication.
 
 ## 📂 Structure
 ```
@@ -10,24 +10,35 @@ enhancements/
 │   ├── customer_upgrade_request/
 │   └── upgrade_option/
 ├── report/
-│   ├── upgrade_conversion_rates/
-│   └── top_upgrade_requests/
+│   ├── top_upgrade_requests/
+│   └── upgrade_conversion_rates/
+├── dashboard_chart/
+│   └── upgrade_requests_over_time.json
+├── custom_script/
+│   └── customer_upgrade_request.json
 ├── workspace/
+│   └── enhancements_workspace.json
 ├── config/
+│   └── desktop.py
 └── README.md
 ```
 
+## ✅ Doctypes
+- Customer Upgrade Request
+- Upgrade Option
+
 ## 📊 Reports
-- **Upgrade Conversion Rates**
-- **Top Upgrade Requests**
+- Top Upgrade Requests
+- Upgrade Conversion Rates
 
-## 🔁 Workflow
-- Draft → Review → Approved → Fulfilled (WIP)
+## 📈 Dashboard Charts
+- Upgrade Requests Over Time ✅
 
-## 🛠️ Planned Additions
-- Email alerts for approvals
-- Links to material requests
-- Webform portal for customers
+## 🧩 Client Scripts
+- Upgrade type warnings and validations ✅
+
+## 🔒 Permissions
+- `Sales`, `Technician`, `Service Manager`
 
 ## 🚦 Status
-Stable and production-ready with reporting and data model.
+Production-ready ✅

@@ -1,28 +1,42 @@
-# Quality Assurance (QA) Module
+# QA Module
 
-## ✅ Purpose
-Provides structured review and sign-off to validate repair outcomes before release to customers.
+## 🎯 Purpose
+Ensure quality assurance of repairs before final delivery using structured checklists, dashboards, and workflows.
 
-## 📁 Structure
+## 📂 Structure
 ```
 qa/
-├── config/desktop.py
 ├── doctype/
-│   └── final_qa_checklist/
+│   ├── final_qa_checklist/
+│   └── final_qa_checklist_item/
+├── report/
+│   └── qa_failure_rate/
+├── dashboard_chart/
+│   └── qa_failures_by_tech.json
+├── workflow/
+│   └── final_qa_checklist_workflow.json
 ├── workspace/
-│   ├── qa/qa.json
-│   └── quality/quality.json
-└── README.md (you are here)
+│   └── qa.json
+├── config/
+│   └── desktop.py
+└── README.md
 ```
 
-## 📋 Doctypes
-- **Final QA Checklist**: Ensures all repair steps meet standards; final gate before service completion.
+## ✅ Doctypes
+- Final QA Checklist
+- Final QA Checklist Item (child)
 
-## 📊 Workspaces
-- QA and Quality dashboards highlight incomplete checks and statistics.
+## 📊 Reports
+- QA Failure Rate ✅
 
-## 🔗 Workflow
-- Post-Repair Logging → Final QA → Customer Notification (via Intake Comm Log)
+## 📈 Dashboard Charts
+- QA Failures by Technician ✅
 
-## 📎 Status
-✅ QA sign-off fully enforced in production
+## 🔁 Workflow
+- Final QA Checklist Workflow ✅
+
+## 🔒 Permissions
+- `QA Technician`, `Service Manager`, `System Manager`
+
+## 🚦 Status
+Production-ready ✅
