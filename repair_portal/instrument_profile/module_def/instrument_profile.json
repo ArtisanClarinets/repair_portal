@@ -1,0 +1,8 @@
+{
+  "doctype": "Module Def",
+  "module_name": "Instrument Profile",
+  "app_name": "repair_portal",
+  "app_label": "Repair Portal",
+  "is_custom": 0,
+  "owner": "Administrator"
+}

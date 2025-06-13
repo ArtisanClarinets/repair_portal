@@ -1,0 +1,45 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Repair Log",
+  "module": "Repair Logging",
+  "custom": 1,
+  "is_submittable": 1,
+  "editable_grid": 1,
+  "track_changes": 1,
+  "track_seen": 1,
+  "fields": [
+    {
+      "fieldname": "clarinet_serial_number",
+      "fieldtype": "Data",
+      "label": "Clarinet Serial Number",
+      "reqd": 1
+    },
+    {
+      "fieldname": "repair_type",
+      "fieldtype": "Select",
+      "label": "Repair Type",
+      "options": "Crack Repair\nPadding\nBore Resurfacing\nKey Work",
+      "reqd": 1
+    },
+    {
+      "fieldname": "technician_notes",
+      "fieldtype": "Text",
+      "label": "Technician Notes"
+    },
+    {
+      "fieldname": "inspection_passed",
+      "fieldtype": "Check",
+      "label": "Inspection Passed"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1
+    }
+  ]
+}

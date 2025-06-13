@@ -1,0 +1,19 @@
+<!-- File: repair_portal/instrument_profile/page/instrument_history/instrument_history.html -->
+<h2>Instrument History: {{ doc.serial_number }}</h2>
+<p><b>Type:</b> {{ doc.instrument_type }} | <b>Status:</b> {{ doc.status }} | <b>Model:</b> {{ doc.model }}</p>
+<hr>
+<h4>Setup Records</h4>
+<table class="table table-bordered">
+<tr><th>Date</th><th>Technician</th><th>Status</th></tr>
+{% for s in setups %}
+<tr><td>{{ s.setup_date }}</td><td>{{ s.technician }}</td><td>{{ s.status }}</td></tr>
+{% endfor %}
+</table>
+
+<h4>Condition Notes</h4>
+<table class="table table-bordered">
+<tr><th>Date</th><th>Technician</th><th>Notes</th></tr>
+{% for c in conditions %}
+<tr><td>{{ c.date }}</td><td>{{ c.technician }}</td><td>{{ c.condition_notes }}</td></tr>
+{% endfor %}
+</table>

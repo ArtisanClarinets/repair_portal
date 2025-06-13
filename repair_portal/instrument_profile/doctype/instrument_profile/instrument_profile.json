@@ -1,0 +1,24 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Profile",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 0},
+    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
+    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "reqd": 1, "unique": 1},
+    {"fieldname": "acquisition_type", "label": "Acquisition Type", "fieldtype": "Select", "options": "Customer\nInventory", "reqd": 1},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Active\nIn Repair\nRetired", "default": "Active"},
+    {"fieldname": "purchase_date", "label": "Purchase Date", "fieldtype": "Date"},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"},
+    {"fieldname": "condition_records", "label": "Condition Records", "fieldtype": "Table", "options": "Instrument Condition Record"},
+    {"fieldname": "setup_records", "label": "Setup History", "fieldtype": "Table", "options": "Clarinet Initial Setup"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1}
+  ],
+  "is_submittable": 1
+}

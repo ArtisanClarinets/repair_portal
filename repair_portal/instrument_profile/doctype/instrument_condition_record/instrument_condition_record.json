@@ -1,0 +1,16 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Condition Record",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {"fieldname": "date", "label": "Date", "fieldtype": "Date", "reqd": 1},
+    {"fieldname": "technician", "label": "Technician", "fieldtype": "Link", "options": "User"},
+    {"fieldname": "condition_notes", "label": "Condition Notes", "fieldtype": "Small Text"},
+    {"fieldname": "attachment", "label": "Attachment", "fieldtype": "Attach"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1}
+  ]
+}

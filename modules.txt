@@ -7,3 +7,4 @@ Repair Portal
 Service Planning
 Tools
 Enhancements
+Instrument Profile

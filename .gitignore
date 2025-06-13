@@ -6,50 +6,27 @@ tags
 node_modules
 __pycache__
 .env
-# Local configuration files
 config.json
-# Logs
 *.log
-# Coverage reports
 coverage.xml
-# Jupyter Notebook checkpoints
 .ipynb_checkpoints
-# Virtual environment directories
 venv/
-# Build directories
 build/
 dist/
-# PyInstaller
 *.spec
-# Pytest cache
 .pytest_cache/
-# Pyre type checker
 .pyre/
-# MyPy cache
 .mypy_cache/
-# Pyre type checker
 .pyre/
-# Cython debug symbols
 cython_debug/
-# Jupyter Notebook metadata
 .ipynb
-# Jupyter Notebook output
 .ipynb_checkpoints/
-# Jupyter Notebook configuration
 .jupyter/
-# Jupyter Notebook kernels
 kernels/
-# Jupyter Notebook extensions
 nbextensions/
-# Jupyter Notebook server configuration
 .jupyter_server_config.json
-# Jupyter Notebook runtime files
 .jupyter_runtime/
-# Jupyter Notebook security
-.jupyter_security/
-# Jupyter Notebook logs
+.jupyter_security
 .jupyter_logs/
-# Jupyter Notebook kernelspecs
 kernelspecs/
-# Jupyter Notebook custom.js
 custom.js

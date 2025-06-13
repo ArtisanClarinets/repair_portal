@@ -1,0 +1,11 @@
+{
+  "doctype": "Print Format",
+  "name": "Instrument Tag",
+  "doc_type": "Instrument Profile",
+  "module": "Instrument Profile",
+  "print_format_type": "Server",
+  "default": 0,
+  "standard": "Yes",
+  "html": "<div><h3>{{ doc.instrument_type }} - {{ doc.serial_number }}</h3><p>Status: {{ doc.status }}</p><p>Model: {{ doc.model }}</p><p>Customer: {{ doc.customer or 'Inventory' }}</p></div>",
+  "css": "div { border: 1px solid #ccc; padding: 10px; font-size: 12px; } h3 { margin: 0 0 5px; }"
+}

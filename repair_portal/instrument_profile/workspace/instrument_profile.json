@@ -1,0 +1,26 @@
+{
+  "label": "Instrument Profile",
+  "module": "Instrument Profile",
+  "icon": "octicon octicon-device-camera",
+  "content": {
+    "shortcuts": [
+      {
+        "label": "New Instrument",
+        "type": "DocType",
+        "name": "Instrument Profile"
+      },
+      {
+        "label": "Instrument History Viewer",
+        "type": "Page",
+        "name": "instrument_history"
+      }
+    ],
+    "charts": [
+      {
+        "chart_name": "Instrument Status Distribution"
+      }
+    ],
+    "links": [],
+    "cards": []
+  }
+}

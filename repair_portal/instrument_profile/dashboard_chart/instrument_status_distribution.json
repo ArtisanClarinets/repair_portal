@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Instrument Status Distribution",
+  "document_type": "Instrument Profile",
+  "chart_type": "Donut",
+  "timespan": "Last Year",
+  "based_on": "count",
+  "filters_json": "{}",
+  "field_name": "status",
+  "is_standard": 1
+}

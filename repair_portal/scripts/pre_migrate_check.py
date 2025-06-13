@@ -1,17 +1,71 @@
 import os
 import json
+import subprocess
 from pathlib import Path
+import re
 
-APP_DIR = Path(__file__).resolve().parent.parent / 'repair_portal/repair_portal'
+APP_DIR = Path('/opt/frappe/erpnext-bench/apps/repair_portal/repair_portal')
+MODULES_FILE = Path('/opt/frappe/erpnext-bench/apps/repair_portal/modules.txt')
 
 missing_py_files = []
 mismatched_class_names = []
 missing_json_files = []
+invalid_json_schemas = []
+invalid_modules = []
+missing_essentials = []
+
+with open(MODULES_FILE) as f:
+    valid_modules = {line.strip() for line in f if line.strip()}
 
 print('\nPre-Migrate Check Report')
 print('==========================')
 
+# Step 1: Lint Python files
+print('\nRunning flake8 linting...')
+try:
+    result = subprocess.run(['flake8', '/opt/frappe/erpnext-bench/apps/repair_portal/'], capture_output=True, text=True)
+    if result.returncode != 0 or result.stdout:
+        print('❌ Python Linting Issues Found:')
+        print(result.stdout.strip())
+        if result.stderr:
+            print('[stderr]', result.stderr.strip())
+
+        for line in result.stdout.strip().split('\n'):
+            match = re.match(r'(.+):\d+:\d+: F401', line)
+            if match:
+                file_path = match.group(1)
+                with open(file_path) as f:
+                    lines = f.readlines()
+                with open(file_path, 'w') as f:
+                    for l in lines:
+                        if 'import frappe' in l and 'frappe' not in ''.join(lines[lines.index(l)+1:]):
+                            continue
+                        f.write(l)
+    else:
+        print('✅ No Python linting issues.')
+except Exception as e:
+    print(f'⚠️ Failed to run flake8: {e}')
+
+# Step 2: Lint JavaScript files
+print('\nRunning ESLint on JS files...')
+try:
+    eslint_path = '/opt/frappe/erpnext-bench/apps/repair_portal/eslint.config.js'
+    result = subprocess.run(['npx', 'eslint', '/opt/frappe/erpnext-bench/apps/repair_portal/', '--config', eslint_path], capture_output=True, text=True)
+    if result.returncode != 0 or result.stdout:
+        print('❌ JavaScript Linting Issues Found:')
+        print(result.stdout.strip())
+        if result.stderr:
+            print('[stderr]', result.stderr.strip())
+    else:
+        print('✅ No JavaScript linting issues.')
+except Exception as e:
+    print(f'⚠️ Failed to run ESLint: {e}')
+
+# Step 3: Check Doctype JSONs and modules
+print('\nChecking Doctype structures and modules...')
 for root, dirs, files in os.walk(APP_DIR):
+    if '/report/' in root or '/workspace/' in root:
+        continue
     for file in files:
         if file.endswith('.json') and 'doctype' in root:
             doctype_path = Path(root)
@@ -24,14 +78,37 @@ for root, dirs, files in os.walk(APP_DIR):
 
             if not json_path.exists():
                 missing_json_files.append(str(json_path))
+            else:
+                try:
+                    with open(json_path) as jf:
+                        doc = json.load(jf)
+                        for field in ['doctype', 'name', 'module', 'fields']:
+                            if field not in doc:
+                                invalid_json_schemas.append(str(json_path))
+                        if 'module' in doc and doc['module'] not in valid_modules:
+                            invalid_modules.append(f"{json_path} - invalid module: {doc['module']}")
+                except Exception as e:
+                    invalid_json_schemas.append(f'{str(json_path)} - Error: {e}')
 
-            # Check for valid controller class
             expected_class_name = ''.join(word.capitalize() for word in doctype_name.split('_'))
             if py_path.exists():
                 with open(py_path) as f:
                     content = f.read()
                     if f'class {expected_class_name}(Document)' not in content:
                         mismatched_class_names.append((str(py_path), expected_class_name))
+
+# Step 4: Check essential app files
+ROOT_APP_DIR = Path('/opt/frappe/erpnext-bench/apps/repair_portal')
+essentials = [
+    ROOT_APP_DIR / 'setup.py',
+    ROOT_APP_DIR / 'modules.txt',
+    APP_DIR / 'hooks.py',
+    APP_DIR / 'config/desktop.py',
+    APP_DIR / 'config/__init__.py'
+]
+for essential in essentials:
+    if not essential.exists():
+        missing_essentials.append(str(essential))
 
 # Output results
 if missing_py_files:
@@ -54,5 +131,26 @@ if missing_json_files:
         print(f' - {path}')
 else:
     print('✅ All Doctype JSON files found.')
+
+if invalid_json_schemas:
+    print('❌ Invalid Doctype JSON Schemas:')
+    for path in invalid_json_schemas:
+        print(f' - {path}')
+else:
+    print('✅ All Doctype JSON schemas are valid.')
+
+if invalid_modules:
+    print('❌ Invalid Module References in JSONs:')
+    for path in invalid_modules:
+        print(f' - {path}')
+else:
+    print('✅ All Doctype modules match modules.txt.')
+
+if missing_essentials:
+    print('❌ Missing Essential Files:')
+    for path in missing_essentials:
+        print(f' - {path}')
+else:
+    print('✅ All essential configuration files are present.')
 
 print('\n✔ Use this report before any install or migration.')

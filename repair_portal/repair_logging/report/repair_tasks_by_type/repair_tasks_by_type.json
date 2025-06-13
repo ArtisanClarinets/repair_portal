@@ -4,5 +4,6 @@
   "ref_doctype": "Repair Task Log",
   "report_type": "Script Report",
   "is_standard": "Yes",
-  "filters": []
+  "filters": [],
+  "module": "Inspection"
 }
