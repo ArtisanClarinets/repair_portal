@@ -1,5 +1,19 @@
-# repair_portal/__init__.py
-# Ensures repair_portal is a valid Python package
-# repair_portal/__init__.py
+from __future__ import unicode_literals
+
 __version__ = "1.0.0"
 
+
+import frappe
+
+__all__ = [
+    "Inspection",
+    "Intake",
+    "Instrument Setup",
+    "QA",
+    "Repair Logging",
+    "Repair Portal",
+    "Service Planning",
+    "Tools",
+    "Enhancements",
+    "Instrument Profile"
+]

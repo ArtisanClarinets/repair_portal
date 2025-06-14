@@ -1,0 +1,30 @@
+{
+  "doctype": "Report",
+  "name": "Instrument Profile Report",
+  "ref_doctype": "Instrument Profile",
+  "report_type": "Script Report",
+  "is_standard": "Yes",
+  "module": "Instrument Profile",
+  "filters": [
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    }
+  ],
+  "columns": [
+    {
+      "label": "Customer",
+      "fieldname": "customer",
+      "fieldtype": "Data",
+      "width": 120
+    },
+    {
+      "label": "Issue",
+      "fieldname": "issue_description",
+      "fieldtype": "Data",
+      "width": 200
+    }
+  ]
+}

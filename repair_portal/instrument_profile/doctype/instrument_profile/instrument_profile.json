@@ -6,20 +6,102 @@
   "istable": 0,
   "editable_grid": 1,
   "fields": [
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 0},
-    {"fieldname": "published", "label": "Published", "fieldtype": "Check", "default": 1},
-    {"fieldname": "instrument_name", "label": "Instrument Name", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
-    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "reqd": 1, "unique": 1},
-    {"fieldname": "acquisition_type", "label": "Acquisition Type", "fieldtype": "Select", "options": "Customer\nInventory", "reqd": 1},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "New\nActive\nIn Repair\nRetired", "default": "Active"},
-    {"fieldname": "purchase_date", "label": "Purchase Date", "fieldtype": "Date"},
-    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"},
-    {"fieldname": "condition_records", "label": "Condition Records", "fieldtype": "Table", "options": "Instrument Condition Record"}
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "manufacturer",
+      "label": "Manufacturer",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "model",
+      "label": "Model",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "serial_number",
+      "label": "Serial Number",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "case",
+      "label": "Case",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "accessories",
+      "label": "Accessories",
+      "fieldtype": "Text"
+    },
+    {
+      "fieldname": "pictures",
+      "label": "Pictures",
+      "fieldtype": "Attach Image"
+    },
+    {
+      "fieldname": "bore_type",
+      "label": "Bore Type",
+      "fieldtype": "Select",
+      "options": "\nCylindrical\nPoly-cylindrical"
+    },
+    {
+      "fieldname": "keywork_finish",
+      "label": "Keywork Finish",
+      "fieldtype": "Select",
+      "options": "\nNickel\nSilver\nGold"
+    },
+    {
+      "fieldname": "material",
+      "label": "Material",
+      "fieldtype": "Select",
+      "options": "\nGrenadilla\nCocobolo\nPlastic"
+    },
+    {
+      "fieldname": "barrel_length_mm",
+      "label": "Barrel Length (mm)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "bell_type",
+      "label": "Bell Type",
+      "fieldtype": "Select",
+      "options": "\nStandard\nResonance\nTuning"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "issue_description",
+      "label": "Issue Description",
+      "fieldtype": "Text",
+      "reqd": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nOpen\nIn Progress\nResolved\nClosed",
+      "default": "Open"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1}
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
   ],
-  "is_submittable": 1
+  "is_submittable": 1,
+  "workflow_state_field": "status"
 }

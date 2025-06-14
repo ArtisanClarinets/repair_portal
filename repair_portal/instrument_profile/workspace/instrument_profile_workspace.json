@@ -1,0 +1,17 @@
+{
+  "label": "Instrument Profile",
+  "module": "Instrument Profile",
+  "icon": "fa fa-music",
+  "content": {
+    "shortcuts": [
+      {
+        "label": "New Instrument Profile",
+        "type": "DocType",
+        "name": "Instrument Profile"
+      }
+    ],
+    "charts": [],
+    "links": [],
+    "cards": []
+  }
+}
