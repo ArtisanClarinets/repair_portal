@@ -9,14 +9,12 @@ app_publisher = "MRW Artisan Instruments"
 app_description = "Clarinet repair portal for technicians and managers"
 app_email = "support@artisanclarinets.com"
 app_license = "MIT"
-
 fixtures = [
     {"dt": "Workspace", "filters": [["name", "in", [
         "Enhancements", "Inspection", "Intake", "Instrument Setup", "Instrument Profile",
         "QA", "Repair Logging", "Service Planning", "Tools"]]]},
     {"dt": "Report", "filters": [["ref_doctype", "like", "%"]]},
     {"dt": "Workflow", "filters": [["name", "!=", ""]]},
-    {"dt": "Dashboard Chart", "filters": [["is_public", "=", 1]]},
     {"dt": "Print Format", "filters": [["name", "!=", ""]]},
     {"dt": "Notification", "filters": [["enabled", "=", 1]]},
     {"dt": "Role"},

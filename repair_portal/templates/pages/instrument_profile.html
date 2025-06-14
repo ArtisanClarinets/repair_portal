@@ -1,0 +1,21 @@
+<!-- File: repair_portal/repair_portal/templates/pages/instrument_profile.html -->
+<!-- Updated: 2025-06-14 | Version: 1.0 -->
+<!-- Purpose: Public-facing instrument profile page template -->
+
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+  {% if doc.published %}
+    <div class="instrument-profile">
+      <h1>{{ doc.instrument_name }} ({{ doc.serial_number }})</h1>
+      <p><strong>Type:</strong> {{ doc.instrument_type }}</p>
+      <p><strong>Model:</strong> {{ doc.model }}</p>
+      <p><strong>Status:</strong> {{ doc.status }}</p>
+      {% if doc.notes %}<p><strong>Notes:</strong> {{ doc.notes }}</p>{% endif %}
+    </div>
+  {% else %}
+    <div class="alert alert-warning">
+      This instrument profile is not published.
+    </div>
+  {% endif %}
+{% endblock %}

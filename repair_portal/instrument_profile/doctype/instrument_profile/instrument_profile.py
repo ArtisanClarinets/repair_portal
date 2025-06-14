@@ -1,20 +1,16 @@
-# File: repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
-# Created: 2025-06-13
-# Version: 1.0
-# Purpose: Controller logic for Instrument Profile DocType
+# File: repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
+# Updated: 2025-06-14
+# Version: 1.1
+# Purpose: Controller logic for Instrument Profile Doctype with web rendering support
 
 import frappe
-from frappe.model.document import Document
+from frappe.website.website_generator import WebsiteGenerator
 
-class InstrumentProfile(Document):
-    """Server side logic for the Instrument Profile DocType."""
+class InstrumentProfile(WebsiteGenerator):
+    """Server side logic for the Instrument Profile DocType with website rendering support."""
 
-    #: configuration used by Frappe's website renderer
     website = frappe._dict(
-        # the field that controls whether the record should be shown on the website
-        # all instrument profiles are considered published when they exist
-        condition_field="name",
-        # use the instrument's serial number as the web page title
+        condition_field="published",
         page_title_field="serial_number",
     )
 
