@@ -1,19 +1,27 @@
 {
-  "name": "Instrument Profile",
   "doctype": "DocType",
+  "name": "Instrument Profile",
   "module": "Instrument Setup",
   "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
   "fields": [
     {
-      "fieldname": "profile_name",
-      "label": "Profile Name",
+      "fieldname": "serial_number",
+      "label": "Serial Number",
       "fieldtype": "Data",
       "reqd": 1
     },
     {
-      "fieldname": "description",
-      "label": "Description",
-      "fieldtype": "Small Text"
+      "fieldname": "model",
+      "label": "Model",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
     }
   ],
   "permissions": [
@@ -24,9 +32,5 @@
       "create": 1,
       "delete": 1
     }
-  ],
-  "is_submittable": 0,
-  "editable_grid": 1,
-  "track_changes": 1,
-  "track_views": 1
+  ]
 }

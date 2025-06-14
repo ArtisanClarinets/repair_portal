@@ -1,19 +1,35 @@
 <!-- File: repair_portal/instrument_profile/page/instrument_history/instrument_history.html -->
-<h2>Instrument History: {{ doc.serial_number }}</h2>
-<p><b>Type:</b> {{ doc.instrument_type }} | <b>Status:</b> {{ doc.status }} | <b>Model:</b> {{ doc.model }}</p>
-<hr>
-<h4>Setup Records</h4>
-<table class="table table-bordered">
-<tr><th>Date</th><th>Technician</th><th>Status</th></tr>
-{% for s in setups %}
-<tr><td>{{ s.setup_date }}</td><td>{{ s.technician }}</td><td>{{ s.status }}</td></tr>
-{% endfor %}
-</table>
+<div class="container p-4">
+  <h2 class="mb-3">Instrument History: {{ doc.serial_number }}</h2>
+  <p><strong>Type:</strong> {{ doc.instrument_type }} | <strong>Status:</strong> {{ doc.status }} | <strong>Model:</strong> {{ doc.model }}</p>
+  <p><a href="/instrument-profile">← Back to Instrument List</a></p>
 
-<h4>Condition Notes</h4>
-<table class="table table-bordered">
-<tr><th>Date</th><th>Technician</th><th>Notes</th></tr>
-{% for c in conditions %}
-<tr><td>{{ c.date }}</td><td>{{ c.technician }}</td><td>{{ c.condition_notes }}</td></tr>
-{% endfor %}
-</table>
+  <hr>
+  <h4 class="mt-4">Setup Records</h4>
+  {% if setups %}
+    <table class="table table-bordered">
+      <thead><tr><th>Date</th><th>Technician</th><th>Status</th></tr></thead>
+      <tbody>
+      {% for s in setups %}
+        <tr><td>{{ s.setup_date }}</td><td>{{ s.technician }}</td><td>{{ s.status }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="text-muted">No setup records available.</p>
+  {% endif %}
+
+  <h4 class="mt-4">Condition Notes</h4>
+  {% if conditions %}
+    <table class="table table-bordered">
+      <thead><tr><th>Date</th><th>Technician</th><th>Notes</th></tr></thead>
+      <tbody>
+      {% for c in conditions %}
+        <tr><td>{{ c.date }}</td><td>{{ c.technician }}</td><td>{{ c.condition_notes }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="text-muted">No condition records available.</p>
+  {% endif %}
+</div>

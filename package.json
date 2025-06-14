@@ -4,5 +4,11 @@
 		"format:frontend": "biome format . --write",
 		"lint:backend": "ruff .",
 		"format:backend": "ruff format ."
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"less": "^4.3.0",
+		"stylus": "^0.64.0",
+		"vue-template-compiler": "^2.7.16"
 	}
 }

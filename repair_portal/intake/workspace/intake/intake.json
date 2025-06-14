@@ -1,7 +1,7 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Intake\"}}]",
- "creation": "2025-06-12 13:47:33.308570",
+ "content": "[{\"id\":\"fyz6HYo3v6\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Intake</span>\",\"col\":12}},{\"id\":\"mFQoLbNPFI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Intake\",\"col\":3}},{\"id\":\"anCvG-G9B4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Consent Form\",\"col\":3}},{\"id\":\"eSxpzoxROr\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mcoGjN_LUG\",\"type\":\"card\",\"data\":{\"card_name\":\"Clarinet Intake\",\"col\":4}}]",
+ "creation": "2025-06-14 04:56:21.549446",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -12,9 +12,59 @@
  "indicator_color": "",
  "is_hidden": 0,
  "label": "Intake",
- "links": [],
- "modified": "2025-06-12 13:52:43.779104",
- "modified_by": "Administrator",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake",
+   "link_count": 0,
+   "link_to": "Clarinet Intake",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Consent Form",
+   "link_count": 0,
+   "link_to": "Customer Consent Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Instrument",
+   "link_count": 0,
+   "link_to": "Loaner Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Return Check",
+   "link_count": 0,
+   "link_to": "Loaner Return Check",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-06-14 05:34:08.852070",
+ "modified_by": "dylan@artisanclarinets.com",
  "module": "Intake",
  "name": "Intake",
  "number_cards": [],
@@ -23,7 +73,24 @@
  "public": 1,
  "quick_lists": [],
  "roles": [],
- "sequence_id": 23.0,
- "shortcuts": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Clarinet Intake",
+   "link_to": "Clarinet Intake",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "List",
+   "label": "Customer Consent Form",
+   "link_to": "Customer Consent Form",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
  "title": "Intake"
 }

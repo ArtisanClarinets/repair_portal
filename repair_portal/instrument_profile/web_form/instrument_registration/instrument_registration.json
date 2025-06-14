@@ -6,12 +6,16 @@
   "web_form_name": "instrument_registration",
   "doc_type": "Instrument Profile",
   "is_standard": 1,
+  "published": 1,
+  "login_required": 1,
+  "allow_edit": 0,
   "fields": [
     {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
     {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "acquisition_type", "label": "Acquisition Type", "fieldtype": "Select", "options": "Customer\nInventory", "reqd": 1},
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer"},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "New\nActive\nIn Repair\nRetired", "default": "New"}
+    {"fieldname": "acquisition_type", "label": "Acquisition Type", "fieldtype": "Select", "options": "Customer\nInventory", "default": "Customer", "reqd": 1},
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "New\nActive\nIn Repair\nRetired", "default": "New", "read_only": 1},
+    {"fieldname": "published", "fieldtype": "Check", "default": 1, "hidden": 1}
   ]
 }

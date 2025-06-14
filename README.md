@@ -8,86 +8,51 @@ This Frappe-based ERPNext app is a comprehensive clarinet repair and tracking sy
 ## 📦 Modules & Features
 
 ### 1. Intake
-- **Clarinet Intake** and support Doctypes:
-  - Intake Followup
-  - Intake SLA
-  - Intake Photo
-  - Intake Comm Log
-  - Intake Document
-  - Clarinet Intake Payment
-  - Clarinet Loaner Instrument
-  - Intake Approval
-- Print format: Intake Receipt
-- Workflow: Clarinet Intake Workflow
-- Workspace: Intake Workspace
+- Clarinet Intake, Approvals, SLAs, and Communications
 
-### 2. Repair Logging
-- **Instrument Tracker** system
-  - Tracks from Intake through QA
-  - Reports:
-    - Deposit Balance Aging
-    - Loaner Turnover
-    - Intake by Day
-    - Followup Compliance
-  - Charts:
-    - Overdue Intakes
-    - Intakes Due Soon
-    - Avg Intake-to-Repair Time
+### 2. Instrument Profile ✅ (Newly Rebuilt)
+- Tracks customer & shop-owned instruments
+- Links to Condition Logs, Setup History
+- Web Form for customer self-registration
+- Public Page: Instrument History
+- Dashboard + Chart + Workflow + Validation Logic
 
-### 3. QA, Inspection, Enhancements
-- QA: Final QA Checklist
-- Inspection: Condition Assessment
-- Enhancements: Customer Upgrade Request
+### 3. Repair Logging
+- Instrument Tracker from Intake through QA
+- Aging reports, compliance charts
 
-### 4. Service Planning
-- Includes: Service Plan, Parts Needed, Approval Records
+### 4. QA, Inspection, Enhancements
+- Final QA, Inspection templates, Upgrade Requests
 
-### 5. Setup, Tools, Custom Scripts
-- Instrument Models, Parts Setup
-- Timeline-enhanced customer & item interaction logs
-- Field injection via JSON fixtures
+### 5. Service Planning & Tools
+- Part planning, timeline views, cross-linked logs
 
 ---
 
-## 🧩 Developer Map (Updated)
+## 🧩 Developer Map
 ```
 repair_portal/
 ├── enhancements/
 ├── inspection/
 ├── instrument_setup/
 ├── intake/
-│   ├── doctype/
-│   ├── dashboard_chart/
-│   ├── report/
-│   ├── print_format/
-│   └── workspace/
+├── instrument_profile/        ◀️ rebuilt
 ├── qa/
 ├── repair_logging/
-│   ├── doctype/
-│   ├── report/
-│   └── print_format/
 ├── service_planning/
 ├── tools/
-├── repair_portal/
-│   ├── config/
-│   ├── workflow/
-│   └── workspace/
-└── README.md (you are here)
+└── repair_portal/
 ```
 
 ---
 
 ## 📊 Reports & Dashboards
-- Loaner Turnover
-- Intake by Day
-- Followup Compliance
-- Deposit Balance Aging
-- Dashboard Charts:
-  - Avg Intake to Repair Time
-  - Overdue Intakes
-  - Intakes Due Soon
+- Intake Reports, Repair KPIs
+- Instrument Inventory & Status Distribution
 
----
+## 🌐 Website Pages
+- `/instrument-history/<serial>`
+- `/instrument-registration` (Web Form)
 
 ## 🛠️ Bench Setup
 ```bash
@@ -97,14 +62,5 @@ bench --site erp.artisanclarinets.com migrate
 bench --site erp.artisanclarinets.com clear-cache
 ```
 
-## 🧪 Testing Checklist
-- [x] Intake triggers Instrument Tracker
-- [x] Tracker logs events from each phase
-- [x] Dashboard charts populate correctly
-- [x] Reports display without error
-- [x] Print formats render properly
-
----
-
-## 📎 Status
-✅ **Production Ready & Actively Maintained**
+## ✅ Status
+**Fully Production Ready** (as of 2025-06-14)
