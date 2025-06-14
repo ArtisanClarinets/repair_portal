@@ -9,4 +9,10 @@ import frappe
 from frappe.model.document import Document
 
 class InstrumentProfile(Document):
-    pass
+    """Lightweight controller for Instrument Profile."""
+
+    #: configuration for Frappe website rendering
+    website = frappe._dict(
+        condition_field="name",
+        page_title_field="serial_number",
+    )
