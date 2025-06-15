@@ -1,0 +1,14 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Repair KPIs",
+  "chart_type": "Group",
+  "module": "Repair",
+  "charts": [
+    "Repairs by Status",
+    "Technician Utilization",
+    "SLA Breaches (Daily)",
+    "Revenue vs Parts Cost"
+  ],
+  "is_public": 0,
+  "timespan": "Last 30 days"
+}

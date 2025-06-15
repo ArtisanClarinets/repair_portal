@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Repairs by Status",
+  "chart_type": "Donut",
+  "document_type": "Repair Order",
+  "timespan": "Last 30 days",
+  "type": "Group By",
+  "group_by": "status",
+  "module": "Repair",
+  "is_standard": "Yes"
+}

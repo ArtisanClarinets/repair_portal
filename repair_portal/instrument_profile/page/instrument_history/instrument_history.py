@@ -1,57 +1,24 @@
-# File: repair_portal/instrument_profile/page/instrument_history/instrument_history.py
-# Updated: 2025-06-14
-# Version: 2.0
-# Purpose: Full instrument interaction log renderer via serial number
+# repair_portal/instrument_profile/page/instrument_history/instrument_history.py
+# Updated: 2025-06-15
+# Version: 1.1
+# Purpose: Backend data aggregator for customer instrument portal view
 
 import frappe
 
+def get_context(context):
+    pass  # Required for Frappe Page loading
 
-@frappe.whitelist()
-def get_instrument_history(instrument_id):
-    doc = frappe.get_doc("Instrument Profile", instrument_id)
+def get_instrument_data(instrument_profile):
+    profile = frappe.get_doc("Instrument Profile", instrument_profile)
 
-    serial = doc.serial_number
+    repair_logs = frappe.get_all("Repair Task Log", filters={"instrument_profile": instrument_profile},
+        fields=["date", "status", "notes"], order_by="date desc")
 
-    setups = frappe.get_all(
-        "Clarinet Initial Setup",
-        fields=["setup_date", "technician", "status"],
-        filters={"instrument_profile": instrument_id},
-    )
-    conditions = frappe.get_all(
-        "Instrument Condition Record",
-        fields=["date", "technician", "condition_notes"],
-        filters={"parent": instrument_id},
-    )
-
-    repairs = (
-        frappe.get_all(
-            "Repair Log", fields=["date", "technician", "repair_notes"], filters={"instrument_serial": serial}
-        )
-        if frappe.db.exists("DocType", "Repair Log")
-        else []
-    )
-    inspections = (
-        frappe.get_all(
-            "Inspection Log", fields=["date", "technician", "notes"], filters={"instrument_serial": serial}
-        )
-        if frappe.db.exists("DocType", "Inspection Log")
-        else []
-    )
-    enhancements = (
-        frappe.get_all(
-            "Enhancement Log",
-            fields=["date", "technician", "description"],
-            filters={"instrument_serial": serial},
-        )
-        if frappe.db.exists("DocType", "Enhancement Log")
-        else []
-    )
+    external_logs = frappe.get_all("Customer External Work Log", filters={"instrument_profile": instrument_profile},
+        fields=["service_date", "service_type", "external_shop_name", "service_notes"])
 
     return {
-        "doc": doc,
-        "setups": setups,
-        "conditions": conditions,
-        "repairs": repairs,
-        "inspections": inspections,
-        "enhancements": enhancements,
+        "profile": profile,
+        "repair_logs": repair_logs,
+        "external_logs": external_logs
     }

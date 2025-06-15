@@ -3,14 +3,26 @@
   "name": "Repairs",
   "label": "Repairs",
   "module": "Repair",
-  "icon": "fa fa-tools",
-  "content": {
-    "shortcuts": [
-      {"label": "New Repair Order", "type": "DocType", "name": "Repair Order"},
-      {"label": "Settings", "type": "DocType", "name": "Repair Order Settings"}
-    ],
-    "charts": [],
-    "links": [],
-    "cards": []
-  }
+  "icon": "fa fa-wrench",
+  "content": [
+    {
+      "type": "shortcut",
+      "label": "New Repair Order",
+      "link_to": "Repair Order",
+      "link_type": "DocType",
+      "color": "blue"
+    },
+    {
+      "type": "chart",
+      "label": "Repair KPIs",
+      "chart": "Repair KPIs"
+    },
+    {
+      "type": "list",
+      "label": "Open Repairs",
+      "link_to": "Repair Order",
+      "filters": {"status": ["not in", ["Closed"]]},
+      "order_by": "modified desc"
+    }
+  ]
 }

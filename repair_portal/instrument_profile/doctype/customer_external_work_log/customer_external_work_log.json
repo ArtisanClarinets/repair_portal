@@ -1,0 +1,19 @@
+{
+  "doctype": "DocType",
+  "name": "Customer External Work Log",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "instrument_profile", "fieldtype": "Link", "label": "Instrument Profile", "options": "Instrument Profile", "reqd": 1},
+    {"fieldname": "service_date", "fieldtype": "Date", "label": "Service Date", "reqd": 1},
+    {"fieldname": "service_type", "fieldtype": "Select", "label": "Type of Service", "options": "Setup\nRepair\nInspection\nOther"},
+    {"fieldname": "service_notes", "fieldtype": "Text", "label": "Description / Notes"},
+    {"fieldname": "external_shop_name", "fieldtype": "Data", "label": "Performed By (Shop Name)"},
+    {"fieldname": "receipt_attachment", "fieldtype": "Attach", "label": "Receipt / Proof of Service"}
+  ],
+  "permissions": [
+    {"role": "Customer", "read": 1, "write": 1, "create": 1, "submit": 0},
+    {"role": "Technician", "read": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1}
+  ]
+}

@@ -27,7 +27,7 @@
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
     {"role": "Front Desk User", "create": 1, "read": 1, "write": 1, "submit": 1},
     {"role": "Technician", "read": 1, "write": 1},
-    {"role": "QA User", "read": 1, "submit": 1},
+    {"role": "QA User", "read": 1, "write": 1, "submit": 1},
     {"role": "Accounts", "read": 1, "cancel": 1},
     {"role": "Customer", "read": 1, "if_owner": 1}
   ],

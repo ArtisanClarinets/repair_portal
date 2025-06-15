@@ -1,0 +1,49 @@
+<!-- File: repair_portal/www/repair_status.html -->
+<!-- Version: 1.0 | Date: 2025-06-15 -->
+<!-- Purpose: Customer portal to view repair progress, photos, invoice, and give feedback -->
+
+{% extends "templates/web.html" %}
+{% block title %}Repair Status{% endblock %}
+
+{% block page_content %}
+<h1>Repair Status</h1>
+
+<div class="repair-status-tracker">
+  <h4>Progress</h4>
+  <ol>
+    <li class="{{ 'complete' if doc.status in ['Inspection','Planning','In Progress','QA','Ready for Pickup','Closed'] else '' }}">Intake</li>
+    <li class="{{ 'complete' if doc.status in ['Planning','In Progress','QA','Ready for Pickup','Closed'] else '' }}">Inspection</li>
+    <li class="{{ 'complete' if doc.status in ['In Progress','QA','Ready for Pickup','Closed'] else '' }}">In Progress</li>
+    <li class="{{ 'complete' if doc.status in ['QA','Ready for Pickup','Closed'] else '' }}">QA</li>
+    <li class="{{ 'complete' if doc.status in ['Ready for Pickup','Closed'] else '' }}">Pickup</li>
+  </ol>
+</div>
+
+{% if doc.before_photo or doc.after_photo %}
+  <h4>Before / After</h4>
+  <div class="photo-grid">
+    {% if doc.before_photo %}<img src="{{ doc.before_photo }}" alt="Before Repair">{% endif %}
+    {% if doc.after_photo %}<img src="{{ doc.after_photo }}" alt="After Repair">{% endif %}
+  </div>
+{% endif %}
+
+{% if doc.parts_pending %}
+  <p class="alert alert-warning">Some parts are still pending. Your repair may be delayed.</p>
+{% endif %}
+
+<h4>Invoice Summary</h4>
+<p>Total Parts Cost: {{ doc.total_parts_cost }}</p>
+<p>Total Labor Hours: {{ doc.total_labor_hours }}</p>
+<p><a href="/print/Repair Order/{{ doc.name }}?format=Standard" class="btn btn-primary">Download Certificate</a></p>
+
+<h4>Feedback</h4>
+<form method="post">
+  <label for="rating">Rate your repair:</label>
+  <select name="rating" id="rating">
+    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+  </select>
+  <textarea name="comment" placeholder="Leave a comment..."></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+/* instrument_history.css - Enterprise-grade styling */
+
+.page-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+h3, h4 {
+  font-weight: 600;
+  color: #2a2a2a;
+  border-bottom: 2px solid #e2e2e2;
+  padding-bottom: 8px;
+  margin-top: 20px;
+}
+
+strong {
+  color: #333;
+}
+
+#service-log div, #external-logs div {
+  background: #f8f8f8;
+  border-left: 4px solid #2b7bd3;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+#service-log div:hover, #external-logs div:hover {
+  background: #eef3fc;
+}
+
+.btn-primary {
+  background-color: #2b7bd3;
+  border-color: #2b7bd3;
+  font-weight: 500;
+  padding: 10px 18px;
+  font-size: 14px;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.row > div {
+  padding: 10px 0;
+}
