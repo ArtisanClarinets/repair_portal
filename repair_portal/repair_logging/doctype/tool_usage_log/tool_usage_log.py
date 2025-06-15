@@ -7,7 +7,6 @@ Last Updated: 2025-06-09
 Tracks technician tool usage during repair tasks. Links tools to users and adds usage notes.
 """
 
-import frappe
 from frappe.model.document import Document
 
 

@@ -3,7 +3,6 @@
 # Version: 1.0
 # Purpose: Controller for Clarinet Repair Log doctype.
 
-import frappe
 from frappe.model.document import Document
 
 

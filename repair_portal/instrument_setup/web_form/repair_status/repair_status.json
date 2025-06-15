@@ -24,5 +24,7 @@
 			"fieldtype": "Text"
 		}
 	],
-	"filters": [["customer", "=", "__user"]]
+	"filters": {
+		"customer": "__user"
+	}
 }

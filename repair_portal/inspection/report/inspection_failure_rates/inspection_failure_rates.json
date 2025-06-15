@@ -9,7 +9,7 @@
     {"fieldname": "total", "label": "Total Inspections", "fieldtype": "Int", "width": 150},
     {"fieldname": "fail_rate", "label": "Failure Rate %", "fieldtype": "Percent", "width": 130}
   ],
-  "filters": [],
+  "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}],
   "ref_doctype": "Clarinet Condition Assessment",
   "report_name": "Inspection Failure Rates",
   "report_type": "Script Report",

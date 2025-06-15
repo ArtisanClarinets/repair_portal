@@ -8,34 +8,34 @@
 #   - Compliant with ERPNext v15 / Frappe v15 structure
 ###
 
-import os
 import json
+import os
 
-APP_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-WORKSPACE_ROOT = os.path.join(APP_ROOT, "workspace")
-MODULES_TXT = os.path.join(APP_ROOT, "modules.txt")
+APP_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+WORKSPACE_ROOT = os.path.join(APP_ROOT, 'workspace')
+MODULES_TXT = os.path.join(APP_ROOT, 'modules.txt')
 
 
 def normalize_module_name(name):
-    return name.lower().replace(" ", "_")
+    return name.lower().replace(' ', '_')
 
 
 def get_module_names():
-    with open(MODULES_TXT, "r") as f:
+    with open(MODULES_TXT) as f:
         return [line.strip() for line in f.readlines() if line.strip()]
 
 
 def generate_workspace_json(label):
     return {
-        "label": label,
-        "items": [],
-        "charts": [],
-        "shortcuts": [],
-        "onboarding": {},
-        "links": [],
-        "translations": {},
-        "creation": None,
-        "modified": None,
+        'label': label,
+        'items': [],
+        'charts': [],
+        'shortcuts': [],
+        'onboarding': {},
+        'links': [],
+        'translations': {},
+        'creation': None,
+        'modified': None,
     }
 
 
@@ -52,16 +52,18 @@ def full_workspace_generate():
 
         workspace_dir = os.path.join(WORKSPACE_ROOT, folder_name)
         os.makedirs(workspace_dir, exist_ok=True)
-        file_path = os.path.join(workspace_dir, f"{folder_name}.json")
+        file_path = os.path.join(workspace_dir, f'{folder_name}.json')
 
         try:
             content = generate_workspace_json(module)
-            with open(file_path, "w") as f:
+            with open(file_path, 'w') as f:
                 json.dump(content, f, indent=4)
             updated.append(module)
         except Exception as e:
             failed.append((module, str(e)))
 
     print(
-        json.dumps({"created": created, "updated": updated, "skipped": skipped, "failed": failed}, indent=2)
+        json.dumps(
+            {'created': created, 'updated': updated, 'skipped': skipped, 'failed': failed}, indent=2
+        )
     )

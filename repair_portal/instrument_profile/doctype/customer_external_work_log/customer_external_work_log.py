@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Controller for customer-submitted repair history logs
 
-import frappe
 from frappe.model.document import Document
+
 
 class CustomerExternalWorkLog(Document):
     pass

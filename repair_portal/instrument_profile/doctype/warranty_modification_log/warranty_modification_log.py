@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Backend controller for warranty change logs
 
-import frappe
 from frappe.model.document import Document
+
 
 class WarrantyModificationLog(Document):
     pass

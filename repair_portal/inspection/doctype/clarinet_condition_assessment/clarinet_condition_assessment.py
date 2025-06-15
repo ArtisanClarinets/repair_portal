@@ -10,27 +10,27 @@ from frappe.model.document import Document
 class ClarinetConditionAssessment(Document):
     def before_insert(self):
         if self.inspection_template:
-            template = frappe.get_doc("Inspection Template", self.inspection_template)
+            template = frappe.get_doc('Inspection Template', self.inspection_template)
             for section in template.sections:
-                sec_doc = frappe.new_doc("Inspection Checklist Section")
+                sec_doc = frappe.new_doc('Inspection Checklist Section')
                 sec_doc.section_title = section.section_title
                 for item in section.items:
-                    sec_doc.append("items", {"item_description": item.item_description})
-                self.append("checklist_sections", sec_doc)
+                    sec_doc.append('items', {'item_description': item.item_description})
+                self.append('checklist_sections', sec_doc)
 
     def on_submit(self):
         if self.serial_number:
             frappe.db.set_value(
-                "Instrument Tracker",
-                {"serial_number": self.serial_number},
-                "last_inspection",
+                'Instrument Tracker',
+                {'serial_number': self.serial_number},
+                'last_inspection',
                 frappe.utils.nowdate(),
             )
-        if self.instrument_condition == "Good":
-            setup = frappe.new_doc("Clarinet Initial Setup")
+        if self.instrument_condition == 'Good':
+            setup = frappe.new_doc('Clarinet Initial Setup')
             setup.customer = self.customer
             setup.insert()
         else:
-            repair = frappe.new_doc("Repair Log")
+            repair = frappe.new_doc('Repair Log')
             repair.customer = self.customer
             repair.insert()

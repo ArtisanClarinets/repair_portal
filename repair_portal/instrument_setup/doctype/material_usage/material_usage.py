@@ -3,7 +3,6 @@
 # Version: 1.1
 # Purpose: Child table to record quantity and type of materials used during instrument setup
 
-import frappe
 from frappe.model.document import Document
 
 

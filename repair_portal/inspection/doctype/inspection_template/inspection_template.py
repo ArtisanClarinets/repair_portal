@@ -3,7 +3,6 @@
 # Version: 1.0
 # Purpose: Controller for inspection template logic
 
-import frappe
 from frappe.model.document import Document
 
 

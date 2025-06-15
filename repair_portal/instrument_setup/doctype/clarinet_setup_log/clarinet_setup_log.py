@@ -3,7 +3,6 @@
 # Version: 1.1
 # Purpose: Controller for Clarinet Setup Log; supports documentation and auditing setup actions
 
-import frappe
 from frappe.model.document import Document
 
 

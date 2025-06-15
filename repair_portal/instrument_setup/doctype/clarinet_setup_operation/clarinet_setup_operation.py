@@ -3,7 +3,6 @@
 # Version: 1.1
 # Purpose: Clarinet Setup Operation (Child Table) — tracks manual service tasks by section and type
 
-import frappe
 from frappe.model.document import Document
 
 

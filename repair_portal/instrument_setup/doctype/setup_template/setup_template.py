@@ -3,7 +3,6 @@
 # Version: 1.1
 # Purpose: Setup Template for reusable checklists per clarinet model in service workflows
 
-import frappe
 from frappe.model.document import Document
 
 

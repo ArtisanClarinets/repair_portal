@@ -3,7 +3,6 @@
 # Version: 1.1
 # Purpose: Controller for Clarinet Inspection; placeholder for future logic
 
-import frappe
 from frappe.model.document import Document
 
 

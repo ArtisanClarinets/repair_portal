@@ -3,7 +3,6 @@
 # Version: 1.1
 # Purpose: Controller for Final QA Checklist Item Doctype
 
-import frappe
 from frappe.model.document import Document
 
 

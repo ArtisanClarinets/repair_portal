@@ -7,8 +7,8 @@ import frappe
 
 def execute(filters=None):
     columns = [
-        {"fieldname": "bay", "label": "Repair Bay", "fieldtype": "Data", "width": 160},
-        {"fieldname": "task_count", "label": "Tasks Scheduled", "fieldtype": "Int", "width": 160},
+        {'fieldname': 'bay', 'label': 'Repair Bay', 'fieldtype': 'Data', 'width': 160},
+        {'fieldname': 'task_count', 'label': 'Tasks Scheduled', 'fieldtype': 'Int', 'width': 160},
     ]
 
     data = frappe.db.sql(

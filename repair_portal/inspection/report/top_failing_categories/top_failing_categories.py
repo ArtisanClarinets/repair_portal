@@ -21,8 +21,8 @@ def execute(filters=None):
     )
 
     columns = [
-        {"label": "Finding Type", "fieldname": "category", "fieldtype": "Data", "width": 300},
-        {"label": "Occurrences", "fieldname": "fail_count", "fieldtype": "Int", "width": 120},
+        {'label': 'Finding Type', 'fieldname': 'category', 'fieldtype': 'Data', 'width': 300},
+        {'label': 'Occurrences', 'fieldname': 'fail_count', 'fieldtype': 'Int', 'width': 120},
     ]
 
     return columns, data

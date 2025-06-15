@@ -3,33 +3,33 @@
 # Version: 1.0
 # Purpose: Unit test for Instrument Profile Doctype
 
-import frappe
 import unittest
+
+import frappe
 
 
 class TestInstrumentProfile(unittest.TestCase):
-
     def test_instrument_profile_creation(self):
         doc = frappe.get_doc(
             {
-                "doctype": "Instrument Profile",
-                "instrument_type": "Clarinet",
-                "serial_number": "TEST123",
-                "acquisition_type": "Inventory",
-                "status": "Active",
+                'doctype': 'Instrument Profile',
+                'instrument_type': 'Clarinet',
+                'serial_number': 'TEST123',
+                'acquisition_type': 'Inventory',
+                'status': 'Active',
             }
         )
         doc.insert()
-        self.assertEqual(doc.serial_number, "TEST123")
+        self.assertEqual(doc.serial_number, 'TEST123')
 
     def test_customer_required_for_customer_type(self):
         doc = frappe.get_doc(
             {
-                "doctype": "Instrument Profile",
-                "instrument_type": "Clarinet",
-                "serial_number": "REQ-CUST-001",
-                "acquisition_type": "Customer",
-                "status": "Active",
+                'doctype': 'Instrument Profile',
+                'instrument_type': 'Clarinet',
+                'serial_number': 'REQ-CUST-001',
+                'acquisition_type': 'Customer',
+                'status': 'Active',
             }
         )
         with self.assertRaises(frappe.ValidationError):

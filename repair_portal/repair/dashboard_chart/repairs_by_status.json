@@ -1,5 +1,6 @@
 {
   "doctype": "Dashboard Chart",
+  "name": "Repairs by Status",
   "chart_name": "Repairs by Status",
   "chart_type": "Donut",
   "document_type": "Repair Order",

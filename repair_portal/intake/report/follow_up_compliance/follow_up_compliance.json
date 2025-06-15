@@ -9,5 +9,5 @@
     {"fieldname": "follow_up_due_date", "label": "Follow-Up Due", "fieldtype": "Date", "width": 150},
     {"fieldname": "follow_up_completed", "label": "Completed", "fieldtype": "Check", "width": 100}
   ],
-  "filters": []
+  "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}]
 }

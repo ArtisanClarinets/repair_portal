@@ -1,0 +1,12 @@
+{
+  "doctype": "Dashboard Chart Group",
+  "name": "Repair KPIs",
+  "charts": [
+    {"chart": "Repairs by Status"},
+    {"chart": "Technician Utilization"},
+    {"chart": "SLA Breaches (Daily)"},
+    {"chart": "Revenue vs Parts Cost"}
+  ],
+  "module": "Repair",
+  "is_standard": "Yes"
+}

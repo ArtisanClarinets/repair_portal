@@ -7,7 +7,6 @@ Last Updated: 2025-06-09
 Logs individual interaction entries tied to an instrument for historical tracking. Typically used as a child table within Instrument Tracker.
 """
 
-import frappe
 from frappe.model.document import Document
 
 

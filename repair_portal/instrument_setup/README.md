@@ -1,61 +1,23 @@
-# Instrument Setup Module
+# Instrument Setup Module - MRW Artisan Repair Portal
 
-## 🧰 Purpose
-Defines setup steps, inspection checklists, technician assignments, material tracking, and quality validation for new or overhauled clarinets.
+## Purpose
+Ensure instruments undergo documented setup before entering repair or delivery phase.
 
-## 📁 Structure
-```
-instrument_setup/
-├── config/desktop.py
-├── dashboard/repairs_dashboard.json
-├── dashboard_chart/
-│   ├── repairs_by_status.json
-│   └── common_inspection_findings.json
-├── doctype/
-│   ├── clarinet_initial_setup/ (with auto-assignment, stock check, material request logic)
-│   ├── clarinet_inspection/
-│   ├── clarinet_setup_log/
-│   ├── clarinet_setup_operation/
-│   ├── inspection_finding/
-│   ├── material_usage/
-│   ├── setup_checklist_item/
-│   └── setup_template/
-├── report/
-│   ├── turnaround_time_analysis/
-│   ├── technician_performance/
-│   └── parts_consumption/
-├── test/
-│   ├── test_clarinet_initial_setup.py
-│   └── test_automation_and_kpi.py
-├── web_form/repair_status/
-├── workspace/instrument_setup.json
-└── README.md (you are here)
-```
+## Key Features
+- 📋 `Clarinet Initial Setup` auto-generated post intake
+- 🔍 `Clarinet Inspection`, `Inspection Finding`, and `Setup Log` log setup tasks
+- 🧰 `Material Usage` for all parts and consumables
+- 🧾 Reports: technician performance, parts usage, turnaround
+- 📊 Dashboard: Common findings, repairs by status
+- 🖨️ Printable setup summaries and branded PDFs
 
-## 📊 KPIs & Dashboards
-- **Dashboard Charts**:
-  - Repairs by Status
-  - Common Inspection Findings
-- **Metrics & Automation**:
-  - Technician Error Rate
-  - Checklist Completion Rate
-  - Setup Time per Model
+## Automation
+- Setup created after intake submission
+- Material usage totals pushed to instrument profile
+- Setup logs attached to repair orders
 
-## ⚙️ Automations
-- Auto-assigns available technician
-- Validates stock levels from `Bin`
-- Auto-creates `Material Request` upon submit
-- Notifies if stock insufficient
+## Web Tools
+- `/repair-status`: customer portal for tracking progress
+- Workspace: `/workspace/repairs/repairs.json` with status cards
 
-## 🧪 Testing Coverage
-- Technician assignment logic
-- Checklist KPI count
-- Material flow simulation via `test_automation_and_kpi.py`
-
-## 🌐 Client-Side Enhancements
-- Color-coded statuses
-- Custom dashboard messages
-- Setup timer button on UI
-
-## ✅ Status
-Fully production-ready, validated, tested, integrated with Inventory, enhanced for technician workflows and automation.
+_Last Updated: 2025-06-15_

@@ -2,19 +2,16 @@
   "doctype": "Web Form",
   "name": "clarinet_intake_request",
   "module": "Intake",
-  "is_standard": 1,
-  "title": "Clarinet Intake Request",
-  "doctype_name": "Clarinet Intake",
+  "title": "Submit Clarinet Intake Request",
+  "web_form_fields": [
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
+    {"fieldname": "instrument_profile", "label": "Instrument Profile", "fieldtype": "Link", "options": "Instrument Profile", "reqd": 1},
+    {"fieldname": "reason_for_service", "label": "Reason for Service", "fieldtype": "Small Text"},
+    {"fieldname": "external_docs", "label": "Attach External Docs", "fieldtype": "Attach", "reqd": 0}
+  ],
   "login_required": 1,
-  "allow_edit": 0,
-  "fields": [
-    {"fieldname": "customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
-    {"fieldname": "serial_number", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "item_code", "fieldtype": "Link", "options": "Item", "reqd": 1},
-    {"fieldname": "received_date", "fieldtype": "Date", "reqd": 1},
-    {"fieldname": "case_condition", "fieldtype": "Select", "options": "Good\nFair\nPoor"},
-    {"fieldname": "mouthpiece_included", "fieldtype": "Check"},
-    {"fieldname": "customer_notes", "fieldtype": "Text"},
-    {"fieldname": "initial_photos", "fieldtype": "Attach Image"}
-  ]
+  "allow_multiple": 1,
+  "route": "/submit-intake",
+  "success_message": "Your intake has been submitted.",
+  "success_url": "/status-intake"
 }

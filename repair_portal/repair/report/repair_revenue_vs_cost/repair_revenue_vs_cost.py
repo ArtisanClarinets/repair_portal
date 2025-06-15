@@ -4,17 +4,18 @@
 # Purpose: Script Report showing repair revenue vs cost
 
 import frappe
-from frappe.utils import flt
+
 
 def execute(filters=None):
     conditions = []
-    if filters.get("from_date"):
+    if filters.get('from_date'):
         conditions.append(f"ro.creation >= '{filters['from_date']}'")
-    if filters.get("to_date"):
+    if filters.get('to_date'):
         conditions.append(f"ro.creation <= '{filters['to_date']}'")
-    where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
+    where_clause = f'WHERE {" AND ".join(conditions)}' if conditions else ''
 
-    data = frappe.db.sql(f"""
+    data = frappe.db.sql(
+        f"""
         SELECT
             ro.name AS repair_order,
             ro.total_parts_cost,
@@ -22,13 +23,20 @@ def execute(filters=None):
             (ro.total_parts_cost + ro.total_labor_hours * 50) AS total_cost
         FROM `tabRepair Order` ro
         {where_clause}
-    """, as_dict=True)
+    """,
+        as_dict=True,
+    )
 
     columns = [
-        {"label": "Repair Order", "fieldname": "repair_order", "fieldtype": "Link", "options": "Repair Order"},
-        {"label": "Parts Cost", "fieldname": "total_parts_cost", "fieldtype": "Currency"},
-        {"label": "Labor Value ($50/hr)", "fieldname": "labor_value", "fieldtype": "Currency"},
-        {"label": "Total Cost", "fieldname": "total_cost", "fieldtype": "Currency"}
+        {
+            'label': 'Repair Order',
+            'fieldname': 'repair_order',
+            'fieldtype': 'Link',
+            'options': 'Repair Order',
+        },
+        {'label': 'Parts Cost', 'fieldname': 'total_parts_cost', 'fieldtype': 'Currency'},
+        {'label': 'Labor Value ($50/hr)', 'fieldname': 'labor_value', 'fieldtype': 'Currency'},
+        {'label': 'Total Cost', 'fieldname': 'total_cost', 'fieldtype': 'Currency'},
     ]
 
     return columns, data

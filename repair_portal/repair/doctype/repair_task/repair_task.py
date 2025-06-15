@@ -6,7 +6,8 @@
 import frappe
 from frappe.model.document import Document
 
+
 class RepairTask(Document):
     def validate(self):
         if not self.task_type:
-            frappe.throw("Task type is required for each Repair Task.")
+            frappe.throw('Task type is required for each Repair Task.')

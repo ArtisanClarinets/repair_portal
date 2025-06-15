@@ -3,7 +3,6 @@
 # Version: 1.0
 # Purpose: Placeholder for Inspection Checklist Item controller
 
-import frappe
 from frappe.model.document import Document
 
 

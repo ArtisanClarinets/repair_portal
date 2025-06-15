@@ -18,17 +18,17 @@ class InstrumentTracker(Document):
             return
         # Aggregate Service Logs
         service_logs = frappe.get_all(
-            "Service Log",
-            filters={"serial_number": serial},
-            fields=["name", "date", "service_type", "description", "performed_by", "notes"],
+            'Service Log',
+            filters={'serial_number': serial},
+            fields=['name', 'date', 'service_type', 'description', 'performed_by', 'notes'],
         )
         # Aggregate Inspection Logs
         inspection_logs = frappe.get_all(
-            "Clarinet Inspection",
-            filters={"serial_number": serial},
-            fields=["name", "inspection_date", "inspected_by", "overall_condition", "notes"],
+            'Clarinet Inspection',
+            filters={'serial_number': serial},
+            fields=['name', 'inspection_date', 'inspected_by', 'overall_condition', 'notes'],
         )
         # Additional related records can be fetched here
         # Add aggregated data to __onload for JS access
-        self.set_onload("service_logs", service_logs)
-        self.set_onload("inspection_logs", inspection_logs)
+        self.set_onload('service_logs', service_logs)
+        self.set_onload('inspection_logs', inspection_logs)

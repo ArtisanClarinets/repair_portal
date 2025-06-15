@@ -4,7 +4,6 @@
 # Purpose: Controller for Player Profile Doctype
 # Provides musician/owner info for linking to Instrument Profile.
 
-import frappe
 from frappe.model.document import Document
 
 

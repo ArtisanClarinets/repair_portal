@@ -3,7 +3,6 @@
 # Version: 1.0
 # Purpose: Child table to log instrument condition evaluations
 
-import frappe
 from frappe.model.document import Document
 
 

@@ -10,4 +10,4 @@ from frappe.model.document import Document
 class Appointment(Document):
     def validate(self):
         if self.confirmed and not self.appointment_date:
-            frappe.throw("Confirmed appointments must have an appointment date.")
+            frappe.throw('Confirmed appointments must have an appointment date.')

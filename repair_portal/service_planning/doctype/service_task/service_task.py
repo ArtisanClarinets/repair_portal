@@ -6,7 +6,6 @@ Last Updated: 2025-06-08
 Defines individual actions or subtasks within a broader Service Plan.
 """
 
-import frappe
 from frappe.model.document import Document
 
 

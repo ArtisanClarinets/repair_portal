@@ -1,5 +1,6 @@
 {
   "doctype": "Dashboard Chart",
+  "name": "Warranty Distribution",
   "chart_name": "Warranty Distribution",
   "chart_type": "Donut",
   "document_type": "Instrument Profile",

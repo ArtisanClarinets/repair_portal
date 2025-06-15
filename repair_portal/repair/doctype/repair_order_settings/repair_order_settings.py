@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Controller for Repair Order Settings (Single DocType)
 
-import frappe
 from frappe.model.document import Document
+
 
 class RepairOrderSettings(Document):
     pass

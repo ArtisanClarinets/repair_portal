@@ -4,5 +4,5 @@
   "ref_doctype": "Service Task",
   "report_type": "Script Report",
   "is_standard": "Yes",
-  "filters": []
+  "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}]
 }

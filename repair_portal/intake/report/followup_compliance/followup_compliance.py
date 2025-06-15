@@ -7,16 +7,21 @@ import frappe
 
 
 def execute(filters=None):
-    data = frappe.db.get_all("Intake Followup", fields=["customer", "status", "followup_date"])
+    data = frappe.db.get_all('Intake Followup', fields=['customer', 'status', 'followup_date'])
     columns = [
         {
-            "label": "Customer",
-            "fieldname": "customer",
-            "fieldtype": "Link",
-            "options": "Customer",
-            "width": 180,
+            'label': 'Customer',
+            'fieldname': 'customer',
+            'fieldtype': 'Link',
+            'options': 'Customer',
+            'width': 180,
         },
-        {"label": "Status", "fieldname": "status", "fieldtype": "Data", "width": 100},
-        {"label": "Follow-up Date", "fieldname": "followup_date", "fieldtype": "Date", "width": 120},
+        {'label': 'Status', 'fieldname': 'status', 'fieldtype': 'Data', 'width': 100},
+        {
+            'label': 'Follow-up Date',
+            'fieldname': 'followup_date',
+            'fieldtype': 'Date',
+            'width': 120,
+        },
     ]
     return columns, data

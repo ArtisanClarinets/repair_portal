@@ -3,7 +3,6 @@
 # Version: 1.1
 # Purpose: Setup Checklist Item for technician task tracking in Clarinet Initial Setup
 
-import frappe
 from frappe.model.document import Document
 
 
