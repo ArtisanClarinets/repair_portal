@@ -7,24 +7,22 @@ import os
 import json
 import sys
 
-REQUIRED_TOP_LEVEL = ['doctype', 'name', 'label', 'module', 'type', 'public']
-BEST_PRACTICE_WARNINGS = {
-    'content': "❌ Deprecated: 'content' field is no longer used in Frappe v15."
-}
+REQUIRED_TOP_LEVEL = ["doctype", "name", "label", "module", "type", "public"]
+BEST_PRACTICE_WARNINGS = {"content": "❌ Deprecated: 'content' field is no longer used in Frappe v15."}
 
-OPTIONAL_SECTIONS = ['sections', 'cards', 'charts', 'onboarding', 'filters']
+OPTIONAL_SECTIONS = ["sections", "cards", "charts", "onboarding", "filters"]
 
 
 def lint_workspace(file_path):
     problems = []
     try:
-        with open(file_path, encoding='utf-8') as f:
+        with open(file_path, encoding="utf-8") as f:
             doc = json.load(f)
 
         # Check required fields
         for field in REQUIRED_TOP_LEVEL:
             if field not in doc:
-                problems.append(f'❗ Missing required field: {field}')
+                problems.append(f"❗ Missing required field: {field}")
 
         # Check deprecated/bad practice
         for field in BEST_PRACTICE_WARNINGS:
@@ -32,7 +30,7 @@ def lint_workspace(file_path):
                 problems.append(BEST_PRACTICE_WARNINGS[field])
 
         # Check layout completeness
-        if not doc.get('sections') and not doc.get('cards'):
+        if not doc.get("sections") and not doc.get("cards"):
             problems.append("⚠️ Workspace has no 'sections' or 'cards' defined.")
 
         # Optional section tips
@@ -41,7 +39,7 @@ def lint_workspace(file_path):
                 problems.append(f"ℹ️ Consider adding optional '{field}' field for completeness.")
 
     except Exception as e:
-        problems.append(f'❌ Invalid JSON or file error: {e}')
+        problems.append(f"❌ Invalid JSON or file error: {e}")
 
     return problems
 
@@ -50,7 +48,7 @@ def lint_all(base_dir):
     summary = {}
     for root, dirs, files in os.walk(base_dir):
         for file in files:
-            if file.endswith('.json') and 'workspace' in root:
+            if file.endswith(".json") and "workspace" in root:
                 full_path = os.path.join(root, file)
                 issues = lint_workspace(full_path)
                 if issues:
@@ -58,16 +56,16 @@ def lint_all(base_dir):
     return summary
 
 
-if __name__ == '__main__':
-    base_dir = sys.argv[1] if len(sys.argv) > 1 else '../repair_portal'
-    print(f'🔍 Linting workspace JSONs in: {base_dir}')
+if __name__ == "__main__":
+    base_dir = sys.argv[1] if len(sys.argv) > 1 else "../repair_portal"
+    print(f"🔍 Linting workspace JSONs in: {base_dir}")
     result = lint_all(base_dir)
 
     if result:
         for file, issues in result.items():
-            print(f'\n📄 {file}:')
+            print(f"\n📄 {file}:")
             for issue in issues:
-                print(f' - {issue}')
-        print('\n❗ Linting completed with issues.')
+                print(f" - {issue}")
+        print("\n❗ Linting completed with issues.")
     else:
-        print('✅ All workspace JSONs passed lint check.')
+        print("✅ All workspace JSONs passed lint check.")

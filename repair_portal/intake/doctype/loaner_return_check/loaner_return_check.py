@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class LoanerReturnCheck(Document):
     def validate(self):
         if self.damage_found and not self.condition_notes:

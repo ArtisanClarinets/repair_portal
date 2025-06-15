@@ -5,10 +5,12 @@
 		"lint:backend": "ruff .",
 		"format:backend": "ruff format ."
 	},
-	"dependencies": {},
+	"dependencies": {
+		"ruff": "^1.5.4"
+	},
 	"devDependencies": {
 		"less": "^4.3.0",
 		"stylus": "^0.64.0",
-		"vue-template-compiler": "^2.7.16"
+		"vue-template-compiler": "^0.1.0"
 	}
 }

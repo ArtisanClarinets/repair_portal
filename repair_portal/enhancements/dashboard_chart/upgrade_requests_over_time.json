@@ -1,6 +1,8 @@
 {
   "doctype": "Dashboard Chart",
   "chart_name": "Upgrade Requests Over Time",
+  "label": "Upgrade Requests Over Time",
+  "name": "upgrade_requests_over_time",
   "chart_type": "Line",
   "document_type": "Customer Upgrade Request",
   "based_on": "creation",

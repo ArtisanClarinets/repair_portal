@@ -5,15 +5,15 @@ from frappe.utils import flt
 def execute(filters=None):
     columns = [
         {
-            'label': 'Technician',
-            'fieldname': 'technician',
-            'fieldtype': 'Link',
-            'options': 'User',
-            'width': 180,
+            "label": "Technician",
+            "fieldname": "technician",
+            "fieldtype": "Link",
+            "options": "User",
+            "width": 180,
         },
-        {'label': 'Total Setups', 'fieldname': 'total', 'fieldtype': 'Int'},
-        {'label': 'Pass Rate (%)', 'fieldname': 'pass_rate', 'fieldtype': 'Percent'},
-        {'label': 'Average Hours', 'fieldname': 'avg_hours', 'fieldtype': 'Float'},
+        {"label": "Total Setups", "fieldname": "total", "fieldtype": "Int"},
+        {"label": "Pass Rate (%)", "fieldname": "pass_rate", "fieldtype": "Percent"},
+        {"label": "Average Hours", "fieldname": "avg_hours", "fieldtype": "Float"},
     ]
 
     data = frappe.db.sql(

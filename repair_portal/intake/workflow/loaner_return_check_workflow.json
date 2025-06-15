@@ -1,6 +1,8 @@
 {
   "doctype": "Workflow",
   "workflow_name": "Loaner Return Check Workflow",
+  "label": "Loaner Return Check Workflow",
+  "name": "loaner_return_check_workflow",
   "document_type": "Loaner Return Check",
   "is_active": 1,
   "workflow_state_field": "workflow_state",

@@ -1,6 +1,7 @@
 {
   "doctype": "DocType",
-  "name": "Final QA Checklist",
+  "name": "final_qa_checklist",
+  "label": "Final QA Checklist",
   "module": "QA",
   "custom": 0,
   "fields": [

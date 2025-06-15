@@ -11,17 +11,17 @@
 import os
 import json
 
-APP_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-WORKSPACE_ROOT = os.path.join(APP_ROOT, 'workspace')
-MODULES_TXT = os.path.join(APP_ROOT, 'modules.txt')
+APP_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+WORKSPACE_ROOT = os.path.join(APP_ROOT, "workspace")
+MODULES_TXT = os.path.join(APP_ROOT, "modules.txt")
 
 
 def normalize_module_name(name):
-    return name.lower().replace(' ', '_')
+    return name.lower().replace(" ", "_")
 
 
 def get_module_names():
-    with open(MODULES_TXT, 'r') as f:
+    with open(MODULES_TXT, "r") as f:
         return [line.strip() for line in f.readlines() if line.strip()]
 
 
@@ -35,7 +35,7 @@ def generate_workspace_json(label):
         "links": [],
         "translations": {},
         "creation": None,
-        "modified": None
+        "modified": None,
     }
 
 
@@ -56,10 +56,12 @@ def full_workspace_generate():
 
         try:
             content = generate_workspace_json(module)
-            with open(file_path, 'w') as f:
+            with open(file_path, "w") as f:
                 json.dump(content, f, indent=4)
             updated.append(module)
         except Exception as e:
             failed.append((module, str(e)))
 
-    print(json.dumps({"created": created, "updated": updated, "skipped": skipped, "failed": failed}, indent=2))
+    print(
+        json.dumps({"created": created, "updated": updated, "skipped": skipped, "failed": failed}, indent=2)
+    )

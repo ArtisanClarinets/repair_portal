@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class Tool(Document):
     def validate(self):
         if self.requires_calibration and not self.next_due:

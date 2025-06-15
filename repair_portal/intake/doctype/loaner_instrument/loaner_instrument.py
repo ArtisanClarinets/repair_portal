@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class LoanerInstrument(Document):
     def validate(self):
         if self.returned and not self.expected_return_date:

@@ -1,0 +1,36 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Order",
+  "module": "Repair",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "title_field": "name",
+  "fields": [
+    {"fieldname": "intake", "label": "Intake", "fieldtype": "Link", "options": "Clarinet Intake", "reqd": 1},
+    {"fieldname": "instrument_profile", "label": "Instrument Profile", "fieldtype": "Link", "options": "Instrument Profile", "reqd": 1},
+    {"fieldname": "service_plan", "label": "Service Plan", "fieldtype": "Link", "options": "Service Plan"},
+    {"fieldname": "scheduled_start", "label": "Scheduled Start", "fieldtype": "Date"},
+    {"fieldname": "promised_date", "label": "Promised Date", "fieldtype": "Date"},
+    {"fieldname": "tech", "label": "Technician", "fieldtype": "Link", "options": "User"},
+    {"fieldname": "priority", "label": "Priority", "fieldtype": "Select", "options": "\nLow\nMedium\nHigh"},
+    {"fieldname": "total_parts_cost", "label": "Total Parts Cost", "fieldtype": "Currency"},
+    {"fieldname": "total_labor_hours", "label": "Total Labor Hours", "fieldtype": "Float"},
+    {"fieldname": "repair_tasks", "label": "Repair Tasks", "fieldtype": "Table", "options": "Repair Task"},
+    {"fieldname": "setup_logs", "label": "Setup Logs", "fieldtype": "Link", "options": "Clarinet Setup Log"},
+    {"fieldname": "service_logs", "label": "Service Logs", "fieldtype": "Link", "options": "Service Log"},
+    {"fieldname": "qa_checklist", "label": "QA Checklist", "fieldtype": "Link", "options": "Final QA Checklist"},
+    {"fieldname": "material_usage", "label": "Material Usage", "fieldtype": "Link", "options": "Material Usage"},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nDraft\nInspection\nPlanning\nIn Progress\nQA\nReady for Pickup\nClosed", "default": "Draft"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
+    {"role": "Front Desk User", "create": 1, "read": 1, "write": 1, "submit": 1},
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "QA User", "read": 1, "submit": 1},
+    {"role": "Accounts", "read": 1, "cancel": 1},
+    {"role": "Customer", "read": 1, "if_owner": 1}
+  ],
+  "is_submittable": 1,
+  "workflow_state_field": "status"
+}

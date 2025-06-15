@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class Appointment(Document):
     def validate(self):
         if self.confirmed and not self.appointment_date:

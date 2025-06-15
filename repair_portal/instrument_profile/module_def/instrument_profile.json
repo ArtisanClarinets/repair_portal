@@ -1,6 +1,8 @@
 {
   "doctype": "Module Def",
   "module_name": "Instrument Profile",
+  "label": "Instrument Profile",
+  "name": "instrument_profile",
   "app_name": "repair_portal",
   "app_label": "Repair Portal",
   "is_custom": 0,

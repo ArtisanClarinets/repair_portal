@@ -5,8 +5,10 @@
 
 import frappe
 
+
 def execute(filters=None):
-    results = frappe.db.sql("""
+    results = frappe.db.sql(
+        """
         SELECT technician,
                SUM(CASE WHEN instrument_condition != 'Good' THEN 1 ELSE 0 END) AS fail_count,
                COUNT(*) AS total,
@@ -14,13 +16,21 @@ def execute(filters=None):
         FROM `tabClarinet Condition Assessment`
         WHERE docstatus = 1
         GROUP BY technician
-    """, as_dict=True)
+    """,
+        as_dict=True,
+    )
 
     columns = [
-        {"label": "Technician", "fieldname": "technician", "fieldtype": "Link", "options": "User", "width": 200},
+        {
+            "label": "Technician",
+            "fieldname": "technician",
+            "fieldtype": "Link",
+            "options": "User",
+            "width": 200,
+        },
         {"label": "Failures", "fieldname": "fail_count", "fieldtype": "Int", "width": 120},
         {"label": "Total Inspections", "fieldname": "total", "fieldtype": "Int", "width": 150},
-        {"label": "Failure Rate %", "fieldname": "fail_rate", "fieldtype": "Percent", "width": 130}
+        {"label": "Failure Rate %", "fieldname": "fail_rate", "fieldtype": "Percent", "width": 130},
     ]
 
     return columns, results

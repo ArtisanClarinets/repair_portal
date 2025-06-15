@@ -1,0 +1,21 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Task",
+  "module": "Repair",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "task_type", "label": "Task Type", "fieldtype": "Link", "options": "Service Task", "reqd": 1},
+    {"fieldname": "description", "label": "Description", "fieldtype": "Text"},
+    {"fieldname": "technician", "label": "Technician", "fieldtype": "Link", "options": "User"},
+    {"fieldname": "est_hours", "label": "Estimated Hours", "fieldtype": "Float"},
+    {"fieldname": "actual_hours", "label": "Actual Hours", "fieldtype": "Float"},
+    {"fieldname": "parts_cost", "label": "Parts Cost", "fieldtype": "Currency"},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nPending\nIn Progress\nCompleted", "default": "Pending"},
+    {"fieldname": "log", "label": "Repair Log", "fieldtype": "Link", "options": "Repair Task Log"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

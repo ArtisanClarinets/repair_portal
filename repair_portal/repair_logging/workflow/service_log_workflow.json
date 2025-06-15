@@ -1,0 +1,19 @@
+{
+  "doctype": "Workflow",
+  "name": "service_log_workflow",
+  "workflow_name": "Service Log Workflow",
+  "document_type": "Service Log",
+  "is_active": 1,
+  "workflow_state_field": "status",
+  "states": [
+    {"state": "Open", "doc_status": 0},
+    {"state": "In Progress", "doc_status": 0},
+    {"state": "Resolved", "doc_status": 1},
+    {"state": "Closed", "doc_status": 2}
+  ],
+  "transitions": [
+    {"state": "Open", "action": "Start Work", "next_state": "In Progress", "allowed": ["System Manager", "Technician"]},
+    {"state": "In Progress", "action": "Resolve", "next_state": "Resolved", "allowed": ["Technician"]},
+    {"state": "Resolved", "action": "Close", "next_state": "Closed", "allowed": ["System Manager"]}
+  ]
+}

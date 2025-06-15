@@ -1,6 +1,8 @@
 {
   "doctype": "Dashboard Chart",
   "chart_name": "Appointments By Week",
+  "label": "Appointments By Week",
+  "name": "appointments_by_week",
   "chart_type": "Group By",
   "document_type": "Appointment",
   "based_on": "appointment_date",

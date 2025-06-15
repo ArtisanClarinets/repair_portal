@@ -6,6 +6,7 @@
 import frappe
 import json
 
+
 def execute():
     # Remove bad Workspace entries where content is a list instead of a JSON string
     raw_list_workspaces = frappe.get_all("Workspace", filters={}, fields=["name", "content"])

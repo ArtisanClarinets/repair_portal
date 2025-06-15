@@ -5,6 +5,7 @@
 
 import frappe
 
+
 def execute(filters=None):
     filters = filters or {}
     conditions = {}
@@ -15,18 +16,34 @@ def execute(filters=None):
     if filters.get("customer"):
         conditions["customer"] = filters["customer"]
 
-    data = frappe.db.get_all("Instrument Profile", fields=[
-        "name", "instrument_type", "model", "serial_number", "status", "acquisition_type", "customer"
-    ], filters=conditions)
+    data = frappe.db.get_all(
+        "Instrument Profile",
+        fields=[
+            "name",
+            "instrument_type",
+            "model",
+            "serial_number",
+            "status",
+            "acquisition_type",
+            "customer",
+        ],
+        filters=conditions,
+    )
 
     columns = [
-        {"label": "Instrument ID", "fieldname": "name", "fieldtype": "Link", "options": "Instrument Profile", "width": 140},
+        {
+            "label": "Instrument ID",
+            "fieldname": "name",
+            "fieldtype": "Link",
+            "options": "Instrument Profile",
+            "width": 140,
+        },
         {"label": "Type", "fieldname": "instrument_type", "fieldtype": "Data"},
         {"label": "Model", "fieldname": "model", "fieldtype": "Data"},
         {"label": "Serial", "fieldname": "serial_number", "fieldtype": "Data"},
         {"label": "Status", "fieldname": "status", "fieldtype": "Select"},
         {"label": "Acquisition", "fieldname": "acquisition_type", "fieldtype": "Select"},
-        {"label": "Customer", "fieldname": "customer", "fieldtype": "Link", "options": "Customer"}
+        {"label": "Customer", "fieldname": "customer", "fieldtype": "Link", "options": "Customer"},
     ]
 
     return columns, data

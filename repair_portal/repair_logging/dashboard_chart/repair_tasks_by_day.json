@@ -1,5 +1,6 @@
 {
   "doctype": "Dashboard Chart",
+  "name": "repair_tasks_by_day",
   "chart_name": "Repair Tasks by Day",
   "chart_type": "Group By",
   "document_type": "Repair Task Log",

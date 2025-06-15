@@ -1,5 +1,8 @@
 {
+  "doctype": "Dashboard Chart",
   "chart_name": "Common Inspection Findings",
+  "label": "Common Inspection Findings",
+  "name": "common_inspection_findings",
   "chart_type": "Group By",
   "document_type": "Inspection Finding",
   "field_name": "issue_type",

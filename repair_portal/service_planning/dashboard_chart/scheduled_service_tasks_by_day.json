@@ -1,5 +1,6 @@
 {
   "doctype": "Dashboard Chart",
+  "name": "scheduled_service_tasks_by_day",
   "chart_name": "Scheduled Service Tasks by Day",
   "chart_type": "Group By",
   "document_type": "Service Task",

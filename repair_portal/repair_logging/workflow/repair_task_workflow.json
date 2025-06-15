@@ -1,5 +1,6 @@
 {
   "doctype": "Workflow",
+  "name": "repair_task_workflow",
   "workflow_name": "Repair Task Workflow",
   "document_type": "Repair Task Log",
   "is_active": 1,

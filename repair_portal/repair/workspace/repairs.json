@@ -1,0 +1,16 @@
+{
+  "doctype": "Workspace",
+  "name": "Repairs",
+  "label": "Repairs",
+  "module": "Repair",
+  "icon": "fa fa-tools",
+  "content": {
+    "shortcuts": [
+      {"label": "New Repair Order", "type": "DocType", "name": "Repair Order"},
+      {"label": "Settings", "type": "DocType", "name": "Repair Order Settings"}
+    ],
+    "charts": [],
+    "links": [],
+    "cards": []
+  }
+}

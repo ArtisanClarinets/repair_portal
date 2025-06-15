@@ -1,5 +1,6 @@
 from frappe import _
 
+
 def get_data():
     return [
         {
@@ -9,7 +10,6 @@ def get_data():
             "icon": "fa fa-folder",
             "type": "module",
             "description": "Auto-generated workspace",
-				"onboarding_
         },
         {
             "module_name": "Inspection",
@@ -17,7 +17,7 @@ def get_data():
             "label": _("Inspection"),
             "icon": "fa fa-folder",
             "type": "module",
-            "description": "Auto-generated workspace"
+            "description": "Auto-generated workspace",
         },
         {
             "module_name": "Intake",
@@ -25,7 +25,7 @@ def get_data():
             "label": _("Intake"),
             "icon": "fa fa-folder",
             "type": "module",
-            "description": "Auto-generated workspace"
+            "description": "Auto-generated workspace",
         },
         {
             "module_name": "Instrument Setup",
@@ -33,7 +33,7 @@ def get_data():
             "label": _("Instrument Setup"),
             "icon": "fa fa-folder",
             "type": "module",
-            "description": "Auto-generated workspace"
+            "description": "Auto-generated workspace",
         },
         {
             "module_name": "QA",
@@ -41,7 +41,7 @@ def get_data():
             "label": _("QA"),
             "icon": "fa fa-folder",
             "type": "module",
-            "description": "Auto-generated workspace"
+            "description": "Auto-generated workspace",
         },
         {
             "module_name": "Repair Logging",
@@ -49,7 +49,7 @@ def get_data():
             "label": _("Repair Logging"),
             "icon": "fa fa-folder",
             "type": "module",
-            "description": "Auto-generated workspace"
+            "description": "Auto-generated workspace",
         },
         {
             "module_name": "Service Planning",
@@ -57,7 +57,7 @@ def get_data():
             "label": _("Service Planning"),
             "icon": "fa fa-folder",
             "type": "module",
-            "description": "Auto-generated workspace"
+            "description": "Auto-generated workspace",
         },
         {
             "module_name": "Tools",
@@ -65,6 +65,14 @@ def get_data():
             "label": _("Tools"),
             "icon": "fa fa-folder",
             "type": "module",
-            "description": "Auto-generated workspace"
+            "description": "Auto-generated workspace",
         },
+        {
+            "module_name": "Repair",
+            "category": "Modules",
+            "label": _("Repair"),
+            "icon": "fa fa-tools",
+            "type": "module",
+            "description": "Central repair coordination module",
+        }
     ]

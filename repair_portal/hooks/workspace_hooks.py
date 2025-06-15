@@ -18,8 +18,8 @@ def generate_workspaces():
 
         module_scanner.scan_modules_and_update()
 
-        print('✅ Workspaces generated and updated with module contents.')
+        print("✅ Workspaces generated and updated with module contents.")
 
     except Exception as e:
-        frappe.log_error(title='Workspace Generation Error', message=str(e))
-        print(f'❌ Error during workspace generation: {e}')
+        frappe.log_error(title="Workspace Generation Error", message=str(e))
+        print(f"❌ Error during workspace generation: {e}")

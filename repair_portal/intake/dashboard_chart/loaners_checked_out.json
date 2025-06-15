@@ -1,6 +1,8 @@
 {
   "doctype": "Dashboard Chart",
   "chart_name": "Loaners Checked Out",
+  "label": "Loaners Checked Out",
+  "name": "loaners_checked_out",
   "chart_type": "Group By",
   "document_type": "Loaner Instrument",
   "based_on": "issued_date",

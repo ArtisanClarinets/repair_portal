@@ -8,7 +8,7 @@ import os
 
 FIXTURE_PATH = "apps/repair_portal/repair_portal/fixtures/workspace.json"
 
-with open(FIXTURE_PATH, 'r+') as f:
+with open(FIXTURE_PATH, "r+") as f:
     data = json.load(f)
     changed = False
     for doc in data:

@@ -5,6 +5,7 @@
 
 from frappe import _
 
+
 def get_data():
     return [
         {
@@ -13,6 +14,6 @@ def get_data():
             "label": _("Enhancements"),
             "icon": "octicon octicon-plus",
             "color": "pink",
-            "description": "Upgrades and enhancement options for clarinet repairs"
+            "description": "Upgrades and enhancement options for clarinet repairs",
         }
     ]

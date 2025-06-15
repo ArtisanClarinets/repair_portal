@@ -5,6 +5,7 @@
 
 from frappe import _
 
+
 def get_data():
     return [
         {
@@ -13,6 +14,6 @@ def get_data():
             "label": _("Intake"),
             "icon": "octicon octicon-sign-in",
             "color": "grey",
-            "description": "Customer instrument intake workflows"
+            "description": "Customer instrument intake workflows",
         }
     ]

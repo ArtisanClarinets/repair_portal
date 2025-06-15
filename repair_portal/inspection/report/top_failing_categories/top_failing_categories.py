@@ -5,8 +5,10 @@
 
 import frappe
 
+
 def execute(filters=None):
-    data = frappe.db.sql("""
+    data = frappe.db.sql(
+        """
         SELECT item_description AS category,
                COUNT(*) AS fail_count
         FROM `tabInspection Checklist Item`
@@ -14,11 +16,13 @@ def execute(filters=None):
         GROUP BY item_description
         ORDER BY fail_count DESC
         LIMIT 10
-    """, as_dict=True)
+    """,
+        as_dict=True,
+    )
 
     columns = [
         {"label": "Finding Type", "fieldname": "category", "fieldtype": "Data", "width": 300},
-        {"label": "Occurrences", "fieldname": "fail_count", "fieldtype": "Int", "width": 120}
+        {"label": "Occurrences", "fieldname": "fail_count", "fieldtype": "Int", "width": 120},
     ]
 
     return columns, data

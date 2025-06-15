@@ -1,6 +1,8 @@
 {
   "doctype": "Dashboard Chart",
   "chart_name": "Overdue Intakes",
+  "label": "Overdue Intakes",
+  "name": "overdue_intakes",
   "chart_type": "Bar",
   "based_on": "Daily",
   "timespan": "Last 7 days",

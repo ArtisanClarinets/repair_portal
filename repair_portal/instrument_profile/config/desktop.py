@@ -3,6 +3,7 @@
 # Version: 1.0
 # Purpose: Defines Instrument Profile module card for Desk
 
+
 def get_data():
     return [
         {
@@ -11,6 +12,6 @@ def get_data():
             "color": "blue",
             "icon": "octicon octicon-device-camera",
             "type": "module",
-            "description": "Instrument profiles for clients and inventory."
+            "description": "Instrument profiles for clients and inventory.",
         }
     ]

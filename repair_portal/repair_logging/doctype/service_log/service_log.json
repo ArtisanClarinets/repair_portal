@@ -1,0 +1,21 @@
+{
+  "doctype": "DocType",
+  "name": "service_log",
+  "label": "Service Log",
+  "module": "Repair Logging",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "instrument_profile", "label": "Instrument Profile", "fieldtype": "Link", "options": "Instrument Profile", "reqd": 1},
+    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "fetch_from": "instrument_profile.serial_number", "read_only": 1},
+    {"fieldname": "service_type", "label": "Service Type", "fieldtype": "Select", "options": "\nRepair\nMaintenance\nSetup\nAdjustment\nInspection\nOther"},
+    {"fieldname": "description", "label": "Description", "fieldtype": "Text", "reqd": 1},
+    {"fieldname": "performed_by", "label": "Performed By", "fieldtype": "Link", "options": "User"},
+    {"fieldname": "date", "label": "Date", "fieldtype": "Date"},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

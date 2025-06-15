@@ -6,6 +6,7 @@
 import frappe
 from frappe.website.page_renderers.template_page import BaseTemplatePage
 
+
 class InstrumentProfileWebView(BaseTemplatePage):
     def can_access(self):
         return frappe.session.user != "Guest"
@@ -14,6 +15,4 @@ class InstrumentProfileWebView(BaseTemplatePage):
         doc = self.doc
         context.title = f"Instrument {doc.instrument_name} ({doc.serial_number})"
         context.instrument = doc
-        context.parents = [
-            {"route": "/instrument-profile", "label": "All Instruments"}
-        ]
+        context.parents = [{"route": "/instrument-profile", "label": "All Instruments"}]

@@ -1,5 +1,6 @@
 {
   "doctype": "Workflow",
+  "name": "service_task_workflow",
   "workflow_name": "Service Task Workflow",
   "document_type": "Service Task",
   "is_active": 1,
