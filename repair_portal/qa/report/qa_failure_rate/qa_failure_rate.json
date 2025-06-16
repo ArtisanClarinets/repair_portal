@@ -1,6 +1,7 @@
 {
   "doctype": "Report",
   "name": "QA Failure Rate",
+  "report_name": "QA Failure Rate",
   "ref_doctype": "Final QA Checklist",
   "report_type": "Script Report",
   "is_standard": "Yes",

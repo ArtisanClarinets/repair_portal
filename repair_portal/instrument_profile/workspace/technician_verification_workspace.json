@@ -1,0 +1,22 @@
+{
+  "label": "Technician Verification Dashboard",
+  "name": "technician_verification_workspace",
+  "doctype": "Workspace",
+  "module": "Instrument Profile",
+  "icon": "fa fa-shield-check",
+  "links": [],
+  "content": {
+    "charts": [
+      {"chart_name": "Unverified Instruments"}
+    ],
+    "cards": [
+      {"card_name": "Pending Verifications"},
+      {"card_name": "Recently Approved Profiles"}
+    ],
+    "shortcuts": [
+      {"label": "Review Submissions", "type": "Report", "name": "Client Submitted Profiles"},
+      {"label": "Verification Logs", "type": "DocType", "name": "Instrument Verification Log"},
+      {"label": "Instrument Profile", "type": "DocType", "name": "Instrument Profile"}
+    ]
+  }
+}

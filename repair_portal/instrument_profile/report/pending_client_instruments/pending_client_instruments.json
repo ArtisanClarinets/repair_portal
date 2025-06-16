@@ -1,0 +1,9 @@
+{
+  "name": "Pending Client Instruments",
+  "report_name": "Pending Client Instruments",
+  "doctype": "Client Instrument Profile",
+  "report_type": "Query Report",
+  "is_standard": "Yes",
+  "filters": [],
+  "ref_doctype": "Client Instrument Profile"
+}

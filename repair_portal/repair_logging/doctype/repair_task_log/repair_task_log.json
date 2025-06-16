@@ -1,27 +1,41 @@
 {
-	"doctype": "DocType",
-	"name": "Repair Task Log",
-	"module": "Repair Logging",
-	"custom": 0,
-	"fields": [
-		{ "fieldname": "task", "label": "Task Description", "fieldtype": "Data" },
-		{
-			"fieldname": "technician",
-			"label": "Technician",
-			"fieldtype": "Link",
-			"options": "User"
-		},
-		{
-			"fieldname": "status",
-			"label": "Status",
-			"fieldtype": "Select",
-			"options": "Pending\nIn Progress\nCompleted"
-		}
-	],
-	"permissions": [
-		{"role": "Technician", "read": 1, "write": 1, "create": 1},
-		{"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-	]
+  "doctype": "DocType",
+  "name": "Repair Task Log",
+  "module": "Repair Logging",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "log_entry",
+      "label": "Log Entry",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "timestamp",
+      "label": "Timestamp",
+      "fieldtype": "Datetime",
+      "default": "Now"
+    },
+    {
+      "fieldname": "logged_by",
+      "label": "Logged By",
+      "fieldtype": "Link",
+      "options": "User"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1
 }

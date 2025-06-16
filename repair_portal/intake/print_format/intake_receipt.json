@@ -2,6 +2,7 @@
   "doctype": "Print Format",
   "name": "Intake Receipt",
   "print_format_type": "Standard",
+  "standard": "Yes",
   "doc_type": "Clarinet Intake",
   "html": "<div class='print-format'>\n  <h2>Intake Receipt</h2>\n  <p>Customer: {{ doc.customer }}</p>\n  <p>Date: {{ doc.intake_date }}</p>\n  <p>Instrument: {{ doc.instrument_description }}</p>\n</div>",
   "module": "Repair Portal"

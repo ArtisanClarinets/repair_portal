@@ -1,0 +1,44 @@
+{
+  "name": "Image Log Entry",
+  "doctype": "DocType",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "is_submittable": 0,
+  "is_child_table": 1,
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "image",
+      "fieldtype": "Attach Image",
+      "label": "Condition Image",
+      "reqd": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Data",
+      "label": "Image Description"
+    },
+    {
+      "fieldname": "date_added",
+      "fieldtype": "Date",
+      "label": "Date Added",
+      "default": "Today"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

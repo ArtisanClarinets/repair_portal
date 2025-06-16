@@ -9,7 +9,7 @@
   "published": 1,
   "login_required": 1,
   "allow_edit": 0,
-  "fields": [
+  "web_form_fields": [
     {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
     {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "reqd": 1},

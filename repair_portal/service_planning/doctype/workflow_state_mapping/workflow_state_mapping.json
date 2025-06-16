@@ -1,0 +1,23 @@
+{
+  "doctype": "DocType",
+  "name": "Workflow State Mapping",
+  "module": "Service Planning",
+  "istable": 1,
+  "fields": [],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1
+}

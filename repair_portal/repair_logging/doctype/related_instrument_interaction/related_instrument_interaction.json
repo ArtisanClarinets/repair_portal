@@ -1,38 +1,41 @@
 {
-	"doctype": "DocType",
-	"name": "Related Instrument Interaction",
-	"module": "Repair Logging",
-	"istable": 1,
-	"fields": [
-		{
-			"fieldname": "instrument_tracker",
-			"fieldtype": "Link",
-			"label": "Instrument Tracker",
-			"options": "Instrument Tracker"
-		},
-		{
-			"fieldname": "interaction_type",
-			"fieldtype": "Data",
-			"label": "Interaction Type"
-		},
-		{
-			"fieldname": "reference_doctype",
-			"fieldtype": "Data",
-			"label": "Reference DocType"
-		},
-		{
-			"fieldname": "reference_name",
-			"fieldtype": "Dynamic Link",
-			"label": "Reference Name",
-			"options": "reference_doctype"
-		},
-		{ "fieldname": "date", "fieldtype": "Date", "label": "Date" },
-		{ "fieldname": "notes", "fieldtype": "Small Text", "label": "Notes" }
-	],
-	"permissions": [
-		{"role": "Technician", "read": 1, "write": 1, "create": 1},
-		{"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-	]
+  "doctype": "DocType",
+  "name": "Related Instrument Interaction",
+  "module": "Repair Logging",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "related_instrument",
+      "label": "Related Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
+    },
+    {
+      "fieldname": "interaction_type",
+      "label": "Interaction Type",
+      "fieldtype": "Select",
+      "options": "Follow-up\nReferred\nReference"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1
 }

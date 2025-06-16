@@ -1,0 +1,10 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Profile",
+  "module": "Instrument Setup",
+  "fields": [],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Technician", "read": 1, "write": 1, "create": 1}
+  ]
+}

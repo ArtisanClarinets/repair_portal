@@ -1,0 +1,55 @@
+{
+  "doctype": "DocType",
+  "name": "Inspection Checklist Item",
+  "module": "Inspection",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "item_description",
+      "label": "Description",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "pass",
+      "label": "Pass",
+      "fieldtype": "Check"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1,
+      "if_owner": 1
+    }
+  ],
+  "is_child_table": 1
+}

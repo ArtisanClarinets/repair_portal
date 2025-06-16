@@ -1,6 +1,7 @@
 {
   "doctype": "Report",
   "name": "Top Upgrade Requests",
+  "report_name": "Top Upgrade Requests",
   "report_type": "Script Report",
   "is_standard": "Yes",
   "ref_doctype": "Customer Upgrade Request",

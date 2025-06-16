@@ -1,6 +1,7 @@
 {
   "doctype": "Report",
   "name": "Instrument Profile Report",
+  "report_name": "Instrument Profile Report",
   "ref_doctype": "Instrument Profile",
   "report_type": "Script Report",
   "is_standard": "Yes",

@@ -4,5 +4,6 @@
   "ref_doctype": "Service Task",
   "report_type": "Script Report",
   "is_standard": "Yes",
-  "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}]
+  "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}],
+  "report_name": "Repair Bay Utilization"
 }

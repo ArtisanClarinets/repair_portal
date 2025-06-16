@@ -1,31 +1,40 @@
 {
-	"doctype": "DocType",
-	"name": "Material Usage",
-	"module": "Instrument Setup",
-	"istable": 1,
-	"fields": [
-		{
-			"fieldname": "item",
-			"fieldtype": "Link",
-			"label": "Item",
-			"options": "Item",
-			"reqd": 1
-		},
-		{
-			"fieldname": "quantity",
-			"fieldtype": "Float",
-			"label": "Quantity",
-			"reqd": 1
-		},
-		{
-			"fieldname": "source_warehouse",
-			"fieldtype": "Link",
-			"label": "Source Warehouse",
-			"options": "Warehouse"
-		}
-	],
-	"permissions": [
-		{ "role": "Technician", "read": 1, "write": 1 },
-		{ "role": "Service Manager", "read": 1, "write": 1 }
-	]
+  "doctype": "DocType",
+  "name": "Material Usage",
+  "module": "Instrument Setup",
+  "istable": 1,
+  "is_child_table": 1,
+  "fields": [
+    {
+      "fieldname": "item",
+      "fieldtype": "Link",
+      "label": "Item",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "quantity",
+      "fieldtype": "Float",
+      "label": "Quantity",
+      "reqd": 1
+    },
+    {
+      "fieldname": "source_warehouse",
+      "fieldtype": "Link",
+      "label": "Source Warehouse",
+      "options": "Warehouse"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1
+    }
+  ]
 }

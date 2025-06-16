@@ -1,0 +1,33 @@
+{
+  "name": "Default Workflow States",
+  "doctype": "DocType",
+  "istable": 1,
+  "module": "Repair Logging",
+  "fields": [
+    {
+      "fieldname": "state",
+      "fieldtype": "Data",
+      "label": "Workflow State"
+    },
+    {
+      "fieldname": "is_default",
+      "fieldtype": "Check",
+      "label": "Is Default"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1
+    }
+  ],
+  "is_child_table": 1
+}

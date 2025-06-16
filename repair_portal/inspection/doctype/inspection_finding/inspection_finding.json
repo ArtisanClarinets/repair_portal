@@ -1,0 +1,45 @@
+{
+  "doctype": "DocType",
+  "name": "Inspection Finding",
+  "module": "Inspection",
+  "istable": 1,
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "area",
+      "fieldtype": "Data",
+      "label": "Inspection Area"
+    },
+    {
+      "fieldname": "observation",
+      "fieldtype": "Small Text",
+      "label": "Observation"
+    },
+    {
+      "fieldname": "severity",
+      "fieldtype": "Select",
+      "options": "Low\nMedium\nHigh\nCritical",
+      "label": "Severity"
+    },
+    {
+      "fieldname": "image",
+      "fieldtype": "Attach Image",
+      "label": "Photo"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1
+}

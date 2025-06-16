@@ -1,0 +1,37 @@
+{
+  "doctype": "DocType",
+  "name": "Consent Log Entry",
+  "module": "Repair Portal",
+  "istable": 1,
+  "is_child_table": 1,
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "consent_type",
+      "fieldtype": "Select",
+      "label": "Consent Type",
+      "options": "Repair Authorization\nPhotography\nPrivacy Waiver"
+    },
+    {
+      "fieldname": "date_given",
+      "fieldtype": "Date",
+      "label": "Date Given"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    }
+  ]
+}

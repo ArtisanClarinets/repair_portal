@@ -4,6 +4,11 @@
   "label": "Repairs",
   "module": "Repair",
   "icon": "fa fa-wrench",
+  "links": [
+    {"type": "DocType", "name": "Repair Order"},
+    {"type": "Report", "name": "Repair Revenue vs Cost"},
+    {"type": "Report", "name": "Technician Utilization"}
+  ],
   "content": [
     {
       "type": "shortcut",

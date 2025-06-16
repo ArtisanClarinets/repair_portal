@@ -9,3 +9,5 @@ Service Planning
 Tools
 Enhancements
 Repair
+Client Profile
+Image Log

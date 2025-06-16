@@ -4,5 +4,6 @@
   "ref_doctype": "Tool",
   "report_type": "Script Report",
   "is_standard": "Yes",
+  "report_name": "Overdue Tool Calibrations",
   "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}]
 }

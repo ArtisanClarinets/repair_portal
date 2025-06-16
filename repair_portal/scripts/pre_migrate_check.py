@@ -13,6 +13,7 @@ missing_json_files = []
 invalid_json_schemas = []
 invalid_modules = []
 missing_essentials = []
+invalid_website_generators = []
 
 with open(MODULES_FILE) as f:
     valid_modules = {line.strip() for line in f if line.strip()}
@@ -95,6 +96,14 @@ for root, dirs, files in os.walk(APP_DIR):
                                 invalid_json_schemas.append(str(json_path))
                         if 'module' in doc and doc['module'] not in valid_modules:
                             invalid_modules.append(f'{json_path} - invalid module: {doc["module"]}')
+
+                        # Website generator validation
+                        if doc.get('is_published_field') or any(f.get('fieldname') == 'route' for f in doc.get('fields', [])):
+                            if py_path.exists():
+                                with open(py_path) as f:
+                                    py_code = f.read()
+                                    if 'WebsiteGenerator' not in py_code:
+                                        invalid_website_generators.append(f'{py_path} - missing WebsiteGenerator base class')
                 except Exception as e:
                     invalid_json_schemas.append(f'{str(json_path)} - Error: {e}')
 
@@ -160,5 +169,12 @@ if missing_essentials:
         print(f' - {path}')
 else:
     print('✅ All essential configuration files are present.')
+
+if invalid_website_generators:
+    print('❌ Missing WebsiteGenerator references in web-published Doctypes:')
+    for path in invalid_website_generators:
+        print(f' - {path}')
+else:
+    print('✅ All WebsiteGenerators are properly defined.')
 
 print('\n✔ Use this report before any install or migration.')

@@ -1,0 +1,29 @@
+{
+  "doctype": "DocType",
+  "name": "Image Log Entry",
+  "istable": 1,
+  "module": "Repair Logging",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "image",
+      "fieldtype": "Attach Image",
+      "label": "Image"
+    },
+    {
+      "fieldname": "comment",
+      "fieldtype": "Small Text",
+      "label": "Comment"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "is_child_table": 1
+}

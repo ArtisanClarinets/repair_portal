@@ -1,0 +1,41 @@
+{
+  "doctype": "DocType",
+  "name": "Consent Log Entry",
+  "module": "Client Profile",
+  "istable": 1,
+  "is_child_table": 1,
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "entry_date",
+      "fieldtype": "Date",
+      "label": "Entry Date"
+    },
+    {
+      "fieldname": "method",
+      "fieldtype": "Select",
+      "options": "Phone\nText\nEmail\nIn Person",
+      "label": "Method"
+    },
+    {
+      "fieldname": "technician",
+      "fieldtype": "Link",
+      "options": "User",
+      "label": "Technician"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

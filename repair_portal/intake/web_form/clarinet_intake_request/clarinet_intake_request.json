@@ -2,12 +2,34 @@
   "doctype": "Web Form",
   "name": "clarinet_intake_request",
   "module": "Intake",
+  "doc_type": "Clarinet Intake",
   "title": "Submit Clarinet Intake Request",
   "web_form_fields": [
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
-    {"fieldname": "instrument_profile", "label": "Instrument Profile", "fieldtype": "Link", "options": "Instrument Profile", "reqd": 1},
-    {"fieldname": "reason_for_service", "label": "Reason for Service", "fieldtype": "Small Text"},
-    {"fieldname": "external_docs", "label": "Attach External Docs", "fieldtype": "Attach", "reqd": 0}
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument_profile",
+      "label": "Instrument Profile",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reason_for_service",
+      "label": "Reason for Service",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "external_docs",
+      "label": "Attach External Docs",
+      "fieldtype": "Attach",
+      "reqd": 0
+    }
   ],
   "login_required": 1,
   "allow_multiple": 1,

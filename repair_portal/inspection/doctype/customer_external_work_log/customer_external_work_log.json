@@ -1,0 +1,34 @@
+{
+  "doctype": "DocType",
+  "name": "Customer External Work Log",
+  "module": "Inspection",
+  "istable": 1,
+  "is_child_table": 1,
+  "fields": [
+    {
+      "fieldname": "work_description",
+      "fieldtype": "Text",
+      "label": "Work Description"
+    },
+    {
+      "fieldname": "date_performed",
+      "fieldtype": "Date",
+      "label": "Date Performed"
+    },
+    {
+      "fieldname": "performed_by",
+      "fieldtype": "Data",
+      "label": "Performed By"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

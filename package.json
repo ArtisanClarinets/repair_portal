@@ -6,6 +6,7 @@
 		"format:backend": "ruff format ."
 	},
 	"dependencies": {
+		"eslint": "^9.29.0",
 		"ruff": "^1.5.4"
 	},
 	"devDependencies": {

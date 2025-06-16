@@ -1,0 +1,39 @@
+{
+  "doctype": "DocType",
+  "name": "Consent Log",
+  "module": "Client Profile",
+  "istable": 1,
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "consent_type",
+      "fieldtype": "Select",
+      "options": "Email\nPhone\nText\nIn-Person",
+      "label": "Consent Type"
+    },
+    {
+      "fieldname": "date_given",
+      "fieldtype": "Date",
+      "label": "Date Given"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "is_child_table": 1
+}
