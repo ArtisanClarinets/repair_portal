@@ -1,0 +1,36 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Restoration Timeline") }}{% endblock %}
+
+{% block page_content %}
+<div class="container my-8">
+  <h1 class="text-3xl font-semibold mb-6">{{ _("Restoration Timeline") }}</h1>
+  {% if repair_requests %}
+  <h2 class="text-2xl font-semibold mb-4">{{ _("Repair Requests") }}</h2>
+  <ul class="divide-y">
+    {% for r in repair_requests %}
+    <li class="py-2">
+      <a href="/repair_request?name={{ r.name }}" class="font-medium">{{ r.name }}</a>
+      <span class="ml-2 text-gray-600">{{ r.status }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if inspections %}
+  <h2 class="text-2xl font-semibold mt-8 mb-4">{{ _("Inspection Reports") }}</h2>
+  <ul class="divide-y">
+    {% for i in inspections %}
+    <li class="py-2">
+      <a href="/inspection_report?name={{ i.name }}" class="font-medium">{{ i.name }}</a>
+      <span class="ml-2 text-gray-600">{{ i.inspection_date }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if not repair_requests and not inspections %}
+  <p class="text-gray-600">{{ _("No repair history found.") }}</p>
+  {% endif %}
+</div>
+{% endblock %}

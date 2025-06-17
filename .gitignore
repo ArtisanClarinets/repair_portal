@@ -30,3 +30,4 @@ nbextensions/
 .jupyter_logs/
 kernelspecs/
 custom.js
+src/
