@@ -8,7 +8,7 @@ This feature allows technicians to fill out a printed intake form by hand and im
 - **Purpose**: Capture customer and instrument data offline during walk-ins
 - **Fields Included**:
   - Customer Name, Phone, Email
-  - Instrument Type, Make, Model, Serial
+  - Instrument Category, Make, Model, Serial
   - Accessories, Condition Notes
   - Consent Text + Signature
 - **Format**: A4 PDF with OCR-friendly layout (open boxes, clear labels)

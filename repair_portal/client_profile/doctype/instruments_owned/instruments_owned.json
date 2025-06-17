@@ -5,9 +5,9 @@
   "istable": 1,
   "fields": [
     {
-      "fieldname": "instrument_type",
+      "fieldname": "instrument_category",
       "fieldtype": "Data",
-      "label": "Instrument Type"
+      "label": "Instrument Category"
     },
     {
       "fieldname": "serial_number",

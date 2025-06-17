@@ -20,7 +20,7 @@ class ClientInstrumentProfile(Document):
                 {
                     'owner': self.owner,
                     'instrument_model': self.instrument_model,
-                    'instrument_type': self.instrument_type,
+                    'instrument_category': self.instrument_category,
                 },
                 update_modified=False,
             )

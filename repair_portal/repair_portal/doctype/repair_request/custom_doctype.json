@@ -8,7 +8,7 @@
   "fields": [
     {"fieldname": "section_main", "fieldtype": "Section Break", "label": "Repair Details"},
     {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
-    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Link", "options": "Instrument Type"},
+    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Link", "options": "Instrument Category"},
     {"fieldname": "date_reported", "label": "Date Reported", "fieldtype": "Date"},
     {"fieldname": "cb1", "fieldtype": "Column Break"},
     {"fieldname": "issue_description", "label": "Issue Description", "fieldtype": "Text", "reqd": 1},

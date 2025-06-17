@@ -1,21 +1,18 @@
 {% extends "templates/web.html" %}
 
-{% block breadcrumbs %}
-    {% include "templates/includes/breadcrumbs.html" %}
-{% endblock %}
-
-{% block header %}
-<h1>{{ doc.serial_number }}</h1>
-{% endblock %}
+{% block title %}{{ doc.serial_number }}{% endblock %}
 
 {% block page_content %}
-<div class="container">
-    <img src="{{ doc.photo }}" class="img-thumbnail mb-3" style="max-width: 300px;">
-    <p><strong>Instrument Type:</strong> {{ doc.instrument_type }}</p>
-    <p><strong>Brand:</strong> {{ doc.brand }}</p>
-    <p><strong>Model:</strong> {{ doc.model }}</p>
-    <p><strong>Owner:</strong> {{ doc.owner }}</p>
-    <p><strong>Client:</strong> {{ doc.client_profile }}</p>
-    <p><strong>Last Service:</strong> {{ doc.last_service_date }}</p>
-</div>
+  <h1>{{ doc.serial_number }}</h1>
+  <p><strong>Model:</strong> {{ doc.brand }} {{ doc.model }}</p>
+  <p><strong>Type:</strong> {{ doc.instrument_category }}</p>
+  <p><strong>Status:</strong> {{ doc.status }}</p>
+
+  {% if doc.image %}
+    <img src="{{ doc.image }}" class="img-fluid mt-3" alt="{{ doc.serial_number }}">
+  {% endif %}
+
+  {% if doc.description %}
+    <div class="mt-4">{{ doc.description }}</div>
+  {% endif %}
 {% endblock %}

@@ -5,9 +5,10 @@
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,
+  "standard": 1,
   "fields": [
-    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Select", "options": "Clarinet\nSaxophone\nFlute"},
-    {"fieldname": "brand", "label": "Brand", "fieldtype": "Data"},
+    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Select", "options": "Clarinet\nSaxophone\nFlute"},
+    {"fieldname": "brand", "label": "Brand", "fieldtype": "Link", "options": "Brand"},
     {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
     {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "unique": 1, "reqd": 1},
     {"fieldname": "owner", "label": "Owner", "fieldtype": "Link", "options": "Customer"},
@@ -15,7 +16,7 @@
     {"fieldname": "photo", "label": "Photo", "fieldtype": "Attach Image"},
     {"fieldname": "qr_code_svg", "label": "QR Code", "fieldtype": "HTML", "read_only": 1},
     {"fieldname": "last_service_date", "label": "Last Service Date", "fieldtype": "Date", "read_only": 1},
-    {"fieldname": "clarinet_pad_map", "label": "Pad Map View", "fieldtype": "HTML", "depends_on": "eval:doc.instrument_type=='Clarinet'"},
+    {"fieldname": "clarinet_pad_map", "label": "Pad Map View", "fieldtype": "HTML", "depends_on": "eval:doc.instrument_category=='Clarinet'"},
     {"fieldname": "route", "label": "Route", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "published", "label": "Published", "fieldtype": "Check", "default": 1}
   ],

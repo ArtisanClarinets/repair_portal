@@ -1,30 +1,19 @@
 {% extends "templates/web.html" %}
 
-{% block header %}
-<h1>My Instruments</h1>
-{% endblock %}
+{% block title %}My Instruments{% endblock %}
 
 {% block page_content %}
-<div class="my-instruments container">
+  <h1>Instrument Catalog</h1>
   <div class="row">
-    {% for inst in instruments %}
-    <div class="col-md-4">
-      <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">{{ inst.serial_number }}</h5>
-          <p class="card-text">
-            <strong>Brand:</strong> {{ inst.brand }}<br>
-            <strong>Model:</strong> {{ inst.model }}<br>
-            <strong>Type:</strong> {{ inst.instrument_type }}<br>
-            <strong>Status:</strong> {{ inst.status }}
-          </p>
-          {% if inst.route %}
-            <a href="/{{ inst.route }}" class="btn btn-outline-primary btn-sm">View Profile</a>
-          {% endif %}
-        </div>
+    {% for instrument in frappe.get_all('Instrument Profile', fields=['name', 'serial_number', 'brand', 'model', 'instrument_category', 'status', 'route'], filters={'published': 1}) %}
+      <div class="col-sm-6 col-md-4 mb-4">
+        <a href="/{{ instrument.route }}" class="card p-3 text-dark text-decoration-none">
+          <h5>{{ instrument.serial_number }}</h5>
+          <p>{{ instrument.brand }} {{ instrument.model }}</p>
+          <p><strong>Type:</strong> {{ instrument.instrument_category }}</p>
+          <p><strong>Status:</strong> {{ instrument.status }}</p>
+        </a>
       </div>
-    </div>
     {% endfor %}
   </div>
-</div>
 {% endblock %}

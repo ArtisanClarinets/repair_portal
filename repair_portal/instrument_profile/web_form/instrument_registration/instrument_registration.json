@@ -10,7 +10,7 @@
   "login_required": 1,
   "allow_edit": 0,
   "web_form_fields": [
-    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
     {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "acquisition_type", "label": "Acquisition Type", "fieldtype": "Select", "options": "Customer\nInventory", "default": "Customer", "reqd": 1},

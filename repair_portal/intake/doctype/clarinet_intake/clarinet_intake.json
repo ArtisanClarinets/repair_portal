@@ -10,7 +10,7 @@
 		{"fieldname": "model", "fieldtype": "Data", "label": "Model"},
 		{"fieldname": "finish", "fieldtype": "Data", "label": "Finish"},
 		{"fieldname": "year_estimated", "fieldtype": "Int", "label": "Estimated Year of Manufacture"},
-		{"fieldname": "instrument_type", "fieldtype": "Select", "label": "Instrument Type", "options": "Bb\nA\nEb\nBass\nOther"},
+		{"fieldname": "instrument_category", "fieldtype": "Select", "label": "Instrument Category", "options": "Bb\nA\nEb\nBass\nOther"},
 		{"fieldname": "supplier", "fieldtype": "Link", "label": "Supplier", "options": "Supplier"},
 		{"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer"},
 		{"fieldname": "received_date", "fieldtype": "Date", "label": "Received Date", "reqd": 1},

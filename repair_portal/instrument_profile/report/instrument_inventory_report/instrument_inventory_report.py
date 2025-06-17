@@ -20,7 +20,7 @@ def execute(filters=None):
         'Instrument Profile',
         fields=[
             'name',
-            'instrument_type',
+            'instrument_category',
             'model',
             'serial_number',
             'status',
@@ -38,7 +38,7 @@ def execute(filters=None):
             'options': 'Instrument Profile',
             'width': 140,
         },
-        {'label': 'Type', 'fieldname': 'instrument_type', 'fieldtype': 'Data'},
+        {'label': 'Type', 'fieldname': 'instrument_category', 'fieldtype': 'Data'},
         {'label': 'Model', 'fieldname': 'model', 'fieldtype': 'Data'},
         {'label': 'Serial', 'fieldname': 'serial_number', 'fieldtype': 'Data'},
         {'label': 'Status', 'fieldname': 'status', 'fieldtype': 'Select'},

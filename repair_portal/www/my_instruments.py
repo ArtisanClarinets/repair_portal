@@ -9,5 +9,5 @@ def get_context(context):
     context.title = "My Instruments"
     context.introduction = "All clarinets linked to your profile."
     context.instruments = frappe.get_all("Instrument Profile", filters=filters, fields=[
-        "name", "serial_number", "brand", "model", "instrument_type", "status", "route"
+        "name", "serial_number", "brand", "model", "instrument_category", "status", "route"
     ])

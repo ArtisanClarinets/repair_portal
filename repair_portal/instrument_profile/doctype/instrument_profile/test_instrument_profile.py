@@ -14,7 +14,7 @@ class TestInstrumentProfile(unittest.TestCase):
         doc = frappe.get_doc(
             {
                 'doctype': 'Instrument Profile',
-                'instrument_type': 'Clarinet',
+                'instrument_category': 'Clarinet',
                 'serial_number': 'TEST123',
                 'acquisition_type': 'Inventory',
                 'status': 'Active',
@@ -27,7 +27,7 @@ class TestInstrumentProfile(unittest.TestCase):
         doc = frappe.get_doc(
             {
                 'doctype': 'Instrument Profile',
-                'instrument_type': 'Clarinet',
+                'instrument_category': 'Clarinet',
                 'serial_number': 'REQ-CUST-001',
                 'acquisition_type': 'Customer',
                 'status': 'Active',

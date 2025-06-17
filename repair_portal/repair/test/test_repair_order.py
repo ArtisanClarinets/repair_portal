@@ -14,7 +14,7 @@ class TestRepairOrder(unittest.TestCase):
             {
                 'doctype': 'Clarinet Intake',
                 'customer': 'Test Customer',
-                'instrument_type': 'Bb Clarinet',
+                'instrument_category': 'Bb Clarinet',
             }
         ).insert()
 

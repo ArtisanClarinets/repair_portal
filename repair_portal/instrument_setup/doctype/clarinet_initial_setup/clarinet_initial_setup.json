@@ -11,11 +11,11 @@
       "reqd": 1
     },
     {
-      "fieldname": "instrument_type",
+      "fieldname": "instrument_category",
       "fieldtype": "Data",
-      "label": "Instrument Type",
+      "label": "Instrument Category",
       "read_only": 1,
-      "fetch_from": "instrument_profile.instrument_type"
+      "fetch_from": "instrument_profile.instrument_category"
     },
     {
       "fieldname": "model",

@@ -11,7 +11,7 @@
   "doctype_field": "instrument_profile",
   "web_form_fields": [
     {"fieldname": "instrument_name", "label": "Instrument Name", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Select", "options": "Bb Clarinet\nA Clarinet\nBass Clarinet\nE♭ Clarinet\nAlto Clarinet", "reqd": 1},
+    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Select", "options": "Bb Clarinet\nA Clarinet\nBass Clarinet\nE♭ Clarinet\nAlto Clarinet", "reqd": 1},
     {"fieldname": "make", "label": "Make / Brand", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
     {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data"},
