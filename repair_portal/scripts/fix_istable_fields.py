@@ -3,19 +3,19 @@
 # Version: 1.0
 # Purpose: Automatically patch all istable=1 DocTypes to include required table fields.
 
-import os
 import json
+import os
 
 DOC_ROOT = "/opt/frappe/erp-bench/apps/repair_portal/repair_portal"
 REQUIRED_FIELDS = ["parent", "parenttype", "parentfield", "idx"]
 
 def patch_istable_doctypes():
-    for root, dirs, files in os.walk(DOC_ROOT):
+    for root, _dirs, files in os.walk(DOC_ROOT):
         for file in files:
             if file.endswith(".json") and os.path.exists(os.path.join(root, file)):
                 full_path = os.path.join(root, file)
                 try:
-                    with open(full_path, 'r') as f:
+                    with open(full_path) as f:
                         data = json.load(f)
 
                     if data.get("istable") == 1:

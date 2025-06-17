@@ -29,9 +29,6 @@ try:
     )
     if result.returncode != 0 or result.stdout:
         print('❌ Python Linting Issues Found:')
-        print(result.stdout.strip())
-        if result.stderr:
-            print('[stderr]', result.stderr.strip())
 
         for line in result.stdout.strip().split('\n'):
             match = re.match(r'(.+):\d+:\d+: F401', line)
@@ -72,7 +69,7 @@ except Exception as e:
 
 # Step 3: Check Doctype JSONs and modules
 print('\nChecking Doctype structures and modules...')
-for root, dirs, files in os.walk(APP_DIR):
+for root, _dirs, files in os.walk(APP_DIR):
     if '/report/' in root or '/workspace/' in root:
         continue
     for file in files:

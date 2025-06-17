@@ -1,0 +1,28 @@
+{% extends "templates/web.html" %}
+
+{% block header %}
+<h1>My Players</h1>
+{% endblock %}
+
+{% block page_content %}
+<div class="my-players container">
+  <div class="row">
+    {% for player in players %}
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ player.player_name }}</h5>
+          <p class="card-text">
+            <span class="badge bg-info text-dark">Style</span> {{ player.style_preferences or "-" }}<br>
+            <span class="badge bg-warning text-dark">Tone</span> {{ player.tonal_goals or "-" }}
+          </p>
+          {% if player.route %}
+            <a href="/{{ player.route }}" class="btn btn-outline-primary btn-sm">View Profile</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

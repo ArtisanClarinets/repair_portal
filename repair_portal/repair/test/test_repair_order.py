@@ -33,17 +33,17 @@ class TestRepairOrder(unittest.TestCase):
 
     def test_sla_breach_flag(self):
         self.order.reload()
-        self.assertTrue(self.order.sla_breached)
+        assert self.order.sla_breached
 
     def test_totals_calculated(self):
         self.order.reload()
-        self.assertEqual(self.order.total_parts_cost, 30.0)
-        self.assertEqual(self.order.total_labor_hours, 3.5)
+        assert self.order.total_parts_cost == 30.0
+        assert self.order.total_labor_hours == 3.5
 
     def test_status_change_triggers_qa(self):
         self.order.status = 'QA'
         self.order.save()
-        self.assertTrue(self.order.qa_checklist)
+        assert self.order.qa_checklist
 
     def tearDown(self):
         frappe.delete_doc('Repair Order', self.order.name)

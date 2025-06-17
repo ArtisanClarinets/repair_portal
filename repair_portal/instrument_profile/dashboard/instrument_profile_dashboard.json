@@ -1,0 +1,30 @@
+{
+  "charts": [],
+  "cards": [
+    {
+      "label": "Service Summary",
+      "type": "Link",
+      "link": "/service_summary",
+      "icon": "fa fa-tools",
+      "color": "orange",
+      "dependencies": []
+    },
+    {
+      "label": "Inspection Overview",
+      "type": "Link",
+      "link": "/inspection_log",
+      "icon": "fa fa-search",
+      "color": "purple",
+      "dependencies": []
+    }
+  ],
+  "transactions": [
+    {
+      "label": "Instrument History",
+      "items": [
+        "Repair Log",
+        "Inspection Log"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+<!-- File: repair_portal/templates/pages/pad_map_inspection.html -->
+<!-- Updated: 2025-06-16 | Purpose: Mobile/QR public pad inspection view -->
+
+<h2>Clarinet Pad Map Inspection</h2>
+<div id="pad-map-wrapper">{{ svg_content or '' }}</div>
+
+<script>
+  const pad_data = {{ pad_conditions_json or '[]' }};
+  const color_map = {
+    'OK': 'green',
+    'Leaking': 'orange',
+    'Replaced': 'red',
+    'Adjusted': 'blue',
+    'Requires Shim': 'purple'
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    pad_data.forEach(pad => {
+      let el = document.getElementById(pad.pad_id);
+      if (el) {
+        el.style.fill = color_map[pad.status] || 'gray';
+        let title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+        title.textContent = `${pad.pad_name}\nStatus: ${pad.status}`;
+        el.appendChild(title);
+      }
+    });
+  });
+</script>

@@ -1,0 +1,13 @@
+{
+  "label": "Service Manager Portal",
+  "module": "Repair Portal",
+  "type": "Workspace",
+  "is_standard": 1,
+  "content": [
+    {"type": "shortcut", "label": "Repair Estimates", "link_to": "List/Repair Estimate"},
+    {"type": "shortcut", "label": "Inspection Reports", "link_to": "List/Inspection Report"},
+    {"type": "shortcut", "label": "Repair Logs", "link_to": "List/Clarinet Repair Log"},
+    {"type": "shortcut", "label": "Parts Used", "link_to": "List/Repair Parts Used"},
+    {"type": "shortcut", "label": "Repair Status Tracker", "link_to": "List/Service Order Tracker"}
+  ]
+}

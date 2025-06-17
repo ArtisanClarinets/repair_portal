@@ -130,7 +130,7 @@ def update_permissions(json_path):
     print(f'✅ Patched permissions: {json_path}')
 
 
-for root, dirs, files in os.walk(APP_ROOT):
+for root, _dirs, files in os.walk(APP_ROOT):
     for file in files:
         if file.endswith('.json') and 'doctype' in root:
             update_permissions(Path(root) / file)

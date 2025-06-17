@@ -6,6 +6,7 @@
 import unittest
 
 import frappe
+import pytest
 
 
 class TestInstrumentProfile(unittest.TestCase):
@@ -20,7 +21,7 @@ class TestInstrumentProfile(unittest.TestCase):
             }
         )
         doc.insert()
-        self.assertEqual(doc.serial_number, 'TEST123')
+        assert doc.serial_number == 'TEST123'
 
     def test_customer_required_for_customer_type(self):
         doc = frappe.get_doc(
@@ -32,5 +33,5 @@ class TestInstrumentProfile(unittest.TestCase):
                 'status': 'Active',
             }
         )
-        with self.assertRaises(frappe.ValidationError):
+        with pytest.raises(frappe.ValidationError):
             doc.insert()

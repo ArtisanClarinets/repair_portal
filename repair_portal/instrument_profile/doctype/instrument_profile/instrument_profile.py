@@ -1,12 +1,13 @@
-"""
-Path: repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
-Updated: 2025-06-16
-Version: 1.0
-Purpose: Controller for the Instrument Profile DocType. This is a web-published DocType using WebsiteGenerator.
-Notes: Ensure web route, SEO, and publishing behavior are managed appropriately.
-"""
-
 from frappe.website.website_generator import WebsiteGenerator
+import frappe
 
 class InstrumentProfile(WebsiteGenerator):
-    pass
+    website = frappe._dict(
+        condition_field="published",
+        page_title_field="serial_number",
+        route="route"
+    )
+
+    def get_context(self, context):
+        context.parents = [{"title": "Instrument Catalog", "route": "/my_instruments"}]
+        context.title = self.serial_number

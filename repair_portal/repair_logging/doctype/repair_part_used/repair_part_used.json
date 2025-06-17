@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Part Used",
+  "module": "Repair Logging",
+  "custom": 1,
+  "istable": 1,
+  "fields": [
+    {"fieldname": "item_code", "fieldtype": "Link", "label": "Item Code", "options": "Item", "reqd": 1},
+    {"fieldname": "item_name", "fieldtype": "Data", "label": "Item Name", "fetch_from": "item_code.item_name"},
+    {"fieldname": "qty", "fieldtype": "Float", "label": "Qty", "reqd": 1},
+    {"fieldname": "uom", "fieldtype": "Link", "label": "UOM", "options": "UOM", "fetch_from": "item_code.stock_uom"},
+    {"fieldname": "rate", "fieldtype": "Currency", "label": "Rate"},
+    {"fieldname": "amount", "fieldtype": "Currency", "label": "Amount", "read_only": 1},
+    {"fieldname": "warehouse", "fieldtype": "Link", "label": "Warehouse", "options": "Warehouse"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "System Manager", "read": 1, "write": 1}
+  ]
+}

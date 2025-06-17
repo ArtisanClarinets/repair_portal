@@ -1,0 +1,30 @@
+{% extends "templates/web.html" %}
+
+{% block header %}
+<h1>My Instruments</h1>
+{% endblock %}
+
+{% block page_content %}
+<div class="my-instruments container">
+  <div class="row">
+    {% for inst in instruments %}
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ inst.serial_number }}</h5>
+          <p class="card-text">
+            <strong>Brand:</strong> {{ inst.brand }}<br>
+            <strong>Model:</strong> {{ inst.model }}<br>
+            <strong>Type:</strong> {{ inst.instrument_type }}<br>
+            <strong>Status:</strong> {{ inst.status }}
+          </p>
+          {% if inst.route %}
+            <a href="/{{ inst.route }}" class="btn btn-outline-primary btn-sm">View Profile</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -2,6 +2,7 @@
 # Updated: 2025-06-15
 # Version: 1.0
 # Purpose: SQL source for Warranty Status Report
+import frappe
 
 
 def execute(filters=None):

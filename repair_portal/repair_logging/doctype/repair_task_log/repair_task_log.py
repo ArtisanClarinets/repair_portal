@@ -5,8 +5,8 @@ Version: 1.0
 Purpose: Controller for Repair Task Log (child table)
 '''
 
-import frappe
 from frappe.model.document import Document
+
 
 class RepairTaskLog(Document):
     pass

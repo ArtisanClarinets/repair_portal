@@ -10,6 +10,7 @@
 		"ruff": "^1.5.4"
 	},
 	"devDependencies": {
+		"cypress": "^14.4.1",
 		"less": "^4.3.0",
 		"stylus": "^0.64.0",
 		"vue-template-compiler": "^0.1.0"

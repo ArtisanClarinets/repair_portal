@@ -3,85 +3,23 @@
   "name": "Instrument Profile",
   "module": "Instrument Profile",
   "custom": 0,
-  "istable": 1,
+  "istable": 0,
+  "editable_grid": 1,
   "fields": [
-    {
-      "fieldname": "serial_number",
-      "fieldtype": "Data",
-      "label": "Serial Number",
-      "reqd": 1
-    },
-    {
-      "fieldname": "model",
-      "fieldtype": "Data",
-      "label": "Model"
-    },
-    {
-      "fieldname": "owner_name",
-      "fieldtype": "Data",
-      "label": "Owner Name"
-    },
-    {
-      "fieldname": "first_visit_date",
-      "fieldtype": "Date",
-      "label": "First Visit Date"
-    },
-    {
-      "fieldname": "last_service_date",
-      "fieldtype": "Date",
-      "label": "Last Service Date"
-    },
-    {
-      "fieldname": "total_repairs",
-      "fieldtype": "Int",
-      "label": "Total Repairs"
-    },
-    {
-      "fieldname": "total_cost",
-      "fieldtype": "Currency",
-      "label": "Total Cost"
-    },
-    {
-      "fieldname": "condition_summary",
-      "fieldtype": "Data",
-      "label": "Condition Summary"
-    },
-    {
-      "fieldname": "warranty_start_date",
-      "fieldtype": "Date",
-      "label": "Warranty Start Date"
-    },
-    {
-      "fieldname": "warranty_end_date",
-      "fieldtype": "Date",
-      "label": "Warranty End Date"
-    },
-    {
-      "fieldname": "warranty_active",
-      "fieldtype": "Check",
-      "label": "Warranty Active",
-      "read_only": 1
-    },
-    {
-      "fieldname": "warranty_modification_reason",
-      "fieldtype": "Data",
-      "label": "Reason for Warranty Modification"
-    }
+    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Select", "options": "Clarinet\nSaxophone\nFlute"},
+    {"fieldname": "brand", "label": "Brand", "fieldtype": "Data"},
+    {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
+    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "unique": 1, "reqd": 1},
+    {"fieldname": "owner", "label": "Owner", "fieldtype": "Link", "options": "Customer"},
+    {"fieldname": "client_profile", "label": "Client Profile", "fieldtype": "Link", "options": "Client Profile"},
+    {"fieldname": "photo", "label": "Photo", "fieldtype": "Attach Image"},
+    {"fieldname": "qr_code_svg", "label": "QR Code", "fieldtype": "HTML", "read_only": 1},
+    {"fieldname": "last_service_date", "label": "Last Service Date", "fieldtype": "Date", "read_only": 1},
+    {"fieldname": "clarinet_pad_map", "label": "Pad Map View", "fieldtype": "HTML", "depends_on": "eval:doc.instrument_type=='Clarinet'"},
+    {"fieldname": "route", "label": "Route", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "published", "label": "Published", "fieldtype": "Check", "default": 1}
   ],
   "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    },
-    {
-      "role": "Customer",
-      "read": 1
-    }
-  ],
-  "is_submittable": 0,
-  "editable_grid": 1,
-  "is_child_table": 1
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
 }

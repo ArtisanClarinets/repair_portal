@@ -21,6 +21,6 @@ class TestServiceLog(unittest.TestCase):
             }
         )
         doc.insert(ignore_permissions=True)
-        self.assertEqual(doc.service_type, 'Repair')
-        self.assertEqual(doc.description, 'Complete key overhaul.')
-        self.assertIsNotNone(doc.name)
+        assert doc.service_type == 'Repair'
+        assert doc.description == 'Complete key overhaul.'
+        assert doc.name is not None

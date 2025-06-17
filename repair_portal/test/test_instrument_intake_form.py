@@ -16,4 +16,4 @@ class TestInstrumentIntakeForm(unittest.TestCase):
             }
         )
         doc.insert()
-        self.assertTrue(doc.name.startswith('INTAKE-'))
+        assert doc.name.startswith('INTAKE-')

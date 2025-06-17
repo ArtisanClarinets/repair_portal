@@ -31,7 +31,7 @@ def validate_doctype_controller(path):
 
 print('🔍 Running Full App Integrity Test...')
 
-for root, dirs, files in os.walk(APP_ROOT):
+for root, _dirs, files in os.walk(APP_ROOT):
     for file in files:
         if file.endswith('.json') and 'doctype' in root:
             validate_doctype_controller(Path(root) / file)

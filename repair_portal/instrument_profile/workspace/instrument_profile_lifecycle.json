@@ -1,0 +1,33 @@
+{
+  "label": "Instrument Lifecycle",
+  "icon": "fa fa-clipboard-list",
+  "route": "/app/instrument-lifecycle",
+  "content": [
+    {
+      "type": "chart",
+      "label": "Service Timeline",
+      "chart": "Instrument Service Timeline",
+      "col": 12
+    },
+    {
+      "type": "number_card",
+      "label": "Active Instruments",
+      "number_card": "Active Instruments Count",
+      "col": 4
+    },
+    {
+      "type": "number_card",
+      "label": "Pending Repairs",
+      "number_card": "Instruments Awaiting Repair",
+      "col": 4
+    },
+    {
+      "type": "quick_list",
+      "label": "Recently Serviced",
+      "doctype": "Instrument Profile",
+      "filters": [["last_service_date", ">=", "last week"]],
+      "fields": ["name", "owner", "last_service_date"],
+      "col": 4
+    }
+  ]
+}

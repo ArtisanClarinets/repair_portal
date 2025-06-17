@@ -1,0 +1,28 @@
+{
+  "doctype": "List Dashboard",
+  "name": "Instrument Profile",
+  "module": "Instrument Profile",
+  "ref_doctype": "Instrument Profile",
+  "items": [
+    {
+      "item_name": "Clarinet Repair Log",
+      "item_type": "Report",
+      "item_reference": "Clarinet Repair Log"
+    },
+    {
+      "item_name": "Repair Parts Used",
+      "item_type": "Report",
+      "item_reference": "Repair Parts Used"
+    },
+    {
+      "item_name": "Repair Estimate",
+      "item_type": "Report",
+      "item_reference": "Repair Estimate"
+    },
+    {
+      "item_name": "Inspection Report",
+      "item_type": "Report",
+      "item_reference": "Inspection Report"
+    }
+  ]
+}

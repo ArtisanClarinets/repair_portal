@@ -59,7 +59,7 @@ class TestClarinetInitialSetup(unittest.TestCase):
         setup.insert()
         setup.submit()
 
-        self.assertTrue(frappe.db.exists('Stock Entry', {'custom_source_setup': setup.name}))
-        self.assertTrue(frappe.db.exists('Serial No', {'serial_no': self.intake.serial_number}))
-        self.assertTrue(frappe.db.exists('Asset', {'custom_clarinet_setup': setup.name}))
-        self.assertTrue(frappe.db.exists('Sales Invoice Item', {'item_code': 'CLARINET01'}))
+        assert frappe.db.exists('Stock Entry', {'custom_source_setup': setup.name})
+        assert frappe.db.exists('Serial No', {'serial_no': self.intake.serial_number})
+        assert frappe.db.exists('Asset', {'custom_clarinet_setup': setup.name})
+        assert frappe.db.exists('Sales Invoice Item', {'item_code': 'CLARINET01'})

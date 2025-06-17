@@ -48,7 +48,7 @@ def lint_workspace(file_path):
 
 def lint_all(base_dir):
     summary = {}
-    for root, dirs, files in os.walk(base_dir):
+    for root, _dirs, files in os.walk(base_dir):
         for file in files:
             if file.endswith('.json') and 'workspace' in root:
                 full_path = os.path.join(root, file)

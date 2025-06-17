@@ -13,7 +13,7 @@ class TestAutomationAndKPIs(unittest.TestCase):
         setup = frappe.new_doc('Clarinet Initial Setup')
         setup.status = 'Open'
         setup.insert()
-        self.assertTrue(setup.technician)
+        assert setup.technician
 
     def test_kpi_checklist_completion(self):
         setup = frappe.get_doc(
@@ -27,4 +27,4 @@ class TestAutomationAndKPIs(unittest.TestCase):
             }
         )
         complete = sum(1 for i in setup.checklist if i.completed)
-        self.assertEqual(complete, 1)
+        assert complete == 1

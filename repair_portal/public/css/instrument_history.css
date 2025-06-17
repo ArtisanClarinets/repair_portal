@@ -1,48 +1,47 @@
-/* instrument_history.css - Enterprise-grade styling */
+/* File: public/css/instrument_history.css */
+/* Updated: 2025-06-16
+ * Version: 1.1
+ * Purpose: Enhanced readability, spacing, and hover experience for service log
+ */
 
-.page-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  padding: 30px;
-  font-family: 'Helvetica Neue', sans-serif;
-}
-
-h3, h4 {
-  font-weight: 600;
-  color: #2a2a2a;
-  border-bottom: 2px solid #e2e2e2;
-  padding-bottom: 8px;
-  margin-top: 20px;
-}
-
-strong {
-  color: #333;
-}
-
-#service-log div, #external-logs div {
-  background: #f8f8f8;
-  border-left: 4px solid #2b7bd3;
-  padding: 10px 15px;
-  margin-bottom: 8px;
-  border-radius: 4px;
+.service-log-card {
+  background-color: #f9fafc;
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  margin-bottom: 1rem;
   transition: background 0.3s ease;
 }
 
-#service-log div:hover, #external-logs div:hover {
-  background: #eef3fc;
+.service-log-card:hover {
+  background-color: #eef4ff;
+}
+
+h2.section-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #2b2b2b;
 }
 
 .btn-primary {
-  background-color: #2b7bd3;
-  border-color: #2b7bd3;
-  font-weight: 500;
-  padding: 10px 18px;
-  font-size: 14px;
-  margin-top: 10px;
-  border-radius: 4px;
+  background-color: #2952a3;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+  border: none;
 }
 
-.row > div {
-  padding: 10px 0;
+.btn-primary:hover {
+  background-color: #193c73;
+}
+
+@media (max-width: 768px) {
+  .service-log-card {
+    padding: 1rem;
+  }
+
+  h2.section-title {
+    font-size: 1.2rem;
+  }
 }

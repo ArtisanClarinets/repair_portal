@@ -5,8 +5,8 @@ Version: 1.0
 Purpose: Controller for Customer External Work Log child table DocType.
 """
 
-import frappe
 from frappe.model.document import Document
+
 
 class CustomerExternalWorkLog(Document):
     pass

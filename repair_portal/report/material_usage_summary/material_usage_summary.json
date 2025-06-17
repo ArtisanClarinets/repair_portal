@@ -1,0 +1,10 @@
+{
+  "doctype": "Report",
+  "name": "Material Usage Summary",
+  "report_name": "Material Usage Summary",
+  "ref_doctype": "Clarinet Repair Log",
+  "report_type": "Script Report",
+  "is_standard": "Yes",
+  "module": "Repair Logging",
+  "filters": []
+}

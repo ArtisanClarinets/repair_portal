@@ -1,0 +1,20 @@
+{% extends "templates/web.html" %}
+
+{% block header %}
+<h1>Player Profiles</h1>
+{% endblock %}
+
+{% block page_content %}
+<div class="player-profiles container">
+  <ul>
+  {% for doc in player_profiles %}
+    <li>
+      <strong>{{ doc.player_name }}</strong> ({{ doc.client_profile }})<br>
+      <em>Style:</em> {{ doc.style_preferences }}<br>
+      <em>Tonal Goals:</em> {{ doc.tonal_goals }}<br>
+      <em>Technician Notes:</em> {{ doc.tech_notes }}
+    </li>
+  {% endfor %}
+  </ul>
+</div>
+{% endblock %}

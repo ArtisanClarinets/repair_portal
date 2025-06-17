@@ -1,0 +1,14 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Note",
+  "module": "Repair Portal",
+  "istable": 1,
+  "fields": [
+    {"fieldname": "note_time", "label": "Timestamp", "fieldtype": "Datetime", "reqd": 1},
+    {"fieldname": "note_text", "label": "Note", "fieldtype": "Text", "reqd": 1},
+    {"fieldname": "author", "label": "Author", "fieldtype": "Link", "options": "User", "read_only": 1}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

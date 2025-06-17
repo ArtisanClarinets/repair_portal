@@ -5,8 +5,8 @@ Version: 1.0
 Purpose: Server-side logic for Consent Log Entry child table (Instrument Profile module)
 """
 
-import frappe
 from frappe.model.document import Document
+
 
 class ConsentLogEntry(Document):
     pass

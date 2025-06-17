@@ -35,5 +35,12 @@
   "allow_multiple": 1,
   "route": "/submit-intake",
   "success_message": "Your intake has been submitted.",
-  "success_url": "/status-intake"
+  "success_url": "/status-intake",
+  "show_list": 1,
+  "is_list": 1,
+  "list_columns": [
+    {"fieldname": "instrument_profile"},
+    {"fieldname": "reason_for_service"},
+    {"fieldname": "customer"}
+  ]
 }

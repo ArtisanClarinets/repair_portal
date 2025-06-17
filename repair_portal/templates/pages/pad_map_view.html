@@ -1,0 +1,33 @@
+<!-- File: repair_portal/templates/pages/pad_map_view.html -->
+<!-- Updated: 2025-06-16 -->
+<!-- Purpose: Public read-only view of clarinet pad map with status coloring -->
+
+{% if svg_content and pad_data %}
+<h2>Clarinet Pad Service Report</h2>
+<div id="pad-map-container">{{ svg_content | safe }}</div>
+
+<script>
+  const padData = {{ pad_data | safe }};
+  const statusColors = {
+    'OK': 'green',
+    'Leaking': 'orange',
+    'Replaced': 'red',
+    'Adjusted': 'blue',
+    'Requires Shim': 'purple'
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    padData.forEach(pad => {
+      const el = document.getElementById(pad.pad_id);
+      if (el) {
+        el.style.fill = statusColors[pad.status] || 'grey';
+        const tooltip = document.createElement('title');
+        tooltip.textContent = `Pad: ${pad.pad_name}\nStatus: ${pad.status}`;
+        el.appendChild(tooltip);
+      }
+    });
+  });
+</script>
+{% else %}
+<p>No pad map data found for this repair log.</p>
+{% endif %}

@@ -1,0 +1,17 @@
+{
+  "doctype": "DocType",
+  "name": "Inspection Report",
+  "module": "Inspection",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "inspection_date", "label": "Inspection Date", "fieldtype": "Date", "default": "Today"},
+    {"fieldname": "instrument_id", "label": "Instrument ID", "fieldtype": "Data"},
+    {"fieldname": "customer_name", "label": "Customer Name", "fieldtype": "Data"},
+    {"fieldname": "key_measurements", "label": "Key Measurements", "fieldtype": "Table", "options": "Key Measurement"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1}
+  ]
+}

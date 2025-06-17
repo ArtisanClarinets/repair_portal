@@ -1,0 +1,21 @@
+{% extends "templates/web.html" %}
+
+{% block breadcrumbs %}
+    {% include "templates/includes/breadcrumbs.html" %}
+{% endblock %}
+
+{% block header %}
+<h1>{{ doc.serial_number }}</h1>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <img src="{{ doc.photo }}" class="img-thumbnail mb-3" style="max-width: 300px;">
+    <p><strong>Instrument Type:</strong> {{ doc.instrument_type }}</p>
+    <p><strong>Brand:</strong> {{ doc.brand }}</p>
+    <p><strong>Model:</strong> {{ doc.model }}</p>
+    <p><strong>Owner:</strong> {{ doc.owner }}</p>
+    <p><strong>Client:</strong> {{ doc.client_profile }}</p>
+    <p><strong>Last Service:</strong> {{ doc.last_service_date }}</p>
+</div>
+{% endblock %}

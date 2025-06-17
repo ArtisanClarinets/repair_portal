@@ -1,11 +1,13 @@
-# File: instrument_profile/doctype/player_profile/player_profile.py
-# Updated: 2025-06-14
-# Version: 1.0
-# Purpose: Controller for Player Profile Doctype
-# Provides musician/owner info for linking to Instrument Profile.
+from frappe.website.website_generator import WebsiteGenerator
+import frappe
 
-from frappe.model.document import Document
+class PlayerProfile(WebsiteGenerator):
+    website = frappe._dict(
+        condition_field="published",
+        page_title_field="player_name",
+        route="route"
+    )
 
-
-class PlayerProfile(Document):
-    pass
+    def get_context(self, context):
+        context.title = self.player_name
+        context.parents = [{"title": "My Players", "route": "/dashboard"}]

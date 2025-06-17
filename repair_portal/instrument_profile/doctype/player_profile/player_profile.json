@@ -7,14 +7,16 @@
   "editable_grid": 1,
   "fields": [
     {"fieldname": "player_name", "label": "Player Name", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
-    {"fieldname": "email", "label": "Email", "fieldtype": "Data"},
-    {"fieldname": "phone", "label": "Phone", "fieldtype": "Data"},
-    {"fieldname": "address", "label": "Address", "fieldtype": "Data"},
-    {"fieldname": "instruments_owned", "label": "Instruments Owned", "fieldtype": "Table", "options": "Instrument Profile"},
-    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"}
+    {"fieldname": "client_profile", "label": "Client Profile", "fieldtype": "Link", "options": "Client Profile", "reqd": 1},
+    {"fieldname": "style_preferences", "label": "Style Preferences", "fieldtype": "Small Text"},
+    {"fieldname": "tonal_goals", "label": "Tonal Goals", "fieldtype": "Small Text"},
+    {"fieldname": "tech_notes", "label": "Technician Notes", "fieldtype": "Small Text"},
+    {"fieldname": "route", "label": "Route", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "published", "label": "Published", "fieldtype": "Check", "default": 1}
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "Customer", "read": 1}
   ]
 }

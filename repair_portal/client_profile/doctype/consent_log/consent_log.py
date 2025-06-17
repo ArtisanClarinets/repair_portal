@@ -5,8 +5,8 @@ Version: 1.0.0
 Purpose: Python controller for Consent Log DocType (Table, istable=1)
 '''
 
-import frappe
 from frappe.model.document import Document
+
 
 class ConsentLog(Document):
     pass

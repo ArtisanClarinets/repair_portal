@@ -12,7 +12,7 @@ def clean_fields(path):
     if not path.endswith('.json') or '/doctype/' not in path:
         return
     try:
-        with open(path, 'r') as f:
+        with open(path) as f:
             data = json.load(f)
     except Exception as e:
         print(f"Failed to read {path}: {e}")
@@ -36,6 +36,6 @@ def clean_fields(path):
 
     print(f"Cleaned {removed} fields from {path}")
 
-for root, dirs, files in os.walk('/opt/frappe/erp-bench/apps/repair_portal/repair_portal'):
+for root, _dirs, files in os.walk('/opt/frappe/erp-bench/apps/repair_portal/repair_portal'):
     for file in files:
         clean_fields(os.path.join(root, file))
