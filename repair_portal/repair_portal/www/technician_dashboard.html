@@ -1,0 +1,33 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Technician Dashboard") }}{% endblock %}
+
+{% block page_content %}
+<div class="container my-8">
+  <h1 class="text-3xl font-semibold mb-6">{{ _("Technician Dashboard") }}</h1>
+  {% if assignments %}
+  <table class="table-auto w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2 text-left">{{ _("Request") }}</th>
+        <th class="px-4 py-2">{{ _("Priority") }}</th>
+        <th class="px-4 py-2">{{ _("Status") }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in assignments %}
+      <tr class="border-t">
+        <td class="px-4 py-2">
+          <a href="/repair_request?name={{ a.name }}" class="underline">{{ a.name }}</a>
+        </td>
+        <td class="px-4 py-2 text-center">{{ a.priority_level or "-" }}</td>
+        <td class="px-4 py-2 text-center">{{ a.status }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="text-gray-600">{{ _("No assignments.") }}</p>
+  {% endif %}
+</div>
+{% endblock %}

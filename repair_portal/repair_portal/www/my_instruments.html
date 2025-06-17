@@ -1,0 +1,24 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Your Instrument Portfolio") }}{% endblock %}
+
+{% block page_content %}
+<div class="container my-8">
+  <h1 class="text-3xl font-semibold mb-6">{{ _("Your Instrument Portfolio") }}</h1>
+  {% if instruments %}
+  <ul class="grid md:grid-cols-2 gap-6">
+    {% for inst in instruments %}
+    <li class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+      <a href="/{{ inst.route or inst.name }}" class="no-underline text-gray-900">
+        <h2 class="text-xl font-medium">{{ inst.instrument_name or inst.serial_number }}</h2>
+        <p class="text-sm text-gray-500">{{ inst.brand }} {{ inst.model }}</p>
+        <p class="text-sm text-gray-600">{{ inst.status }}</p>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-gray-600">{{ _("No instruments found.") }}</p>
+  {% endif %}
+</div>
+{% endblock %}

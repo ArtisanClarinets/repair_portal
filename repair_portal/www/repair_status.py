@@ -1,13 +1,10 @@
-# File: repair_portal/www/repair_status.py
-# Updated: 2025-06-16
-# Version: 1.0
-# Purpose: Public tracker for Clarinet Repair Log status and notes
+"""Public tracker for the service order status."""
 
 import frappe
 
 
-@frappe.whitelist(allow_guest=True)
 def get_context(context):
+    """Return status information for a repair tracker."""
     name = frappe.form_dict.get("name")
     if not name:
         frappe.throw("Missing tracker ID")
@@ -16,4 +13,5 @@ def get_context(context):
     context.stage = doc.current_stage
     context.message = doc.message_to_customer
     context.history = doc.history_log
+    context.title = f"Repair Status for {doc.instrument_name}"
     return context

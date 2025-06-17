@@ -7,5 +7,11 @@ app_license = "MIT"
 
 website_generators = [
     "Instrument Profile",
-    "Player Profile"
+    "Player Profile",
+]
+
+portal_menu_items = [
+    {"title": "My Instruments", "route": "/my_instruments", "reference_doctype": "Instrument Profile"},
+    {"title": "My Repairs", "route": "/my_repairs", "reference_doctype": "Repair Request"},
+    {"title": "Technician Dashboard", "route": "/technician_dashboard", "role": "Technician"},
 ]
