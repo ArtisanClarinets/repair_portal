@@ -1,13 +1,12 @@
-<!-- File: repair_portal/templates/pages/pad_map_view.html -->
-<!-- Updated: 2025-06-16 -->
-<!-- Purpose: Public read-only view of clarinet pad map with status coloring -->
-
+{% extends "templates/web.html" %}
+{% block title %}Pad Map{% endblock %}
+{% block page_content %}
 {% if svg_content and pad_data %}
 <h2>Clarinet Pad Service Report</h2>
 <div id="pad-map-container">{{ svg_content | safe }}</div>
 
 <script>
-  const padData = {{ pad_data | safe }};
+  const padData = {{ pad_data | tojson | safe }};
   const statusColors = {
     'OK': 'green',
     'Leaking': 'orange',
@@ -31,3 +30,4 @@
 {% else %}
 <p>No pad map data found for this repair log.</p>
 {% endif %}
+{% endblock %}

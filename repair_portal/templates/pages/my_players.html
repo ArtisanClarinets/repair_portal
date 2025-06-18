@@ -1,9 +1,7 @@
 {% extends "templates/web.html" %}
-
 {% block header %}
 <h1>My Players</h1>
 {% endblock %}
-
 {% block page_content %}
 <div class="my-players container">
   <div class="row">
@@ -23,6 +21,9 @@
       </div>
     </div>
     {% endfor %}
+    {% if not players %}
+      <p>{{ empty_message }}</p>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

@@ -1,21 +1,44 @@
-<!-- File: repair_portal/repair_portal/templates/pages/instrument_profile.html -->
-<!-- Updated: 2025-06-14 | Version: 1.0 -->
-<!-- Purpose: Public-facing instrument profile page template -->
+<!-- File: templates/pages/instrument_profile.html -->
+<!-- Updated: 2025-06-18 -->
+<!-- Version: 1.1 -->
+<!-- Purpose: Unified, production-ready web view for Instrument Profile (corporate theme) -->
 
 {% extends "templates/web.html" %}
 
+{% block title %}{{ title }}{% endblock %}
+
 {% block page_content %}
-  {% if doc.published %}
-    <div class="instrument-profile">
-      <h1>{{ doc.instrument_name }} ({{ doc.serial_number }})</h1>
-      <p><strong>Type:</strong> {{ doc.instrument_category }}</p>
-      <p><strong>Model:</strong> {{ doc.model }}</p>
-      <p><strong>Status:</strong> {{ doc.status }}</p>
-      {% if doc.notes %}<p><strong>Notes:</strong> {{ doc.notes }}</p>{% endif %}
+<div class="max-w-5xl mx-auto p-6 bg-white shadow-2xl rounded-2xl border border-gray-200 mt-10">
+    <h1 class="text-4xl font-bold mb-4 text-gray-800">{{ instrument.instrument_name }} ({{ instrument.serial_number }})</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <p class="text-gray-600 text-sm">Instrument Category</p>
+            <p class="text-xl font-medium">{{ instrument.instrument_category }}</p>
+        </div>
+        <div>
+            <p class="text-gray-600 text-sm">Model</p>
+            <p class="text-xl font-medium">{{ instrument.model }}</p>
+        </div>
+        <div>
+            <p class="text-gray-600 text-sm">Acquisition</p>
+            <p class="text-xl font-medium">{{ instrument.acquisition_type }}</p>
+        </div>
+        <div>
+            <p class="text-gray-600 text-sm">Status</p>
+            <p class="text-xl font-medium">{{ instrument.status }}</p>
+        </div>
+        {% if instrument.purchase_date %}
+        <div>
+            <p class="text-gray-600 text-sm">Purchase Date</p>
+            <p class="text-xl font-medium">{{ instrument.purchase_date }}</p>
+        </div>
+        {% endif %}
     </div>
-  {% else %}
-    <div class="alert alert-warning">
-      This instrument profile is not published.
+    {% if instrument.notes %}
+    <div class="mt-6">
+        <h2 class="text-2xl font-semibold text-gray-700">Notes</h2>
+        <p class="text-gray-800 mt-2">{{ instrument.notes }}</p>
     </div>
-  {% endif %}
+    {% endif %}
+</div>
 {% endblock %}

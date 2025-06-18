@@ -1,11 +1,10 @@
 {% extends "templates/web.html" %}
-
 {% block title %}My Instruments{% endblock %}
 
 {% block page_content %}
   <h1>Instrument Catalog</h1>
   <div class="row">
-    {% for instrument in frappe.get_all('Instrument Profile', fields=['name', 'serial_number', 'brand', 'model', 'instrument_category', 'status', 'route'], filters={'published': 1}) %}
+    {% for instrument in instruments %}
       <div class="col-sm-6 col-md-4 mb-4">
         <a href="/{{ instrument.route }}" class="card p-3 text-dark text-decoration-none">
           <h5>{{ instrument.serial_number }}</h5>
@@ -15,5 +14,8 @@
         </a>
       </div>
     {% endfor %}
+    {% if not instruments %}
+      <p>{{ empty_message }}</p>
+    {% endif %}
   </div>
 {% endblock %}

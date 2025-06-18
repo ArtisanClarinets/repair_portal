@@ -1,9 +1,7 @@
 {% extends "templates/web.html" %}
-
 {% block header %}
 <h1>Player Profiles</h1>
 {% endblock %}
-
 {% block page_content %}
 <div class="player-profiles container">
   <ul>
@@ -15,6 +13,9 @@
       <em>Technician Notes:</em> {{ doc.tech_notes }}
     </li>
   {% endfor %}
+  {% if not player_profiles %}
+    <p>{{ empty_message }}</p>
+  {% endif %}
   </ul>
 </div>
 {% endblock %}

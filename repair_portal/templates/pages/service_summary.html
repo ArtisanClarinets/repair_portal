@@ -1,9 +1,7 @@
 {% extends "templates/web.html" %}
-
 {% block header %}
 <h1>Service Summary</h1>
 {% endblock %}
-
 {% block page_content %}
 <div class="container">
   <ul class="list-group">
@@ -15,6 +13,9 @@
       <em>Description:</em> {{ log.description }}
     </li>
     {% endfor %}
+    {% if not repair_logs %}
+      <p>{{ empty_message }}</p>
+    {% endif %}
   </ul>
 </div>
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "templates/web.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block page_content %}
+<h1>Repair Status</h1>
+<div class="repair-status-tracker">
+  <h4>Current Stage</h4>
+  <p>{{ stage }}</p>
+</div>
+<div>
+  <h4>Message</h4>
+  <p>{{ message }}</p>
+</div>
+<div>
+  <h4>History Log</h4>
+  <ul>
+    {% for entry in history %}
+      <li>{{ entry }}</li>
+    {% endfor %}
+    {% if not history %}
+      <li>No history yet.</li>
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}

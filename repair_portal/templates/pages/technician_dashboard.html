@@ -1,0 +1,16 @@
+{% extends "templates/web.html" %}
+{% block title %}Technician Dashboard{% endblock %}
+{% block page_content %}
+  <h1>Technician Dashboard</h1>
+  <ul>
+    {% for repair in repairs %}
+      <li>
+        <strong>{{ repair.instrument }}</strong> ({{ repair.status }}) on {{ repair.date }}<br>
+        <em>{{ repair.description }}</em>
+      </li>
+    {% endfor %}
+    {% if not repairs %}
+      <p>{{ empty_message }}</p>
+    {% endif %}
+  </ul>
+{% endblock %}

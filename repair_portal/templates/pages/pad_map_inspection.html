@@ -1,11 +1,10 @@
-<!-- File: repair_portal/templates/pages/pad_map_inspection.html -->
-<!-- Updated: 2025-06-16 | Purpose: Mobile/QR public pad inspection view -->
-
+{% extends "templates/web.html" %}
+{% block title %}Pad Map Inspection{% endblock %}
+{% block page_content %}
 <h2>Clarinet Pad Map Inspection</h2>
-<div id="pad-map-wrapper">{{ svg_content or '' }}</div>
-
+<div id="pad-map-wrapper">{{ svg_content | safe }}</div>
 <script>
-  const pad_data = {{ pad_conditions_json or '[]' }};
+  const pad_data = {{ pad_data | tojson | safe }};
   const color_map = {
     'OK': 'green',
     'Leaking': 'orange',
@@ -13,7 +12,6 @@
     'Adjusted': 'blue',
     'Requires Shim': 'purple'
   };
-
   document.addEventListener('DOMContentLoaded', () => {
     pad_data.forEach(pad => {
       let el = document.getElementById(pad.pad_id);
@@ -26,3 +24,4 @@
     });
   });
 </script>
+{% endblock %}

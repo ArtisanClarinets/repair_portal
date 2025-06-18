@@ -2,9 +2,21 @@
   "doctype": "DocType",
   "name": "Instrument Profile",
   "module": "Instrument Setup",
-  "fields": [],
+  "fields": [
+    {"fieldname": "instrument_name", "fieldtype": "Data", "label": "Instrument Name", "reqd": 1},
+    {"fieldname": "serial_number", "fieldtype": "Data", "label": "Serial Number", "reqd": 1},
+    {"fieldname": "brand", "fieldtype": "Data", "label": "Brand", "reqd": 1},
+    {"fieldname": "model", "fieldtype": "Data", "label": "Model"},
+    {"fieldname": "instrument_category", "fieldtype": "Select", "label": "Instrument Category", "options": "Clarinet\nBass Clarinet\nContra Alto\nContra Bass"},
+    {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Active\nInactive\nLoaned\nUnder Repair\nRetired", "default": "Active"},
+    {"fieldname": "route", "fieldtype": "Data", "label": "Web Route"},
+    {"fieldname": "client_profile", "fieldtype": "Link", "label": "Client Profile", "options": "Client Profile"},
+    {"fieldname": "owner", "fieldtype": "Data", "label": "Owner"},
+    {"fieldname": "description", "fieldtype": "Text", "label": "Description"}
+  ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "Technician", "read": 1, "write": 1, "create": 1}
+    {"role": "Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "Website User", "read": 1}
   ]
 }
