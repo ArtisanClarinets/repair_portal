@@ -1,0 +1,32 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Repair Pulse") }}{% endblock %}
+
+{% block page_content %}
+<div class="container my-8">
+  <h1 class="text-3xl font-semibold mb-6">{{ _("Repair Pulse") }}</h1>
+  <ul id="pulse-updates" data-channel="{{ channel }}" class="divide-y">
+    {% for u in updates %}
+    <li class="py-2">
+      <strong>{{ u.status }}</strong>
+      <span class="ml-2 text-gray-600">{{ frappe.format(u.update_time, 'Datetime') }}</span>
+      {% if u.details %}
+      <p class="text-sm">{{ u.details }}</p>
+      {% endif %}
+      {% if u.percent_complete %}
+      <p class="text-xs text-green-700">{{ u.percent_complete }}%</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+<script>
+  window.initialUpdates = {{ updates_json | safe }};
+</script>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="/assets/repair_portal/js/pulse_stream.js"></script>
+{% endblock %}
