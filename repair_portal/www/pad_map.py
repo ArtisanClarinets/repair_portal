@@ -2,6 +2,8 @@
 
 import frappe
 
+frappe.only_for("Technician")
+
 
 def get_context(context):
     """Return context for /pad_map?name=<log>."""
