@@ -11,6 +11,10 @@
 ### 2025-07-01
 - Added Pulse Update feature with real-time repair tracking.
 
+### 2024-06-19
+- Migrated web controllers from `repair_portal/repair_portal/www` to `repair_portal/www`.
+- Moved `repair_pulse.html` to `templates/pages/` and removed unused pad map templates.
+
 
 ## Enabling Pulse Update Feature
 1. Run `bench migrate` to apply new DocTypes.
