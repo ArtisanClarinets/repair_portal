@@ -7,6 +7,9 @@ app_license = "MIT"
 
 app_include_js = [
     "/assets/repair_portal/lab_bundle.js",
+    "https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js",
+    "https://cdn.jsdelivr.net/npm/meyda/dist/web/meyda.min.js",
+    "https://cdn.jsdelivr.net/npm/tone/build/Tone.min.js",
 ]
 
 website_generators = [
