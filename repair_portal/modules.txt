@@ -9,5 +9,6 @@ Service Planning
 Tools
 Enhancements
 Repair
+Lab
 Client Profile
 Image Log

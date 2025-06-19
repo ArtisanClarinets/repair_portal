@@ -2,12 +2,15 @@
 	"scripts": {
 		"lint:frontend": "biome check .",
 		"format:frontend": "biome format . --write",
-		"lint:backend": "ruff .",
+		"lint:backend": "ruff check repair_portal/lab",
 		"format:backend": "ruff format ."
 	},
 	"dependencies": {
 		"eslint": "^9.29.0",
-		"ruff": "^1.5.4"
+		"meyda": "^5.6.3",
+		"plotly.js-dist": "^3.0.1",
+		"ruff": "^1.5.4",
+		"tone": "15.1.22"
 	},
 	"devDependencies": {
 		"cypress": "^14.4.1",
