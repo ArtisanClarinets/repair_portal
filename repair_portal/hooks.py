@@ -5,6 +5,10 @@ app_description = "Clarinet Repair System"
 app_email = "support@artisanclarinets.com"
 app_license = "MIT"
 
+app_include_js = [
+    "/assets/repair_portal/lab_bundle.js",
+]
+
 website_generators = [
     "Instrument Profile",
     "Player Profile",
