@@ -1,0 +1,25 @@
+{
+  "doctype": "DocType",
+  "name": "Tone Fitness Entry",
+  "module": "Lab",
+  "istable": 1,
+  "is_child_table": 1,
+  "fields": [
+    {
+      "fieldname": "reading_time",
+      "label": "Reading Time",
+      "fieldtype": "Datetime"
+    },
+    { "fieldname": "centroid", "label": "Centroid", "fieldtype": "Float" },
+    { "fieldname": "spread", "label": "Spread", "fieldtype": "Float" }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

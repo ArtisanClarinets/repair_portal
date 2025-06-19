@@ -14,5 +14,9 @@ frappe.ui.form.on('Instrument Profile', {
         }, 'Renew Warranty');
       });
     }
+
+    frm.add_custom_button("View Lab Data", () => {
+      frappe.set_route('List', 'Impedance Snapshot', { instrument: frm.doc.name });
+    });
   }
 });
