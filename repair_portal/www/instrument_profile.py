@@ -6,6 +6,7 @@
 
 import frappe
 
+
 def get_context(context):
     user = frappe.session.user
     instrument_name = frappe.form_dict.get("name")

@@ -66,6 +66,7 @@ This directory contains all **Python page controllers** for custom web routes in
 - `service_summary.py`        →  All services/repairs for client
 - `technician_dashboard.py`   →  Technician job dashboard
 - `repair_request.py`         →  New repair request page
+- `repair_pulse.py`           →  Real-time updates for a repair request
 - `repair_status.py`          →  Repair tracking page
 - `instrument_profile.py`     →  Instrument detail (dynamic, secure)
 - `pad_map.py`                →  Pad map and inspection visuals
@@ -100,3 +101,11 @@ This directory contains all **Python page controllers** for custom web routes in
 ---
 
 For any questions or contributions, see the main project README or contact Dylan Thompson (MRW Artisan Instruments).
+
+### 2024-06-19
+- Legacy `repair_portal/repair_portal/www` pages consolidated into this directory.
+- Unused pad map templates removed; `repair_pulse.html` moved to `templates/pages/`.
+
+### 2025-07-02
+- Controller context updated with JSON dumps and empty messages for list pages.
+- Templates aligned with new context variables.

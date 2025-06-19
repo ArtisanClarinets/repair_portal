@@ -1,12 +1,9 @@
-from frappe.website.website_generator import WebsiteGenerator
 import frappe
+from frappe.website.website_generator import WebsiteGenerator
+
 
 class PlayerProfile(WebsiteGenerator):
-    website = frappe._dict(
-        condition_field="published",
-        page_title_field="player_name",
-        route="route"
-    )
+    website = frappe._dict(condition_field="published", page_title_field="player_name", route="route")
 
     def get_context(self, context):
         context.title = self.player_name

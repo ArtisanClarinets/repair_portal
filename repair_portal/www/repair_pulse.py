@@ -1,3 +1,9 @@
+"""Web controller: real-time repair pulse updates."""
+# File: repair_portal/www/repair_pulse.py
+# Updated: 2024-06-19
+# Version: 1.0
+# Purpose: Provides context for `/repair_pulse` route.
+
 import frappe
 from frappe import _
 

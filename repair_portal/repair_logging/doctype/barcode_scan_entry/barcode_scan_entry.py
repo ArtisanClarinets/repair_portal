@@ -3,9 +3,8 @@
 # Version: 1.0
 # Purpose: Capture and resolve barcode usage for item lookup during repairs
 
-import frappe
 from frappe.model.document import Document
 
 
 class BarcodeScanEntry(Document):
-   pass
+    pass

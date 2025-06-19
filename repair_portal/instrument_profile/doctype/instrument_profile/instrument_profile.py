@@ -6,12 +6,9 @@
 import frappe
 from frappe.website.website_generator import WebsiteGenerator
 
+
 class InstrumentProfile(WebsiteGenerator):
-    website = frappe._dict(
-        condition_field="published",
-        page_title_field="serial_number",
-        route="route"
-    )
+    website = frappe._dict(condition_field="published", page_title_field="serial_number", route="route")
 
     def validate(self):
         # Auto-set route from serial number
