@@ -16,6 +16,7 @@
     {"fieldname": "photo", "label": "Photo", "fieldtype": "Attach Image"},
     {"fieldname": "qr_code_svg", "label": "QR Code", "fieldtype": "HTML", "read_only": 1},
     {"fieldname": "last_service_date", "label": "Last Service Date", "fieldtype": "Date", "read_only": 1},
+    {"fieldname": "wellness_score", "label": "Wellness Score", "fieldtype": "Int", "default": 0},
     {"fieldname": "clarinet_pad_map", "label": "Pad Map View", "fieldtype": "HTML", "depends_on": "eval:doc.instrument_category=='Clarinet'"},
     {"fieldname": "route", "label": "Route", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "published", "label": "Published", "fieldtype": "Check", "default": 1}

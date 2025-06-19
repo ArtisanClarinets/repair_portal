@@ -1,0 +1,31 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Instrument Wellness") }}{% endblock %}
+
+{% block page_content %}
+<div class="container my-8">
+  <h1 class="text-3xl font-semibold mb-6">{{ instrument.instrument_name }}</h1>
+  <div id="wellness-app"
+       data-score="{{ wellness_score }}"
+       data-history="{{ service_logs_json | escape }}"
+       data-due-days="{{ due_days }}">
+    <canvas id="gauge" width="300" height="150"></canvas>
+    <div class="mt-4">
+      <button id="schedule-btn" class="btn btn-primary"
+              onclick="location.href='/repair_request?instrument={{ instrument.name }}'">
+        {{ _("Schedule Next Service") }}
+      </button>
+      <span id="due-badge" class="badge bg-warning ml-2 hidden">{{ _("Service Due Soon") }}</span>
+    </div>
+    <ul id="service-history" class="mt-6 divide-y"></ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/vue@3.4.0/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="/assets/repair_portal/js/wellness_dashboard.js"></script>
+{% endblock %}
