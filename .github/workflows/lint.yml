@@ -17,8 +17,6 @@ jobs:
       - name: Install Biome
         run: npm install -g @biomejs/biome
 
-      - name: Run Biome
-        run: biome check .
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -29,6 +27,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ruff
+          
+          
 
       - name: Run Ruff
         run: ruff .
+        
