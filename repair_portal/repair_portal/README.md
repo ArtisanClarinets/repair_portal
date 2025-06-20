@@ -1,16 +1,16 @@
-# Repair Portal Module
+# Client-Facing Repair Portal
 
-## Updated: 2025-06-19
+This module powers the user-facing interface where clients interact with their repair jobs.
 
-### Change Log:
-- Linked [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for Unified Chat & Ticketing, Progress Thermometer, Financing/Split-Pay, Referral Rewards, and Push-Notification PWA.
+## Features
+- Unified Chat & Ticketing
+- Job Progress Thermometer
+- Financing & Split Payments
+- Referral Rewards
+- Installable PWA + Push Notifications
+
+## Planning Reference
+See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for roadmap.
 
 ---
-
-## 🔮 Planned Features
-See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for full details and implementation notes.
-- Unified Chat & Ticketing
-- Progress Thermometer
-- Financing / Split-Pay
-- Referral Rewards
-- Push-Notification PWA
+Last updated: 2025-06-20

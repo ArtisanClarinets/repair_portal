@@ -1,21 +1,19 @@
-# Planned Features: Inspection & Repair (Bench Operations)
+## Planned Features – Inspection Module
 
-## Overview
-Technician-facing automation, workflow, and guidance for all bench repair and inspection steps.
+### a. Dynamic Pad-List Builder
+- **Logic:** Auto-generate repair kit list based on model
+- **Inventory:** Pulls real stock info
 
-### Features
+### b. Interactive Screw Map
+- **UI:** Diagram view with clickable screw specs
 
-1. **Dynamic Pad-List Builder**
-   - Auto generates kit by model (Inventory integration)
-2. **Interactive Screw Map**
-   - Diagram view, screw spec fields
-3. **Real-Time Adhesive Timer**
-   - Overlay widget with timer
-4. **Micro-Task Kanban**
-   - Subtasks as Kanban cards, drag/drop on touch
-5. **Skill-Video Side Panel**
-   - Contextual video popup per repair step (links to your video library)
+### c. Real-Time Adhesive Timer
+- **Widget:** On-screen countdown overlay during pad setting
 
----
+### d. Micro-Task Kanban
+- **Subtasks:** Card-based workflow for granular tracking
+- **UI:** Drag/drop for quick bench task updates
 
-*File last updated: 2025-06-19 / v1.0*
+### e. Skill-Video Side Panel
+- **Feature:** Popup window shows contextual how-to video
+- **Integration:** Links to local video DB or Vimeo/YT

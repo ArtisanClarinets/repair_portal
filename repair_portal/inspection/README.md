@@ -1,11 +1,16 @@
-# Inspection Module
+# Inspection & Repair Module
 
-## Updated: 2025-06-19
+This module is used by technicians to log, inspect, and manage the physical repair process of clarinets.
 
-### Change Log:
-- Linked [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for all bench operation enhancements: Dynamic Pad-List Builder, Interactive Screw Map, Real-Time Adhesive Timer, Micro-Task Kanban, Skill-Video Side Panel.
+## Features
+- Dynamic Pad-List Generation
+- Screw Mapping Tool
+- Real-Time Adhesive Timer
+- Repair Microtask Kanban
+- Skill Video Reference Panel
+
+## Planning Reference
+See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for the complete roadmap.
 
 ---
-
-## 🔮 Planned Features
-See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for upcoming and proposed inspection and bench workflow automations.
+Last updated: 2025-06-20

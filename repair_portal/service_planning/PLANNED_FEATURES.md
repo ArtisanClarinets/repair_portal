@@ -1,35 +1,22 @@
-# Planned Features: Service Planning
+## Planned Features – Service Planning Module
 
-## Overview
-Tools and automation for preventive maintenance, part lifespan, warranty, and communication with customers and schools.
+### a. Predictive Maintenance Scheduler
+- **DocTypes:** Service Plan, Instrument Link
+- **Logic:** ML or heuristic based prediction from play-hours
+- **Calendar:** Google/Apple calendar sync
+- **Automation:** Reminder events for techs and customers
 
-### Features
+### b. Component Lifespan Dashboard
+- **DocTypes:** Component Odometer Table
+- **UI:** Visual lifespan bars for wearables (pads, corks, etc.)
 
-#### a. Predictive Maintenance Scheduler
-- Service Plan linked to Instrument
-- Field: Play-hours (manual entry or external data import)
-- ML Model/Script: Predicts next service, stores suggestion
-- Calendar Sync: Google/Apple Calendar integration (OAuth, iCal feed)
-- Auto-create calendar event/reminder for customer & tech
+### c. Bulk-School Planner
+- **UI:** Band director dashboard for grouped instruments
+- **Automation:** Bulk PO creation, batch job scheduling
 
-#### b. Component Lifespan Dashboard
-- Component Odometer Table (instrument, pad/cork/spring, install date, cycles/uses, lifespan %)
-- Visual bars/“odometers” per tracked part
+### d. Warranty Countdown Widget
+- **Widget:** Remaining days and upsell prompts for renewal
 
-#### c. Bulk-School Planner
-- Band-director “Group” dashboard (many instruments to one school/contact)
-- Bulk-PO/Batch service scheduler, PO generator
-
-#### d. Warranty Countdown Widget
-- UI widget: Remaining days calculation
-- Prompt: Upsell for extended service as expiry nears
-
-#### e. Automated Reminder Emails
-- Email Drip Workflow:
-  - Triggered on instrument intake, set by plan
-  - 30/60/90 day custom templates
-  - Personalization (instrument, user, last service)
-
----
-
-*File last updated: 2025-06-19 / v1.0*
+### e. Automated Reminder Emails
+- **Triggers:** Based on intake and plan logic
+- **Templates:** Customizable 30/60/90-day drip emails

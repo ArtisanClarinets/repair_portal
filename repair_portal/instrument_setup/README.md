@@ -1,23 +1,16 @@
-# Instrument Setup Module - MRW Artisan Repair Portal
+# Instrument Setup Module
 
-## Purpose
-Ensure instruments undergo documented setup before entering repair or delivery phase.
+This module handles the metadata, lifecycle, and profile data for individual instruments.
 
-## Key Features
-- 📋 `Clarinet Initial Setup` auto-generated post intake
-- 🔍 `Clarinet Inspection`, `Inspection Finding`, and `Setup Log` log setup tasks
-- 🧰 `Material Usage` for all parts and consumables
-- 🧾 Reports: technician performance, parts usage, turnaround
-- 📊 Dashboard: Common findings, repairs by status
-- 🖨️ Printable setup summaries and branded PDFs
+## Features
+- Lifetime Service Timeline
+- Market Valuation Tracker
+- Upgrade Wishlist & Quotes
+- Ownership Transfer
+- Insurance Report PDF
 
-## Automation
-- Setup created after intake submission
-- Material usage totals pushed to instrument profile
-- Setup logs attached to repair orders
+## Planning Reference
+See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for implementation roadmap.
 
-## Web Tools
-- `/repair-status`: customer portal for tracking progress
-- Workspace: `/workspace/repairs/repairs.json` with status cards
-
-_Last Updated: 2025-06-15_
+---
+Last updated: 2025-06-20

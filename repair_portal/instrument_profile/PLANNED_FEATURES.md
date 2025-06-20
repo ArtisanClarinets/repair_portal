@@ -1,29 +1,19 @@
-# Planned Features: Instrument Profile
+## Planned Features – Instrument Profile Module
 
-## Overview
-Lifetime record, ownership, upgrades, and valuation tracking for every clarinet.
+### a. Lifetime Timeline
+- **View:** Interactive history timeline for upgrades, repairs, and owner notes.
+- **Integration:** Connects to Instrument DocType.
 
-### Features
+### b. Market-Value Tracker
+- **Source:** eBay/Reverb API or proxy for valuation.
+- **Fields:** Market estimate + last update timestamp.
 
-#### a. Lifetime Timeline
-- Interactive timeline of all services, upgrades, owner notes (sortable/filterable)
-- Integrated with Instrument doctype
+### c. Upgrade Wishlist
+- **DocType:** Wishlist table linking to accessory/upgrades
+- **Action:** 'Request Quote' triggers notification or request
 
-#### b. Market-Value Tracker
-- Scheduled script scrapes/queries eBay/Reverb via API (or proxy API)
-- Estimated current market value with update timestamp
+### d. Ownership Transfer
+- **Flow:** Secure user verification and PII-masked history migration
 
-#### c. Upgrade Wishlist
-- Wishlist Table: Links to Accessories/Upgrades (barrels, bells, etc.)
-- "Request Quote" button per item
-
-#### d. Ownership Transfer
-- Secure workflow, old/new user verification
-- History migration: anonymizes previous owner's PII
-
-#### e. Insurance Report Generator
-- PDF Print Format: pulls photos, full service record, current valuation
-
----
-
-*File last updated: 2025-06-19 / v1.0*
+### e. Insurance Report Generator
+- **Format:** Branded PDF with photos, valuation, and service history

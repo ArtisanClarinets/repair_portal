@@ -1,32 +1,21 @@
-# Planned Features: Repair Portal (Client-Facing Hub)
+## Planned Features – Repair Portal Module
 
-## Overview
-Integrated client experience for tracking, communication, and engagement.
+### a. Unified Chat & Ticketing
+- **System:** Threaded chat per Job, unified view (email/SMS/chat)
+- **Permissions:** Access limited to job participants
 
-### Features
+### b. Progress Thermometer
+- **UI:** Visual progress bar mapped to job states
+- **Logic:** Reflects intake → shipping process milestones
 
-#### a. Unified Chat & Ticketing
-- Threaded message system (per Job/Repair)
-- Channels: Email, SMS (Twilio), portal chat—unified inbox per job
-- Permissions: Only involved parties can view
+### c. Financing / Split-Pay
+- **Integration:** Shop Pay, Klarna, Afterpay APIs
+- **Tracking:** Invoice/payment plan state
 
-#### b. Progress Thermometer
-- Gamified progress bar on client portal
-- Maps job state (intake → inspection → repair → QA → shipping)
-- Milestone tracking: Custom field or workflow state
+### d. Referral Rewards
+- **Mechanism:** Track referrer/referred and credit rewards
+- **Output:** Coupon generation or shop credit
 
-#### c. Financing / Split-Pay
-- Checkout integration: Shop Pay, Klarna, Afterpay API
-- Job/Invoice: Tracks payment status and schedule
-
-#### d. Referral Rewards
-- Unique link per user: Generates coupons/shop credit for both referrer and referred
-- Tracking: Custom doctype for ref link, status, rewards
-
-#### e. Push-Notification PWA
-- Service Worker: Enable installable web app
-- Push notifications: Status changes trigger device alerts
-
----
-
-*File last updated: 2025-06-19 / v1.0*
+### e. Push-Notification PWA
+- **Technology:** Installable PWA with service workers
+- **Alerts:** Trigger push based on status changes

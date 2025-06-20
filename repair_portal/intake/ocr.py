@@ -1,14 +1,13 @@
 # relative path: intake/ocr.py
-# updated: 2025-08-31
-# version: 0.1
+# updated: 2025-06-20
+# version: 0.5
 # purpose: OCR import for Handwritten Intake forms
-# dev notes: uses pytesseract to parse uploaded intake images or PDFs and create Clarinet Intake records
+# dev notes: renamed function to avoid name shadowing
 
 from __future__ import annotations
-
 import re
 from io import BytesIO
-from typing import Dict, Optional
+from typing import Optional
 
 import frappe
 from frappe.utils.file_manager import get_file
@@ -22,20 +21,22 @@ except Exception:  # pragma: no cover - optional dependency
 
 
 @frappe.whitelist(allow_guest=False, methods=["POST"])
-@frappe.only_for(["Technician"])
-def import_handwritten_intake(file_id: str) -> Dict[str, Optional[str]]:
+def process_handwritten_intake(file_id: str) -> dict[str, str | None]:
     """Process an uploaded intake form via OCR and create a Clarinet Intake."""
+
+    # role guard (must be done at run-time, not import-time)
+    frappe.only_for(["Technician"])
 
     if not pytesseract or not Image:
         frappe.throw("OCR libraries not installed. Please install pytesseract and Pillow.")
 
-    file_doc = frappe.get_doc("File", file_id)
+    file_doc     = frappe.get_doc("File", file_id)
     file_content = get_file(file_doc.file_url)[1]
 
     image = Image.open(BytesIO(file_content))
-    text = pytesseract.image_to_string(image)
+    text  = pytesseract.image_to_string(image)
 
-    data = _parse_intake_text(text)
+    data   = _parse_intake_text(text)
     intake = frappe.new_doc("Clarinet Intake")
     intake.update(data)
     intake.insert(ignore_permissions=True)
@@ -43,21 +44,20 @@ def import_handwritten_intake(file_id: str) -> Dict[str, Optional[str]]:
     return {"intake": intake.name, **data}
 
 
-def _parse_intake_text(text: str) -> Dict[str, Optional[str]]:
+def _parse_intake_text(text: str) -> dict[str, str | None]:
     """Rudimentary parser extracting known fields from OCR text."""
     patterns = {
-        "customer": r"Customer\s*Name[:\-]?\s*(?P<value>.+)",
-        "phone": r"Phone[:\-]?\s*(?P<value>.+)",
-        "email": r"Email[:\-]?\s*(?P<value>.+)",
-        "serial_number": r"Serial\s*Number[:\-]?\s*(?P<value>\w+)",
-        "make": r"Make[:\-]?\s*(?P<value>.+)",
-        "model": r"Model[:\-]?\s*(?P<value>.+)",
+        "customer":        r"Customer\s*Name[:\-]?\s*(?P<value>.+)",
+        "phone":           r"Phone[:\-]?\s*(?P<value>.+)",
+        "email":           r"Email[:\-]?\s*(?P<value>.+)",
+        "serial_number":   r"Serial\s*Number[:\-]?\s*(?P<value>\w+)",
+        "make":            r"Make[:\-]?\s*(?P<value>.+)",
+        "model":           r"Model[:\-]?\s*(?P<value>.+)",
         "condition_notes": r"Condition\s*Notes[:\-]?\s*(?P<value>.+)",
     }
 
-    result = {key: None for key in patterns}
+    result = {k: None for k in patterns}
     for field, pattern in patterns.items():
-        match = re.search(pattern, text, re.IGNORECASE)
-        if match:
-            result[field] = match.group("value").strip()
+        if (m := re.search(pattern, text, re.IGNORECASE)):
+            result[field] = m.group("value").strip()
     return result

@@ -1,56 +1,15 @@
 # Service Planning Module
 
-## 🎯 Purpose
-Schedule and manage planned service tasks across repair bays and technician workloads.
+This module manages predictive maintenance, customer alerts, and warranty/service lifecycle automation.
 
-## 📂 Structure
-```
-service_planning/
-├── doctype/
-│   ├── service_plan/
-│   └── service_task/
-├── report/
-│   └── repair_bay_utilization/
-├── dashboard_chart/
-│   └── scheduled_service_tasks_by_day.json
-├── workflow/
-│   └── service_task_workflow.json
-├── workspace/
-│   └── service_planning.json
-├── config/
-│   └── desktop.py
-├── PLANNED_FEATURES.md
-└── README.md
-```
+## Features
+- Predictive Scheduler
+- Lifespan Tracking
+- Warranty Countdown
+- Automated Email Reminders
 
-## ✅ Doctypes
-- Service Plan
-- Service Task (includes scheduling, technician, repair bay)
-
-## 📊 Reports
-- Repair Bay Utilization ✅
-
-## 📈 Dashboard Charts
-- Scheduled Service Tasks by Day ✅
-
-## 🔁 Workflows
-- Service Task Workflow ✅
-  - States: Scheduled → In Progress → Completed
-
-## 🔒 Permissions
-- `Technician`, `Service Manager`
+## Planning Reference
+See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for detailed roadmap.
 
 ---
-
-## 🔮 Planned Features
-See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for:
-- Predictive Maintenance Scheduler
-- Component Lifespan Dashboard
-- Bulk-School Planner
-- Warranty Countdown Widget
-- Automated Reminder Emails
-
-## 🚦 Status
-Production-ready ✅
-
-*File last updated: 2025-06-19 / v1.1*
+Last updated: 2025-06-20

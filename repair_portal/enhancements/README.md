@@ -1,44 +1,14 @@
 # Enhancements Module
 
-## 🎯 Purpose
-Track, manage, and analyze upgrade/customization requests from customers. Supports quoting, execution tracking, and customer communication.
+This module contains advanced feature extensions including customer-facing enhancements and analytics tools.
 
-## 📂 Structure
-```
-enhancements/
-├── doctype/
-│   ├── customer_upgrade_request/
-│   └── upgrade_option/
-├── report/
-│   ├── top_upgrade_requests/
-│   └── upgrade_conversion_rates/
-├── dashboard_chart/
-│   └── upgrade_requests_over_time.json
-├── custom_script/
-│   └── customer_upgrade_request.json
-├── workspace/
-│   └── enhancements_workspace.json
-├── config/
-│   └── desktop.py
-└── README.md
-```
+## Features
+- Customer Sign-Off Portal
+- Defect Heat-Map
+- Certificate of Service Generator
 
-## ✅ Doctypes
-- Customer Upgrade Request
-- Upgrade Option
+## Planning Reference
+See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for roadmap and specs.
 
-## 📊 Reports
-- Top Upgrade Requests
-- Upgrade Conversion Rates
-
-## 📈 Dashboard Charts
-- Upgrade Requests Over Time ✅
-
-## 🧩 Client Scripts
-- Upgrade type warnings and validations ✅
-
-## 🔒 Permissions
-- `Sales`, `Technician`, `Service Manager`
-
-## 🚦 Status
-Production-ready ✅
+---
+Last updated: 2025-06-20

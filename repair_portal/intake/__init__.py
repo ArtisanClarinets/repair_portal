@@ -1,9 +1,9 @@
 # relative path: intake/__init__.py
-# updated: 2025-08-31
-# version: 1.1
+# updated: 2025-06-20
+# version: 1.2
 # purpose: expose module-level helpers for Intake
-# dev notes: import OCR function for external access
+# dev notes: adjusted for renamed OCR import
 
-from .ocr import import_handwritten_intake
+from .ocr import process_handwritten_intake
 
-__all__ = ["import_handwritten_intake"]
+__all__ = ["process_handwritten_intake"]

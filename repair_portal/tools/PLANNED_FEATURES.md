@@ -1,21 +1,20 @@
-# Planned Features: Tools (Utility Add-Ons)
+## Planned Features – Tools Module
 
-## Overview
-Utility features and tech add-ons for the repair bench, customer, and school use.
-
-### Features
+Standalone micro-utilities:
 
 1. **Background Tuner Overlay**
-   - Web utility: overlay with color feedback
+   - Overlay color feedback tool for pitch matching
+
 2. **Chromatic Drone Generator**
-   - Synth or sample-based; settings for temperament
+   - Synth/sample drone tool with tuning options
+
 3. **Spring-Force Calculator**
-   - Form for inputs; backend formula output
+   - Input form to compute required torque/force
+
 4. **Cork Thickness Finder**
-   - Camera-based AR (possibly external, then upload results)
+   - Uses camera/AR for thickness estimation (if feasible)
+   - Upload results into job or instrument
+
 5. **Bore-Profile Scanner**
-   - Data import (CSV), visual plot, integrates with endoscope camera API if possible
-
----
-
-*File last updated: 2025-06-19 / v1.0*
+   - CSV importer + chart display
+   - (Future) Endoscope camera API integration
