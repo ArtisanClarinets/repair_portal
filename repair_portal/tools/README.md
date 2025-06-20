@@ -19,6 +19,7 @@ tools/
 │   └── repair_tools_&_utilities.json
 ├── config/
 │   └── desktop.py
+├── PLANNED_FEATURES.md
 └── README.md
 ```
 
@@ -39,5 +40,17 @@ tools/
 ## 🔒 Permissions
 - `Technician` (Read), `Service Manager`, `System Manager`
 
+---
+
+## 🔮 Planned Features
+See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for:
+- Background Tuner Overlay
+- Chromatic Drone Generator
+- Spring-Force Calculator
+- Cork Thickness Finder
+- Bore-Profile Scanner
+
 ## 🚦 Status
 Production-ready ✅
+
+*File last updated: 2025-06-19 / v1.1*

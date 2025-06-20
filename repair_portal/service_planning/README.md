@@ -19,6 +19,7 @@ service_planning/
 │   └── service_planning.json
 ├── config/
 │   └── desktop.py
+├── PLANNED_FEATURES.md
 └── README.md
 ```
 
@@ -39,5 +40,17 @@ service_planning/
 ## 🔒 Permissions
 - `Technician`, `Service Manager`
 
+---
+
+## 🔮 Planned Features
+See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for:
+- Predictive Maintenance Scheduler
+- Component Lifespan Dashboard
+- Bulk-School Planner
+- Warranty Countdown Widget
+- Automated Reminder Emails
+
 ## 🚦 Status
 Production-ready ✅
+
+*File last updated: 2025-06-19 / v1.1*
