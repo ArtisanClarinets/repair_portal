@@ -11,6 +11,11 @@
 ### 2025-07-01
 - Added Pulse Update feature with real-time repair tracking.
 
+### 2025-07-02
+- Added `scripts/sort_doctype_json.py` utility to alphabetically sort DocType
+  JSON keys and nested lists. Run it with the path to any DocType JSON file to
+  normalize field order before committing.
+
 ### 2024-06-19
 - Migrated web controllers from `repair_portal/repair_portal/www` to `repair_portal/www`.
 - Moved `repair_pulse.html` to `templates/pages/` and removed unused pad map templates.
