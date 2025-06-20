@@ -1,6 +1,7 @@
 {
-  "workflow_name": "Repair Workflow",
   "doctype": "Repair Request",
+  "name": "Repair Workflow",
+  "workflow_name": "Repair Workflow",
   "is_active": 1,
   "state_field": "status",
   "states": [

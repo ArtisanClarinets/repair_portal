@@ -1,0 +1,32 @@
+{
+  "doctype": "Workspace",
+  "label": "Repair Portal",
+  "module": "Repair Portal",
+  "icon": "fa fa-wrench",
+  "content": {
+    "shortcuts": [
+      {
+        "label": "New Repair",
+        "type": "DocType",
+        "name": "Custom Doctype"
+      }
+    ],
+    "charts": [
+      {
+        "label": "Repairs by Status",
+        "chart_name": "Repairs by Status"
+      }
+    ],
+    "cards": [
+      {
+        "label": "Repair Actions",
+        "items": [
+          {"type": "DocType", "name": "Custom Doctype", "label": "View Repairs"}
+        ]
+      }
+    ],
+    "links": [
+      {"label": "All Repairs", "link_type": "List", "link_to": "Custom Doctype"}
+    ]
+  }
+}

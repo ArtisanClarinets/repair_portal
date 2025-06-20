@@ -1,4 +1,6 @@
 {
+  "doctype": "Workspace",
+  "name": "Technician Workspace",
   "label": "Technician Portal",
   "module": "Repair Portal",
   "type": "Workspace",

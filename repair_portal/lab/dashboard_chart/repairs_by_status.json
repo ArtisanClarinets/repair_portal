@@ -1,0 +1,14 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Repairs by Status",
+  "chart_name": "Repairs by Status",
+  "chart_type": "Bar",
+  "document_type": "Custom Doctype",
+  "based_on": "status",
+  "filters_json": "{}",
+  "timespan": "Last Month",
+  "timeseries": 0,
+  "y_axis": ["count"],
+  "colors": [],
+  "is_public": 0
+}

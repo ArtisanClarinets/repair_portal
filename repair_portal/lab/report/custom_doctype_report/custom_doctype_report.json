@@ -1,0 +1,23 @@
+{
+  "doctype": "Report",
+  "name": "Custom Doctype Report",
+  "report_name": "Custom Doctype Report",
+  "ref_doctype": "Custom Doctype",
+  "report_type": "Script Report",
+  "is_standard": "Yes",
+  "module": "Repair Portal",
+  "filters": [
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nOpen\nIn Progress\nResolved\nClosed"
+    }
+  ]
+}

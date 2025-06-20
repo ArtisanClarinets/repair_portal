@@ -1,4 +1,6 @@
 {
+  "doctype": "Workspace",
+  "name": "Service Manager Workspace",
   "label": "Service Manager Portal",
   "module": "Repair Portal",
   "type": "Workspace",

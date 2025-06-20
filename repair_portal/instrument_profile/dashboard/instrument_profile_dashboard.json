@@ -1,4 +1,6 @@
 {
+  "doctype": "Dashboard",
+  "name": "Instrument Profile Dashboard",
   "charts": [],
   "cards": [
     {

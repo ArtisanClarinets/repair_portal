@@ -1,4 +1,6 @@
 {
+  "doctype": "Workspace",
+  "name": "Repair Portal",
   "label": "Repair Portal",
   "module": "Repair Portal",
   "icon": "fa fa-wrench",
