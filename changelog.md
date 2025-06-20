@@ -13,3 +13,9 @@
 - **playwright/tests/my_instruments.spec.ts** ➜ smoke test.
 - **playwright.config.ts** ➜ Playwright config.
 - **patches/** ➜ diff snippets illustrating refactors.
+
+## 2025-08-31
+- **intake/ocr.py** ➜ added OCR-based intake import using pytesseract.
+- **intake/__init__.py** ➜ exposed new whitelisted function.
+- **README.md** ➜ documented Intake OCR import steps.
+- **patches/ocr_import.diff** ➜ snippet of OCR helper addition.

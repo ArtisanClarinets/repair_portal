@@ -1,0 +1,22 @@
+@@
++# relative path: intake/ocr.py
++@frappe.whitelist(allow_guest=False, methods=["POST"])
++@frappe.only_for(["Technician"])
++def import_handwritten_intake(file_id: str) -> Dict[str, Optional[str]]:
++    """Process an uploaded intake form via OCR and create a Clarinet Intake."""
++
++    if not pytesseract or not Image:
++        frappe.throw("OCR libraries not installed. Please install pytesseract and Pillow.")
++
++    file_doc = frappe.get_doc("File", file_id)
++    file_content = get_file(file_doc.file_url)[1]
++
++    image = Image.open(BytesIO(file_content))
++    text = pytesseract.image_to_string(image)
++
++    data = _parse_intake_text(text)
++    intake = frappe.new_doc("Clarinet Intake")
++    intake.update(data)
++    intake.insert(ignore_permissions=True)
++
++    return {"intake": intake.name, **data}

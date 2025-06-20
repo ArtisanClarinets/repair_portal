@@ -1,6 +1,7 @@
 modified:
   - README.md
   - package.json
+  - repair_portal/intake/__init__.py
 added:
   - apps.json
   - changelog.md
@@ -11,6 +12,8 @@ added:
   - repair_portal/vue/pages/InstrumentWellness.vue
   - repair_portal/vue/pages/MyInstruments.vue
   - vite.config.ts
+  - repair_portal/intake/ocr.py
+  - patches/ocr_import.diff
 removed:
   - repair_portal/public/js/wellness_dashboard.js
   - repair_portal/templates/pages/instrument_wellness.html
