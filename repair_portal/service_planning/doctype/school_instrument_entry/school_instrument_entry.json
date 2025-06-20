@@ -1,0 +1,14 @@
+{
+  "doctype": "DocType",
+  "name": "School Instrument Entry",
+  "module": "Service Planning",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument"},
+    {"fieldname": "notes", "label": "Service Notes", "fieldtype": "Small Text"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+}

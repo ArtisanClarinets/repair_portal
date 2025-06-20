@@ -1,0 +1,19 @@
+{
+  "doctype": "DocType",
+  "name": "Reminder Email Plan",
+  "module": "Service Planning",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument"},
+    {"fieldname": "email_30", "label": "30 Day Email Template", "fieldtype": "Link", "options": "Email Template"},
+    {"fieldname": "email_60", "label": "60 Day Email Template", "fieldtype": "Link", "options": "Email Template"},
+    {"fieldname": "email_90", "label": "90 Day Email Template", "fieldtype": "Link", "options": "Email Template"},
+    {"fieldname": "last_service_date", "label": "Last Service Date", "fieldtype": "Date"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1}
+  ],
+  "is_submittable": 1
+}

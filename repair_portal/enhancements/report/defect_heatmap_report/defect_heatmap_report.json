@@ -1,0 +1,17 @@
+{
+  "doctype": "Report",
+  "name": "Defect Heatmap Report",
+  "report_name": "Defect Heatmap Report",
+  "ref_doctype": "Repair Log",
+  "report_type": "Script Report",
+  "is_standard": "Yes",
+  "module": "Enhancements",
+  "filters": [
+    {
+      "fieldname": "model",
+      "label": "Instrument Model",
+      "fieldtype": "Link",
+      "options": "Instrument Model"
+    }
+  ]
+}

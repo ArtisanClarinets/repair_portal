@@ -1,0 +1,17 @@
+{
+  "doctype": "DocType",
+  "name": "Ownership Transfer",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument", "reqd": 1},
+    {"fieldname": "from_user", "label": "From User", "fieldtype": "Link", "options": "User", "reqd": 1},
+    {"fieldname": "to_user", "label": "To User", "fieldtype": "Link", "options": "User", "reqd": 1},
+    {"fieldname": "confirmation_hash", "label": "Confirmation Hash", "fieldtype": "Data"},
+    {"fieldname": "approved", "label": "Approved", "fieldtype": "Check"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+}

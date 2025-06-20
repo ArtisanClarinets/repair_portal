@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Referral Reward",
+  "module": "Repair Portal",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "referrer", "label": "Referrer", "fieldtype": "Link", "options": "User", "reqd": 1},
+    {"fieldname": "referred_user", "label": "Referred User", "fieldtype": "Link", "options": "User", "reqd": 1},
+    {"fieldname": "referral_code", "label": "Referral Code", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Pending\nConfirmed\nRewarded"},
+    {"fieldname": "reward_amount", "label": "Reward Amount", "fieldtype": "Currency"},
+    {"fieldname": "reward_type", "label": "Reward Type", "fieldtype": "Select", "options": "Credit\nCoupon"},
+    {"fieldname": "date_awarded", "label": "Date Awarded", "fieldtype": "Date"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Customer", "read": 1}]
+}

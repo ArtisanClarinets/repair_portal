@@ -1,18 +1,18 @@
 ## Planned Features – Enhancements Module
 
-### 1. Customer Sign-Off Portal
-- **DocTypes:** Customer Sign-Off
-- **Portal UI:** Digital media review and signature pad
-- **Workflow:** Review → Approved triggers shipping label
-- **Media Handling:** Images/audio/video support
-- **Audit:** IP, timestamp, and signature hash tracking
+### 1. Customer Sign-Off Portal ✅
+- **DocTypes:** Customer Sign-Off created
+- **Portal UI:** TO DO (next step)
+- **Workflow:** Review → Approved triggers shipping label (workflow implemented)
+- **Media Handling:** File Table field included
+- **Audit:** Captures IP, timestamp, and hash fields defined
 
-### 2. Defect Heat-Map
-- **Reports:** Scheduled defect aggregation
-- **Charts:** Heat-map with color-coded model defects
-- **Data Needs:** Defect type/location fields, trends by time
+### 2. Defect Heat-Map ✅
+- **Report:** Script report implemented for part + defect aggregation
+- **Data:** Summarized by model/part/defect type
+- **Future:** Link this to dashboard heatmap visualization
 
-### 3. Certificate of Service PDF
-- **Output:** Serial-numbered, shareable, branded PDF
-- **Extras:** QR code, social meta tags
-- **Config:** Branding, background, digital sig options
+### 3. Certificate of Service PDF ✅
+- **DocType:** Service Certificate implemented
+- **Print Format:** PDF layout with dynamic data and QR
+- **Automation:** Certificate number + public URL logic included

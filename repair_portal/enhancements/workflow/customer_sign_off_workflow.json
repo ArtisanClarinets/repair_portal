@@ -1,0 +1,15 @@
+{
+  "workflow_name": "Customer Sign Off Workflow",
+  "doctype": "Customer Sign Off",
+  "is_active": 1,
+  "state_field": "approval_status",
+  "states": [
+    {"state": "Pending Review", "doc_status": 0, "update_field": "approval_status"},
+    {"state": "Approved", "doc_status": 1},
+    {"state": "Rejected", "doc_status": 2}
+  ],
+  "transitions": [
+    {"state": "Pending Review", "action": "Approve", "next_state": "Approved", "allowed": ["System Manager"]},
+    {"state": "Pending Review", "action": "Reject", "next_state": "Rejected", "allowed": ["System Manager"]}
+  ]
+}

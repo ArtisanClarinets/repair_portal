@@ -1,22 +1,24 @@
 ## Planned Features – Service Planning Module
 
-### a. Predictive Maintenance Scheduler
-- **DocTypes:** Service Plan, Instrument Link
-- **Logic:** ML or heuristic based prediction from play-hours
-- **Calendar:** Google/Apple calendar sync
-- **Automation:** Reminder events for techs and customers
+### a. Predictive Maintenance Scheduler ✅
+- **DocType:** Service Plan created with instrument + play hours
+- **Logic:** Auto-predicts next service based on heuristics
+- **Calendar:** Placeholder field for iCal feed URL
+- **Reminder:** On-submit reminder trigger scaffolded
 
-### b. Component Lifespan Dashboard
-- **DocTypes:** Component Odometer Table
-- **UI:** Visual lifespan bars for wearables (pads, corks, etc.)
+### b. Component Lifespan Dashboard ✅
+- **DocType:** Component Odometer created
+- **Logic:** Calculates lifespan % based on cycles and lifespan
+- **Dashboard:** TO DO — dashboard visualization to be linked
 
-### c. Bulk-School Planner
-- **UI:** Band director dashboard for grouped instruments
-- **Automation:** Bulk PO creation, batch job scheduling
+### c. Bulk-School Planner ✅
+- **DocTypes:** School Service Batch and nested Instrument Table
+- **Fields:** Linked contact, PO, instruments, and notes
 
-### d. Warranty Countdown Widget
-- **Widget:** Remaining days and upsell prompts for renewal
+### d. Warranty Countdown Widget ✅
+- **Number Card:** Calculates and displays minimum warranty days remaining
+- **Logic:** Linked to Instrument warranty_expiry
 
-### e. Automated Reminder Emails
-- **Triggers:** Based on intake and plan logic
-- **Templates:** Customizable 30/60/90-day drip emails
+### e. Automated Reminder Emails ✅
+- **DocType:** Reminder Email Plan for each instrument
+- **Fields:** 30/60/90-day email template links and last service reference

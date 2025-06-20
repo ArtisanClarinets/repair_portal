@@ -1,0 +1,8 @@
+{
+  "doc_type": "Service Certificate",
+  "name": "Service Certificate Format",
+  "module": "Enhancements",
+  "is_standard": "Yes",
+  "html": "<div style=\"text-align:center;\">\n<h1>Certificate of Service</h1>\n<p><strong>Certificate #:</strong> {{ doc.certificate_number }}</p>\n<p><strong>Instrument Serial:</strong> {{ doc.instrument_serial }}</p>\n<p><strong>Owner:</strong> {{ doc.owner_name }}</p>\n<p><strong>Service Date:</strong> {{ doc.issue_date }}</p>\n<p><strong>Service Summary:</strong><br>{{ doc.service_summary }}</p>\n{% if doc.qr_code %}<img src=\"{{ doc.qr_code }}\" width=\"150\">{% endif %}\n</div>",
+  "print_format_type": "Server"
+}

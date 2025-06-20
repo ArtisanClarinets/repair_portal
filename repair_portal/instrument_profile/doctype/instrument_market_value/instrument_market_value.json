@@ -1,0 +1,16 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Market Value",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "fields": [
+    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument"},
+    {"fieldname": "estimated_value", "label": "Estimated Market Value", "fieldtype": "Currency"},
+    {"fieldname": "last_updated", "label": "Last Updated", "fieldtype": "Date"},
+    {"fieldname": "valuation_notes", "label": "Notes", "fieldtype": "Small Text"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+}
