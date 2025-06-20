@@ -6,7 +6,11 @@
   "fields": [
     {"fieldname": "check_item", "label": "Checklist Item", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "passed", "label": "Passed", "fieldtype": "Check"},
-    {"fieldname": "comments", "label": "Comments", "fieldtype": "Small Text"}
+    {"fieldname": "comments", "label": "Comments", "fieldtype": "Small Text"},
+    {"fieldname": "parent", "fieldtype": "Link", "options": "Final QA", "reqd": 0, "hidden": 1, "in_list_view": 0},
+    {"fieldname": "parenttype", "fieldtype": "Data", "hidden": 1},
+    {"fieldname": "parentfield", "fieldtype": "Data", "hidden": 1},
+    {"fieldname": "idx", "fieldtype": "Int", "hidden": 1}
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}

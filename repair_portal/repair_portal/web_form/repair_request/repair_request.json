@@ -5,6 +5,12 @@
   "standard": "Yes",
   "web_form_name": "repair-request",
   "doc_type": "Repair Request",
+  "title": "Repair Request",
+  "web_form_fields": [
+    {"fieldname": "issue_description", "fieldtype": "Data", "label": "Issue Description"},
+    {"fieldname": "priority_level", "fieldtype": "Select", "label": "Priority", "options": "Low\nMedium\nHigh"},
+    {"fieldname": "technician_assigned", "fieldtype": "Link", "label": "Technician", "options": "User"}
+  ],
   "is_list": 1,
   "login_required": 1,
   "show_list": 1,

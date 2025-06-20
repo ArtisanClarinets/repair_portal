@@ -3,7 +3,31 @@
   "name": "Workflow State Mapping",
   "module": "Service Planning",
   "istable": 1,
-  "fields": [],
+  "fields": [
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Service Plan",
+      "reqd": 0,
+      "hidden": 1,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
+  ],
   "permissions": [
     {
       "role": "System Manager",

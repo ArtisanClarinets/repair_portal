@@ -5,21 +5,16 @@
   "istable": 1,
   "is_child_table": 1,
   "fields": [
-    {
-      "fieldname": "reading_time",
-      "label": "Reading Time",
-      "fieldtype": "Datetime"
-    },
-    { "fieldname": "centroid", "label": "Centroid", "fieldtype": "Float" },
-    { "fieldname": "spread", "label": "Spread", "fieldtype": "Float" }
+    {"fieldname": "reading_time", "label": "Reading Time", "fieldtype": "Datetime"},
+    {"fieldname": "centroid", "label": "Centroid", "fieldtype": "Float"},
+    {"fieldname": "spread", "label": "Spread", "fieldtype": "Float"},
+
+    {"fieldname": "parent", "fieldtype": "Link", "options": "Parent DocType", "hidden": 1},
+    {"fieldname": "parenttype", "fieldtype": "Data", "hidden": 1},
+    {"fieldname": "parentfield", "fieldtype": "Data", "hidden": 1},
+    {"fieldname": "idx", "fieldtype": "Int", "hidden": 1}
   ],
   "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    }
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
   ]
 }

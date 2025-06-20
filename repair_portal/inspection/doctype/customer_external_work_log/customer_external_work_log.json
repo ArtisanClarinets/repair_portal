@@ -19,6 +19,29 @@
       "fieldname": "performed_by",
       "fieldtype": "Data",
       "label": "Performed By"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Inspection",
+      "reqd": 0,
+      "hidden": 1,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     }
   ],
   "permissions": [

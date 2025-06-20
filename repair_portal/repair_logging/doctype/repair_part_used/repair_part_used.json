@@ -11,7 +11,11 @@
     {"fieldname": "uom", "fieldtype": "Link", "label": "UOM", "options": "UOM", "fetch_from": "item_code.stock_uom"},
     {"fieldname": "rate", "fieldtype": "Currency", "label": "Rate"},
     {"fieldname": "amount", "fieldtype": "Currency", "label": "Amount", "read_only": 1},
-    {"fieldname": "warehouse", "fieldtype": "Link", "label": "Warehouse", "options": "Warehouse"}
+    {"fieldname": "warehouse", "fieldtype": "Link", "label": "Warehouse", "options": "Warehouse"},
+    {"fieldname": "parent", "fieldtype": "Link", "options": "Repair Task", "reqd": 0, "hidden": 1, "in_list_view": 0},
+    {"fieldname": "parenttype", "fieldtype": "Data", "hidden": 1},
+    {"fieldname": "parentfield", "fieldtype": "Data", "hidden": 1},
+    {"fieldname": "idx", "fieldtype": "Int", "hidden": 1}
   ],
   "permissions": [
     {"role": "Technician", "read": 1, "write": 1},

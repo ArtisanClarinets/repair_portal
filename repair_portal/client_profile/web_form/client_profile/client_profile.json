@@ -8,10 +8,11 @@
   "published": 1,
   "route": "/client-profile",
   "doctype_name": "Client Profile",
+  "doc_type": "Client Profile",
   "login_required": 1,
   "allow_edit": 1,
   "allow_multiple": 0,
-  "fields": [
+  "web_form_fields": [
     {"fieldname": "client_name", "fieldtype": "Data", "label": "Client Name", "reqd": 1},
     {"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer", "reqd": 1},
     {"fieldname": "email", "fieldtype": "Data", "label": "Email"},
