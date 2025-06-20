@@ -1,0 +1,14 @@
+@@
++<!-- repair_portal/vue/pages/CustomerSignOff.vue -->
++<canvas ref="pad" class="w-full h-40 border"></canvas>
++<button class="btn btn-primary mt-4" @click="submit">Confirm Sign-Off</button>
+@@
++@frappe.whitelist(allow_guest=False, methods=["POST"])
++@frappe.only_for(["Client"])
++def submit_customer_sign_off(repair: str, signature: str) -> str:
++    doc = frappe.new_doc("Customer Sign-Off")
++    doc.repair = repair
++    doc.client = frappe.session.user
++    doc.signature = signature
++    doc.insert(ignore_permissions=True)
++    return frappe.safe_json.dumps({"name": doc.name})

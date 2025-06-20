@@ -1,0 +1,20 @@
+// repair_portal/vue/composables/useWellness.ts
+// Updated: 2025-08-30
+// Version: 1.0
+// Purpose: Provide composition logic for the instrument wellness dashboard.
+// Dev notes: Extracted from public/js/wellness_dashboard.js for Vue3 modularity.
+
+import { ref, onMounted } from 'vue';
+
+export function useWellness(score: number, history: any[], dueDays: number | null) {
+  const gaugeRef = ref<HTMLCanvasElement | null>(null);
+  const serviceListRef = ref<HTMLElement | null>(null);
+
+  const drawGauge = () => {
+    if (!gaugeRef.value) return;
+    const ctx = (gaugeRef.value as HTMLCanvasElement).getContext('2d');
+    if (!ctx) return;
+    const color = score > 70 ? '#16a34a' : score > 40 ? '#facc15' : '#dc2626';
+    // Chart is globally available via frappe assets
+    // @ts-ignore
+    new Chart(ctx, {
