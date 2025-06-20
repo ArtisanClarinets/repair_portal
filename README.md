@@ -25,3 +25,14 @@
 1. Run `bench migrate` to apply new DocTypes.
 2. Use `/repair_pulse?name=REQ-0001` to view live updates.
 3. Technicians call `pulse_update.create_update` API to post progress.
+
+## Development
+
+### Frontend
+Run `npm run dev` to launch Vite in development mode. Production assets are built via `bench build --apps repair_portal` which consumes `vite.config.ts`.
+
+### Intake OCR Import
+To convert handwritten intake forms into ERPNext documents:
+1. Upload the scanned PDF or image to the File DocType.
+2. Call `frappe.call('repair_portal.intake.import_handwritten_intake', {file_id})`.
+3. A new **Clarinet Intake** record will be created with fields populated from OCR.

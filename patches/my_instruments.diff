@@ -1,0 +1,20 @@
+<!-- repair_portal/vue/pages/MyInstruments.vue -->
+<!-- Updated: 2025-08-30 -->
+<!-- Version: 1.0 -->
+<!-- Purpose: SSR friendly list of instruments for the logged-in user. -->
+<!-- Dev notes: Migrated from templates/pages/my_instruments.html -->
+<template>
+  <div>
+    <h1>Instrument Catalog</h1>
+    <div class="row">
+      <div v-for="instrument in instruments" :key="instrument.name" class="col-sm-6 col-md-4 mb-4">
+        <a :href="`/${instrument.route}`" class="card p-3 text-dark text-decoration-none">
+          <h5>{{ instrument.serial_number }}</h5>
+          <p>{{ instrument.brand }} {{ instrument.model }}</p>
+          <p><strong>Type:</strong> {{ instrument.instrument_category }}</p>
+          <p><strong>Status:</strong> {{ instrument.status }}</p>
+        </a>
+      </div>
+      <p v-if="!instruments.length">{{ empty_message }}</p>
+    </div>
+  </div>

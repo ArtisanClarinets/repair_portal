@@ -1,0 +1,4 @@
+{
+  "use_vite": true,
+  "apps": ["repair_portal"]
+}
