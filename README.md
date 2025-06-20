@@ -20,3 +20,8 @@
 1. Run `bench migrate` to apply new DocTypes.
 2. Use `/repair_pulse?name=REQ-0001` to view live updates.
 3. Technicians call `pulse_update.create_update` API to post progress.
+
+## Development
+
+### Frontend
+Run `npm run dev` to launch Vite in development mode. Production assets are built via `bench build --apps repair_portal` which consumes `vite.config.ts`.

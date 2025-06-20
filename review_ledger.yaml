@@ -1,0 +1,17 @@
+modified:
+  - README.md
+  - package.json
+added:
+  - apps.json
+  - changelog.md
+  - playwright.config.ts
+  - playwright/tests/my_instruments.spec.ts
+  - repair_portal/api/instrument.py
+  - repair_portal/vue/composables/useWellness.ts
+  - repair_portal/vue/pages/InstrumentWellness.vue
+  - repair_portal/vue/pages/MyInstruments.vue
+  - vite.config.ts
+removed:
+  - repair_portal/public/js/wellness_dashboard.js
+  - repair_portal/templates/pages/instrument_wellness.html
+  - repair_portal/templates/pages/my_instruments.html
