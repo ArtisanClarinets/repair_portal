@@ -4,32 +4,39 @@ on: [push, pull_request]
 
 jobs:
   lint:
-    runs-on: ubuntu-22.04.5
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+    runs-on: ubuntu-22.04           # GitHub runner tag, no patch number
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+    permissions:
+      contents: read                # least-privilege for forks
+
+    steps:
+      # ───────────────────────────── Git checkout ────────────────────────────
+      - name: Checkout code
+        uses: actions/checkout@v4    # v4 = faster/safer submodule handling
+
+      # ───────────────────────────── Node / Biome (JS+TS) ────────────────────
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 18          # Frappe v15 front-end toolchain uses ≥ 18
+          cache: "npm"
 
       - name: Install Biome
         run: npm install -g @biomejs/biome
 
+      - name: Run Biome
+        run: biome check .          # exits non-zero on any style error
 
+      # ───────────────────────────── Python / Ruff (back-end) ────────────────
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.10
+          python-version: "3.10"    # v15 is tested & bundled against 3.10
 
       - name: Install Ruff
         run: |
           python -m pip install --upgrade pip
           pip install ruff
-          
-          
 
       - name: Run Ruff
-        run: ruff .
-        
+        run: ruff check .           # explicit sub-command, clearer in logs
