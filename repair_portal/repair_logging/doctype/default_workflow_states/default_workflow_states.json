@@ -1,13 +1,12 @@
 {
-  "name": "Default Workflow States",
   "doctype": "DocType",
-  "istable": 1,
+  "name": "Default Workflow States",
   "module": "Repair Logging",
   "fields": [
     {
-      "fieldname": "state",
-      "fieldtype": "Data",
-      "label": "Workflow State"
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     },
     {
       "fieldname": "is_default",
@@ -23,19 +22,19 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "state",
+      "fieldtype": "Data",
+      "label": "Workflow State"
     }
   ],
   "permissions": [
@@ -52,5 +51,6 @@
       "write": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

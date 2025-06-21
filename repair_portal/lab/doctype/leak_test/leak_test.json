@@ -10,10 +10,26 @@
       "options": "Instrument Profile"
     },
     {
+      "fieldname": "json_data",
+      "label": "Raw JSON",
+      "fieldtype": "Long Text"
+    },
+    {
       "fieldname": "player",
       "label": "Player",
       "fieldtype": "Link",
       "options": "Player Profile"
+    },
+    {
+      "fieldname": "plot_attachment",
+      "label": "Plot",
+      "fieldtype": "Attach Image"
+    },
+    {
+      "fieldname": "readings",
+      "label": "Readings",
+      "fieldtype": "Table",
+      "options": "Leak Reading"
     },
     {
       "fieldname": "repair_order",
@@ -26,29 +42,26 @@
       "label": "Session Type",
       "fieldtype": "Select",
       "options": "Pre-Repair\nPost-Repair\nStandalone"
-    },
-    { "fieldname": "json_data", "label": "Raw JSON", "fieldtype": "Long Text" },
-    {
-      "fieldname": "plot_attachment",
-      "label": "Plot",
-      "fieldtype": "Attach Image"
-    },
-    {
-      "fieldname": "readings",
-      "label": "Readings",
-      "fieldtype": "Table",
-      "options": "Leak Reading"
     }
   ],
   "permissions": [
-    { "role": "Technician", "read": 1, "write": 1, "create": 1 },
+    {
+      "role": "Client",
+      "read": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
     {
       "role": "Workshop Manager",
       "read": 1,
       "write": 1,
       "create": 1,
       "delete": 1
-    },
-    { "role": "Client", "read": 1, "if_owner": 1 }
+    }
   ]
 }

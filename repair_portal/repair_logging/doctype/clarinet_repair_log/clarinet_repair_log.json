@@ -3,16 +3,23 @@
   "name": "Clarinet Repair Log",
   "module": "Repair Logging",
   "custom": 1,
-  "is_submittable": 1,
-  "editable_grid": 1,
-  "track_changes": 1,
-  "track_seen": 1,
   "fields": [
     {
       "fieldname": "clarinet_serial_number",
       "fieldtype": "Data",
       "label": "Clarinet Serial Number",
       "reqd": 1
+    },
+    {
+      "fieldname": "inspection_passed",
+      "fieldtype": "Check",
+      "label": "Inspection Passed"
+    },
+    {
+      "fieldname": "material_usage",
+      "fieldtype": "Table",
+      "label": "Material Usage",
+      "options": "Material Use Log"
     },
     {
       "fieldname": "repair_type",
@@ -25,17 +32,6 @@
       "fieldname": "technician_notes",
       "fieldtype": "Text",
       "label": "Technician Notes"
-    },
-    {
-      "fieldname": "inspection_passed",
-      "fieldtype": "Check",
-      "label": "Inspection Passed"
-    },
-    {
-      "fieldname": "material_usage",
-      "fieldtype": "Table",
-      "label": "Material Usage",
-      "options": "Material Use Log"
     }
   ],
   "permissions": [
@@ -47,5 +43,9 @@
       "delete": 1,
       "submit": 1
     }
-  ]
+  ],
+  "editable_grid": 1,
+  "is_submittable": 1,
+  "track_changes": 1,
+  "track_seen": 1
 }

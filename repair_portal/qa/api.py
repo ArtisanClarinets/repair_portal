@@ -8,7 +8,7 @@ Dev notes: Called from portal via /api/method/repair_portal.qa.api.*
 from __future__ import annotations
 
 import frappe
-from frappe.utils import now, get_request_ip
+from frappe.utils import get_request_ip, now
 
 
 @frappe.whitelist(allow_guest=False, methods=['POST'])

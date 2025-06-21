@@ -4,18 +4,68 @@
   "module": "Tools",
   "custom": 0,
   "fields": [
-    {"fieldname": "tool_name", "fieldtype": "Data", "label": "Tool Name", "reqd": 1},
-    {"fieldname": "tool_type", "fieldtype": "Select", "label": "Tool Type", "options": "Lathe\nDrill Press\nScrewdriver\nPliers\nReamer\nDrill Bit\nOther"},
-    {"fieldname": "location", "fieldtype": "Data", "label": "Location"},
-    {"fieldname": "in_service", "fieldtype": "Check", "label": "In Service", "default": 1},
-    {"fieldname": "requires_calibration", "fieldtype": "Check", "label": "Requires Calibration?"},
-    {"fieldname": "last_calibrated", "fieldtype": "Date", "label": "Last Calibrated"},
-    {"fieldname": "next_due", "fieldtype": "Date", "label": "Next Calibration Due"},
-    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"}
+    {
+      "fieldname": "in_service",
+      "fieldtype": "Check",
+      "label": "In Service",
+      "default": 1
+    },
+    {
+      "fieldname": "last_calibrated",
+      "fieldtype": "Date",
+      "label": "Last Calibrated"
+    },
+    {
+      "fieldname": "location",
+      "fieldtype": "Data",
+      "label": "Location"
+    },
+    {
+      "fieldname": "next_due",
+      "fieldtype": "Date",
+      "label": "Next Calibration Due"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "requires_calibration",
+      "fieldtype": "Check",
+      "label": "Requires Calibration?"
+    },
+    {
+      "fieldname": "tool_name",
+      "fieldtype": "Data",
+      "label": "Tool Name",
+      "reqd": 1
+    },
+    {
+      "fieldname": "tool_type",
+      "fieldtype": "Select",
+      "label": "Tool Type",
+      "options": "Lathe\nDrill Press\nScrewdriver\nPliers\nReamer\nDrill Bit\nOther"
+    }
   ],
   "permissions": [
-    {"role": "Technician", "read": 1},
-    {"role": "Service Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1
+    }
   ]
 }

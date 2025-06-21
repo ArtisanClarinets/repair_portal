@@ -1,0 +1,50 @@
+{
+  "doctype": "Web Form",
+  "name": "repair_request_form",
+  "module": "Repair",
+  "web_form": "Repair Request Form",
+  "title": "Submit Repair Request",
+  "route": "submit-repair",
+  "doc_type": "Repair Request",
+  "is_standard": 1,
+  "published": 1,
+  "login_required": 0,
+  "anonymous": 1,
+  "apply_document_permissions": 0,
+  "allow_edit": 1,
+  "allow_multiple": 0,
+  "allow_delete": 0,
+  "allow_comments": 0,
+  "allow_print": 0,
+  "allow_incomplete": 0,
+  "max_attachment_size": 5,
+  "button_label": "Submit",
+  "introduction_text": "Please complete the form to report a repair issue.",
+  "success_title": "Thank You!",
+  "success_message": "Your repair request has been submitted successfully.",
+  "success_url": "/repair-status",
+  "show_list": 0,
+  "show_sidebar": 0,
+  "web_form_fields": [
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "issue_description",
+      "label": "Issue Description",
+      "fieldtype": "Text",
+      "reqd": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nOpen\nIn Progress\nResolved\nClosed",
+      "default": "Open"
+    }
+  ]
+}

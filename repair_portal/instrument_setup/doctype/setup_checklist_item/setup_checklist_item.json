@@ -2,19 +2,16 @@
   "doctype": "DocType",
   "name": "Setup Checklist Item",
   "module": "Instrument Setup",
-  "istable": 1,
-  "is_child_table": 1,
   "fields": [
-    {
-      "fieldname": "task",
-      "fieldtype": "Data",
-      "label": "Task",
-      "reqd": 1
-    },
     {
       "fieldname": "completed",
       "fieldtype": "Check",
       "label": "Completed"
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     },
     {
       "fieldname": "notes",
@@ -30,31 +27,34 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "task",
+      "fieldtype": "Data",
+      "label": "Task",
+      "reqd": 1
     }
   ],
   "permissions": [
     {
-      "role": "Technician",
+      "role": "Service Manager",
       "read": 1,
       "write": 1
     },
     {
-      "role": "Service Manager",
+      "role": "Technician",
       "read": 1,
       "write": 1
     }
-  ]
+  ],
+  "is_child_table": 1,
+  "istable": 1
 }

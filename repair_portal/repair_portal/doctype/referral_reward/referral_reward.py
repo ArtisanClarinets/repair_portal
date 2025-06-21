@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class ReferralReward(Document):
     def validate(self):
         if self.status == "Rewarded" and not self.date_awarded:

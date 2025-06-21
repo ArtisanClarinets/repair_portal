@@ -8,6 +8,7 @@ import frappe
 from frappe.model.document import Document
 from frappe.utils import now_datetime
 
+
 class CustomerSignOff(Document):
     def before_submit(self):
         if not self.ip_address:
@@ -69,5 +70,5 @@ class CustomerSignOff(Document):
                         "notes": f"Auto-added via sign off {self.name}"
                     })
                     ref_doc.save(ignore_permissions=True)
-            except Exception as e:
+            except Exception:
                 frappe.log_error(frappe.get_traceback(), f"SignOff Archive Error [{self.reference_doctype} | {self.reference_name}]")

@@ -1,10 +1,6 @@
 {
   "doctype": "Report",
   "name": "Follow-Up Compliance",
-  "report_name": "Follow-Up Compliance",
-  "report_type": "Script Report",
-  "is_standard": "Yes",
-  "ref_doctype": "Clarinet Intake",
   "columns": [
     {
       "fieldname": "customer",
@@ -33,5 +29,9 @@
       "fieldtype": "Data",
       "default": ""
     }
-  ]
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Clarinet Intake",
+  "report_name": "Follow-Up Compliance",
+  "report_type": "Script Report"
 }

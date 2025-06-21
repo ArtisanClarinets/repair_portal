@@ -2,8 +2,13 @@
   "doctype": "DocType",
   "name": "Inspection Finding",
   "module": "Instrument Setup",
-  "istable": 1,
   "fields": [
+    {
+      "fieldname": "action_required",
+      "fieldtype": "Select",
+      "label": "Action Required",
+      "options": "Repair\nReplace\nMonitor"
+    },
     {
       "fieldname": "component",
       "fieldtype": "Select",
@@ -11,28 +16,15 @@
       "options": "Upper Joint\nLower Joint\nBarrel\nBell\nKeys\nPads"
     },
     {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
       "fieldname": "issue_type",
       "fieldtype": "Select",
       "label": "Issue Type",
       "options": "Crack\nBent Key\nPad Leak\nCork Wear\nPlating Wear"
-    },
-    {
-      "fieldname": "severity",
-      "fieldtype": "Select",
-      "label": "Severity",
-      "options": "Low\nMedium\nHigh"
-    },
-    {
-      "fieldname": "recommendation",
-      "fieldtype": "Text",
-      "label": "Recommendation",
-      "reqd": 1
-    },
-    {
-      "fieldname": "action_required",
-      "fieldtype": "Select",
-      "label": "Action Required",
-      "options": "Repair\nReplace\nMonitor"
     },
     {
       "fieldname": "parent",
@@ -43,32 +35,40 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "recommendation",
+      "fieldtype": "Text",
+      "label": "Recommendation",
+      "reqd": 1
+    },
+    {
+      "fieldname": "severity",
+      "fieldtype": "Select",
+      "label": "Severity",
+      "options": "Low\nMedium\nHigh"
     }
   ],
   "permissions": [
     {
-      "role": "Technician",
+      "role": "Service Manager",
       "read": 1,
       "write": 1
     },
     {
-      "role": "Service Manager",
+      "role": "Technician",
       "read": 1,
       "write": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

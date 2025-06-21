@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class CustomerInteractionThread(Document):
     def before_insert(self):
         self.timestamp = frappe.utils.now_datetime()

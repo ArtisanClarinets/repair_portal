@@ -1,10 +1,6 @@
 {
   "doctype": "Report",
   "name": "Upcoming Appointments",
-  "report_name": "Upcoming Appointments",
-  "ref_doctype": "Appointment",
-  "report_type": "Script Report",
-  "is_standard": "Yes",
   "filters": [
     {
       "fieldname": "name",
@@ -12,5 +8,9 @@
       "fieldtype": "Data",
       "default": ""
     }
-  ]
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Appointment",
+  "report_name": "Upcoming Appointments",
+  "report_type": "Script Report"
 }

@@ -2,11 +2,11 @@
 
 import frappe
 
-frappe.only_for("Technician")
-
 
 def get_context(context):
     """Return context for the service summary list."""
+    frappe.only_for("Technician")
+
     user = frappe.session.user
     roles = frappe.get_roles(user)
 

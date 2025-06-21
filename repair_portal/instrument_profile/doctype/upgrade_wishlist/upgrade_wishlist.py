@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Stores accessory wishlist items linked to a specific instrument
 
-import frappe
 from frappe.model.document import Document
+
 
 class UpgradeWishlist(Document):
     pass

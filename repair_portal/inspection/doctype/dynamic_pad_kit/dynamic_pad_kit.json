@@ -5,17 +5,17 @@
   "custom": 0,
   "fields": [
     {
+      "fieldname": "generated_pads",
+      "label": "Generated Pads",
+      "fieldtype": "Table",
+      "options": "Pad Kit Item"
+    },
+    {
       "fieldname": "instrument_model",
       "label": "Instrument Model",
       "fieldtype": "Link",
       "options": "Instrument",
       "reqd": 1
-    },
-    {
-      "fieldname": "generated_pads",
-      "label": "Generated Pads",
-      "fieldtype": "Table",
-      "options": "Pad Kit Item"
     }
   ],
   "permissions": [

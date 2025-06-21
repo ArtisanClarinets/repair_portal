@@ -3,17 +3,53 @@
   "name": "Repair Parts Used",
   "module": "Repair Logging",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
   "fields": [
-    {"fieldname": "repair_log_id", "label": "Repair Log", "fieldtype": "Link", "options": "Clarinet Repair Log", "reqd": 1},
-    {"fieldname": "item_code", "label": "Item Code", "fieldtype": "Link", "options": "Item", "reqd": 1},
-    {"fieldname": "qty_used", "label": "Quantity Used", "fieldtype": "Float", "reqd": 1},
-    {"fieldname": "serial_no", "label": "Serial No", "fieldtype": "Data"},
-    {"fieldname": "location", "label": "Location", "fieldtype": "Data"},
-    {"fieldname": "used_on", "label": "Used On", "fieldtype": "Date", "default": "Today"}
+    {
+      "fieldname": "item_code",
+      "label": "Item Code",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "location",
+      "label": "Location",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "qty_used",
+      "label": "Quantity Used",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "repair_log_id",
+      "label": "Repair Log",
+      "fieldtype": "Link",
+      "options": "Clarinet Repair Log",
+      "reqd": 1
+    },
+    {
+      "fieldname": "serial_no",
+      "label": "Serial No",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "used_on",
+      "label": "Used On",
+      "fieldtype": "Date",
+      "default": "Today"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
 }

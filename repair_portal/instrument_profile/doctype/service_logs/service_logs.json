@@ -1,18 +1,22 @@
 {
-  "name": "Service Logs",
   "doctype": "DocType",
-  "istable": 1,
+  "name": "Service Logs",
   "module": "Instrument Profile",
   "fields": [
     {
-      "fieldname": "log_details",
-      "fieldtype": "Small Text",
-      "label": "Log Details"
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     },
     {
       "fieldname": "log_date",
       "fieldtype": "Date",
       "label": "Log Date"
+    },
+    {
+      "fieldname": "log_details",
+      "fieldtype": "Small Text",
+      "label": "Log Details"
     },
     {
       "fieldname": "parent",
@@ -23,27 +27,22 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
     }
   ],
   "permissions": [
     {
-      "role": "Technician",
+      "role": "Customer",
       "read": 1,
-      "write": 1,
-      "create": 1
+      "create": 1,
+      "if_owner": 1
     },
     {
       "role": "Service Manager",
@@ -62,11 +61,12 @@
       "delete": 1
     },
     {
-      "role": "Customer",
+      "role": "Technician",
       "read": 1,
-      "create": 1,
-      "if_owner": 1
+      "write": 1,
+      "create": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

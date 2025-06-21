@@ -2,9 +2,23 @@
   "doctype": "DocType",
   "name": "Key Measurement",
   "module": "Inspection",
-  "istable": 1,
   "custom": 0,
   "fields": [
+    {
+      "fieldname": "height_mm",
+      "label": "Key Height (mm)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
     {
       "fieldname": "pad_id",
       "label": "Pad ID",
@@ -18,22 +32,6 @@
       "reqd": 1
     },
     {
-      "fieldname": "height_mm",
-      "label": "Key Height (mm)",
-      "fieldtype": "Float"
-    },
-    {
-      "fieldname": "seal_status",
-      "label": "Seal Status",
-      "fieldtype": "Select",
-      "options": "Good\nLeaking\nUncertain"
-    },
-    {
-      "fieldname": "notes",
-      "label": "Notes",
-      "fieldtype": "Small Text"
-    },
-    {
       "fieldname": "parent",
       "fieldtype": "Link",
       "options": "Inspection",
@@ -42,19 +40,20 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "seal_status",
+      "label": "Seal Status",
+      "fieldtype": "Select",
+      "options": "Good\nLeaking\nUncertain"
     }
   ],
   "permissions": [
@@ -66,5 +65,6 @@
       "delete": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

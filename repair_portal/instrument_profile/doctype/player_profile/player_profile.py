@@ -1,5 +1,6 @@
-from frappe.website.website_generator import WebsiteGenerator
 import frappe
+from frappe.website.website_generator import WebsiteGenerator
+
 
 class PlayerProfile(WebsiteGenerator):
     website = frappe._dict(

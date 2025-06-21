@@ -1,10 +1,6 @@
 {
   "doctype": "Report",
   "name": "Loaners Outstanding",
-  "report_name": "Loaners Outstanding",
-  "ref_doctype": "Loaner Instrument",
-  "report_type": "Script Report",
-  "is_standard": "Yes",
   "filters": [
     {
       "fieldname": "name",
@@ -12,5 +8,9 @@
       "fieldtype": "Data",
       "default": ""
     }
-  ]
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Loaner Instrument",
+  "report_name": "Loaners Outstanding",
+  "report_type": "Script Report"
 }

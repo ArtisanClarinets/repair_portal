@@ -5,6 +5,7 @@
 
 import frappe
 
+
 def execute(filters=None):
     data = frappe.db.get_all("Custom Doctype",
         fields=["customer", "issue_description"],

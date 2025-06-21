@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Server-side controller for School Service Batch doctype
 
-import frappe
 from frappe.model.document import Document
+
 
 class SchoolServiceBatch(Document):
     pass

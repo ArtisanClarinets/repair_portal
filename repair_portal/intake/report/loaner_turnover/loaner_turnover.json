@@ -1,9 +1,9 @@
 {
   "doctype": "Report",
   "name": "Loaner Turnover",
-  "report_name": "Loaner Turnover",
-  "ref_doctype": "Clarinet Loaner Instrument",
-  "report_type": "Script Report",
+  "module": "Repair Portal",
   "is_standard": "Yes",
-  "module": "Repair Portal"
+  "ref_doctype": "Clarinet Loaner Instrument",
+  "report_name": "Loaner Turnover",
+  "report_type": "Script Report"
 }

@@ -4,8 +4,8 @@
 # Purpose: Inbound/outbound email routing for Customer Interaction Thread
 
 import frappe
-from frappe.email.doctype.email_account.email_account import EmailAccount
 from frappe.utils import parse_addr
+
 
 def handle_incoming_email(mail):
 	from_email = parse_addr(mail.get("from"))[1]

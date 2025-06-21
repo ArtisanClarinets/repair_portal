@@ -3,12 +3,29 @@
   "name": "Upgrade Wishlist",
   "module": "Instrument Profile",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
   "fields": [
-    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument"},
-    {"fieldname": "wishlist_items", "label": "Wishlist Items", "fieldtype": "Table", "options": "Upgrade Wishlist Item"}
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument"
+    },
+    {
+      "fieldname": "wishlist_items",
+      "label": "Wishlist Items",
+      "fieldtype": "Table",
+      "options": "Upgrade Wishlist Item"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
 }

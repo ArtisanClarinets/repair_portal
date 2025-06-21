@@ -1,5 +1,13 @@
 {
   "doctype": "Dashboard",
+  "module": "Instrument Profile",
+  "dashboard_name": "Instrument Profile Dashboard",
+  "standard": 1,
+  "label": "Instrument Profile Dashboard",
+  "custom": 0,
+  "description": "Dashboard for managing instrument profiles, including service summaries and inspection logs.",
+  "icon": "fa fa-dashboard",
+  "color": "blue",
   "name": "Instrument Profile Dashboard",
   "charts": [],
   "cards": [

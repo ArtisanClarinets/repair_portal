@@ -2,13 +2,11 @@
   "doctype": "DocType",
   "name": "Related Instrument Interaction",
   "module": "Repair Logging",
-  "istable": 1,
   "fields": [
     {
-      "fieldname": "related_instrument",
-      "label": "Related Instrument",
-      "fieldtype": "Link",
-      "options": "Instrument Profile"
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     },
     {
       "fieldname": "interaction_type",
@@ -30,19 +28,20 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "related_instrument",
+      "label": "Related Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
     }
   ],
   "permissions": [
@@ -60,5 +59,6 @@
       "create": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

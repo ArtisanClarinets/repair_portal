@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Track usage of wearable parts and compute % lifespan used
 
-import frappe
 from frappe.model.document import Document
+
 
 class ComponentOdometer(Document):
     def validate(self):

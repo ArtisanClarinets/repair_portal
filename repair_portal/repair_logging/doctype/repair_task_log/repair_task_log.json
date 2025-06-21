@@ -2,18 +2,16 @@
   "doctype": "DocType",
   "name": "Repair Task Log",
   "module": "Repair Logging",
-  "istable": 1,
   "fields": [
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
     {
       "fieldname": "log_entry",
       "label": "Log Entry",
       "fieldtype": "Small Text"
-    },
-    {
-      "fieldname": "timestamp",
-      "label": "Timestamp",
-      "fieldtype": "Datetime",
-      "default": "Now"
     },
     {
       "fieldname": "logged_by",
@@ -30,19 +28,20 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "timestamp",
+      "label": "Timestamp",
+      "fieldtype": "Datetime",
+      "default": "Now"
     }
   ],
   "permissions": [
@@ -60,5 +59,6 @@
       "create": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

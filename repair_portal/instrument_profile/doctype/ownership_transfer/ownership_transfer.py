@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class OwnershipTransfer(Document):
     def validate(self):
         if self.from_user == self.to_user:

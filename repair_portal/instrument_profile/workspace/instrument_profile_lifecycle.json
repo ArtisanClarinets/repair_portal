@@ -2,8 +2,16 @@
   "doctype": "Workspace",
   "name": "Instrument Profile Lifecycle",
   "label": "Instrument Lifecycle",
+  "module": "Instrument Profile",
   "icon": "fa fa-clipboard-list",
   "route": "/app/instrument-lifecycle",
+  "links": [
+    {
+      "label": "Instrument Profiles",
+      "type": "DocType",
+      "name": "Instrument Profile"
+    }
+  ],
   "content": [
     {
       "type": "chart",

@@ -5,7 +5,8 @@
 
 import frappe
 from frappe.model.document import Document
-from frappe.utils import nowdate, add_days
+from frappe.utils import add_days, nowdate
+
 
 class ServicePlan(Document):
     def before_save(self):

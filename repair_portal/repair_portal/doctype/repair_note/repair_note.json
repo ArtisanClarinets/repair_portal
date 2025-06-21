@@ -2,17 +2,58 @@
   "doctype": "DocType",
   "name": "Repair Note",
   "module": "Repair Portal",
-  "istable": 1,
   "fields": [
-    {"fieldname": "note_time", "label": "Timestamp", "fieldtype": "Datetime", "reqd": 1},
-    {"fieldname": "note_text", "label": "Note", "fieldtype": "Text", "reqd": 1},
-    {"fieldname": "author", "label": "Author", "fieldtype": "Link", "options": "User", "read_only": 1},
-    {"fieldname": "parent", "fieldtype": "Link", "options": "Repair Task", "reqd": 0, "hidden": 1, "in_list_view": 0},
-    {"fieldname": "parenttype", "fieldtype": "Data", "hidden": 1},
-    {"fieldname": "parentfield", "fieldtype": "Data", "hidden": 1},
-    {"fieldname": "idx", "fieldtype": "Int", "hidden": 1}
+    {
+      "fieldname": "author",
+      "label": "Author",
+      "fieldtype": "Link",
+      "options": "User",
+      "read_only": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "note_text",
+      "label": "Note",
+      "fieldtype": "Text",
+      "reqd": 1
+    },
+    {
+      "fieldname": "note_time",
+      "label": "Timestamp",
+      "fieldtype": "Datetime",
+      "reqd": 1
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Repair Task",
+      "reqd": 0,
+      "hidden": 1,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "istable": 1
 }

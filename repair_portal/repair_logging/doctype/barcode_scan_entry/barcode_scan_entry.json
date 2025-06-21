@@ -3,14 +3,40 @@
   "name": "Barcode Scan Entry",
   "module": "Repair Logging",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
   "fields": [
-    {"fieldname": "barcode", "label": "Scanned Barcode", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "linked_item", "label": "Resolved Item", "fieldtype": "Link", "options": "Item"},
-    {"fieldname": "scan_time", "label": "Scan Time", "fieldtype": "Datetime", "default": "Now"},
-    {"fieldname": "context_note", "label": "Scan Context", "fieldtype": "Data"}
+    {
+      "fieldname": "barcode",
+      "label": "Scanned Barcode",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "context_note",
+      "label": "Scan Context",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "linked_item",
+      "label": "Resolved Item",
+      "fieldtype": "Link",
+      "options": "Item"
+    },
+    {
+      "fieldname": "scan_time",
+      "label": "Scan Time",
+      "fieldtype": "Datetime",
+      "default": "Now"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
 }

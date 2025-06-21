@@ -1,0 +1,15 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h1>My Instruments</h1>
+<p>List of instruments registered under your account.</p>
+<div>
+  {% for instrument in instruments %}
+    <div class="instrument-card">
+      <h3>{{ instrument.instrument_name }}</h3>
+      <p>Serial: {{ instrument.serial_number }}</p>
+      <a href="/instrument_profile?name={{ instrument.name }}">View Details</a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

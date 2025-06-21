@@ -4,7 +4,8 @@
 # Purpose: Custom utility functions for service planning module
 
 import frappe
-from frappe.utils import today, date_diff
+from frappe.utils import date_diff, today
+
 
 def get_warranty_days_left():
     instruments = frappe.db.get_all("Instrument", fields=["name", "warranty_expiry"])

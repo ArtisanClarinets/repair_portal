@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class RepairProgressStage(Document):
     def validate(self):
         if self.completed and not self.timestamp:

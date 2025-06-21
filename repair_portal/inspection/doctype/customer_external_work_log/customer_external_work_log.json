@@ -2,23 +2,16 @@
   "doctype": "DocType",
   "name": "Customer External Work Log",
   "module": "Inspection",
-  "istable": 1,
-  "is_child_table": 1,
   "fields": [
-    {
-      "fieldname": "work_description",
-      "fieldtype": "Text",
-      "label": "Work Description"
-    },
     {
       "fieldname": "date_performed",
       "fieldtype": "Date",
       "label": "Date Performed"
     },
     {
-      "fieldname": "performed_by",
-      "fieldtype": "Data",
-      "label": "Performed By"
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     },
     {
       "fieldname": "parent",
@@ -29,19 +22,24 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "performed_by",
+      "fieldtype": "Data",
+      "label": "Performed By"
+    },
+    {
+      "fieldname": "work_description",
+      "fieldtype": "Text",
+      "label": "Work Description"
     }
   ],
   "permissions": [
@@ -53,5 +51,7 @@
       "create": 1,
       "delete": 1
     }
-  ]
+  ],
+  "is_child_table": 1,
+  "istable": 1
 }

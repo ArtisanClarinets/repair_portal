@@ -1,5 +1,8 @@
 {
   "doctype": "Dashboard",
+  "module": "Instrument Setup",
+  "dashboard_name": "Repairs Dashboard",
+  "standard": 1,
   "name": "Repairs Dashboard",
   "label": "Repairs Dashboard",
   "charts": [

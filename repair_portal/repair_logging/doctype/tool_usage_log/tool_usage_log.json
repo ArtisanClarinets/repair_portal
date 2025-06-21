@@ -1,24 +1,56 @@
 {
-	"doctype": "DocType",
-	"name": "Tool Usage Log",
-	"module": "Repair Logging",
-	"custom": 0,
-	"istable": 0,
-	"is_submittable": 0,
-	"fields": [
-		{ "fieldname": "tool", "label": "Tool", "fieldtype": "Data" },
-		{
-			"fieldname": "used_by",
-			"label": "Used By",
-			"fieldtype": "Link",
-			"options": "User"
-		},
-		{ "fieldname": "usage_notes", "label": "Notes", "fieldtype": "Text" }
-	],
-	"permissions": [
-		{"role": "Technician", "read": 1, "write": 1, "create": 1},
-		{"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-	]
+  "doctype": "DocType",
+  "name": "Tool Usage Log",
+  "module": "Repair Logging",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "tool",
+      "label": "Tool",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "usage_notes",
+      "label": "Notes",
+      "fieldtype": "Text"
+    },
+    {
+      "fieldname": "used_by",
+      "label": "Used By",
+      "fieldtype": "Link",
+      "options": "User"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_submittable": 0,
+  "istable": 0
 }

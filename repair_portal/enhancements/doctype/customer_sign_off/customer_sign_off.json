@@ -3,20 +3,60 @@
   "name": "Customer Sign Off",
   "module": "Enhancements",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
   "fields": [
-    {"fieldname": "repair_job", "label": "Repair Job", "fieldtype": "Link", "options": "Repair"},
-    {"fieldname": "signature", "label": "Signature", "fieldtype": "Attach"},
-    {"fieldname": "media_files", "label": "Media Files", "fieldtype": "Table", "options": "File"},
-    {"fieldname": "approval_status", "label": "Approval Status", "fieldtype": "Select", "options": "Pending Review\nApproved\nRejected", "default": "Pending Review"},
-    {"fieldname": "ip_address", "label": "IP Address", "fieldtype": "Data"},
-    {"fieldname": "signature_timestamp", "label": "Signature Timestamp", "fieldtype": "Datetime"},
-    {"fieldname": "signature_hash", "label": "Signature Hash", "fieldtype": "Data"}
+    {
+      "fieldname": "approval_status",
+      "label": "Approval Status",
+      "fieldtype": "Select",
+      "options": "Pending Review\nApproved\nRejected",
+      "default": "Pending Review"
+    },
+    {
+      "fieldname": "ip_address",
+      "label": "IP Address",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "media_files",
+      "label": "Media Files",
+      "fieldtype": "Table",
+      "options": "File"
+    },
+    {
+      "fieldname": "repair_job",
+      "label": "Repair Job",
+      "fieldtype": "Link",
+      "options": "Repair"
+    },
+    {
+      "fieldname": "signature",
+      "label": "Signature",
+      "fieldtype": "Attach"
+    },
+    {
+      "fieldname": "signature_hash",
+      "label": "Signature Hash",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "signature_timestamp",
+      "label": "Signature Timestamp",
+      "fieldtype": "Datetime"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1}
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
   ],
+  "editable_grid": 1,
   "is_submittable": 1,
+  "istable": 0,
   "workflow_state_field": "approval_status"
 }

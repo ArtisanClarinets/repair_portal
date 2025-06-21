@@ -1,20 +1,62 @@
 {
   "doctype": "DocType",
   "name": "customer_sign_off",
-  "label": "Customer Sign-Off",
   "module": "QA",
   "custom": 0,
   "fields": [
-    {"fieldname": "repair", "fieldtype": "Link", "label": "Repair Request", "options": "Repair Request", "reqd": 1},
-    {"fieldname": "client", "fieldtype": "Link", "label": "Client", "options": "Client Profile", "reqd": 1},
-    {"fieldname": "approval_state", "fieldtype": "Select", "label": "Approval State", "options": "Pending Review\nApproved\nRejected", "default": "Pending Review"},
-    {"fieldname": "signature", "fieldtype": "Signature", "label": "Digital Signature"},
-    {"fieldname": "ip_address", "fieldtype": "Data", "label": "IP Address"},
-    {"fieldname": "signed_on", "fieldtype": "Datetime", "label": "Signed On"}
+    {
+      "fieldname": "approval_state",
+      "fieldtype": "Select",
+      "label": "Approval State",
+      "options": "Pending Review\nApproved\nRejected",
+      "default": "Pending Review"
+    },
+    {
+      "fieldname": "client",
+      "fieldtype": "Link",
+      "label": "Client",
+      "options": "Client Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "ip_address",
+      "fieldtype": "Data",
+      "label": "IP Address"
+    },
+    {
+      "fieldname": "repair",
+      "fieldtype": "Link",
+      "label": "Repair Request",
+      "options": "Repair Request",
+      "reqd": 1
+    },
+    {
+      "fieldname": "signature",
+      "fieldtype": "Signature",
+      "label": "Digital Signature"
+    },
+    {
+      "fieldname": "signed_on",
+      "fieldtype": "Datetime",
+      "label": "Signed On"
+    }
   ],
   "permissions": [
-    {"role": "Client", "read": 1, "write": 1, "create": 1},
-    {"role": "Technician", "read": 1},
-    {"role": "Service Manager", "read": 1, "write": 1}
-  ]
+    {
+      "role": "Client",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1
+    }
+  ],
+  "label": "Customer Sign-Off"
 }

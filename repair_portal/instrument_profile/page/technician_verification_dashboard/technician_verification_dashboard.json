@@ -1,9 +1,9 @@
 {
   "doctype": "Page",
-  "title": "Technician Verification Dashboard",
   "name": "technician_verification_dashboard",
-  "route": "technician-verification-dashboard",
-  "reference_doctype": "Instrument Profile",
   "module": "Instrument Profile",
+  "reference_doctype": "Instrument Profile",
+  "route": "technician-verification-dashboard",
+  "title": "Technician Verification Dashboard",
   "type": "page"
 }

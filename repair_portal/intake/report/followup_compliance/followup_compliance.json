@@ -1,9 +1,9 @@
 {
   "doctype": "Report",
   "name": "Follow-up Compliance",
-  "report_name": "Follow-up Compliance",
-  "ref_doctype": "Intake Followup",
-  "report_type": "Script Report",
+  "module": "Repair Portal",
   "is_standard": "Yes",
-  "module": "Repair Portal"
+  "ref_doctype": "Intake Followup",
+  "report_name": "Follow-up Compliance",
+  "report_type": "Script Report"
 }

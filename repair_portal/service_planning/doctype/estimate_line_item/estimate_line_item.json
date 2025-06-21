@@ -2,9 +2,14 @@
   "doctype": "DocType",
   "name": "Estimate Line Item",
   "module": "Service Planning",
-  "istable": 1,
   "custom": 0,
   "fields": [
+    {
+      "fieldname": "amount",
+      "label": "Amount",
+      "fieldtype": "Currency",
+      "depends_on": "eval: doc.hours && doc.rate"
+    },
     {
       "fieldname": "description",
       "label": "Service Description",
@@ -12,26 +17,14 @@
       "reqd": 1
     },
     {
-      "fieldname": "part_code",
-      "label": "Part Code",
-      "fieldtype": "Link",
-      "options": "Item"
-    },
-    {
       "fieldname": "hours",
       "label": "Hours",
       "fieldtype": "Float"
     },
     {
-      "fieldname": "rate",
-      "label": "Rate ($/hr)",
-      "fieldtype": "Currency"
-    },
-    {
-      "fieldname": "amount",
-      "label": "Amount",
-      "fieldtype": "Currency",
-      "depends_on": "eval: doc.hours && doc.rate"
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     },
     {
       "fieldname": "parent",
@@ -42,19 +35,25 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "part_code",
+      "label": "Part Code",
+      "fieldtype": "Link",
+      "options": "Item"
+    },
+    {
+      "fieldname": "rate",
+      "label": "Rate ($/hr)",
+      "fieldtype": "Currency"
     }
   ],
   "permissions": [
@@ -66,5 +65,6 @@
       "delete": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

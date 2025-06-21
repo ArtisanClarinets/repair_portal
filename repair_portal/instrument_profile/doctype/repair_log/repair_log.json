@@ -3,13 +3,31 @@
   "name": "Repair Log",
   "module": "Instrument Profile",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
   "fields": [
-    {"fieldname": "pad_conditions", "label": "Pad Conditions", "fieldtype": "Table", "options": "Pad Condition"},
-    {"fieldname": "pad_map_view", "label": "Pad Map View", "fieldtype": "HTML", "default": "<div style='height:300px'></div>"}
+    {
+      "fieldname": "pad_conditions",
+      "label": "Pad Conditions",
+      "fieldtype": "Table",
+      "options": "Pad Condition"
+    },
+    {
+      "fieldname": "pad_map_view",
+      "label": "Pad Map View",
+      "fieldtype": "HTML",
+      "default": "<div style='height:300px'></div>"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1}
-  ]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
 }

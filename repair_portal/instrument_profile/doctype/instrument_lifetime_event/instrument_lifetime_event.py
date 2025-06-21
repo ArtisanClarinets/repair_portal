@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Controller for child table Instrument Lifetime Event
 
-import frappe
 from frappe.model.document import Document
+
 
 class InstrumentLifetimeEvent(Document):
     pass

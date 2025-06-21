@@ -3,32 +3,18 @@
   "name": "Material Use Log",
   "module": "Repair Logging",
   "custom": 0,
-  "istable": 1,
-  "editable_grid": 1,
   "fields": [
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
     {
       "fieldname": "item_code",
       "label": "Item",
       "fieldtype": "Link",
       "options": "Item",
       "reqd": 1
-    },
-    {
-      "fieldname": "qty",
-      "label": "Quantity",
-      "fieldtype": "Float",
-      "default": 1,
-      "reqd": 1
-    },
-    {
-      "fieldname": "used_on",
-      "label": "Used On (Key or Pad)",
-      "fieldtype": "Data"
-    },
-    {
-      "fieldname": "remarks",
-      "label": "Remarks",
-      "fieldtype": "Small Text"
     },
     {
       "fieldname": "parent",
@@ -39,19 +25,31 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "qty",
+      "label": "Quantity",
+      "fieldtype": "Float",
+      "default": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "remarks",
+      "label": "Remarks",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "used_on",
+      "label": "Used On (Key or Pad)",
+      "fieldtype": "Data"
     }
   ],
   "permissions": [
@@ -63,5 +61,7 @@
       "delete": 1
     }
   ],
-  "is_child_table": 1
+  "editable_grid": 1,
+  "is_child_table": 1,
+  "istable": 1
 }

@@ -1,31 +1,31 @@
 {
-	"doctype": "Web Form",
-	"module": "Instrument Setup",
-	"name": "Repair Status",
-	"title": "Repair Status",
-	"doc_type": "Clarinet Intake",
-	"is_standard": 1,
-	"is_list": 1,
-	"login_required": 1,
-	"read_only": 1,
-	"web_form_fields": [
-		{
-			"fieldname": "serial_number",
-			"label": "Serial Number",
-			"fieldtype": "Data"
-		},
-		{
-			"fieldname": "received_date",
-			"label": "Received Date",
-			"fieldtype": "Date"
-		},
-		{
-			"fieldname": "customer_notes",
-			"label": "Customer Notes",
-			"fieldtype": "Text"
-		}
-	],
-	"filters": {
-		"customer": "__user"
-	}
+  "doctype": "Web Form",
+  "name": "Repair Status",
+  "module": "Instrument Setup",
+  "doc_type": "Clarinet Intake",
+  "filters": {
+    "customer": "__user"
+  },
+  "is_list": 1,
+  "is_standard": 1,
+  "login_required": 1,
+  "read_only": 1,
+  "title": "Repair Status",
+  "web_form_fields": [
+    {
+      "fieldname": "serial_number",
+      "label": "Serial Number",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "received_date",
+      "label": "Received Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "customer_notes",
+      "label": "Customer Notes",
+      "fieldtype": "Text"
+    }
+  ]
 }

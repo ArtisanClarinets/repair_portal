@@ -4,10 +4,9 @@
 # Purpose: API endpoints for Customer Interaction Thread (SMS + frontend integrations)
 
 import frappe
-from frappe import _
-from frappe.utils import now
-from werkzeug.wrappers import Response
 from twilio.rest import Client
+from werkzeug.wrappers import Response
+
 
 @frappe.whitelist(allow_guest=True)
 def receive_sms():

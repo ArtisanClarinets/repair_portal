@@ -1,35 +1,38 @@
 {
-	"doctype": "DocType",
-	"name": "Setup Template",
-	"module": "Instrument Setup",
-	"fields": [
-		{
-			"fieldname": "template_name",
-			"fieldtype": "Data",
-			"label": "Template Name",
-			"reqd": 1
-		},
-		{
-			"fieldname": "clarinet_model",
-			"fieldtype": "Link",
-			"label": "Clarinet Model",
-			"options": "Item Variant"
-		},
-		{
-			"fieldname": "checklist_items",
-			"fieldtype": "Table",
-			"label": "Checklist Items",
-			"options": "Setup Checklist Item"
-		}
-	],
-	"permissions": [
-		{ "role": "Technician", "read": 1 },
-		{
-			"role": "Service Manager",
-			"read": 1,
-			"write": 1,
-			"create": 1,
-			"delete": 1
-		}
-	]
+  "doctype": "DocType",
+  "name": "Setup Template",
+  "module": "Instrument Setup",
+  "fields": [
+    {
+      "fieldname": "checklist_items",
+      "fieldtype": "Table",
+      "label": "Checklist Items",
+      "options": "Setup Checklist Item"
+    },
+    {
+      "fieldname": "clarinet_model",
+      "fieldtype": "Link",
+      "label": "Clarinet Model",
+      "options": "Item Variant"
+    },
+    {
+      "fieldname": "template_name",
+      "fieldtype": "Data",
+      "label": "Template Name",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1
+    }
+  ]
 }

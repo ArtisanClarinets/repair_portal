@@ -3,8 +3,10 @@
 # Version: 1.0
 # Purpose: Aggregated defect reporting by model for heat-map analysis
 
-import frappe
 from collections import defaultdict
+
+import frappe
+
 
 def execute(filters=None):
     filters = filters or {}

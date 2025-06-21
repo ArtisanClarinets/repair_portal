@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class RepairOrder(Document):
     def validate(self):
         if not self.customer or not self.instrument:

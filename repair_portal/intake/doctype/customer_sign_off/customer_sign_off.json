@@ -3,20 +3,64 @@
   "name": "Customer Sign Off",
   "module": "Intake",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 0,
   "fields": [
-    {"fieldname": "reference_doctype", "label": "Reference DocType", "fieldtype": "Link", "options": "DocType", "reqd": 1},
-    {"fieldname": "reference_name", "label": "Reference Name", "fieldtype": "Dynamic Link", "options": "reference_doctype", "reqd": 1},
-    {"fieldname": "signed_at", "label": "Signed At", "fieldtype": "Datetime", "read_only": 1},
-    {"fieldname": "ip_address", "label": "IP Address", "fieldtype": "Data", "read_only": 1},
-    {"fieldname": "signature_hash", "label": "Signature Hash", "fieldtype": "Data", "read_only": 1},
-    {"fieldname": "signature_image", "label": "Signature Image (Base64)", "fieldtype": "Text", "hidden": 1},
-    {"fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Select", "options": "Pending\nApproved", "default": "Pending"}
+    {
+      "fieldname": "ip_address",
+      "label": "IP Address",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "reference_doctype",
+      "label": "Reference DocType",
+      "fieldtype": "Link",
+      "options": "DocType",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reference_name",
+      "label": "Reference Name",
+      "fieldtype": "Dynamic Link",
+      "options": "reference_doctype",
+      "reqd": 1
+    },
+    {
+      "fieldname": "signature_hash",
+      "label": "Signature Hash",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "signature_image",
+      "label": "Signature Image (Base64)",
+      "fieldtype": "Text",
+      "hidden": 1
+    },
+    {
+      "fieldname": "signed_at",
+      "label": "Signed At",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    },
+    {
+      "fieldname": "workflow_state",
+      "label": "Workflow State",
+      "fieldtype": "Select",
+      "options": "Pending\nApproved",
+      "default": "Pending"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1}
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1
+    }
   ],
+  "editable_grid": 0,
   "is_submittable": 1,
+  "istable": 0,
   "workflow_state_field": "workflow_state"
 }

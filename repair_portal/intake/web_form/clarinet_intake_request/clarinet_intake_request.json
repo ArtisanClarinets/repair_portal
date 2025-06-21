@@ -2,7 +2,25 @@
   "doctype": "Web Form",
   "name": "clarinet_intake_request",
   "module": "Intake",
+  "allow_multiple": 1,
   "doc_type": "Clarinet Intake",
+  "is_list": 1,
+  "list_columns": [
+    {
+      "fieldname": "instrument_profile"
+    },
+    {
+      "fieldname": "reason_for_service"
+    },
+    {
+      "fieldname": "customer"
+    }
+  ],
+  "login_required": 1,
+  "route": "/submit-intake",
+  "show_list": 1,
+  "success_message": "Your intake has been submitted.",
+  "success_url": "/status-intake",
   "title": "Submit Clarinet Intake Request",
   "web_form_fields": [
     {
@@ -30,17 +48,5 @@
       "fieldtype": "Attach",
       "reqd": 0
     }
-  ],
-  "login_required": 1,
-  "allow_multiple": 1,
-  "route": "/submit-intake",
-  "success_message": "Your intake has been submitted.",
-  "success_url": "/status-intake",
-  "show_list": 1,
-  "is_list": 1,
-  "list_columns": [
-    {"fieldname": "instrument_profile"},
-    {"fieldname": "reason_for_service"},
-    {"fieldname": "customer"}
   ]
 }

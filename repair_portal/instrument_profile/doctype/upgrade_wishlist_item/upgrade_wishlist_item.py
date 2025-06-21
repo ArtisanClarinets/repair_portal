@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Line item table for Upgrade Wishlist, tracks desired accessories and quote request
 
-import frappe
 from frappe.model.document import Document
+
 
 class UpgradeWishlistItem(Document):
     pass

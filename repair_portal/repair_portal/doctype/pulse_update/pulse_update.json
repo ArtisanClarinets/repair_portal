@@ -3,17 +3,49 @@
   "name": "Pulse Update",
   "module": "Repair Portal",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
   "fields": [
-    {"fieldname": "repair_request", "label": "Repair Request", "fieldtype": "Link", "options": "Repair Request", "reqd": 1},
-    {"fieldname": "update_time", "label": "Update Time", "fieldtype": "Datetime", "default": "now", "reqd": 1},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Data"},
-    {"fieldname": "details", "label": "Details", "fieldtype": "Small Text"},
-    {"fieldname": "percent_complete", "label": "Percent Complete", "fieldtype": "Int"}
+    {
+      "fieldname": "details",
+      "label": "Details",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "percent_complete",
+      "label": "Percent Complete",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "repair_request",
+      "label": "Repair Request",
+      "fieldtype": "Link",
+      "options": "Repair Request",
+      "reqd": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "update_time",
+      "label": "Update Time",
+      "fieldtype": "Datetime",
+      "default": "now",
+      "reqd": 1
+    }
   ],
   "permissions": [
-    {"role": "Technician", "read": 1, "write": 1, "create": 1},
-    {"role": "Client", "read": 1}
-  ]
+    {
+      "role": "Client",
+      "read": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
 }

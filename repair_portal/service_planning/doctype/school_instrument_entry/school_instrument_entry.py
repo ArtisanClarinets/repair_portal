@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Server-side logic for School Instrument Entry (child table)
 
-import frappe
 from frappe.model.document import Document
+
 
 class SchoolInstrumentEntry(Document):
     pass

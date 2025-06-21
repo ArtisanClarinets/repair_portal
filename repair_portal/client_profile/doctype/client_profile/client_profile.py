@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class ClientProfile(Document):
     def validate(self):
         self.ensure_unique_user()

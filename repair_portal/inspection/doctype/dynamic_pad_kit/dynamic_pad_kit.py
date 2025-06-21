@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class DynamicPadKit(Document):
     def validate(self):
         frappe.msgprint("Pad list validation logic will go here.")

@@ -1,13 +1,13 @@
 {
-  "title": "Background Tuner Overlay",
   "doctype": "Page",
   "name": "background_tuner_overlay",
   "module": "Tools",
+  "content": "",
   "developer_mode": 1,
   "extends_another_page": 0,
-  "content": "",
+  "icon": "octicon octicon-radio-tower",
+  "layout": "Single Column",
   "script": "",
   "style": "",
-  "icon": "octicon octicon-radio-tower",
-  "layout": "Single Column"
+  "title": "Background Tuner Overlay"
 }

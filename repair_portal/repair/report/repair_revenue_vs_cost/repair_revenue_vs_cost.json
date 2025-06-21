@@ -1,13 +1,21 @@
 {
   "doctype": "Report",
   "name": "Repair Revenue vs Cost",
-  "ref_doctype": "Repair Order",
-  "report_type": "Script Report",
-  "is_standard": "Yes",
   "module": "Repair",
-  "report_name": "Repair Revenue vs Cost",
   "filters": [
-    {"fieldname": "from_date", "label": "From Date", "fieldtype": "Date"},
-    {"fieldname": "to_date", "label": "To Date", "fieldtype": "Date"}
-  ]
+    {
+      "fieldname": "from_date",
+      "label": "From Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "to_date",
+      "label": "To Date",
+      "fieldtype": "Date"
+    }
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Repair Order",
+  "report_name": "Repair Revenue vs Cost",
+  "report_type": "Script Report"
 }

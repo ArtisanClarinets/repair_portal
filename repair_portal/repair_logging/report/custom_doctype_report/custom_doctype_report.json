@@ -1,19 +1,7 @@
 {
   "doctype": "Report",
   "name": "Custom Doctype Report",
-  "report_name": "Custom Doctype Report",
-  "ref_doctype": "Custom Doctype",
-  "report_type": "Script Report",
-  "is_standard": "Yes",
   "module": "Repair Logging",
-  "filters": [
-    {
-      "fieldname": "customer",
-      "label": "Customer",
-      "fieldtype": "Link",
-      "options": "Customer"
-    }
-  ],
   "columns": [
     {
       "label": "Customer",
@@ -27,5 +15,17 @@
       "fieldtype": "Data",
       "width": 200
     }
-  ]
+  ],
+  "filters": [
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    }
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Custom Doctype",
+  "report_name": "Custom Doctype Report",
+  "report_type": "Script Report"
 }

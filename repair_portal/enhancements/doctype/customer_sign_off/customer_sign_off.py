@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class CustomerSignOff(Document):
     def validate(self):
         if self.approval_status == "Approved" and not self.signature:

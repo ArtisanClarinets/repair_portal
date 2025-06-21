@@ -1,14 +1,29 @@
 {
   "doctype": "Report",
   "name": "Instrument Inventory Report",
-  "report_name": "Instrument Inventory Report",
-  "ref_doctype": "Instrument Profile",
-  "report_type": "Script Report",
-  "is_standard": "Yes",
   "module": "Instrument Profile",
   "filters": [
-    {"fieldname": "acquisition_type", "label": "Acquisition Type", "fieldtype": "Select", "options": "\nCustomer\nInventory"},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nActive\nIn Repair\nRetired"},
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer"}
-  ]
+    {
+      "fieldname": "acquisition_type",
+      "label": "Acquisition Type",
+      "fieldtype": "Select",
+      "options": "\nCustomer\nInventory"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nActive\nIn Repair\nRetired"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    }
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Instrument Profile",
+  "report_name": "Instrument Inventory Report",
+  "report_type": "Script Report"
 }

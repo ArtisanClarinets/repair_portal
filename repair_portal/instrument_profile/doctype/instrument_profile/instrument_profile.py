@@ -6,6 +6,7 @@
 import frappe
 from frappe.website.website_generator import WebsiteGenerator
 
+
 class InstrumentProfile(WebsiteGenerator):
     website = frappe._dict(
         condition_field="published",

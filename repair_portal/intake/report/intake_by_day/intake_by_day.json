@@ -1,9 +1,9 @@
 {
   "doctype": "Report",
   "name": "Intake by Day",
-  "report_name": "Intake by Day",
-  "ref_doctype": "Clarinet Intake",
-  "report_type": "Script Report",
+  "module": "Repair Portal",
   "is_standard": "Yes",
-  "module": "Repair Portal"
+  "ref_doctype": "Clarinet Intake",
+  "report_name": "Intake by Day",
+  "report_type": "Script Report"
 }

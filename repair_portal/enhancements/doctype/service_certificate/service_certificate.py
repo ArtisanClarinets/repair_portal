@@ -7,6 +7,7 @@ import frappe
 from frappe.model.document import Document
 from frappe.utils import nowdate
 
+
 class ServiceCertificate(Document):
     def before_insert(self):
         self.issue_date = nowdate()

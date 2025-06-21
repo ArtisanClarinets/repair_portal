@@ -3,16 +3,63 @@
   "name": "Service Task",
   "module": "Service Planning",
   "fields": [
-    { "fieldname": "task_name", "label": "Task Name", "fieldtype": "Data", "reqd": 1 },
-    { "fieldname": "description", "label": "Description", "fieldtype": "Text" },
-    { "fieldname": "scheduled_date", "label": "Scheduled Date", "fieldtype": "Date" },
-    { "fieldname": "assigned_to", "label": "Assigned To", "fieldtype": "Link", "options": "User" },
-    { "fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Pending\nScheduled\nCompleted" }
+    {
+      "fieldname": "assigned_to",
+      "label": "Assigned To",
+      "fieldtype": "Link",
+      "options": "User"
+    },
+    {
+      "fieldname": "description",
+      "label": "Description",
+      "fieldtype": "Text"
+    },
+    {
+      "fieldname": "scheduled_date",
+      "label": "Scheduled Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Pending\nScheduled\nCompleted"
+    },
+    {
+      "fieldname": "task_name",
+      "label": "Task Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    }
   ],
   "permissions": [
-    {"role": "Technician", "read": 1, "write": 1, "create": 1},
-    {"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-    {"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
   ]
 }

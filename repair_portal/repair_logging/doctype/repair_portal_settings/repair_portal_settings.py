@@ -3,8 +3,8 @@
 # version: 1.0
 # purpose: Singleton to store Twilio configuration for SMS integration in Unified Chat & Ticketing system.
 
-import frappe
 from frappe.model.document import Document
+
 
 class RepairPortalSettings(Document):
     pass

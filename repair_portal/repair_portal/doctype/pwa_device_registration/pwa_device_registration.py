@@ -6,7 +6,20 @@
 import frappe
 from frappe.model.document import Document
 
+
 class PWADeviceRegistration(Document):
     def validate(self):
         if not self.device_token:
             frappe.throw("Device Token is required.")
+
+
+    def PWADeviceRegistration(self, device_token=None, device_type=None):
+        """
+        Initialize a new PWA Device Registration.
+        
+        :param device_token: The unique token for the device.
+        :param device_type: The type of the device (e.g., 'android', 'ios').
+        """
+        self.device_token = device_token
+        self.device_type = device_type
+        self.validate()

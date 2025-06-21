@@ -1,31 +1,62 @@
 {
   "doctype": "Workspace",
   "name": "Repair Portal",
-  "label": "Repair Portal",
+  "owner": "Administrator",
+  "modified": "2025-06-14 05:39:25.444519",
   "module": "Repair Portal",
-  "icon": "fa fa-wrench",
-  "content": {
-    "shortcuts": [
-      {
-        "label": "New Repair Request",
-        "type": "DocType",
-        "name": "Repair Request"
-      },
-      {
-        "label": "My Repair Tasks",
-        "type": "Report",
-        "name": "Technician Task Summary"
-      }
-    ],
-    "charts": [
-      {
-        "label": "My Task Status Summary",
-        "type": "Report",
-        "report_name": "Technician Task Summary",
-        "chart_type": "Bar"
-      }
-    ],
-    "links": [],
-    "cards": []
-  }
+  "links": [],
+  "charts": [],
+  "content": "[{\"id\":\"3e10TpR3_z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Portal</span>\",\"col\":12}},{\"id\":\"cCMRiUhEGY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument Profile\",\"col\":3}},{\"id\":\"kGqOjeyRXK\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Intake\",\"col\":3}},{\"id\":\"zG5fn9yIXy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Setup\",\"col\":3}},{\"id\":\"3St7Uz8fF-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Loaner Instrument\",\"col\":3}}]",
+  "creation": "2025-06-12 02:14:43.044796",
+  "custom_blocks": [],
+  "docstatus": 0,
+  "for_user": "",
+  "hide_custom": 0,
+  "icon": "down",
+  "idx": 0,
+  "indicator_color": "green",
+  "is_hidden": 0,
+  "label": "Repair Portal",
+  "modified_by": "dylan@artisanclarinets.com",
+  "number_cards": [],
+  "parent_page": "",
+  "public": 1,
+  "quick_lists": [],
+  "roles": [],
+  "sequence_id": 1.0,
+  "shortcuts": [
+    {
+      "color": "Grey",
+      "doc_view": "New",
+      "label": "New Clarinet Intake",
+      "link_to": "Clarinet Intake",
+      "stats_filter": "[]",
+      "type": "DocType"
+    },
+    {
+      "color": "Grey",
+      "doc_view": "New",
+      "label": "New Clarinet Setup",
+      "link_to": "Clarinet Initial Setup",
+      "stats_filter": "[]",
+      "type": "DocType"
+    },
+    {
+      "color": "Grey",
+      "doc_view": "New",
+      "label": "New Loaner Instrument",
+      "link_to": "Loaner Instrument",
+      "stats_filter": "[]",
+      "type": "DocType"
+    },
+    {
+      "color": "Grey",
+      "doc_view": "New",
+      "label": "New Instrument Profile",
+      "link_to": "Instrument Profile",
+      "stats_filter": "[]",
+      "type": "DocType"
+    }
+  ],
+  "title": "Repair Portal"
 }

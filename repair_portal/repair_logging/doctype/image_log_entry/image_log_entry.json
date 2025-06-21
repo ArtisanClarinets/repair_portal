@@ -1,19 +1,23 @@
 {
   "doctype": "DocType",
   "name": "Image Log Entry",
-  "istable": 1,
   "module": "Repair Logging",
   "custom": 0,
   "fields": [
     {
-      "fieldname": "image",
-      "fieldtype": "Attach Image",
-      "label": "Image"
-    },
-    {
       "fieldname": "comment",
       "fieldtype": "Small Text",
       "label": "Comment"
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "image",
+      "fieldtype": "Attach Image",
+      "label": "Image"
     },
     {
       "fieldname": "parent",
@@ -24,18 +28,13 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
     }
   ],
@@ -48,5 +47,6 @@
       "delete": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

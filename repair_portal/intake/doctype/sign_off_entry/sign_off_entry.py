@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Table child doctype for storing sign-off archive entries linked to parent records
 
-import frappe
 from frappe.model.document import Document
+
 
 class SignOffEntry(Document):
     pass

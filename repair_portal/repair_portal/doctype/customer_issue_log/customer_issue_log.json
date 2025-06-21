@@ -1,0 +1,85 @@
+{
+  "doctype": "DocType",
+  "standard": 1,
+  "module_name": "Repair Portal",
+  "label": "Customer Issue Log",
+  "description": "Log of customer-reported issues related to instruments requiring repair.",
+  "name": "Customer Issue Log",
+  "module": "Repair Portal",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "cb1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "date_reported",
+      "label": "Date Reported",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "instrument_category",
+      "label": "Instrument Category",
+      "fieldtype": "Link",
+      "options": "Instrument Category"
+    },
+    {
+      "fieldname": "issue_description",
+      "label": "Issue Description",
+      "fieldtype": "Text",
+      "reqd": 1
+    },
+    {
+      "fieldname": "priority_level",
+      "label": "Priority",
+      "fieldtype": "Select",
+      "options": "\nLow\nMedium\nHigh",
+      "default": "Medium"
+    },
+    {
+      "fieldname": "section_main",
+      "fieldtype": "Section Break",
+      "label": "Repair Details"
+    },
+    {
+      "fieldname": "section_status",
+      "fieldtype": "Section Break",
+      "label": "Status"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nOpen\nIn Progress\nResolved\nClosed",
+      "default": "Open"
+    },
+    {
+      "fieldname": "technician_assigned",
+      "label": "Technician Assigned",
+      "fieldtype": "Link",
+      "options": "User"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ],
+  "editable_grid": 1,
+  "is_submittable": 1,
+  "istable": 0,
+  "workflow_state_field": "status"
+}

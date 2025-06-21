@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Stores estimated market value of instruments with timestamp
 
-import frappe
 from frappe.model.document import Document
+
 
 class InstrumentMarketValue(Document):
     pass

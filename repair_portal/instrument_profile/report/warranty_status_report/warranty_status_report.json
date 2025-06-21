@@ -1,9 +1,9 @@
 {
   "doctype": "Report",
   "name": "Warranty Status Report",
-  "report_name": "Warranty Status Report",
-  "ref_doctype": "Instrument Profile",
-  "report_type": "Query Report",
+  "module": "Instrument Profile",
   "is_standard": "Yes",
-  "module": "Instrument Profile"
+  "ref_doctype": "Instrument Profile",
+  "report_name": "Warranty Status Report",
+  "report_type": "Query Report"
 }

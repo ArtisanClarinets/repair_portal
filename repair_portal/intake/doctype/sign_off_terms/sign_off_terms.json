@@ -3,12 +3,28 @@
   "name": "Sign Off Terms",
   "module": "Intake",
   "custom": 0,
-  "istable": 0,
   "fields": [
-    {"fieldname": "reference_doctype", "label": "Reference DocType", "fieldtype": "Link", "options": "DocType", "reqd": 1},
-    {"fieldname": "html_terms", "label": "Terms HTML", "fieldtype": "Text Editor", "reqd": 1}
+    {
+      "fieldname": "html_terms",
+      "label": "Terms HTML",
+      "fieldtype": "Text Editor",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reference_doctype",
+      "label": "Reference DocType",
+      "fieldtype": "Link",
+      "options": "DocType",
+      "reqd": 1
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1}
-  ]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "istable": 0
 }

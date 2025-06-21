@@ -57,9 +57,9 @@ This directory contains all **Python page controllers** for custom web routes in
 
 ---
 
-## Directory Map
+## Directory Map (as of 2025-06-21)
 
-- `my_instruments.py`         →  Main instrument list view
+- `my_instruments.py`         →  Main instrument list view *(🆕 template added)*
 - `my_repairs.py`             →  Client/user's repair history
 - `my_players.py`             →  Player directory (for each client)
 - `player_profiles.py`        →  List of player profiles
@@ -69,26 +69,9 @@ This directory contains all **Python page controllers** for custom web routes in
 - `repair_pulse.py`           →  Real-time updates for a repair request
 - `repair_status.py`          →  Repair tracking page
 - `instrument_profile.py`     →  Instrument detail (dynamic, secure)
+- `instrument_wellness.py`    →  Instrument health dashboard *(🆕 template added)*
 - `pad_map.py`                →  Pad map and inspection visuals
-
----
-
-## Associated Doctypes (Relative Paths)
-
-- **Instrument Profile:** `../instrument_setup/doctype/instrument_profile/instrument_profile.json`
-- **Client Profile:** `../instrument_setup/doctype/client_profile/client_profile.json`
-- **Player Profile:** `../instrument_setup/doctype/player_profile/player_profile.json`
-- **Repair Log:** `../repair_logging/doctype/repair_log/repair_log.json`
-- **Clarinet Repair Log:** `../repair_logging/doctype/clarinet_repair_log/clarinet_repair_log.json`
-- **Service Order Tracker:** `../service_planning/doctype/service_order_tracker/service_order_tracker.json`
-
----
-
-## Adding a New Web Page (Example)
-1. Create `your_page.py` in this `/www/` directory.
-2. Add `get_context(context):` in your controller to load any required data.
-3. Create a matching `your_page.html` template in `/templates/pages/`.
-4. Route will be `/your_page` in the portal.
+- `my_signatures/index.py`    →  Signature archive for users
 
 ---
 
@@ -100,8 +83,8 @@ This directory contains all **Python page controllers** for custom web routes in
 
 ---
 
-For any questions or contributions, see the main project README or contact Dylan Thompson (MRW Artisan Instruments).
+### Update Log
+- **2025-06-21**: Created missing templates `my_instruments.html` and `instrument_wellness.html`.
+- **2024-06-19**: Legacy pages consolidated. `repair_pulse.html` moved to `templates/pages/`.
 
-### 2024-06-19
-- Legacy `repair_portal/repair_portal/www` pages consolidated into this directory.
-- Unused pad map templates removed; `repair_pulse.html` moved to `templates/pages/`.
+For any questions or contributions, see the main project README or contact Dylan Thompson (MRW Artisan Instruments).

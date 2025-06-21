@@ -3,22 +3,78 @@
   "name": "Client Profile",
   "module": "Client Profile",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
   "fields": [
-    {"fieldname": "client_name", "label": "Client Name", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
-    {"fieldname": "email", "label": "Email", "fieldtype": "Data"},
-    {"fieldname": "phone", "label": "Phone", "fieldtype": "Data"},
-    {"fieldname": "linked_user", "label": "Linked User", "fieldtype": "Link", "options": "User"},
-    {"fieldname": "preferred_contact_method", "label": "Preferred Contact Method", "fieldtype": "Select", "options": "\nEmail\nPhone\nSMS"},
-    {"fieldname": "instruments_owned", "label": "Instruments Owned", "fieldtype": "Table", "options": "Instruments Owned"},
-    {"fieldname": "consent_log", "label": "Consent Log", "fieldtype": "Table", "options": "Consent Log"},
-    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"}
+    {
+      "fieldname": "client_name",
+      "label": "Client Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "consent_log",
+      "label": "Consent Log",
+      "fieldtype": "Table",
+      "options": "Consent Log"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "email",
+      "label": "Email",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "instruments_owned",
+      "label": "Instruments Owned",
+      "fieldtype": "Table",
+      "options": "Instruments Owned"
+    },
+    {
+      "fieldname": "linked_user",
+      "label": "Linked User",
+      "fieldtype": "Link",
+      "options": "User"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "phone",
+      "label": "Phone",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "preferred_contact_method",
+      "label": "Preferred Contact Method",
+      "fieldtype": "Select",
+      "options": "\nEmail\nPhone\nSMS"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "Technician", "read": 1},
-    {"role": "Customer", "read": 1, "write": 1}
-  ]
+    {
+      "role": "Customer",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
 }

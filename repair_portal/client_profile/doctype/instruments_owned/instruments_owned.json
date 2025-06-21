@@ -2,17 +2,16 @@
   "doctype": "DocType",
   "name": "Instruments Owned",
   "module": "Client Profile",
-  "istable": 1,
   "fields": [
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
     {
       "fieldname": "instrument_category",
       "fieldtype": "Data",
       "label": "Instrument Category"
-    },
-    {
-      "fieldname": "serial_number",
-      "fieldtype": "Data",
-      "label": "Serial Number"
     },
     {
       "fieldname": "parent",
@@ -23,19 +22,19 @@
       "in_list_view": 0
     },
     {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
       "fieldname": "parentfield",
       "fieldtype": "Data",
       "hidden": 1
     },
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
       "hidden": 1
+    },
+    {
+      "fieldname": "serial_number",
+      "fieldtype": "Data",
+      "label": "Serial Number"
     }
   ],
   "permissions": [
@@ -53,5 +52,6 @@
       "create": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "istable": 1
 }

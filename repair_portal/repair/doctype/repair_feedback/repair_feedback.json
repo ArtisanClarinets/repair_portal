@@ -3,15 +3,49 @@
   "name": "Repair Feedback",
   "module": "Repair",
   "custom": 0,
-  "istable": 0,
   "fields": [
-    {"fieldname": "repair_order", "label": "Repair Order", "fieldtype": "Link", "options": "Repair Order", "reqd": 1},
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
-    {"fieldname": "rating", "label": "Rating", "fieldtype": "Select", "options": "1\n2\n3\n4\n5", "reqd": 1},
-    {"fieldname": "comment", "label": "Comment", "fieldtype": "Small Text"}
+    {
+      "fieldname": "comment",
+      "label": "Comment",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "rating",
+      "label": "Rating",
+      "fieldtype": "Select",
+      "options": "1\n2\n3\n4\n5",
+      "reqd": 1
+    },
+    {
+      "fieldname": "repair_order",
+      "label": "Repair Order",
+      "fieldtype": "Link",
+      "options": "Repair Order",
+      "reqd": 1
+    }
   ],
   "permissions": [
-    {"role": "Customer", "read": 1, "write": 1, "create": 1, "if_owner": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+    {
+      "role": "Customer",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "istable": 0
 }

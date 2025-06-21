@@ -3,12 +3,12 @@
   "name": "Repair Portal Settings",
   "module": "Repair Logging",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
-  "track_changes": 0,
-  "track_views": 0,
-  "singleton": 1,
   "fields": [
+    {
+      "fieldname": "twilio_number",
+      "fieldtype": "Data",
+      "label": "Twilio Phone Number"
+    },
     {
       "fieldname": "twilio_sid",
       "fieldtype": "Data",
@@ -18,11 +18,6 @@
       "fieldname": "twilio_token",
       "fieldtype": "Password",
       "label": "Twilio Auth Token"
-    },
-    {
-      "fieldname": "twilio_number",
-      "fieldtype": "Data",
-      "label": "Twilio Phone Number"
     }
   ],
   "permissions": [
@@ -31,5 +26,10 @@
       "read": 1,
       "write": 1
     }
-  ]
+  ],
+  "editable_grid": 1,
+  "istable": 0,
+  "singleton": 1,
+  "track_changes": 0,
+  "track_views": 0
 }

@@ -5,9 +5,9 @@
 # dev notes: renamed function to avoid name shadowing
 
 from __future__ import annotations
+
 import re
 from io import BytesIO
-from typing import Optional
 
 import frappe
 from frappe.utils.file_manager import get_file

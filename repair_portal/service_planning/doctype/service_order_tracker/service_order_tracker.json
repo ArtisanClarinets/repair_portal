@@ -3,14 +3,39 @@
   "name": "Service Order Tracker",
   "module": "Service Planning",
   "custom": 0,
-  "istable": 0,
   "fields": [
-    {"fieldname": "repair_log", "label": "Repair Log", "fieldtype": "Link", "options": "Clarinet Repair Log", "reqd": 1},
-    {"fieldname": "current_stage", "label": "Current Stage", "fieldtype": "Select", "options": "Estimate Sent\nApproved\nIn Progress\nAwaiting Parts\nQuality Check\nCompleted"},
-    {"fieldname": "message_to_customer", "label": "Message to Customer", "fieldtype": "Small Text"},
-    {"fieldname": "history_log", "label": "Status History", "fieldtype": "Long Text"}
+    {
+      "fieldname": "current_stage",
+      "label": "Current Stage",
+      "fieldtype": "Select",
+      "options": "Estimate Sent\nApproved\nIn Progress\nAwaiting Parts\nQuality Check\nCompleted"
+    },
+    {
+      "fieldname": "history_log",
+      "label": "Status History",
+      "fieldtype": "Long Text"
+    },
+    {
+      "fieldname": "message_to_customer",
+      "label": "Message to Customer",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "repair_log",
+      "label": "Repair Log",
+      "fieldtype": "Link",
+      "options": "Clarinet Repair Log",
+      "reqd": 1
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "istable": 0
 }

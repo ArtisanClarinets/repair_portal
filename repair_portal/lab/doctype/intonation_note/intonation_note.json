@@ -2,19 +2,53 @@
   "doctype": "DocType",
   "name": "Intonation Note",
   "module": "Lab",
-  "istable": 1,
-  "is_child_table": 1,
   "fields": [
-    {"fieldname": "note_name", "label": "Note", "fieldtype": "Data"},
-    {"fieldname": "cents_offset", "label": "Cents Offset", "fieldtype": "Float"},
-    {"fieldname": "time_logged", "label": "Time", "fieldtype": "Datetime"},
-
-    {"fieldname": "parent", "fieldtype": "Link", "options": "Parent DocType", "hidden": 1},
-    {"fieldname": "parenttype", "fieldtype": "Data", "hidden": 1},
-    {"fieldname": "parentfield", "fieldtype": "Data", "hidden": 1},
-    {"fieldname": "idx", "fieldtype": "Int", "hidden": 1}
+    {
+      "fieldname": "cents_offset",
+      "label": "Cents Offset",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "note_name",
+      "label": "Note",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Parent DocType",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "time_logged",
+      "label": "Time",
+      "fieldtype": "Datetime"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "is_child_table": 1,
+  "istable": 1
 }

@@ -1,33 +1,61 @@
 {
-	"doctype": "DocType",
-	"name": "Tool Calibration Log",
-	"module": "Tools",
-	"custom": 0,
-	"fields": [
-		{ "fieldname": "tool_name", "fieldtype": "Data", "label": "Tool Name" },
-		{
-			"fieldname": "calibration_date",
-			"fieldtype": "Date",
-			"label": "Calibration Date"
-		},
-		{
-			"fieldname": "calibrated_by",
-			"fieldtype": "Link",
-			"label": "Calibrated By",
-			"options": "Employee"
-		},
-		{
-			"fieldname": "next_due",
-			"fieldtype": "Date",
-			"label": "Next Calibration Due"
-		}
-	],
-	"permissions": [
-		{"role": "Technician", "read": 1, "write": 1, "create": 1},
-		{"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-	],
-	"istable": 0,
-	"track_changes": 1
+  "doctype": "DocType",
+  "name": "Tool Calibration Log",
+  "module": "Tools",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "calibrated_by",
+      "fieldtype": "Link",
+      "label": "Calibrated By",
+      "options": "Employee"
+    },
+    {
+      "fieldname": "calibration_date",
+      "fieldtype": "Date",
+      "label": "Calibration Date"
+    },
+    {
+      "fieldname": "next_due",
+      "fieldtype": "Date",
+      "label": "Next Calibration Due"
+    },
+    {
+      "fieldname": "tool_name",
+      "fieldtype": "Data",
+      "label": "Tool Name"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "istable": 0,
+  "track_changes": 1
 }

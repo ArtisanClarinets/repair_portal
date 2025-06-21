@@ -3,17 +3,50 @@
   "name": "Component Odometer",
   "module": "Service Planning",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
   "fields": [
-    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument"},
-    {"fieldname": "component_type", "label": "Component Type", "fieldtype": "Select", "options": "Pad\nCork\nSpring"},
-    {"fieldname": "install_date", "label": "Install Date", "fieldtype": "Date"},
-    {"fieldname": "usage_cycles", "label": "Usage Cycles", "fieldtype": "Int"},
-    {"fieldname": "expected_lifespan", "label": "Expected Lifespan (cycles)", "fieldtype": "Int"},
-    {"fieldname": "lifespan_percent", "label": "Lifespan % Used", "fieldtype": "Percent", "read_only": 1}
+    {
+      "fieldname": "component_type",
+      "label": "Component Type",
+      "fieldtype": "Select",
+      "options": "Pad\nCork\nSpring"
+    },
+    {
+      "fieldname": "expected_lifespan",
+      "label": "Expected Lifespan (cycles)",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "install_date",
+      "label": "Install Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument"
+    },
+    {
+      "fieldname": "lifespan_percent",
+      "label": "Lifespan % Used",
+      "fieldtype": "Percent",
+      "read_only": 1
+    },
+    {
+      "fieldname": "usage_cycles",
+      "label": "Usage Cycles",
+      "fieldtype": "Int"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
 }

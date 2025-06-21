@@ -1,19 +1,63 @@
 {
   "doctype": "DocType",
   "name": "final_qa_checklist",
-  "label": "Final QA Checklist",
   "module": "QA",
   "custom": 0,
   "fields": [
-    {"fieldname": "qa_technician", "fieldtype": "Link", "label": "QA Technician", "options": "User", "reqd": 1},
-    {"fieldname": "related_repair", "fieldtype": "Link", "label": "Repair Reference", "options": "Repair Log"},
-    {"fieldname": "checklist_items", "fieldtype": "Table", "label": "Checklist Items", "options": "Final QA Checklist Item"},
-    {"fieldname": "overall_passed", "fieldtype": "Check", "label": "Overall Passed"},
-    {"fieldname": "comments", "fieldtype": "Text", "label": "Final Comments"}
+    {
+      "fieldname": "checklist_items",
+      "fieldtype": "Table",
+      "label": "Checklist Items",
+      "options": "Final QA Checklist Item"
+    },
+    {
+      "fieldname": "comments",
+      "fieldtype": "Text",
+      "label": "Final Comments"
+    },
+    {
+      "fieldname": "overall_passed",
+      "fieldtype": "Check",
+      "label": "Overall Passed"
+    },
+    {
+      "fieldname": "qa_technician",
+      "fieldtype": "Link",
+      "label": "QA Technician",
+      "options": "User",
+      "reqd": 1
+    },
+    {
+      "fieldname": "related_repair",
+      "fieldtype": "Link",
+      "label": "Repair Reference",
+      "options": "Repair Log"
+    }
   ],
   "permissions": [
-    {"role": "QA Technician", "read": 1, "write": 1, "create": 1, "submit": 1},
-    {"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1}
-  ]
+    {
+      "role": "QA Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "cancel": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ],
+  "label": "Final QA Checklist"
 }

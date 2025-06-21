@@ -4,7 +4,8 @@
 # Purpose: Return count of pending service tasks and expiring warranties for client dashboard alerts
 
 import frappe
-from frappe.utils import nowdate, add_days
+from frappe.utils import add_days, nowdate
+
 
 @frappe.whitelist()
 def get_pending_alerts():

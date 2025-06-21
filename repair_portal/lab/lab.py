@@ -5,5 +5,6 @@
 
 import frappe
 
+
 def get_repair_summary():
     return frappe.db.count("Custom Doctype")

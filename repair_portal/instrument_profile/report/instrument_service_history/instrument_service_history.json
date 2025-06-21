@@ -1,25 +1,77 @@
 {
   "doctype": "Report",
-  "report_name": "Instrument Service History",
-  "label": "Instrument Service History",
   "name": "instrument_service_history",
-  "ref_doctype": "Instrument Profile",
-  "report_type": "Script Report",
-  "is_standard": "Yes",
   "module": "Instrument Profile",
-  "filters": [
-    {"fieldname": "instrument_profile", "label": "Instrument Profile", "fieldtype": "Link", "options": "Instrument Profile"},
-    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data"},
-    {"fieldname": "player_profile", "label": "Player Profile", "fieldtype": "Link", "options": "Player Profile"},
-    {"fieldname": "date_from", "label": "From Date", "fieldtype": "Date"},
-    {"fieldname": "date_to", "label": "To Date", "fieldtype": "Date"}
-  ],
   "columns": [
-    {"label": "Date", "fieldname": "date", "fieldtype": "Date", "width": 100},
-    {"label": "Service Type", "fieldname": "service_type", "fieldtype": "Data", "width": 120},
-    {"label": "Description", "fieldname": "description", "fieldtype": "Data", "width": 220},
-    {"label": "Performed By", "fieldname": "performed_by", "fieldtype": "Data", "width": 140},
-    {"label": "Status", "fieldname": "status", "fieldtype": "Data", "width": 90},
-    {"label": "Notes", "fieldname": "notes", "fieldtype": "Data", "width": 160}
-  ]
+    {
+      "label": "Date",
+      "fieldname": "date",
+      "fieldtype": "Date",
+      "width": 100
+    },
+    {
+      "label": "Service Type",
+      "fieldname": "service_type",
+      "fieldtype": "Data",
+      "width": 120
+    },
+    {
+      "label": "Description",
+      "fieldname": "description",
+      "fieldtype": "Data",
+      "width": 220
+    },
+    {
+      "label": "Performed By",
+      "fieldname": "performed_by",
+      "fieldtype": "Data",
+      "width": 140
+    },
+    {
+      "label": "Status",
+      "fieldname": "status",
+      "fieldtype": "Data",
+      "width": 90
+    },
+    {
+      "label": "Notes",
+      "fieldname": "notes",
+      "fieldtype": "Data",
+      "width": 160
+    }
+  ],
+  "filters": [
+    {
+      "fieldname": "instrument_profile",
+      "label": "Instrument Profile",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
+    },
+    {
+      "fieldname": "serial_number",
+      "label": "Serial Number",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "player_profile",
+      "label": "Player Profile",
+      "fieldtype": "Link",
+      "options": "Player Profile"
+    },
+    {
+      "fieldname": "date_from",
+      "label": "From Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "date_to",
+      "label": "To Date",
+      "fieldtype": "Date"
+    }
+  ],
+  "is_standard": "Yes",
+  "label": "Instrument Service History",
+  "ref_doctype": "Instrument Profile",
+  "report_name": "Instrument Service History",
+  "report_type": "Script Report"
 }

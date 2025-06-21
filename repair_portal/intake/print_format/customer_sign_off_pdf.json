@@ -3,6 +3,8 @@
   "name": "Customer Sign Off PDF",
   "doc_type": "Customer Sign Off",
   "module": "Intake",
+  "standard": 1,
+  "label": "Customer Sign Off PDF",
   "custom_format": 1,
   "html": "<h2>Customer Sign-Off</h2>\n<p><b>Reference:</b> {{ doc.reference_doctype }} / {{ doc.reference_name }}</p>\n<p><b>Signed At:</b> {{ doc.signed_at }}</p>\n<p><b>IP Address:</b> {{ doc.ip_address }}</p>\n<p><b>Signature Hash:</b> {{ doc.signature_hash }}</p>\n{% if doc.signature_image %}<p><b>Signature:</b><br><img src=\"{{ doc.signature_image }}\" width=\"300\"></p>{% endif %}",
   "disabled": 0,

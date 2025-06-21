@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Store and manage email reminder plans tied to instrument service dates
 
-import frappe
 from frappe.model.document import Document
+
 
 class ReminderEmailPlan(Document):
     pass

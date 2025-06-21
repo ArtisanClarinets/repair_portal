@@ -5,18 +5,10 @@
   "custom": 0,
   "fields": [
     {
-      "fieldname": "reference_doctype",
-      "fieldtype": "Link",
-      "label": "Reference DocType",
-      "options": "DocType",
-      "reqd": 1
-    },
-    {
-      "fieldname": "reference_name",
-      "fieldtype": "Dynamic Link",
-      "label": "Reference Name",
-      "options": "reference_doctype",
-      "reqd": 1
+      "fieldname": "attachments",
+      "fieldtype": "Table",
+      "label": "Attachments",
+      "options": "File"
     },
     {
       "fieldname": "channel",
@@ -29,6 +21,20 @@
       "fieldname": "message_content",
       "fieldtype": "Text",
       "label": "Message",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reference_doctype",
+      "fieldtype": "Link",
+      "label": "Reference DocType",
+      "options": "DocType",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reference_name",
+      "fieldtype": "Dynamic Link",
+      "label": "Reference Name",
+      "options": "reference_doctype",
       "reqd": 1
     },
     {
@@ -50,15 +56,14 @@
       "fieldtype": "Datetime",
       "label": "Timestamp",
       "default": "now"
-    },
-    {
-      "fieldname": "attachments",
-      "fieldtype": "Table",
-      "label": "Attachments",
-      "options": "File"
     }
   ],
   "permissions": [
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1
+    },
     {
       "role": "System Manager",
       "read": 1,
@@ -67,22 +72,17 @@
       "delete": 1
     },
     {
-      "role": "Customer",
-      "read": 1,
-      "create": 1
-    },
-    {
       "role": "Technician",
       "read": 1,
       "write": 1,
       "create": 1
     }
   ],
-  "is_submittable": 0,
-  "editable_grid": 1,
-  "track_changes": 1,
-  "track_views": 1,
   "autoname": "field:timestamp",
+  "editable_grid": 1,
+  "is_submittable": 0,
   "sort_field": "timestamp",
-  "sort_order": "desc"
+  "sort_order": "desc",
+  "track_changes": 1,
+  "track_views": 1
 }
