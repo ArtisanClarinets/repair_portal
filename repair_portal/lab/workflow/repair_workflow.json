@@ -1,4 +1,5 @@
 {
+  "name": "repair_workflow",
   "doctype": "Workflow",
   "workflow_name": "Repair Workflow",
   "doctype": "Custom Doctype",

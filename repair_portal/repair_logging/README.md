@@ -1,15 +1,27 @@
-# Repair Logging Module
+# Module: Repair Logging
 
-## Updated: 2025-06-19
-
-### Change Log:
-- Added Service Log Doctype for tracking all service, repair, and maintenance activities for an Instrument Profile.
-- Includes validation logic and test coverage.
-- Service Log fields: Instrument Profile, Serial Number, Service Type, Description, Performed By, Date, Notes.
-- Supports aggregation into Instrument Tracker dashboards.
-- Linked [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for future enhancements: Defect Heat-Map, Inspection & Repair (Bench Ops), Dynamic Pad-List Builder, Interactive Screw Map, Real-Time Adhesive Timer, Micro-Task Kanban, Skill-Video Side Panel.
+## Purpose
+Tracks and manages Repair Orders and Warranty data related to instrument service.
 
 ---
 
-## 🔮 Planned Features
-See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for the detailed roadmap of future enhancements and automation for the repair/inspection logging module.
+## Doctypes
+
+### Repair Order
+- Tracks the status of service operations.
+- Fields: `customer`, `instrument`, `status`
+- Workflow enabled via `status` field
+- Submittable with lifecycle validation
+
+### Warranty
+- Tracks warranty expiry for each instrument.
+- Fields: `instrument`, `warranty_expiry_date`, `coverage_notes`
+
+---
+
+## Updates
+
+### 2025-06-20
+- Created `Repair Order` Doctype with full schema and validation
+- Created `Warranty` Doctype with expiry tracking
+- Supports portal alert system via `get_pending_alerts` API

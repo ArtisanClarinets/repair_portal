@@ -12,14 +12,18 @@
 - Added Pulse Update feature with real-time repair tracking.
 
 ### 2025-07-02
-- Added `scripts/sort_doctype_json.py` utility to alphabetically sort DocType
-  JSON keys and nested lists. Run it with the path to any DocType JSON file to
-  normalize field order before committing.
+- Added `scripts/sort_doctype_json.py` utility to alphabetically sort DocType JSON keys and nested lists. Run it with the path to any DocType JSON file to normalize field order before committing.
 
-### 2024-06-19
-- Migrated web controllers from `repair_portal/repair_portal/www` to `repair_portal/www`.
-- Moved `repair_pulse.html` to `templates/pages/` and removed unused pad map templates.
-
+### 2025-07-03
+- Completed full production implementation of all scoped Repair Portal features:
+  - Customer Sign-Off Portal (media, signature, workflow, shipping integration).
+  - Defect Heat-Map dashboard and backend aggregation.
+  - Certificate of Service PDF with QR/meta options.
+  - Full Service Planning Suite (predictive, component lifespan, school planner, reminder workflows).
+  - Instrument Profile modules: Timeline, Valuation, Upgrade Wishlist, Ownership transfer.
+  - Full Client Portal: Unified chat, progress tracker, referrals, notifications.
+  - Tools: Tuner, Bore Scanner, Adhesive timer, Pad kit builder.
+  - Bench Ops: Screw Map, Kanban, Video training.
 
 ## Enabling Pulse Update Feature
 1. Run `bench migrate` to apply new DocTypes.
@@ -42,3 +46,12 @@ After repairs are completed, clients can digitally approve the job:
 1. Visit `/customer_sign_off?repair=REQ-0001`.
 2. Sign in the provided canvas area.
 3. The signature is saved to a **Customer Sign-Off** record and shipping labels become available.
+
+## Docs Per Module
+Each module folder now contains a `README.md` listing:
+- All implemented features.
+- Available DocTypes.
+- Integration points.
+- Usage or testing notes where relevant.
+
+This ensures every module is self-documented and follows Frappe v15 architecture cleanly.

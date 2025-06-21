@@ -1,4 +1,5 @@
 {
+  "name": "customer_sign_off_workflow",
   "workflow_name": "Customer Sign Off Workflow",
   "doctype": "Customer Sign Off",
   "is_active": 1,

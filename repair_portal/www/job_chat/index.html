@@ -1,0 +1,28 @@
+{% extends "templates/web.html" %}
+
+{% block head_include %}
+  {{ super() }}
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/assets/repair_portal/js/sw.js')
+        .then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch(function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+  </script>
+{% endblock %}
+
+{% block title %}Job Chat{% endblock %}
+
+{% block page_content %}
+<div class="job-chat-wrapper">
+  <h2>Job Communication</h2>
+  <div id="thread-content"></div>
+  <div class="input-group mt-3">
+    <textarea id="message-box" class="form-control" rows="3" placeholder="Type your message..."></textarea>
+    <button id="send-button" class="btn btn-primary">Send</button>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{
+  "doctype": "DocType",
+  "name": "Sign Off Entry",
+  "module": "Intake",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {"fieldname": "signed_at", "label": "Signed At", "fieldtype": "Datetime"},
+    {"fieldname": "ip_address", "label": "IP Address", "fieldtype": "Data"},
+    {"fieldname": "signature_hash", "label": "Signature Hash", "fieldtype": "Data"},
+    {"fieldname": "signature_image", "label": "Signature Image (Base64)", "fieldtype": "Text"},
+    {"fieldname": "attached_pdf", "label": "PDF File", "fieldtype": "Link", "options": "File"},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"}
+  ]
+}

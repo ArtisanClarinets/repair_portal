@@ -1,0 +1,1 @@
+# Marks directory as Python module for Repair Portal Settings Doctype

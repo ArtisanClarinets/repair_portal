@@ -1,34 +1,29 @@
 # Intake Module - MRW Artisan Clarinet Repair Portal
 
 ## Purpose
-Handle complete instrument intake workflows including:
-- Customer intake
-- Loaner instrument issuance
+Handle full intake pipeline:
+- Customer details
 - Consent forms
-- Initial setup triggers
-- Signature capture
-- Digital document submission
+- Loaner issuance
+- Setup prep
+- Signatures
+- OCR intake imports
 
 ## Key Features
-- 📄 Clarinet Intake: master form linking all intake data
-- 🖋️ Consent Form: signature and compliance checks
-- 🎷 Loaner Instrument: PDF agreement auto-gen
-- ⚙️ Initial Setup: created on intake submit
-- 🌐 Web Form: customer self-submission portal
-- ✅ Completion Validation: blocks submission unless all forms are ready
-
-## Structure
-- **Doctypes:** `clarinet_intake`, `customer_consent_form`, `loaner_instrument`
-- **Page:** `intake_master_console`
-- **Web Forms:** `clarinet_intake_request`
-- **Templates:** loaner agreement HTML
+- ✅ `Clarinet Intake`: primary customer/repair info form
+- ✅ `Customer Consent Form`: signature, policies
+- ✅ `Loaner Instrument`: PDF contract generator
+- ✅ `OCR Upload`: scanned form → Intake via API
+- ✅ `Intake Master Console`: summary dashboard
+- ✅ `clarinet_intake_request` (Web Form)
 
 ## Automation
-- Intake triggers setup
-- Loaner issuance generates PDF
-- Consent form includes digital signature
+- Consent form and loaner auto-created
+- OCR script parses image uploads
 
-## Maintainers
-Dylan Thompson / MRW Artisan Instruments
+## Developer Info
+- `/intake/api/import_handwritten_intake`
+- PDF from `/loaner_agreement?name=...`
 
-_Last updated: 2025-06-15_
+---
+Last updated: 2025-07-03

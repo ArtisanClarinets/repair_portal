@@ -1,19 +1,25 @@
 # Instrument Profile Module
 
-## Update Log
+Manages a clarinet’s full lifecycle: history, valuation, upgrades, and legal ownership.
 
-### 2025-06-19
-- Added [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for Lifetime Timeline, Market-Value Tracker, Upgrade Wishlist, Ownership Transfer, and Insurance Report Generator.
+## Features Implemented
+- ✅ Lifetime Timeline
+  - Timeline of service events
+  - Linked to `Repair`, `QA`, and `Inspection` logs
+- ✅ Market-Value Tracker
+  - Scheduled script pulls average valuations from eBay/Reverb
+  - Field stored on Instrument
+- ✅ Upgrade Wishlist
+  - Table field: upgrade parts with link to shop/quote
+- ✅ Ownership Transfer
+  - Verification steps for handoff
+  - PII from old owner removed
+- ✅ Insurance Report Generator
+  - Public PDF with instrument stats, images, history
 
-### 2025-06-16
-- Created Instrument Category DocType and Python controller at `doctype/instrument_category/`.
+## Developer Notes
+- All fields on `Instrument` doctype or child tables
+- Scheduler jobs in `instrument_profile.scheduler`
 
 ---
-
-## 🔮 Planned Features
-See [PLANNED_FEATURES.md](./PLANNED_FEATURES.md) for:
-- Lifetime Timeline
-- Market-Value Tracker
-- Upgrade Wishlist
-- Ownership Transfer
-- Insurance Report Generator
+Last updated: 2025-07-03

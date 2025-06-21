@@ -17,6 +17,7 @@
     {"fieldname": "total_parts_cost", "label": "Total Parts Cost", "fieldtype": "Currency"},
     {"fieldname": "total_labor_hours", "label": "Total Labor Hours", "fieldtype": "Float"},
     {"fieldname": "repair_tasks", "label": "Repair Tasks", "fieldtype": "Table", "options": "Repair Task"},
+    {"fieldname": "signature_archive", "label": "Signature Archive", "fieldtype": "Table", "options": "Sign Off Entry"},
     {"fieldname": "setup_logs", "label": "Setup Logs", "fieldtype": "Link", "options": "Clarinet Setup Log"},
     {"fieldname": "service_logs", "label": "Service Logs", "fieldtype": "Link", "options": "Service Log"},
     {"fieldname": "qa_checklist", "label": "QA Checklist", "fieldtype": "Link", "options": "Final QA Checklist"},
