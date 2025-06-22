@@ -30,6 +30,10 @@
 - Player and Instrument profile routes now use `/players/<name>` and `/instruments/<serial>`.
 - Updated portal menu to match new navigation scheme.
 
+### 2025-07-11
+- Added public landing page at `/`.
+- Fixed dashboard links to use stored routes directly.
+
 ## Enabling Pulse Update Feature
 1. Run `bench migrate` to apply new DocTypes.
 2. Use `/repair_pulse?name=REQ-0001` to view live updates.
