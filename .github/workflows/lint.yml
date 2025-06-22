@@ -33,4 +33,4 @@ jobs:
           pip install ruff
 
       - name: Run Ruff
-        run: ruff check .           # explicit sub-command, clearer in logs
+        run: ruff check . --fix
