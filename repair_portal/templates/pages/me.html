@@ -1,0 +1,29 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h1>{{ profile.client_name }}</h1>
+<p>Email: {{ profile.email }}</p>
+<p>Phone: {{ profile.phone }}</p>
+
+<h2>Consent Log</h2>
+<ul>
+  {% for entry in consent_log %}
+  <li>{{ entry.consent_type }} – {{ entry.date_given }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Instruments</h2>
+<ul>
+  {% for inst in instruments %}
+  <li><a href="/instruments/{{ inst.route }}">{{ inst.instrument_name }} ({{ inst.serial_number }})</a></li>
+  {% endfor %}
+</ul>
+
+<h2>Player Profiles</h2>
+<ul>
+  {% for p in players %}
+  <li><a href="/players/{{ p.route }}">{{ p.player_name }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
+

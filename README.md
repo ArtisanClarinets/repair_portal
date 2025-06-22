@@ -25,6 +25,11 @@
   - Tools: Tuner, Bore Scanner, Adhesive timer, Pad kit builder.
   - Bench Ops: Screw Map, Kanban, Video training.
 
+### 2025-07-10
+- Added dedicated Client Portal dashboard at `/me`.
+- Player and Instrument profile routes now use `/players/<name>` and `/instruments/<serial>`.
+- Updated portal menu to match new navigation scheme.
+
 ## Enabling Pulse Update Feature
 1. Run `bench migrate` to apply new DocTypes.
 2. Use `/repair_pulse?name=REQ-0001` to view live updates.
