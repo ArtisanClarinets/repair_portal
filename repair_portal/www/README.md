@@ -85,9 +85,10 @@ This directory contains all **Python page controllers** for custom web routes in
 ---
 
 ### Update Log
-- **2025-06-21**: Created missing templates `my_instruments.html` and `instrument_wellness.html`.
-- **2024-06-19**: Legacy pages consolidated. `repair_pulse.html` moved to `templates/pages/`.
-- **2025-07-11**: Added `index.py` landing page and fixed dashboard link routes.
-- **2025-07-12**: Portal pages now extend `repair_portal/templates/layouts/base.html` with unified design.
+- **2025-05-21**: Created missing templates `my_instruments.html` and `instrument_wellness.html`.
+- **2024-05-19**: Legacy pages consolidated. `repair_pulse.html` moved to `templates/pages/`.
+- **2025-06-11**: Added `index.py` landing page and fixed dashboard link routes.
+- **2025-06-12**: Portal pages now extend `repair_portal/templates/layouts/base.html` with unified design.
+=======
 
 For any questions or contributions, see the main project README or contact Dylan Thompson (MRW Artisan Instruments).

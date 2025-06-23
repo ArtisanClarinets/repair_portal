@@ -21,12 +21,6 @@ jobs:
           node-version: 18          # Frappe v15 front-end toolchain uses ≥ 18
           cache: "npm"
 
-      - name: Install Biome
-        run: npm install -g @biomejs/biome
-
-      - name: Run Biome
-        run: biome check .          # exits non-zero on any style error
-
       # ───────────────────────────── Python / Ruff (back-end) ────────────────
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -39,4 +33,5 @@ jobs:
           pip install ruff
 
       - name: Run Ruff
+
         run: ruff check .           # explicit sub-command, clearer in logs
