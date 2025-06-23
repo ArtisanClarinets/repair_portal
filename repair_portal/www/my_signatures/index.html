@@ -1,0 +1,26 @@
+<!-- File: www/my_signatures/index.html -->
+<!-- Signature Archive Page for Customers and Techs -->
+
+<h2>Signature Archive</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Reference</th>
+      <th>Signed At</th>
+      <th>IP Address</th>
+      <th>Signature Hash</th>
+      <th>PDF</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in signoffs %}
+    <tr>
+      <td>{{ s.reference_doctype }} / {{ s.reference_name }}</td>
+      <td>{{ s.signed_at or '-' }}</td>
+      <td>{{ s.ip_address or '-' }}</td>
+      <td>{{ s.signature_hash[:8] + '…' }}</td>
+      <td>{% if s.pdf_url %}<a href="{{ s.pdf_url }}" target="_blank">View</a>{% else %}-{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

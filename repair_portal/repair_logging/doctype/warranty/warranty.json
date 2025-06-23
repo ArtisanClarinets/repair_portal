@@ -1,0 +1,39 @@
+{
+  "doctype": "DocType",
+  "name": "Warranty",
+  "module": "Repair Logging",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "coverage_notes",
+      "label": "Coverage Notes",
+      "fieldtype": "Text"
+    },
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "warranty_expiry_date",
+      "label": "Warranty Expiry Date",
+      "fieldtype": "Date",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
+}

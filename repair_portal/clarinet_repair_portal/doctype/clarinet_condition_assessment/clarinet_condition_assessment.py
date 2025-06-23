@@ -1,6 +1,0 @@
-# clarinet_condition_assessment.py
-import frappe
-from frappe.model.document import Document
-
-class ClarinetConditionAssessment(Document):
-    pass

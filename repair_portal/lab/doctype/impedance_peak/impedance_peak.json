@@ -1,0 +1,54 @@
+{
+  "doctype": "DocType",
+  "name": "Impedance Peak",
+  "module": "Lab",
+  "fields": [
+    {
+      "fieldname": "frequency",
+      "label": "Frequency (Hz)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "impedance",
+      "label": "Impedance",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Parent DocType",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "q_factor",
+      "label": "Q Factor",
+      "fieldtype": "Float"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "is_child_table": 1,
+  "istable": 1
+}

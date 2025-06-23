@@ -3,16 +3,61 @@
   "name": "Clarinet Inspection",
   "module": "Instrument Setup",
   "fields": [
-    {"fieldname": "intake", "fieldtype": "Link", "label": "Intake", "options": "Clarinet Intake", "reqd": 1},
-    {"fieldname": "inspection_date", "fieldtype": "Date", "label": "Inspection Date", "reqd": 1},
-    {"fieldname": "technician", "fieldtype": "Link", "label": "Technician", "options": "User", "reqd": 1},
-    {"fieldname": "preliminary_estimate", "fieldtype": "Currency", "label": "Preliminary Estimate"},
-    {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Pending\nAwaiting Customer Approval\nPass\nFail"},
-    {"fieldname": "findings", "fieldtype": "Table", "label": "Findings", "options": "Inspection Finding"}
+    {
+      "fieldname": "findings",
+      "fieldtype": "Table",
+      "label": "Findings",
+      "options": "Inspection Finding"
+    },
+    {
+      "fieldname": "inspection_date",
+      "fieldtype": "Date",
+      "label": "Inspection Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "intake",
+      "fieldtype": "Link",
+      "label": "Intake",
+      "options": "Clarinet Intake",
+      "reqd": 1
+    },
+    {
+      "fieldname": "preliminary_estimate",
+      "fieldtype": "Currency",
+      "label": "Preliminary Estimate"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Pending\nAwaiting Customer Approval\nPass\nFail"
+    },
+    {
+      "fieldname": "technician",
+      "fieldtype": "Link",
+      "label": "Technician",
+      "options": "User",
+      "reqd": 1
+    }
   ],
   "permissions": [
-    {"role": "Technician", "read": 1, "write": 1, "create": 1},
-    {"role": "Service Manager", "read": 1, "write": 1, "create": 1},
-    {"role": "Customer", "read": 1, "if_owner": 1}
+    {
+      "role": "Customer",
+      "read": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
   ]
 }

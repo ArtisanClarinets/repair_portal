@@ -1,0 +1,13 @@
+{
+  "doctype": "Number Card",
+  "name": "Warranty Countdown",
+  "module": "Service Planning",
+  "label": "Warranty Countdown",
+  "document_type": "Instrument",
+  "function": "Custom",
+  "custom_function": "repair_portal.service_planning.utils.get_warranty_days_left",
+  "filters_json": "{}",
+  "color": "Red",
+  "show_percentage_stats": 0,
+  "is_public": 0
+}

@@ -1,0 +1,88 @@
+{
+  "doctype": "DocType",
+  "name": "Customer Interaction Thread",
+  "module": "Repair Logging",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "attachments",
+      "fieldtype": "Table",
+      "label": "Attachments",
+      "options": "File"
+    },
+    {
+      "fieldname": "channel",
+      "fieldtype": "Select",
+      "label": "Channel",
+      "options": "Portal Chat\nEmail\nSMS",
+      "reqd": 1
+    },
+    {
+      "fieldname": "message_content",
+      "fieldtype": "Text",
+      "label": "Message",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reference_doctype",
+      "fieldtype": "Link",
+      "label": "Reference DocType",
+      "options": "DocType",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reference_name",
+      "fieldtype": "Dynamic Link",
+      "label": "Reference Name",
+      "options": "reference_doctype",
+      "reqd": 1
+    },
+    {
+      "fieldname": "sender_type",
+      "fieldtype": "Select",
+      "label": "Sender Type",
+      "options": "Customer\nTechnician\nSystem",
+      "reqd": 1
+    },
+    {
+      "fieldname": "sender_user",
+      "fieldtype": "Link",
+      "label": "Sender User",
+      "options": "User",
+      "reqd": 0
+    },
+    {
+      "fieldname": "timestamp",
+      "fieldtype": "Datetime",
+      "label": "Timestamp",
+      "default": "now"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "autoname": "field:timestamp",
+  "editable_grid": 1,
+  "is_submittable": 0,
+  "sort_field": "timestamp",
+  "sort_order": "desc",
+  "track_changes": 1,
+  "track_views": 1
+}

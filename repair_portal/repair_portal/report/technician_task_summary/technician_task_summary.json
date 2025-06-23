@@ -1,0 +1,18 @@
+{
+  "doctype": "Report",
+  "name": "Technician Task Summary",
+  "module": "Repair Portal",
+  "filters": [
+    {
+      "fieldname": "technician",
+      "label": "Technician",
+      "fieldtype": "Link",
+      "options": "User",
+      "default": "frappe.session.user"
+    }
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Repair Request",
+  "report_name": "Technician Task Summary",
+  "report_type": "Script Report"
+}

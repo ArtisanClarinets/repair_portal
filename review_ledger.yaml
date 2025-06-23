@@ -1,0 +1,27 @@
+modified:
+  - README.md
+  - package.json
+  - repair_portal/intake/__init__.py
+  - upgrade_notes.md
+added:
+  - apps.json
+  - changelog.md
+  - playwright.config.ts
+  - playwright/tests/my_instruments.spec.ts
+  - repair_portal/api/instrument.py
+  - repair_portal/vue/composables/useWellness.ts
+  - repair_portal/vue/pages/InstrumentWellness.vue
+  - repair_portal/vue/pages/MyInstruments.vue
+  - repair_portal/qa/doctype/customer_sign_off/customer_sign_off.json
+  - repair_portal/qa/doctype/customer_sign_off/customer_sign_off.py
+  - repair_portal/qa/api.py
+  - repair_portal/vue/pages/CustomerSignOff.vue
+  - repair_portal/www/customer_sign_off.py
+  - patches/customer_sign_off.diff
+  - vite.config.ts
+  - repair_portal/intake/ocr.py
+  - patches/ocr_import.diff
+removed:
+  - repair_portal/public/js/wellness_dashboard.js
+  - repair_portal/templates/pages/instrument_wellness.html
+  - repair_portal/templates/pages/my_instruments.html

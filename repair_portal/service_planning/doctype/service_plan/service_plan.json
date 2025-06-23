@@ -4,15 +4,50 @@
   "module": "Service Planning",
   "custom": 0,
   "fields": [
-    {"fieldname": "plan_date", "fieldtype": "Date", "label": "Plan Date"},
-    {"fieldname": "item_code", "fieldtype": "Link", "label": "Instrument", "options": "Item"},
-    {"fieldname": "requested_services", "fieldtype": "Table", "label": "Requested Services", "options": "Service Task"},
-    {"fieldname": "technician_notes", "fieldtype": "Small Text", "label": "Technician Notes"}
+    {
+      "fieldname": "ical_feed_url",
+      "label": "iCal Feed URL",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument"
+    },
+    {
+      "fieldname": "next_service_prediction",
+      "label": "Next Service Prediction",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "owner",
+      "label": "Owner",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "play_hours",
+      "label": "Play Hours",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "reminder_enabled",
+      "label": "Enable Reminders",
+      "fieldtype": "Check"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1
+    }
   ],
-  "istable": 0,
   "editable_grid": 1,
-  "track_changes": 1
+  "is_submittable": 1,
+  "istable": 0
 }

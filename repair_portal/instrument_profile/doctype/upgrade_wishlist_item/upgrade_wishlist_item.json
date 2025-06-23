@@ -1,0 +1,61 @@
+{
+  "doctype": "DocType",
+  "name": "Upgrade Wishlist Item",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "parent",
+      "label": "Parent",
+      "fieldtype": "Dynamic Link",
+      "options": "parenttype",
+      "read_only": 1,
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "label": "Parent Type",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "label": "Parent Field",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "label": "Index",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "accessory",
+      "label": "Accessory",
+      "fieldtype": "Link",
+      "options": "Item"
+    },
+    {
+      "fieldname": "note",
+      "label": "Note",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "requested_quote",
+      "label": "Requested Quote",
+      "fieldtype": "Check"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 1
+}

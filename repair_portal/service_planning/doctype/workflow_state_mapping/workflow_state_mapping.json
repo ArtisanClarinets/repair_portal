@@ -1,0 +1,47 @@
+{
+  "doctype": "DocType",
+  "name": "Workflow State Mapping",
+  "module": "Service Planning",
+  "fields": [
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Service Plan",
+      "reqd": 0,
+      "hidden": 1,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1,
+  "istable": 1
+}

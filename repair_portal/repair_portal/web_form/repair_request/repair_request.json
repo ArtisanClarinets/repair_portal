@@ -1,0 +1,47 @@
+{
+  "doctype": "Web Form",
+  "name": "repair_request",
+  "module": "Repair Portal",
+  "doc_type": "Repair Request",
+  "is_list": 1,
+  "list_columns": [
+    {
+      "fieldname": "status"
+    },
+    {
+      "fieldname": "issue_description"
+    },
+    {
+      "fieldname": "technician_assigned"
+    },
+    {
+      "fieldname": "priority_level"
+    }
+  ],
+  "login_required": 1,
+  "route": "/repair-requests",
+  "show_list": 1,
+  "standard": "Yes",
+  "title": "Repair Request",
+  "title_field": "issue_description",
+  "web_form_fields": [
+    {
+      "fieldname": "issue_description",
+      "fieldtype": "Data",
+      "label": "Issue Description"
+    },
+    {
+      "fieldname": "priority_level",
+      "fieldtype": "Select",
+      "label": "Priority",
+      "options": "Low\nMedium\nHigh"
+    },
+    {
+      "fieldname": "technician_assigned",
+      "fieldtype": "Link",
+      "label": "Technician",
+      "options": "User"
+    }
+  ],
+  "web_form_name": "repair-request"
+}

@@ -1,0 +1,53 @@
+{
+  "doctype": "DocType",
+  "name": "PWA Device Registration",
+  "module": "Repair Portal",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "browser",
+      "label": "Browser",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "device_token",
+      "label": "Device Token",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "platform",
+      "label": "Platform",
+      "fieldtype": "Select",
+      "options": "Android\niOS\nWeb"
+    },
+    {
+      "fieldname": "user",
+      "label": "User",
+      "fieldtype": "Link",
+      "options": "User",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
+}

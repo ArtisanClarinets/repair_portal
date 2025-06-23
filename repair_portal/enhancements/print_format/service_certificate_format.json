@@ -1,0 +1,12 @@
+{
+  "doctype": "Print Format",
+  "name": "Service Certificate",
+  "module": "Enhancements",
+  "doc_type": "Service Certificate",
+  "print_format_type": "Jinja",
+  "custom_format": 1,
+  "standard": 1,
+  "page_orientation": "Landscape",
+  "font": "Times New Roman",
+  "html": "<style>\n  @page { size: A4 landscape; margin: 25mm; }\n  .certificate-container {\n    border: 8px double #000; padding: 30px; width: 100%; height: 100%; text-align: center; font-family: 'Times New Roman', serif;\n  }\n  .certificate-title { font-size: 48px; font-weight: bold; margin-bottom: 20px; }\n  .certificate-field { font-size: 18px; margin: 6px 0; }\n  .cert-label { font-weight: 600; }\n  .signature-block { margin-top: 40px; display: flex; justify-content: space-between; }\n  .signature-line { border-bottom: 1px solid #000; width: 200px; margin-bottom: 4px; }\n  .signature-label { font-size: 14px; }\n</style>\n\n<div class=\"certificate-container\">\n  <div class=\"certificate-title\">Certificate of Service</div>\n  <div class=\"certificate-field\">\n    <span class=\"cert-label\">Certificate&nbsp;#:</span>\n    {{ doc.certificate_number or \"—\" }}\n  </div>\n  <div class=\"certificate-field\">\n    <span class=\"cert-label\">Instrument&nbsp;Serial:</span>\n    {{ doc.instrument_serial or \"—\" }}\n  </div>\n  <div class=\"certificate-field\">\n    <span class=\"cert-label\">Owner:</span>\n    {{ doc.owner_name or \"—\" }}\n  </div>\n  <div class=\"certificate-field\">\n    <span class=\"cert-label\">Service&nbsp;Date:</span>\n    {{ frappe.format_date(doc.issue_date) if doc.issue_date else \"—\" }}\n  </div>\n  <div class=\"certificate-field\" style=\"margin-top:20px; text-align:left;\">\n    <span class=\"cert-label\">Service&nbsp;Summary:</span><br>\n    {{ doc.service_summary or \"No summary provided.\" }}\n  </div>\n  {% if doc.qr_code %}\n  <div style=\"margin-top:30px;\">\n    <img src=\"{{ doc.qr_code }}\" width=\"120\" height=\"120\">\n  </div>\n  {% endif %}\n  <div class=\"signature-block\">\n    <div>\n      <div class=\"signature-line\"></div>\n      <div class=\"signature-label\">Technician</div>\n    </div>\n    <div>\n      <div class=\"signature-line\"></div>\n      <div class=\"signature-label\">Date</div>\n    </div>\n  </div>\n</div>"
+}

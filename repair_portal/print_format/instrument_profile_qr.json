@@ -1,0 +1,10 @@
+{
+  "doctype": "Print Format",
+  "name": "Instrument QR Tag",
+  "doc_type": "Instrument Profile",
+  "module": "Instrument Profile",
+  "disabled": 0,
+  "print_format_type": "JS",
+  "html": "<div style=\"text-align: center; padding: 15px;\">\n  <h3>{{ doc.instrument_category or 'Instrument' }}</h3>\n  <div><b>{{ doc.brand }} {{ doc.model }}</b></div>\n  <div>Serial #: {{ doc.serial_number }}</div>\n  <div style=\"margin-top: 10px;\">\n    {{ doc.qr_code_svg or '' }}\n  </div>\n</div>",
+  "standard": 1
+}

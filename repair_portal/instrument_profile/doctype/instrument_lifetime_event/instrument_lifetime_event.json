@@ -1,0 +1,67 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Lifetime Event",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "parent",
+      "label": "Parent",
+      "fieldtype": "Dynamic Link",
+      "options": "parenttype",
+      "read_only": 1,
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "label": "Parent Type",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "label": "Parent Field",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "label": "Index",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "description",
+      "label": "Description",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "event_date",
+      "label": "Event Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "event_type",
+      "label": "Event Type",
+      "fieldtype": "Select",
+      "options": "Service\nUpgrade\nNote\nTransfer"
+    },
+    {
+      "fieldname": "related_doc",
+      "label": "Related Document",
+      "fieldtype": "Dynamic Link",
+      "options": "event_type"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 1
+}

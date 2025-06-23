@@ -1,0 +1,2 @@
+bench commands failed: bench not found
+playwright test failed: package not installed

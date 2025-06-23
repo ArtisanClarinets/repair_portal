@@ -1,0 +1,33 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Order Settings",
+  "module": "Repair",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "default_workflow_states",
+      "label": "Default Workflow States",
+      "fieldtype": "Table",
+      "options": "Workflow State Mapping"
+    },
+    {
+      "fieldname": "naming_series",
+      "label": "Naming Series",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "sla_days",
+      "label": "SLA Days",
+      "fieldtype": "Int"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1
+    }
+  ],
+  "is_single": 1,
+  "istable": 0
+}

@@ -1,0 +1,14 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Repairs by Status",
+  "label": "Repairs by Status",
+  "name": "repairs_by_status",
+  "chart_type": "Group By",
+  "document_type": "Clarinet Initial Setup",
+  "field_name": "status",
+  "aggregation": "count",
+  "timespan": "Last 30 days",
+  "is_public": 0,
+  "filters_json": "{}",
+  "color": "random"
+}

@@ -1,0 +1,40 @@
+{
+  "doctype": "Dashboard",
+  "module": "Instrument Profile",
+  "dashboard_name": "Instrument Profile Dashboard",
+  "standard": 1,
+  "label": "Instrument Profile Dashboard",
+  "custom": 0,
+  "description": "Dashboard for managing instrument profiles, including service summaries and inspection logs.",
+  "icon": "fa fa-dashboard",
+  "color": "blue",
+  "name": "Instrument Profile Dashboard",
+  "charts": [],
+  "cards": [
+    {
+      "label": "Service Summary",
+      "type": "Link",
+      "link": "/service_summary",
+      "icon": "fa fa-tools",
+      "color": "orange",
+      "dependencies": []
+    },
+    {
+      "label": "Inspection Overview",
+      "type": "Link",
+      "link": "/inspection_log",
+      "icon": "fa fa-search",
+      "color": "purple",
+      "dependencies": []
+    }
+  ],
+  "transactions": [
+    {
+      "label": "Instrument History",
+      "items": [
+        "Repair Log",
+        "Inspection Log"
+      ]
+    }
+  ]
+}

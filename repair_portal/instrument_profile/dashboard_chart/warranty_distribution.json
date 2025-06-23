@@ -1,0 +1,13 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Warranty Distribution",
+  "chart_name": "Warranty Distribution",
+  "chart_type": "Donut",
+  "document_type": "Instrument Profile",
+  "based_on": "count",
+  "timespan": "All Time",
+  "filters_json": "{}",
+  "group_by": "warranty_active",
+  "color": "blue",
+  "module": "Instrument Profile"
+}

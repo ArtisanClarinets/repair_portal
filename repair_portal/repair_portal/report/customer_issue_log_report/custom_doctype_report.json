@@ -1,0 +1,31 @@
+{
+  "doctype": "Report",
+  "name": "Repair Request Report",
+  "module": "Repair Portal",
+  "columns": [
+    {
+      "label": "Customer",
+      "fieldname": "customer",
+      "fieldtype": "Data",
+      "width": 120
+    },
+    {
+      "label": "Issue",
+      "fieldname": "issue_description",
+      "fieldtype": "Data",
+      "width": 200
+    }
+  ],
+  "filters": [
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    }
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Repair Request",
+  "report_name": "Repair Request Report",
+  "report_type": "Script Report"
+}

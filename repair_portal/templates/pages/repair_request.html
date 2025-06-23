@@ -1,0 +1,16 @@
+{% extends "templates/web.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block page_content %}
+<div class="repair-request-wrapper">
+  <h1 class="text-2xl font-bold mb-4">{{ title }}</h1>
+  <p class="mb-6 text-gray-700">Use the form below to request a repair for one of your registered instruments. Please provide as much detail as possible.</p>
+  <div id="repair-form" class="shadow rounded-xl bg-white p-6">
+    <!-- Form rendering handled by context/doc or embedded form here -->
+    {% if doc %}
+      {{ doc }}
+    {% else %}
+      <p>Repair request form will appear here.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

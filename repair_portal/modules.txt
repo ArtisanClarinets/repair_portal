@@ -1,9 +1,13 @@
-Enhancements
 Inspection
 Intake
 Instrument Setup
+Instrument Profile
 QA
 Repair Logging
 Repair Portal
 Service Planning
 Tools
+Enhancements
+Repair
+Lab
+Client Profile

@@ -1,0 +1,11 @@
+{
+  "doctype": "Number Card",
+  "card_name": "Closed Service Logs",
+  "label": "Closed Service Logs",
+  "name": "closed_service_logs",
+  "document_type": "Service Log",
+  "function": "Count",
+  "filters_json": "{\"service_type\":\"Repair\",\"status\":\"Closed\"}",
+  "is_standard": 1,
+  "module": "Instrument Profile"
+}

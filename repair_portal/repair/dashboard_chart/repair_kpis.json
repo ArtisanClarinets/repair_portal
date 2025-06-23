@@ -1,0 +1,19 @@
+{
+  "name": "repair_kpis",
+  "doctype": "Dashboard Chart",
+  "chart_name": "Repair KPIs",
+  "chart_type": "Bar",
+  "document_type": "Repair Order",
+  "based_on": "creation",
+  "timespan": "Last Year",
+  "frequency": "Monthly",
+  "filters_json": "{}",
+  "is_custom": 0,
+  "y_axis": [
+    {
+      "label": "Repair Orders",
+      "fieldname": "name",
+      "function": "count"
+    }
+  ]
+}

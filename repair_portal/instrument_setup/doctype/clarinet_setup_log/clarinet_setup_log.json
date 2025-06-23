@@ -3,17 +3,64 @@
   "name": "Clarinet Setup Log",
   "module": "Instrument Setup",
   "fields": [
-    {"fieldname": "initial_setup", "fieldtype": "Link", "label": "Initial Setup", "options": "Clarinet Initial Setup", "reqd": 1},
-    {"fieldname": "log_time", "fieldtype": "Datetime", "label": "Log Time", "default": "now"},
-    {"fieldname": "action_by", "fieldtype": "Link", "label": "Action By", "options": "User", "default": "frappe.session.user"},
-    {"fieldname": "log_type", "fieldtype": "Select", "label": "Log Type", "options": "Status Change\nNote\nFile Upload\nCustomer Communication"},
-    {"fieldname": "notes", "fieldtype": "Text", "label": "Notes"},
-    {"fieldname": "attachments", "fieldtype": "Attach", "label": "Attachments"}
+    {
+      "fieldname": "action_by",
+      "fieldtype": "Link",
+      "label": "Action By",
+      "options": "User",
+      "default": "frappe.session.user"
+    },
+    {
+      "fieldname": "attachments",
+      "fieldtype": "Attach",
+      "label": "Attachments"
+    },
+    {
+      "fieldname": "initial_setup",
+      "fieldtype": "Link",
+      "label": "Initial Setup",
+      "options": "Clarinet Initial Setup",
+      "reqd": 1
+    },
+    {
+      "fieldname": "log_time",
+      "fieldtype": "Datetime",
+      "label": "Log Time",
+      "default": "now"
+    },
+    {
+      "fieldname": "log_type",
+      "fieldtype": "Select",
+      "label": "Log Type",
+      "options": "Status Change\nNote\nFile Upload\nCustomer Communication"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text",
+      "label": "Notes"
+    }
   ],
   "permissions": [
-    {"role": "QA Inspector", "read": 1, "write": 1, "create": 1},
-    {"role": "Technician", "read": 1},
-    {"role": "Service Manager", "read": 1, "write": 1, "create": 1},
-    {"role": "Customer", "read": 1, "if_owner": 1}
+    {
+      "role": "Customer",
+      "read": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "QA Inspector",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1
+    }
   ]
 }

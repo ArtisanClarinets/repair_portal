@@ -1,0 +1,75 @@
+{
+  "doctype": "DocType",
+  "name": "Sign Off Entry",
+  "module": "Intake",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "parent",
+      "label": "Parent",
+      "fieldtype": "Dynamic Link",
+      "options": "parenttype",
+      "read_only": 1,
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "label": "Parent Type",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "label": "Parent Field",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "label": "Index",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "attached_pdf",
+      "label": "PDF File",
+      "fieldtype": "Link",
+      "options": "File"
+    },
+    {
+      "fieldname": "ip_address",
+      "label": "IP Address",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "signature_hash",
+      "label": "Signature Hash",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "signature_image",
+      "label": "Signature Image (Base64)",
+      "fieldtype": "Text"
+    },
+    {
+      "fieldname": "signed_at",
+      "label": "Signed At",
+      "fieldtype": "Datetime"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "istable": 1
+}

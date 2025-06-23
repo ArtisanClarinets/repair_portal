@@ -1,0 +1,9 @@
+{
+  "doctype": "Report",
+  "name": "Deposit Balance Aging",
+  "module": "Repair Portal",
+  "is_standard": "Yes",
+  "ref_doctype": "Clarinet Intake",
+  "report_name": "Deposit Balance Aging",
+  "report_type": "Script Report"
+}

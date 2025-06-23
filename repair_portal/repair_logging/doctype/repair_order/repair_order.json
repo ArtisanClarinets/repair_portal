@@ -1,0 +1,44 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Order",
+  "module": "Repair Logging",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nOpen\nIn Progress\nCompleted\nClosed",
+      "default": "Open"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ],
+  "editable_grid": 1,
+  "is_submittable": 1,
+  "istable": 0,
+  "workflow_state_field": "status"
+}

@@ -1,0 +1,33 @@
+{
+  "doctype": "Workspace",
+  "name": "Repairs",
+  "label": "Repairs",
+  "module": "Repair",
+  "icon": "fa fa-wrench",
+  "links": [
+    {"type": "DocType", "name": "Repair Order"},
+    {"type": "Report", "name": "Repair Revenue vs Cost"},
+    {"type": "Report", "name": "Technician Utilization"}
+  ],
+  "content": [
+    {
+      "type": "shortcut",
+      "label": "New Repair Order",
+      "link_to": "Repair Order",
+      "link_type": "DocType",
+      "color": "blue"
+    },
+    {
+      "type": "chart",
+      "label": "Repair KPIs",
+      "chart": "Repair KPIs"
+    },
+    {
+      "type": "list",
+      "label": "Open Repairs",
+      "link_to": "Repair Order",
+      "filters": {"status": ["not in", ["Closed"]]},
+      "order_by": "modified desc"
+    }
+  ]
+}

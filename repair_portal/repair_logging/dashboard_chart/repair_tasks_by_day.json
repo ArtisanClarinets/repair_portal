@@ -1,0 +1,13 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "repair_tasks_by_day",
+  "chart_name": "Repair Tasks by Day",
+  "chart_type": "Group By",
+  "document_type": "Repair Task Log",
+  "based_on": "creation",
+  "timespan": "Last 30 days",
+  "time_interval": "Daily",
+  "group_by_field": "task_type",
+  "group_by_type": "Count",
+  "filters_json": "{}"
+}

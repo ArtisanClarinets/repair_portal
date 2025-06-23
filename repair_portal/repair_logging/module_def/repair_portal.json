@@ -1,0 +1,10 @@
+{
+  "doctype": "Module Def",
+  "module_name": "Repair Portal",
+  "label": "Repair Portal",
+  "name": "repair_portal",
+  "app_name": "repair_portal",
+  "app_label": "Repair Portal",
+  "is_custom": 0,
+  "owner": "Administrator"
+}

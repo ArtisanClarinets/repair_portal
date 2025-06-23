@@ -1,0 +1,43 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Progress Stage",
+  "module": "Repair Portal",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "completed",
+      "label": "Completed",
+      "fieldtype": "Check"
+    },
+    {
+      "fieldname": "repair_job",
+      "label": "Repair Job",
+      "fieldtype": "Link",
+      "options": "Repair Job",
+      "reqd": 1
+    },
+    {
+      "fieldname": "stage",
+      "label": "Stage",
+      "fieldtype": "Select",
+      "options": "Intake\nInspection\nRepair\nQA\nShipping",
+      "reqd": 1
+    },
+    {
+      "fieldname": "timestamp",
+      "label": "Timestamp",
+      "fieldtype": "Datetime"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 0
+}

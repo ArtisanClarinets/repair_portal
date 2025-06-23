@@ -1,0 +1,14 @@
+{
+  "doctype": "Report",
+  "name": "Top Failing Categories",
+  "add_total_row": 0,
+  "columns": [
+    {"fieldname": "category", "label": "Finding Type", "fieldtype": "Data", "width": 300},
+    {"fieldname": "fail_count", "label": "Occurrences", "fieldtype": "Int", "width": 120}
+  ],
+  "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}],
+  "ref_doctype": "Inspection Checklist Item",
+  "report_name": "Top Failing Categories",
+  "report_type": "Script Report",
+  "is_standard": "Yes"
+}

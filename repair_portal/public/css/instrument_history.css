@@ -1,0 +1,47 @@
+/* File: public/css/instrument_history.css */
+/* Updated: 2025-06-16
+ * Version: 1.1
+ * Purpose: Enhanced readability, spacing, and hover experience for service log
+ */
+
+.service-log-card {
+  background-color: #f9fafc;
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
+}
+
+.service-log-card:hover {
+  background-color: #eef4ff;
+}
+
+h2.section-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #2b2b2b;
+}
+
+.btn-primary {
+  background-color: #2952a3;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #193c73;
+}
+
+@media (max-width: 768px) {
+  .service-log-card {
+    padding: 1rem;
+  }
+
+  h2.section-title {
+    font-size: 1.2rem;
+  }
+}

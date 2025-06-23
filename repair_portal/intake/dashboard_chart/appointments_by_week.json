@@ -1,0 +1,14 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Appointments By Week",
+  "label": "Appointments By Week",
+  "name": "appointments_by_week",
+  "chart_type": "Group By",
+  "document_type": "Appointment",
+  "based_on": "appointment_date",
+  "timespan": "Last 30 days",
+  "time_interval": "Weekly",
+  "group_by_type": "Count",
+  "is_public": 0,
+  "filters_json": "{}"
+}

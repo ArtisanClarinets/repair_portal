@@ -1,0 +1,15 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h1>Instrument Wellness Overview</h1>
+<p>This page provides a comprehensive health overview of your instrument based on recent inspections and service logs.</p>
+<div>
+  {% for entry in wellness_data %}
+    <div class="wellness-entry">
+      <h3>{{ entry.title }}</h3>
+      <p>Status: {{ entry.status }}</p>
+      <p>{{ entry.notes }}</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

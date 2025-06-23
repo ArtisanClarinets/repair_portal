@@ -1,0 +1,58 @@
+{
+  "name": "Inspection Findings",
+  "module": "Inspection",
+  "custom": 0,
+  "istable": 1,
+  "doctype": "DocType",
+  "fields": [
+    {
+      "fieldname": "issue",
+      "label": "Issue",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "severity",
+      "label": "Severity",
+      "fieldtype": "Select",
+      "options": "Low\nMedium\nHigh"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Inspection",
+      "reqd": 0,
+      "hidden": 1,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "is_child_table": 1
+}

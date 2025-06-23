@@ -1,0 +1,60 @@
+{
+  "doctype": "DocType",
+  "name": "Consent Log Entry",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "consent_type",
+      "fieldtype": "Select",
+      "label": "Consent Type",
+      "options": "Repair Authorization\nPhotography\nPrivacy Waiver"
+    },
+    {
+      "fieldname": "date_given",
+      "fieldtype": "Date",
+      "label": "Date Given"
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "reqd": 0,
+      "hidden": 1,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1,
+  "istable": 1
+}

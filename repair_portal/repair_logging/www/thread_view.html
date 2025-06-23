@@ -1,0 +1,13 @@
+<!-- Path: repair_logging/www/thread_view.html -->
+<!-- Client portal view for interaction threads -->
+
+{% extends "templates/web.html" %}
+{% block title %}Interaction Thread{% endblock %}
+{% block page_content %}
+<h1>Message Thread for Job {{ job_name }}</h1>
+<div id="thread-box">
+	<!-- Populated by JS -->
+</div>
+<textarea id="new_message" placeholder="Type your reply..."></textarea>
+<button onclick="postMessage()">Send</button>
+{% endblock %}

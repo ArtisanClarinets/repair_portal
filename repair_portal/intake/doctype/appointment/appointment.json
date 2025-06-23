@@ -1,0 +1,66 @@
+{
+  "doctype": "DocType",
+  "name": "Appointment",
+  "module": "Intake",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "appointment_date",
+      "fieldtype": "Datetime",
+      "label": "Appointment Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "confirmed",
+      "fieldtype": "Check",
+      "label": "Confirmed"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reason",
+      "fieldtype": "Small Text",
+      "label": "Reason or Notes"
+    },
+    {
+      "fieldname": "serial_number",
+      "fieldtype": "Data",
+      "label": "Instrument Serial Number"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ]
+}

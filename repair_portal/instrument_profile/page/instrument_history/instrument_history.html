@@ -1,0 +1,32 @@
+<!-- Instrument History - Customer Portal View -->
+<link rel="stylesheet" href="/assets/repair_portal/css/instrument_history.css">
+<div class="page-card">
+  <h3>Instrument Profile Overview</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <strong>Serial Number:</strong> {{ doc.serial_number }}<br>
+      <strong>Model:</strong> {{ doc.model }}<br>
+      <strong>Owner:</strong> {{ doc.owner_name }}<br>
+      <strong>First Visit:</strong> {{ doc.first_visit_date }}<br>
+      <strong>Last Service:</strong> {{ doc.last_service_date }}<br>
+    </div>
+    <div class="col-md-6">
+      <strong>Total Repairs:</strong> {{ doc.total_repairs }}<br>
+      <strong>Total Cost:</strong> {{ doc.total_cost }}<br>
+      <strong>Condition:</strong> {{ doc.condition_summary }}<br>
+    </div>
+  </div>
+
+  <hr>
+  <h4>Service & Repair History</h4>
+  <div id="service-log"></div>
+
+  <hr>
+  <h4>Customer Uploaded Work Logs</h4>
+  <div id="external-logs"></div>
+  <button class="btn btn-primary" onclick="frappe.set_route('Form', 'Customer External Work Log', 'new-customer-external-work-log')">Log External Work</button>
+
+  <div style="margin-top: 30px;">
+    <a class="btn btn-primary" href="/api/method/frappe.utils.print_format.download_pdf?doctype=Instrument%20Profile&name={{ doc.name }}&format=Instrument%20Profile%20Summary">Download Profile Summary (PDF)</a>
+  </div>
+</div>

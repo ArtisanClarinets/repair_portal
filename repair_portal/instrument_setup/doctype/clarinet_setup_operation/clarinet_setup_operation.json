@@ -1,0 +1,71 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Setup Operation",
+  "module": "Instrument Setup",
+  "fields": [
+    {
+      "fieldname": "completed",
+      "fieldtype": "Check",
+      "label": "Completed"
+    },
+    {
+      "fieldname": "component_ref",
+      "fieldtype": "Data",
+      "label": "Component Ref (Tone Hole, Key, etc.)"
+    },
+    {
+      "fieldname": "details",
+      "fieldtype": "Text",
+      "label": "Details / Notes"
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "operation_type",
+      "fieldtype": "Select",
+      "label": "Operation Type",
+      "options": "Tone Hole Reaming\nTone Hole Repair\nChimney Leak\nTenon Fitting\nKey Height Adjustment\nSpring Tension Adjustment\nPad Leveling\nCork Replacement\nOther"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Instrument Setup",
+      "reqd": 0,
+      "hidden": 1,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "section",
+      "fieldtype": "Select",
+      "label": "Section",
+      "options": "Upper Joint\nLower Joint\nBarrel\nBell"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1
+    }
+  ],
+  "is_child_table": 1,
+  "istable": 1
+}

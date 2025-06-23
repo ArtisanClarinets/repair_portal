@@ -1,2 +1,16 @@
-# Ensure repair_portal is treated as a proper Python module
-__version__ = "0.0.1"
+__version__ = '1.0.0'
+
+
+__all__ = [
+    'Inspection',
+    'Intake',
+    'Instrument Setup',
+    'QA',
+    'Repair Logging',
+    'Repair Portal',
+    'Service Planning',
+    'Tools',
+    'Enhancements',
+    'Instrument Profile',
+    'Lab',
+]

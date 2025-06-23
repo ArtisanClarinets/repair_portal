@@ -1,0 +1,84 @@
+{
+  "doctype": "DocType",
+  "name": "Client Instrument Profile",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "instrument_profile",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "label": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "anonymize_for_research",
+      "fieldtype": "Check",
+      "label": "Allow Anonymized Sharing"
+    },
+    {
+      "fieldname": "condition_images",
+      "fieldtype": "Table",
+      "options": "Image Log Entry",
+      "label": "Condition Images"
+    },
+    {
+      "fieldname": "consent_log",
+      "fieldtype": "Table",
+      "options": "Consent Log Entry",
+      "label": "Consent Log"
+    },
+    {
+      "fieldname": "external_work_logs",
+      "fieldtype": "Table",
+      "options": "Customer External Work Log",
+      "label": "Previous Repairs"
+    },
+    {
+      "fieldname": "ownership_transfer_to",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "label": "Transfer Ownership To"
+    },
+    {
+      "fieldname": "purchase_receipt",
+      "fieldtype": "Attach",
+      "label": "Purchase Receipt"
+    },
+    {
+      "fieldname": "repair_preferences",
+      "fieldtype": "Small Text",
+      "label": "Client Repair Preferences"
+    },
+    {
+      "fieldname": "technician_notes",
+      "fieldtype": "Text",
+      "label": "Technician Review Notes"
+    },
+    {
+      "fieldname": "verification_status",
+      "fieldtype": "Select",
+      "options": "Pending\nApproved\nRejected",
+      "default": "Pending",
+      "label": "Verification Status"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 0
+    }
+  ],
+  "autoname": "field:instrument_profile"
+}

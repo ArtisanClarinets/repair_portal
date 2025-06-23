@@ -1,0 +1,16 @@
+{
+  "doctype": "Report",
+  "name": "Loaner Return Flags",
+  "filters": [
+    {
+      "fieldname": "name",
+      "label": "Name",
+      "fieldtype": "Data",
+      "default": ""
+    }
+  ],
+  "is_standard": "Yes",
+  "ref_doctype": "Loaner Return Check",
+  "report_name": "Loaner Return Flags",
+  "report_type": "Script Report"
+}

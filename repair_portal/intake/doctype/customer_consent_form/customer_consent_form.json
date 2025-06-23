@@ -1,0 +1,51 @@
+{
+  "doctype": "DocType",
+  "name": "Customer Consent Form",
+  "module": "Intake",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "authorization_notes",
+      "fieldtype": "Small Text",
+      "label": "Authorization Notes"
+    },
+    {
+      "fieldname": "consent_signed",
+      "fieldtype": "Check",
+      "label": "Consent Signed"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "signature",
+      "fieldtype": "Signature",
+      "label": "Customer Signature"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "Front Desk User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ]
+}

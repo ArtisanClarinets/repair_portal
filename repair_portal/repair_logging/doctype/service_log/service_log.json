@@ -1,0 +1,64 @@
+{
+  "doctype": "DocType",
+  "name": "Service Log",
+  "module": "Repair Logging",
+  "fields": [
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "log_entry",
+      "label": "Log Entry",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "logged_by",
+      "label": "Logged By",
+      "fieldtype": "Link",
+      "options": "User"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "options": "Repair Task",
+      "reqd": 0,
+      "hidden": 1,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "timestamp",
+      "label": "Timestamp",
+      "fieldtype": "Datetime",
+      "default": "Now"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1,
+  "istable": 1
+}

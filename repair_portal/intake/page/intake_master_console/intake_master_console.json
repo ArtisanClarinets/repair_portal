@@ -1,0 +1,20 @@
+{
+  "doctype": "Page",
+  "name": "intake_master_console",
+  "module": "Intake",
+  "content": "<div class=\"dashboard\">\n  <h2>Active Intakes Overview</h2>\n  <div id=\"intake-dashboard\"></div>\n</div>",
+  "roles": [
+    {
+      "role": "System Manager"
+    },
+    {
+      "role": "Service Manager"
+    },
+    {
+      "role": "Front Desk User"
+    }
+  ],
+  "script": "/intake/page/intake_master_console/intake_master_console.js",
+  "style": "/intake/page/intake_master_console/intake_master_console.css",
+  "title": "Intake Master Console"
+}

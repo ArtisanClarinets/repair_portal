@@ -1,0 +1,23 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Condition Assessment",
+  "module": "Inspection",
+  "fields": [
+    {"fieldname": "assessment_id", "label": "Assessment ID", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
+    {"fieldname": "inspection_date", "label": "Inspection Date", "fieldtype": "Date", "reqd": 1},
+    {"fieldname": "instrument_condition", "label": "Instrument Condition", "fieldtype": "Select", "options": "Good\nFair\nPoor", "reqd": 1},
+    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data"},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"},
+    {"fieldname": "inspection_duration", "label": "Inspection Duration (sec)", "fieldtype": "Int", "hidden": 1}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
+    {"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
+  ],
+  "autoname": "field:assessment_id",
+  "is_submittable": 1,
+  "track_changes": 1
+}

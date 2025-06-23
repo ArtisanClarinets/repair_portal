@@ -1,0 +1,35 @@
+{
+  "doctype": "Workspace",
+  "name": "Service Manager Workspace",
+  "label": "Service Manager Portal",
+  "module": "Repair Portal",
+  "type": "Workspace",
+  "is_standard": 1,
+  "links": [
+    {
+      "label": "Repair Estimates",
+      "type": "DocType",
+      "name": "Repair Estimate"
+    },
+    {
+      "label": "Inspection Reports",
+      "type": "DocType",
+      "name": "Inspection Report"
+    },
+    {
+      "label": "Repair Logs",
+      "type": "DocType",
+      "name": "Clarinet Repair Log"
+    },
+    {
+      "label": "Parts Used",
+      "type": "DocType",
+      "name": "Repair Parts Used"
+    },
+    {
+      "label": "Repair Status Tracker",
+      "type": "DocType",
+      "name": "Service Order Tracker"
+    }
+  ]
+}

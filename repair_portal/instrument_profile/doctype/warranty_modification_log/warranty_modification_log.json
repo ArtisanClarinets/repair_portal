@@ -1,0 +1,63 @@
+{
+  "doctype": "DocType",
+  "name": "Warranty Modification Log",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "instrument_profile",
+      "fieldtype": "Link",
+      "label": "Instrument Profile",
+      "options": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "modification_date",
+      "fieldtype": "Datetime",
+      "label": "Modification Date",
+      "default": "Now",
+      "reqd": 1
+    },
+    {
+      "fieldname": "modified_by",
+      "fieldtype": "Link",
+      "label": "Modified By",
+      "options": "User",
+      "reqd": 1
+    },
+    {
+      "fieldname": "new_end_date",
+      "fieldtype": "Date",
+      "label": "New End Date"
+    },
+    {
+      "fieldname": "new_start_date",
+      "fieldtype": "Date",
+      "label": "New Start Date"
+    },
+    {
+      "fieldname": "old_end_date",
+      "fieldtype": "Date",
+      "label": "Old End Date"
+    },
+    {
+      "fieldname": "old_start_date",
+      "fieldtype": "Date",
+      "label": "Old Start Date"
+    },
+    {
+      "fieldname": "reason",
+      "fieldtype": "Data",
+      "label": "Reason",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ]
+}

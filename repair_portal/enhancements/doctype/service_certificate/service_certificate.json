@@ -1,0 +1,77 @@
+{
+  "doctype": "DocType",
+  "name": "Service Certificate",
+  "module": "Enhancements",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "branding_theme",
+      "label": "Branding Theme",
+      "fieldtype": "Select",
+      "options": "Classic\nModern\nVintage"
+    },
+    {
+      "fieldname": "certificate_number",
+      "label": "Certificate Number",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "include_signature",
+      "label": "Include Signature",
+      "fieldtype": "Check"
+    },
+    {
+      "fieldname": "instrument_serial",
+      "label": "Instrument Serial",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "issue_date",
+      "label": "Issue Date",
+      "fieldtype": "Date",
+      "default": "Today"
+    },
+    {
+      "fieldname": "owner_name",
+      "label": "Owner Name",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "public_url",
+      "label": "Public URL",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "qr_code",
+      "label": "QR Code",
+      "fieldtype": "AttachImage"
+    },
+    {
+      "fieldname": "repair_job",
+      "label": "Repair Job",
+      "fieldtype": "Link",
+      "options": "Repair"
+    },
+    {
+      "fieldname": "service_summary",
+      "label": "Service Summary",
+      "fieldtype": "Text"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1
+    }
+  ],
+  "editable_grid": 1,
+  "is_submittable": 1,
+  "istable": 0
+}

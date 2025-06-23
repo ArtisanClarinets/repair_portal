@@ -1,20 +1,28 @@
 {
   "doctype": "Workspace",
-  "name": "Tools",
-  "label": "Tools",
-  "title": "Tools",
+  "name": "Repair Tools & Utilities",
+  "owner": "Administrator",
+  "modified": "2025-06-12 14:44:07.883588",
   "module": "Tools",
-  "icon": "tools",
-  "type": "Workspace",
+  "links": [],
+  "charts": [],
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Tools & Utilities\"}}]",
+  "creation": "2025-06-12 14:41:55.981785",
+  "custom_blocks": [],
+  "docstatus": 0,
+  "for_user": "",
+  "hide_custom": 0,
+  "idx": 0,
+  "indicator_color": "green",
+  "is_hidden": 0,
+  "label": "Tools & Utilities",
+  "modified_by": "Administrator",
+  "number_cards": [],
   "parent_page": "Repair Portal",
   "public": 1,
-  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Calibration Logs</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tool Calibration Log\",\"col\":3}}]",
-  "shortcuts": [
-    {
-      "label": "Tool Calibration Log",
-      "link_to": "Tool Calibration Log",
-      "type": "DocType",
-      "color": "Grey"
-    }
-  ]
+  "quick_lists": [],
+  "roles": [],
+  "sequence_id": 28.0,
+  "shortcuts": [],
+  "title": "Repair Tools & Utilities"
 }

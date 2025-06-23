@@ -1,0 +1,42 @@
+{
+  "doctype": "Web Form",
+  "name": "customer_sign_off",
+  "base": "Web Form",
+  "custom": 0,
+  "standard": 1,
+  "module": "Intake",
+  "doc_type": "Customer Sign Off",
+  "web_form_fields": [
+    {
+      "fieldname": "customer_notes",
+      "fieldtype": "Text",
+      "label": "Customer Notes"
+    },
+    {
+      "fieldname": "ip_address",
+      "fieldtype": "Data",
+      "label": "IP Address",
+      "read_only": 1
+    },
+    {
+      "fieldname": "signature_hash",
+      "fieldtype": "Data",
+      "label": "Signature Hash",
+      "read_only": 1
+    },
+    {
+      "fieldname": "signed_at",
+      "fieldtype": "Datetime",
+      "label": "Signed At",
+      "read_only": 1
+    }
+  ],
+  "doctype_field": "name",
+  "document_type": "Customer Sign Off",
+  "login_required": 0,
+  "published": 1,
+  "route": "customer-sign-off",
+  "standard": 1,
+  "title": "Customer Sign Off",
+  "web_form_name": "customer_sign_off"
+}

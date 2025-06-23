@@ -1,0 +1,14 @@
+{
+  "doctype": "DocType",
+  "name": "Inspection Template",
+  "module": "Inspection",
+  "fields": [
+    {"fieldname": "template_name", "label": "Template Name", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "model", "label": "Clarinet Model", "fieldtype": "Link", "options": "Clarinet Model"},
+    {"fieldname": "sections", "label": "Checklist Sections", "fieldtype": "Table", "options": "Inspection Checklist Section"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1},
+    {"role": "Technician", "read": 1, "write": 1}
+  ]
+}

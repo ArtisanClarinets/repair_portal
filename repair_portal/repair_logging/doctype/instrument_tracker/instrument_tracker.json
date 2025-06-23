@@ -1,0 +1,77 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Tracker",
+  "module": "Repair Logging",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "clarinet_intake",
+      "fieldtype": "Link",
+      "label": "Clarinet Intake Record",
+      "options": "Clarinet Intake"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer"
+    },
+    {
+      "fieldname": "intake_date",
+      "fieldtype": "Date",
+      "label": "Intake Date",
+      "fetch_from": "clarinet_intake.received_date"
+    },
+    {
+      "fieldname": "interaction_logs",
+      "fieldtype": "Table",
+      "label": "Interaction Log",
+      "options": "Instrument Interaction Log"
+    },
+    {
+      "fieldname": "item_code",
+      "fieldtype": "Link",
+      "label": "Item Code",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "serial_number",
+      "fieldtype": "Data",
+      "label": "Serial Number",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1,
+      "if_owner": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_submittable": 0,
+  "track_changes": 1
+}

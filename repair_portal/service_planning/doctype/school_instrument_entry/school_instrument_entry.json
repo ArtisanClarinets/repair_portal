@@ -1,0 +1,56 @@
+{
+  "doctype": "DocType",
+  "name": "School Instrument Entry",
+  "module": "Service Planning",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "parent",
+      "label": "Parent",
+      "fieldtype": "Dynamic Link",
+      "options": "parenttype",
+      "read_only": 1,
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "label": "Parent Type",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "label": "Parent Field",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "label": "Index",
+      "fieldtype": "Int",
+      "hidden": 1
+    },
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Service Notes",
+      "fieldtype": "Small Text"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "editable_grid": 1,
+  "istable": 1
+}

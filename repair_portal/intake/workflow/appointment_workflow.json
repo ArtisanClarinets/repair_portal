@@ -1,0 +1,18 @@
+{
+  "doctype": "Workflow",
+  "workflow_name": "Appointment Workflow",
+  "label": "Appointment Workflow",
+  "name": "appointment_workflow",
+  "document_type": "Appointment",
+  "is_active": 1,
+  "workflow_state_field": "workflow_state",
+  "states": [
+    {"state": "Draft", "doc_status": 0, "update_field": "confirmed", "update_value": 0, "allow_edit": ["Technician", "Service Manager"]},
+    {"state": "Confirmed", "doc_status": 1, "update_field": "confirmed", "update_value": 1, "allow_edit": ["Service Manager"]},
+    {"state": "Cancelled", "doc_status": 2, "allow_edit": ["Service Manager"]}
+  ],
+  "transitions": [
+    {"state": "Draft", "action": "Confirm", "next_state": "Confirmed", "allowed": ["Service Manager"]},
+    {"state": "Confirmed", "action": "Cancel", "next_state": "Cancelled", "allowed": ["Service Manager"]}
+  ]
+}

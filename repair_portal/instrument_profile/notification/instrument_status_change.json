@@ -1,0 +1,15 @@
+{
+  "doctype": "Notification",
+  "name": "Instrument Status Change",
+  "enabled": 1,
+  "document_type": "Instrument Profile",
+  "subject": "Instrument Status Changed",
+  "message": "Instrument {{ doc.name }} status changed to {{ doc.status }}.",
+  "event": "Value Change",
+  "value_changed": "status",
+  "channel": "Email",
+  "send_on": "Save",
+  "recipients": [
+    {"receiver_by_role": "System Manager"}
+  ]
+}

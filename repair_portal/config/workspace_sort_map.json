@@ -1,0 +1,11 @@
+{
+  "name": "workspace_sort_map",
+  "Intake": 1,
+  "Inspection": 2,
+  "Repair_logging": 3,
+  "QA": 4,
+  "Service Planning": 5,
+  "Instrument Setup": 6,
+  "Enhancements": 7,
+  "Tools": 8
+}

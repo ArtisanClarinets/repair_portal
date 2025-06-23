@@ -1,0 +1,57 @@
+{
+  "doctype": "Web Form",
+  "name": "client_profile",
+  "module": "Client Profile",
+  "allow_edit": 1,
+  "allow_multiple": 0,
+  "doc_type": "Client Profile",
+  "doctype_name": "Client Profile",
+  "is_standard": 1,
+  "login_required": 1,
+  "published": 1,
+  "route": "/client-profile",
+  "title": "Client Profile",
+  "web_form_fields": [
+    {
+      "fieldname": "client_name",
+      "fieldtype": "Data",
+      "label": "Client Name",
+      "reqd": 1
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "email",
+      "fieldtype": "Data",
+      "label": "Email"
+    },
+    {
+      "fieldname": "phone",
+      "fieldtype": "Data",
+      "label": "Phone"
+    },
+    {
+      "fieldname": "linked_user",
+      "fieldtype": "Link",
+      "label": "Linked User",
+      "options": "User"
+    },
+    {
+      "fieldname": "preferred_contact_method",
+      "fieldtype": "Select",
+      "label": "Preferred Contact Method",
+      "options": "\nEmail\nPhone\nSMS"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    }
+  ],
+  "web_form_name": "client-profile"
+}

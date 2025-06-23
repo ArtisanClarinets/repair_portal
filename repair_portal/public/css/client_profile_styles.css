@@ -1,0 +1,42 @@
+/* File: public/css/client_profile_styles.css */
+/* Updated: 2025-06-16
+ * Version: 1.1
+ * Purpose: Enhanced client profile styling with responsive layout and hover interactions
+ */
+
+.lux-panel {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.lux-panel:hover {
+  transform: translateY(-2px);
+}
+
+.breadcrumbs {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.step-counter {
+  font-weight: bold;
+  color: #2a2a2a;
+  background: #e6f0ff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .lux-panel {
+    padding: 1rem;
+  }
+
+  .step-counter {
+    font-size: 0.85rem;
+  }
+}

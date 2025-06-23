@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" role="img" tabindex="0">
+  <title>Clarinet Upper Joint Pad Map</title>
+  <desc>Interactive visual showing pads on the upper joint of a clarinet</desc>
+  <rect x="10" y="10" width="280" height="80" rx="10" fill="#333333" />
+
+  <circle id="pad_register_key" cx="50" cy="30" r="8" fill="#cccccc" style="cursor:pointer" />
+  <circle id="pad_c_sharp" cx="85" cy="45" r="7" fill="#cccccc" style="cursor:pointer" />
+  <circle id="pad_a_key" cx="120" cy="40" r="9" fill="#cccccc" style="cursor:pointer" />
+  <circle id="pad_g_sharp" cx="155" cy="55" r="6" fill="#cccccc" style="cursor:pointer" />
+</svg>

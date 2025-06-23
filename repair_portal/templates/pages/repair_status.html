@@ -1,0 +1,23 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<h2>Repair Status Lookup</h2>
+<p>Enter your customer ID to view open repair requests:</p>
+<form method="GET">
+  <input type="text" name="customer" placeholder="Customer ID" required>
+  <button type="submit">Search</button>
+</form>
+
+{% if frappe.form_dict.customer %}
+  <h3>Results for: {{ frappe.form_dict.customer }}</h3>
+  {% set repairs = frappe.get_all('Custom Doctype', fields=['name', 'issue_description', 'status'], filters={'customer': frappe.form_dict.customer}) %}
+  {% if repairs %}
+    <ul>
+    {% for r in repairs %}
+      <li><strong>{{ r.name }}</strong>: {{ r.issue_description }} ({{ r.status }})</li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No repair requests found.</p>
+  {% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{
+  "doctype": "Page",
+  "name": "lab_dashboard",
+  "module": "Lab",
+  "content": "<div id=\"lab-root\"></div>",
+  "script": "/lab/page/lab_dashboard/lab_dashboard.js",
+  "title": "Lab Dashboard"
+}
