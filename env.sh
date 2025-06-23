@@ -92,14 +92,14 @@ export SITE_NAME ADMIN_PASS MYSQL_ROOT_PASS BENCH_DIR \
 
 sudo -E -H -u frappe bash <<'EOF'
 set -euo pipefail
-export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
+export PATH="/workspace/.local/bin:/usr/local/bin:$PATH"
 
 echo "   › yarn  -> \$(yarn --version)"
 echo "   › bench -> \$(command -v bench)"
 
 rm -rf "\$BENCH_DIR"
 
-bench init --frappe-branch "\$FRAPPE_BRANCH" "\$BENCH_DIR" --skip-assets
+bench init --frappe-branch version-15 frappe-bench --skip-assets
 cd "\$BENCH_DIR"
 
 # fetch applications
