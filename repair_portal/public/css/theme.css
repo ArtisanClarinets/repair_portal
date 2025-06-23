@@ -1,0 +1,52 @@
+# --- File: apps/repair_portal/public/css/theme.css ---
+/* Updated: 2025-07-12
+ * Version: 1.0
+ * Purpose: Global styles and utility classes for The Clarinet Wizard portal.
+ */
+
+:root {
+  --clr-primary: #274472;
+  --clr-accent: #F7C331;
+  --clr-neutral: #F4F4F7;
+  --radius: 6px;
+  --font-base: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --fs-base: 16px;
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  font-size: var(--fs-base);
+  background-color: var(--clr-neutral);
+  color: #111;
+  line-height: 1.5;
+}
+a {
+  color: var(--clr-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Utilities */
+.flex { display: flex; }
+.grid { display: grid; }
+.gap-sm { gap: 0.5rem; }
+.gap-md { gap: 1rem; }
+.text-center { text-align: center; }
+.rounded { border-radius: var(--radius); }
+.bg-primary { background-color: var(--clr-primary); color: #fff; }
+.bg-accent { background-color: var(--clr-accent); color: #000; }
+.p-2 { padding: 0.5rem; }
+.p-4 { padding: 1rem; }
+.mt-4 { margin-top: 1rem; }
+.mb-4 { margin-bottom: 1rem; }
+
+@media (min-width: 768px) {
+  .container { max-width: 800px; margin-left: auto; margin-right: auto; }
+}

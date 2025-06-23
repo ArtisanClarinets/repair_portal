@@ -16,7 +16,7 @@ This directory contains all **Python page controllers** for custom web routes in
 - **Do NOT put templates in `/www/`**—keep all templates in `/templates/pages/`.
 - **Never use Jinja DB queries in templates** (e.g., `frappe.get_all`). Always supply data from the controller.
 - Generator DocTypes (auto-generated detail pages) use templates in `/templates/generators/`.
-- All pages extend `templates/web.html` for consistent theming.
+- All pages extend `repair_portal/templates/layouts/base.html` for consistent theming.
 
 ---
 
@@ -59,6 +59,7 @@ This directory contains all **Python page controllers** for custom web routes in
 
 ## Directory Map (as of 2025-06-21)
 
+- `index.py`                →  Portal landing page
 - `my_instruments.py`         →  Main instrument list view *(🆕 template added)*
 - `my_repairs.py`             →  Client/user's repair history
 - `my_players.py`             →  Player directory (for each client)
@@ -79,12 +80,14 @@ This directory contains all **Python page controllers** for custom web routes in
 - All portal pages require users to be authenticated unless marked public.
 - All business logic, filters, and DB queries must be in the controller.
 - Template files use only context variables provided by controllers for security and maintainability.
-- All templates must extend `templates/web.html` for a consistent look.
+- All templates must extend `repair_portal/templates/layouts/base.html` for a consistent look.
 
 ---
 
 ### Update Log
 - **2025-06-21**: Created missing templates `my_instruments.html` and `instrument_wellness.html`.
 - **2024-06-19**: Legacy pages consolidated. `repair_pulse.html` moved to `templates/pages/`.
+- **2025-07-11**: Added `index.py` landing page and fixed dashboard link routes.
+- **2025-07-12**: Portal pages now extend `repair_portal/templates/layouts/base.html` with unified design.
 
 For any questions or contributions, see the main project README or contact Dylan Thompson (MRW Artisan Instruments).

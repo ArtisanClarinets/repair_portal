@@ -1,0 +1,12 @@
+<!--- File: apps/repair_portal/repair_portal/templates/pages/index.html --->
+{% extends "repair_portal/templates/layouts/base.html" %}
+
+{% block page_content %}
+<h1>Welcome to the Clarinet Repair Portal</h1>
+<p>Manage your instruments, players and repairs in one place.</p>
+{% if frappe.session.user != 'Guest' %}
+  <a class="btn btn-primary" href="/me">Go to Dashboard</a>
+{% else %}
+  <a class="btn btn-primary" href="/login">Sign In</a>
+{% endif %}
+{% endblock %}

@@ -1,4 +1,5 @@
 """Dynamic instrument profile page for logged-in user."""
+
 # File: repair_portal/repair_portal/www/instrument_profile.py
 # Updated: 2025-06-18
 # Version: 1.0
