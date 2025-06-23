@@ -34,6 +34,14 @@
 - Added public landing page at `/`.
 - Fixed dashboard links to use stored routes directly.
 
+
+### 2025-07-12
+- Introduced **Lifetime Instrument Timeline** with Instrument Event table.
+- Instrument comments feed into the timeline.
+- Next Upgrade button suggests services via `/repair-hub/upgrade`.
+
+=======
+
 ## Enabling Pulse Update Feature
 1. Run `bench migrate` to apply new DocTypes.
 2. Use `/repair_pulse?name=REQ-0001` to view live updates.

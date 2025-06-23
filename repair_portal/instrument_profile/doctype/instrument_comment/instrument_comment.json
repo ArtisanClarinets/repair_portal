@@ -1,0 +1,19 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Comment",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "instrument_profile", "label": "Instrument", "fieldtype": "Link", "options": "Instrument Profile", "reqd": 1},
+    {"fieldname": "player_profile", "label": "Player", "fieldtype": "Link", "options": "Player Profile"},
+    {"fieldname": "comment", "label": "Comment", "fieldtype": "Small Text", "reqd": 1},
+    {"fieldname": "comment_by", "label": "Comment By", "fieldtype": "Link", "options": "User"}
+  ],
+  "permissions": [
+    {"role": "Customer", "read": 1, "create": 1, "if_owner": 1},
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ],
+  "editable_grid": 1,
+  "istable": 0
+}
