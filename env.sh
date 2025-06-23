@@ -4,9 +4,9 @@
 ###############################################################################
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
-echo pwd
+echo $(pwd)
 cd ..
-echo pwd
+echo $(pwd)
 # ───────── config ─────────
 WORKSPACE="/workspace"
 BENCH_DIR="${WORKSPACE}/frappe-bench"
@@ -102,7 +102,7 @@ echo "   › bench -> \$(command -v bench)"
 rm -rf "\$BENCH_DIR"
 
 bench init --frappe-branch version-15 frappe-bench --skip-assets
-cd "\$BENCH_DIR"
+cd frappe-bench
 
 # fetch applications
 bench get-app erpnext       --branch "\$ERP_BRANCH"
