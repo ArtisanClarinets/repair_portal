@@ -1,3 +1,6 @@
+<!--- File: apps/repair_portal/repair_portal/instrument_profile/page/instrument_history/instrument_history.html --->
+{% extends "repair_portal/templates/layouts/base.html" %}
+{% block page_content %}
 <!-- Instrument History - Customer Portal View -->
 <link rel="stylesheet" href="/assets/repair_portal/css/instrument_history.css">
 <div class="page-card">
@@ -30,3 +33,4 @@
     <a class="btn btn-primary" href="/api/method/frappe.utils.print_format.download_pdf?doctype=Instrument%20Profile&name={{ doc.name }}&format=Instrument%20Profile%20Summary">Download Profile Summary (PDF)</a>
   </div>
 </div>
+{% endblock %}

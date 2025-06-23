@@ -1,0 +1,26 @@
+# --- File: apps/repair_portal/repair_portal/templates/layouts/base.html ---
+{# Updated: 2025-07-12
+   Version: 1.0
+   Purpose: Global layout with navbar and footer for portal pages. #}
+
+{% extends "templates/web.html" %}
+
+{% block head_include %}
+    {{ super() }}
+    <link rel="stylesheet" href="/assets/repair_portal/css/theme.css">
+{% endblock %}
+
+{% block navbar %}
+    {% include "repair_portal/templates/macros/navbar.html" %}
+{% endblock %}
+
+{% block page_content %}{% endblock %}
+
+{% block footer %}
+    {% include "repair_portal/templates/macros/footer.html" %}
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+    <script src="/assets/repair_portal/js/ui_components.js"></script>
+{% endblock %}

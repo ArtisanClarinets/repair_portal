@@ -23,4 +23,3 @@ portal_menu_items = [
     {"title": "Instruments", "route": "/my_instruments", "reference_doctype": "Instrument Profile"},
     {"title": "Create Player", "route": "/app/player-profile/new"},
     {"title": "Settings / Sign Out", "route": "/me?edit=1"},
-]

@@ -37,6 +37,3 @@ jobs:
       - name: Run Ruff
 
         run: ruff check .           # explicit sub-command, clearer in logs
-
-        run: ruff check .           # explicit sub-command, clearer in logs
-

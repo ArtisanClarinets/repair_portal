@@ -16,7 +16,7 @@ This directory contains all **Python page controllers** for custom web routes in
 - **Do NOT put templates in `/www/`**—keep all templates in `/templates/pages/`.
 - **Never use Jinja DB queries in templates** (e.g., `frappe.get_all`). Always supply data from the controller.
 - Generator DocTypes (auto-generated detail pages) use templates in `/templates/generators/`.
-- All pages extend `templates/web.html` for consistent theming.
+- All pages extend `repair_portal/templates/layouts/base.html` for consistent theming.
 
 ---
 
@@ -80,7 +80,7 @@ This directory contains all **Python page controllers** for custom web routes in
 - All portal pages require users to be authenticated unless marked public.
 - All business logic, filters, and DB queries must be in the controller.
 - Template files use only context variables provided by controllers for security and maintainability.
-- All templates must extend `templates/web.html` for a consistent look.
+- All templates must extend `repair_portal/templates/layouts/base.html` for a consistent look.
 
 ---
 
