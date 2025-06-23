@@ -21,6 +21,7 @@ jobs:
           node-version: 18          # Frappe v15 front-end toolchain uses ≥ 18
           cache: "npm"
 
+          # exits non-zero on any style error
 
       # ───────────────────────────── Python / Ruff (back-end) ────────────────
       - name: Set up Python
@@ -34,4 +35,5 @@ jobs:
           pip install ruff
 
       - name: Run Ruff
+
         run: ruff check .           # explicit sub-command, clearer in logs

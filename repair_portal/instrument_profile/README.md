@@ -23,4 +23,3 @@ Manages a clarinet’s full lifecycle: history, valuation, upgrades, and legal o
 - Scheduler jobs in `instrument_profile.scheduler`
 
 ---
-Last updated: 2025-07-12
