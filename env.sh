@@ -4,7 +4,9 @@
 ###############################################################################
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
+echo pwd
 cd ..
+echo pwd
 # ───────── config ─────────
 WORKSPACE="/workspace"
 BENCH_DIR="${WORKSPACE}/frappe-bench"
