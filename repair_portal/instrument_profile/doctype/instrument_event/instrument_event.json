@@ -1,0 +1,23 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Event",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "parent", "fieldtype": "Link", "options": "Instrument Profile", "hidden": 1},
+    {"fieldname": "parentfield", "fieldtype": "Data", "hidden": 1},
+    {"fieldname": "parenttype", "fieldtype": "Data", "hidden": 1},
+    {"fieldname": "idx", "fieldtype": "Int", "hidden": 1},
+    {"fieldname": "date", "label": "Date", "fieldtype": "Date", "reqd": 1},
+    {"fieldname": "event_type", "label": "Event Type", "fieldtype": "Select", "options": "Service\nRepair\nPhoto\nComment"},
+    {"fieldname": "description", "label": "Description", "fieldtype": "Small Text"},
+    {"fieldname": "photo", "label": "Photo", "fieldtype": "Attach Image"},
+    {"fieldname": "reference_link", "label": "Reference Link", "fieldtype": "Data"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Technician", "read": 1, "write": 1, "create": 1}
+  ],
+  "editable_grid": 1,
+  "istable": 1
+}
