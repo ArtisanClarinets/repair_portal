@@ -18,8 +18,9 @@ website_generators = [
 ]
 
 portal_menu_items = [
-    {"title": "My Instruments", "route": "/my_instruments", "reference_doctype": "Instrument Profile"},
-    {"title": "My Repairs", "route": "/my_repairs", "reference_doctype": "Repair Request"},
-    {"title": "My Players", "route": "/my_players", "reference_doctype": "Player Profile"},
-    {"title": "Technician Dashboard", "route": "/technician_dashboard", "role": "Technician"},
+    {"title": "Dashboard", "route": "/me", "reference_doctype": "Client Profile"},
+    {"title": "Players", "route": "/my_players", "reference_doctype": "Player Profile"},
+    {"title": "Instruments", "route": "/my_instruments", "reference_doctype": "Instrument Profile"},
+    {"title": "Create Player", "route": "/app/player-profile/new"},
+    {"title": "Settings / Sign Out", "route": "/me?edit=1"},
 ]
