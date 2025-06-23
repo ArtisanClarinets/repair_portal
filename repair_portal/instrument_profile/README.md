@@ -4,8 +4,9 @@ Manages a clarinet’s full lifecycle: history, valuation, upgrades, and legal o
 
 ## Features Implemented
 - ✅ Lifetime Timeline
-  - Timeline of service events
-  - Linked to `Repair`, `QA`, and `Inspection` logs
+  - Scrollable feed of **Instrument Events** and player comments
+  - Aggregates Repair Orders, photos, and manual notes
+- ✅ "Next Upgrade" suggestions with route to `/repair-hub/upgrade`
 - ✅ Market-Value Tracker
   - Scheduled script pulls average valuations from eBay/Reverb
   - Field stored on Instrument
@@ -22,4 +23,4 @@ Manages a clarinet’s full lifecycle: history, valuation, upgrades, and legal o
 - Scheduler jobs in `instrument_profile.scheduler`
 
 ---
-Last updated: 2025-07-03
+Last updated: 2025-07-12

@@ -80,7 +80,8 @@
       "label": "Wellness Score",
       "fieldtype": "Int",
       "default": 0
-    }
+    },
+    {"fieldname": "instrument_events", "label": "Instrument Events", "fieldtype": "Table", "options": "Instrument Event"},
   ],
   "permissions": [
     {
