@@ -21,23 +21,9 @@ class ClarinetRepairLog(Document):
 
     def auto_add_materials_from_barcode(self):
         barcode_logs = frappe.get_all(
-            "Barcode Scan Entry",
-            filters={"reference_name": self.name},
-            fields=["barcode"],
+            "Barcode Scan Entry", filters={"reference_name": self.name}, fields=["barcode"]
         )
         for log in barcode_logs:
             item = frappe.db.get_value("Item", {"barcode": log.barcode}, ["name"])
             if item:
-                self.append(
-                    "material_usage",
-                    {
-                        "item_code": item,
-                        "qty": 1,
-                    },
-                )
-
-    @frappe.whitelist(allow_guest=False, methods=["POST"])
-    def resend_email(self):
-        """Placeholder email resend method used by the client-side action."""
-        # Implementation would fetch contact emails and queue an email
-        frappe.msgprint("Email sent successfully")
+                self.append("material_usage", {"item_code": item, "qty": 1})

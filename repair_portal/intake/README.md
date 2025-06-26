@@ -36,5 +36,7 @@ Handle complete instrument intake workflows including:
 ## Maintainers
 Dylan Thompson / MRW Artisan Instruments
 
-
 _Last updated: 2025-06-26_
+
+### Change Log
+- 2025-06-26 - Applied code formatting and added missing trailing newlines.

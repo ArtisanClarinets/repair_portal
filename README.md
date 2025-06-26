@@ -7,6 +7,9 @@
 - **Repair Test Result**: Child table capturing specific diagnostic results
 - **Common Notes**: Shared notes child table used across documents
 
+### 2025-06-26
+- Code formatting and trailing newline fixes across modules.
+
 ### Workflows
 - **Repair Order Workflow**: 
   - Draft → In Progress → QA → Ready for Pickup → Closed
@@ -26,6 +29,4 @@
 - Add unit tests
 - Add CI hooks via GitHub Actions
 
-### Last updated: 2025-06-26*
-- Instrument Profile web view tests added
-- Added Technician access entry for Instrument Profile DocType
+*Last updated: 2025-06-26*

@@ -11,9 +11,9 @@ class ServiceLog(Document):
     def validate(self):
         # Ensure basic service log data integrity
         if not self.instrument_profile:
-            frappe.throw('Instrument Profile is required.')
+            frappe.throw("Instrument Profile is required.")
         if not self.description:
-            frappe.throw('Service description is required.')
+            frappe.throw("Service description is required.")
 
     def on_submit(self):
-        frappe.msgprint(f'Service log for {self.instrument_profile} submitted.')
+        frappe.msgprint(f"Service log for {self.instrument_profile} submitted.")

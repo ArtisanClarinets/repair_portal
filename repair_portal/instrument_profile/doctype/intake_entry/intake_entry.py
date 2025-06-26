@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Child Table for Instrument Intake
 
-import frappe
 from frappe.model.document import Document
+
 
 class IntakeEntry(Document):
     pass

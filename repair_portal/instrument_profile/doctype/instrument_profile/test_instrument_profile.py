@@ -13,24 +13,24 @@ class TestInstrumentProfile(unittest.TestCase):
     def test_instrument_profile_creation(self):
         doc = frappe.get_doc(
             {
-                'doctype': 'Instrument Profile',
-                'instrument_category': 'Clarinet',
-                'serial_number': 'TEST123',
-                'acquisition_type': 'Inventory',
-                'status': 'Active',
+                "doctype": "Instrument Profile",
+                "instrument_category": "Clarinet",
+                "serial_number": "TEST123",
+                "acquisition_type": "Inventory",
+                "status": "Active",
             }
         )
         doc.insert()
-        assert doc.serial_number == 'TEST123'
+        assert doc.serial_number == "TEST123"
 
     def test_customer_required_for_customer_type(self):
         doc = frappe.get_doc(
             {
-                'doctype': 'Instrument Profile',
-                'instrument_category': 'Clarinet',
-                'serial_number': 'REQ-CUST-001',
-                'acquisition_type': 'Customer',
-                'status': 'Active',
+                "doctype": "Instrument Profile",
+                "instrument_category": "Clarinet",
+                "serial_number": "REQ-CUST-001",
+                "acquisition_type": "Customer",
+                "status": "Active",
             }
         )
         with pytest.raises(frappe.ValidationError):

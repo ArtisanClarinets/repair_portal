@@ -6,8 +6,8 @@
 import frappe
 from frappe.model.document import Document
 
-class InstrumentIntakeBatch(Document):
 
+class InstrumentIntakeBatch(Document):
     def on_submit(self):
         for entry in self.entries:
             if self.add_to_inventory:
@@ -20,13 +20,15 @@ class InstrumentIntakeBatch(Document):
         frappe.logger().info(f"Would create Stock Entry for serial {entry.serial_number}")
 
     def create_instrument_profile(self, entry):
-        profile = frappe.get_doc({
-            'doctype': 'Instrument Profile',
-            'serial_number': entry.serial_number,
-            'manufacturer': entry.manufacturer,
-            'instrument_type': self.instrument_type,
-            'status': 'In Inventory',
-            'intake_batch': self.name
-        })
+        profile = frappe.get_doc(
+            {
+                "doctype": "Instrument Profile",
+                "serial_number": entry.serial_number,
+                "manufacturer": entry.manufacturer,
+                "instrument_type": self.instrument_type,
+                "status": "In Inventory",
+                "intake_batch": self.name,
+            }
+        )
         profile.insert()
         frappe.logger().info(f"Created Instrument Profile for {entry.serial_number}")

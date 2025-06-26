@@ -16,11 +16,9 @@ class LoanerInstrument(Document):
             self.generate_loaner_agreement()
 
     def generate_loaner_agreement(self):
-        context = {'doc': self, 'customer': frappe.get_doc('Customer', self.issued_to)}
-        html = render_template(
-            'repair_portal/intake/templates/loaner_agreement_template.html', context
-        )
+        context = {"doc": self, "customer": frappe.get_doc("Customer", self.issued_to)}
+        html = render_template("repair_portal/intake/templates/loaner_agreement_template.html", context)
         pdf = get_pdf(html)
-        filename = f'LoanerAgreement_{self.name}.pdf'
+        filename = f"LoanerAgreement_{self.name}.pdf"
         save_file(filename, pdf, self.doctype, self.name, is_private=1)
-        frappe.msgprint('Loaner agreement PDF generated and attached.')
+        frappe.msgprint("Loaner agreement PDF generated and attached.")

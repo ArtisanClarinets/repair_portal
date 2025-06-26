@@ -6,7 +6,6 @@
 # It extends the Document class to provide custom functionality for repair part tracking
 
 
-import frappe
 from frappe.model.document import Document
 
 

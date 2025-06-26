@@ -43,11 +43,6 @@ class ClarinetIntake(Document):
             missing.append("Consent Form")
         if not self.appointment:
             missing.append("Appointment")
-
-
-        if not self.inspection:
-            missing.append("Inspection")
-
         if missing:
             frappe.throw(f'Cannot submit Intake — missing: {", ".join(missing)}')
 

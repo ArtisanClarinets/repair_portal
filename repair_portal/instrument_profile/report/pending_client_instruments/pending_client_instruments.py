@@ -7,8 +7,9 @@ import frappe
 
 def execute(filters=None):
     return [
-        ['Instrument', 'Model', 'Owner', 'Verification Status'],
-        frappe.db.sql("""
+        ["Instrument", "Model", "Owner", "Verification Status"],
+        frappe.db.sql(
+            """
             SELECT
                 name,
                 instrument_model,
@@ -16,5 +17,6 @@ def execute(filters=None):
                 verification_status
             FROM `tabClient Instrument Profile`
             WHERE verification_status = 'Pending'
-        """),
+        """
+        ),
     ]

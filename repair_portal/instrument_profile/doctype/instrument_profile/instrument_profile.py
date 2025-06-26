@@ -7,12 +7,9 @@
 import frappe
 from frappe.website.website_generator import WebsiteGenerator
 
+
 class InstrumentProfile(WebsiteGenerator):
-    website = frappe._dict(
-        condition_field="published",
-        page_title_field="serial_number",
-        route="route"
-    )
+    website = frappe._dict(condition_field="published", page_title_field="serial_number", route="route")
 
     def validate(self):
         # Auto-set route from serial number
@@ -30,9 +27,12 @@ class InstrumentProfile(WebsiteGenerator):
     def get_context(self, context):
         context.parents = [{"title": "Instrument Catalog", "route": "/my_instruments"}]
         context.title = self.serial_number
+<<<<<<< HEAD
         if self.published:
             sanitized = self.as_dict()
             for field in self.PRIVATE_FIELDS:
                 sanitized.pop(field, None)
             context.profile = sanitized
         return context
+=======
+>>>>>>> 97c6c546ad1b9a4df6962f3e626be686b2ab9794

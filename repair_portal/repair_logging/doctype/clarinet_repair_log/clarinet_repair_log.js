@@ -21,4 +21,8 @@ frappe.ui.form.on('Clarinet Repair Log', {
       }, 'Actions');
     }
   }
+<<<<<<< HEAD:repair_portal/repair_logging/doctype/clarinet_repair_log/clarinet_repair_log.js
 })
+=======
+});
+>>>>>>> 97c6c546ad1b9a4df6962f3e626be686b2ab9794:repair_portal/instrument_profile/doctype/clarinet_repair_log/clarinet_repair_log.js

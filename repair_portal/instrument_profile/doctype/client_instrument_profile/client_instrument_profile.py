@@ -9,18 +9,18 @@ from frappe.model.document import Document
 
 class ClientInstrumentProfile(Document):
     def before_save(self):
-        if self.verification_status == 'Rejected' and not self.technician_notes:
-            frappe.throw('Technician Notes required when rejecting instrument.')
+        if self.verification_status == "Rejected" and not self.technician_notes:
+            frappe.throw("Technician Notes required when rejecting instrument.")
 
     def on_update(self):
-        if self.verification_status == 'Approved':
+        if self.verification_status == "Approved":
             frappe.db.set_value(
-                'Instrument Profile',
+                "Instrument Profile",
                 self.name,
                 {
-                    'owner': self.owner,
-                    'instrument_model': self.instrument_model,
-                    'instrument_category': self.instrument_category,
+                    "owner": self.owner,
+                    "instrument_model": self.instrument_model,
+                    "instrument_category": self.instrument_category,
                 },
                 update_modified=False,
             )
