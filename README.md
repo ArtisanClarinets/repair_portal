@@ -14,6 +14,7 @@
 ### Server Logic
 - **repair_parts_stock_entry.py**: Auto-generates Stock Entry on repair part log
 - **repair_order_invoice_auto.py**: Creates Sales Invoice upon Repair Order submission
+- **clarinet_intake**: Validation now enforces an Inspection link before submit
 
 ### UI & Navigation
 - Custom Workspace: `Repair Orders`
@@ -22,5 +23,4 @@
 - Add unit tests
 - Add CI hooks via GitHub Actions
 - Instrument Profile web view tests added
-
-*Last updated: 2025-06-30*
+- Added Technician access entry for Instrument Profile DocType
