@@ -22,6 +22,5 @@
 ### Next Steps
 - Add unit tests
 - Add CI hooks via GitHub Actions
+- Instrument Profile web view tests added
 - Added Technician access entry for Instrument Profile DocType
-
-*Last updated: 2025-06-28*
