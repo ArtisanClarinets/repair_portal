@@ -12,6 +12,27 @@ from frappe.model.document import Document
 
 
 class InstrumentTracker(Document):
+    def onload(self):
+        """Attach related service and inspection logs for dashboard rendering."""
+        serial = self.serial_number
+        if not serial:
+            return
+
+        service_logs = frappe.get_all(
+            "Service Log",
+            filters={"serial_number": serial},
+            fields=["name", "date", "service_type", "description", "performed_by", "notes"],
+        )
+
+        inspection_logs = frappe.get_all(
+            "Clarinet Inspection",
+            filters={"serial_number": serial},
+            fields=["name", "inspection_date", "inspected_by", "overall_condition", "notes"],
+        )
+
+        self.set_onload("service_logs", service_logs)
+        self.set_onload("inspection_logs", inspection_logs)
+
     def on_update(self):
         self.update_related_links()
 

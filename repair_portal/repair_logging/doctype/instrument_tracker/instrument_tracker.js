@@ -1,10 +1,26 @@
 frappe.ui.form.on("Instrument Tracker", {
-	refresh: function (frm) {
-		if (!frm.doc.__islocal && frm.doc.interaction_logs) {
-			render_timeline_with_filter(frm);
-			add_export_button(frm);
-		}
-	},
+    refresh: function (frm) {
+        if (!frm.doc.__islocal && frm.doc.interaction_logs) {
+            render_timeline_with_filter(frm);
+            add_export_button(frm);
+        }
+
+        if (frm.doc.__onload && frm.doc.__onload.service_logs) {
+            let logs = frm.doc.__onload.service_logs;
+            frm.dashboard.add_section(
+                frappe.render_template('instrument_tracker_service_logs', { logs }),
+                'Service/Repair Logs'
+            );
+        }
+
+        if (frm.doc.__onload && frm.doc.__onload.inspection_logs) {
+            let logs = frm.doc.__onload.inspection_logs;
+            frm.dashboard.add_section(
+                frappe.render_template('instrument_tracker_inspection_logs', { logs }),
+                'Inspection Logs'
+            );
+        }
+    },
 });
 
 function render_timeline_with_filter(frm) {
@@ -87,6 +103,43 @@ function add_export_button(frm) {
 		);
 		document.body.appendChild(link);
 		link.click();
-		document.body.removeChild(link);
-	});
+        document.body.removeChild(link);
+    });
 }
+
+frappe.templates['instrument_tracker_service_logs'] = `
+<table class="table table-bordered">
+    <thead><tr>
+        <th>Date</th><th>Type</th><th>Description</th><th>Performed By</th><th>Notes</th>
+    </tr></thead>
+    <tbody>
+        {% for row in logs %}
+        <tr>
+            <td>{{ row.date }}</td>
+            <td>{{ row.service_type }}</td>
+            <td>{{ row.description }}</td>
+            <td>{{ row.performed_by }}</td>
+            <td>{{ row.notes }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+`;
+
+frappe.templates['instrument_tracker_inspection_logs'] = `
+<table class="table table-bordered">
+    <thead><tr>
+        <th>Date</th><th>Inspected By</th><th>Condition</th><th>Notes</th>
+    </tr></thead>
+    <tbody>
+        {% for row in logs %}
+        <tr>
+            <td>{{ row.inspection_date }}</td>
+            <td>{{ row.inspected_by }}</td>
+            <td>{{ row.overall_condition }}</td>
+            <td>{{ row.notes }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+`;
