@@ -21,5 +21,6 @@
 ### Next Steps
 - Add unit tests
 - Add CI hooks via GitHub Actions
+- Instrument Profile web view tests added
 
-*Last updated: 2025-06-26*
+*Last updated: 2025-06-30*
