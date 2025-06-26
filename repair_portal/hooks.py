@@ -17,9 +17,9 @@ website_generators = [
     "Player Profile",
 ]
 
-portal_menu_items = [
-    {"title": "My Instruments", "route": "/my_instruments", "reference_doctype": "Instrument Profile"},
-    {"title": "My Repairs", "route": "/my_repairs", "reference_doctype": "Repair Request"},
-    {"title": "My Players", "route": "/my_players", "reference_doctype": "Player Profile"},
-    {"title": "Technician Dashboard", "route": "/technician_dashboard", "role": "Technician"},
-]
+# portal_menu_items = [
+#    {"title": "My Instruments", "route": "/my_instruments", "reference_doctype": "Instrument Profile"},
+#    {"title": "My Repairs", "route": "/my_repairs", "reference_doctype": "Repair Request"},
+#    {"title": "My Players", "route": "/my_players", "reference_doctype": "Player Profile"},
+#    {"title": "Technician Dashboard", "route": "/technician_dashboard", "role": "Technician"},
+# ]
