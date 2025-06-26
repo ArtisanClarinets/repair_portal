@@ -5,6 +5,33 @@
   "istable": 1,
   "fields": [
     {
+      "fieldname": "instrument_profile",
+      "label": "Instrument Profile",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
+    },
+    {
+      "fieldname": "description",
+      "label": "Description",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "service_type",
+      "label": "Service Type",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "performed_by",
+      "label": "Performed By",
+      "fieldtype": "Link",
+      "options": "User"
+    },
+    {
+      "fieldname": "date",
+      "label": "Date",
+      "fieldtype": "Date"
+    },
+    {
       "fieldname": "log_entry",
       "label": "Log Entry",
       "fieldtype": "Small Text"

@@ -1,6 +1,6 @@
 # File: repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
 # Updated: 2025-06-27
-# Version: 1.4
+# Version: 1.5
 # Purpose: Auto-generates route for web profile and links to ERPNext
 #          Sanitizes private fields when rendering published profiles.
 
@@ -27,12 +27,9 @@ class InstrumentProfile(WebsiteGenerator):
     def get_context(self, context):
         context.parents = [{"title": "Instrument Catalog", "route": "/my_instruments"}]
         context.title = self.serial_number
-<<<<<<< HEAD
         if self.published:
             sanitized = self.as_dict()
             for field in self.PRIVATE_FIELDS:
                 sanitized.pop(field, None)
             context.profile = sanitized
         return context
-=======
->>>>>>> 97c6c546ad1b9a4df6962f3e626be686b2ab9794

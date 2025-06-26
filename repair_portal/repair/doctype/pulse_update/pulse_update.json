@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Pulse Update",
+  "module": "Repair",
+  "custom": 0,
+  "istable": 0,
+  "fields": [
+    {"fieldname": "repair_order", "label": "Repair Order", "fieldtype": "Link", "options": "Repair Order", "reqd": 1},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Draft\nInspection\nPlanning\nIn Progress\nQA\nReady for Pickup\nClosed"},
+    {"fieldname": "note", "label": "Note", "fieldtype": "Small Text"},
+    {"fieldname": "timestamp", "label": "Timestamp", "fieldtype": "Datetime", "default": "Now"},
+    {"fieldname": "entered_by", "label": "Entered By", "fieldtype": "Link", "options": "User"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Customer", "read": 1, "if_owner": 1}
+  ]
+}

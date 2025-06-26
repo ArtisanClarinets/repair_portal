@@ -18,9 +18,8 @@ Handle complete instrument intake workflows including:
 - 🌐 Web Form: customer self-submission portal
 - ✅ Completion Validation: blocks submission unless all forms are ready
 - 📝 Checklist options for case damage, tenon wear and loose rods
-=======
+- 📋 Includes child table field `checklist` linked to `Intake Checklist Item`
 - 🔍 Intake cannot be submitted without linking an Inspection
-
 
 ## Structure
 - **Doctypes:** `clarinet_intake`, `customer_consent_form`, `loaner_instrument`
@@ -36,7 +35,7 @@ Handle complete instrument intake workflows including:
 ## Maintainers
 Dylan Thompson / MRW Artisan Instruments
 
-_Last updated: 2025-06-26_
+_Last updated: 2025-06-27_
 
 ### Change Log
-- 2025-06-26 - Applied code formatting and added missing trailing newlines.
+- 2025-06-27 - Removed duplicate fields and added `checklist` table to `clarinet_intake.json`.

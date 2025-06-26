@@ -1,21 +1,10 @@
 # relative path: intake/doctype/clarinet_intake/clarinet_intake.py
-
-# updated: 2025-06-26
-
-
-
-
-# version: 1.1
-# purpose: On submit, spawn setup entry, validate completion
-
-# updated: 2025-06-18
-# version: 1.1
-# purpose: On submit, spawn setup entry, validate completion and link instrument profile
-
+# updated: 2025-06-27
+# version: 1.2
+# purpose: On submit, spawn setup entry, validate required fields, enforce checklist presence
 
 import frappe
 from frappe.model.document import Document
-
 
 class ClarinetIntake(Document):
     def validate(self):
@@ -56,7 +45,6 @@ class ClarinetIntake(Document):
         setup.insert(ignore_permissions=True)
         frappe.msgprint("Initial Setup created and linked.")
 
-
     def sync_checkboxes_to_checklist(self):
         """Ensure boolean damage flags appear in the checklist child table."""
         mapping = {
@@ -64,10 +52,7 @@ class ClarinetIntake(Document):
             "tenon_wear": "Tenon Wear",
             "loose_rods": "Loose Rods",
         }
-
         existing = {item.check_item for item in (self.checklist or [])}
         for field, label in mapping.items():
             if getattr(self, field, None) and label not in existing:
                 self.append("checklist", {"check_item": label, "checked": 1})
-
-
