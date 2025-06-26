@@ -11,6 +11,7 @@ Handle complete instrument intake workflows including:
 
 ## Key Features
 - 📄 Clarinet Intake: master form linking all intake data
+- 🔗 Links to Instrument Profile for service history
 - 🖋️ Consent Form: signature and compliance checks
 - 🎷 Loaner Instrument: PDF agreement auto-gen
 - ⚙️ Initial Setup: created on intake submit
@@ -31,4 +32,4 @@ Handle complete instrument intake workflows including:
 ## Maintainers
 Dylan Thompson / MRW Artisan Instruments
 
-_Last updated: 2025-06-15_
+_Last updated: 2025-06-18_
