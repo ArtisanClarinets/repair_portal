@@ -25,33 +25,24 @@ frappe.ready(() => {
     },
     methods: {
       drawGauge() {
-        const ctx = document.getElementById('gauge').getContext('2d');
-        const color = this.score > 70 ? '#16a34a' : this.score > 40 ? '#facc15' : '#dc2626';
-        new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            datasets: [
-              {
-                data: [this.score, 100 - this.score],
-                backgroundColor: [color, '#e5e7eb'],
-                borderWidth: 0,
-              },
-            ],
-          },
-          options: {
-            circumference: 180,
-            rotation: 270,
-            cutout: '70%',
-            plugins: { tooltip: { enabled: false }, legend: { display: false } },
-          },
-        });
+        /* (unchanged) */
       },
       renderHistory() {
         const list = document.getElementById('service-history');
         this.history.forEach((item) => {
           const li = document.createElement('li');
           li.className = 'py-2';
-          li.innerHTML = `<strong>${item.repair_type}</strong> <span class="ml-2 text-gray-600">${item.modified}</span>`;
+
+         li.innerHTML = `<strong>${item.repair_type}</strong> <span class="ml-2 text-gray-600">${item.modified}</span>`;
+        const typeEl = document.createElement('strong');
+         typeEl.textContent = item.repair_type || '';
+
+         const modEl = document.createElement('span');
+         modEl.className = 'ml-2 text-gray-600';
+         modEl.textContent = item.modified || '';
+
+         li.append(typeEl, ' ', modEl);
+
           list.appendChild(li);
         });
       },
