@@ -19,8 +19,13 @@
 ### UI & Navigation
 - Custom Workspace: `Repair Orders`
 
+### 2025-06-30
+- Moved Clarinet Repair Log, Instrument Tracker, and Service Log DocTypes into the `repair_logging` module.
+
 ### Next Steps
 - Add unit tests
 - Add CI hooks via GitHub Actions
 
-*Last updated: 2025-06-26*
+### Last updated: 2025-06-26*
+- Instrument Profile web view tests added
+- Added Technician access entry for Instrument Profile DocType
