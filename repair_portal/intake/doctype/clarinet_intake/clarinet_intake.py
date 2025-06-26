@@ -1,6 +1,10 @@
 # relative path: intake/doctype/clarinet_intake/clarinet_intake.py
 
-# updated: 2025-06-28
+# updated: 2025-06-26
+
+
+
+
 # version: 1.1
 # purpose: On submit, spawn setup entry, validate completion
 
@@ -39,10 +43,15 @@ class ClarinetIntake(Document):
             missing.append("Consent Form")
         if not self.appointment:
             missing.append("Appointment")
+
+
         if not self.inspection:
             missing.append("Inspection")
+
         if missing:
             frappe.throw(f'Cannot submit Intake — missing: {", ".join(missing)}')
+
+        self.sync_checkboxes_to_checklist()
 
     def on_submit(self):
         setup = frappe.new_doc("Clarinet Initial Setup")
@@ -51,3 +60,19 @@ class ClarinetIntake(Document):
         setup.customer = self.customer
         setup.insert(ignore_permissions=True)
         frappe.msgprint("Initial Setup created and linked.")
+
+
+    def sync_checkboxes_to_checklist(self):
+        """Ensure boolean damage flags appear in the checklist child table."""
+        mapping = {
+            "case_damage": "Case Damage",
+            "tenon_wear": "Tenon Wear",
+            "loose_rods": "Loose Rods",
+        }
+
+        existing = {item.check_item for item in (self.checklist or [])}
+        for field, label in mapping.items():
+            if getattr(self, field, None) and label not in existing:
+                self.append("checklist", {"check_item": label, "checked": 1})
+
+
