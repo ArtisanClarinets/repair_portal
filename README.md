@@ -1,22 +1,25 @@
 # Repair Portal
 
-## Update Log
+## Module: Repair Order
 
-### 2025-06-16
-- Added Instrument Category DocType (`instrument_profile/doctype/instrument_category/`).
-- Controller and JSON schema included for Instrument Category.
-- Ensured all files present per Frappe v15 convention.
-- Ready for migration.
+### DocTypes Implemented
+- **Repair Order**: Central workflow object for repair lifecycle
+- **Repair Test Result**: Child table capturing specific diagnostic results
+- **Common Notes**: Shared notes child table used across documents
 
-### 2025-07-01
-- Added Pulse Update feature with real-time repair tracking.
+### Workflows
+- **Repair Order Workflow**: 
+  - Draft → In Progress → QA → Ready for Pickup → Closed
 
-### 2024-06-19
-- Migrated web controllers from `repair_portal/repair_portal/www` to `repair_portal/www`.
-- Moved `repair_pulse.html` to `templates/pages/` and removed unused pad map templates.
+### Server Logic
+- **repair_parts_stock_entry.py**: Auto-generates Stock Entry on repair part log
+- **repair_order_invoice_auto.py**: Creates Sales Invoice upon Repair Order submission
 
+### UI & Navigation
+- Custom Workspace: `Repair Orders`
 
-## Enabling Pulse Update Feature
-1. Run `bench migrate` to apply new DocTypes.
-2. Use `/repair_pulse?name=REQ-0001` to view live updates.
-3. Technicians call `pulse_update.create_update` API to post progress.
+### Next Steps
+- Add unit tests
+- Add CI hooks via GitHub Actions
+
+*Last updated: 2025-06-26*

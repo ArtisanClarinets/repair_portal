@@ -1,0 +1,13 @@
+{
+  "label": "Repair Orders",
+  "module": "Repair Order",
+  "icon": "fa fa-tools",
+  "content": {
+    "shortcuts": [
+      {"label": "New Repair Order", "type": "DocType", "name": "Repair Order"}
+    ],
+    "charts": [],
+    "links": [],
+    "cards": []
+  }
+}

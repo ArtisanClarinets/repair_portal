@@ -1,0 +1,19 @@
+{
+  "workflow_name": "Repair Order Workflow",
+  "doctype": "Repair Order",
+  "is_active": 1,
+  "state_field": "status",
+  "states": [
+    {"state": "Draft", "doc_status": 0},
+    {"state": "In Progress", "doc_status": 0},
+    {"state": "QA", "doc_status": 1},
+    {"state": "Ready for Pickup", "doc_status": 1},
+    {"state": "Closed", "doc_status": 2}
+  ],
+  "transitions": [
+    {"state": "Draft", "action": "Begin Repair", "next_state": "In Progress", "allowed": ["Technician"]},
+    {"state": "In Progress", "action": "QA Check", "next_state": "QA", "allowed": ["Technician"]},
+    {"state": "QA", "action": "Mark Ready", "next_state": "Ready for Pickup", "allowed": ["System Manager"]},
+    {"state": "Ready for Pickup", "action": "Close", "next_state": "Closed", "allowed": ["System Manager"]}
+  ]
+}
