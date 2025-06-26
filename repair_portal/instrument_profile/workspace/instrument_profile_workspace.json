@@ -1,23 +1,22 @@
 {
-  "label": "Instrument Profile Workspace",
-  "name": "instrument_profile_workspace",
   "doctype": "Workspace",
+  "name": "instrument_profile_workspace",
   "module": "Instrument Profile",
-  "icon": "fa fa-tachometer",
-  "links": [],
+  "label": "Instrument Profile",
+  "icon": "fa fa-music",
   "content": {
-    "charts": [
-      {"chart_name": "Instrument Status Distribution"}
-    ],
-    "cards": [
-      {"card_name": "Open Service Logs"},
-      {"card_name": "In Progress Service Logs"},
-      {"card_name": "Closed Service Logs"}
-    ],
     "shortcuts": [
-      {"label": "New Service Log", "type": "DocType", "name": "Service Log"},
-      {"label": "New Inspection", "type": "DocType", "name": "Clarinet Inspection"},
-      {"label": "New Instrument Profile", "type": "DocType", "name": "Instrument Profile"}
-    ]
-  }
+      {
+        "label": "New Instrument Intake",
+        "type": "Web Form",
+        "name": "instrument_intake_batch",
+        "link_to": "Form/Instrument Intake Batch",
+        "route": "/instrument-intake"
+      }
+    ],
+    "charts": [],
+    "links": [],
+    "cards": []
+  },
+  "is_standard": 1
 }

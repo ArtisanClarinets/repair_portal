@@ -1,0 +1,22 @@
+{
+  "doctype": "Web Form",
+  "name": "instrument_intake_batch",
+  "module": "Instrument Profile",
+  "standard": "Yes",
+  "web_form_fields": [
+    {"fieldname": "date", "label": "Date", "fieldtype": "Date", "default": "Today"},
+    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Select", "options": "Bb Clarinet\nA Clarinet\nBass Clarinet", "reqd": 1},
+    {"fieldname": "supplier", "label": "Supplier", "fieldtype": "Link", "options": "Supplier"},
+    {"fieldname": "add_to_inventory", "label": "Add to Inventory", "fieldtype": "Check"},
+    {"fieldname": "create_profiles", "label": "Create Profiles", "fieldtype": "Check", "default": 1},
+    {"fieldname": "entries", "label": "Instruments", "fieldtype": "Table", "options": "Intake Entry", "reqd": 1}
+  ],
+  "published": 1,
+  "login_required": 1,
+  "route": "instrument-intake",
+  "success_message": "Intake Batch Submitted Successfully",
+  "allow_edit": 0,
+  "show_list": 0,
+  "allow_multiple": 0,
+  "doc_type": "Instrument Intake Batch"
+}

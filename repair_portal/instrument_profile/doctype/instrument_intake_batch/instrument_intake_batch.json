@@ -1,0 +1,18 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Intake Batch",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "date", "label": "Date", "fieldtype": "Date", "default": "Today"},
+    {"fieldname": "instrument_type", "label": "Instrument Type", "fieldtype": "Select", "options": "Bb Clarinet\nA Clarinet\nBass Clarinet"},
+    {"fieldname": "supplier", "label": "Supplier", "fieldtype": "Link", "options": "Supplier"},
+    {"fieldname": "add_to_inventory", "label": "Add to Inventory", "fieldtype": "Check"},
+    {"fieldname": "create_profiles", "label": "Create Profiles", "fieldtype": "Check", "default": 1},
+    {"fieldname": "entries", "label": "Instruments", "fieldtype": "Table", "options": "Intake Entry", "reqd": 1}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1}
+  ],
+  "is_submittable": 1
+}
