@@ -1,7 +1,13 @@
 # relative path: intake/doctype/clarinet_intake/clarinet_intake.py
+
+# updated: 2025-06-28
+# version: 1.1
+# purpose: On submit, spawn setup entry, validate completion
+
 # updated: 2025-06-18
 # version: 1.1
 # purpose: On submit, spawn setup entry, validate completion and link instrument profile
+
 
 import frappe
 from frappe.model.document import Document
@@ -28,18 +34,20 @@ class ClarinetIntake(Document):
         if not self.instrument_profile:
             missing.append('Instrument Profile')
         if not self.checklist:
-            missing.append('Checklist')
+            missing.append("Checklist")
         if not self.customer_consent_form:
-            missing.append('Consent Form')
+            missing.append("Consent Form")
         if not self.appointment:
-            missing.append('Appointment')
+            missing.append("Appointment")
+        if not self.inspection:
+            missing.append("Inspection")
         if missing:
             frappe.throw(f'Cannot submit Intake — missing: {", ".join(missing)}')
 
     def on_submit(self):
-        setup = frappe.new_doc('Clarinet Initial Setup')
+        setup = frappe.new_doc("Clarinet Initial Setup")
         setup.intake = self.name
         setup.instrument_profile = self.instrument_profile
         setup.customer = self.customer
         setup.insert(ignore_permissions=True)
-        frappe.msgprint('Initial Setup created and linked.')
+        frappe.msgprint("Initial Setup created and linked.")
