@@ -1,5 +1,14 @@
 {
   "doctype": "Workflow",
+  "module": "Repair Logging",
+  "is_standard": 1,
+  "is_query_report": 1,
+  "query": "repair_portal.repair_logging.workflow.service_log_workflow.service_log_workflow_query",
+  "report_fields": [
+    {"fieldname": "creation_date", "label": "Creation Date", "fieldtype": "Date"},
+    {"fieldname": "technician", "label": "Technician", "fieldtype": "Link", "options": "Technician"},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nOpen\nIn Progress\nResolved\nClosed"}
+  ],
   "name": "service_log_workflow",
   "workflow_name": "Service Log Workflow",
   "document_type": "Service Log",

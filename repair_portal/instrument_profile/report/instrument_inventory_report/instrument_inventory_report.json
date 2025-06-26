@@ -1,6 +1,7 @@
 {
   "doctype": "Report",
   "name": "Instrument Inventory Report",
+  "label": "Instrument Inventory Report",
   "report_name": "Instrument Inventory Report",
   "ref_doctype": "Instrument Profile",
   "report_type": "Script Report",

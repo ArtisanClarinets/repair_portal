@@ -1,6 +1,6 @@
 {
   "doctype": "Web Form",
-  "name": "repair_request",
+  "name": "Repair Request",
   "module": "Repair Portal",
   "standard": "Yes",
   "web_form_name": "repair-request",
@@ -8,12 +8,12 @@
   "is_list": 1,
   "login_required": 1,
   "show_list": 1,
+  "publish": 1,
   "list_columns": [
     {"fieldname": "status"},
     {"fieldname": "issue_description"},
     {"fieldname": "technician_assigned"},
     {"fieldname": "priority_level"}
   ],
-  "route": "/repair-requests",
   "title_field": "issue_description"
 }

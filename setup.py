@@ -7,7 +7,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='repair_portal',
-    version='1.0.0',
+    version='1.2.0',
     description='Technician-focused Clarinet Repair Portal for ERPNext v15',
     author='Dylan Thompson / MRW Artisan Instruments',
     author_email='support@artisanclarinets.com',

@@ -1,5 +1,7 @@
 {
   "name": "Pending Client Instruments",
+  "module": "Instrument Profile",
+  "label": "Pending Client Instruments",
   "report_name": "Pending Client Instruments",
   "doctype": "Client Instrument Profile",
   "report_type": "Query Report",

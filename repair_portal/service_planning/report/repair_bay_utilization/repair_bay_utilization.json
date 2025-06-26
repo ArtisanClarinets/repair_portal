@@ -1,9 +1,28 @@
 {
   "doctype": "Report",
+  "module": "Service Planning",
+  "report_name": "Repair Bay Utilization",
+  "report_label": "Repair Bay Utilization",
+  "chart_name": "Repair Bay Utilization",
+  "chart_type": "Group By",
+  "document_type": "Service Task",
+  "based_on": "planned_date",
+  "timespan": "Last 30 days",
+  "time_interval": "Daily",
+  "group_by_type": "Count",
+  "is_public": 0,
+  "is_standard": 1,
+  "is_query_report": 1,
+  "query": "repair_portal.service_planning.report.repair_bay_utilization.repair_bay_utilization_query",
+  "report_fields": [
+    {"fieldname": "planned_date", "label": "Planned Date", "fieldtype": "Date"},
+    {"fieldname": "service_bay", "label": "Service Bay", "fieldtype": "Link", "options": "Service Bay"},
+    {"fieldname": "utilization_count", "label": "Utilization Count", "fieldtype": "Int"}
+  ],
   "name": "Repair Bay Utilization",
   "ref_doctype": "Service Task",
   "report_type": "Script Report",
-  "is_standard": "Yes",
   "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}],
-  "report_name": "Repair Bay Utilization"
+  "is_active": 1,
+  "report_category": "Service Planning"
 }

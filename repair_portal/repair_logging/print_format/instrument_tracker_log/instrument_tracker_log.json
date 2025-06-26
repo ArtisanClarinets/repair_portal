@@ -9,5 +9,6 @@
 	"default": 1,
 	"disabled": 0,
 	"standard": 1,
-	"standard": 1
+	"print_format": "Instrument Tracker Log",
+	"print_format_name": "Instrument Tracker Log"
 }
