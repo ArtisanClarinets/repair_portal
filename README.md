@@ -14,6 +14,7 @@
 ### Server Logic
 - **repair_parts_stock_entry.py**: Auto-generates Stock Entry on repair part log
 - **repair_order_invoice_auto.py**: Creates Sales Invoice upon Repair Order submission
+- **instrument_profile.py**: Removes private fields from web context when profiles are published
 
 ### UI & Navigation
 - Custom Workspace: `Repair Orders`
