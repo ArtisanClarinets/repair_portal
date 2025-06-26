@@ -3,6 +3,7 @@
   "ref_doctype": "Instrument Tracker",
   "label": "Instrument Tracker Dashboard",
   "name": "instrument_tracker_dashboard",
+  "module": "Repair Logging",
   "charts": [
     {"chart_name": "Instrument Status Distribution"}
   ],

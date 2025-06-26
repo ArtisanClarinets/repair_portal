@@ -7,5 +7,5 @@
   "function": "Count",
   "filters_json": "{\"service_type\":\"Repair\",\"status\":\"Closed\"}",
   "is_standard": 1,
-  "module": "Instrument Profile"
+  "module": "Repair Logging"
 }
