@@ -1,0 +1,187 @@
+{
+  "procedures": [
+    {
+      "title": "QC-Shipping-Carton-Case",
+      "name": "QC Shipping Carton Case",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Photograph all six sides of the carton", "tool": "Camera/tablet", "criteria": "Photos attached" },
+        { "seq": 2, "parameter": "Log puncture/crush/water marks", "tool": "Visual", "criteria": "Y/N + note" },
+        { "seq": 3, "parameter": "Check shock/watch-dog label", "tool": "Visual", "criteria": "White/untriggered" },
+        { "seq": 4, "parameter": "Remove case; record humidity", "tool": "Humidity card", "criteria": "≤ 60 %" },
+        { "seq": 5, "parameter": "Check latch & handle", "tool": "Flex test", "criteria": "No damage" }
+      ]
+    },
+    {
+      "title": "QC-Serial-Paperwork-Match",
+      "name": "QC Serial Paperwork Match",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Scan/enter serial #", "tool": "Barcode/Manual", "criteria": "Matches stamp" },
+        { "seq": 2, "parameter": "Cross-check PR item line", "tool": "ERPNext cross-check", "criteria": "Model matches" },
+        { "seq": 3, "parameter": "Add warranty card to file", "tool": "ERPNext File", "criteria": "Present" }
+      ]
+    },
+    {
+      "title": "QC-Body-Surface-Logo",
+      "name": "QC Body Surface Logo",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Dust, inspect grain/seams", "tool": "Loupe/LED", "criteria": "No cracks" },
+        { "seq": 2, "parameter": "Check bell/socket plating", "tool": "Loupe", "criteria": "No burst" },
+        { "seq": 3, "parameter": "Verify logo stamping", "tool": "Visual", "criteria": "Aligned/filled" },
+        { "seq": 4, "parameter": "Record chip count", "tool": "Visual", "criteria": "≤ 2 < 0.3 mm" }
+      ]
+    },
+    {
+      "title": "QC-Tonehole-Edges",
+      "name": "QC Tonehole Edges",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Leak-light with keys off", "tool": "Leak-light", "criteria": "No bright ring" },
+        { "seq": 2, "parameter": "Shim for chips", "tool": "0.02 mm feeler", "criteria": "No drop > 0.02 mm" },
+        { "seq": 3, "parameter": "Resurface if chipped", "tool": "Re-surfacer", "criteria": "Chip removed or flagged" },
+        { "seq": 4, "parameter": "Photo before/after", "tool": "Camera", "criteria": "Both photos saved" }
+      ]
+    },
+    {
+      "title": "QC-Pad-Seal-Top-Joint",
+      "name": "QC Pad Seal Top Joint",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Seat each pad, leak-light test", "tool": "Leak-light / finger pressure", "criteria": "No light" },
+        { "seq": 2, "parameter": "Pressurize joint & record ΔP", "tool": "Magnehelic gauge", "criteria": "≤ 0.5 psi" },
+        { "seq": 3, "parameter": "Adjust/float offending pads", "tool": "Pad-seating tools", "criteria": "Leak eliminated" },
+        { "seq": 4, "parameter": "Final pressure confirmation", "tool": "Magnehelic", "criteria": "Spec met" }
+      ]
+    },
+    {
+      "title": "QC-Pad-Seal-Lower-Joint",
+      "name": "QC Pad Seal Lower Joint",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Seat each pad, leak-light test", "tool": "Leak-light / finger pressure", "criteria": "No light" },
+        { "seq": 2, "parameter": "Pressurize joint & record ΔP", "tool": "Magnehelic gauge", "criteria": "≤ 1 psi" },
+        { "seq": 3, "parameter": "Adjust/float offending pads", "tool": "Pad-seating tools", "criteria": "Leak eliminated" },
+        { "seq": 4, "parameter": "Final pressure confirmation", "tool": "Magnehelic", "criteria": "Spec met" }
+      ]
+    },
+    {
+      "title": "QC-Spring-Tension-Balance",
+      "name": "QC Spring Tension Balance",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Measure key spring tension", "tool": "Digital force gauge", "criteria": "25–35 g" },
+        { "seq": 2, "parameter": "Adjust springs for balance", "tool": "Spring hook/pliers", "criteria": "Spread ≤ 3 g" },
+        { "seq": 3, "parameter": "Oil hinge tubes", "tool": "Key oil", "criteria": "Lubricated" }
+      ]
+    },
+    {
+      "title": "QC-Key-Fitting-Actuation",
+      "name": "QC Key Fitting & Actuation",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Check side-play with feeler", "tool": "0.05 mm feeler", "criteria": "≤ 0.05 mm" },
+        { "seq": 2, "parameter": "Swedge keys / replace rod", "tool": "Swedging pliers", "criteria": "No side-play" },
+        { "seq": 3, "parameter": "Verify free movement", "tool": "Manual", "criteria": "Silent action" }
+      ]
+    },
+    {
+      "title": "QC-Key-Height-Venting",
+      "name": "QC Key Height & Venting",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Gauge open-pad height", "tool": "Venting feeler set", "criteria": "± 0.1 mm of spec" },
+        { "seq": 2, "parameter": "Adjust cork/felt height", "tool": "Shims/cork", "criteria": "Spec met" },
+        { "seq": 3, "parameter": "Check linked-key timing", "tool": "Visual / leak-light", "criteria": "Simultaneous closure" }
+      ]
+    },
+    {
+      "title": "QC-Tenon-Fit-Cork",
+      "name": "QC Tenon Cork Fit",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Dry-fit joints for bind/wobble", "tool": "Manual test", "criteria": "Smooth rotation" },
+        { "seq": 2, "parameter": "Adjust cork thickness", "tool": "Sandpaper/add cork", "criteria": "Uniform fit" },
+        { "seq": 3, "parameter": "Dress cork with grease", "tool": "Synthetic grease", "criteria": "Vacuum holds 5 s" }
+      ]
+    },
+    {
+      "title": "QC-Full-Regulation-Test",
+      "name": "QC Full Regulation Test",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Align bridge & remove lost motion", "tool": "Feeler/leak-light", "criteria": "No lost motion" },
+        { "seq": 2, "parameter": "Verify linkage seal", "tool": "Leak-light", "criteria": "No leaks" },
+        { "seq": 3, "parameter": "Whole clarinet pressure test", "tool": "Magnehelic gauge", "criteria": "≤ 0.5 psi" }
+      ]
+    },
+    {
+      "title": "QC-Play-Test-Intonation",
+      "name": "QC Play Test & Intonation",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Warm-up & play scale", "tool": "Pro player / tuner", "criteria": "± 5 cents" },
+        { "seq": 2, "parameter": "Record mechanical noise", "tool": "DAW recorder", "criteria": "None audible" },
+        { "seq": 3, "parameter": "Overnight settle & retest", "tool": "Player", "criteria": "Stable readings" }
+      ]
+    },
+    {
+      "title": "QC-Cosmetic-Polish-Swab",
+      "name": "QC Cosmetic Polish & Swab",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Polish key surfaces", "tool": "Microfiber/silver cloth", "criteria": "Mirror finish" },
+        { "seq": 2, "parameter": "Oil bore if needed", "tool": "Bore oil", "criteria": "Only if RH < 35 %" },
+        { "seq": 3, "parameter": "Final pull-through swab", "tool": "Swab", "criteria": "Dry bore" }
+      ]
+    },
+    {
+      "title": "QC-Documentation-Signoff",
+      "name": "QC Documentation & Signoff",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 1, "parameter": "Upload media & readings", "tool": "ERPNext upload", "criteria": "All files present" },
+        { "seq": 2, "parameter": "Complete inspection template", "tool": "ERPNext form", "criteria": "All fields filled" },
+        { "seq": 3, "parameter": "Generate QC certificate", "tool": "ERPNext PDF", "criteria": "Certificate printed" },
+        { "seq": 4, "parameter": "Senior tech sign-off", "tool": "Signature pad", "criteria": "Signed & dated" }
+      ]
+    },
+    {
+      "title": "New-Clarinet-Incoming-Inspection",
+      "name": "New Clarinet Incoming Inspection",
+      "item_group": "Clarinets",
+      "default_operation": "Incoming QC",
+      "points": [
+        { "seq": 10,  "parameter": "Shipping carton & case integrity",      "sub_procedure": "QC-Shipping-Carton-Case" },
+        { "seq": 20,  "parameter": "Serial #, model, paperwork match",      "sub_procedure": "QC-Serial-Paperwork-Match" },
+        { "seq": 30,  "parameter": "Body surface & logo",                   "sub_procedure": "QC-Body-Surface-Logo" },
+        { "seq": 40,  "parameter": "Tone-hole edges",                       "sub_procedure": "QC-Tonehole-Edges" },
+        { "seq": 50,  "parameter": "Pad seal – top joint",                  "sub_procedure": "QC-Pad-Seal-Top-Joint" },
+        { "seq": 60,  "parameter": "Pad seal – lower joint",                "sub_procedure": "QC-Pad-Seal-Lower-Joint" },
+        { "seq": 70,  "parameter": "Spring tension balance",                "sub_procedure": "QC-Spring-Tension-Balance" },
+        { "seq": 80,  "parameter": "Key fitting / wobble",                  "sub_procedure": "QC-Key-Fitting-Wobble" },
+        { "seq": 90,  "parameter": "Key height & venting",                  "sub_procedure": "QC-Key-Height-Venting" },
+        { "seq": 100, "parameter": "Tenon fit & cork",                      "sub_procedure": "QC-Tenon-Fit-Cork" },
+        { "seq": 110, "parameter": "Full regulation test",                  "sub_procedure": "QC-Full-Regulation-Test" },
+        { "seq": 120, "parameter": "Play-test & intonation",                "sub_procedure": "QC-Play-Test-Intonation" },
+        { "seq": 130, "parameter": "Cosmetic polish & swab",                "sub_procedure": "QC-Cosmetic-Polish-Swab" },
+        { "seq": 140, "parameter": "Documentation & sign-off",              "sub_procedure": "QC-Documentation-Signoff" }
+      ]
+    }
+  ]
+}

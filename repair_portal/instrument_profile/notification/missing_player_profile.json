@@ -1,0 +1,11 @@
+{
+  "doctype": "Notification",
+  "document_type": "Instrument Profile",
+  "subject": "Player Profile Missing",
+  "message": "Instrument {{ doc.name }} is waiting on a Player Profile.",
+  "event": "Value Change",
+  "send_alert_on": "profile_status",
+  "value_changed": "Waiting on Player",
+  "recipients": [{"receiver_by_role": "Repair Manager"}],
+  "enabled": 1
+}

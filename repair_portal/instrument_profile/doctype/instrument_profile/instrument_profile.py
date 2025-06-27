@@ -1,8 +1,7 @@
 # File: repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
 # Updated: 2025-06-27
-# Version: 1.5
-# Purpose: Auto-generates route for web profile and links to ERPNext
-#          Sanitizes private fields when rendering published profiles.
+# Version: 1.6
+# Purpose: Adds validation that enforces workflow integrity during profile setup.
 
 import frappe
 from frappe.website.website_generator import WebsiteGenerator
@@ -15,6 +14,13 @@ class InstrumentProfile(WebsiteGenerator):
         # Auto-set route from serial number
         if not self.route and self.serial_number:
             self.route = frappe.scrub(self.serial_number)
+
+        # Ensure linked profiles before state transitions
+        if self.profile_status == "Ready for Use":
+            if not self.client_profile:
+                frappe.throw("Client Profile must be set before this instrument can be marked Ready for Use.")
+            if not self.player_profile:
+                frappe.throw("Player Profile must be set before this instrument can be marked Ready for Use.")
 
     PRIVATE_FIELDS = [
         "owner",

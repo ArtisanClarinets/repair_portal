@@ -1,0 +1,68 @@
+{
+  "doctype": "DocType",
+  "name": "Player Profile",
+  "module": "Player Profile",
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "client_profile",
+      "label": "Client Profile",
+      "fieldtype": "Link",
+      "options": "Client Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "player_name",
+      "label": "Player Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "preferred_mouthpiece",
+      "label": "Preferred Mouthpiece",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "preferred_reed",
+      "label": "Preferred Reed",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "preferred_literature",
+      "label": "Preferred Literature",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Text"
+    },
+    {
+      "fieldname": "profile_status",
+      "label": "Profile Status",
+      "fieldtype": "Link",
+      "options": "Workflow State",
+      "read_only": 1,
+      "in_list_view": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1
+    }
+  ]
+}

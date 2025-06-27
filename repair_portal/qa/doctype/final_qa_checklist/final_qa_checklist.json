@@ -1,7 +1,6 @@
 {
   "doctype": "DocType",
-  "name": "final_qa_checklist",
-  "label": "Final QA Checklist",
+  "name": "Final QA Checklist",
   "module": "QA",
   "custom": 0,
   "fields": [
@@ -9,7 +8,15 @@
     {"fieldname": "related_repair", "fieldtype": "Link", "label": "Repair Reference", "options": "Repair Log"},
     {"fieldname": "checklist_items", "fieldtype": "Table", "label": "Checklist Items", "options": "Final QA Checklist Item"},
     {"fieldname": "overall_passed", "fieldtype": "Check", "label": "Overall Passed"},
-    {"fieldname": "comments", "fieldtype": "Text", "label": "Final Comments"}
+    {"fieldname": "comments", "fieldtype": "Text", "label": "Final Comments"},
+    {
+      "fieldname": "workflow_state",
+      "label": "Workflow State",
+      "fieldtype": "Link",
+      "options": "Workflow State",
+      "read_only": 1,
+      "in_list_view": 1
+    }
   ],
   "permissions": [
     {"role": "QA Technician", "read": 1, "write": 1, "create": 1, "submit": 1},

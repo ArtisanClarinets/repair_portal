@@ -2,45 +2,16 @@
   "doctype": "Web Form",
   "name": "clarinet_intake_request",
   "module": "Intake",
-  "doc_type": "Clarinet Intake",
-  "title": "Submit Clarinet Intake Request",
-  "web_form_fields": [
-    {
-      "fieldname": "customer",
-      "label": "Customer",
-      "fieldtype": "Link",
-      "options": "Customer",
-      "reqd": 1
-    },
-    {
-      "fieldname": "instrument_profile",
-      "label": "Instrument Profile",
-      "fieldtype": "Link",
-      "options": "Instrument Profile",
-      "reqd": 1
-    },
-    {
-      "fieldname": "reason_for_service",
-      "label": "Reason for Service",
-      "fieldtype": "Small Text"
-    },
-    {
-      "fieldname": "external_docs",
-      "label": "Attach External Docs",
-      "fieldtype": "Attach",
-      "reqd": 0
-    }
+  "title": "Clarinet Intake Request",
+  "fields": [
+    {"fieldname": "serial_number", "fieldtype": "Data", "label": "Serial Number", "reqd": 1},
+    {"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer", "reqd": 1},
+    {"fieldname": "instrument_category", "fieldtype": "Select", "label": "Instrument Category", "options": "Bb\nA\nEb\nBass\nOther"},
+    {"fieldname": "received_date", "fieldtype": "Date", "label": "Received Date"},
+    {"fieldname": "due_date", "fieldtype": "Date", "label": "Due Date"},
+    {"fieldname": "customer_notes", "fieldtype": "Text", "label": "Customer Notes"},
+    {"fieldname": "inspection_completed", "fieldtype": "Check", "label": "Inspection Completed?"}
   ],
-  "login_required": 1,
-  "allow_multiple": 1,
-  "route": "/submit-intake",
-  "success_message": "Your intake has been submitted.",
-  "success_url": "/status-intake",
-  "show_list": 1,
-  "is_list": 1,
-  "list_columns": [
-    {"fieldname": "instrument_profile"},
-    {"fieldname": "reason_for_service"},
-    {"fieldname": "customer"}
-  ]
+  "is_standard": 1,
+  "login_required": 1
 }

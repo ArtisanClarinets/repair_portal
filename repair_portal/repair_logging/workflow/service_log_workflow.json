@@ -1,28 +1,21 @@
 {
   "doctype": "Workflow",
-  "module": "Repair Logging",
-  "is_standard": 1,
-  "is_query_report": 1,
-  "query": "repair_portal.repair_logging.workflow.service_log_workflow.service_log_workflow_query",
-  "report_fields": [
-    {"fieldname": "creation_date", "label": "Creation Date", "fieldtype": "Date"},
-    {"fieldname": "technician", "label": "Technician", "fieldtype": "Link", "options": "Technician"},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nOpen\nIn Progress\nResolved\nClosed"}
-  ],
-  "name": "service_log_workflow",
   "workflow_name": "Service Log Workflow",
-  "document_type": "Service Log",
+  "name": "service_log_workflow",
+  "document_type": "Repair Order",
   "is_active": 1,
+  "is_standard": 1,
+  "sync_on_migrate": 1,
   "workflow_state_field": "status",
   "states": [
-    {"state": "Open", "doc_status": 0},
-    {"state": "In Progress", "doc_status": 0},
-    {"state": "Resolved", "doc_status": 1},
-    {"state": "Closed", "doc_status": 2}
+    {"state": "Open", "doc_status": 0, "allow_edit": "Technician"},
+    {"state": "In Progress", "doc_status": 0, "allow_edit": "Technician"},
+    {"state": "Resolved", "doc_status": 1, "allow_edit": "Service Manager"},
+    {"state": "Closed", "doc_status": 2, "allow_edit": "Service Manager"}
   ],
   "transitions": [
-    {"state": "Open", "action": "Start Work", "next_state": "In Progress", "allowed": ["System Manager", "Technician"]},
-    {"state": "In Progress", "action": "Resolve", "next_state": "Resolved", "allowed": ["Technician"]},
-    {"state": "Resolved", "action": "Close", "next_state": "Closed", "allowed": ["System Manager"]}
+    {"state": "Open", "action": "Start Work", "next_state": "In Progress", "allowed": "Technician"},
+    {"state": "In Progress", "action": "Resolve", "next_state": "Resolved", "allowed": "Technician"},
+    {"state": "Resolved", "action": "Close", "next_state": "Closed", "allowed": "Service Manager"}
   ]
 }

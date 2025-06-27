@@ -8,7 +8,15 @@
     {"fieldname": "condition_notes", "fieldtype": "Text", "label": "Condition Notes"},
     {"fieldname": "return_photos", "fieldtype": "Attach Image", "label": "Photos at Return"},
     {"fieldname": "damage_found", "fieldtype": "Check", "label": "Damage Observed"},
-    {"fieldname": "return_date", "fieldtype": "Date", "label": "Date of Return"}
+    {"fieldname": "return_date", "fieldtype": "Date", "label": "Date of Return"},
+    {
+      "fieldname": "workflow_state",
+      "label": "Workflow State",
+      "fieldtype": "Link",
+      "options": "Workflow State",
+      "read_only": 1,
+      "in_list_view": 1
+    }
   ],
   "permissions": [
     {"role": "Technician", "read": 1, "write": 1, "create": 1},

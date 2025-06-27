@@ -1,26 +1,13 @@
 frappe.ui.form.on('Instrument Profile', {
   refresh(frm) {
-    if (frappe.user_roles.includes('System Manager')) {
-      frm.add_custom_button('Renew Warranty', () => {
-        frappe.prompt(
-          [
-            { fieldname: 'new_start_date', label: 'New Start Date', fieldtype: 'Date', reqd: 1 },
-            { fieldname: 'new_end_date', label: 'New End Date', fieldtype: 'Date', reqd: 1 },
-            { fieldname: 'reason', label: 'Reason for Renewal', fieldtype: 'Data', reqd: 1 },
-          ],
-          (values) => {
-            frm.set_value('warranty_start_date', values.new_start_date);
-            frm.set_value('warranty_end_date', values.new_end_date);
-            frm.set_value('warranty_modification_reason', values.reason);
-            frm.save();
-          },
-          'Renew Warranty'
-        );
-      });
+    if (frm.doc.profile_status === 'Waiting on Client') {
+      frappe.msgprint(__('📌 Please link a valid Client Profile before progressing.'));
     }
-
-    frm.add_custom_button('View Lab Data', () => {
-      frappe.set_route('lab-dashboard', { instrument: frm.doc.name });
-    });
-  },
+    if (frm.doc.profile_status === 'Waiting on Player') {
+      frappe.msgprint(__('🎯 Attach a Player Profile to continue setup.'));
+    }
+    if (frm.doc.profile_status === 'Ready for Use') {
+      frappe.msgprint(__('✅ All profiles are in place. You may proceed to archive or deploy.'));
+    }
+  }
 });

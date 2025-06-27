@@ -1,0 +1,21 @@
+{
+  "doctype": "Workflow",
+  "name": "Client Profile Setup",
+  "module": "Client Profile",
+  "is_standard": 1,
+  "sync_on_migrate": 1,
+  "is_active": 1,
+  "document_type": "Client Profile",
+  "workflow_state_field": "profile_status",
+  "states": [
+    { "state": "Draft", "doc_status": 0, "style": "warning", "allow_edit": "Repair Manager" },
+    { "state": "Information Verified", "doc_status": 0, "style": "info", "allow_edit": "Repair Manager" },
+    { "state": "Active", "doc_status": 1, "style": "success", "allow_edit": "Repair Manager" },
+    { "state": "Archived", "doc_status": 2, "style": "danger", "allow_edit": "Repair Manager" }
+  ],
+  "transitions": [
+    { "state": "Draft", "action": "Verify Info", "next_state": "Information Verified", "allowed": "Repair Manager" },
+    { "state": "Information Verified", "action": "Activate", "next_state": "Active", "allowed": "Repair Manager" },
+    { "state": "Active", "action": "Archive", "next_state": "Archived", "allowed": "Repair Manager" }
+  ]
+}

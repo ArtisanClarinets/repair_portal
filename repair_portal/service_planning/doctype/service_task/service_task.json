@@ -2,12 +2,20 @@
   "doctype": "DocType",
   "name": "Service Task",
   "module": "Service Planning",
+  "custom": 0,
   "fields": [
     { "fieldname": "task_name", "label": "Task Name", "fieldtype": "Data", "reqd": 1 },
     { "fieldname": "description", "label": "Description", "fieldtype": "Text" },
     { "fieldname": "scheduled_date", "label": "Scheduled Date", "fieldtype": "Date" },
     { "fieldname": "assigned_to", "label": "Assigned To", "fieldtype": "Link", "options": "User" },
-    { "fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Pending\nScheduled\nCompleted" }
+    {
+      "fieldname": "workflow_state",
+      "label": "Workflow State",
+      "fieldtype": "Link",
+      "options": "Workflow State",
+      "read_only": 1,
+      "in_list_view": 1
+    }
   ],
   "permissions": [
     {"role": "Technician", "read": 1, "write": 1, "create": 1},

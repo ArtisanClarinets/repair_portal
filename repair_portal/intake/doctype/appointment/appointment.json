@@ -8,7 +8,15 @@
     {"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer", "reqd": 1},
     {"fieldname": "serial_number", "fieldtype": "Data", "label": "Instrument Serial Number"},
     {"fieldname": "reason", "fieldtype": "Small Text", "label": "Reason or Notes"},
-    {"fieldname": "confirmed", "fieldtype": "Check", "label": "Confirmed"}
+    {"fieldname": "confirmed", "fieldtype": "Check", "label": "Confirmed"},
+    {
+      "fieldname": "workflow_state",
+      "label": "Workflow State",
+      "fieldtype": "Link",
+      "options": "Workflow State",
+      "read_only": 1,
+      "in_list_view": 1
+    }
   ],
   "permissions": [
     {"role": "Technician", "read": 1, "write": 1, "create": 1},

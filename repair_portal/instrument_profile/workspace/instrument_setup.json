@@ -1,0 +1,18 @@
+{
+  "doctype": "Workspace",
+  "label": "Instrument Setup",
+  "module": "Instrument Profile",
+  "name": "instrument-setup",
+  "for_user": "",
+  "is_standard": 1,
+  "content": [
+    {
+      "type": "shortcut",
+      "label": "New Instrument Setup",
+      "link_to": "List/Instrument Profile/List?profile_status=Draft",
+      "icon": "octicon octicon-plus-circle",
+      "target": "_self",
+      "color": "blue"
+    }
+  ]
+}

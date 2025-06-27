@@ -1,26 +1,20 @@
 // File: repair_portal/repair_portal/intake/doctype/clarinet_intake/clarinet_intake.js
-// Updated: 2025-06-12
-// Purpose: Implements real-time intake timer and tag escalation logic
+// Updated: 2025-06-27
+// Version: 1.1
+// Purpose: Client script to update Inspection Completed field when inspection is submitted
 
-let intakeStartTime = null;
-
-frappe.ui.form.on('Clarinet Intake', {
-  onload(frm) {
-    intakeStartTime = new Date();
-    frm.dashboard.set_headline_alert('⏱ Intake started', 'blue');
-  },
-
-  before_save(frm) {
-    if (intakeStartTime) {
-      const now = new Date();
-      const diffSec = Math.floor((now - intakeStartTime) / 1000);
-      frm.set_value('intake_duration', diffSec);
+frappe.ui.form.on('Clarinet Inspection', {
+    after_save(frm) {
+        if (frm.doc.docstatus === 1 && frm.doc.intake) {
+            frappe.call({
+                method: 'frappe.client.set_value',
+                args: {
+                    doctype: 'Clarinet Intake',
+                    name: frm.doc.intake,
+                    fieldname: 'inspection_completed',
+                    value: 1
+                }
+            });
+        }
     }
-  },
-
-  workflow_state(frm) {
-    if (frm.doc.workflow_state === 'Escalated') {
-      frm.add_tag('Follow-Up');
-    }
-  }
 });

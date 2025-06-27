@@ -14,7 +14,15 @@
     {"fieldname": "preferred_contact_method", "label": "Preferred Contact Method", "fieldtype": "Select", "options": "\nEmail\nPhone\nSMS"},
     {"fieldname": "instruments_owned", "label": "Instruments Owned", "fieldtype": "Table", "options": "Instruments Owned"},
     {"fieldname": "consent_log", "label": "Consent Log", "fieldtype": "Table", "options": "Consent Log"},
-    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"}
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"},
+    {
+      "fieldname": "profile_status",
+      "label": "Profile Status",
+      "fieldtype": "Link",
+      "options": "Workflow State",
+      "read_only": 1,
+      "in_list_view": 1
+    }
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
