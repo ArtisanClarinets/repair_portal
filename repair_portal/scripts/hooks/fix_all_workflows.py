@@ -56,6 +56,15 @@ def normalize_workflow(data: dict, wf_name: str) -> bool:
         if clean_list_field(tr, "allowed"):
             changed = True
 
+    # Ensure "name" fields follow the pattern: "Initial State"
+    for state in data.get("states", []):
+        if "name" in state:
+            state["name"] = state["name"].replace("_", " ").title()  # Capitalize and format the name
+
+    for tr in data.get("transitions", []):
+        if "name" in tr:
+            tr["name"] = tr["name"].replace("_", " ").title()  # Capitalize and format the name
+
     return changed
 
 def slugify(name: str) -> str:
@@ -156,7 +165,7 @@ def run(dry_run: bool = False):
                 logger.info(f"✅ fixed workflow: {module}/workflow/{wf_name}/{fname}")
             fixed += 1
         else:
-            skipped += 1
+            skipped += 1 
 
     logger.info(f"done: {fixed} fixed, {skipped} unchanged, {errors} errors.")
 

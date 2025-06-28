@@ -12,8 +12,9 @@
       "label": "Client Profile ID",
       "fieldtype": "Data",
       "read_only": 1,
-      "in_list_view": 1,
-      "is_standard": 1
+      "hidden": 1,
+      "unique": 1,
+      "description": "This field is auto-generated and cannot be edited."
     },
     {
       "fieldname": "client_profile_name",
@@ -45,7 +46,8 @@
       "fieldname": "client_name",
       "label": "Client Name",
       "fieldtype": "Data",
-      "reqd": 1
+      "reqd": 1,
+      "in_list_view": 1
     },
     {
       "fieldname": "customer",
@@ -102,18 +104,6 @@
       "in_list_view": 1,
       "is_standard": 1,
       "default": "Draft"
-    },
-    {
-      "fieldname": "client_profile_id",
-      "fieldtype": "Data",
-      "label": "Client Profile ID",
-      "read_only": 1,
-      "in_list_view": 1,
-      "is_standard": 1,
-      "hidden": 1,
-      "autogenerate": 1,
-      "default": "CP-{0000}",
-      "description": "This field is auto-generated and cannot be edited."
     }
   ],
   "permissions": [

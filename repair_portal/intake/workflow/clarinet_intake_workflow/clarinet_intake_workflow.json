@@ -1,47 +1,47 @@
 {
-  "doctype": "Workflow",
-  "workflow_name": "Clarinet Intake Workflow",
-  "label": "Clarinet Intake Workflow",
-  "name": "Clarinet Intake Workflow",
-  "is_active": 1,
-  "document_type": "Clarinet Intake",
-  "doc_type": "Clarinet Intake",
-  "workflow_state_field": "workflow_state",
-  "is_default": 1,
-  "sync_on_migrate": 1,
-  "is_standard": 1,
-  "states": [
-    {
-      "state": "New",
-      "doc_status": 0,
-      "update_field": "workflow_state",
-      "allow_edit": "Technician"
-    },
-    {
-      "state": "Received",
-      "doc_status": 1,
-      "update_field": "workflow_state",
-      "allow_edit": "Technician"
-    },
-    {
-      "state": "Escalated",
-      "doc_status": 1,
-      "update_field": "workflow_state",
-      "allow_edit": "Service Manager"
-    }
-  ],
-  "transitions": [
-    {
-      "state": "New",
-      "action": "Mark Received",
-      "next_state": "Received",
-      "allowed": "Technician"
-    },
-    {
-      "state": "Received",
-      "action": "Escalate",
-      "next_state": "Escalated",
-      "allowed": "Service Manager"
-    }
-  ]
+    "doctype": "Workflow",
+    "workflow_name": "Clarinet Intake Workflow",
+    "label": "Clarinet Intake Workflow",
+    "name": "Clarinet Intake Workflow",
+    "is_active": 1,
+    "document_type": "Clarinet Intake",
+    "doc_type": "Clarinet Intake",
+    "workflow_state_field": "workflow_state",
+    "is_default": 1,
+    "sync_on_migrate": 1,
+    "is_standard": 1,
+    "states": [
+        {
+            "state": "New",
+            "doc_status": 0,
+            "update_field": "workflow_state",
+            "allow_edit": "Technician"
+        },
+        {
+            "state": "Received",
+            "doc_status": 1,
+            "update_field": "workflow_state",
+            "allow_edit": "Technician"
+        },
+        {
+            "state": "Escalated",
+            "doc_status": 1,
+            "update_field": "workflow_state",
+            "allow_edit": "Service Manager"
+        }
+    ],
+    "transitions": [
+        {
+            "state": "New",
+            "action": "Mark Received",
+            "next_state": "Received",
+            "allowed": "Technician"
+        },
+        {
+            "state": "Received",
+            "action": "Escalate",
+            "next_state": "Escalated",
+            "allowed": "Service Manager"
+        }
+    ]
 }

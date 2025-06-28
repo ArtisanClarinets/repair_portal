@@ -1,0 +1,59 @@
+{
+    "workflow_name": "Instrument Profile Workflow",
+    "label": "Instrument Profile Workflow",
+    "name": "instrument_profile_workflow",
+    "doctype": "Workflow",
+    "doc_type": "Instrument Profile",
+    "is_default": 1,
+    "document_type": "Instrument Profile",
+    "is_active": 1,
+    "state_field": "status",
+    "description": "Workflow for managing instrument profiles in the repair portal.",
+    "module": "Instrument Profile",
+    "workflow_state_field": "status",
+    "custom": 0,
+    "istable": 0,
+    "editable_grid": 1,
+    "standard": 1,
+    "states": [
+        {
+            "state": "Open",
+            "doc_status": 0,
+            "update_field": "status"
+        },
+        {
+            "state": "In Progress",
+            "doc_status": 0
+        },
+        {
+            "state": "Resolved",
+            "doc_status": 1
+        },
+        {
+            "state": "Closed",
+            "doc_status": 2
+        }
+    ],
+    "transitions": [
+        {
+            "state": "Open",
+            "action": "Start",
+            "next_state": "In Progress",
+            "allowed": "System Manager"
+        },
+        {
+            "state": "In Progress",
+            "action": "Resolve",
+            "next_state": "Resolved",
+            "allowed": "System Manager"
+        },
+        {
+            "state": "Resolved",
+            "action": "Close",
+            "next_state": "Closed",
+            "allowed": "System Manager"
+        }
+    ],
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

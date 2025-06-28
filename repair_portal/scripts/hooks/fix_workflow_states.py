@@ -43,10 +43,6 @@ def fix_workflow_states():
                         data["doctype"] = "Workflow State"
                         changed = True
 
-                    # Enforce name
-                    if data.get("name") != state:
-                        data["name"] = state
-                        changed = True
 
                     # Enforce module
                     if data.get("module") != module.replace("_", " ").title():

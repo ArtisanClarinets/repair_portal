@@ -1,10 +1,10 @@
 {
-  "doctype": "Workflow State",
-  "workflow_state_name": "Planning",
-  "style": "Blue",
-  "doc_status": 0,
-  "name": "planning",
-  "module": "Repair",
-  "is_standard": 1,
-  "sync_on_migrate": 1
+    "doctype": "Workflow State",
+    "workflow_state_name": "Planning",
+    "style": "Blue",
+    "doc_status": 0,
+    "name": "Planning",
+    "module": "Repair",
+    "is_standard": 1,
+    "sync_on_migrate": 1
 }

@@ -17,8 +17,10 @@ after_install = [
     "repair_portal.scripts.reload_all_doctypes.reload_all_doctypes"
 ]
 after_migrate = [ 
-    "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
-    "repair_portal.scripts.hooks.fix_workflow_states.fix_workflow_states"
+    "repair_portal.scripts.hooks.fix_workflow_states.fix_workflow_states",
+    "repair_portal.scripts.hooks.fix_name_key.run",
+    "repair_portal.scripts.hooks.insert_workflows.insert_workflows_from_json",
+    "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"
 ]
 
 website_generators = [

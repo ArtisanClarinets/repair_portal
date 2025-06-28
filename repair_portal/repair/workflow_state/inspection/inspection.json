@@ -1,10 +1,10 @@
 {
-  "doctype": "Workflow State",
-  "workflow_state_name": "Inspection",
-  "style": "Yellow",
-  "doc_status": 0,
-  "name": "inspection",
-  "module": "Repair",
-  "is_standard": 1,
-  "sync_on_migrate": 1
+    "doctype": "Workflow State",
+    "workflow_state_name": "Inspection",
+    "style": "Yellow",
+    "doc_status": 0,
+    "name": "Inspection",
+    "module": "Repair",
+    "is_standard": 1,
+    "sync_on_migrate": 1
 }

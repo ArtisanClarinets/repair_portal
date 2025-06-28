@@ -1,12 +1,19 @@
-# File: repair_portal/intake/doctype/Player Profile/Player Profile.py
-# Date Updated: 2025-06-12
-# Version: v1.0
-# Purpose: Server-side controller for Player Profile DocType
+# File: repair_portal/player_profile/doctype/player_profile/player_profile.py
+# Updated: 2025-06-28
+# Version: 1.1.0
+# Purpose: WebsiteGenerator controller for Player Profile with context rendering
 
 import frappe
-from frappe.model.document import Document
+from frappe.website.website_generator import WebsiteGenerator
 
+class PlayerProfile(WebsiteGenerator):
+    website = frappe._dict(
+        condition_field="published",
+        page_title_field="player_name",
+        route="route"
+    )
 
-class PlayerProfile(Document):
-    pass
-        
+    def get_context(self, context):
+        context.title = self.player_name
+        context.parents = [{"title": "My Players", "route": "/dashboard"}]
+        context.profile = self.as_dict()
