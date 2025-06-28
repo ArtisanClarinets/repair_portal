@@ -1,42 +1,17 @@
-# QA Module
+# QA Module (repair_portal/qa)
 
-## 🎯 Purpose
-Ensure quality assurance of repairs before final delivery using structured checklists, dashboards, and workflows.
+## Purpose
+Holds advanced QC/QA analysis tools, print formats, KPI script reports, and integration for clarinet and instrument QA. All advanced reporting, certificates, dashboards, and cross-module analysis live here.
 
-## 📂 Structure
-```
-qa/
-├── doctype/
-│   ├── final_qa_checklist/
-│   └── final_qa_checklist_item/
-├── report/
-│   └── qa_failure_rate/
-├── dashboard_chart/
-│   └── qa_failures_by_tech.json
-├── workflow/
-│   └── final_qa_checklist_workflow.json
-├── workspace/
-│   └── qa.json
-├── config/
-│   └── desktop.py
-└── README.md
-```
+## Key Features
+- QC script reports (first-pass yield, pressure trend, re-service rate, etc)
+- QC Certificate print formats
+- Workflow JSONs (for inspection/QA lifecycle)
+- Procedures/JSON schema utilities
 
-## ✅ Doctypes
-- Final QA Checklist
-- Final QA Checklist Item (child)
+## Usage
+- Used by Inspection module for advanced QC/QA
+- Can be extended for other instrument types
 
-## 📊 Reports
-- QA Failure Rate ✅
-
-## 📈 Dashboard Charts
-- QA Failures by Technician ✅
-
-## 🔁 Workflow
-- Final QA Checklist Workflow ✅
-
-## 🔒 Permissions
-- `QA Technician`, `Service Manager`, `System Manager`
-
-## 🚦 Status
-Production-ready ✅
+## Last Updated
+2025-06-27

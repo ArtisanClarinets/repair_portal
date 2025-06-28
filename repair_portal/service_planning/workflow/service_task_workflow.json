@@ -1,21 +1,55 @@
 {
   "doctype": "Workflow",
   "module": "Service Planning",
-  "workflow_id": "service_task_workflow",
-  "name": "service_task_workflow",
+  "workflow_id": "Service Task Workflow",
+  "name": "Service Task Workflow",
   "workflow_name": "Service Task Workflow",
   "document_type": "Service Task",
   "is_active": 1,
   "is_default": 1,
   "is_standard": 1,
   "workflow_state_field": "workflow_state",
+  "sync_on_migrate": 1,
+  "state_field": "workflow_state",
   "states": [
-    {"state": "Scheduled", "doc_status": 0, "allow_edit": ["Technician"]},
-    {"state": "In Progress", "doc_status": 0, "allow_edit": ["Technician"]},
-    {"state": "Completed", "doc_status": 1, "allow_edit": ["Service Manager"]}
+    {
+      "state": "Scheduled",
+      "doc_status": 0,
+      "allow_edit": [
+        "Technician"
+      ]
+    },
+    {
+      "state": "In Progress",
+      "doc_status": 0,
+      "allow_edit": [
+        "Technician"
+      ]
+    },
+    {
+      "state": "Completed",
+      "doc_status": 1,
+      "allow_edit": [
+        "Service Manager"
+      ]
+    }
   ],
   "transitions": [
-    {"state": "Scheduled", "action": "Start", "next_state": "In Progress", "allowed": ["Technician"]},
-    {"state": "In Progress", "action": "Complete", "next_state": "Completed", "allowed": ["Technician"]}
+    {
+      "state": "Scheduled",
+      "action": "Start",
+      "next_state": "In Progress",
+      "allowed": [
+        "Technician"
+      ]
+    },
+    {
+      "state": "In Progress",
+      "action": "Complete",
+      "next_state": "Completed",
+      "allowed": [
+        "Technician"
+      ]
+    }
   ]
 }

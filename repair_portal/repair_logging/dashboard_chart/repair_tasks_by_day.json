@@ -6,13 +6,43 @@
   "is_query_report": 1,
   "query": "repair_portal.repair_logging.dashboard_chart.repair_tasks_by_day.repair_tasks_by_day_query",
   "report_fields": [
-    {"fieldname": "creation", "label": "Creation Date", "fieldtype": "Date"},
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer"},
-    {"fieldname": "technician", "label": "Technician", "fieldtype": "Link", "options": "Technician"},
-    {"fieldname": "due_date", "label": "Due Date", "fieldtype": "Link", "options": "Due Date"},
-    {"fieldname": "task_type", "label": "Task Type", "fieldtype": "Select", "options": "\nMaintenance\nRepair\nInspection"},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nDraft\nIn Progress\nCompleted"}],
-  "name": "repair_tasks_by_day",
+    {
+      "fieldname": "creation",
+      "label": "Creation Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    },
+    {
+      "fieldname": "technician",
+      "label": "Technician",
+      "fieldtype": "Link",
+      "options": "Technician"
+    },
+    {
+      "fieldname": "due_date",
+      "label": "Due Date",
+      "fieldtype": "Link",
+      "options": "Due Date"
+    },
+    {
+      "fieldname": "task_type",
+      "label": "Task Type",
+      "fieldtype": "Select",
+      "options": "\nMaintenance\nRepair\nInspection"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nDraft\nIn Progress\nCompleted"
+    }
+  ],
+  "name": "Repair Tasks By Day",
   "chart_name": "Repair Tasks by Day",
   "chart_type": "Group By",
   "document_type": "Repair Task Log",

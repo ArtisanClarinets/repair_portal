@@ -2,7 +2,7 @@
   "doctype": "Dashboard Chart",
   "chart_name": "Avg Intake to Repair Time",
   "label": "Avg Intake to Repair Time",
-  "name": "avg_intake_to_repair_time",
+  "name": "Avg Intake To Repair Time",
   "chart_type": "Line",
   "based_on": "Daily",
   "timespan": "Last 30 days",

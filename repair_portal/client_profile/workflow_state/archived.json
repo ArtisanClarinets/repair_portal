@@ -1,9 +1,0 @@
-{
-  "doctype": "Workflow State",
-  "name": "Archived",
-  "module": "Client Profile",
-  "is_standard": 1,
-  "sync_on_migrate": 1,
-  "style": "danger",
-  "doc_status": 2
-}

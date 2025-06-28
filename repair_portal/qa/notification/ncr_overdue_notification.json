@@ -1,0 +1,12 @@
+{
+  "notification_name": "NCR Overdue Notification",
+  "enabled": 1,
+  "document_type": "Non Conformance Report",
+  "condition": "doc.status in ['Open', 'Submitted'] and frappe.utils.add_days(doc.creation, 2) <= frappe.utils.nowdate()",
+  "subject": "[QA Portal] NCR Overdue: {{ doc.name }}",
+  "message": "NCR {{ doc.name }} for instrument {{ doc.instrument_id }} is overdue for resolution. Please take action.",
+  "recipients": [
+    { "role": "Senior Technician" },
+    { "role": "Technician" }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "doctype": "Workflow State",
+  "workflow_state_name": "Ready for Pickup",
+  "style": "Green",
+  "doc_status": 1,
+  "name": "ready_for_pickup",
+  "module": "Repair",
+  "is_standard": 1,
+  "sync_on_migrate": 1
+}

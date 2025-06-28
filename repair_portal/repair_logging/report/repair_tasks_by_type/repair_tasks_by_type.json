@@ -7,14 +7,38 @@
   "is_query_report": 1,
   "query": "repair_portal.repair_logging.report.repair_tasks_by_type.repair_tasks_by_type_query",
   "report_fields": [
-    {"fieldname": "task_type", "label": "Task Type", "fieldtype": "Select", "options": "\nMaintenance\nRepair\nInspection"},
-    {"fieldname": "count", "label": "Count", "fieldtype": "Int"},
-    {"fieldname": "total_duration", "label": "Total Duration (hours)", "fieldtype": "Float"},
-    {"fieldname": "average_duration", "label": "Average Duration (hours)", "fieldtype": "Float"}
+    {
+      "fieldname": "task_type",
+      "label": "Task Type",
+      "fieldtype": "Select",
+      "options": "\nMaintenance\nRepair\nInspection"
+    },
+    {
+      "fieldname": "count",
+      "label": "Count",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "total_duration",
+      "label": "Total Duration (hours)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "average_duration",
+      "label": "Average Duration (hours)",
+      "fieldtype": "Float"
+    }
   ],
-  "name": "Repair Tasks by Type",
+  "name": "Repair Tasks By Type",
   "ref_doctype": "Repair Task Log",
   "report_type": "Script Report",
-  "filters": [{"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""}],
+  "filters": [
+    {
+      "fieldname": "name",
+      "label": "Name",
+      "fieldtype": "Data",
+      "default": ""
+    }
+  ],
   "report_name": "Repair Tasks by Type"
 }

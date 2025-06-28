@@ -1,0 +1,12 @@
+{
+  "role_profile": "Technician",
+  "roles": ["Technician"],
+  "desk_access": true,
+  "restrict_to_own": false,
+  "modules": ["Inspection", "QA"],
+  "doctypes": [
+    {"doctype": "Inspection Report", "read": 1, "write": 1, "create": 1, "submit": 0, "cancel": 0},
+    {"doctype": "Inspection Checklist Item", "read": 1, "write": 1, "create": 1},
+    {"doctype": "Inspection Finding", "read": 1, "write": 1, "create": 1}
+  ]
+}

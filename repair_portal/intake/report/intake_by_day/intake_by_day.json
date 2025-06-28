@@ -1,6 +1,6 @@
 {
   "doctype": "Report",
-  "name": "Intake by Day",
+  "name": "Intake By Day",
   "report_name": "Intake by Day",
   "ref_doctype": "Clarinet Intake",
   "report_type": "Script Report",

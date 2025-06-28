@@ -1,0 +1,47 @@
+{
+  "doctype": "Workflow",
+  "workflow_name": "Final QA Checklist Workflow",
+  "label": "Final QA Checklist Workflow",
+  "name": "Final Qa Checklist Workflow",
+  "document_type": "Final QA Checklist",
+  "is_active": 1,
+  "state_field": "workflow_state",
+  "is_default": 1,
+  "description": "Workflow for the final QA checklist in the repair portal.",
+  "module": "QA",
+  "doc_type": "Final QA Checklist",
+  "workflow_state_field": "workflow_state",
+  "states": [
+    {
+      "state": "Pending",
+      "doc_status": 0,
+      "allow_edit": "Repair Technician"
+    },
+    {
+      "state": "Submitted",
+      "doc_status": 1,
+      "allow_edit": "Service Manager"
+    },
+    {
+      "state": "Flagged",
+      "doc_status": 1,
+      "allow_edit": "Service Manager"
+    }
+  ],
+  "transitions": [
+    {
+      "state": "Pending",
+      "action": "Submit QA",
+      "next_state": "Submitted",
+      "allowed": "Repair Technician"
+    },
+    {
+      "state": "Submitted",
+      "action": "Flag Issue",
+      "next_state": "Flagged",
+      "allowed": "Service Manager"
+    }
+  ],
+  "is_standard": 1,
+  "sync_on_migrate": 1
+}

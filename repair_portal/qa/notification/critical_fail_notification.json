@@ -1,0 +1,11 @@
+{
+  "notification_name": "Critical Fail Notification",
+  "enabled": 1,
+  "document_type": "Inspection Report",
+  "condition": "any([item.severity == 'Critical' and item.pass_fail == 'Fail' for item in doc.inspection_checklist])",
+  "subject": "[QA Portal] Critical Fail Detected: {{ doc.name }}",
+  "message": "A critical failure was detected on inspection {{ doc.name }} ({{ doc.instrument_id }}). Senior technician attention required.",
+  "recipients": [
+    { "role": "Senior Technician" }
+  ]
+}

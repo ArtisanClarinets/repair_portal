@@ -1,9 +1,0 @@
-{
-  "doctype": "Workflow State",
-  "name": "Information Verified",
-  "module": "Client Profile",
-  "is_standard": 1,
-  "sync_on_migrate": 1,
-  "style": "info",
-  "doc_status": 0
-}

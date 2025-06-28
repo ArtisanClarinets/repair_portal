@@ -2,7 +2,7 @@
   "doctype": "Dashboard Chart",
   "chart_name": "Intakes Due Soon",
   "label": "Intakes Due Soon",
-  "name": "intakes_due_soon",
+  "name": "Intakes Due Soon",
   "chart_type": "Bar",
   "based_on": "Daily",
   "timespan": "Next 7 days",

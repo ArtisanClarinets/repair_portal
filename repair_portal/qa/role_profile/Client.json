@@ -1,0 +1,13 @@
+{
+  "role_profile": "Client",
+  "roles": ["Client"],
+  "desk_access": false,
+  "restrict_to_own": true,
+  "modules": ["QA"],
+  "doctypes": [
+    {"doctype": "Inspection Report", "read": 1, "write": 0, "create": 0, "restrict_to_own": true},
+    {"doctype": "Inspection Checklist Item", "read": 1, "write": 0, "create": 0, "restrict_to_own": true},
+    {"doctype": "Inspection Finding", "read": 1, "write": 0, "create": 0, "restrict_to_own": true},
+    {"doctype": "Non Conformance Report", "read": 1, "write": 0, "create": 0, "restrict_to_own": true}
+  ]
+}

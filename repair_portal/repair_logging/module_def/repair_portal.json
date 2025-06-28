@@ -3,7 +3,7 @@
   "module": "Repair Logging",
   "module_name": "Repair Portal",
   "label": "Repair Portal",
-  "name": "repair_portal",
+  "name": "Repair Portal",
   "app_name": "repair_portal",
   "app_label": "Repair Portal",
   "is_custom": 0,

@@ -1,0 +1,8 @@
+{
+  "chart_name": "Re-service Rate Trend",
+  "document_type": "Inspection Report",
+  "chart_type": "Bar",
+  "y_axis": [ { "fieldname": "name", "label": "Re-service Count", "function": "Count", "group_by": "inspection_date", "conditions": [ { "field": "status", "operator": "=", "value": "Passed" } ] } ],
+  "filters": [ { "fieldname": "inspection_type", "label": "Inspection Type", "fieldtype": "Select", "options": "Clarinet QA\nAnnual Cleaning\nRepair Check-in\nOther" } ],
+  "timespan": "Last 30 Days"
+}

@@ -1,6 +1,6 @@
 {
   "doctype": "Report",
-  "name": "Follow-up Compliance",
+  "name": "Follow Up Compliance",
   "report_name": "Follow-up Compliance",
   "ref_doctype": "Intake Followup",
   "report_type": "Script Report",

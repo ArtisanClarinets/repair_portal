@@ -2,8 +2,10 @@
   "doctype": "Workflow",
   "workflow_name": "Appointment Workflow",
   "label": "Appointment Workflow",
-  "name": "appointment_workflow",
-  "document_type": "Appointment",
+  "name": "Appointment Workflow",
+  "doc_type": "Appointment",
+  "is_standard": 1,
+  "sync_on_migrate": 1,
   "is_active": 1,
   "workflow_state_field": "workflow_state",
   "states": [

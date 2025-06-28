@@ -2,7 +2,7 @@
   "doctype": "Workspace",
   "label": "Instrument Setup",
   "module": "Instrument Profile",
-  "name": "instrument-setup",
+  "name": "Instrument Setup",
   "for_user": "",
   "is_standard": 1,
   "content": [

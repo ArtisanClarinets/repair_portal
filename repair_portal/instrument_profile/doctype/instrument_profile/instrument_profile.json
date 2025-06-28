@@ -27,6 +27,14 @@
       "options": "Workflow State",
       "read_only": 1,
       "in_list_view": 1
+    },
+    {
+      "fieldname": "profile_status",
+      "label": "Profile Status",
+      "fieldtype": "Select",
+      "options": "\nDraft\nWaiting on Client\nWaiting on Player\nReady for Use\nArchived",
+      "default": "Draft",
+      "in_list_view": 1
     }
   ],
   "permissions": [

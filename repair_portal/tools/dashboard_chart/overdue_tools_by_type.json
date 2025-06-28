@@ -1,6 +1,6 @@
 {
   "doctype": "Dashboard Chart",
-  "name": "overdue_tools_by_type",
+  "name": "Overdue Tools By Type",
   "chart_name": "Overdue Tools by Type",
   "chart_type": "Group By",
   "document_type": "Tool",

@@ -1,0 +1,71 @@
+{
+    "doctype": "Workflow",
+    "name": "Instrument Profile Setup",
+    "doc_type": "Instrument Profile",
+    "document_type": "Instrument Profile",
+    "is_default": 1,
+    "is_active": 1,
+    "workflow_name": "Instrument Profile Setup",
+    "label": "Instrument Profile Setup",
+    "module": "Instrument Profile",
+    "state_field": "profile_status",
+    "description": "Workflow for setting up an instrument profile in the repair portal.",
+    "workflow_state_field": "profile_status",
+    "custom": 0,
+    "istable": 0,
+    "editable_grid": 1,
+    "standard": 1,
+    "states": [
+        {
+            "state": "Draft",
+            "doc_status": 0,
+            "update_field": "profile_status"
+        },
+        {
+            "state": "Waiting on Client",
+            "doc_status": 0
+        },
+        {
+            "state": "Waiting on Player",
+            "doc_status": 0
+        },
+        {
+            "state": "Ready for Use",
+            "doc_status": 1
+        },
+        {
+            "state": "Archived",
+            "doc_status": 2
+        }
+    ],
+    "transitions": [
+        {
+            "state": "Draft",
+            "action": "Submit Client Info",
+            "next_state": "Waiting on Client",
+            "allowed": "Repair Manager"
+        },
+        {
+            "state": "Waiting on Client",
+            "action": "Attach Client Profile",
+            "next_state": "Waiting on Player",
+            "allowed": "Repair Manager",
+            "condition": "doc.client_profile"
+        },
+        {
+            "state": "Waiting on Player",
+            "action": "Attach Player Profile",
+            "next_state": "Ready for Use",
+            "allowed": "Repair Manager",
+            "condition": "doc.player_profile"
+        },
+        {
+            "state": "Ready for Use",
+            "action": "Archive",
+            "next_state": "Archived",
+            "allowed": "Repair Manager"
+        }
+    ],
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

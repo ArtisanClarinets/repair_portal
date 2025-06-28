@@ -1,0 +1,23 @@
+{
+  "doctype": "DocType",
+  "name": "Inspection Checklist Item",
+  "module": "Inspection",
+  "istable": 1,
+  "custom": 0,
+  "fields": [
+    {"fieldname": "sequence", "label": "Sequence", "fieldtype": "Int", "reqd": 1},
+    {"fieldname": "area", "label": "Inspection Area", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "criteria", "label": "Criteria", "fieldtype": "Text", "reqd": 1},
+    {"fieldname": "value", "label": "Measured Value", "fieldtype": "Data"},
+    {"fieldname": "pass_fail", "label": "Pass/Fail", "fieldtype": "Select", "options": "Pass\nFail", "reqd": 1},
+    {"fieldname": "severity", "label": "Severity", "fieldtype": "Select", "options": "Minor\nMajor\nCritical"},
+    {"fieldname": "corrective_action", "label": "Corrective Action", "fieldtype": "Text"},
+    {"fieldname": "photo", "label": "Photo", "fieldtype": "Attach Image"},
+    {"fieldname": "notes", "label": "Notes", "fieldtype": "Small Text"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ],
+  "is_child_table": 1
+}

@@ -2,9 +2,11 @@
   "doctype": "List Dashboard",
   "ref_doctype": "Instrument Profile",
   "label": "Instrument Profile Dashboard",
-  "name": "instrument_profile_dashboard",
+  "name": "Instrument Profile Dashboard",
   "charts": [
-    {"chart_name": "Instrument Status Distribution"}
+    {
+      "chart_name": "Instrument Status Distribution"
+    }
   ],
   "cards": [],
   "is_standard": 1

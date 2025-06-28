@@ -2,7 +2,7 @@
   "doctype": "Dashboard Chart",
   "chart_name": "Instrument Status Distribution",
   "label": "Instrument Status Distribution",
-  "name": "instrument_status_distribution",
+  "name": "Instrument Status Distribution",
   "document_type": "Instrument Profile",
   "chart_type": "Donut",
   "timespan": "Last Year",

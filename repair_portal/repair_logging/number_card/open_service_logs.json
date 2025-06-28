@@ -2,7 +2,7 @@
   "doctype": "Number Card",
   "card_name": "Open Service Logs",
   "label": "Open Service Logs",
-  "name": "open_service_logs",
+  "name": "Open Service Logs",
   "document_type": "Service Log",
   "function": "Count",
   "filters_json": "{\"service_type\":\"Repair\",\"status\":\"Open\"}",

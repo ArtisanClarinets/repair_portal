@@ -1,7 +1,7 @@
 {
   "doctype": "Page",
   "title": "Lab Dashboard",
-  "name": "lab_dashboard",
+  "name": "Lab Dashboard",
   "module": "Lab",
   "content": "<div id=\"lab-root\"></div>",
   "script": "/lab/page/lab_dashboard/lab_dashboard.js"

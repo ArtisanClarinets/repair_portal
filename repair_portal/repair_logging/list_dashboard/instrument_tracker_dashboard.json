@@ -2,15 +2,23 @@
   "doctype": "List Dashboard",
   "ref_doctype": "Instrument Tracker",
   "label": "Instrument Tracker Dashboard",
-  "name": "instrument_tracker_dashboard",
+  "name": "Instrument Tracker Dashboard",
   "module": "Repair Logging",
   "charts": [
-    {"chart_name": "Instrument Status Distribution"}
+    {
+      "chart_name": "Instrument Status Distribution"
+    }
   ],
   "cards": [
-    {"card_name": "Open Service Logs"},
-    {"card_name": "In Progress Service Logs"},
-    {"card_name": "Closed Service Logs"}
+    {
+      "card_name": "Open Service Logs"
+    },
+    {
+      "card_name": "In Progress Service Logs"
+    },
+    {
+      "card_name": "Closed Service Logs"
+    }
   ],
   "is_standard": 1
 }

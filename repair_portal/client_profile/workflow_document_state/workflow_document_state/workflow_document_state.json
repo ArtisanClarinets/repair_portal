@@ -1,0 +1,62 @@
+[
+  {
+    "doctype": "Workflow Document State",
+    "workflow_name": "Client Profile Setup",
+    "label": "Client Profile Setup",
+    "name": "Client Profile Setup",
+    "document_type": "Client Profile",
+    "is_active": 1,
+    "state_field": "profile_status",
+    "is_default": 1,
+    "description": "Workflow for client profile setup in the repair portal.",
+    "module": "Client Profile",
+    "doc_type": "Client Profile",
+    "workflow_document_states": [
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Draft",
+        "doc_status": 0
+      },
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Information Verified",
+        "doc_status": 0
+      },
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Approved",
+        "doc_status": 0
+      },
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Rejected",
+        "doc_status": 2
+      },
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Active",
+        "doc_status": 1
+      },
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Deployed",
+        "doc_status": 1
+      },
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Inactive",
+        "doc_status": 1
+      },
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Deleted",
+        "doc_status": 2
+      },
+      {
+        "doctype": "Workflow Document State",
+        "workflow_state": "Archived",
+        "doc_status": 2
+      }
+    ]
+  }
+]

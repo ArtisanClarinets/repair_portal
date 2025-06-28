@@ -1,0 +1,6 @@
+{
+  "doctype": "Workflow Action Master",
+  "workflow_action_name": "Activate Client",
+  "is_custom": 0,
+  "name": "Activate Client"
+}

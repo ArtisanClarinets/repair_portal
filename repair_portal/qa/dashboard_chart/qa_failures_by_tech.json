@@ -2,7 +2,7 @@
   "doctype": "Dashboard Chart",
   "chart_name": "QA Failures by Technician",
   "label": "QA Failures by Technician",
-  "name": "qa_failures_by_technician",
+  "name": "Qa Failures By Technician",
   "chart_type": "Group By",
   "document_type": "Final QA Checklist",
   "based_on": "modified",

@@ -1,16 +1,48 @@
 {
   "doctype": "Web Form",
-  "name": "clarinet_intake_request",
+  "name": "Clarinet Intake Request",
   "module": "Intake",
   "title": "Clarinet Intake Request",
   "fields": [
-    {"fieldname": "serial_number", "fieldtype": "Data", "label": "Serial Number", "reqd": 1},
-    {"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer", "reqd": 1},
-    {"fieldname": "instrument_category", "fieldtype": "Select", "label": "Instrument Category", "options": "Bb\nA\nEb\nBass\nOther"},
-    {"fieldname": "received_date", "fieldtype": "Date", "label": "Received Date"},
-    {"fieldname": "due_date", "fieldtype": "Date", "label": "Due Date"},
-    {"fieldname": "customer_notes", "fieldtype": "Text", "label": "Customer Notes"},
-    {"fieldname": "inspection_completed", "fieldtype": "Check", "label": "Inspection Completed?"}
+    {
+      "fieldname": "serial_number",
+      "fieldtype": "Data",
+      "label": "Serial Number",
+      "reqd": 1
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument_category",
+      "fieldtype": "Select",
+      "label": "Instrument Category",
+      "options": "Bb\nA\nEb\nBass\nOther"
+    },
+    {
+      "fieldname": "received_date",
+      "fieldtype": "Date",
+      "label": "Received Date"
+    },
+    {
+      "fieldname": "due_date",
+      "fieldtype": "Date",
+      "label": "Due Date"
+    },
+    {
+      "fieldname": "customer_notes",
+      "fieldtype": "Text",
+      "label": "Customer Notes"
+    },
+    {
+      "fieldname": "inspection_completed",
+      "fieldtype": "Check",
+      "label": "Inspection Completed?"
+    }
   ],
   "is_standard": 1,
   "login_required": 1

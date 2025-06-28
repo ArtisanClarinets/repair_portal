@@ -1,0 +1,13 @@
+{
+  "role_profile": "Senior Technician",
+  "roles": ["Senior Technician", "Technician"],
+  "desk_access": true,
+  "restrict_to_own": false,
+  "modules": ["Inspection", "QA"],
+  "doctypes": [
+    {"doctype": "Inspection Report", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1},
+    {"doctype": "Inspection Checklist Item", "read": 1, "write": 1, "create": 1},
+    {"doctype": "Inspection Finding", "read": 1, "write": 1, "create": 1},
+    {"doctype": "Non Conformance Report", "read": 1, "write": 1, "create": 1}
+  ]
+}

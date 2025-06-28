@@ -1,0 +1,58 @@
+{
+  "doctype": "Workflow",
+  "name": "Instrument Profile Setup",
+  "document_type": "Instrument Profile",
+  "is_active": 1,
+  "workflow_state_field": "profile_status",
+  "states": [
+    {
+      "state": "Draft",
+      "doc_status": 0,
+      "update_field": "profile_status"
+    },
+    {
+      "state": "Waiting on Client",
+      "doc_status": 0
+    },
+    {
+      "state": "Waiting on Player",
+      "doc_status": 0
+    },
+    {
+      "state": "Ready for Use",
+      "doc_status": 1
+    },
+    {
+      "state": "Archived",
+      "doc_status": 2
+    }
+  ],
+  "transitions": [
+    {
+      "state": "Draft",
+      "action": "Submit Client Info",
+      "next_state": "Waiting on Client",
+      "allowed": "Repair Manager"
+    },
+    {
+      "state": "Waiting on Client",
+      "action": "Attach Client Profile",
+      "next_state": "Waiting on Player",
+      "allowed": "Repair Manager",
+      "condition": "doc.client_profile"
+    },
+    {
+      "state": "Waiting on Player",
+      "action": "Attach Player Profile",
+      "next_state": "Ready for Use",
+      "allowed": "Repair Manager",
+      "condition": "doc.player_profile"
+    },
+    {
+      "state": "Ready for Use",
+      "action": "Archive",
+      "next_state": "Archived",
+      "allowed": "Repair Manager"
+    }
+  ]
+}

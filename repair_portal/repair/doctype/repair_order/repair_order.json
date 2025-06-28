@@ -21,7 +21,7 @@
     {"fieldname": "service_logs", "label": "Service Logs", "fieldtype": "Link", "options": "Service Log"},
     {"fieldname": "qa_checklist", "label": "QA Checklist", "fieldtype": "Link", "options": "Final QA Checklist"},
     {"fieldname": "material_usage", "label": "Material Usage", "fieldtype": "Link", "options": "Material Usage"},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nDraft\nInspection\nPlanning\nIn Progress\nQA\nReady for Pickup\nClosed", "default": "Draft"}
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nDraft\nInspection\nPlanning\nIn Progress\nQA\nReady for Pickup\nOpen\nResolved\nSubmitted\nClosed", "default": "Draft"}
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},

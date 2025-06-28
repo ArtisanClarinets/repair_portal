@@ -11,4 +11,4 @@ Enhancements
 Repair
 Lab
 Client Profile
-Image Log
+Player Profile

@@ -12,8 +12,14 @@ app_include_js = [
     "https://cdn.jsdelivr.net/npm/tone/build/Tone.min.js",
 ]
 
-after_install = "repair_portal.qa.setup.clarinet_qc.sync_qc"
-after_migrate = "repair_portal.qa.setup.clarinet_qc.sync_qc"
+after_install = [ 
+    "repair_portal.qa.setup.clarinet_qc.sync_qc",
+    "repair_portal.scripts.reload_all_doctypes.reload_all_doctypes"
+]
+after_migrate = [ 
+    "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
+    "repair_portal.scripts.hooks.fix_workflow_states.fix_workflow_states"
+]
 
 website_generators = [
     "Instrument Profile",
