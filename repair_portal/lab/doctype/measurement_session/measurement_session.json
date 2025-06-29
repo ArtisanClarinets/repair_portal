@@ -1,0 +1,55 @@
+{
+  "doctype": "DocType",
+  "name": "Measurement Session",
+  "module": "Lab",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "autoname": "format:MS-{####}",
+  "title_field": "instrument",
+  "fields": [
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "technician",
+      "label": "Technician",
+      "fieldtype": "Link",
+      "options": "User",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "date",
+      "label": "Date",
+      "fieldtype": "Date",
+      "default": "Today",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Text"
+    },
+    {
+      "fieldname": "measurements",
+      "label": "Measurements",
+      "fieldtype": "Table",
+      "options": "Measurement Entry"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Lab Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

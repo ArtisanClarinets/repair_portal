@@ -44,7 +44,6 @@ Closed | Open |
 
 ## ⚙️ Controller Methods
 
-From `custom_doctype.py`:
 
 ```python
 def validate(self):

@@ -37,7 +37,6 @@ Documentation for Report: **Custom Doctype Report**
 
 ## ⚙️ Backend Logic
 
-From `custom_doctype_report.py`:
 
 ```python
 def execute(filters=None):

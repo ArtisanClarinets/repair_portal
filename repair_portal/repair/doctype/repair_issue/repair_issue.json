@@ -1,0 +1,53 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Issue",
+  "module": "Repair",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "autoname": "field:customer",
+  "title_field": "customer",
+  "fields": [
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "issue_description",
+      "label": "Issue Description",
+      "fieldtype": "Text",
+      "reqd": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nOpen\nIn Progress\nResolved\nClosed",
+      "default": "Open",
+      "in_list_view": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_submittable": 1,
+  "workflow_state_field": "status"
+}

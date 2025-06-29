@@ -1,0 +1,31 @@
+{
+  "doctype": "DocType",
+  "name": "Measurement Entry",
+  "module": "Lab",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "parameter",
+      "label": "Parameter",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "value",
+      "label": "Value",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "unit",
+      "label": "Unit",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "comments",
+      "label": "Comments",
+      "fieldtype": "Small Text"
+    }
+  ]
+}

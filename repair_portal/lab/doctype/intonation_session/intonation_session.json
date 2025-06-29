@@ -27,7 +27,11 @@
       "fieldtype": "Select",
       "options": "Pre-Repair\nPost-Repair\nStandalone"
     },
-    { "fieldname": "json_data", "label": "Raw JSON", "fieldtype": "Long Text" },
+    {
+      "fieldname": "json_data",
+      "label": "Raw JSON",
+      "fieldtype": "Long Text"
+    },
     {
       "fieldname": "plot_attachment",
       "label": "Plot",

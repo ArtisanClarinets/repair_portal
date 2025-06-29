@@ -1,11 +1,11 @@
 {
   "doctype": "Report",
-  "name": "Custom Doctype Report",
-  "report_name": "Custom Doctype Report",
-  "ref_doctype": "Custom Doctype",
+  "name": "Repair Issue Report",
+  "report_name": "Repair Issue Report",
+  "ref_doctype": "Repair Issue",
   "report_type": "Script Report",
   "is_standard": "Yes",
-  "module": "Repair Logging",
+  "module": "Repair",
   "filters": [
     {
       "fieldname": "customer",

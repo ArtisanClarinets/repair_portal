@@ -99,7 +99,7 @@
       "fieldname": "profile_status",
       "label": "Profile Status",
       "fieldtype": "Select",
-      "options": "\nDraft\nInformation Verified\nApproved\nRejected\nActive\nDeployed\nInactive\nDeleted\nArchived",
+      "options": "\nDraft\nActive\nArchived",
       "read_only": 1,
       "in_list_view": 1,
       "is_standard": 1,
