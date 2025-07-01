@@ -1,0 +1,18 @@
+{
+ "doctype": "DocType",
+ "name": "Instrument Document History",
+ "module": "Instrument Profile",
+ "istable": 1,
+ "fields": [
+  {"fieldname": "event_date", "label": "Event Date", "fieldtype": "Datetime", "reqd": 1},
+  {"fieldname": "event_type", "label": "Event Type", "fieldtype": "Select", "options": "Setup\nInspection\nRepair\nOwnership Transfer", "reqd": 1},
+  {"fieldname": "reference_doc", "label": "Reference Document", "fieldtype": "Link", "options": "Instrument Profile", "reqd": 1},
+  {"fieldname": "summary", "label": "Summary", "fieldtype": "Small Text"},
+  {"fieldname": "user", "label": "User", "fieldtype": "Link", "options": "User"}
+ ],
+ "permissions": [
+  {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+  {"role": "QA Tech", "read": 1, "write": 1, "create": 1},
+  {"role": "Technician", "read": 1, "write": 1, "create": 1}
+ ]
+}

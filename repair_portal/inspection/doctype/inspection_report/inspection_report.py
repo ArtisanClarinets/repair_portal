@@ -1,14 +1,14 @@
 # File: repair_portal/inspection/doctype/inspection_report/inspection_report.py
-# Updated: 2025-06-27
-# Version: 1.1
+# Updated: 2025-07-01
+# Version: 1.2
 # Purpose: Parent Inspection document for all QA/repair/cleaning workflows.
 # On create, auto-loads checklist steps from selected procedure (Clarinet QA, etc) using JSON/Quality Procedure integration.
 # Enforces pass/fail validation, NCR creation on critical failures, and requires photos for failed steps.
+# Adds Quick Launch for QA/Repair, Digital Signature, Flag for Reinspection/Notification logic (2025-07-01)
 
 import frappe
 from frappe import _
 from frappe.model.document import Document
-
 
 class InspectionReport(Document):
     def before_insert(self):
@@ -26,30 +26,25 @@ class InspectionReport(Document):
           - All checklist items must be completed (pass/fail)
           - Photo required for all failed steps
           - NCR auto-link/creation for any major/critical fail
+          - Flag for Reinspection notification
         """
         for item in self.inspection_checklist:
             if not item.pass_fail:
-                frappe.throw(
-                    _(
-                        f"All checklist items must have Pass/Fail set. Missing in sequence: {item.sequence} ({item.area})"
-                    )
-                )
+                frappe.throw(_(f"All checklist items must have Pass/Fail set. Missing in sequence: {item.sequence} ({item.area})"))
             if item.pass_fail == "Fail" and not item.photo:
                 frappe.throw(_(f"Photo is required for failed step: {item.sequence} - {item.area}"))
-            if (
-                item.pass_fail == "Fail"
-                and item.severity in ["Major", "Critical"]
-                and not self.non_conformance_report
-            ):
+            if (item.pass_fail == "Fail" and item.severity in ["Major", "Critical"] and not self.non_conformance_report):
                 ncr = create_ncr(self, item)
                 self.non_conformance_report = ncr.name
                 frappe.msgprint(_(f"Non Conformance Report created: {ncr.name} for failure in {item.area}"))
+        if self.flag_for_reinspection:
+            notify_reinspection(self)
 
     def on_submit(self):
         """
         On submit, generate QC Certificate as PDF (future step), and ensure all NCR links are present if fails occurred.
         """
-        pass  # Certificate generation will be implemented separately.
+        pass  # Certificate generation to be handled separately.
 
 
 def load_checklist_steps(procedure_name):
@@ -57,7 +52,6 @@ def load_checklist_steps(procedure_name):
     Load checklist steps from Quality Procedure (or JSON) for the given procedure_name.
     Returns list of dicts to append to child table.
     """
-    # Try ERPNext Quality Procedure first
     try:
         proc = frappe.get_doc("Quality Procedure", procedure_name)
         if hasattr(proc, "processes"):
@@ -75,7 +69,6 @@ def load_checklist_steps(procedure_name):
     # Fallback: load from clarinet_qc.json via custom loader
     try:
         from repair_portal.qa.setup.clarinet_qc import load_schema
-
         schema = load_schema()
         for proc in schema["procedures"]:
             if proc["name"] == procedure_name:
@@ -108,3 +101,19 @@ def create_ncr(inspection, failed_item):
     ncr.notes = failed_item.notes
     ncr.insert()
     return ncr
+
+
+def notify_reinspection(inspection):
+    """
+    Send notification to assigned QA/reviewer for flagged reinspection.
+    """
+    recipients = []
+    # By default, notify all users with QA Manager/Technician role
+    qa_users = frappe.get_all("User", filters={"roles.role": ["in", ["QA Manager", "Technician"]]}, fields=["email"])
+    recipients = [u.email for u in qa_users if u.email]
+    if recipients:
+        frappe.sendmail(
+            recipients=recipients,
+            subject="Inspection flagged for reinspection",
+            message=f"Inspection {inspection.name} for Instrument {inspection.instrument_id} flagged for reinspection. Please review in the portal.",
+        )

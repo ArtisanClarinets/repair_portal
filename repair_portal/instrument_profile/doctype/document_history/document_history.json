@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Document History",
+  "module": "Instrument Profile",
+  "istable": 1,
+  "fields": [
+    {"fieldname": "event_date", "label": "Event Date", "fieldtype": "Datetime", "reqd": 1},
+    {"fieldname": "event_type", "label": "Event Type", "fieldtype": "Select", "options": "Inspection\nSetup\nRepair\nOwnership Transfer\nQC\nCustom", "reqd": 1},
+    {"fieldname": "reference_document", "label": "Reference Document", "fieldtype": "Dynamic Link", "options": "event_type", "reqd": 1},
+    {"fieldname": "summary", "label": "Summary/Notes", "fieldtype": "Small Text"},
+    {"fieldname": "performed_by", "label": "Performed By", "fieldtype": "Link", "options": "User"},
+    {"fieldname": "media", "label": "Attached Media", "fieldtype": "Attach"},
+    {"fieldname": "action_source", "label": "Action Source", "fieldtype": "Select", "options": "System\nManual\nAPI", "default": "System"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "QA Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "Repair Tech", "read": 1, "write": 1, "create": 1}
+  ]
+}

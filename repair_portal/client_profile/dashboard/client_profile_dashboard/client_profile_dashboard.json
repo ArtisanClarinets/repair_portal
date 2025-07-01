@@ -1,4 +1,6 @@
 {
+  "doctype": "Dashboard",
+  "name": "Client Dashboard",
   "charts": [],
   "cards": [
     {

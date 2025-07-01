@@ -18,7 +18,9 @@
     {"fieldname": "inspection_checklist", "label": "Inspection Checklist", "fieldtype": "Table", "options": "Inspection Checklist Item"},
     {"fieldname": "inspection_findings", "label": "Inspection Findings", "fieldtype": "Table", "options": "Inspection Finding"},
     {"fieldname": "qc_certificate", "label": "QC Certificate", "fieldtype": "Attach"},
-    {"fieldname": "non_conformance_report", "label": "Non Conformance Report", "fieldtype": "Link", "options": "Non Conformance Report"}
+    {"fieldname": "non_conformance_report", "label": "Non Conformance Report", "fieldtype": "Link", "options": "Non Conformance Report"},
+    {"fieldname": "digital_signature", "label": "Digital Signature", "fieldtype": "Signature", "reqd": 0},
+    {"fieldname": "flag_for_reinspection", "label": "Flag for Reinspection", "fieldtype": "Check", "default": 0}
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
