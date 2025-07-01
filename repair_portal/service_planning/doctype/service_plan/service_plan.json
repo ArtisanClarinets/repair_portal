@@ -6,6 +6,27 @@
 	"fields": [
 		{ "fieldname": "plan_date", "label": "Plan Date", "fieldtype": "Date" },
 		{
+			"fieldname": "instrument",
+			"label": "Instrument",
+			"fieldtype": "Link",
+			"options": "Instrument Profile"
+		},
+		{
+			"fieldname": "estimated_cost",
+			"label": "Estimated Cost",
+			"fieldtype": "Currency"
+		},
+		{
+			"fieldname": "labor_hours",
+			"label": "Labor Hours",
+			"fieldtype": "Float"
+		},
+		{
+			"fieldname": "notes",
+			"label": "Notes",
+			"fieldtype": "Small Text"
+		},
+		{
 			"fieldname": "tasks",
 			"label": "Planned Tasks",
 			"fieldtype": "Table",

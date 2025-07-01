@@ -10,6 +10,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+
 class InspectionReport(Document):
     def before_insert(self):
         """
@@ -30,10 +31,18 @@ class InspectionReport(Document):
         """
         for item in self.inspection_checklist:
             if not item.pass_fail:
-                frappe.throw(_(f"All checklist items must have Pass/Fail set. Missing in sequence: {item.sequence} ({item.area})"))
+                frappe.throw(
+                    _(
+                        f"All checklist items must have Pass/Fail set. Missing in sequence: {item.sequence} ({item.area})"
+                    )
+                )
             if item.pass_fail == "Fail" and not item.photo:
                 frappe.throw(_(f"Photo is required for failed step: {item.sequence} - {item.area}"))
-            if (item.pass_fail == "Fail" and item.severity in ["Major", "Critical"] and not self.non_conformance_report):
+            if (
+                item.pass_fail == "Fail"
+                and item.severity in ["Major", "Critical"]
+                and not self.non_conformance_report
+            ):
                 ncr = create_ncr(self, item)
                 self.non_conformance_report = ncr.name
                 frappe.msgprint(_(f"Non Conformance Report created: {ncr.name} for failure in {item.area}"))
@@ -69,6 +78,7 @@ def load_checklist_steps(procedure_name):
     # Fallback: load from clarinet_qc.json via custom loader
     try:
         from repair_portal.qa.setup.clarinet_qc import load_schema
+
         schema = load_schema()
         for proc in schema["procedures"]:
             if proc["name"] == procedure_name:
@@ -109,7 +119,9 @@ def notify_reinspection(inspection):
     """
     recipients = []
     # By default, notify all users with QA Manager/Technician role
-    qa_users = frappe.get_all("User", filters={"roles.role": ["in", ["QA Manager", "Technician"]]}, fields=["email"])
+    qa_users = frappe.get_all(
+        "User", filters={"roles.role": ["in", ["QA Manager", "Technician"]]}, fields=["email"]
+    )
     recipients = [u.email for u in qa_users if u.email]
     if recipients:
         frappe.sendmail(

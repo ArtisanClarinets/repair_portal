@@ -6,7 +6,17 @@ frappe.ready(() => {
   function addRow(data) {
     const li = document.createElement('li');
     li.className = 'py-2 border-t';
-    li.innerHTML = `<strong>${data.status || ''}</strong> <span class="ml-2 text-gray-600">${data.update_time}</span>`;
+
+    const strong = document.createElement('strong');
+    strong.textContent = data.status || '';
+
+    const span = document.createElement('span');
+    span.className = 'ml-2 text-gray-600';
+    span.textContent = data.update_time || '';
+
+    li.appendChild(strong);
+    li.appendChild(span);
+
     if (data.details) {
       const p = document.createElement('p');
       p.className = 'text-sm';

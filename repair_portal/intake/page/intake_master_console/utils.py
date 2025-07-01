@@ -1,9 +1,10 @@
 # relative path: intake/page/intake_master_console/utils.py
-# updated: 2025-06-15
-# version: 1.0
+# updated: 2025-07-01
+# version: 1.1
 # purpose: Backend utility to fetch console data for the Intake Master Console
 
 import frappe
+from frappe.utils import escape_html
 
 
 def get_console_data():
@@ -14,9 +15,18 @@ def get_console_data():
         order_by="modified desc",
     )
 
-    html = "<table class='table table-bordered'><thead><tr><th>ID</th><th>Customer</th><th>Instrument</th><th>Status</th><th>Last Modified</th></tr></thead><tbody>"
+    rows = []
     for d in intakes:
-        html += f'<tr><td>{d.name}</td><td>{d.customer}</td><td>{d.instrument_profile or ""}</td><td>{d.status or ""}</td><td>{d.modified}</td></tr>'
-    html += "</tbody></table>"
+        rows.append(
+            {
+                "name": escape_html(d.name),
+                "customer": escape_html(d.customer),
+                "instrument": escape_html(d.instrument_profile or ""),
+                "status": escape_html(d.status or ""),
+                "modified": escape_html(d.modified),
+            }
+        )
 
-    return html
+    return frappe.render_template(
+        "repair_portal/intake/page/intake_master_console/console_table.html", {"rows": rows}
+    )

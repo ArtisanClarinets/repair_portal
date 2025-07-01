@@ -1,3 +1,8 @@
+# relative path: service_planning/doctype/service_plan/service_plan.py
+# last updated: 2025-07-01
+# version: 1.1
+# purpose: Controller for Service Plan DocType, handles submission and tracking linkage.
+
 import frappe
 from frappe.model.document import Document
 

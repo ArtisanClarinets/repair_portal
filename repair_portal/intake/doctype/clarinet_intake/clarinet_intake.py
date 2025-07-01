@@ -5,9 +5,12 @@
 # notes: This version ensures end-to-end traceability and workflow enforcement for Fortune 500-level requirements. Automatically links/creates all required docs and triggers QC. Includes instrument profile creation and linkage.
 
 from __future__ import annotations
+
 import frappe
 from frappe.model.document import Document
+
 from . import clarinet_intake_block_flagged
+
 
 class ClarinetIntake(Document):
     def validate(self):
@@ -47,11 +50,17 @@ class ClarinetIntake(Document):
         if self.intake_type == "Inventory":
             for fld in ("purchase_order", "purchase_receipt", "warehouse"):
                 if not self.get(fld):
-                    frappe.throw(frappe._("{0} is required for Inventory Intakes").format(fld.replace("_", " ").title()))
+                    frappe.throw(
+                        frappe._("{0} is required for Inventory Intakes").format(
+                            fld.replace("_", " ").title()
+                        )
+                    )
         elif self.intake_type == "Repair":
             for fld in ("customer", "due_date"):
                 if not self.get(fld):
-                    frappe.throw(frappe._("{0} is required for Repair Intakes").format(fld.replace("_", " ").title()))
+                    frappe.throw(
+                        frappe._("{0} is required for Repair Intakes").format(fld.replace("_", " ").title())
+                    )
 
     def _ensure_purchase_receipt(self):
         """Auto-create or link a Purchase Receipt if missing for Inventory Intake."""
@@ -62,7 +71,7 @@ class ClarinetIntake(Document):
             pr = frappe.db.get_value(
                 "Purchase Receipt Item",
                 {"item_code": self.item_code, "serial_no": self.serial_number},
-                "parent"
+                "parent",
             )
             if pr:
                 self.purchase_receipt = pr
@@ -70,12 +79,15 @@ class ClarinetIntake(Document):
             # Auto-create Purchase Receipt if not found (minimal viable)
             pr_doc = frappe.new_doc("Purchase Receipt")
             pr_doc.supplier = self.supplier or "Unknown"
-            pr_doc.append("items", {
-                "item_code": self.item_code,
-                "qty": 1,
-                "warehouse": self.warehouse,
-                "serial_no": self.serial_number
-            })
+            pr_doc.append(
+                "items",
+                {
+                    "item_code": self.item_code,
+                    "qty": 1,
+                    "warehouse": self.warehouse,
+                    "serial_no": self.serial_number,
+                },
+            )
             pr_doc.save()
             self.purchase_receipt = pr_doc.name
 
@@ -122,12 +134,15 @@ class ClarinetIntake(Document):
         if self.intake_type != "Inventory":
             return
         # Create ERPNext Quality Inspection if not already
-        qi_exists = frappe.db.exists("Quality Inspection", {
-            "reference_type": "Purchase Receipt",
-            "reference_name": self.purchase_receipt,
-            "item_code": self.item_code,
-            "inspection_type": "Incoming"
-        })
+        qi_exists = frappe.db.exists(
+            "Quality Inspection",
+            {
+                "reference_type": "Purchase Receipt",
+                "reference_name": self.purchase_receipt,
+                "item_code": self.item_code,
+                "inspection_type": "Incoming",
+            },
+        )
         if qi_exists:
             return
         qi_doc = frappe.new_doc("Quality Inspection")

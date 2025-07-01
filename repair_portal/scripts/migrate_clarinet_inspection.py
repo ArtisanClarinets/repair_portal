@@ -3,8 +3,10 @@
 # Version: 1.1
 # Purpose: One-time script to migrate all Clarinet Inspection records to Inspection Report DocType, maintaining full data lineage
 
-import frappe
 import csv
+
+import frappe
+
 
 def migrate_all_clarinet_inspections():
     migrated = []
@@ -31,22 +33,31 @@ def migrate_all_clarinet_inspections():
         # Copy findings if available (manual mapping may be needed for sub-tables)
         # Add more here if needed
         ir.insert(ignore_permissions=True)
-        migrated.append({
-            "legacy": ci.name,
-            "new": ir.name,
-            "intake": ci.intake,
-            "instrument_id": instrument_id,
-            "customer_name": customer_name,
-            "status": ci.status
-        })
+        migrated.append(
+            {
+                "legacy": ci.name,
+                "new": ir.name,
+                "intake": ci.intake,
+                "instrument_id": instrument_id,
+                "customer_name": customer_name,
+                "status": ci.status,
+            }
+        )
 
     # Save mapping to CSV
-    with open("/opt/frappe/erp-bench/apps/repair_portal/clarinet_inspection_migration_map.csv", "w", newline="") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=["legacy", "new", "intake", "instrument_id", "customer_name", "status"])
+    with open(
+        "/opt/frappe/erp-bench/apps/repair_portal/clarinet_inspection_migration_map.csv", "w", newline=""
+    ) as csvfile:
+        writer = csv.DictWriter(
+            csvfile, fieldnames=["legacy", "new", "intake", "instrument_id", "customer_name", "status"]
+        )
         writer.writeheader()
         writer.writerows(migrated)
 
-    print(f"Migrated {len(migrated)} Clarinet Inspections. Mapping CSV at /tmp/clarinet_inspection_migration_map.csv")
+    print(
+        f"Migrated {len(migrated)} Clarinet Inspections. Mapping CSV at /tmp/clarinet_inspection_migration_map.csv"
+    )
+
 
 def unify_status(status):
     status_map = {
@@ -58,6 +69,7 @@ def unify_status(status):
         "Failed": "Failed",
     }
     return status_map.get(status, status)
+
 
 if __name__ == "__main__":
     # Run migration script
