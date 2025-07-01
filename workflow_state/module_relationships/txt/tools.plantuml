@@ -1,0 +1,24 @@
+@startuml
+package repair_portal.tools <<Folder>> {
+"Workflow State" *-- "Tool": workflow_state
+  class "Tool" {
+    tool_name : Data
+    tool_type : Select
+    location : Data
+    in_service : Check
+    requires_calibration : Check
+    last_calibrated : Date
+    next_due : Date
+    notes : Small Text
+    workflow_state : Link
+  }
+
+"Employee" *-- "Tool Calibration Log": calibrated_by
+  class "Tool Calibration Log" {
+    tool_name : Data
+    calibration_date : Date
+    calibrated_by : Link
+    next_due : Date
+  }
+}
+@enduml

@@ -4,8 +4,8 @@
 # purpose: Controller for Workflow State (Client Profile workflows)
 # Notes: Standard Frappe controller for workflow state objects used in custom app workflows.
 
-import frappe
 from frappe.model.document import Document
+
 
 class WorkflowState(Document):
     # begin: auto-generated types

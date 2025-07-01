@@ -9,11 +9,11 @@ from frappe import _
 def get_data():
     return [
         {
-            'module_name': 'Enhancements',
-            'type': 'module',
-            'label': _('Enhancements'),
-            'icon': 'octicon octicon-plus',
-            'color': 'pink',
-            'description': 'Upgrades and enhancement options for clarinet repairs',
+            "module_name": "Enhancements",
+            "type": "module",
+            "label": _("Enhancements"),
+            "icon": "octicon octicon-plus",
+            "color": "pink",
+            "description": "Upgrades and enhancement options for clarinet repairs",
         }
     ]

@@ -6,10 +6,11 @@ Usage:
 bench --site erp.artisanclarinets.com execute repair_portal.scripts.fix_workflow_states.fix_workflow_states
 """
 
-import os
 import json
+import os
 
 APP_PATH = "/opt/frappe/erp-bench/apps/repair_portal/repair_portal"
+
 
 def fix_workflow_states():
     """
@@ -33,7 +34,7 @@ def fix_workflow_states():
 
                     json_path = os.path.join(dirpath, filename)
 
-                    with open(json_path, "r") as f:
+                    with open(json_path) as f:
                         data = json.load(f)
 
                     changed = False
@@ -42,7 +43,6 @@ def fix_workflow_states():
                     if data.get("doctype") != "Workflow State":
                         data["doctype"] = "Workflow State"
                         changed = True
-
 
                     # Enforce module
                     if data.get("module") != module.replace("_", " ").title():

@@ -22,15 +22,15 @@ def execute(filters=None):
 
     columns = [
         {
-            'label': 'Technician',
-            'fieldname': 'technician',
-            'fieldtype': 'Link',
-            'options': 'User',
-            'width': 200,
+            "label": "Technician",
+            "fieldname": "technician",
+            "fieldtype": "Link",
+            "options": "User",
+            "width": 200,
         },
-        {'label': 'Failures', 'fieldname': 'fail_count', 'fieldtype': 'Int', 'width': 120},
-        {'label': 'Total Inspections', 'fieldname': 'total', 'fieldtype': 'Int', 'width': 150},
-        {'label': 'Failure Rate %', 'fieldname': 'fail_rate', 'fieldtype': 'Percent', 'width': 130},
+        {"label": "Failures", "fieldname": "fail_count", "fieldtype": "Int", "width": 120},
+        {"label": "Total Inspections", "fieldname": "total", "fieldtype": "Int", "width": 150},
+        {"label": "Failure Rate %", "fieldname": "fail_rate", "fieldtype": "Percent", "width": 130},
     ]
 
     return columns, results

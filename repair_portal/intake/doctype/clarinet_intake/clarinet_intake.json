@@ -3,45 +3,280 @@
   "name": "Clarinet Intake",
   "module": "Intake",
   "custom": 0,
-  "autoname": "field:serial_number",
+  "is_submittable": 1,
+  "autoname": "naming_series:CI-.#####",
+  "apply_workflow": "Clarinet Intake Workflow",
   "fields": [
-    {"fieldname": "serial_number", "fieldtype": "Data", "label": "Serial Number", "reqd": 1, "unique": 1},
-    {"fieldname": "brand", "fieldtype": "Link", "label": "Brand", "options": "Supplier"},
-    {"fieldname": "model", "fieldtype": "Data", "label": "Model"},
-    {"fieldname": "finish", "fieldtype": "Data", "label": "Finish"},
-    {"fieldname": "year_estimated", "fieldtype": "Int", "label": "Estimated Year of Manufacture"},
-    {"fieldname": "instrument_category", "fieldtype": "Select", "label": "Instrument Category", "options": "Bb\nA\nEb\nBass\nOther"},
-    {"fieldname": "supplier", "fieldtype": "Link", "label": "Supplier", "options": "Supplier"},
-    {"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer"},
-    {"fieldname": "received_date", "fieldtype": "Date", "label": "Received Date", "reqd": 1},
-    {"fieldname": "instrument_profile", "label": "Instrument Profile", "fieldtype": "Link", "options": "Instrument Profile", "reqd": 1},
-    {"fieldname": "received_by", "fieldtype": "Link", "label": "Received By", "options": "User"},
-    {"fieldname": "repair_priority", "fieldtype": "Select", "label": "Repair Priority", "options": "Immediate\nUrgent\nNormal"},
-    {"fieldname": "due_date", "fieldtype": "Date", "label": "Due Date", "reqd": 1},
-    {"fieldname": "customer_notes", "fieldtype": "Text", "label": "Customer Notes"},
-    {"fieldname": "case_condition", "fieldtype": "Select", "label": "Case Condition", "options": "Good\nFair\nPoor"},
-    {"fieldname": "mouthpiece_included", "fieldtype": "Check", "label": "Mouthpiece Included"},
-    {"fieldname": "case_damage", "fieldtype": "Check", "label": "Case Damage"},
-    {"fieldname": "tenon_wear", "fieldtype": "Check", "label": "Tenon Wear"},
-    {"fieldname": "loose_rods", "fieldtype": "Check", "label": "Loose Rods"},
-    {"fieldname": "checklist", "fieldtype": "Table", "label": "Checklist", "options": "Intake Checklist Item"},
-    {"fieldname": "initial_photos", "fieldtype": "Attach Image", "label": "Initial Photos"},
-    {"fieldname": "attachments", "fieldtype": "Attach", "label": "Attachments"},
-    {"fieldname": "condition_notes", "fieldtype": "Text", "label": "Condition Notes and Concerns"},
-    {"fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
-    {"fieldname": "created_by", "fieldtype": "Data", "label": "Created By", "read_only": 1},
-    {"fieldname": "creation_date", "fieldtype": "Datetime", "label": "Creation Date", "read_only": 1},
-    {"fieldname": "last_modified_by", "fieldtype": "Data", "label": "Last Modified By", "read_only": 1},
-    {"fieldname": "last_modified_date", "fieldtype": "Datetime", "label": "Last Modified Date", "read_only": 1},
-    {"fieldname": "follow_up_due_date", "fieldtype": "Date", "label": "Follow-Up Due Date"},
-    {"fieldname": "follow_up_completed", "fieldtype": "Check", "label": "Follow-Up Completed"},
-    {"fieldname": "intake_duration", "fieldtype": "Int", "label": "Intake Duration (sec)", "hidden": 1},
-    {"label": "Inspection Completed?", "fieldname": "inspection_completed", "fieldtype": "Check", "default": 0, "reqd": 0, "bold": 1}
+    {
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "label": "Naming Series",
+      "options": "CI-.#####",
+      "default": "CI-.#####",
+      "hidden": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "intake_id",
+      "fieldtype": "Data",
+      "label": "Intake ID",
+      "read_only": 1,
+      "fetch_from": "name",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "intake_type",
+      "fieldtype": "Select",
+      "label": "Intake Type",
+      "options": "Inventory\nRepair",
+      "reqd": 1
+    },
+    {
+      "fieldname": "serial_number",
+      "fieldtype": "Data",
+      "label": "Serial Number",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Supplier"
+    },
+    {
+      "fieldname": "model",
+      "fieldtype": "Data",
+      "label": "Model"
+    },
+    {
+      "fieldname": "finish",
+      "fieldtype": "Data",
+      "label": "Finish"
+    },
+    {
+      "fieldname": "year_estimated",
+      "fieldtype": "Int",
+      "label": "Estimated Year of Manufacture"
+    },
+    {
+      "fieldname": "instrument_category",
+      "fieldtype": "Select",
+      "label": "Instrument Category",
+      "options": "B♭\nA\nE♭\nBass\nOther"
+    },
+    {
+      "fieldname": "supplier",
+      "fieldtype": "Link",
+      "label": "Supplier",
+      "options": "Supplier"
+    },
+    {
+      "fieldname": "purchase_order",
+      "fieldtype": "Link",
+      "label": "Purchase Order",
+      "options": "Purchase Order",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "purchase_receipt",
+      "fieldtype": "Link",
+      "label": "Purchase Receipt",
+      "options": "Purchase Receipt",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "warehouse",
+      "fieldtype": "Link",
+      "label": "Warehouse",
+      "options": "Warehouse",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "received_date",
+      "fieldtype": "Date",
+      "label": "Received Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "received_by",
+      "fieldtype": "Link",
+      "label": "Received By",
+      "options": "User"
+    },
+    {
+      "fieldname": "instrument_profile",
+      "fieldtype": "Link",
+      "label": "Instrument Profile",
+      "options": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "stock_status",
+      "fieldtype": "Select",
+      "label": "Stock Status",
+      "options": "Inspection\nSetup\nQC\nAvailable\nHold",
+      "default": "Inspection",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "qc_status",
+      "fieldtype": "Select",
+      "label": "QC Status",
+      "options": "Pass\nFail",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "inspection_date",
+      "fieldtype": "Datetime",
+      "label": "Inspection Date",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "inspected_by",
+      "fieldtype": "Link",
+      "label": "Inspected By",
+      "options": "User",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "depends_on": "eval:doc.intake_type=='Repair'"
+    },
+    {
+      "fieldname": "repair_priority",
+      "fieldtype": "Select",
+      "label": "Repair Priority",
+      "options": "Immediate\nUrgent\nNormal",
+      "depends_on": "eval:doc.intake_type=='Repair'"
+    },
+    {
+      "fieldname": "due_date",
+      "fieldtype": "Date",
+      "label": "Due Date",
+      "reqd": 1,
+      "depends_on": "eval:doc.intake_type=='Repair'"
+    },
+    {
+      "fieldname": "customer_notes",
+      "fieldtype": "Text",
+      "label": "Customer Notes",
+      "depends_on": "eval:doc.intake_type=='Repair'"
+    },
+    {
+      "fieldname": "follow_up_due_date",
+      "fieldtype": "Date",
+      "label": "Follow-Up Due Date",
+      "depends_on": "eval:doc.intake_type=='Repair'"
+    },
+    {
+      "fieldname": "follow_up_completed",
+      "fieldtype": "Check",
+      "label": "Follow-Up Completed",
+      "depends_on": "eval:doc.intake_type=='Repair'"
+    },
+    {
+      "fieldname": "checklist",
+      "fieldtype": "Table",
+      "label": "Checklist",
+      "options": "Intake Checklist Item"
+    },
+    {
+      "fieldname": "initial_photos",
+      "fieldtype": "Attach Image",
+      "label": "Initial Photos"
+    },
+    {
+      "fieldname": "attachments",
+      "fieldtype": "Attach",
+      "label": "Attachments"
+    },
+    {
+      "fieldname": "condition_notes",
+      "fieldtype": "Text",
+      "label": "Condition Notes and Concerns"
+    },
+    {
+      "fieldname": "intake_duration",
+      "fieldtype": "Int",
+      "label": "Intake Duration (sec)",
+      "hidden": 1
+    },
+    {
+      "fieldname": "workflow_state",
+      "fieldtype": "Link",
+      "label": "Workflow State",
+      "options": "Workflow State",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "created_by",
+      "fieldtype": "Data",
+      "label": "Created By",
+      "read_only": 1
+    },
+    {
+      "fieldname": "creation_date",
+      "fieldtype": "Datetime",
+      "label": "Creation Date",
+      "read_only": 1
+    },
+    {
+      "fieldname": "last_modified_by",
+      "fieldtype": "Data",
+      "label": "Last Modified By",
+      "read_only": 1
+    },
+    {
+      "fieldname": "last_modified_date",
+      "fieldtype": "Datetime",
+      "label": "Last Modified Date",
+      "read_only": 1
+    }
   ],
   "permissions": [
-    {"role": "Repair Technician", "read": 1, "write": 1, "create": 1},
-    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-    {"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
+    {
+      "role": "Inventory Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "Repair Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "edit": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1,
+      "edit": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1,
+      "edit": 1
+    },
+    {
+      "role": "Customer",
+      "read": 1,
+      "if_owner": 1,
+      "depends_on": "eval:doc.intake_type=='Repair'"
+    }
   ]
 }

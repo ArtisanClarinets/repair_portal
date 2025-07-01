@@ -6,8 +6,11 @@
 import frappe
 from frappe.utils import getdate
 
+
 def get_data():
-    closed_orders = frappe.get_all("Repair Order", filters={"status": "Closed"}, fields=["intake", "modified"])
+    closed_orders = frappe.get_all(
+        "Repair Order", filters={"status": "Closed"}, fields=["intake", "modified"]
+    )
 
     total_days = 0
     count = 0

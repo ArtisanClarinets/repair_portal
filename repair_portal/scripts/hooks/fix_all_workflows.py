@@ -8,8 +8,8 @@ Usage (from your bench root):
 """
 
 import json
-import shutil
 import logging
+import shutil
 from pathlib import Path
 
 import frappe
@@ -18,11 +18,13 @@ import frappe
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 logger = logging.getLogger(__name__)
 
+
 # ─── Helpers ────────────────────────────────────────────────────────────────────
 def backup(path: Path):
     bak = path.with_suffix(path.suffix + ".bak")
     shutil.copy2(path, bak)
     logger.debug(f"backed up: {path} → {bak}")
+
 
 def clean_list_field(obj: dict, key: str) -> bool:
     if key not in obj:
@@ -36,14 +38,10 @@ def clean_list_field(obj: dict, key: str) -> bool:
         return True
     return False
 
+
 def normalize_workflow(data: dict, wf_name: str) -> bool:
     changed = False
-    for fld, want in {
-        "doctype":         "Workflow",
-        "name":            wf_name,
-        "is_standard":     1,
-        "sync_on_migrate": 1
-    }.items():
+    for fld, want in {"doctype": "Workflow", "name": wf_name, "is_standard": 1, "sync_on_migrate": 1}.items():
         if data.get(fld) != want:
             data[fld] = want
             changed = True
@@ -67,11 +65,13 @@ def normalize_workflow(data: dict, wf_name: str) -> bool:
 
     return changed
 
+
 def slugify(name: str) -> str:
     """
     Convert "Final QA Checklist" → "final_qa_checklist"
     """
     return name.strip().lower().replace(" ", "_")
+
 
 def find_doctype_json(app_root: Path, module: str, doc_type: str) -> Path | None:
     """
@@ -87,6 +87,7 @@ def find_doctype_json(app_root: Path, module: str, doc_type: str) -> Path | None
 
     # 2) full-app fallback
     return next(app_root.glob(f"**/doctype/{slug}/{slug}.json"), None)
+
 
 def verify_doctype_schema(app_root: Path, module: str, doc_type: str, state_field: str) -> bool:
     """
@@ -109,14 +110,12 @@ def verify_doctype_schema(app_root: Path, module: str, doc_type: str, state_fiel
 
     fields = {f.get("fieldname") for f in dt_schema.get("fields", [])}
     if state_field not in fields:
-        logger.error(
-            f"❌ DocType '{doc_type}' missing field '{state_field}' "
-            f"in {dt_path}"
-        )
+        logger.error(f"❌ DocType '{doc_type}' missing field '{state_field}' " f"in {dt_path}")
         return False
 
     logger.debug(f"✅ DocType '{doc_type}' schema OK ({state_field} present)")
     return True
+
 
 # ─── Core traversal & processing ───────────────────────────────────────────────
 def run(dry_run: bool = False):
@@ -165,9 +164,10 @@ def run(dry_run: bool = False):
                 logger.info(f"✅ fixed workflow: {module}/workflow/{wf_name}/{fname}")
             fixed += 1
         else:
-            skipped += 1 
+            skipped += 1
 
     logger.info(f"done: {fixed} fixed, {skipped} unchanged, {errors} errors.")
+
 
 if __name__ == "__main__":
     # To preview only: run(dry_run=True)

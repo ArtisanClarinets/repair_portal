@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class MeasurementSession(Document):
     def validate(self):
         if not self.instrument:

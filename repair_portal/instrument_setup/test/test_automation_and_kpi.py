@@ -10,19 +10,19 @@ import frappe
 
 class TestAutomationAndKPIs(unittest.TestCase):
     def test_auto_technician_assignment(self):
-        setup = frappe.new_doc('Clarinet Initial Setup')
-        setup.status = 'Open'
+        setup = frappe.new_doc("Clarinet Initial Setup")
+        setup.status = "Open"
         setup.insert()
         assert setup.technician
 
     def test_kpi_checklist_completion(self):
         setup = frappe.get_doc(
             {
-                'doctype': 'Clarinet Initial Setup',
-                'status': 'Open',
-                'checklist': [
-                    {'description': 'Check pads', 'completed': 1},
-                    {'description': 'Test keys', 'completed': 0},
+                "doctype": "Clarinet Initial Setup",
+                "status": "Open",
+                "checklist": [
+                    {"description": "Check pads", "completed": 1},
+                    {"description": "Test keys", "completed": 0},
                 ],
             }
         )

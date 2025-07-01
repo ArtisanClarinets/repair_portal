@@ -1,0 +1,45 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+{% if no_profile %}
+  <section class="container mt-4">
+    <div class="alert alert-warning">
+      <h3 class="alert-heading">My Client Profile</h3>
+      <p>No Client Profile is associated with your account.</p>
+      <p>Please contact support to set up your profile.</p>
+    </div>
+  </section>
+{% else %}
+  <section class="container mt-4">
+    <h1>{{ profile.client_name or "Client Profile" }}</h1>
+    <div class="card mb-4 p-3">
+      <p><strong>Email:</strong> {{ profile.email or "Not provided" }}</p>
+      <p><strong>Phone:</strong> {{ profile.phone or "Not provided" }}</p>
+      <p><strong>Status:</strong> {{ profile.profile_status }}</p>
+      <p><strong>Description:</strong> {{ profile.client_profile_description or "—" }}</p>
+    </div>
+
+    <h2>Player Profiles</h2>
+    {% if players %}
+      <ul class="list-group mb-4">
+        {% for p in players %}
+          <li class="list-group-item">
+            {% if p.published %}
+              <a href="/{{ p.route }}">{{ p.player_name }}</a>
+            {% else %}
+              {{ p.player_name }} (Unpublished)
+            {% endif %}
+            – {{ p.profile_status }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No Player Profiles yet.</p>
+    {% endif %}
+
+    <p><a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a></p>
+  </section>
+{% endif %}
+
+{% endblock %}

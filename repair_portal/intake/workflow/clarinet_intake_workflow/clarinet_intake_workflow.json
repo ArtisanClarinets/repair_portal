@@ -1,47 +1,103 @@
 {
-    "doctype": "Workflow",
-    "workflow_name": "Clarinet Intake Workflow",
-    "label": "Clarinet Intake Workflow",
-    "name": "Clarinet Intake Workflow",
-    "is_active": 1,
-    "document_type": "Clarinet Intake",
-    "doc_type": "Clarinet Intake",
-    "workflow_state_field": "workflow_state",
-    "is_default": 1,
-    "sync_on_migrate": 1,
-    "is_standard": 1,
-    "states": [
-        {
-            "state": "New",
-            "doc_status": 0,
-            "update_field": "workflow_state",
-            "allow_edit": "Technician"
-        },
-        {
-            "state": "Received",
-            "doc_status": 1,
-            "update_field": "workflow_state",
-            "allow_edit": "Technician"
-        },
-        {
-            "state": "Escalated",
-            "doc_status": 1,
-            "update_field": "workflow_state",
-            "allow_edit": "Service Manager"
-        }
-    ],
-    "transitions": [
-        {
-            "state": "New",
-            "action": "Mark Received",
-            "next_state": "Received",
-            "allowed": "Technician"
-        },
-        {
-            "state": "Received",
-            "action": "Escalate",
-            "next_state": "Escalated",
-            "allowed": "Service Manager"
-        }
-    ]
+  "doctype": "Workflow",
+  "workflow_name": "Clarinet Intake Workflow",
+  "document_type": "Clarinet Intake",
+  "is_active": 1,
+  "name": "Clarinet Intake Workflow",
+  "module": "Intake",
+  "workflow_state_field": "workflow_state",
+  "states": [
+    {
+      "state": "New",
+      "style": "Warning",
+      "doc_status": 0,
+      "allow_edit": "All"
+    },
+    {
+      "state": "Inspection",
+      "style": "Primary",
+      "doc_status": 0,
+      "allow_edit": "All"
+    },
+    {
+      "state": "Setup",
+      "style": "Info",
+      "doc_status": 0,
+      "allow_edit": "All"
+    },
+    {
+      "state": "QC",
+      "style": "Success",
+      "doc_status": 0,
+      "allow_edit": "All"
+    },
+    {
+      "state": "Hold",
+      "style": "Danger",
+      "doc_status": 0,
+      "allow_edit": "All"
+    },
+    {
+      "state": "Available",
+      "style": "Success",
+      "doc_status": 0,
+      "allow_edit": "All"
+    },
+    {
+      "state": "Flagged",
+      "style": "Orange",
+      "doc_status": 1,
+      "allow_edit": "System Manager"
+    }
+  ],
+  "transitions": [
+    {
+      "state": "New",
+      "action": "Start Inspection",
+      "next_state": "Inspection",
+      "allowed": "Inventory Manager"
+    },
+    {
+      "state": "Inspection",
+      "action": "Complete Inspection",
+      "next_state": "Setup",
+      "allowed": "Inventory Manager"
+    },
+    {
+      "state": "Setup",
+      "action": "Finish Setup",
+      "next_state": "QC",
+      "allowed": "Inventory Manager"
+    },
+    {
+      "state": "QC",
+      "action": "QC Pass",
+      "next_state": "Available",
+      "allowed": "Inventory Manager"
+    },
+    {
+      "state": "QC",
+      "action": "QC Fail",
+      "next_state": "Flagged",
+      "allowed": "Inventory Manager"
+    },
+    {
+      "state": "Hold",
+      "action": "Retry QC",
+      "next_state": "QC",
+      "allowed": "Inventory Manager"
+    },
+    {
+      "state": "Available",
+      "action": "Reset to New",
+      "next_state": "New",
+      "allowed": "System Manager"
+    },
+    {
+      "state": "Flagged",
+      "action": "Revert to QC",
+      "next_state": "QC",
+      "allowed": "Inventory Manager"
+    }
+  ]
 }

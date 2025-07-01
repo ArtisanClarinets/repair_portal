@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"fyz6HYo3v6\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Intake</span>\",\"col\":12}},{\"id\":\"mFQoLbNPFI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Intake\",\"col\":3}},{\"id\":\"anCvG-G9B4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Consent Form\",\"col\":3}},{\"id\":\"eSxpzoxROr\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mcoGjN_LUG\",\"type\":\"card\",\"data\":{\"card_name\":\"Clarinet Intake\",\"col\":4}}]",
+ "content": "[{\"id\":\"fyz6HYo3v6\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Intake</span>\",\"col\":12}},{\"id\":\"jqpQlvOcbx\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Customer\",\"col\":3}},{\"id\":\"mFQoLbNPFI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Intake\",\"col\":3}},{\"id\":\"anCvG-G9B4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Consent Form\",\"col\":3}},{\"id\":\"eSxpzoxROr\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mcoGjN_LUG\",\"type\":\"card\",\"data\":{\"card_name\":\"Clarinet Intake\",\"col\":4}}]",
  "creation": "2025-06-14 04:56:21.549446",
  "custom_blocks": [],
  "docstatus": 0,
@@ -63,7 +63,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-06-14 05:34:08.852070",
+ "modified": "2025-06-29 14:53:39.040564",
  "modified_by": "dylan@artisanclarinets.com",
  "module": "Intake",
  "name": "Intake",
@@ -75,6 +75,14 @@
  "roles": [],
  "sequence_id": 2.0,
  "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "New Customer",
+   "link_to": "Customer",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
   {
    "color": "Grey",
    "doc_view": "List",

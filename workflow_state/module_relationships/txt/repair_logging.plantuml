@@ -1,0 +1,96 @@
+@startuml
+package repair_portal.repair_logging <<Folder>> {
+"User" *-- "Repair Task Log": logged_by
+  class "Repair Task Log" {
+    log_entry : Small Text
+    timestamp : Datetime
+    logged_by : Link
+  }
+
+"Instrument Profile" *-- "Service Log": instrument_profile
+"User" *-- "Service Log": performed_by
+"User" *-- "Service Log": logged_by
+  class "Service Log" {
+    instrument_profile : Link
+    description : Small Text
+    service_type : Data
+    performed_by : Link
+    date : Date
+    log_entry : Small Text
+    timestamp : Datetime
+    logged_by : Link
+  }
+
+"Item" *-- "Material Use Log": item_code
+  class "Material Use Log" {
+    item_code : Link
+    qty : Float
+    used_on : Data
+    remarks : Small Text
+  }
+
+"Item" *-- "Repair Part Used": item_code
+"UOM" *-- "Repair Part Used": uom
+"Warehouse" *-- "Repair Part Used": warehouse
+  class "Repair Part Used" {
+    item_code : Link
+    item_name : Data
+    qty : Float
+    uom : Link
+    rate : Currency
+    amount : Currency
+    warehouse : Link
+  }
+
+"Instrument Profile" *-- "Related Instrument Interaction": related_instrument
+  class "Related Instrument Interaction" {
+    related_instrument : Link
+    interaction_type : Select
+    notes : Small Text
+  }
+
+  class "Image Log Entry" {
+    image : Attach Image
+    comment : Small Text
+  }
+
+"User" *-- "Tool Usage Log": used_by
+  class "Tool Usage Log" {
+    tool : Data
+    used_by : Link
+    usage_notes : Text
+  }
+
+  class "Default Workflow States" {
+    state : Data
+    is_default : Check
+  }
+
+  class "Instrument Interaction Log" {
+    interaction_type : Select
+    reference_doctype : Data
+    reference_name : Dynamic Link
+    date : Date
+    notes : Small Text
+  }
+
+"Item" *-- "Barcode Scan Entry": linked_item
+  class "Barcode Scan Entry" {
+    barcode : Data
+    linked_item : Link
+    scan_time : Datetime
+    context_note : Data
+  }
+
+"Clarinet Repair Log" *-- "Repair Parts Used": repair_log_id
+"Item" *-- "Repair Parts Used": item_code
+  class "Repair Parts Used" {
+    repair_log_id : Link
+    item_code : Link
+    qty_used : Float
+    serial_no : Data
+    location : Data
+    used_on : Date
+  }
+}
+@enduml

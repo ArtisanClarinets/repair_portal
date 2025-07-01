@@ -1,0 +1,50 @@
+@startuml
+package repair_portal.repair_portal <<Folder>> {
+"Repair Request" *-- "Pulse Update": repair_request
+  class "Pulse Update" {
+    repair_request : Link
+    update_time : Datetime
+    status : Data
+    details : Small Text
+    percent_complete : Int
+  }
+
+  class "Consent Log Entry" {
+    consent_type : Select
+    date_given : Date
+  }
+
+"Customer" *-- "Repair Request": customer
+"Instrument Category" *-- "Repair Request": instrument_category
+"User" *-- "Repair Request": technician_assigned
+  class "Repair Request" {
+    section_main : Section Break
+    customer : Link
+    instrument_category : Link
+    date_reported : Date
+    cb1 : Column Break
+    issue_description : Text
+    technician_assigned : Link
+    priority_level : Select
+    section_status : Section Break
+    status : Select
+    section_notes : Section Break
+    repair_notes : Table
+    section_qa : Section Break
+    qa_checklist : Table
+  }
+
+"User" *-- "Repair Note": author
+  class "Repair Note" {
+    note_time : Datetime
+    note_text : Text
+    author : Link
+  }
+
+  class "Qa Checklist Item" {
+    check_item : Data
+    passed : Check
+    comments : Small Text
+  }
+}
+@enduml

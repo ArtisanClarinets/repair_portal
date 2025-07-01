@@ -7,8 +7,8 @@ Usage (from your bench root):
 """
 
 import json
-import shutil
 import logging
+import shutil
 from pathlib import Path
 
 import frappe
@@ -17,17 +17,20 @@ import frappe
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 logger = logging.getLogger(__name__)
 
+
 # ─── Helpers ────────────────────────────────────────────────────────────────────
 def backup(path: Path):
     bak = path.with_suffix(path.suffix + ".bak")
     shutil.copy2(path, bak)
     logger.debug(f"backed up: {path} → {bak}")
 
+
 def format_name(name: str) -> str:
     """
     Convert "initial_state" → "Initial State"
     """
     return name.replace("_", " ").title()
+
 
 # ─── Core traversal & processing ───────────────────────────────────────────────
 def run(dry_run: bool = False):
@@ -46,7 +49,7 @@ def run(dry_run: bool = False):
             logger.error(f"❌ invalid JSON in {json_file}: {e}")
             errors += 1
             continue
-        
+
         # Check if "doctype" exists in the JSON
         if "doctype" in content:
             # Check if the "name" key exists and format it
@@ -68,6 +71,7 @@ def run(dry_run: bool = False):
             skipped += 1
 
     logger.info(f"done: {fixed} fixed, {skipped} unchanged, {errors} errors.")
+
 
 if __name__ == "__main__":
     # To preview only: run(dry_run=True)

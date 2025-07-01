@@ -4,6 +4,7 @@
 # Purpose: Validate sanitized context for published Instrument Profile web view
 
 import unittest
+
 import frappe
 
 
@@ -27,4 +28,3 @@ class TestInstrumentProfileWebView(unittest.TestCase):
         assert "owner" not in context.profile
         assert "client_profile" not in context.profile
         assert "wellness_score" not in context.profile
-

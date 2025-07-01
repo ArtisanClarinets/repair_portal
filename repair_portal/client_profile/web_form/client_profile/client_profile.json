@@ -5,7 +5,7 @@
   "title": "Client Profile",
   "web_form_name": "client_profile",
   "is_standard": 1,
-  "published": 1,
+  "published": 0,
   "route": "/my-client-profile",
   "doctype_name": "Client Profile",
   "login_required": 1,

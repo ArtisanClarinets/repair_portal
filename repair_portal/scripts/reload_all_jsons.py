@@ -4,9 +4,11 @@ Reload ALL .json files in the app recursively.
 """
 
 import os
+
 import frappe
 
 APP_PATH = "/opt/frappe/erp-bench/apps/repair_portal/repair_portal"
+
 
 def reload_all_jsons():
     """
@@ -29,10 +31,11 @@ def reload_all_jsons():
 
                     if filename == f"{docname}.json":
                         try:
-                        #    print(f"🔹 Reloading module='{module}' doctype='{doctype}' docname='{docname}'")
+                            #    print(f"🔹 Reloading module='{module}' doctype='{doctype}' docname='{docname}'")
                             frappe.reload_doc(module, doctype, docname)
                         except Exception as e:
                             frappe.logger().error(f"❌ Failed reloading {module}/{doctype}/{docname}: {e}")
                             print(f"❌ Failed reloading {module}/{doctype}/{docname}: {e}")
+
 
 #    print("✅ All reload attempts completed.")

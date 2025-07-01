@@ -1,29 +1,36 @@
+# File: repair_portal/repair_portal/hooks.py
+# Date Updated: 2025-06-29
+# Version: 1.1
+# Purpose: App hooks and asset includes
+
 app_name = "repair_portal"
 app_title = "Repair Portal"
-app_publisher = "MRW Artisan Instruments"
-app_description = "Clarinet Repair System"
-app_email = "support@artisanclarinets.com"
+app_publisher = "Your Company"
+app_description = "Repair management system"
+app_icon = "octicon octicon-tools"
+app_color = "blue"
+app_email = "support@example.com"
 app_license = "MIT"
 
+
 app_include_js = [
-    "/assets/repair_portal/lab_bundle.js",
-    "https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js",
-    "https://cdn.jsdelivr.net/npm/meyda/dist/web/meyda.min.js",
-    "https://cdn.jsdelivr.net/npm/tone/build/Tone.min.js",
+    "/lab/page/intonation_recorder/intonation_recorder.js",
+    "/lab/page/impedance_recorder/impedance_recorder.js",
+    "/lab/page/lab_dashboard/lab_dashboard.js",
+    "/lab/page/leak_test_recorder/leak_test_recorder.js",
+    "/lab/page/tone_fitness_recorder/tone_fitness_recorder.js",
 ]
 
-after_install = [ 
+fixtures = [
+    # export doctypes & workflow so they ship with the app
+    {"dt": "Workflow", "filters": [["document_type", "=", "Client Profile"]]},
+]
+
+# Other hooks remain unchanged
+
+
+after_install = [
     "repair_portal.qa.setup.clarinet_qc.sync_qc",
-    "repair_portal.scripts.reload_all_doctypes.reload_all_doctypes"
+    "repair_portal.scripts.reload_all_doctypes.reload_all_doctypes",
 ]
-after_migrate = [ 
-    "repair_portal.scripts.hooks.fix_workflow_states.fix_workflow_states",
-    "repair_portal.scripts.hooks.fix_name_key.run",
-    "repair_portal.scripts.hooks.insert_workflows.insert_workflows_from_json",
-    "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"
-]
-
-website_generators = [
-    "Instrument Profile",
-    "Player Profile",
-]
+after_migrate = ["repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"]

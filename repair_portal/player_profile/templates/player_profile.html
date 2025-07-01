@@ -1,0 +1,16 @@
+<section class="player-profile">
+  <h1>{{ profile.player_name or "Player Profile" }}</h1>
+  <div class="card">
+    <p><strong>Status:</strong> {{ profile.profile_status or "—" }}</p>
+    <p><strong>Tonal Goals:</strong> {{ profile.tonal_goals or "—" }}</p>
+    <p><strong>Style Preferences:</strong> {{ profile.style_preferences or "—" }}</p>
+    <p><strong>Preferred Mouthpiece:</strong> {{ profile.preferred_mouthpiece or "—" }}</p>
+    <p><strong>Preferred Reed:</strong> {{ profile.preferred_reed or "—" }}</p>
+    <p><strong>Preferred Literature:</strong> {{ profile.preferred_literature or "—" }}</p>
+  </div>
+  <hr>
+  {% if frappe.session.user != 'Guest' and frappe.has_permission('Player Profile', 'read') %}
+    <div class="alert alert-warning"><strong>Technician Notes (Internal Only):</strong> {{ profile.technician_notes or '' }}</div>
+  {% endif %}
+  <p><a href="/my-client-profile">Back to My Client Profile</a></p>
+</section>

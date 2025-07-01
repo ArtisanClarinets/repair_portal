@@ -8,11 +8,11 @@ import frappe
 
 def execute(filters=None):
     conditions = []
-    if filters.get('from_date'):
+    if filters.get("from_date"):
         conditions.append(f"ro.creation >= '{filters['from_date']}'")
-    if filters.get('to_date'):
+    if filters.get("to_date"):
         conditions.append(f"ro.creation <= '{filters['to_date']}'")
-    where_clause = f'WHERE {" AND ".join(conditions)}' if conditions else ''
+    where_clause = f'WHERE {" AND ".join(conditions)}' if conditions else ""
 
     data = frappe.db.sql(
         f"""
@@ -29,14 +29,14 @@ def execute(filters=None):
 
     columns = [
         {
-            'label': 'Repair Order',
-            'fieldname': 'repair_order',
-            'fieldtype': 'Link',
-            'options': 'Repair Order',
+            "label": "Repair Order",
+            "fieldname": "repair_order",
+            "fieldtype": "Link",
+            "options": "Repair Order",
         },
-        {'label': 'Parts Cost', 'fieldname': 'total_parts_cost', 'fieldtype': 'Currency'},
-        {'label': 'Labor Value ($50/hr)', 'fieldname': 'labor_value', 'fieldtype': 'Currency'},
-        {'label': 'Total Cost', 'fieldname': 'total_cost', 'fieldtype': 'Currency'},
+        {"label": "Parts Cost", "fieldname": "total_parts_cost", "fieldtype": "Currency"},
+        {"label": "Labor Value ($50/hr)", "fieldname": "labor_value", "fieldtype": "Currency"},
+        {"label": "Total Cost", "fieldname": "total_cost", "fieldtype": "Currency"},
     ]
 
     return columns, data

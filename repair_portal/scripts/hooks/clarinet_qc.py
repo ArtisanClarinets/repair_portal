@@ -1,26 +1,32 @@
-from pathlib import Path
 import json
+from pathlib import Path
+
 import frappe
 
 SCHEMA_FILE = Path(__file__).parent.parent / "data" / "clarinet_qc.json"
 
+
 def load_schema():
     with open(SCHEMA_FILE) as f:
         return json.load(f)
+
 
 def upsert_quality_procedure(proc):
     # Always set both name and quality_procedure_name for ERPNext v15!
     name = proc["name"]
     doc = frappe.db.exists("Quality Procedure", {"quality_procedure_name": name})
     doc = frappe.get_doc("Quality Procedure", doc) if doc else frappe.new_doc("Quality Procedure")
-    doc.update({
-        "quality_procedure_name": name,
-        "item_group": proc.get("item_group"),
-        "default_operation": proc.get("default_operation"),
-    })
+    doc.update(
+        {
+            "quality_procedure_name": name,
+            "item_group": proc.get("item_group"),
+            "default_operation": proc.get("default_operation"),
+        }
+    )
     doc.title = proc.get("title", name)  # use title if available
     doc.save()
     return name
+
 
 def sync_qc():
     schema = load_schema()
@@ -48,6 +54,7 @@ def sync_qc():
 
     frappe.db.commit()
     print("✅ Clarinets QC library fully seeded with sub-procedures.")
+
 
 if __name__ == "__main__":
     sync_qc()

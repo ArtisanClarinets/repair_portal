@@ -1,36 +1,671 @@
 {
   "doctype": "DocType",
-  "name": "Repair Order",
-  "module": "Repair",
+  "name": "Client Profile",
+  "module": "Client Profile",
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,
-  "title_field": "name",
+  "standard": 1,
   "fields": [
-    {"fieldname": "intake", "label": "Intake", "fieldtype": "Link", "options": "Clarinet Intake", "reqd": 1},
-    {"fieldname": "instrument_profile", "label": "Instrument Profile", "fieldtype": "Link", "options": "Instrument Profile", "reqd": 1},
-    {"fieldname": "service_plan", "label": "Service Plan", "fieldtype": "Link", "options": "Service Plan"},
-    {"fieldname": "scheduled_start", "label": "Scheduled Start", "fieldtype": "Date"},
-    {"fieldname": "promised_date", "label": "Promised Date", "fieldtype": "Date"},
-    {"fieldname": "tech", "label": "Technician", "fieldtype": "Link", "options": "User"},
-    {"fieldname": "priority", "label": "Priority", "fieldtype": "Select", "options": "\nLow\nMedium\nHigh"},
-    {"fieldname": "total_parts_cost", "label": "Total Parts Cost", "fieldtype": "Currency"},
-    {"fieldname": "total_labor_hours", "label": "Total Labor Hours", "fieldtype": "Float"},
-    {"fieldname": "repair_tasks", "label": "Repair Tasks", "fieldtype": "Table", "options": "Repair Task"},
-    {"fieldname": "setup_logs", "label": "Setup Logs", "fieldtype": "Link", "options": "Clarinet Setup Log"},
-    {"fieldname": "service_logs", "label": "Service Logs", "fieldtype": "Link", "options": "Service Log"},
-    {"fieldname": "qa_checklist", "label": "QA Checklist", "fieldtype": "Link", "options": "Final QA Checklist"},
-    {"fieldname": "material_usage", "label": "Material Usage", "fieldtype": "Link", "options": "Material Usage"},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nDraft\nInspection\nPlanning\nIn Progress\nQA\nReady for Pickup\nOpen\nResolved\nSubmitted\nClosed", "default": "Draft"}
+    {
+      "fieldname": "client_profile_id",
+      "label": "Client Profile ID",
+      "fieldtype": "Data",
+      "read_only": 1,
+      "hidden": 1,
+      "unique": 1,
+      "description": "This field is auto-generated and cannot be edited."
+    },
+    {
+      "fieldname": "client_profile_name",
+      "label": "Client Profile Name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "is_standard": 1
+    },
+    {
+      "fieldname": "client_profile_image",
+      "label": "Client Profile Image",
+      "fieldtype": "Attach Image"
+    },
+    {
+      "fieldname": "client_profile_description",
+      "label": "Client Profile Description",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "client_profile_type",
+      "label": "Client Profile Type",
+      "fieldtype": "Select",
+      "options": "\nIndividual\nOrganization\nTeacher\nParent\nStudent\nRepair Technician",
+      "default": "Individual",
+      "in_list_view": 1,
+      "is_standard": 1
+    },
+    {
+      "fieldname": "client_name",
+      "label": "Client Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "email",
+      "label": "Email",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "phone",
+      "label": "Phone",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "linked_user",
+      "label": "Linked User",
+      "fieldtype": "Link",
+      "options": "User"
+    },
+    {
+      "fieldname": "preferred_contact_method",
+      "label": "Preferred Contact Method",
+      "fieldtype": "Select",
+      "options": "\nEmail\nPhone\nSMS"
+    },
+    {
+      "fieldname": "instruments_owned",
+      "label": "Instruments Owned",
+      "fieldtype": "Table",
+      "options": "Instruments Owned"
+    },
+    {
+      "fieldname": "consent_log",
+      "label": "Consent Log",
+      "fieldtype": "Table",
+      "options": "Consent Log"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "profile_status",
+      "label": "Profile Status",
+      "fieldtype": "Select",
+      "options": "\nDraft\nActive\nArchived",
+      "read_only": 1,
+      "in_list_view": 1,
+      "is_standard": 1,
+      "default": "Draft"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
-    {"role": "Front Desk User", "create": 1, "read": 1, "write": 1, "submit": 1},
-    {"role": "Technician", "read": 1, "write": 1},
-    {"role": "QA User", "read": 1, "write": 1, "submit": 1},
-    {"role": "Accounts", "read": 1, "cancel": 1},
-    {"role": "Customer", "read": 1, "if_owner": 1}
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Front Desk",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Repair Technician",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1
+    },
+    {
+      "role": "Customer",
+      "read": 1,
+      "write": 1
+    }
   ],
-  "is_submittable": 1,
-  "workflow_state_field": "status"
+  "is_submittable": 0,
+  "workflow_state_field": "profile_status",
+  "is_standard": 1,
+  "sync_on_migrate": 1,
+  "workflow": "Client Profile Setup",
+  "workflow_definition": {
+    "doctype": "Workflow",
+    "module": "Client Profile",
+    "is_standard": 1,
+    "sync_on_migrate": 1,
+    "doc_type": "Client Profile",
+    "is_active": 1,
+    "workflow_state_field": "profile_status",
+    "states": [
+      {
+        "state": "Draft",
+        "doc_status": 0,
+        "style": "warning",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "Active",
+        "doc_status": 1,
+        "style": "success",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "Archived",
+        "doc_status": 2,
+        "style": "danger",
+        "allow_edit": "Repair Manager"
+      }
+    ],
+    "transitions": [
+      {
+        "state": "Draft",
+        "action": "Activate",
+        "next_state": "Active",
+        "allowed": "Repair Manager"
+      },
+      {
+        "state": "Active",
+        "action": "Archive",
+        "next_state": "Archived",
+        "allowed": "Repair Manager"
+      }
+    ]
+  },
+  "workflow_states": [
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Success",
+      "doc_status": 1
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Success",
+      "doc_status": 0
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Danger",
+      "doc_status": 2
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Warning",
+      "doc_status": 1,
+      "description": "The client profile has been deactivated and is not available for active operations."
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Danger",
+      "doc_status": 2
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Primary",
+      "doc_status": 1
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Warning",
+      "doc_status": 0
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Warning",
+      "doc_status": 1
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Info",
+      "doc_status": 0
+    },
+    {
+      "doctype": "Workflow State",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "style": "Danger",
+      "doc_status": 2
+    }
+  ],
+  "workflow_actions": [
+    {
+      "doctype": "Workflow Action Master",
+      "workflow_action_name": "Activate Client",
+      "is_custom": 0
+    },
+    {
+      "doctype": "Workflow Action Master",
+      "workflow_action_name": "Archive",
+      "is_custom": 0
+    },
+    {
+      "doctype": "Workflow Action Master",
+      "workflow_action_name": "Verify Info",
+      "is_custom": 0
+    }
+  ],
+  "workflow_transitions": [
+    {
+      "doctype": "Workflow Transition",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "doc_type": "Client Profile",
+      "transitions": [
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Draft",
+          "action": "Verify Info",
+          "next_state": "Information Verified",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Draft'",
+          "condition_message": "Profile must be in Draft state to verify information.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Draft",
+          "action": "Delete",
+          "next_state": "Deleted",
+          "allowed": ["System Manager"],
+          "condition": "doc.profile_status == 'Draft'",
+          "condition_message": "Only a draft profile can be deleted.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Information Verified",
+          "action": "Activate Client",
+          "next_state": "Active",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Information Verified'",
+          "condition_message": "Profile must be in Information Verified state to activate.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Information Verified",
+          "action": "Reject",
+          "next_state": "Rejected",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Information Verified'",
+          "condition_message": "Profile must be in Information Verified state to reject.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Information Verified",
+          "action": "Approve",
+          "next_state": "Approved",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Information Verified'",
+          "condition_message": "Profile must be in Information Verified state to approve.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Approved",
+          "action": "Activate Client",
+          "next_state": "Active",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Approved'",
+          "condition_message": "Only an approved profile can be activated.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Rejected",
+          "action": "Restore",
+          "next_state": "Draft",
+          "allowed": ["System Manager"],
+          "condition": "doc.profile_status == 'Rejected'",
+          "condition_message": "Only a rejected profile can be restored to draft.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Active",
+          "action": "Deploy",
+          "next_state": "Deployed",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Active'",
+          "condition_message": "Only an active profile can be deployed.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Active",
+          "action": "Deactivate",
+          "next_state": "Inactive",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Active'",
+          "condition_message": "Only an active profile can be deactivated.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Active",
+          "action": "Archive",
+          "next_state": "Archived",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Active'",
+          "condition_message": "Profile must be in Active state to archive.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Active",
+          "action": "Delete",
+          "next_state": "Deleted",
+          "allowed": ["System Manager"],
+          "condition": "doc.profile_status == 'Active'",
+          "condition_message": "Only an active profile can be deleted.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Deployed",
+          "action": "Deactivate",
+          "next_state": "Inactive",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Deployed'",
+          "condition_message": "Only a deployed profile can be deactivated.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Deployed",
+          "action": "Archive",
+          "next_state": "Archived",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Deployed'",
+          "condition_message": "Only a deployed profile can be archived.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Inactive",
+          "action": "Re-activate",
+          "next_state": "Active",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Inactive'",
+          "condition_message": "Only an inactive profile can be re-activated.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Inactive",
+          "action": "Delete",
+          "next_state": "Deleted",
+          "allowed": ["System Manager"],
+          "condition": "doc.profile_status == 'Inactive'",
+          "condition_message": "Only an inactive profile can be deleted.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Inactive",
+          "action": "Archive",
+          "next_state": "Archived",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Inactive'",
+          "condition_message": "Only an inactive profile can be archived.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Deleted",
+          "action": "Restore",
+          "next_state": "Inactive",
+          "allowed": ["System Manager"],
+          "condition": "doc.profile_status == 'Deleted'",
+          "condition_message": "Only a deleted profile can be restored.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Archived",
+          "action": "Restore",
+          "next_state": "Inactive",
+          "allowed": ["System Manager"],
+          "condition": "doc.profile_status == 'Archived'",
+          "condition_message": "Archived profiles can only be restored to Inactive.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Archived",
+          "action": "Delete",
+          "next_state": "Deleted",
+          "allowed": ["System Manager"],
+          "condition": "doc.profile_status == 'Archived'",
+          "condition_message": "Only an archived profile can be deleted.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Archived",
+          "action": "Activate",
+          "next_state": "Active",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Archived'",
+          "condition_message": "Only an archived profile can be activated.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Archived",
+          "action": "Deploy",
+          "next_state": "Deployed",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Archived'",
+          "condition_message": "Only an archived profile can be deployed.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Deployed",
+          "action": "Deactivate",
+          "next_state": "Inactive",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Deployed'",
+          "condition_message": "Only a deployed profile can be deactivated.",
+          "module": "Client Profile"
+        },
+        {
+          "doctype": "Workflow Transition",
+          "workflow": "Client Profile Setup",
+          "state": "Deployed",
+          "action": "Archive",
+          "next_state": "Archived",
+          "allowed": ["Repair Manager"],
+          "condition": "doc.profile_status == 'Deployed'",
+          "condition_message": "Only a deployed profile can be archived.",
+          "module": "Client Profile"
+        }
+      ]
+    }
+  ],
+  "workflow_action_permitted_roles": [
+    {
+      "doctype": "Workflow Action Permitted Role",
+      "workflow": "Client Profile Workflow",
+      "permitted_role": "Repair Manager",
+      "module": "Client Profile",
+      "is_default": 1,
+      "is_active": 1,
+      "doc_type": "Client Profile"
+    }
+  ],
+  "workflow_document_states": [
+    {
+      "doctype": "Workflow Document State",
+      "workflow_name": "Client Profile Setup",
+      "label": "Client Profile Setup",
+      "document_type": "Client Profile",
+      "is_active": 1,
+      "state_field": "profile_status",
+      "is_default": 1,
+      "description": "Workflow for client profile setup in the repair portal.",
+      "module": "Client Profile",
+      "doc_type": "Client Profile",
+      "workflow_document_states": [
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Draft",
+          "doc_status": 0
+        },
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Information Verified",
+          "doc_status": 0
+        },
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Approved",
+          "doc_status": 0
+        },
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Rejected",
+          "doc_status": 2
+        },
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Active",
+          "doc_status": 1
+        },
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Deployed",
+          "doc_status": 1
+        },
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Inactive",
+          "doc_status": 1
+        },
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Deleted",
+          "doc_status": 2
+        },
+        {
+          "doctype": "Workflow Document State",
+          "workflow_state": "Archived",
+          "doc_status": 2
+        }
+      ]
+    }
+  ],
+  "workflow_action_masters": [
+    {
+      "doctype": "Workflow Action Master",
+      "module": "Client Profile",
+      "is_standard": 1,
+      "sync_on_migrate": 1,
+      "doc_type": "Client Profile",
+      "is_active": 1,
+      "actions": [
+        {
+          "workflow_action_name": "Verify Info"
+        },
+        {
+          "workflow_action_name": "Activate Client"
+        },
+        {
+          "workflow_action_name": "Deploy"
+        },
+        {
+          "workflow_action_name": "Deactivate"
+        },
+        {
+          "workflow_action_name": "Re-activate"
+        },
+        {
+          "workflow_action_name": "Delete"
+        },
+        {
+          "workflow_action_name": "Restore"
+        },
+        {
+          "workflow_action_name": "Reject"
+        },
+        {
+          "workflow_action_name": "Approve"
+        },
+        {
+          "workflow_action_name": "Archive"
+        }
+      ]
+    }
+  ]
 }

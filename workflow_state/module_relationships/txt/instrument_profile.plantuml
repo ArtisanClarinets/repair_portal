@@ -1,0 +1,124 @@
+@startuml
+package repair_portal.instrument_profile <<Folder>> {
+"User" *-- "Instrument Condition Record": technician
+  class "Instrument Condition Record" {
+    date : Date
+    technician : Link
+    condition_notes : Small Text
+    attachment : Attach
+  }
+
+  class "Intake Entry" {
+    serial_number : Data
+    manufacturer : Data
+    notes : Text
+    image : Attach
+  }
+
+"User" *-- "Consent Log": consent_given_by
+  class "Consent Log" {
+    consent_given_by : Link
+    consent_datetime : Datetime
+    consent_type : Select
+    notes : Small Text
+  }
+
+"Instrument Profile" *-- "Warranty Modification Log": instrument_profile
+"User" *-- "Warranty Modification Log": modified_by
+  class "Warranty Modification Log" {
+    instrument_profile : Link
+    modified_by : Link
+    modification_date : Datetime
+    old_start_date : Date
+    new_start_date : Date
+    old_end_date : Date
+    new_end_date : Date
+    reason : Data
+  }
+
+  class "Repair Log" {
+    pad_conditions : Table
+    pad_map_view : HTML
+  }
+
+"Player Profile" *-- "Instrument Profile": player_profile
+"Brand" *-- "Instrument Profile": brand
+  class "Instrument Profile" {
+    naming_series : Data
+    player_profile : Link
+    instrument_category : Select
+    brand : Link
+    model : Data
+    serial_number : Data
+    photo : Attach Image
+    last_service_date : Date
+    wellness_score : Int
+    profile_status : Select
+    qr_code_svg : HTML
+    clarinet_pad_map : HTML
+    route : Data
+    published : Check
+  }
+
+"Supplier" *-- "Instrument Intake Batch": supplier
+  class "Instrument Intake Batch" {
+    date : Date
+    instrument_type : Select
+    supplier : Link
+    add_to_inventory : Check
+    create_profiles : Check
+    entries : Table
+  }
+
+  class "Consent Log Entry" {
+    consent_type : Select
+    date_given : Date
+  }
+
+  class "External Work Logs" {
+    description : Small Text
+    performed_by : Data
+    date : Date
+  }
+
+  class "Service Logs" {
+    log_details : Small Text
+    log_date : Date
+  }
+
+"Instrument Profile" *-- "Customer External Work Log": instrument_profile
+  class "Customer External Work Log" {
+    instrument_profile : Link
+    service_date : Date
+    service_type : Select
+    service_notes : Text
+    external_shop_name : Data
+    receipt_attachment : Attach
+  }
+
+"Customer" *-- "Client Instrument Profile": owner
+"Customer" *-- "Client Instrument Profile": ownership_transfer_to
+  class "Client Instrument Profile" {
+    owner : Link
+    instrument_model : Data
+    serial_number : Data
+    instrument_category : Select
+    purchase_receipt : Attach
+    external_work_logs : Table
+    condition_images : Table
+    repair_preferences : Small Text
+    verification_status : Select
+    technician_notes : Text
+    ownership_transfer_to : Link
+    anonymize_for_research : Check
+    consent_log : Table
+  }
+
+  class "Pad Condition" {
+    pad_id : Data
+    pad_name : Data
+    status : Select
+    technician_notes : Text
+  }
+}
+@enduml

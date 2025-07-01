@@ -5,27 +5,122 @@
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,
-  "standard": 1,
+  "autoname": "naming_series:INST-.YYYY.-.#####",
+  "field_order": [
+    "naming_series",
+    "player_profile",
+    "instrument_category",
+    "brand",
+    "model",
+    "serial_number",
+    "photo",
+    "last_service_date",
+    "wellness_score",
+    "profile_status",
+    "qr_code_svg",
+    "clarinet_pad_map",
+    "route",
+    "published"
+  ],
   "fields": [
-    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Select", "options": "B♭ Clarinet\nA Clarinet\nE♭ Clarinet\nBass Clarinet"},
-    {"fieldname": "brand", "label": "Brand", "fieldtype": "Link", "options": "Brand"},
-    {"fieldname": "model", "label": "Model", "fieldtype": "Data"},
-    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "unique": 1, "reqd": 1},
-    {"fieldname": "owner", "label": "Owner", "fieldtype": "Link", "options": "Customer"},
-    {"fieldname": "client_profile", "label": "Client Profile", "fieldtype": "Link", "options": "Player Profile"},
-    {"fieldname": "photo", "label": "Photo", "fieldtype": "Attach Image"},
-    {"fieldname": "qr_code_svg", "label": "QR Code", "fieldtype": "HTML", "read_only": 1},
-    {"fieldname": "last_service_date", "label": "Last Service Date", "fieldtype": "Date", "read_only": 1},
-    {"fieldname": "wellness_score", "label": "Wellness Score", "fieldtype": "Int", "default": 0},
-    {"fieldname": "clarinet_pad_map", "label": "Pad Map View", "fieldtype": "HTML", "depends_on": "eval:doc.instrument_category=='Clarinet'"},
-    {"fieldname": "route", "label": "Route", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "published", "label": "Published", "fieldtype": "Check", "default": 1},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
-    {"fieldname": "profile_status", "label": "Profile Status", "fieldtype": "Select", "options": "\nDraft\nWaiting on Client\nWaiting on Player\nReady for Use\nArchived", "default": "Draft", "in_list_view": 1},
-    {"fieldname": "unique_identifier", "label": "Unique Identifier", "fieldtype": "Data", "hidden": 1, "read_only": 1, "unique": 1}
+    {
+      "fieldname": "naming_series",
+      "label": "Naming Series",
+      "fieldtype": "Data",
+      "default": "INST-",
+      "read_only": 1
+    },
+    {
+      "fieldname": "player_profile",
+      "label": "Player Profile",
+      "fieldtype": "Link",
+      "options": "Player Profile",
+      "reqd": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "instrument_category",
+      "label": "Instrument Category",
+      "fieldtype": "Select",
+      "options": "B♭ Clarinet\nA Clarinet\nE♭ Clarinet\nBass Clarinet"
+    },
+    {
+      "fieldname": "brand",
+      "label": "Brand",
+      "fieldtype": "Link",
+      "options": "Brand"
+    },
+    {
+      "fieldname": "model",
+      "label": "Model",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "serial_number",
+      "label": "Serial Number",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1,
+      "in_global_search": 1
+    },
+    {
+      "fieldname": "photo",
+      "label": "Photo",
+      "fieldtype": "Attach Image"
+    },
+    {
+      "fieldname": "last_service_date",
+      "label": "Last Service Date",
+      "fieldtype": "Date",
+      "read_only": 1
+    },
+    {
+      "fieldname": "wellness_score",
+      "label": "Wellness Score",
+      "fieldtype": "Int",
+      "default": 0
+    },
+    {
+      "fieldname": "profile_status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nDraft\nIn Service\nReady\nArchived",
+      "default": "Draft",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "qr_code_svg",
+      "label": "QR Code",
+      "fieldtype": "HTML",
+      "read_only": 1
+    },
+    {
+      "fieldname": "clarinet_pad_map",
+      "label": "Pad Map View",
+      "fieldtype": "HTML",
+      "depends_on": "eval:doc.instrument_category=='Clarinet'"
+    },
+    {
+      "fieldname": "route",
+      "label": "Route",
+      "fieldtype": "Data",
+      "unique": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "published",
+      "label": "Published",
+      "fieldtype": "Check",
+      "default": 1
+    }
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "Technician", "read": 1, "write": 1, "create": 1}
+    {"role": "Technician",    "read": 1, "write": 1, "create": 1}
+  ],
+  "workflow_state_field": "profile_status",
+  "search_fields": "serial_number,brand,model",
+  "indexes": [
+    ["player_profile", "serial_number"]
   ]
 }

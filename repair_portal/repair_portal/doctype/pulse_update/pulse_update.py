@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import frappe
-from frappe import _                    # <-- translation helper
-from frappe.utils import now_datetime, cint
+from frappe import _  # <-- translation helper
 from frappe.model.document import Document
+from frappe.utils import cint, now_datetime
 
 
 class PulseUpdate(Document):

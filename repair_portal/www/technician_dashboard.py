@@ -1,4 +1,5 @@
 """Web controller: technician job assignments list."""
+
 # File: repair_portal/www/technician_dashboard.py
 # Updated: 2024-06-19
 # Version: 1.0

@@ -3,11 +3,13 @@
 # version: 1.2.0
 # purpose: Traverse app and insert all workflows on migrate if not present, with validation
 
-import frappe
-import os
 import json
+import os
+
+import frappe
 
 APP_WORKFLOW_ROOT = "/opt/frappe/erp-bench/apps/repair_portal/repair_portal/"
+
 
 def ensure_all_workflows():
     """
@@ -19,6 +21,7 @@ def ensure_all_workflows():
                 if fname.endswith(".json"):
                     workflow_path = os.path.join(dirpath, fname)
                     insert_workflow_if_valid(workflow_path)
+
 
 def insert_workflow_if_valid(workflow_path):
     try:
@@ -34,14 +37,13 @@ def insert_workflow_if_valid(workflow_path):
             return
 
         if not frappe.db.exists("DocType", {"name": doc_type}):
-            frappe.logger().warning(f"Skipping workflow '{workflow_name}' because DocType '{doc_type}' does not exist.")
+            frappe.logger().warning(
+                f"Skipping workflow '{workflow_name}' because DocType '{doc_type}' does not exist."
+            )
             return
 
         # Check that the workflow_state_field exists
-        field_exists = frappe.db.exists(
-            "DocField",
-            {"parent": doc_type, "fieldname": workflow_state_field}
-        )
+        field_exists = frappe.db.exists("DocField", {"parent": doc_type, "fieldname": workflow_state_field})
         if not field_exists:
             frappe.logger().warning(
                 f"Skipping workflow '{workflow_name}' because field '{workflow_state_field}' does not exist in DocType '{doc_type}'."

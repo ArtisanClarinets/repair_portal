@@ -4,8 +4,8 @@
 # purpose: Controller for Workflow Action Master (Client Profile workflows)
 # Notes: Standard Frappe controller. Each record represents an action label for workflow buttons.
 
-import frappe
 from frappe.model.document import Document
+
 
 class WorkflowActionMaster(Document):
     # begin: auto-generated types

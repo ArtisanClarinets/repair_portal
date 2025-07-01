@@ -5,17 +5,19 @@ following the structure:
 (module)/(doctype)/(docname)/(docname.json)
 """
 
-import os
 import json
+import os
+
 import frappe
 
 APP_PATH = "/opt/frappe/erp-bench/apps/repair_portal/repair_portal"
+
 
 def sanitize_workflow_json(json_path):
     """
     Fix 'allowed' and 'only_allow_edit_for' fields if they are lists.
     """
-    with open(json_path, "r") as f:
+    with open(json_path) as f:
         data = json.load(f)
 
     changed = False
@@ -36,6 +38,7 @@ def sanitize_workflow_json(json_path):
         with open(json_path, "w") as f:
             json.dump(data, f, indent=2)
         print(f"✅ Sanitized workflow file: {json_path}")
+
 
 def reload_all_doctypes():
     """
@@ -63,7 +66,7 @@ def reload_all_doctypes():
                             sanitize_workflow_json(json_path)
 
                         try:
-                        #    print(f"🔹 Reloading module='{module}' doctype='{doctype}' docname='{docname}'")
+                            #    print(f"🔹 Reloading module='{module}' doctype='{doctype}' docname='{docname}'")
                             frappe.reload_doc(module, doctype, docname)
                         except Exception as e:
                             frappe.logger().error(f"❌ Failed reloading {module}/{doctype}/{docname}: {e}")

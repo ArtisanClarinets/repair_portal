@@ -4,8 +4,8 @@
 # Purpose: Child table for storing each individual inspection step, auto-populated from selected procedure or JSON
 # Notes: Designed for modular QA/Repair/Setup flows for all instrument types. Used in Inspection Report table.
 
-import frappe
 from frappe.model.document import Document
+
 
 class InspectionChecklistItem(Document):
     pass

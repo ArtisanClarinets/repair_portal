@@ -1,6 +1,8 @@
-import frappe
-import os
 import json
+import os
+
+import frappe
+
 
 def insert_workflows_from_json():
     # Get the base directory of your app
@@ -14,7 +16,7 @@ def insert_workflows_from_json():
                 file_path = os.path.join(root, file)
 
                 # Read the JSON file
-                with open(file_path, 'r') as f:
+                with open(file_path) as f:
                     try:
                         data = json.load(f)
 
@@ -26,22 +28,25 @@ def insert_workflows_from_json():
                     except Exception as e:
                         frappe.log_error(f"Error loading {file_path}: {str(e)}")
 
+
 def insert_workflow(data):
     try:
         # Check if the workflow already exists in the database
         existing_workflow = frappe.get_all("Workflow", filters={"workflow_name": data.get("name")})
         if not existing_workflow:
             # If not, insert a new workflow
-            workflow = frappe.get_doc({
-                "doctype": "Workflow",
-                "workflow_name": data.get("name"),
-                "module": data.get("module"),
-                "is_standard": data.get("is_standard", 0),
-                "sync_on_migrate": data.get("sync_on_migrate", 0),
-                "doc_type": data.get("doc_type"),
-                "is_active": data.get("is_active", 1),
-                "states": data.get("states", [])
-            })
+            workflow = frappe.get_doc(
+                {
+                    "doctype": "Workflow",
+                    "workflow_name": data.get("name"),
+                    "module": data.get("module"),
+                    "is_standard": data.get("is_standard", 0),
+                    "sync_on_migrate": data.get("sync_on_migrate", 0),
+                    "doc_type": data.get("doc_type"),
+                    "is_active": data.get("is_active", 1),
+                    "states": data.get("states", []),
+                }
+            )
             workflow.insert(ignore_permissions=True)
             frappe.db.commit()
             print(f"Inserted Workflow: {data.get('name')}")
@@ -50,6 +55,6 @@ def insert_workflow(data):
     except Exception as e:
         frappe.log_error(f"Error inserting workflow {data.get('name')}: {str(e)}")
 
+
 def execute():
     insert_workflows_from_json()
-

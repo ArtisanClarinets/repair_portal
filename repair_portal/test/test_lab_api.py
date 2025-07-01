@@ -56,4 +56,3 @@ class TestLabAPI(FrappeTestCase):
             raw_data="[]",
         )
         assert frappe.db.exists("Tone Fitness", result["name"])
-

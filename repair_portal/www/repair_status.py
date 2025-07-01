@@ -5,6 +5,7 @@
 
 from repair_portal.repair.dashboard_chart_source.turnaround_time import get_data
 
+
 def get_context(context):
     stats = get_data()
     context.average_turnaround = stats.get("average_turnaround_days")

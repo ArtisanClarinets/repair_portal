@@ -1,77 +1,165 @@
+# ---------------------------------------------------------------------------
+# Client Profile controller – v3.0.0
+# Compatible with Client Profile Workflow
+# ---------------------------------------------------------------------------
+from __future__ import annotations
+
 import frappe
 from frappe.model.document import Document
+from frappe.utils import get_url
+
 
 class ClientProfile(Document):
-    def autoname(self):
-        last = frappe.db.sql(
-            "select max(cast(substr(client_profile_id, 4) as unsigned)) from `tabClient Profile`"
-        )
-        next_number = (last[0][0] or 0) + 1
-        self.client_profile_id = "CP-" + str(next_number).zfill(6)
-
+    # ---------------------------------------------------------------------
+    # Hooks
+    # ---------------------------------------------------------------------
     def validate(self):
-        self.ensure_unique_user()
+        self._ensure_unique_customer()
 
-    def ensure_unique_user(self):
-        if self.linked_user:
-            exists = frappe.db.exists("Client Profile", {
-                "linked_user": self.linked_user,
-                "name": ["!=", self.name]
-            })
-            if exists:
-                frappe.throw(
-                    f"This User is already linked to another Client Profile: {exists}"
-                )
+        if self.profile_status == "Active":
+            self._validate_activation_requirements()
 
-    def validate_activation_requirements(self):
-        missing = []
-        if not self.client_name:
-            missing.append("Client Name")
-        if not self.customer:
-            missing.append("Customer (Link to Customer record)")
-        if not self.email:
-            missing.append("Email Address")
-        # Add other required fields if needed
+    def after_insert(self):
+        self._sync_contact()
 
-        if missing:
+    def before_workflow_action(self, action):
+        """Hook before any workflow transition."""
+        # Add logic if needed per action
+        pass
+
+    def after_workflow_action(self, action):
+        """Hook after any workflow transition."""
+        if self.profile_status == "Active":
+            self._handle_activation()
+
+        elif self.profile_status == "Archived":
+            self._archive_children()
+
+    # ---------------------------------------------------------------------
+    # Validation helpers
+    # ---------------------------------------------------------------------
+    def _ensure_unique_customer(self):
+        dup = frappe.db.exists(
+            "Client Profile",
+            {"customer": self.customer, "name": ["!=", self.name]},
+        )
+        if dup:
             frappe.throw(
-                "Cannot activate client profile. The following required fields are missing: <br><ul>{}</ul>".format(
-                    "".join([f"<li>{f}</li>" for f in missing])
-                )
+                f"Customer <b>{self.customer}</b> already belongs to " f"Client Profile <b>{dup}</b>."
             )
 
-    def on_update(self):
-        if self.has_value_changed("profile_status"):
-            if self.profile_status == "Active":
-                # Block activation if requirements are not met
-                self.validate_activation_requirements()
-                # Ensure at least one player profile exists
-                players = frappe.get_all("Player Profile", filters={"client_profile": self.name})
-                if not players:
-                    player_profile = frappe.get_doc({
-                        "doctype": "Player Profile",
-                        "client_profile": self.name,
-                        "player_name": self.client_name
-                    })
-                    player_profile.insert(ignore_permissions=True)
-                    self.add_comment("Workflow", "Auto-created a Player Profile on activation.")
-                if self.linked_user and self.email:
-                    frappe.sendmail(
-                        recipients=[self.email],
-                        subject="Your Artisan Clarinets account is now active",
-                        message="Welcome! Your account is now active."
-                    )
-                self.add_comment("Workflow", "Client profile activated.")
-            elif self.profile_status == "Archived":
-                # Archive all Player Profiles and linked Instruments
-                players = frappe.get_all("Player Profile", filters={"client_profile": self.name})
-                for pp in players:
-                    pp_doc = frappe.get_doc("Player Profile", pp)
-                    pp_doc.profile_status = "Archived"
-                    pp_doc.save(ignore_permissions=True)
-                    instruments = frappe.get_all("Instrument Profile", filters={"player_profile": pp_doc.name})
-                    for ip in instruments:
-                        ip_doc = frappe.get_doc("Instrument Profile", ip)
-                        ip_doc.status = "Inactive"
-                        ip_doc.save(ignore_permissions=True)
-                self.add_comment("Workflow", "Client profile and all linked profiles archived.")
+    def _validate_activation_requirements(self):
+        cust = frappe.get_doc("Customer", self.customer)
+        missing = [
+            label
+            for field, label in [("customer_name", "Customer Name"), ("email_id", "Email")]
+            if not cust.get(field)
+        ]
+        if missing:
+            frappe.throw(
+                "Cannot activate; fix Customer master:<br><ul>"
+                + "".join(f"<li>{m}</li>" for m in missing)
+                + "</ul>"
+            )
+
+    # ---------------------------------------------------------------------
+    # Workflow handlers
+    # ---------------------------------------------------------------------
+    def _handle_activation(self):
+        self._validate_activation_requirements()
+
+        if not frappe.db.exists("Player Profile", {"client_profile": self.name}):
+            frappe.get_doc(
+                {
+                    "doctype": "Player Profile",
+                    "client_profile": self.name,
+                    "player_name": frappe.db.get_value("Customer", self.customer, "customer_name"),
+                }
+            ).insert(ignore_permissions=True)
+            self.add_comment("Workflow", "Auto-created first Player Profile.")
+
+        email = frappe.db.get_value("Customer", self.customer, "email_id")
+        if email:
+            try:
+                frappe.enqueue(
+                    "frappe.core.doctype.communication.email.sendmail",
+                    queue="short",
+                    recipients=[email],
+                    subject="Your Artisan Clarinets portal is live",
+                    message=(
+                        "Welcome! Manage your repairs online at "
+                        f"<a href='{get_url('/login')}'>{get_url('/login')}</a>"
+                    ),
+                )
+            except Exception:
+                frappe.log_error(frappe.get_traceback(), "ClientProfile: welcome-email failure")
+
+    def _archive_children(self):
+        players = frappe.get_all("Player Profile", {"client_profile": self.name})
+        for p in players:
+            pp = frappe.get_doc("Player Profile", p.name)
+            _set_state(pp, "Archived")
+
+            instruments = frappe.get_all("Instrument Profile", {"player_profile": pp.name})
+            for i in instruments:
+                ip = frappe.get_doc("Instrument Profile", i.name)
+                _set_state(ip, "Archived")
+
+        self.add_comment("Workflow", "All child Player and Instrument Profiles archived.")
+
+    # ---------------------------------------------------------------------
+    # Contact sync
+    # ---------------------------------------------------------------------
+    @frappe.whitelist()
+    def sync_contact(self):
+        """Expose to JS; re-run after the user edits phone/e-mail."""
+        self._sync_contact()
+        return True
+
+    def _sync_contact(self):
+        if not (self.email or self.phone):
+            return
+
+        contact_name = frappe.db.sql_value(
+            """
+            SELECT con.name FROM `tabContact` con
+             JOIN `tabDynamic Link` dl
+               ON dl.parent = con.name
+              AND dl.link_doctype='Customer'
+            WHERE dl.link_name=%s LIMIT 1
+            """,
+            self.customer,
+        )
+
+        contact = frappe.get_doc("Contact", contact_name) if contact_name else frappe.new_doc("Contact")
+
+        if not contact_name:
+            contact.first_name = self.client_name or self.customer
+            contact.append(
+                "links",
+                {"link_doctype": "Customer", "link_name": self.customer},
+            )
+
+        if self.email:
+            contact.set("email_ids", [])
+            contact.append("email_ids", {"email_id": self.email, "is_primary": 1})
+
+        if self.phone:
+            contact.set("phone_nos", [])
+            contact.append("phone_nos", {"phone": self.phone, "is_primary_mobile_no": 1})
+
+        contact.save(ignore_permissions=True)
+
+
+# ---------------------------------------------------------------------------
+# helpers
+# ---------------------------------------------------------------------------
+
+
+def _set_state(doc: Document, state: str):
+    """Helper to set a workflow state field consistently."""
+    if hasattr(doc, "profile_status"):
+        doc.profile_status = state
+    elif hasattr(doc, "workflow_state"):
+        doc.workflow_state = state
+    doc.save(ignore_permissions=True)

@@ -11,16 +11,12 @@ from frappe.model.document import Document
 class RepairOrder(Document):
     def before_save(self):
         if self.instrument_profile:
-            ip = frappe.get_doc('Instrument Profile', self.instrument_profile)
+            ip = frappe.get_doc("Instrument Profile", self.instrument_profile)
             if ip.warranty_active:
                 self.is_warranty = 1
                 self.append(
-                    'comments',
-                    {
-                        'comment': _(
-                            'This repair is under WARRANTY – do not bill labor unless approved.'
-                        )
-                    },
+                    "comments",
+                    {"comment": _("This repair is under WARRANTY – do not bill labor unless approved.")},
                 )
                 self.total_parts_cost = 0
                 self.total_labor_hours = 0

@@ -3,18 +3,15 @@
 # Version: 1.7
 # Purpose: Adds validation for workflow integrity and auto-generates a unique identifier.
 
-import frappe
 import random
 import string
+
+import frappe
 from frappe.website.website_generator import WebsiteGenerator
 
 
 class InstrumentProfile(WebsiteGenerator):
-    website = frappe._dict(
-        condition_field="published",
-        page_title_field="serial_number",
-        route="route"
-    )
+    website = frappe._dict(condition_field="published", page_title_field="serial_number", route="route")
 
     def validate(self):
         # Auto-set route from serial number
@@ -44,7 +41,7 @@ class InstrumentProfile(WebsiteGenerator):
         Generate a random string of digits.
         """
         digits = string.digits
-        return ''.join(random.choice(digits) for _ in range(length))
+        return "".join(random.choice(digits) for _ in range(length))
 
     PRIVATE_FIELDS = [
         "owner",

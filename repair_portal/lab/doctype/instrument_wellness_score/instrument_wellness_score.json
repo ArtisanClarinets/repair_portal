@@ -1,0 +1,86 @@
+{
+  "doctype": "DocType",
+  "name": "Instrument Wellness Score",
+  "module": "Lab",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "autoname": "hash",
+  "sort_field": "modified",
+  "sort_order": "desc",
+  "fields": [
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "evaluation_date",
+      "label": "Evaluation Date",
+      "fieldtype": "Date",
+      "default": "Today",
+      "reqd": 1
+    },
+    {
+      "fieldname": "intonation_score",
+      "label": "Intonation Score",
+      "fieldtype": "Float",
+      "precision": 2,
+      "description": "Scored 0-100"
+    },
+    {
+      "fieldname": "impedance_score",
+      "label": "Impedance Score",
+      "fieldtype": "Float",
+      "precision": 2,
+      "description": "Scored 0-100"
+    },
+    {
+      "fieldname": "leak_score",
+      "label": "Leak Score",
+      "fieldtype": "Float",
+      "precision": 2,
+      "description": "Scored 0-100"
+    },
+    {
+      "fieldname": "tone_score",
+      "label": "Tone Fitness Score",
+      "fieldtype": "Float",
+      "precision": 2,
+      "description": "Scored 0-100"
+    },
+    {
+      "fieldname": "overall_score",
+      "label": "Overall Wellness Score",
+      "fieldtype": "Float",
+      "precision": 2,
+      "description": "Weighted average 0-100"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Text",
+      "description": "Optional remarks"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "is_submittable": 0,
+  "allow_copy": 0
+}

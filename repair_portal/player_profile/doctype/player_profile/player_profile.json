@@ -5,27 +5,118 @@
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,
-  "standard": 1,
+  "autoname": "naming_series:PLY-.#####",
+  "field_order": [
+    "naming_series",
+    "client_profile",
+    "player_name",
+    "date_of_birth",
+    "primary_instrument",
+    "instrument_profiles",
+    "preferred_mouthpiece",
+    "preferred_reed",
+    "preferred_literature",
+    "style_preferences",
+    "tonal_goals",
+    "technician_notes",
+    "profile_status",
+    "route",
+    "published"
+  ],
   "fields": [
-    {"fieldname": "client_profile", "label": "Client Profile", "fieldtype": "Link", "options": "Client Profile", "reqd": 1},
-    {"fieldname": "player_name", "label": "Player Name", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "preferred_mouthpiece", "label": "Preferred Mouthpiece", "fieldtype": "Data"},
-    {"fieldname": "preferred_reed", "label": "Preferred Reed", "fieldtype": "Data"},
-    {"fieldname": "preferred_literature", "label": "Preferred Literature", "fieldtype": "Small Text"},
-    {"fieldname": "style_preferences", "label": "Style Preferences", "fieldtype": "Small Text"},
-    {"fieldname": "tonal_goals", "label": "Tonal Goals", "fieldtype": "Small Text"},
-    {"fieldname": "tech_notes", "label": "Technician Notes", "fieldtype": "Small Text"},
-    {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"},
-    {"fieldname": "profile_status", "label": "Profile Status", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
-    {"fieldname": "route", "label": "Route", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "published", "label": "Published", "fieldtype": "Check", "default": 1}
+    {
+      "fieldname": "naming_series",
+      "label": "Naming Series",
+      "fieldtype": "Data",
+      "default": "PLY-",
+      "read_only": 1
+    },
+    {
+      "fieldname": "client_profile",
+      "label": "Client Profile",
+      "fieldtype": "Link",
+      "options": "Client Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "player_name",
+      "label": "Player Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "date_of_birth",
+      "label": "Date of Birth",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "primary_instrument",
+      "label": "Primary Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
+    },
+    {
+      "fieldname": "instrument_profiles",
+      "label": "Instruments",
+      "fieldtype": "Table MultiSelect",
+      "options": "Instrument Profile"
+    },
+    {
+      "fieldname": "preferred_mouthpiece",
+      "label": "Preferred Mouthpiece",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "preferred_reed",
+      "label": "Preferred Reed",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "preferred_literature",
+      "label": "Preferred Literature",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "style_preferences",
+      "label": "Style Preferences",
+      "fieldtype": "Text Editor"
+    },
+    {
+      "fieldname": "tonal_goals",
+      "label": "Tonal Goals",
+      "fieldtype": "Text Editor"
+    },
+    {
+      "fieldname": "technician_notes",
+      "label": "Technician Notes (Internal Only)",
+      "fieldtype": "Text Editor",
+      "description": "Visible only to staff. Use for private repair history, analysis, and observations."
+    },
+    {
+      "fieldname": "profile_status",
+      "fieldtype": "Link",
+      "read_only": 1
+    },
+    {
+      "fieldname": "route",
+      "label": "Route",
+      "fieldtype": "Data",
+      "unique": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "published",
+      "label": "Published",
+      "fieldtype": "Check",
+      "default": 1
+    }
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1},
-    {"role": "Technician", "read": 1, "write": 1}
+    {"role": "Repair Manager","read": 1, "write": 1, "create": 1},
+    {"role": "Technician",    "read": 1, "write": 1, "create": 1, "delete": 0},
+    {"role": "Client",        "read": 1, "write": 0, "create": 0, "delete": 0}
   ],
-  "is_submittable": 0,
-  "workflow_state_field": "profile_status",
-  "is_standard": 1
+  "workflow_state_field": "profile_status"
 }

@@ -8,8 +8,8 @@ Usage:
 bench --site erp.artisanclarinets.com execute repair_portal.scripts.fix_all_json_names.fix_all_json_names
 """
 
-import os
 import json
+import os
 
 APP_PATH = "/opt/frappe/erp-bench/apps/repair_portal/repair_portal"
 

@@ -3,8 +3,8 @@
 # Version: 1.0
 # Purpose: Server-side logic for Measurement Entry child table
 
-import frappe
 from frappe.model.document import Document
+
 
 class MeasurementEntry(Document):
     pass

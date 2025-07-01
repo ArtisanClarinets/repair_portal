@@ -1,9 +1,0 @@
-{
-  "doctype": "Workflow State",
-  "name": "approved",
-  "module": "Client Profile",
-  "is_standard": 1,
-  "sync_on_migrate": 1,
-  "style": "Success",
-  "doc_status": 0
-}

@@ -6,6 +6,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class RepairIssue(Document):
     def autoname(self):
         if self.customer:

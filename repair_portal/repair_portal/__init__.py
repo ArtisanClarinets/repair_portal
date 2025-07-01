@@ -1,1 +1,1 @@
-module_title = 'Repair Portal'
+module_title = "Repair Portal"

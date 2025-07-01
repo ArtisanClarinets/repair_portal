@@ -9,11 +9,11 @@ from frappe import _
 def get_data():
     return [
         {
-            'module_name': 'Inspection',
-            'type': 'module',
-            'label': _('Inspection'),
-            'icon': 'octicon octicon-search',
-            'color': 'green',
-            'description': 'Visual and mechanical inspections of instruments',
+            "module_name": "Inspection",
+            "type": "module",
+            "label": _("Inspection"),
+            "icon": "octicon octicon-search",
+            "color": "green",
+            "description": "Visual and mechanical inspections of instruments",
         }
     ]

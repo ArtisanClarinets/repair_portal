@@ -1,23 +1,21 @@
-# Inspection Report
+# Inspection Report (Unified)
 
-**Location:** repair_portal/inspection/doctype/inspection_report/
+## Update: 2025-06-30 — Unified with Clarinet Inspection
+- Added: `preliminary_estimate`, `clarinet_intake_ref`, and `legacy_clarinet_inspection_id` fields for complete migration.
+- Status values unified for both legacy and new records.
+- All Clarinet Inspection records will be migrated here for single-source reporting.
+- Legacy data lineage maintained in `legacy_clarinet_inspection_id`.
 
-## Purpose
-Master DocType for all inspection events: QA, repair, cleaning, modification, and upgrades. Centralizes instrument history.
+**IMPORTANT:**
+- After migration, all new inspections should use only Inspection Report.
+- Old Clarinet Inspection DocType is deprecated and will be archived.
 
-## Key Fields
-- inspection_type: QA, cleaning, repair, etc.
-- procedure: Quality Procedure (ERPNext-linked)
-- status: Scheduled, In Progress, Pending Review, Passed, Failed
-- inspection_checklist: Auto-populated checklist (Inspection Checklist Item)
-- inspection_findings: Freeform findings (Inspection Finding)
-- qc_certificate: PDF output (future)
-- non_conformance_report: Linked NCR for fails
+---
 
-## Automation
-- Checklist items auto-load from selected procedure
-- NCR auto-created/linked on fail (major/critical)
-- Validation for complete data and required photos
+## Migration Plan
+1. All Clarinet Inspection records migrated to this DocType.
+2. All fields mapped, with legacy references kept.
+3. Reports, dashboards, and analytics unified.
+4. Old DocType set as read-only and removed from menus.
 
-## Last Updated
-2025-06-27
+See migration script and change log for full audit trail.

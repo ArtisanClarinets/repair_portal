@@ -1,53 +1,114 @@
 {
-  "doctype": "Web Form",
-  "name": "Instrument Intake Batch",
-  "module": "Instrument Profile",
-  "standard": "Yes",
-  "web_form_fields": [
-    {
-      "fieldname": "date",
-      "label": "Date",
-      "fieldtype": "Date",
-      "default": "Today"
-    },
-    {
-      "fieldname": "instrument_type",
-      "label": "Instrument Type",
-      "fieldtype": "Select",
-      "options": "Bb Clarinet\nA Clarinet\nBass Clarinet",
-      "reqd": 1
-    },
-    {
-      "fieldname": "supplier",
-      "label": "Supplier",
-      "fieldtype": "Link",
-      "options": "Supplier"
-    },
-    {
-      "fieldname": "add_to_inventory",
-      "label": "Add to Inventory",
-      "fieldtype": "Check"
-    },
-    {
-      "fieldname": "create_profiles",
-      "label": "Create Profiles",
-      "fieldtype": "Check",
-      "default": 1
-    },
-    {
-      "fieldname": "entries",
-      "label": "Instruments",
-      "fieldtype": "Table",
-      "options": "Intake Entry",
-      "reqd": 1
-    }
-  ],
-  "published": 1,
-  "login_required": 1,
-  "route": "batch-instrument-intake",
-  "success_message": "Intake Batch Submitted Successfully",
-  "allow_edit": 0,
-  "show_list": 0,
-  "allow_multiple": 0,
-  "doc_type": "Instrument Intake Batch"
+    "accept_payment": 0,
+    "allow_comments": 0,
+    "allow_delete": 0,
+    "allow_edit": 0,
+    "allow_incomplete": 0,
+    "allow_multiple": 0,
+    "allow_print": 0,
+    "amount": 0.0,
+    "amount_based_on_field": 0,
+    "anonymous": 0,
+    "apply_document_permissions": 0,
+    "condition_json": "[]",
+    "creation": "2025-06-28 02:20:13.954863",
+    "doc_type": "Instrument Intake Batch",
+    "docstatus": 0,
+    "doctype": "Web Form",
+    "idx": 0,
+    "is_standard": 1,
+    "list_columns": [],
+    "login_required": 1,
+    "max_attachment_size": 0,
+    "modified": "2025-06-29 16:01:56.537188",
+    "modified_by": "dylan@artisanclarinets.com",
+    "module": "Instrument Profile",
+    "name": "Instrument Intake Batch",
+    "owner": "Administrator",
+    "published": 1,
+    "route": "instrument-intake",
+    "show_attachments": 0,
+    "show_list": 0,
+    "show_sidebar": 0,
+    "success_message": "Intake Batch Submitted Successfully",
+    "title": "Instrument Intake Batch",
+    "web_form_fields": [
+        {
+            "allow_read_on_all_link_options": 0,
+            "default": "Today",
+            "fieldname": "date",
+            "fieldtype": "Date",
+            "hidden": 0,
+            "label": "Date",
+            "max_length": 0,
+            "max_value": 0,
+            "read_only": 0,
+            "reqd": 0,
+            "show_in_filter": 0
+        },
+        {
+            "allow_read_on_all_link_options": 0,
+            "fieldname": "instrument_type",
+            "fieldtype": "Select",
+            "hidden": 0,
+            "label": "Instrument Type",
+            "max_length": 0,
+            "max_value": 0,
+            "options": "Bb Clarinet\nA Clarinet\nBass Clarinet",
+            "read_only": 0,
+            "reqd": 1,
+            "show_in_filter": 0
+        },
+        {
+            "allow_read_on_all_link_options": 0,
+            "fieldname": "supplier",
+            "fieldtype": "Link",
+            "hidden": 0,
+            "label": "Supplier",
+            "max_length": 0,
+            "max_value": 0,
+            "options": "Supplier",
+            "read_only": 0,
+            "reqd": 0,
+            "show_in_filter": 0
+        },
+        {
+            "allow_read_on_all_link_options": 0,
+            "fieldname": "add_to_inventory",
+            "fieldtype": "Check",
+            "hidden": 0,
+            "label": "Add to Inventory",
+            "max_length": 0,
+            "max_value": 0,
+            "read_only": 0,
+            "reqd": 0,
+            "show_in_filter": 0
+        },
+        {
+            "allow_read_on_all_link_options": 0,
+            "default": "1",
+            "fieldname": "create_profiles",
+            "fieldtype": "Check",
+            "hidden": 0,
+            "label": "Create Profiles",
+            "max_length": 0,
+            "max_value": 0,
+            "read_only": 0,
+            "reqd": 0,
+            "show_in_filter": 0
+        },
+        {
+            "allow_read_on_all_link_options": 0,
+            "fieldname": "entries",
+            "fieldtype": "Table",
+            "hidden": 0,
+            "label": "Instruments",
+            "max_length": 0,
+            "max_value": 0,
+            "options": "Intake Entry",
+            "read_only": 0,
+            "reqd": 1,
+            "show_in_filter": 0
+        }
+    ]
 }

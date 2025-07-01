@@ -12,21 +12,21 @@ class TestRepairOrder(unittest.TestCase):
     def setUp(self):
         self.intake = frappe.get_doc(
             {
-                'doctype': 'Clarinet Intake',
-                'customer': 'Test Customer',
-                'instrument_category': 'Bb Clarinet',
+                "doctype": "Clarinet Intake",
+                "customer": "Test Customer",
+                "instrument_category": "Bb Clarinet",
             }
         ).insert()
 
         self.order = frappe.get_doc(
             {
-                'doctype': 'Repair Order',
-                'intake': self.intake.name,
-                'instrument_profile': None,
-                'promised_date': frappe.utils.add_days(frappe.utils.today(), -1),
-                'repair_tasks': [
-                    {'task_type': 'Crack Repair', 'parts_cost': 20.0, 'actual_hours': 2.5},
-                    {'task_type': 'Key Refit', 'parts_cost': 10.0, 'actual_hours': 1.0},
+                "doctype": "Repair Order",
+                "intake": self.intake.name,
+                "instrument_profile": None,
+                "promised_date": frappe.utils.add_days(frappe.utils.today(), -1),
+                "repair_tasks": [
+                    {"task_type": "Crack Repair", "parts_cost": 20.0, "actual_hours": 2.5},
+                    {"task_type": "Key Refit", "parts_cost": 10.0, "actual_hours": 1.0},
                 ],
             }
         ).insert()
@@ -41,10 +41,10 @@ class TestRepairOrder(unittest.TestCase):
         assert self.order.total_labor_hours == 3.5
 
     def test_status_change_triggers_qa(self):
-        self.order.status = 'QA'
+        self.order.status = "QA"
         self.order.save()
         assert self.order.qa_checklist
 
     def tearDown(self):
-        frappe.delete_doc('Repair Order', self.order.name)
-        frappe.delete_doc('Clarinet Intake', self.intake.name)
+        frappe.delete_doc("Repair Order", self.order.name)
+        frappe.delete_doc("Clarinet Intake", self.intake.name)

@@ -5,15 +5,16 @@
 
 import frappe
 
+
 def execute(filters=None):
     filters = filters or {}
     data = frappe.db.get_all(
         "Repair Issue",
         fields=["customer", "issue_description"],
-        filters={"customer": filters.get("customer")} if filters.get("customer") else {}
+        filters={"customer": filters.get("customer")} if filters.get("customer") else {},
     )
     columns = [
         {"label": "Customer", "fieldname": "customer", "fieldtype": "Data", "width": 120},
-        {"label": "Issue Description", "fieldname": "issue_description", "fieldtype": "Data", "width": 200}
+        {"label": "Issue Description", "fieldname": "issue_description", "fieldtype": "Data", "width": 200},
     ]
     return columns, data
