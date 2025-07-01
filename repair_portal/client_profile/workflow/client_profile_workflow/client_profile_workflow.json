@@ -30,6 +30,12 @@
       "style": "Dark",
       "doc_status": 0,
       "allow_edit": "All"
+    },
+    {
+      "state": "Deleted",
+      "style": "Danger",
+      "doc_status": 2,
+      "allow_edit": "System Manager"
     }
   ],
   "transitions": [
