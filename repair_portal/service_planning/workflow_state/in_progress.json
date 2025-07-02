@@ -1,6 +1,7 @@
 {
-  "doctype": "Workflow State",
   "workflow_state_name": "In Progress",
-  "style": "Warning",
-  "doc_status": 0
+  "style": "Blue",
+  "doc_status": 0,
+  "module": "Service Planning",
+  "is_standard": 1
 }

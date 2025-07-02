@@ -22,15 +22,29 @@ app_include_js = [
 ]
 
 fixtures = [
-    # export doctypes & workflow so they ship with the app
-    {"dt": "Workflow", "filters": [["document_type", "=", "Client Profile"]]},
-]
+    "Workflow",
+    "Workflow State",
+    "Workflow Action",
+    "Dashboard Chart",
+    "Print Format",
+    "Report",
+    "Web Form",
+    "Server Script",
+    "Client Script",
+    "Dashboard",
+    "Notification",
+    "Workspace",
+    "Page",
+    "Role",
+    "Role Profile",
+    "Number Card"]
 
 # Other hooks remain unchanged
 
 
-after_install = [
+after_install = [""
     "repair_portal.qa.setup.clarinet_qc.sync_qc",
     "repair_portal.scripts.reload_all_doctypes.reload_all_doctypes",
 ]
 after_migrate = ["repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"]
+

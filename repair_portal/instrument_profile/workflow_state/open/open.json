@@ -1,0 +1,9 @@
+{
+  "doctype": "Workflow State",
+  "name": "Open",
+  "workflow_state_name": "Open",
+  "style": "Primary",
+  "doc_status": 0,
+  "module": "Instrument Profile",
+  "is_standard": 1
+}

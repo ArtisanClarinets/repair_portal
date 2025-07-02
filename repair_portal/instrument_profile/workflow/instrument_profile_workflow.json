@@ -1,0 +1,45 @@
+{
+  "doctype": "Workflow",
+  "workflow_name": "Instrument Profile Lifecycle",
+  "document_type": "Instrument Profile",
+  "is_active": 1,
+  "states": [
+    {
+      "state": "New Intake",
+      "doc_status": 0,
+      "update_field": "status"
+    },
+    {
+      "state": "In Use",
+      "doc_status": 0,
+      "update_field": "status"
+    },
+    {
+      "state": "Under Repair",
+      "doc_status": 0,
+      "update_field": "status"
+    },
+    {
+      "state": "Awaiting Pickup",
+      "doc_status": 0,
+      "update_field": "status"
+    },
+    {
+      "state": "Delivered",
+      "doc_status": 1,
+      "update_field": "status"
+    },
+    {
+      "state": "Archived",
+      "doc_status": 2,
+      "update_field": "status"
+    }
+  ],
+  "transitions": [
+    {"state": "New Intake", "action": "Mark In Use", "next_state": "In Use", "allowed": ["System Manager", "Technician"]},
+    {"state": "In Use", "action": "Send to Repair", "next_state": "Under Repair", "allowed": ["Technician"]},
+    {"state": "Under Repair", "action": "Ready for Pickup", "next_state": "Awaiting Pickup", "allowed": ["Technician"]},
+    {"state": "Awaiting Pickup", "action": "Deliver", "next_state": "Delivered", "allowed": ["Technician"]},
+    {"state": "Delivered", "action": "Archive", "next_state": "Archived", "allowed": ["System Manager"]}
+  ]
+}

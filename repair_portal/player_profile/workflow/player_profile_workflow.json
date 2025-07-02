@@ -1,0 +1,27 @@
+{
+  "doctype": "Workflow",
+  "workflow_name": "Player Profile Lifecycle",
+  "document_type": "Player Profile",
+  "is_active": 1,
+  "states": [
+    {
+      "state": "Draft",
+      "doc_status": 0,
+      "update_field": "profile_status"
+    },
+    {
+      "state": "Active",
+      "doc_status": 0,
+      "update_field": "profile_status"
+    },
+    {
+      "state": "Archived",
+      "doc_status": 2,
+      "update_field": "profile_status"
+    }
+  ],
+  "transitions": [
+    {"state": "Draft", "action": "Activate", "next_state": "Active", "allowed": ["System Manager", "Technician"]},
+    {"state": "Active", "action": "Archive", "next_state": "Archived", "allowed": ["System Manager"]}
+  ]
+}

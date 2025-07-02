@@ -1,19 +1,19 @@
-frappe.ui.form.on('Instrument Profile', {
+frappe.ui.form.on('Player Profile', {
   refresh(frm) {
-    // Show status badges
-    if (frm.doc.status) {
+    // Show status badge
+    if (frm.doc.profile_status) {
       frm.dashboard.clear_headline();
-      frm.dashboard.set_headline(__('Instrument Status: {0}', [frm.doc.status]));
+      frm.dashboard.set_headline(__('Profile Status: {0}', [frm.doc.profile_status]));
     }
 
-    // Show buttons for manual actions if permitted
-    if (frm.doc.status === 'Awaiting Pickup') {
-      frm.add_custom_button(__('Deliver Instrument'), () => {
+    // Add Activate button if in Draft
+    if (frm.doc.profile_status === 'Draft') {
+      frm.add_custom_button(__('Activate'), () => {
         frappe.call({
           method: 'frappe.model.workflow.apply_workflow',
           args: {
             doc: frm.doc,
-            action: 'Deliver'
+            action: 'Activate'
           },
           callback: () => {
             frm.reload_doc();
@@ -22,7 +22,8 @@ frappe.ui.form.on('Instrument Profile', {
       }, __('Actions'));
     }
 
-    if (frm.doc.status === 'Delivered') {
+    // Add Archive button if Active
+    if (frm.doc.profile_status === 'Active') {
       frm.add_custom_button(__('Archive'), () => {
         frappe.call({
           method: 'frappe.model.workflow.apply_workflow',

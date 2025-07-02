@@ -3,91 +3,19 @@
   "name": "Repair Order",
   "module": "Repair",
   "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
-  "standard": 1,
   "fields": [
-    {
-      "fieldname": "repair_order_id",
-      "label": "Repair Order ID",
-      "fieldtype": "Data",
-      "read_only": 1,
-      "unique": 1,
-      "hidden": 1
-    },
-    {
-      "fieldname": "client",
-      "label": "Client",
-      "fieldtype": "Link",
-      "options": "Client Profile",
-      "reqd": 1
-    },
-    {
-      "fieldname": "instrument",
-      "label": "Instrument",
-      "fieldtype": "Link",
-      "options": "Instrument Profile",
-      "reqd": 1
-    },
-    {
-      "fieldname": "repair_description",
-      "label": "Repair Description",
-      "fieldtype": "Text",
-      "reqd": 1
-    },
-    {
-      "fieldname": "repair_status",
-      "label": "Repair Status",
-      "fieldtype": "Select",
-      "options": "\nDraft\nIn Progress\nCompleted\nCancelled",
-      "default": "Draft",
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "estimated_completion_date",
-      "label": "Estimated Completion Date",
-      "fieldtype": "Date"
-    },
-    {
-      "fieldname": "actual_completion_date",
-      "label": "Actual Completion Date",
-      "fieldtype": "Date"
-    },
-    {
-      "fieldname": "assigned_technician",
-      "label": "Assigned Technician",
-      "fieldtype": "Link",
-      "options": "User"
-    },
-    {
-      "fieldname": "notes",
-      "label": "Notes",
-      "fieldtype": "Small Text"
-    }
+    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument Profile"},
+    {"fieldname": "client", "label": "Client", "fieldtype": "Link", "options": "Client Profile"},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Open\nIn Progress\nCompleted\nCancelled"},
+    {"fieldname": "description", "label": "Repair Description", "fieldtype": "Text"},
+    {"fieldname": "estimated_completion", "label": "Estimated Completion", "fieldtype": "Date"},
+    {"fieldname": "total_cost", "label": "Total Cost", "fieldtype": "Currency"}
   ],
   "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    },
-    {
-      "role": "Repair Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    },
-    {
-      "role": "Repair Technician",
-      "read": 1,
-      "write": 1
-    }
+    {"role": "Technician", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
   ],
   "is_submittable": 1,
-  "workflow_state_field": "repair_status",
-  "is_standard": 1,
-  "sync_on_migrate": 1
+  "workflow_state_field": "status",
+  "allow_rename": 0
 }
