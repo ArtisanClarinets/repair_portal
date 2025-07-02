@@ -33,6 +33,6 @@ custom.js
 src/
 cypress/
 
-__pycache__
+*/_pycache__/*
 *.bak
 *.swp
