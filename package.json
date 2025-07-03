@@ -17,6 +17,7 @@
 		"tone": "15.1.22"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^2.0.6",
 		"cypress": "^14.4.1",
 		"frappe-charts": "^1.6.2",
 		"less": "^4.3.0",

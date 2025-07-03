@@ -1,5 +1,5 @@
 // Dashboard for audio capture and visualisation
-frappe.pages["lab_dashboard"].on_page_load = function (wrapper) {
+frappe.pages["lab_dashboard"].on_page_load = (wrapper) => {
   const page = frappe.ui.make_app_page({
     parent: wrapper,
     title: "Lab Dashboard",
@@ -36,6 +36,7 @@ frappe.pages["lab_dashboard"].on_page_load = function (wrapper) {
           frappe.show_alert(__('Saved') + ': ' + r.message.name);
         });
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e);
       frappe.msgprint(__('Microphone access failed.'));
     }

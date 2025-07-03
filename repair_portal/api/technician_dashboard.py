@@ -1,101 +1,63 @@
 # repair_portal/api/technician_dashboard.py
-# Updated: 2025-07-02
-# Version: 1.3
-# Purpose: Fortune-500 grade backend API for the Technician Dashboard.
+# Date: 2025-07-03
+# Version: 1.2 - Made KPI query more robust
+# Purpose: API endpoint to fetch all data for the technician dashboard.
 
 import frappe
 from frappe import _
-from frappe.utils import add_months, nowdate
-from decimal import Decimal
 
 @frappe.whitelist()
-def get_technician_dashboard_counts():
+def get_dashboard_data(technician=None):
     """
-    Fetches all the necessary data for the technician dashboard.
-    This includes KPIs, assigned repairs, open tasks, and recent activity.
+    Fetches all necessary data for the technician's dashboard, including
+    assigned repairs, KPIs, and recent activity.
     """
-    technician = frappe.session.user
+    if not technician:
+        technician = frappe.session.user
 
-    data = {
-        "kpis": get_technician_kpis(technician),
-        "assigned_repairs": get_assigned_repairs(technician),
-        "open_tasks": get_open_tasks(technician),
-        "recent_activity": get_recent_activity(technician),
-    }
+    if "Technician" not in frappe.get_roles(technician):
+        frappe.throw(_("User does not have the Technician role."), frappe.PermissionError)
 
-    return data
+    # 1. Get KPIs. Using IFNULL ensures we always get a valid row with 0s
+    #    instead of NULLs, even if no repairs match the criteria.
+    kpis_result = frappe.db.sql("""
+        SELECT
+            IFNULL(SUM(CASE WHEN status = 'Open' THEN 1 ELSE 0 END), 0) as open_repairs,
+            IFNULL(SUM(CASE WHEN status = 'In Progress' THEN 1 ELSE 0 END), 0) as in_progress_repairs,
+            IFNULL(SUM(CASE WHEN promise_date < CURDATE() AND status NOT IN ('Closed', 'Resolved') THEN 1 ELSE 0 END), 0) as overdue_repairs
+        FROM `tabRepair Request`
+        WHERE technician_assigned = %(technician)s
+    """, {"technician": technician}, as_dict=True)
+    kpis = list(kpis_result)[0] if kpis_result else {"open_repairs": 0, "in_progress_repairs": 0, "overdue_repairs": 0}
 
-def get_technician_kpis(technician):
-    """
-    Calculates Key Performance Indicators for the given technician.
-    """
-    completed_this_month = frappe.db.count(
-        "Repair Order",
-        {
+    # 2. Get list of currently assigned repairs (not closed or resolved)
+    assigned_repairs = frappe.get_list(
+        "Repair Request",
+        filters={
             "technician_assigned": technician,
-            "status": "Closed",
-            "modified": (">=", add_months(nowdate(), -1)),
+            "status": ["not in", ["Closed", "Resolved"]],
         },
+        fields=["name", "customer", "instrument_category", "issue_description", "status", "priority_level", "promise_date"],
+        order_by="promise_date asc",
+        limit=20
     )
 
-    avg_days_raw = frappe.db.get_value(
-        "Repair Order",
-        {"technician_assigned": technician, "status": "Closed"},
-        "avg(DATEDIFF(modified, creation))",
-    )
-    
-    # Explicitly handle None and ensure the value is a number before rounding.
-    avg_days_val = float(avg_days_raw) if avg_days_raw is not None else 0.0
+    # 3. Get recent activity feed (last 5 pulse updates for this tech's repairs)
+    recent_activity = frappe.db.sql("""
+        SELECT
+            pu.repair_order,
+            pu.status,
+            pu.note,
+            pu.timestamp
+        FROM `tabPulse Update` pu
+        JOIN `tabRepair Request` rr ON pu.repair_order = rr.name
+        WHERE rr.technician_assigned = %(technician)s
+        ORDER BY pu.timestamp DESC
+        LIMIT 5
+    """, {"technician": technician}, as_dict=True)
 
-    pending_qa = frappe.db.count(
-        "Inspection Report", {"owner": technician, "status": "Pending Review"}
-    )
-
-    kpis = {
-        "completed_repairs_this_month": completed_this_month,
-        "avg_completion_time_days": round(avg_days_val, 2),
-        "pending_qa_inspections": pending_qa,
+    return {
+        "kpis": kpis,
+        "assigned_repairs": assigned_repairs,
+        "recent_activity": recent_activity,
     }
-    return kpis
-
-def get_assigned_repairs(technician):
-    """
-    Retrieves all repair orders assigned to the technician that are currently in progress.
-    """
-    return frappe.get_all(
-        "Repair Order",
-        fields=[
-            "name",
-            "instrument",
-            "status",
-            "estimated_completion",
-            "total_cost",
-        ],
-        filters={"technician_assigned": technician, "status": "In Progress"},
-        order_by="estimated_completion asc",
-        limit=10,
-    )
-
-def get_open_tasks(technician):
-    """
-    Fetches all open repair tasks assigned to the technician.
-    """
-    return frappe.get_all(
-        "Repair Task",
-        fields=["name", "task_type", "description", "status", "est_hours"],
-        filters={"assigned_to": technician, "status": "Pending"},
-        order_by="creation asc",
-        limit=10,
-    )
-
-def get_recent_activity(technician):
-    """
-    Gathers the most recent activities performed by the technician.
-    """
-    return frappe.get_all(
-        "Activity Log",
-        fields=["subject", "timeline_doctype", "timeline_name"],
-        filters={"owner": technician},
-        order_by="modified desc",
-        limit=5,
-    )

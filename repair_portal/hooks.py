@@ -25,15 +25,9 @@ app_license = "MIT"
 
 
 app_include_js = [
-    "/lab/page/intonation_recorder/intonation_recorder.js",
-    "/lab/page/impedance_recorder/impedance_recorder.js",
-    "/lab/page/lab_dashboard/lab_dashboard.js",
-    "/lab/page/leak_test_recorder/leak_test_recorder.js",
-    "/lab/page/tone_fitness_recorder/tone_fitness_recorder.js",
-	"/assets/repair_portal/js/intake_dashboard.js",
-    "/public/js/**/*.js",
-    "/public/src/**/*.js",
-    "/public/js/intake_dashboard.js",
+    "/assets/repair_portal/js/client_portal/client_portal.bundle.js",
+    "/assets/repair_portal/js/intake_dashboard/intake_dashboard.bundle.js",
+    "/assets/repair_portal/js/technician/technician.bundle.js",
 ]
 
 fixtures = [
