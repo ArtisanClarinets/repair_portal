@@ -1,17 +1,39 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import DashboardCard from '../../src/components/DashboardCard.vue'; // Import the new component
+import DashboardCard from '../../src/components/DashboardCard.vue'; // Import the reusable card component
 
 const dashboardData = ref(null);
 const loading = ref(true);
 const error = ref(null);
 
 const fetchData = () => {
-  // ... (fetchData function remains the same as before)
+  loading.value = true;
+  frappe.call({
+    method: "repair_portal.api.technician_dashboard.get_technician_dashboard_counts",
+    callback: (r) => {
+      if (r.message) {
+        dashboardData.value = r.message;
+        error.value = null;
+      } else {
+        error.value = "Failed to fetch dashboard data.";
+      }
+      loading.value = false;
+    },
+    error: (err) => {
+      error.value = err.message || "An unknown error occurred.";
+      loading.value = false;
+    }
+  });
 };
 
 onMounted(() => {
-  // ... (onMounted function remains the same as before)
+  fetchData();
+
+  // Set up the listener for the refresh button from the bundle file
+  const appElement = document.getElementById("__technician_app__");
+  if (appElement) {
+    appElement.addEventListener("reloadDashboard", fetchData);
+  }
 });
 </script>
 
@@ -40,11 +62,29 @@ onMounted(() => {
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem;">
         <DashboardCard title="Assigned Repairs">
           <ul class="list-group">
-            </ul>
+            <li v-for="repair in dashboardData.assigned_repairs" :key="repair.name" class="list-item">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="font-weight: 600;">{{ repair.instrument }}</span>
+                <span style="font-size: 0.875rem; color: #4b5563;">Due: {{ repair.estimated_completion }}</span>
+              </div>
+              <div style="font-size: 0.875rem; color: #6b7280;">{{ repair.status }}</div>
+            </li>
+            <li v-if="!dashboardData.assigned_repairs.length" class="list-item">
+              No assigned repairs.
+            </li>
+          </ul>
         </DashboardCard>
+
         <DashboardCard title="Open Tasks">
           <ul class="list-group">
-            </ul>
+            <li v-for="task in dashboardData.open_tasks" :key="task.name" class="list-item">
+              <div style="font-weight: 600;">{{ task.task_type }}</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">{{ task.description }}</div>
+            </li>
+             <li v-if="!dashboardData.open_tasks.length" class="list-item">
+              No open tasks.
+            </li>
+          </ul>
         </DashboardCard>
       </div>
     </div>
@@ -52,7 +92,7 @@ onMounted(() => {
 </template>
 
 <style>
-/* You can keep or move these styles as needed */
+/* Scoped styles can be added here, or you can use a global stylesheet */
 .kpi-value {
   font-size: 2.25rem;
   font-weight: 700;

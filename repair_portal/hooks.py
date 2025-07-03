@@ -31,6 +31,9 @@ app_include_js = [
     "/lab/page/leak_test_recorder/leak_test_recorder.js",
     "/lab/page/tone_fitness_recorder/tone_fitness_recorder.js",
 	"/assets/repair_portal/js/intake_dashboard.js",
+    "/public/js/**/*.js",
+    "/public/src/**/*.js",
+    "/public/js/intake_dashboard.js",
 ]
 
 fixtures = [
