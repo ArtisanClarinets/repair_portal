@@ -9,6 +9,9 @@
 - All historic records will be accessible in Inspection Report.
 - Clarinet Inspection is deprecated and set read-only after migration.
 
+### 2025-07-03: Vue Portal Enhancement
+- Added new **ProfileView** portal page built with Vue 3.
+
 ---
 
 ## Module Structure

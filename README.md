@@ -24,9 +24,10 @@
 
 ### 2025-06-30
 - Moved Clarinet Repair Log, Instrument Tracker, and Service Log DocTypes into the `repair_logging` module.
+- Added Vue-based **ProfileView** portal page for clients.
 
 ### Next Steps
 - Add unit tests
 - Add CI hooks via GitHub Actions
 
-*Last updated: 2025-06-26*
+*Last updated: 2025-07-03*
