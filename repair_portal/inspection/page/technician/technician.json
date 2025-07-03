@@ -1,19 +1,14 @@
 {
- "content": null,
- "creation": "2025-07-02 00:28:48.179608",
- "docstatus": 0,
- "doctype": "Page",
- "idx": 0,
- "modified": "2025-07-02 00:28:48.179608",
- "modified_by": "Administrator",
- "module": "Inspection",
- "name": "technician",
- "owner": "Administrator",
- "page_name": "technician",
- "roles": [],
- "script": null,
- "standard": "Yes",
- "style": null,
- "system_page": 0,
- "title": "Technician"
+  "doctype": "Page",
+  "name": "technician",
+  "module": "Inspection",
+  "title": "Technician",
+  "content": null,
+  "script": "/repair_portal/public/js/technician/technician.bundle.js",
+  "style": "/repair_portal/public/js/technician/technician.bundle.css",
+  "system_page": 0,
+  "standard": "No",
+  "roles": [
+    { "role": "Technician" }
+  ]
 }

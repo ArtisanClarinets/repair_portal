@@ -9,7 +9,6 @@
 		"@vue/compiler-sfc": "^3.5.17",
 		"autoprefixer": "^10.4.21",
 		"eslint": "^9.29.0",
-		"frappe-ui": "^0.1.165",
 		"meyda": "^5.6.3",
 		"plotly.js-dist": "^3.0.1",
 		"postcss": "^8.5.6",

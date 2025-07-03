@@ -1,11 +1,11 @@
 {
   "doctype": "Notification",
+  "name": "Player Not Linked",
+  "subject": "Player Profile Not Linked",
   "document_type": "Player Profile",
-  "subject": "Player Not Linked",
-  "message": "Player {{ doc.name }} is not linked to an instrument.",
-  "event": "Value Change",
-  "send_alert_on": "profile_status",
-  "value_changed": "Linked to Client",
-  "recipients": [{"receiver_by_role": "Repair Manager"}],
-  "enabled": 1
+  "channel": "Email",
+  "send_on": "Days After",
+  "message": "This is a placeholder notification.",
+  "event": "Days After",
+  "recipients": []
 }

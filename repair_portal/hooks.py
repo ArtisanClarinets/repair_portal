@@ -1,7 +1,18 @@
-# File: repair_portal/repair_portal/hooks.py
-# Date Updated: 2025-06-29
-# Version: 1.1
-# Purpose: App hooks and asset includes
+# relative path: repair_portal/hooks.py
+# date updated: 2025-07-02
+# version: 1.0.1
+# purpose: App configuration hooks and fixtures declaration
+# notes: Added fixture export for Technician page
+
+app_name = "repair_portal"
+app_title = "Repair Portal"
+app_publisher = "DT"
+app_description = "Portals for the Repair Portal App"
+app_email = "DT@DT.com"
+app_license = "mit"
+app_version = "1.2.1"
+
+
 
 app_name = "repair_portal"
 app_title = "Repair Portal"
@@ -19,6 +30,7 @@ app_include_js = [
     "/lab/page/lab_dashboard/lab_dashboard.js",
     "/lab/page/leak_test_recorder/leak_test_recorder.js",
     "/lab/page/tone_fitness_recorder/tone_fitness_recorder.js",
+	"/assets/repair_portal/js/intake_dashboard.js",
 ]
 
 fixtures = [
@@ -37,14 +49,16 @@ fixtures = [
     "Page",
     "Role",
     "Role Profile",
-    "Number Card"]
+    "Number Card",
+{
+     "doctype": "Page", "filters": [["name", "in", ["technician"]]],
+    }
+]
 
 # Other hooks remain unchanged
 
 
-after_install = [""
-    "repair_portal.qa.setup.clarinet_qc.sync_qc",
-    "repair_portal.scripts.reload_all_doctypes.reload_all_doctypes",
+after_install = [
+   "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
 ]
 after_migrate = ["repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"]
-

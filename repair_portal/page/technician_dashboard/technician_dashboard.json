@@ -1,9 +1,0 @@
-{
-  "title": "Technician Dashboard",
-  "route": "technician-dashboard",
-  "description": "Overview of repair orders, tasks, intakes, QA and activity.",
-  "icon": "dashboard",
-  "content": "",
-  "module": "Repair Portal",
-  "type": "page"
-}

@@ -1,94 +1,35 @@
 {
-  "doctype": "Web Form",
-  "name": "Client Profile",
-  "module": "Client Profile",
-  "title": "Client Profile",
-  "web_form_name": "client_profile",
-  "is_standard": 1,
-  "published": 0,
-  "route": "/my-client-profile",
-  "doctype_name": "Client Profile",
-  "login_required": 1,
-  "allow_edit": 1,
-  "allow_multiple": 0,
-  "fields": [
-    {
-      "fieldname": "client_profile_id",
-      "fieldtype": "Data",
-      "label": "Client Profile ID",
-      "read_only": 1,
-      "in_list_view": 1,
-      "is_standard": 1,
-      "hidden": 1,
-      "autogenerate": 1,
-      "default": "CP-{0000}",
-      "description": "This field is auto-generated and cannot be edited."
-    },
-    {
-      "fieldname": "client_profile_name",
-      "fieldtype": "Data",
-      "label": "Client Profile Name",
-      "in_list_view": 1,
-      "is_standard": 1
-    },
-    {
-      "fieldname": "client_profile_image",
-      "fieldtype": "Attach Image",
-      "label": "Client Profile Image"
-    },
-    {
-      "fieldname": "client_profile_description",
-      "fieldtype": "Small Text",
-      "label": "Client Profile Description"
-    },
-    {
-      "fieldname": "client_profile_type",
-      "fieldtype": "Select",
-      "label": "Client Profile Type",
-      "options": "\nIndividual\nOrganization\nTeacher\nParent\nStudent\nRepair Technician",
-      "default": "Individual",
-      "in_list_view": 1,
-      "is_standard": 1
-    },
-    {
-      "fieldname": "client_name",
-      "fieldtype": "Data",
-      "label": "Client Name",
-      "reqd": 1
-    },
-    {
-      "fieldname": "customer",
-      "fieldtype": "Link",
-      "label": "Customer",
-      "options": "Customer",
-      "reqd": 1
-    },
-    {
-      "fieldname": "email",
-      "fieldtype": "Data",
-      "label": "Email"
-    },
-    {
-      "fieldname": "phone",
-      "fieldtype": "Data",
-      "label": "Phone"
-    },
-    {
-      "fieldname": "linked_user",
-      "fieldtype": "Link",
-      "label": "Linked User",
-      "options": "User"
-    },
-    {
-      "fieldname": "preferred_contact_method",
-      "fieldtype": "Select",
-      "label": "Preferred Contact Method",
-      "options": "\nEmail\nPhone\nSMS"
-    },
-    {
-      "fieldname": "notes",
-      "fieldtype": "Small Text",
-      "label": "Notes"
-    }
-  ]
+ "accept_payment": 0,
+ "allow_comments": 0,
+ "allow_delete": 0,
+ "allow_edit": 1,
+ "allow_incomplete": 0,
+ "allow_multiple": 0,
+ "allow_print": 0,
+ "amount": 0.0,
+ "amount_based_on_field": 0,
+ "anonymous": 0,
+ "apply_document_permissions": 0,
+ "condition_json": "[]",
+ "creation": "2025-07-02 18:34:48.803913",
+ "doc_type": "Client Profile",
+ "docstatus": 0,
+ "doctype": "Web Form",
+ "idx": 0,
+ "is_standard": 1,
+ "list_columns": [],
+ "login_required": 1,
+ "max_attachment_size": 0,
+ "modified": "2025-07-02 18:45:19.768604",
+ "modified_by": "dylan@artisanclarinets.com",
+ "module": "Client Profile",
+ "name": "Client Profile",
+ "owner": "Administrator",
+ "published": 1,
+ "route": "my-client-profile",
+ "show_attachments": 0,
+ "show_list": 0,
+ "show_sidebar": 0,
+ "title": "Client Profile",
+ "web_form_fields": []
 }
