@@ -1,0 +1,161 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"3e10TpR3_z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Portal</span>\",\"col\":12}},{\"id\":\"cCMRiUhEGY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument Profile\",\"col\":3}},{\"id\":\"kGqOjeyRXK\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Intake\",\"col\":3}},{\"id\":\"zG5fn9yIXy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Setup\",\"col\":3}},{\"id\":\"3St7Uz8fF-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Loaner Instrument\",\"col\":3}},{\"id\":\"_LgXRlckOJ\",\"type\":\"card\",\"data\":{\"card_name\":\"Intake & Front Desk\",\"col\":3}},{\"id\":\"euTWLsGkne\",\"type\":\"card\",\"data\":{\"card_name\":\"Service Planning\",\"col\":4}}]",
+ "creation": "2025-07-02 21:28:27.125784",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "down",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Repair Portal",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Intake & Front Desk",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake",
+   "link_count": 0,
+   "link_to": "Clarinet Intake",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Instrument",
+   "link_count": 0,
+   "link_to": "Loaner Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Return Check",
+   "link_count": 0,
+   "link_to": "Loaner Return Check",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Consent Form",
+   "link_count": 0,
+   "link_to": "Customer Consent Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Service Planning",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Estimate",
+   "link_count": 0,
+   "link_to": "Repair Estimate",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Service Plan",
+   "link_count": 0,
+   "link_to": "Service Plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Service Task",
+   "link_count": 0,
+   "link_to": "Service Task",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Workflow Action Master",
+   "link_count": 0,
+   "link_to": "Workflow Action Master",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-07-03 15:52:53.774589",
+ "modified_by": "dylan@artisanclarinets.com",
+ "module": "Repair Portal",
+ "name": "Repair Portal",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Clarinet Intake",
+   "link_to": "Clarinet Intake",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Instrument Profile",
+   "link_to": "Instrument Profile",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Clarinet Setup",
+   "link_to": "Clarinet Initial Setup",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Loaner Instrument",
+   "link_to": "Loaner Instrument",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Repair Portal"
+}

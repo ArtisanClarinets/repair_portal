@@ -1,6 +1,5 @@
 import frappe
 from frappe import _
-from frappe.utils import get_url
 
 
 @frappe.whitelist()
@@ -14,7 +13,10 @@ def get_client_portal_data(client_profile_name):
     # Check permissions
     # This ensures that only the linked user or a user with system manager/admin rights can view the data.
     client_profile = frappe.get_doc("Client Profile", client_profile_name)
-    if frappe.session.user not in ['Administrator', 'System Manager'] and client_profile.get("linked_user") != frappe.session.user:
+    if (
+        frappe.session.user not in ["Administrator", "System Manager"]
+        and client_profile.get("linked_user") != frappe.session.user
+    ):
         frappe.throw(_("You are not authorized to view this profile."), frappe.PermissionError)
 
     # Fetch Player Profiles

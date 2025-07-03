@@ -8,6 +8,7 @@
 
 import frappe
 
+
 def execute(filters=None):
     if filters is None:
         filters = {}
@@ -52,10 +53,12 @@ def execute(filters=None):
     chart = {
         "data": {
             "labels": [row["task_type"] for row in data],
-            "datasets": [{
-                "name": "Task Count",
-                "values": [row["task_count"] for row in data],
-            }],
+            "datasets": [
+                {
+                    "name": "Task Count",
+                    "values": [row["task_count"] for row in data],
+                }
+            ],
         },
         "type": "bar",
     }

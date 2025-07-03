@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",                          
+    "paths": {
+      "@/*": [
+        "apps/repair_portal/repair_portal/public/src/*"
+      ],
+      "../*": [
+        "apps/repair_portal/repair_portal/public/src/*"
+      ]
+    }
+  },
+  "include": []
+}

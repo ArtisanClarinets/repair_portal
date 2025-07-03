@@ -9,12 +9,15 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+
 class FinalQaChecklist(Document):
 
     def validate(self):
         incomplete = [i.description for i in self.items if not i.is_checked]
         if incomplete:
-            frappe.throw(_("Cannot submit. The following items are incomplete:\n{0}").format("\n".join(incomplete)))
+            frappe.throw(
+                _("Cannot submit. The following items are incomplete:\n{0}").format("\n".join(incomplete))
+            )
 
     def on_submit(self):
         if self.instrument_profile:

@@ -1,0 +1,161 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"fyz6HYo3v6\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Intake &amp; Front Desk</span>\",\"col\":12}},{\"id\":\"mFQoLbNPFI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clarinet Intake\",\"col\":3}},{\"id\":\"jqpQlvOcbx\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Customer\",\"col\":3}},{\"id\":\"_Wp5e2JwHc\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Loaner Instrument\",\"col\":3}},{\"id\":\"anCvG-G9B4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Consent Form\",\"col\":3}},{\"id\":\"eSxpzoxROr\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mcoGjN_LUG\",\"type\":\"card\",\"data\":{\"card_name\":\"Clarinet Intake\",\"col\":4}},{\"id\":\"eeVRxXC6Xy\",\"type\":\"card\",\"data\":{\"card_name\":\"Links\",\"col\":4}}]",
+ "creation": "2025-07-02 21:28:29.360722",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "edit",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Intake",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake",
+   "link_count": 0,
+   "link_to": "Clarinet Intake",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Consent Form",
+   "link_count": 0,
+   "link_to": "Customer Consent Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Instrument",
+   "link_count": 0,
+   "link_to": "Loaner Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Return Check",
+   "link_count": 0,
+   "link_to": "Loaner Return Check",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Links",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Instrument",
+   "link_count": 0,
+   "link_to": "Loaner Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Return Check",
+   "link_count": 0,
+   "link_to": "Loaner Return Check",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Deposit Balance Aging",
+   "link_count": 0,
+   "link_to": "Deposit Balance Aging",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Upcoming Appointments",
+   "link_count": 0,
+   "link_to": "Upcoming Appointments",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-07-03 15:32:30.846952",
+ "modified_by": "dylan@artisanclarinets.com",
+ "module": "Intake",
+ "name": "Intake",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "Repair Portal",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Clarinet Intake",
+   "link_to": "Clarinet Intake",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "New Customer",
+   "link_to": "Customer",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Loaner Instrument",
+   "link_to": "Loaner Instrument",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "List",
+   "label": "Customer Consent Form",
+   "link_to": "Customer Consent Form",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Intake"
+}

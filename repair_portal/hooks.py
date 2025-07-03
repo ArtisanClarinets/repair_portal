@@ -13,7 +13,6 @@ app_license = "mit"
 app_version = "1.2.1"
 
 
-
 app_name = "repair_portal"
 app_title = "Repair Portal"
 app_publisher = "Your Company"
@@ -25,9 +24,9 @@ app_license = "MIT"
 
 
 app_include_js = [
-    "/assets/repair_portal/js/client_portal/client_portal.bundle.js",
-    "/assets/repair_portal/js/intake_dashboard/intake_dashboard.bundle.js",
-    "/assets/repair_portal/js/technician/technician.bundle.js",
+    "/public/js/client_portal/client_portal.bundle.js",
+    "/public/js/intake_dashboard/intake_dashboard.bundle.js",
+    "/public/js/technician/technician.bundle.js",
 ]
 
 fixtures = [
@@ -47,15 +46,16 @@ fixtures = [
     "Role",
     "Role Profile",
     "Number Card",
-{
-     "doctype": "Page", "filters": [["name", "in", ["technician"]]],
-    }
+    {
+        "doctype": "Page",
+        "filters": [["name", "in", ["technician"]]],
+    },
 ]
 
 # Other hooks remain unchanged
 
 
 after_install = [
-   "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
+    "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
 ]
 after_migrate = ["repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"]

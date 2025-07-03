@@ -6,6 +6,7 @@
 import frappe
 from frappe import _
 
+
 @frappe.whitelist()
 def get_dashboard_data(technician=None):
     """
@@ -20,15 +21,23 @@ def get_dashboard_data(technician=None):
 
     # 1. Get KPIs. Using IFNULL ensures we always get a valid row with 0s
     #    instead of NULLs, even if no repairs match the criteria.
-    kpis_result = frappe.db.sql("""
+    kpis_result = frappe.db.sql(
+        """
         SELECT
             IFNULL(SUM(CASE WHEN status = 'Open' THEN 1 ELSE 0 END), 0) as open_repairs,
             IFNULL(SUM(CASE WHEN status = 'In Progress' THEN 1 ELSE 0 END), 0) as in_progress_repairs,
             IFNULL(SUM(CASE WHEN promise_date < CURDATE() AND status NOT IN ('Closed', 'Resolved') THEN 1 ELSE 0 END), 0) as overdue_repairs
         FROM `tabRepair Request`
         WHERE technician_assigned = %(technician)s
-    """, {"technician": technician}, as_dict=True)
-    kpis = list(kpis_result)[0] if kpis_result else {"open_repairs": 0, "in_progress_repairs": 0, "overdue_repairs": 0}
+    """,
+        {"technician": technician},
+        as_dict=True,
+    )
+    kpis = (
+        list(kpis_result)[0]
+        if kpis_result
+        else {"open_repairs": 0, "in_progress_repairs": 0, "overdue_repairs": 0}
+    )
 
     # 2. Get list of currently assigned repairs (not closed or resolved)
     assigned_repairs = frappe.get_list(
@@ -37,13 +46,22 @@ def get_dashboard_data(technician=None):
             "technician_assigned": technician,
             "status": ["not in", ["Closed", "Resolved"]],
         },
-        fields=["name", "customer", "instrument_category", "issue_description", "status", "priority_level", "promise_date"],
+        fields=[
+            "name",
+            "customer",
+            "instrument_category",
+            "issue_description",
+            "status",
+            "priority_level",
+            "promise_date",
+        ],
         order_by="promise_date asc",
-        limit=20
+        limit=20,
     )
 
     # 3. Get recent activity feed (last 5 pulse updates for this tech's repairs)
-    recent_activity = frappe.db.sql("""
+    recent_activity = frappe.db.sql(
+        """
         SELECT
             pu.repair_order,
             pu.status,
@@ -54,7 +72,10 @@ def get_dashboard_data(technician=None):
         WHERE rr.technician_assigned = %(technician)s
         ORDER BY pu.timestamp DESC
         LIMIT 5
-    """, {"technician": technician}, as_dict=True)
+    """,
+        {"technician": technician},
+        as_dict=True,
+    )
 
     return {
         "kpis": kpis,

@@ -9,6 +9,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+
 class MaterialUseLog(Document):
 
     def validate(self):
@@ -20,17 +21,19 @@ class MaterialUseLog(Document):
 
     def on_submit(self):
         # Create a Stock Entry to deduct material
-        stock_entry = frappe.get_doc({
-            "doctype": "Stock Entry",
-            "stock_entry_type": "Material Issue",
-            "items": [
-                {
-                    "item_code": self.item_code,
-                    "qty": self.qty,
-                    "uom": self.uom,
-                    "s_warehouse": self.source_warehouse,
-                }
-            ]
-        })
+        stock_entry = frappe.get_doc(
+            {
+                "doctype": "Stock Entry",
+                "stock_entry_type": "Material Issue",
+                "items": [
+                    {
+                        "item_code": self.item_code,
+                        "qty": self.qty,
+                        "uom": self.uom,
+                        "s_warehouse": self.source_warehouse,
+                    }
+                ],
+            }
+        )
         stock_entry.insert(ignore_permissions=True)
         stock_entry.submit()

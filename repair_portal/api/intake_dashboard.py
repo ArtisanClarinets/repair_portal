@@ -5,6 +5,7 @@
 
 import frappe
 
+
 @frappe.whitelist()
 def get_intake_counts():
     return {
@@ -14,6 +15,7 @@ def get_intake_counts():
         "QC": frappe.db.count("Clarinet Intake", {"workflow_state": "QC"}),
         "Hold": frappe.db.count("Clarinet Intake", {"workflow_state": "Hold"}),
     }
+
 
 @frappe.whitelist()
 def get_recent_intakes():

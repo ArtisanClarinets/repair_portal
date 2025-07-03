@@ -8,6 +8,7 @@
 
 import frappe
 
+
 def execute(filters=None):
     if filters is None:
         filters = {}
@@ -46,7 +47,13 @@ def execute(filters=None):
     )
 
     columns = [
-        {"fieldname": "qa_technician", "label": "QA Technician", "fieldtype": "Link", "options": "User", "width": 200},
+        {
+            "fieldname": "qa_technician",
+            "label": "QA Technician",
+            "fieldtype": "Link",
+            "options": "User",
+            "width": 200,
+        },
         {"fieldname": "total_checks", "label": "Total QA Checks", "fieldtype": "Int", "width": 160},
         {"fieldname": "failures", "label": "Failures", "fieldtype": "Int", "width": 100},
         {"fieldname": "failure_rate", "label": "Failure Rate (%)", "fieldtype": "Percent", "width": 140},
@@ -55,10 +62,12 @@ def execute(filters=None):
     chart = {
         "data": {
             "labels": [row["qa_technician"] for row in qa_list],
-            "datasets": [{
-                "name": "Failure Rate (%)",
-                "values": [row["failure_rate"] for row in qa_list],
-            }],
+            "datasets": [
+                {
+                    "name": "Failure Rate (%)",
+                    "values": [row["failure_rate"] for row in qa_list],
+                }
+            ],
         },
         "type": "bar",
     }

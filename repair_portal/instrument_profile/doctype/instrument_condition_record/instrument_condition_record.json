@@ -1,40 +1,75 @@
 {
-  "doctype": "DocType",
-  "name": "Instrument Condition Record",
-  "module": "Instrument Profile",
-  "custom": 0,
-  "istable": 1,
-  "is_child_table": 1,
-  "fields": [
-    {
-      "fieldname": "date",
-      "label": "Date",
-      "fieldtype": "Date",
-      "reqd": 1
-    },
-    {
-      "fieldname": "technician",
-      "label": "Technician",
-      "fieldtype": "Link",
-      "options": "User"
-    },
-    {
-      "fieldname": "condition_notes",
-      "label": "Condition Notes",
-      "fieldtype": "Small Text"
-    },
-    {
-      "fieldname": "attachment",
-      "label": "Attachment",
-      "fieldtype": "Attach"
-    }
-  ],
-  "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1
-    }
-  ]
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-07-03 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "instrument",
+  "condition",
+  "date_of_record",
+  "recorded_by",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument",
+   "reqd": 1
+  },
+  {
+   "fieldname": "condition",
+   "fieldtype": "Select",
+   "label": "Condition",
+   "options": "\nNew\nGood\nFair\nPoor\nNeeds Repair",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date_of_record",
+   "fieldtype": "Date",
+   "label": "Date of Record",
+   "reqd": 1
+  },
+  {
+   "fieldname": "recorded_by",
+   "fieldtype": "Link",
+   "label": "Recorded By",
+   "options": "User",
+   "default": "__user",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-07-03 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Instrument Profile",
+ "name": "Instrument Condition Record",
+ "naming_rule": "By fieldname",
+ "autoname": "field:instrument",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
 }

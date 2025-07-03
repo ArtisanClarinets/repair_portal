@@ -7,6 +7,7 @@
 
 import frappe
 
+
 def create_linked_documents(doc, method=None):
     """
     When an Instrument Profile is created, auto-create linked Inspection Report.
@@ -15,11 +16,13 @@ def create_linked_documents(doc, method=None):
         if frappe.db.exists("Inspection Report", {"instrument_profile": doc.name}):
             return
 
-        inspection = frappe.get_doc({
-            "doctype": "Inspection Report",
-            "instrument_profile": doc.name,
-            "status": "Pending",
-        })
+        inspection = frappe.get_doc(
+            {
+                "doctype": "Inspection Report",
+                "instrument_profile": doc.name,
+                "status": "Pending",
+            }
+        )
         inspection.insert(ignore_permissions=True)
         frappe.db.commit()
 
