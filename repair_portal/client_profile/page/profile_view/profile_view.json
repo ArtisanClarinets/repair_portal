@@ -1,0 +1,14 @@
+{
+  "doctype": "Page",
+  "name": "profile-view",
+  "module": "Client Profile",
+  "title": "Profile View",
+  "content": null,
+  "script": "/repair_portal/public/js/profile_view/profile_view.bundle.js",
+  "style": "/repair_portal/public/js/profile_view/profile_view.bundle.css",
+  "system_page": 0,
+  "standard": "No",
+  "roles": [
+    { "role": "Client" }
+  ]
+}
