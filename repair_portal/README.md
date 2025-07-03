@@ -1,23 +1,15 @@
-# Repair Portal
+# Repair Portal App
 
-## Update Log
+## CHANGELOG
 
-### 2025-06-30: Inspection Unification
-- **Clarinet Inspection** DocType is now fully unified under **Inspection Report**.
-- Fields from Clarinet Inspection (preliminary_estimate, intake) are migrated and mapped.
-- Status values unified and legacy reference fields added for traceability.
-- All historic records will be accessible in Inspection Report.
-- Clarinet Inspection is deprecated and set read-only after migration.
+### 2025-07-03
+- Enforced login on `/my_players` and `/instrument_profile` web controllers.
+- Sanitized public `/player_profiles` endpoint to restrict fields and enforce published=1.
+- Standardized `serial_number` across all Instrument Profile backend and web form logic.
+- Hardened `/api/client_portal.py` endpoint with allow_guest=False and file headers.
+- Clarinet Intake QC hold logic updated to release hold on QC pass.
+- Secure pagination parameters in `/my_instruments.py`.
 
-### 2025-07-03: Vue Portal Enhancement
-- Added new **ProfileView** portal page built with Vue 3.
+**Outstanding:** Portal controller headers (pending directory server error), and review of web form controller `instrument_intake_batch` (blocked by error).
 
 ---
-
-## Module Structure
-
-(Existing structure remains unchanged)
-
-## Next steps
-- Run migration and remove old DocType from desk/menus.
-- Confirm field mappings, test all inspection creation workflows, update any scripts/reports referencing the old doctype.

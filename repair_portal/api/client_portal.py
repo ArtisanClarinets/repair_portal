@@ -1,17 +1,23 @@
+"""
+File: repair_portal/api/client_portal.py
+Updated: 2025-07-03
+Version: 1.1
+Purpose: Secure API endpoint for client portal, restricts guest access, and documents usage. 
+"""
 import frappe
 from frappe import _
 
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_client_portal_data(client_profile_name):
     """
-    Fetches all data needed for the client portal page.
+    Fetches all data needed for the client portal page. Only accessible to owner or admin.
     """
     if not frappe.db.exists("Client Profile", client_profile_name):
         frappe.throw(_("Client Profile not found"), frappe.DoesNotExistError)
 
     # Check permissions
-    # This ensures that only the linked user or a user with system manager/admin rights can view the data.
+    # Only linked user or admin/system manager may view data.
     client_profile = frappe.get_doc("Client Profile", client_profile_name)
     if (
         frappe.session.user not in ["Administrator", "System Manager"]

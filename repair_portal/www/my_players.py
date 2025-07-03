@@ -1,7 +1,13 @@
-"""List clarinet players linked to the user."""
+"""
+File: repair_portal/www/my_players.py
+Updated: 2025-07-03
+Version: 1.1
+Purpose: List clarinet players linked to the logged-in user. Ensures login is required for access.
+"""
 
 import frappe
 
+login_required = True
 
 def get_context(context):
     """Build page context for /my_players."""

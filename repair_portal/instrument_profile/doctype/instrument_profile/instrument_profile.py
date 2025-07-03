@@ -1,7 +1,7 @@
 # repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
-# Updated: 2025-07-01
-# Version: 1.3.0
-# Purpose: Instrument Profile controller with field change tracking
+# Updated: 2025-07-03
+# Version: 1.4.0
+# Purpose: Instrument Profile controller with field change tracking and serial_number consistency
 
 import frappe
 from frappe import _
@@ -14,12 +14,12 @@ class InstrumentProfile(Document):
         self.update_history_on_change()
 
     def ensure_unique_serial(self):
-        if self.serial:
+        if self.serial_number:
             exists = frappe.db.exists(
-                "Instrument Profile", {"serial": self.serial, "name": ("!=", self.name)}
+                "Instrument Profile", {"serial_number": self.serial_number, "name": ("!=", self.name)}
             )
             if exists:
-                frappe.throw(_(f"An Instrument Profile already exists for Serial #: {self.serial}"))
+                frappe.throw(_(f"An Instrument Profile already exists for Serial #: {self.serial_number}"))
 
     def update_history_on_change(self):
         if not self.get("document_history"):
@@ -50,7 +50,7 @@ class InstrumentProfile(Document):
             return False
 
         if event == "Serial Changed":
-            return before.serial != self.serial
+            return before.serial_number != self.serial_number
         if event == "Owner Changed":
             return before.owner != self.owner
         if event == "Status Changed":

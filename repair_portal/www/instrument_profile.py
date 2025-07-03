@@ -1,12 +1,13 @@
-"""Dynamic instrument profile page for logged-in user."""
-
-# File: repair_portal/repair_portal/www/instrument_profile.py
-# Updated: 2025-06-18
-# Version: 1.0
-# Purpose: Web controller for displaying full details about a single instrument owned by the logged-in user.
+"""
+File: repair_portal/www/instrument_profile.py
+Updated: 2025-07-03
+Version: 1.1
+Purpose: Dynamic instrument profile page for logged-in user. Enforces login requirement.
+"""
 
 import frappe
 
+login_required = True
 
 def get_context(context):
     user = frappe.session.user

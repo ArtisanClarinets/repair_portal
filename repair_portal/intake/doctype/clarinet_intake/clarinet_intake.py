@@ -1,8 +1,8 @@
 # relative path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
-# last updated: 2025-07-01
-# version: 1.2
+# last updated: 2025-07-03
+# version: 1.3
 # purpose: Controller for Clarinet Intake — links ERPNext documents for inventory traceability, enforces intake requirements, and launches QC/inspection workflows for new and repaired instruments.
-# notes: This version ensures end-to-end traceability and workflow enforcement for Fortune 500-level requirements. Automatically links/creates all required docs and triggers QC. Includes instrument profile creation and linkage.
+# notes: Adds logic to clear Hold stock status when QC passes; fully aligns with repair_portal compliance and agent review findings.
 
 from __future__ import annotations
 
@@ -45,6 +45,7 @@ class ClarinetIntake(Document):
             self._update_profile_stock_status()
         if self.has_value_changed("qc_status"):
             self._apply_qc_hold()
+            self._release_qc_hold_if_passed()
 
     def _validate_required_fields(self):
         if self.intake_type == "Inventory":
@@ -173,3 +174,11 @@ class ClarinetIntake(Document):
     def _apply_qc_hold(self):
         if self.intake_type == "Inventory" and self.qc_status == "Fail":
             self.db_set("stock_status", "Hold")
+
+    def _release_qc_hold_if_passed(self):
+        if (
+            self.intake_type == "Inventory"
+            and self.qc_status == "Pass"
+            and self.stock_status == "Hold"
+        ):
+            self.db_set("stock_status", "Available")
