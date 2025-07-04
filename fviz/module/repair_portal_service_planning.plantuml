@@ -1,0 +1,57 @@
+@startuml
+package repair_portal.service_planning <<Folder>> {
+class "Unnamed" #E59866 {
+}
+class "Unnamed" #E59866 {
+}
+class "Repair Bay Utilization" #E59866 {
+}
+class "Workflow State Mapping" #E59866 {
+}
+class "Scheduled Service Tasks By Day" #E59866 {
+}
+"Item" *-- "Estimate Line Item" : part_code
+class "Estimate Line Item" #E59866 {
+  description : Data
+  part_code : Link
+  hours : Float
+  rate : Currency
+  amount : Currency
+}
+"Inspection Report" *-- "Repair Estimate" : inspection_reference
+"Estimate Line Item" *-- "Repair Estimate" : line_items
+class "Repair Estimate" #E59866 {
+  customer_name : Data
+  instrument_id : Data
+  inspection_reference : Link
+  estimated_completion : Date
+  line_items : Table
+  total_cost : Currency
+}
+class "Tasks" #E59866 {
+  task_description : Small Text
+  task_due_date : Date
+}
+"User" *-- "Service Task" : assigned_to
+"Workflow State" *-- "Service Task" : workflow_state
+class "Service Task" #E59866 {
+  task_name : Data
+  description : Text
+  scheduled_date : Date
+  assigned_to : Link
+  workflow_state : Link
+}
+"Instrument Profile" *-- "Service Plan" : instrument
+"Repair Task Log" *-- "Service Plan" : tasks
+class "Service Plan" #E59866 {
+  plan_date : Date
+  instrument : Link
+  estimated_cost : Currency
+  labor_hours : Float
+  notes : Small Text
+  tasks : Table
+}
+class "Service Task Workflow" #E59866 {
+}
+}
+@enduml

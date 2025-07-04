@@ -1,0 +1,4 @@
+@startuml
+class "Qa Failures By Technician" #D2B4DE {
+}
+@enduml

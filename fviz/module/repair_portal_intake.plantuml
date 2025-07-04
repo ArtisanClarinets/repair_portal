@@ -1,0 +1,152 @@
+@startuml
+package repair_portal.intake <<Folder>> {
+class "Cancelled" #A9DFBF {
+}
+class "Setup" #A9DFBF {
+}
+class "New" #A9DFBF {
+}
+class "QC" #A9DFBF {
+}
+class "Flagged" #A9DFBF {
+}
+class "Inspection" #A9DFBF {
+}
+class "Escalated" #A9DFBF {
+}
+class "Hold" #A9DFBF {
+}
+class "Received" #A9DFBF {
+}
+class "Confirmed" #A9DFBF {
+}
+class "Loaners Outstanding" #A9DFBF {
+}
+class "Loaner Turnover" #A9DFBF {
+}
+class "Intake By Day" #A9DFBF {
+}
+class "Follow Up Compliance" #A9DFBF {
+}
+class "Upcoming Appointments" #A9DFBF {
+}
+class "Follow Up Compliance" #A9DFBF {
+}
+class "Deposit Balance Aging" #A9DFBF {
+}
+class "Loaner Return Flags" #A9DFBF {
+}
+class "Intake" #A9DFBF {
+}
+"Customer" *-- "Clarinet Intake Request" : customer
+class "Clarinet Intake Request" #A9DFBF {
+  serial_number : Data
+  customer : Link
+  instrument_category : Select
+  received_date : Date
+  due_date : Date
+  customer_notes : Text
+  inspection_completed : Check
+}
+class "Overdue Intakes" #A9DFBF {
+}
+class "Appointments By Week" #A9DFBF {
+}
+class "Intakes Due Soon" #A9DFBF {
+}
+class "Avg Intake To Repair Time" #A9DFBF {
+}
+class "Loaners Checked Out" #A9DFBF {
+}
+class "Intake Checklist Item" #A9DFBF {
+  check_item : Data
+  checked : Check
+  comments : Small Text
+}
+"Loaner Instrument" *-- "Loaner Return Check" : linked_loaner
+"Workflow State" *-- "Loaner Return Check" : workflow_state
+class "Loaner Return Check" #A9DFBF {
+  linked_loaner : Link
+  condition_notes : Text
+  return_photos : Attach Image
+  damage_found : Check
+  return_date : Date
+  workflow_state : Link
+}
+"Item" *-- "Loaner Instrument" : item_code
+"Customer" *-- "Loaner Instrument" : issued_to
+class "Loaner Instrument" #A9DFBF {
+  loaner_serial : Data
+  item_code : Link
+  issued_to : Link
+  issued_date : Date
+  expected_return_date : Date
+  returned : Check
+}
+"Customer" *-- "Customer Consent Form" : customer
+class "Customer Consent Form" #A9DFBF {
+  customer : Link
+  consent_signed : Check
+  signature : Signature
+  authorization_notes : Small Text
+}
+"Supplier" *-- "Clarinet Intake" : brand
+"Supplier" *-- "Clarinet Intake" : supplier
+"Purchase Order" *-- "Clarinet Intake" : purchase_order
+"Purchase Receipt" *-- "Clarinet Intake" : purchase_receipt
+"Warehouse" *-- "Clarinet Intake" : warehouse
+"User" *-- "Clarinet Intake" : received_by
+"Instrument Profile" *-- "Clarinet Intake" : instrument_profile
+"User" *-- "Clarinet Intake" : inspected_by
+"Customer" *-- "Clarinet Intake" : customer
+"Intake Checklist Item" *-- "Clarinet Intake" : checklist
+"Workflow State" *-- "Clarinet Intake" : workflow_state
+class "Clarinet Intake" #A9DFBF {
+  naming_series : Select
+  intake_id : Data
+  intake_type : Select
+  serial_number : Data
+  brand : Link
+  model : Data
+  body_material : Select
+  key_plating : Select
+  year_estimated : Int
+  instrument_category : Select
+  supplier : Link
+  purchase_order : Link
+  purchase_receipt : Link
+  warehouse : Link
+  received_date : Date
+  received_by : Link
+  instrument_profile : Link
+  stock_status : Select
+  qc_status : Select
+  inspection_date : Datetime
+  inspected_by : Link
+  customer : Link
+  repair_priority : Select
+  due_date : Date
+  customer_notes : Text
+  follow_up_due_date : Date
+  follow_up_completed : Check
+  checklist : Table
+  initial_photos : Attach Image
+  attachments : Attach
+  condition_notes : Text
+  intake_duration : Int
+  workflow_state : Link
+  created_by : Data
+  creation_date : Datetime
+  last_modified_by : Data
+  last_modified_date : Datetime
+}
+class "Appointment Workflow" #A9DFBF {
+}
+class "Loaner Return Check Workflow" #A9DFBF {
+}
+class "Clarinet Intake Workflow" #A9DFBF {
+}
+class "Intake Receipt" #A9DFBF {
+}
+}
+@enduml

@@ -1,0 +1,4 @@
+@startuml
+class "Resolved" #76D7C4 {
+}
+@enduml

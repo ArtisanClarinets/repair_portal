@@ -1,0 +1,12 @@
+@startuml
+"Instrument Profile" *-- "Repair Order" : instrument
+"Client Profile" *-- "Repair Order" : client
+class "Repair Order" #F9E79F {
+  instrument : Link
+  client : Link
+  status : Select
+  description : Text
+  estimated_completion : Date
+  total_cost : Currency
+}
+@enduml

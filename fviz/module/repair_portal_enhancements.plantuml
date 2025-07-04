@@ -1,0 +1,25 @@
+@startuml
+package repair_portal.enhancements <<Folder>> {
+class "Top Upgrade Requests" #A9DFBF {
+}
+class "Upgrade Conversion Rates" #A9DFBF {
+}
+class "Upgrade Requests Over Time" #A9DFBF {
+}
+"Customer" *-- "Customer Upgrade Request" : customer
+"Item" *-- "Customer Upgrade Request" : item_code
+"Upgrade Option" *-- "Customer Upgrade Request" : requested_upgrades
+class "Customer Upgrade Request" #A9DFBF {
+  customer : Link
+  item_code : Link
+  requested_upgrades : Table
+  notes : Small Text
+}
+class "Upgrade Option" #A9DFBF {
+  upgrade_description : Data
+  notes : Small Text
+}
+class "Customer Upgrade Request Auto Validation" #A9DFBF {
+}
+}
+@enduml

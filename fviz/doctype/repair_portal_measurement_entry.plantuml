@@ -1,0 +1,8 @@
+@startuml
+class "Measurement Entry" #F5CBA7 {
+  parameter : Data
+  value : Float
+  unit : Data
+  comments : Small Text
+}
+@enduml

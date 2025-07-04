@@ -1,0 +1,57 @@
+@startuml
+package repair_portal.inspection <<Folder>> {
+class "technician_dashboard" #AED6F1 {
+}
+class "Inspection Finding" #AED6F1 {
+  area : Data
+  observation : Small Text
+  severity : Select
+  image : Attach Image
+}
+"Quality Procedure" *-- "Inspection Report" : procedure
+"Clarinet Intake" *-- "Inspection Report" : clarinet_intake_ref
+"Inspection Checklist Item" *-- "Inspection Report" : inspection_checklist
+"Inspection Finding" *-- "Inspection Report" : inspection_findings
+"Non Conformance Report" *-- "Inspection Report" : non_conformance_report
+class "Inspection Report" #AED6F1 {
+  inspection_date : Date
+  instrument_id : Data
+  customer_name : Data
+  inspection_type : Select
+  procedure : Link
+  status : Select
+  preliminary_estimate : Currency
+  clarinet_intake_ref : Link
+  legacy_clarinet_inspection_id : Data
+  inspection_checklist : Table
+  inspection_findings : Table
+  qc_certificate : Attach
+  non_conformance_report : Link
+  digital_signature : Signature
+  flag_for_reinspection : Check
+}
+class "Inspection Checklist Item" #AED6F1 {
+  sequence : Int
+  area : Data
+  criteria : Text
+  value : Data
+  pass_fail : Select
+  severity : Select
+  corrective_action : Text
+  photo : Attach Image
+  notes : Small Text
+}
+class "Customer External Work Log" #AED6F1 {
+  work_description : Text
+  date_performed : Date
+  performed_by : Data
+}
+class "Key Measurement" #AED6F1 {
+  pad_id : Data
+  pad_name : Data
+  height_mm : Float
+  seal_status : Select
+  notes : Small Text
+}
+}
+@enduml

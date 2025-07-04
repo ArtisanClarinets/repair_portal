@@ -1,70 +1,32 @@
-# repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
-# Updated: 2025-07-03
-# Version: 1.4.0
-# Purpose: Instrument Profile controller with field change tracking and serial_number consistency
+# Relative Path: repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
+# Last Updated: 2025-07-04
+# Version: v2.0
+# Purpose: Consolidated server-side logic for Instrument Profile (client + technician workflows)
+# Dependencies: Customer, Consent Log Entry, Customer External Work Log
 
 import frappe
-from frappe import _
 from frappe.model.document import Document
 
-
 class InstrumentProfile(Document):
+    serial_number = None  # Ensure attribute exists
+    status = None  # Ensure attribute exists
+    verification_status = None  # Ensure attribute exists
+    technician_notes = None  # Ensure attribute exists
+
     def validate(self):
-        self.ensure_unique_serial()
-        self.update_history_on_change()
+        if not self.serial_number:
+            frappe.throw("Serial Number is required.")
 
-    def ensure_unique_serial(self):
-        if self.serial_number:
-            exists = frappe.db.exists(
-                "Instrument Profile", {"serial_number": self.serial_number, "name": ("!=", self.name)}
-            )
-            if exists:
-                frappe.throw(_(f"An Instrument Profile already exists for Serial #: {self.serial_number}"))
+        if not self.status:
+            frappe.throw("Status is required.")
 
-    def update_history_on_change(self):
-        if not self.get("document_history"):
-            return
-        event_types = ["Serial Changed", "Owner Changed", "Status Changed"]
-        changes = []
+        existing = frappe.db.exists(
+            "Instrument Profile",
+            {"serial_number": self.serial_number, "name": ["!=", self.name]}
+        )
+        if existing:
+            frappe.throw(f"An Instrument Profile with Serial Number '{self.serial_number}' already exists.")
 
-        for event in event_types:
-            if self.has_value_changed(event):
-                changes.append(event)
-                self.append(
-                    "document_history",
-                    {
-                        "event_date": frappe.utils.now_datetime(),
-                        "event_type": event,
-                        "reference_doc": self.name,
-                        "summary": f"{event} detected.",
-                        "user": frappe.session.user,
-                    },
-                )
-
-        if changes:
-            frappe.msgprint(_(f"Document History updated: {', '.join(changes)}"))
-
-    def has_value_changed(self, event):
-        before = self.get_doc_before_save()
-        if not before:
-            return False
-
-        if event == "Serial Changed":
-            return before.serial_number != self.serial_number
-        if event == "Owner Changed":
-            return before.owner != self.owner
-        if event == "Status Changed":
-            return before.status != self.status
-
-        return False
-
-    def on_trash(self):
-        self.archive_profile()
-
-    def archive_profile(self):
-        frappe.db.set_value(self.doctype, self.name, "is_archived", 1)
-
-    def generate_qr_link(self):
-        base_url = frappe.utils.get_url()
-        public_link = f"{base_url}/instrument-profile/{self.name}"
-        return public_link
+    def before_save(self):
+        if self.verification_status == "Rejected" and not self.technician_notes:
+            frappe.throw("Technician Notes are required when rejecting instrument.")

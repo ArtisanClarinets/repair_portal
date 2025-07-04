@@ -1,0 +1,4 @@
+@startuml
+class "Closed" #76D7C4 {
+}
+@enduml

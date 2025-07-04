@@ -1,0 +1,4 @@
+@startuml
+class "Repair Tasks By Day" #76D7C4 {
+}
+@enduml

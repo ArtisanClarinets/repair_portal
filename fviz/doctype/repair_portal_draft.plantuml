@@ -1,0 +1,4 @@
+@startuml
+class "Draft" #D2B4DE {
+}
+@enduml

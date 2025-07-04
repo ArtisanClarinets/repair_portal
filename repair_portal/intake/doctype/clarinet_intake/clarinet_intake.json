@@ -50,9 +50,16 @@
       "label": "Model"
     },
     {
-      "fieldname": "finish",
-      "fieldtype": "Data",
-      "label": "Finish"
+      "fieldname": "body_material",
+      "fieldtype": "Select",
+      "label": "Body Material",
+      "options": "Grenadilla Wood\nMopane Wood\nCocobolo Wood\nBoxwood\nSynthetic"
+    },
+    {
+      "fieldname": "key_plating",
+      "fieldtype": "Select",
+      "label": "Key Plating",
+      "options": "Silver\nNickel\nGold\nRose Gold\nOther"
     },
     {
       "fieldname": "year_estimated",

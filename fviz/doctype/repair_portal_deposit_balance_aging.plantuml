@@ -1,0 +1,4 @@
+@startuml
+class "Deposit Balance Aging" #A9DFBF {
+}
+@enduml

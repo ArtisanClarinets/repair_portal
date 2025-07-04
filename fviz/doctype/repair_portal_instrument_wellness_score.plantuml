@@ -1,0 +1,13 @@
+@startuml
+"Instrument Profile" *-- "Instrument Wellness Score" : instrument
+class "Instrument Wellness Score" #F5CBA7 {
+  instrument : Link
+  evaluation_date : Date
+  intonation_score : Float
+  impedance_score : Float
+  leak_score : Float
+  tone_score : Float
+  overall_score : Float
+  notes : Text
+}
+@enduml

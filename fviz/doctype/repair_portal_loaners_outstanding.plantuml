@@ -1,0 +1,4 @@
+@startuml
+class "Loaners Outstanding" #A9DFBF {
+}
+@enduml

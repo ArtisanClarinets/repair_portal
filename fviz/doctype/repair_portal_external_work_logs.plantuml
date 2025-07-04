@@ -1,0 +1,7 @@
+@startuml
+class "External Work Logs" #F5CBA7 {
+  description : Small Text
+  performed_by : Data
+  date : Date
+}
+@enduml

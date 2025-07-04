@@ -1,0 +1,4 @@
+@startuml
+class "Technician Verification Workspace" #F5CBA7 {
+}
+@enduml

@@ -1,0 +1,4 @@
+@startuml
+class "Instrument Profile Summary" #F5CBA7 {
+}
+@enduml

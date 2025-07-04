@@ -1,0 +1,9 @@
+@startuml
+"User" *-- "Consent Log Entry" : technician
+class "Consent Log Entry" #D2B4DE {
+  entry_date : Date
+  method : Select
+  technician : Link
+  notes : Small Text
+}
+@enduml

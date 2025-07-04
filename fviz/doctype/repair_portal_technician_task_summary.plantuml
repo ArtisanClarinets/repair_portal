@@ -1,0 +1,4 @@
+@startuml
+class "Technician Task Summary" #F7DC6F {
+}
+@enduml

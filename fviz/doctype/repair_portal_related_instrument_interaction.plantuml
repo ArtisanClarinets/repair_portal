@@ -1,0 +1,8 @@
+@startuml
+"Instrument Profile" *-- "Related Instrument Interaction" : related_instrument
+class "Related Instrument Interaction" #76D7C4 {
+  related_instrument : Link
+  interaction_type : Select
+  notes : Small Text
+}
+@enduml

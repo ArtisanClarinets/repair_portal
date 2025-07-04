@@ -1,0 +1,4 @@
+@startuml
+class "Technician Utilization" #F9E79F {
+}
+@enduml

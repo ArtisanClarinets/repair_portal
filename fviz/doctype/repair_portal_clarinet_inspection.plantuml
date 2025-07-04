@@ -1,0 +1,13 @@
+@startuml
+"Instrument Profile" *-- "Clarinet Inspection" : instrument_profile
+"User" *-- "Clarinet Inspection" : inspected_by
+"Inspection Finding" *-- "Clarinet Inspection" : inspection_findings
+class "Clarinet Inspection" #F9E79F {
+  instrument_profile : Link
+  inspected_by : Link
+  inspection_date : Date
+  overall_condition : Select
+  inspection_findings : Table
+  notes : Text
+}
+@enduml

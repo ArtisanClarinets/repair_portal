@@ -1,0 +1,7 @@
+@startuml
+class "Consent Log" #D2B4DE {
+  consent_type : Select
+  date_given : Date
+  notes : Small Text
+}
+@enduml

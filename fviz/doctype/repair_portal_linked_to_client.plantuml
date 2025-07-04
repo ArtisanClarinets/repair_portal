@@ -1,0 +1,4 @@
+@startuml
+class "Linked To Client" #76D7C4 {
+}
+@enduml

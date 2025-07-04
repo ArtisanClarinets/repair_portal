@@ -1,0 +1,4 @@
+@startuml
+class "Quality Inspection" #D2B4DE {
+}
+@enduml

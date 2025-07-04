@@ -1,0 +1,4 @@
+@startuml
+class "Loaner Turnover" #A9DFBF {
+}
+@enduml

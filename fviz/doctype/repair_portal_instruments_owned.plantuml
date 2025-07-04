@@ -1,0 +1,6 @@
+@startuml
+class "Instruments Owned" #D2B4DE {
+  instrument_category : Data
+  serial_number : Data
+}
+@enduml

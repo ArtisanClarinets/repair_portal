@@ -1,0 +1,6 @@
+@startuml
+class "Default Workflow States" #76D7C4 {
+  state : Data
+  is_default : Check
+}
+@enduml

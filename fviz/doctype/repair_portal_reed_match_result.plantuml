@@ -1,0 +1,14 @@
+@startuml
+"Instrument Profile" *-- "Reed Match Result" : instrument
+"Player Profile" *-- "Reed Match Result" : player
+"Repair Request" *-- "Reed Match Result" : repair_order
+class "Reed Match Result" #F5CBA7 {
+  instrument : Link
+  player : Link
+  repair_order : Link
+  session_type : Select
+  json_data : Long Text
+  plot_attachment : Attach Image
+  recommended_reeds : Data
+}
+@enduml

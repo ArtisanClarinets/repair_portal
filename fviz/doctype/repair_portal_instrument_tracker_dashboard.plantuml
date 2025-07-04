@@ -1,0 +1,4 @@
+@startuml
+class "Instrument Tracker Dashboard" #76D7C4 {
+}
+@enduml

@@ -1,0 +1,4 @@
+@startuml
+class "Deleted" #D2B4DE {
+}
+@enduml

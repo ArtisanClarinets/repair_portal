@@ -1,0 +1,12 @@
+@startuml
+"Inspection Report" *-- "Repair Estimate" : inspection_reference
+"Estimate Line Item" *-- "Repair Estimate" : line_items
+class "Repair Estimate" #E59866 {
+  customer_name : Data
+  instrument_id : Data
+  inspection_reference : Link
+  estimated_completion : Date
+  line_items : Table
+  total_cost : Currency
+}
+@enduml

@@ -1,0 +1,4 @@
+@startuml
+class "Repair Kpis" #F9E79F {
+}
+@enduml

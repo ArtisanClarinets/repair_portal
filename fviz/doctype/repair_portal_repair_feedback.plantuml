@@ -1,0 +1,10 @@
+@startuml
+"Repair Order" *-- "Repair Feedback" : repair_order
+"Customer" *-- "Repair Feedback" : customer
+class "Repair Feedback" #F9E79F {
+  repair_order : Link
+  customer : Link
+  rating : Select
+  comment : Small Text
+}
+@enduml

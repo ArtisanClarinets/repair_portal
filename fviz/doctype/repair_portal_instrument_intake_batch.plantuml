@@ -1,0 +1,4 @@
+@startuml
+class "Instrument Intake Batch" #F5CBA7 {
+}
+@enduml

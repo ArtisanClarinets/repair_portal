@@ -1,0 +1,75 @@
+@startuml
+package repair_portal.repair <<Folder>> {
+class "Technician Utilization" #F9E79F {
+}
+class "Repair Revenue Vs Cost" #F9E79F {
+}
+class "Repair Issue Report" #F9E79F {
+}
+class "Repairs" #F9E79F {
+}
+class "Material Reorder Warning" #F9E79F {
+}
+class "Repairs By Status" #F9E79F {
+}
+class "Repair Kpis" #F9E79F {
+}
+class "Repair Kpis" #F9E79F {
+}
+"Workflow State Mapping" *-- "Repair Order Settings" : default_workflow_states
+class "Repair Order Settings" #F9E79F {
+  naming_series : Data
+  default_workflow_states : Table
+  sla_days : Int
+}
+"Repair Order" *-- "Pulse Update" : repair_order
+"User" *-- "Pulse Update" : entered_by
+class "Pulse Update" #F9E79F {
+  repair_order : Link
+  status : Select
+  note : Small Text
+  timestamp : Datetime
+  entered_by : Link
+}
+"Repair Order" *-- "Repair Feedback" : repair_order
+"Customer" *-- "Repair Feedback" : customer
+class "Repair Feedback" #F9E79F {
+  repair_order : Link
+  customer : Link
+  rating : Select
+  comment : Small Text
+}
+"Customer" *-- "Repair Issue" : customer
+class "Repair Issue" #F9E79F {
+  customer : Link
+  issue_description : Text
+  status : Select
+}
+"Instrument Profile" *-- "Repair Order" : instrument
+"Client Profile" *-- "Repair Order" : client
+class "Repair Order" #F9E79F {
+  instrument : Link
+  client : Link
+  status : Select
+  description : Text
+  estimated_completion : Date
+  total_cost : Currency
+}
+"Service Task" *-- "Repair Task" : task_type
+"User" *-- "Repair Task" : technician
+"Repair Task Log" *-- "Repair Task" : log
+"Image Log Entry" *-- "Repair Task" : images
+class "Repair Task" #F9E79F {
+  task_type : Link
+  description : Text
+  technician : Link
+  est_hours : Float
+  actual_hours : Float
+  parts_cost : Currency
+  status : Select
+  log : Link
+  images : Table
+  remarks : Small Text
+}
+}
+@enduml

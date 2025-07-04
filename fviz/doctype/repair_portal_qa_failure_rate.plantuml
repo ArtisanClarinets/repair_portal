@@ -1,0 +1,4 @@
+@startuml
+class "Qa Failure Rate" #D2B4DE {
+}
+@enduml

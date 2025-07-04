@@ -1,0 +1,8 @@
+@startuml
+"Customer" *-- "Repair Issue" : customer
+class "Repair Issue" #F9E79F {
+  customer : Link
+  issue_description : Text
+  status : Select
+}
+@enduml

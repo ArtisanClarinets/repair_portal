@@ -1,0 +1,4 @@
+@startuml
+class "Client Dashboard" #D2B4DE {
+}
+@enduml

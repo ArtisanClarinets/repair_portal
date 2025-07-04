@@ -1,0 +1,7 @@
+@startuml
+class "Intonation Note" #F5CBA7 {
+  note_name : Data
+  cents_offset : Float
+  time_logged : Datetime
+}
+@enduml

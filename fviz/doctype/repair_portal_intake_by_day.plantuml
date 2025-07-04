@@ -1,0 +1,4 @@
+@startuml
+class "Intake By Day" #A9DFBF {
+}
+@enduml

@@ -1,0 +1,4 @@
+@startuml
+class "Service Task Workflow" #E59866 {
+}
+@enduml

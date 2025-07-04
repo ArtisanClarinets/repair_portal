@@ -1,0 +1,117 @@
+@startuml
+package repair_portal.lab <<Folder>> {
+class "Lab Dashboard" #F5CBA7 {
+}
+class "Impedance Peak" #F5CBA7 {
+  frequency : Float
+  impedance : Float
+  q_factor : Float
+}
+"Instrument Profile" *-- "Leak Test" : instrument
+"Player Profile" *-- "Leak Test" : player
+"Repair Request" *-- "Leak Test" : repair_order
+"Leak Reading" *-- "Leak Test" : readings
+class "Leak Test" #F5CBA7 {
+  instrument : Link
+  player : Link
+  repair_order : Link
+  session_type : Select
+  json_data : Long Text
+  plot_attachment : Attach Image
+  readings : Table
+}
+"Instrument Profile" *-- "Measurement Session" : instrument
+"User" *-- "Measurement Session" : technician
+"Measurement Entry" *-- "Measurement Session" : measurements
+class "Measurement Session" #F5CBA7 {
+  instrument : Link
+  technician : Link
+  date : Date
+  notes : Text
+  measurements : Table
+}
+"Instrument Profile" *-- "Instrument Wellness Score" : instrument
+class "Instrument Wellness Score" #F5CBA7 {
+  instrument : Link
+  evaluation_date : Date
+  intonation_score : Float
+  impedance_score : Float
+  leak_score : Float
+  tone_score : Float
+  overall_score : Float
+  notes : Text
+}
+"Instrument Profile" *-- "Intonation Session" : instrument
+"Player Profile" *-- "Intonation Session" : player
+"Repair Request" *-- "Intonation Session" : repair_order
+"Intonation Note" *-- "Intonation Session" : notes
+class "Intonation Session" #F5CBA7 {
+  instrument : Link
+  player : Link
+  repair_order : Link
+  session_type : Select
+  json_data : Long Text
+  plot_attachment : Attach Image
+  notes : Table
+}
+class "Intonation Note" #F5CBA7 {
+  note_name : Data
+  cents_offset : Float
+  time_logged : Datetime
+}
+class "Leak Reading" #F5CBA7 {
+  tone_hole : Data
+  leak_score : Float
+  time_logged : Datetime
+}
+"Instrument Profile" *-- "Reed Match Result" : instrument
+"Player Profile" *-- "Reed Match Result" : player
+"Repair Request" *-- "Reed Match Result" : repair_order
+class "Reed Match Result" #F5CBA7 {
+  instrument : Link
+  player : Link
+  repair_order : Link
+  session_type : Select
+  json_data : Long Text
+  plot_attachment : Attach Image
+  recommended_reeds : Data
+}
+"Instrument Profile" *-- "Impedance Snapshot" : instrument
+"Player Profile" *-- "Impedance Snapshot" : player
+"Repair Request" *-- "Impedance Snapshot" : repair_order
+"Impedance Peak" *-- "Impedance Snapshot" : peaks
+class "Impedance Snapshot" #F5CBA7 {
+  instrument : Link
+  player : Link
+  repair_order : Link
+  session_type : Select
+  json_data : Long Text
+  plot_attachment : Attach Image
+  peaks : Table
+}
+"Instrument Profile" *-- "Tone Fitness" : instrument
+"Player Profile" *-- "Tone Fitness" : player
+"Repair Request" *-- "Tone Fitness" : repair_order
+"Tone Fitness Entry" *-- "Tone Fitness" : entries
+class "Tone Fitness" #F5CBA7 {
+  instrument : Link
+  player : Link
+  repair_order : Link
+  session_type : Select
+  json_data : Long Text
+  plot_attachment : Attach Image
+  entries : Table
+}
+class "Measurement Entry" #F5CBA7 {
+  parameter : Data
+  value : Float
+  unit : Data
+  comments : Small Text
+}
+class "Tone Fitness Entry" #F5CBA7 {
+  reading_time : Datetime
+  centroid : Float
+  spread : Float
+}
+}
+@enduml

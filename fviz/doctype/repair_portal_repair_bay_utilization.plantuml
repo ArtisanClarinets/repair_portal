@@ -1,0 +1,4 @@
+@startuml
+class "Repair Bay Utilization" #E59866 {
+}
+@enduml

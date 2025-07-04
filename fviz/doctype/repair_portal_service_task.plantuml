@@ -1,0 +1,11 @@
+@startuml
+"User" *-- "Service Task" : assigned_to
+"Workflow State" *-- "Service Task" : workflow_state
+class "Service Task" #E59866 {
+  task_name : Data
+  description : Text
+  scheduled_date : Date
+  assigned_to : Link
+  workflow_state : Link
+}
+@enduml

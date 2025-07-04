@@ -1,0 +1,31 @@
+@startuml
+package repair_portal.qa <<Folder>> {
+class "Qa Failure Rate" #D2B4DE {
+}
+class "Inspection Kpi Report" #D2B4DE {
+}
+class "Qa Failures By Technician" #D2B4DE {
+}
+"User" *-- "Final Qa Checklist" : qa_technician
+"Repair Log" *-- "Final Qa Checklist" : related_repair
+"Final QA Checklist Item" *-- "Final Qa Checklist" : checklist_items
+"Workflow State" *-- "Final Qa Checklist" : workflow_state
+class "Final Qa Checklist" #D2B4DE {
+  qa_technician : Link
+  related_repair : Link
+  checklist_items : Table
+  overall_passed : Check
+  comments : Text
+  workflow_state : Link
+}
+class "Final Qa Checklist Item" #D2B4DE {
+  description : Data
+  passed : Check
+  notes : Small Text
+}
+class "QC Certificate" #D2B4DE {
+}
+class "Quality Inspection" #D2B4DE {
+}
+}
+@enduml

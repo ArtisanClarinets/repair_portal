@@ -1,0 +1,4 @@
+@startuml
+class "profile-view" #D2B4DE {
+}
+@enduml

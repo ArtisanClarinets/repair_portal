@@ -1,0 +1,11 @@
+@startuml
+"Instrument" *-- "Instrument Condition Record" : instrument
+"User" *-- "Instrument Condition Record" : recorded_by
+class "Instrument Condition Record" #F5CBA7 {
+  instrument : Link
+  condition : Select
+  date_of_record : Date
+  recorded_by : Link
+  notes : Text
+}
+@enduml

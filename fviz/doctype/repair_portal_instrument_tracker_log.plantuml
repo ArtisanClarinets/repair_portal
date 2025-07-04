@@ -1,0 +1,4 @@
+@startuml
+class "Instrument Tracker Log" #76D7C4 {
+}
+@enduml

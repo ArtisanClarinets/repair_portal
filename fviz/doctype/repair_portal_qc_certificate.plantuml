@@ -1,0 +1,4 @@
+@startuml
+class "QC Certificate" #D2B4DE {
+}
+@enduml

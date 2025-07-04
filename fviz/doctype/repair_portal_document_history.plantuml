@@ -1,0 +1,13 @@
+@startuml
+"event_type" *-- "Document History" : reference_document
+"User" *-- "Document History" : performed_by
+class "Document History" #F5CBA7 {
+  event_date : Datetime
+  event_type : Select
+  reference_document : Dynamic Link
+  summary : Small Text
+  performed_by : Link
+  media : Attach
+  action_source : Select
+}
+@enduml

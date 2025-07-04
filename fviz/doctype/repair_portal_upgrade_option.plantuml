@@ -1,0 +1,6 @@
+@startuml
+class "Upgrade Option" #A9DFBF {
+  upgrade_description : Data
+  notes : Small Text
+}
+@enduml

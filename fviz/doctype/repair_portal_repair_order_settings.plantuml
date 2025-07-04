@@ -1,0 +1,8 @@
+@startuml
+"Workflow State Mapping" *-- "Repair Order Settings" : default_workflow_states
+class "Repair Order Settings" #F9E79F {
+  naming_series : Data
+  default_workflow_states : Table
+  sla_days : Int
+}
+@enduml

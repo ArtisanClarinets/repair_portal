@@ -1,0 +1,4 @@
+@startuml
+class "Client Instrument Profile" #F5CBA7 {
+}
+@enduml

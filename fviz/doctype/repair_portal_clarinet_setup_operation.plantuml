@@ -1,0 +1,9 @@
+@startuml
+class "Clarinet Setup Operation" #F9E79F {
+  operation_type : Select
+  section : Select
+  component_ref : Data
+  details : Text
+  completed : Check
+}
+@enduml

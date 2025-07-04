@@ -1,0 +1,22 @@
+@startuml
+"Client Profile" *-- "Player Profile" : client_profile
+"Instrument Profile" *-- "Player Profile" : primary_instrument
+"Instrument Profile" *-- "Player Profile" : instrument_profiles
+class "Player Profile" #76D7C4 {
+  naming_series : Data
+  client_profile : Link
+  player_name : Data
+  date_of_birth : Date
+  primary_instrument : Link
+  instrument_profiles : Table MultiSelect
+  preferred_mouthpiece : Data
+  preferred_reed : Data
+  preferred_literature : Small Text
+  style_preferences : Text Editor
+  tonal_goals : Text Editor
+  technician_notes : Text Editor
+  profile_status : Link
+  route : Data
+  published : Check
+}
+@enduml

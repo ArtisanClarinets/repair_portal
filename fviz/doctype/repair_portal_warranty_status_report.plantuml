@@ -1,0 +1,4 @@
+@startuml
+class "Warranty Status Report" #F5CBA7 {
+}
+@enduml

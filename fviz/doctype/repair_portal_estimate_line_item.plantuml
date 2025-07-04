@@ -1,0 +1,10 @@
+@startuml
+"Item" *-- "Estimate Line Item" : part_code
+class "Estimate Line Item" #E59866 {
+  description : Data
+  part_code : Link
+  hours : Float
+  rate : Currency
+  amount : Currency
+}
+@enduml

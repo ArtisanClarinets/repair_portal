@@ -1,0 +1,4 @@
+@startuml
+class "Loaner Return Check Workflow" #A9DFBF {
+}
+@enduml

@@ -1,9 +1,8 @@
 {
+  "module": "Intake",
   "doctype": "Print Format",
   "name": "Intake Receipt",
-  "print_format_type": "Standard",
-  "standard": 1,
   "doc_type": "Clarinet Intake",
-  "html": "<div class='print-format'>\n  <h2>Intake Receipt</h2>\n  <p>Customer: {{ doc.customer }}</p>\n  <p>Date: {{ doc.intake_date }}</p>\n  <p>Instrument: {{ doc.instrument_description }}</p>\n</div>",
-  "module": "Repair Portal"
+  "html": "<h2>Intake Receipt</h2>\n<table class=\"table table-bordered\">\n<tr><th>Serial Number</th><td>{{ doc.serial_number }}</td></tr>\n<tr><th>Item</th><td>{{ doc.item_code }} - {{ doc.item_name }}</td></tr>\n<tr><th>Intake Type</th><td>{{ doc.intake_type }}</td></tr>\n<tr><th>QC Status</th><td>{{ doc.qc_status }}</td></tr>\n<tr><th>Stock Status</th><td>{{ doc.stock_status }}</td></tr>\n<tr><th>Workflow State</th><td>{{ doc.workflow_state }}</td></tr>\n</table>\n<p><small>Generated on {{ frappe.utils.now_datetime() }}</small></p>",
+  "standard": "Yes"
 }

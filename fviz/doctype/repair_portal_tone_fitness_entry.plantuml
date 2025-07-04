@@ -1,0 +1,7 @@
+@startuml
+class "Tone Fitness Entry" #F5CBA7 {
+  reading_time : Datetime
+  centroid : Float
+  spread : Float
+}
+@enduml

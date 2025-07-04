@@ -1,0 +1,4 @@
+@startuml
+class "technician_dashboard" #AED6F1 {
+}
+@enduml

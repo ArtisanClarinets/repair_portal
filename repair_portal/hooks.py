@@ -10,17 +10,9 @@ app_publisher = "DT"
 app_description = "Portals for the Repair Portal App"
 app_email = "DT@DT.com"
 app_license = "mit"
-app_version = "1.2.1"
+app_version = "1.2.2"
 
 
-app_name = "repair_portal"
-app_title = "Repair Portal"
-app_publisher = "Your Company"
-app_description = "Repair management system"
-app_icon = "octicon octicon-tools"
-app_color = "blue"
-app_email = "support@example.com"
-app_license = "MIT"
 
 
 app_include_js = [
@@ -59,3 +51,10 @@ after_install = [
     "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
 ]
 after_migrate = ["repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"]
+
+doc_events = {
+    "Repair Order": {
+        "on_submit": "repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_submit",
+        "on_cancel": "repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_cancel"
+    }
+}

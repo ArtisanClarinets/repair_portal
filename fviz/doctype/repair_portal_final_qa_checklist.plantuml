@@ -1,0 +1,14 @@
+@startuml
+"User" *-- "Final Qa Checklist" : qa_technician
+"Repair Log" *-- "Final Qa Checklist" : related_repair
+"Final QA Checklist Item" *-- "Final Qa Checklist" : checklist_items
+"Workflow State" *-- "Final Qa Checklist" : workflow_state
+class "Final Qa Checklist" #D2B4DE {
+  qa_technician : Link
+  related_repair : Link
+  checklist_items : Table
+  overall_passed : Check
+  comments : Text
+  workflow_state : Link
+}
+@enduml

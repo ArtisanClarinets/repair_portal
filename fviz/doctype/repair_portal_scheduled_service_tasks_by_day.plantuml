@@ -1,0 +1,4 @@
+@startuml
+class "Scheduled Service Tasks By Day" #E59866 {
+}
+@enduml

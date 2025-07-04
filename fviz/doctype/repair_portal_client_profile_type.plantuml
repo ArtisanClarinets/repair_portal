@@ -1,0 +1,10 @@
+@startuml
+class "Client Profile Type" #D2B4DE {
+  naming_series : Data
+  type_name : Data
+  is_default : Check
+  portal_visible : Check
+  description : Small Text
+  color : Color
+}
+@enduml

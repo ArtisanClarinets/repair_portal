@@ -1,0 +1,9 @@
+@startuml
+"Item Variant" *-- "Setup Template" : clarinet_model
+"Setup Checklist Item" *-- "Setup Template" : checklist_items
+class "Setup Template" #F9E79F {
+  template_name : Data
+  clarinet_model : Link
+  checklist_items : Table
+}
+@enduml

@@ -1,0 +1,222 @@
+@startuml
+package repair_portal.instrument_profile <<Folder>> {
+class "Waiting On Player" #F5CBA7 {
+}
+class "Waiting On Client" #F5CBA7 {
+}
+class "Archived" #F5CBA7 {
+}
+class "Draft" #F5CBA7 {
+}
+class "Resolved" #F5CBA7 {
+}
+class "In Progress" #F5CBA7 {
+}
+class "Ready For Use" #F5CBA7 {
+}
+class "Closed" #F5CBA7 {
+}
+class "Open" #F5CBA7 {
+}
+class "Instrument Profile Report" #F5CBA7 {
+}
+class "Warranty Status Report" #F5CBA7 {
+}
+class "Instrument Service History" #F5CBA7 {
+}
+class "Instrument Inventory Report" #F5CBA7 {
+}
+class "Pending Client Instruments" #F5CBA7 {
+}
+class "Instrument Profile" #F5CBA7 {
+}
+class "Technician Verification Workspace" #F5CBA7 {
+}
+class "Instrument Setup" #F5CBA7 {
+}
+class "Instrument Profile Workspace" #F5CBA7 {
+}
+class "Instrument Intake Batch" #F5CBA7 {
+}
+class "Client Instrument Profile" #F5CBA7 {
+}
+class "Instrument Registration" #F5CBA7 {
+}
+class "Instrument Status Change" #F5CBA7 {
+}
+class "Unnamed" #F5CBA7 {
+}
+class "Unnamed" #F5CBA7 {
+}
+class "Instrument Profile" #F5CBA7 {
+}
+class "Instrument Profile Dashboard" #F5CBA7 {
+}
+class "Instrument Status Distribution" #F5CBA7 {
+}
+class "Warranty Distribution" #F5CBA7 {
+}
+class "Unnamed" #F5CBA7 {
+}
+"Instrument" *-- "Instrument Condition Record" : instrument
+"User" *-- "Instrument Condition Record" : recorded_by
+class "Instrument Condition Record" #F5CBA7 {
+  instrument : Link
+  condition : Select
+  date_of_record : Date
+  recorded_by : Link
+  notes : Text
+}
+class "Intake Entry" #F5CBA7 {
+  serial_number : Data
+  manufacturer : Data
+  notes : Text
+  image : Attach
+}
+"event_type" *-- "Document History" : reference_document
+"User" *-- "Document History" : performed_by
+class "Document History" #F5CBA7 {
+  event_date : Datetime
+  event_type : Select
+  reference_document : Dynamic Link
+  summary : Small Text
+  performed_by : Link
+  media : Attach
+  action_source : Select
+}
+"User" *-- "Consent Log" : consent_given_by
+class "Consent Log" #F5CBA7 {
+  consent_given_by : Link
+  consent_datetime : Datetime
+  consent_type : Select
+  notes : Small Text
+}
+"Instrument Profile" *-- "Warranty Modification Log" : instrument_profile
+"User" *-- "Warranty Modification Log" : modified_by
+class "Warranty Modification Log" #F5CBA7 {
+  instrument_profile : Link
+  modified_by : Link
+  modification_date : Datetime
+  old_start_date : Date
+  new_start_date : Date
+  old_end_date : Date
+  new_end_date : Date
+  reason : Data
+}
+"Pad Condition" *-- "Repair Log" : pad_conditions
+class "Repair Log" #F5CBA7 {
+  pad_conditions : Table
+  pad_map_view : HTML
+}
+"Customer" *-- "Instrument Profile" : owner
+"Customer External Work Log" *-- "Instrument Profile" : external_work_logs
+"Image Log Entry" *-- "Instrument Profile" : condition_images
+"Customer" *-- "Instrument Profile" : ownership_transfer_to
+"Consent Log Entry" *-- "Instrument Profile" : consent_log
+"Instrument Document History" *-- "Instrument Profile" : document_history
+class "Instrument Profile" #F5CBA7 {
+  serial_number : Data
+  status : Select
+  profile_status : Select
+  brand : Data
+  model : Data
+  instrument_category : Select
+  owner : Link
+  purchase_receipt : Attach
+  external_work_logs : Table
+  condition_images : Table
+  repair_preferences : Small Text
+  verification_status : Select
+  technician_notes : Text
+  ownership_transfer_to : Link
+  anonymize_for_research : Check
+  consent_log : Table
+  document_history : Table
+  is_archived : Check
+  qr_code : Data
+}
+"Supplier" *-- "Instrument Intake Batch" : supplier
+"Intake Entry" *-- "Instrument Intake Batch" : entries
+class "Instrument Intake Batch" #F5CBA7 {
+  date : Date
+  instrument_type : Select
+  supplier : Link
+  add_to_inventory : Check
+  create_profiles : Check
+  entries : Table
+}
+class "Consent Log Entry" #F5CBA7 {
+  consent_type : Select
+  date_given : Date
+}
+class "External Work Logs" #F5CBA7 {
+  description : Small Text
+  performed_by : Data
+  date : Date
+}
+class "Service Logs" #F5CBA7 {
+  log_details : Small Text
+  log_date : Date
+}
+"Instrument Profile" *-- "Instrument Document History" : reference_doc
+"User" *-- "Instrument Document History" : user
+class "Instrument Document History" #F5CBA7 {
+  event_date : Datetime
+  event_type : Select
+  reference_doc : Link
+  summary : Small Text
+  user : Link
+}
+"Instrument Profile" *-- "Customer External Work Log" : instrument_profile
+class "Customer External Work Log" #F5CBA7 {
+  instrument_profile : Link
+  service_date : Date
+  service_type : Select
+  service_notes : Text
+  external_shop_name : Data
+  receipt_attachment : Attach
+}
+"Customer" *-- "Client Instrument Profile" : owner
+"Customer External Work Log" *-- "Client Instrument Profile" : external_work_logs
+"Image Log Entry" *-- "Client Instrument Profile" : condition_images
+"Customer" *-- "Client Instrument Profile" : ownership_transfer_to
+"Consent Log Entry" *-- "Client Instrument Profile" : consent_log
+class "Client Instrument Profile" #F5CBA7 {
+  owner : Link
+  instrument_model : Data
+  serial_number : Data
+  instrument_category : Select
+  purchase_receipt : Attach
+  external_work_logs : Table
+  condition_images : Table
+  repair_preferences : Small Text
+  verification_status : Select
+  technician_notes : Text
+  ownership_transfer_to : Link
+  anonymize_for_research : Check
+  consent_log : Table
+}
+class "Pad Condition" #F5CBA7 {
+  pad_id : Data
+  pad_name : Data
+  status : Select
+  technician_notes : Text
+}
+class "Unnamed" #F5CBA7 {
+}
+class "Instrument Profile Setup" #F5CBA7 {
+}
+class "Instrument Profile Workflow" #F5CBA7 {
+}
+class "Instrument Tag" #F5CBA7 {
+}
+class "Instrument Qr Tag" #F5CBA7 {
+}
+class "Instrument Profile Summary" #F5CBA7 {
+}
+class "Instrument Summary" #F5CBA7 {
+}
+class "Instrument Profile Auto Status" #F5CBA7 {
+}
+}
+@enduml

@@ -8,23 +8,16 @@
   "login_required": 1,
   "is_published": 1,
   "doc_type": "Instrument Profile",
-  "doctype_field": "instrument_profile",
   "web_form_fields": [
-    {
-      "fieldname": "instrument_name",
-      "label": "Instrument Name",
-      "fieldtype": "Data",
-      "reqd": 1
-    },
     {
       "fieldname": "instrument_category",
       "label": "Instrument Category",
       "fieldtype": "Select",
-      "options": "Bb Clarinet\nA Clarinet\nBass Clarinet\nE\u266d Clarinet\nAlto Clarinet",
+      "options": "Clarinet\nBass Clarinet\nContrabass Clarinet",
       "reqd": 1
     },
     {
-      "fieldname": "make",
+      "fieldname": "brand",
       "label": "Make / Brand",
       "fieldtype": "Data",
       "reqd": 1
@@ -32,32 +25,35 @@
     {
       "fieldname": "model",
       "label": "Model",
-      "fieldtype": "Data"
+      "fieldtype": "Data",
+      "reqd": 1
     },
     {
       "fieldname": "serial_number",
       "label": "Serial Number",
-      "fieldtype": "Data"
+      "fieldtype": "Data",
+      "reqd": 1
     },
     {
-      "fieldname": "purchase_date",
-      "label": "Purchase Date",
-      "fieldtype": "Date"
-    },
-    {
-      "fieldname": "external_documents",
-      "label": "Upload Repair Records",
+      "fieldname": "purchase_receipt",
+      "label": "Upload Purchase Receipt",
       "fieldtype": "Attach"
     },
     {
-      "fieldname": "condition_photos",
+      "fieldname": "condition_images",
       "label": "Upload Condition Images",
-      "fieldtype": "Attach Image"
+      "fieldtype": "Table",
+      "options": "Image Log Entry"
     },
     {
-      "fieldname": "notes",
+      "fieldname": "repair_preferences",
       "label": "Client Notes / Repair Preferences",
       "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "anonymize_for_research",
+      "label": "Allow Anonymized Sharing",
+      "fieldtype": "Check"
     }
   ]
 }

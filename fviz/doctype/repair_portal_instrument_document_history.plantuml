@@ -1,0 +1,11 @@
+@startuml
+"Instrument Profile" *-- "Instrument Document History" : reference_doc
+"User" *-- "Instrument Document History" : user
+class "Instrument Document History" #F5CBA7 {
+  event_date : Datetime
+  event_type : Select
+  reference_doc : Link
+  summary : Small Text
+  user : Link
+}
+@enduml

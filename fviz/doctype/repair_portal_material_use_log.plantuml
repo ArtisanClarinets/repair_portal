@@ -1,0 +1,9 @@
+@startuml
+"Item" *-- "Material Use Log" : item_code
+class "Material Use Log" #76D7C4 {
+  item_code : Link
+  qty : Float
+  used_on : Data
+  remarks : Small Text
+}
+@enduml
