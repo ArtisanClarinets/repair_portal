@@ -1,8 +1,0 @@
-@startuml
-class "Pad Condition" #F5CBA7 {
-  pad_id : Data
-  pad_name : Data
-  status : Select
-  technician_notes : Text
-}
-@enduml

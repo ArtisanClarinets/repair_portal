@@ -1,6 +1,0 @@
-@startuml
-class "Service Logs" #F5CBA7 {
-  log_details : Small Text
-  log_date : Date
-}
-@enduml

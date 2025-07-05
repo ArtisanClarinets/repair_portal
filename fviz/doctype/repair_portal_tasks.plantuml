@@ -1,6 +1,0 @@
-@startuml
-class "Tasks" #E59866 {
-  task_description : Small Text
-  task_due_date : Date
-}
-@enduml

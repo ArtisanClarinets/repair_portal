@@ -1,9 +1,0 @@
-@startuml
-"Employee" *-- "Tool Calibration Log" : calibrated_by
-class "Tool Calibration Log" #AED6F1 {
-  tool_name : Data
-  calibration_date : Date
-  calibrated_by : Link
-  next_due : Date
-}
-@enduml

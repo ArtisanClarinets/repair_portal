@@ -1,7 +1,0 @@
-@startuml
-class "Leak Reading" #F5CBA7 {
-  tone_hole : Data
-  leak_score : Float
-  time_logged : Datetime
-}
-@enduml

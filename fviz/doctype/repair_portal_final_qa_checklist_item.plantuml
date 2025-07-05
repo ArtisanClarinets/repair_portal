@@ -1,7 +1,0 @@
-@startuml
-class "Final Qa Checklist Item" #D2B4DE {
-  description : Data
-  passed : Check
-  notes : Small Text
-}
-@enduml

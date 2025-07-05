@@ -1,7 +1,0 @@
-@startuml
-"Pad Condition" *-- "Repair Log" : pad_conditions
-class "Repair Log" #F5CBA7 {
-  pad_conditions : Table
-  pad_map_view : HTML
-}
-@enduml

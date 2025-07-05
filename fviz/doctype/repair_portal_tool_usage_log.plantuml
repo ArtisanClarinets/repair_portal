@@ -1,8 +1,0 @@
-@startuml
-"User" *-- "Tool Usage Log" : used_by
-class "Tool Usage Log" #76D7C4 {
-  tool : Data
-  used_by : Link
-  usage_notes : Text
-}
-@enduml

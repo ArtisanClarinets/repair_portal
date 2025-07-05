@@ -1,7 +1,0 @@
-@startuml
-class "Qa Checklist Item" #F7DC6F {
-  check_item : Data
-  passed : Check
-  comments : Small Text
-}
-@enduml

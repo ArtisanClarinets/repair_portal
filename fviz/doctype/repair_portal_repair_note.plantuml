@@ -1,8 +1,0 @@
-@startuml
-"User" *-- "Repair Note" : author
-class "Repair Note" #F7DC6F {
-  note_time : Datetime
-  note_text : Text
-  author : Link
-}
-@enduml

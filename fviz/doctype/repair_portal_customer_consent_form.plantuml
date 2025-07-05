@@ -1,9 +1,0 @@
-@startuml
-"Customer" *-- "Customer Consent Form" : customer
-class "Customer Consent Form" #A9DFBF {
-  customer : Link
-  consent_signed : Check
-  signature : Signature
-  authorization_notes : Small Text
-}
-@enduml

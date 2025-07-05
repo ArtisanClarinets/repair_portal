@@ -1,8 +1,0 @@
-@startuml
-class "Intake Entry" #F5CBA7 {
-  serial_number : Data
-  manufacturer : Data
-  notes : Text
-  image : Attach
-}
-@enduml
