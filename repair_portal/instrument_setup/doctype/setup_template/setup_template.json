@@ -1,35 +1,75 @@
 {
-	"doctype": "DocType",
-	"name": "Setup Template",
-	"module": "Instrument Setup",
-	"fields": [
-		{
-			"fieldname": "template_name",
-			"fieldtype": "Data",
-			"label": "Template Name",
-			"reqd": 1
-		},
-		{
-			"fieldname": "clarinet_model",
-			"fieldtype": "Link",
-			"label": "Clarinet Model",
-			"options": "Item Variant"
-		},
-		{
-			"fieldname": "checklist_items",
-			"fieldtype": "Table",
-			"label": "Checklist Items",
-			"options": "Setup Checklist Item"
-		}
-	],
-	"permissions": [
-		{ "role": "Technician", "read": 1 },
-		{
-			"role": "Service Manager",
-			"read": 1,
-			"write": 1,
-			"create": 1,
-			"delete": 1
-		}
-	]
+ "actions": [],
+ "creation": "2025-07-04 20:43:20.459030",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "template_name",
+  "clarinet_model",
+  "checklist_items"
+ ],
+ "fields": [
+  {
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Template Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "clarinet_model",
+   "fieldtype": "Data",
+   "label": "Clarinet Model",
+   "is_id": 1,
+   "idx": 1,
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "options": "Clarinet Model",
+   "search_index": 1,
+   "unique": 1,
+   "default": "Clarinet Model",
+   "description": "The model of the clarinet this setup template is designed for.",
+   "reqd": 1
+  },
+  {
+   "fieldname": "checklist_items",
+   "fieldtype": "Table",
+   "label": "Checklist Items",
+   "options": "Setup Checklist Item",
+    "in_filter": 1,
+   "in_grid": 1,
+   "in_grid_view": 1,
+   "in_standard_filter": 1,
+   "description": "List of items to be checked during the setup process. Each item can include a description, status, and any additional notes.",
+   "reqd": 0
+  }
+ ],
+ "links": [],
+ "modified": "2025-07-04 20:44:04.802202",
+ "modified_by": "dylan@artisanclarinets.com",
+ "module": "Instrument Setup",
+ "name": "Setup Template",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "read": 1,
+   "role": "Technician"
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Service Manager",
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
 }

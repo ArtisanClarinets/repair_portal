@@ -23,7 +23,9 @@
     {"fieldname": "consent_log", "label": "Consent Log", "fieldtype": "Table", "options": "Consent Log Entry"},
     {"fieldname": "document_history", "label": "Document History", "fieldtype": "Table", "options": "Instrument Document History"},
     {"fieldname": "is_archived", "label": "Archived", "fieldtype": "Check", "default": 0},
-    {"fieldname": "qr_code", "label": "QR Code", "fieldtype": "Data", "read_only": 1, "hidden": 1}
+    {"fieldname": "qr_code", "label": "QR Code", "fieldtype": "Data", "read_only": 1, "hidden": 1},
+    {"fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+    {"fieldname": "player_profile", "label": "Player Profile", "fieldtype": "Link", "options": "Player Profile", "reqd": 0}
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},

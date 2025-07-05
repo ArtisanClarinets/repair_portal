@@ -30,6 +30,17 @@ class "Inspection Report" #AED6F1 {
   digital_signature : Signature
   flag_for_reinspection : Check
 }
+"Instrument Profile" *-- "Clarinet Inspection" : instrument_profile
+"User" *-- "Clarinet Inspection" : inspected_by
+"Inspection Finding" *-- "Clarinet Inspection" : inspection_findings
+class "Clarinet Inspection" #AED6F1 {
+  instrument_profile : Link
+  inspected_by : Link
+  inspection_date : Date
+  overall_condition : Select
+  inspection_findings : Table
+  notes : Text
+}
 class "Inspection Checklist Item" #AED6F1 {
   sequence : Int
   area : Data

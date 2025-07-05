@@ -1,6 +1,6 @@
 # Relative Path: repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
 # Last Updated: 2025-07-04
-# Version: v2.0
+# Version: v2.1
 # Purpose: Consolidated server-side logic for Instrument Profile (client + technician workflows)
 # Dependencies: Customer, Consent Log Entry, Customer External Work Log
 
@@ -30,3 +30,13 @@ class InstrumentProfile(Document):
     def before_save(self):
         if self.verification_status == "Rejected" and not self.technician_notes:
             frappe.throw("Technician Notes are required when rejecting instrument.")
+
+    def on_update(self):
+        if not self.qr_code:
+            self.qr_code = frappe.generate_hash(length=12)
+        frappe.db.set_value(
+            "Clarinet Intake",
+            {"instrument_profile": self.name},
+            "stock_status",
+            self.status
+        )

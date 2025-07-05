@@ -6,8 +6,6 @@ class "Unnamed" #E59866 {
 }
 class "Repair Bay Utilization" #E59866 {
 }
-class "Workflow State Mapping" #E59866 {
-}
 class "Scheduled Service Tasks By Day" #E59866 {
 }
 "Item" *-- "Estimate Line Item" : part_code

@@ -55,7 +55,7 @@
       "default_operation": "Incoming QC",
       "points": [
         { "seq": 1, "parameter": "Seat each pad, leak-light test", "tool": "Leak-light / finger pressure", "criteria": "No light" },
-        { "seq": 2, "parameter": "Pressurize joint & record ΔP", "tool": "Magnehelic gauge", "criteria": "≤ 0.5 psi" },
+        { "seq": 2, "parameter": "Pressurize joint & record ΔP", "tool": "Magnehelic gauge", "criteria": "≤ 0.2 psi" },
         { "seq": 3, "parameter": "Adjust/float offending pads", "tool": "Pad-seating tools", "criteria": "Leak eliminated" },
         { "seq": 4, "parameter": "Final pressure confirmation", "tool": "Magnehelic", "criteria": "Spec met" }
       ]

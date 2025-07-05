@@ -16,6 +16,7 @@
   "phone",
   "preferred_contact_method",
   "instruments_owned",
+  "player_profile",
   "consent_log",
   "technician_notes",
   "profile_status"
@@ -89,6 +90,13 @@
    "fieldtype": "Link",
    "label": "Instruments",
    "options": "Instrument Profile"
+  },
+  {
+   "fieldname": "player_profile",
+   "fieldtype": "Link",
+   "label": "Player Profile",
+   "options": "Player Profile",
+   "reqd": 0
   },
   {
    "fieldname": "consent_log",

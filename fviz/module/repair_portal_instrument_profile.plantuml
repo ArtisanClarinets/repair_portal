@@ -114,6 +114,8 @@ class "Repair Log" #F5CBA7 {
 "Customer" *-- "Instrument Profile" : ownership_transfer_to
 "Consent Log Entry" *-- "Instrument Profile" : consent_log
 "Instrument Document History" *-- "Instrument Profile" : document_history
+"Workflow State" *-- "Instrument Profile" : workflow_state
+"Player Profile" *-- "Instrument Profile" : player_profile
 class "Instrument Profile" #F5CBA7 {
   serial_number : Data
   status : Select
@@ -134,6 +136,8 @@ class "Instrument Profile" #F5CBA7 {
   document_history : Table
   is_archived : Check
   qr_code : Data
+  workflow_state : Link
+  player_profile : Link
 }
 "Supplier" *-- "Instrument Intake Batch" : supplier
 "Intake Entry" *-- "Instrument Intake Batch" : entries

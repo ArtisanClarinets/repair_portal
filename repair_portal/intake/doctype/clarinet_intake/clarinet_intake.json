@@ -39,6 +39,36 @@
       "unique": 1
     },
     {
+      "fieldname": "quality_inspection",
+      "fieldtype": "Link",
+      "label": "Quality Inspection",
+      "options": "Quality Inspection",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "stock_status",
+      "fieldtype": "Select",
+      "label": "Stock Status",
+      "options": "Inspection\nSetup\nQC\nAvailable\nHold",
+      "default": "Inspection",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "repair_status",
+      "fieldtype": "Select",
+      "label": "Repair Status",
+      "options": "Pending\nIn Progress\nCompleted",
+      "default": "Pending",
+      "depends_on": "eval:doc.intake_type=='Repair'"
+    },
+    {
+      "fieldname": "inspected_by",
+      "fieldtype": "Link",
+      "label": "Inspected By",
+      "options": "User",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
       "fieldname": "brand",
       "fieldtype": "Link",
       "label": "Brand",
@@ -50,33 +80,10 @@
       "label": "Model"
     },
     {
-      "fieldname": "body_material",
-      "fieldtype": "Select",
-      "label": "Body Material",
-      "options": "Grenadilla Wood\nMopane Wood\nCocobolo Wood\nBoxwood\nSynthetic"
-    },
-    {
-      "fieldname": "key_plating",
-      "fieldtype": "Select",
-      "label": "Key Plating",
-      "options": "Silver\nNickel\nGold\nRose Gold\nOther"
-    },
-    {
-      "fieldname": "year_estimated",
-      "fieldtype": "Int",
-      "label": "Estimated Year of Manufacture"
-    },
-    {
       "fieldname": "instrument_category",
       "fieldtype": "Select",
       "label": "Instrument Category",
       "options": "B♭\nA\nE♭\nBass\nOther"
-    },
-    {
-      "fieldname": "supplier",
-      "fieldtype": "Link",
-      "label": "Supplier",
-      "options": "Supplier"
     },
     {
       "fieldname": "purchase_order",
@@ -112,41 +119,6 @@
       "options": "User"
     },
     {
-      "fieldname": "instrument_profile",
-      "fieldtype": "Link",
-      "label": "Instrument Profile",
-      "options": "Instrument Profile",
-      "reqd": 1
-    },
-    {
-      "fieldname": "stock_status",
-      "fieldtype": "Select",
-      "label": "Stock Status",
-      "options": "Inspection\nSetup\nQC\nAvailable\nHold",
-      "default": "Inspection",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "qc_status",
-      "fieldtype": "Select",
-      "label": "QC Status",
-      "options": "Pass\nFail",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "inspection_date",
-      "fieldtype": "Datetime",
-      "label": "Inspection Date",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "inspected_by",
-      "fieldtype": "Link",
-      "label": "Inspected By",
-      "options": "User",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
       "fieldname": "customer",
       "fieldtype": "Link",
       "label": "Customer",
@@ -164,7 +136,6 @@
       "fieldname": "due_date",
       "fieldtype": "Date",
       "label": "Due Date",
-      "reqd": 1,
       "depends_on": "eval:doc.intake_type=='Repair'"
     },
     {
@@ -174,22 +145,10 @@
       "depends_on": "eval:doc.intake_type=='Repair'"
     },
     {
-      "fieldname": "follow_up_due_date",
-      "fieldtype": "Date",
-      "label": "Follow-Up Due Date",
-      "depends_on": "eval:doc.intake_type=='Repair'"
-    },
-    {
-      "fieldname": "follow_up_completed",
-      "fieldtype": "Check",
-      "label": "Follow-Up Completed",
-      "depends_on": "eval:doc.intake_type=='Repair'"
-    },
-    {
       "fieldname": "checklist",
       "fieldtype": "Table",
-      "label": "Checklist",
-      "options": "Intake Checklist Item"
+      "label": "Accessories Checklist",
+      "options": "Intake Accessory Item"
     },
     {
       "fieldname": "initial_photos",
@@ -207,42 +166,12 @@
       "label": "Condition Notes and Concerns"
     },
     {
-      "fieldname": "intake_duration",
-      "fieldtype": "Int",
-      "label": "Intake Duration (sec)",
-      "hidden": 1
-    },
-    {
       "fieldname": "workflow_state",
       "fieldtype": "Link",
       "label": "Workflow State",
       "options": "Workflow State",
       "read_only": 1,
       "in_list_view": 1
-    },
-    {
-      "fieldname": "created_by",
-      "fieldtype": "Data",
-      "label": "Created By",
-      "read_only": 1
-    },
-    {
-      "fieldname": "creation_date",
-      "fieldtype": "Datetime",
-      "label": "Creation Date",
-      "read_only": 1
-    },
-    {
-      "fieldname": "last_modified_by",
-      "fieldtype": "Data",
-      "label": "Last Modified By",
-      "read_only": 1
-    },
-    {
-      "fieldname": "last_modified_date",
-      "fieldtype": "Datetime",
-      "label": "Last Modified Date",
-      "read_only": 1
     }
   ],
   "permissions": [
@@ -258,8 +187,7 @@
       "role": "Repair Technician",
       "read": 1,
       "write": 1,
-      "create": 1,
-      "edit": 1
+      "create": 1
     },
     {
       "role": "Repair Manager",
@@ -267,8 +195,7 @@
       "write": 1,
       "create": 1,
       "submit": 1,
-      "delete": 1,
-      "edit": 1
+      "delete": 1
     },
     {
       "role": "System Manager",
@@ -276,8 +203,7 @@
       "write": 1,
       "create": 1,
       "submit": 1,
-      "delete": 1,
-      "edit": 1
+      "delete": 1
     },
     {
       "role": "Customer",

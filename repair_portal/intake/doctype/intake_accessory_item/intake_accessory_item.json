@@ -1,0 +1,54 @@
+{
+    "doctype": "DocType",
+    "name": "Intake Accessory Item",
+    "module": "Intake",
+    "parent": "Clarinet Intake",
+    "custom": 0,
+    "istable": 1,
+    "editable_grid": 1,
+    "autoname": "field:accessory",
+    "fields": [
+        {
+            "fieldname": "accessory",
+            "fieldtype": "Data",
+            "label": "Accessory",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "quantity",
+            "fieldtype": "Int",
+            "label": "Quantity",
+            "default": "1",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Small Text",
+            "label": "Notes"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1
+        },
+        {
+            "role": "Inventory Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1
+        },
+        {
+            "role": "Repair Technician",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1
+        }
+    ]
+}

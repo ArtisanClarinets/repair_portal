@@ -1,7 +1,7 @@
 {
   "doctype": "DocType",
   "name": "Clarinet Inspection",
-  "module": "Instrument Setup",
+  "module": "Inspection",
   "fields": [
     {
       "fieldname": "instrument_profile",

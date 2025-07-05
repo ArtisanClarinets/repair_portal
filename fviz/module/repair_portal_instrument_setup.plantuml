@@ -26,17 +26,6 @@ class "Clarinet Setup Operation" #F9E79F {
   details : Text
   completed : Check
 }
-"Instrument Profile" *-- "Clarinet Inspection" : instrument_profile
-"User" *-- "Clarinet Inspection" : inspected_by
-"Inspection Finding" *-- "Clarinet Inspection" : inspection_findings
-class "Clarinet Inspection" #F9E79F {
-  instrument_profile : Link
-  inspected_by : Link
-  inspection_date : Date
-  overall_condition : Select
-  inspection_findings : Table
-  notes : Text
-}
 class "Consent Log Entry" #F9E79F {
 }
 "Instrument Profile" *-- "Clarinet Initial Setup" : instrument_profile
@@ -70,11 +59,10 @@ class "Setup Checklist Item" #F9E79F {
   completed : Check
   notes : Text
 }
-"Item Variant" *-- "Setup Template" : clarinet_model
 "Setup Checklist Item" *-- "Setup Template" : checklist_items
 class "Setup Template" #F9E79F {
   template_name : Data
-  clarinet_model : Link
+  clarinet_model : Data
   checklist_items : Table
 }
 "Item" *-- "Material Usage" : item
