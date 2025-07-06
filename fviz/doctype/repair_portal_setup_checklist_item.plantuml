@@ -1,7 +1,0 @@
-@startuml
-class "Setup Checklist Item" #F9E79F {
-  task : Data
-  completed : Check
-  notes : Text
-}
-@enduml

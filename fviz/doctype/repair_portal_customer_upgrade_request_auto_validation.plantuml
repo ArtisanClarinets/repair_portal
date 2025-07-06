@@ -1,4 +1,0 @@
-@startuml
-class "Customer Upgrade Request Auto Validation" #A9DFBF {
-}
-@enduml

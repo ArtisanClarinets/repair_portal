@@ -1,0 +1,144 @@
+{
+  "doctype": "DocType",
+  "name": "Initial Intake Inspection",
+  "module": "Inspection",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "autoname": "field:instrument_serial",
+  "fields": [
+    {
+      "fieldname": "inspection_date",
+      "label": "Inspection Date",
+      "fieldtype": "Date",
+      "default": "Today",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument_serial",
+      "label": "Instrument Serial Number",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "manufacturer",
+      "label": "Manufacturer",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "model",
+      "label": "Model",
+      "fieldtype": "Select",
+      "options": "Bb\nA\nEb\nC\nD",
+      "reqd": 1
+    },
+    {
+      "fieldname": "wood_type",
+      "label": "Wood Type",
+      "fieldtype": "Select",
+      "options": "Grenadilla\nMopane\nOther"
+    },
+    {
+      "fieldname": "unboxing_rh",
+      "label": "Initial Relative Humidity (%)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "unboxing_temperature",
+      "label": "Initial Temperature (°C)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "unboxing_time",
+      "label": "Date and Time of Unboxing",
+      "fieldtype": "Datetime"
+    },
+    {
+      "fieldname": "hygrometer_photo",
+      "label": "Hygrometer Reading Photo",
+      "fieldtype": "Attach Image"
+    },
+    {
+      "fieldname": "rested_unopened",
+      "label": "Instrument Rested Min. 4 Hours Before Handling",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "visual_inspection",
+      "label": "Visual Inspection Findings",
+      "fieldtype": "Table",
+      "options": "Inspection Finding"
+    },
+    {
+      "fieldname": "tenon_fit",
+      "label": "Tenon Fit Assessment",
+      "fieldtype": "Table",
+      "options": "Tenon Fit Record"
+    },
+    {
+      "fieldname": "bore_condition",
+      "label": "Bore Visual Condition",
+      "fieldtype": "Select",
+      "options": "Clean\nDebris Present\nIrregularities Visible"
+    },
+    {
+      "fieldname": "bore_notes",
+      "label": "Bore Inspection Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "tone_hole_inspection",
+      "label": "Tone Hole Visual Inspection",
+      "fieldtype": "Table",
+      "options": "Tone Hole Inspection Record"
+    },
+    {
+      "fieldname": "instrument_delivered",
+      "label": "Instrument Delivered to Customer",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "acclimatization_controlled_env",
+      "label": "Controlled Environment Confirmed",
+      "fieldtype": "Check",
+      "depends_on": "eval:doc.instrument_delivered"
+    },
+    {
+      "fieldname": "acclimatization_playing_schedule",
+      "label": "Daily Playing Schedule Explained",
+      "fieldtype": "Check",
+      "depends_on": "eval:doc.instrument_delivered"
+    },
+    {
+      "fieldname": "acclimatization_swabbing",
+      "label": "Swabbing Protocol Explained",
+      "fieldtype": "Check",
+      "depends_on": "eval:doc.instrument_delivered"
+    },
+    {
+      "fieldname": "digital_signature",
+      "label": "Technician Signature",
+      "fieldtype": "Signature"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1
+    }
+  ]
+}

@@ -1,8 +1,0 @@
-@startuml
-"User" *-- "Repair Task Log" : logged_by
-class "Repair Task Log" #76D7C4 {
-  log_entry : Small Text
-  timestamp : Datetime
-  logged_by : Link
-}
-@enduml

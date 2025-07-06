@@ -1,0 +1,29 @@
+{
+  "doctype": "DocType",
+  "name": "Tone Hole Inspection Record",
+  "module": "Repair Logging",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "tone_hole_number",
+      "label": "Tone Hole Number",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "visual_status",
+      "label": "Visual Status",
+      "fieldtype": "Select",
+      "options": "Clean\nDamaged\nChipped\nUneven"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "photo",
+      "label": "Photo",
+      "fieldtype": "Attach Image"
+    }
+  ]
+}

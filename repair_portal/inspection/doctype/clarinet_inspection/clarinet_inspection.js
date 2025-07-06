@@ -1,16 +1,16 @@
-// File: repair_portal/intake/doctype/clarinet_inspection/clarinet_inspection.js
-// Updated: 2025-07-03
-// Version: 2.0
-// Purpose: Production-grade script to mark Clarinet Intake inspection as completed when this inspection is submitted.
+// File: repair_portal/inspection/doctype/clarinet_inspection/clarinet_inspection.js
+// Updated: 2025-07-05
+// Purpose: Mark Clarinet Intake inspection as completed when this inspection is submitted. Now robust to missing linkage.
 
 frappe.ui.form.on('Clarinet Inspection', {
     after_save(frm) {
-        if (frm.doc.docstatus === 1 && frm.doc.intake) {
+        // Use the new robust clarinet_intake linkage
+        if (frm.doc.docstatus === 1 && frm.doc.clarinet_intake) {
             frappe.call({
                 method: 'frappe.client.set_value',
                 args: {
                     doctype: 'Clarinet Intake',
-                    name: frm.doc.intake,
+                    name: frm.doc.clarinet_intake,
                     fieldname: 'inspection_completed',
                     value: 1
                 },
@@ -27,7 +27,9 @@ frappe.ui.form.on('Clarinet Inspection', {
                             message: __('Could not update Clarinet Intake.'),
                             indicator: 'red'
                         });
-                        console.error('Error updating Clarinet Intake:', r.exc);
+                        if (r.exc) {
+                            frappe.log_error('Failed to update Clarinet Intake after Clarinet Inspection submit: ' + r.exc, frm.doc.name);
+                        }
                     }
                 },
                 error: function(err) {
@@ -36,9 +38,16 @@ frappe.ui.form.on('Clarinet Inspection', {
                         message: __('An error occurred updating the linked Intake.'),
                         indicator: 'red'
                     });
-                    console.error('Server error updating Clarinet Intake:', err);
+                    frappe.log_error('Server error updating Clarinet Intake from Clarinet Inspection', JSON.stringify(err));
                 }
             });
+        } else if (frm.doc.docstatus === 1) {
+            frappe.msgprint({
+                title: __('Missing Intake Link'),
+                message: __('This Clarinet Inspection is not linked to a Clarinet Intake. Please link before submitting.'),
+                indicator: 'orange'
+            });
+            frappe.log_error('Clarinet Inspection submitted without clarinet_intake link', frm.doc.name);
         }
     }
 });

@@ -1,6 +1,0 @@
-@startuml
-class "Image Log Entry" #76D7C4 {
-  image : Attach Image
-  comment : Small Text
-}
-@enduml

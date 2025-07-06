@@ -1,117 +1,105 @@
-# Relative Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
-# Last Updated: 2025-07-04
-# Version: v4.1
-# Purpose: Clarinet Intake lifecycle with auto Instrument Profile and Quality Inspection creation
-# Dependencies: Frappe Framework >= v15
+# --------------------------------------------------------------------------- #
+# File Header
+#   Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
+#   Version: v2.1.5  –  Production
+#   Last Updated: 2025-07-06
+#
+#   Purpose:
+#     • Clarinet Intake DocType controller for Frappe/ERPNext v15+
+#     • Assigns safe owner in before_validate (avoids “Could not find Owner”)
+#     • Enforces intake-type rules, checklist completeness, flag protections
+#     • Triggers status e-mail after insert
+# --------------------------------------------------------------------------- #
 
 from __future__ import annotations
+from typing import TYPE_CHECKING, List
 
 import frappe
 from frappe import _
 from frappe.model.document import Document
-import frappe.utils
 
 from . import clarinet_intake_block_flagged
+from repair_portal.intake.utils.emailer import queue_intake_status_email
+from repair_portal.logger import get_logger
 
-# ---------------------------------------------------------------------------
-# Workflow helpers
-# ---------------------------------------------------------------------------
+if TYPE_CHECKING:
+    from repair_portal.intake.doctype.clarinet_intake.clarinet_intake import ClarinetIntake
 
-workflow = frappe.get_doc("Workflow", "Clarinet Intake Workflow")
-# rows are WorkflowDocumentState objects in Frappe ≥ v15
-states = workflow.states or []
-valid_states = {row.state for row in states}
+LOGGER = get_logger(__name__)
+ADMIN_USER = "Administrator"    # Fallback if session user is invalid/disabled
 
 
+# --------------------------------------------------------------------------- #
+# Helper
+# --------------------------------------------------------------------------- #
+def _get_valid_user(user_id: str | None) -> str:
+    """Return *user_id* if it is an enabled User; else return Administrator."""
+    if user_id and frappe.db.exists("User", {"name": user_id, "enabled": 1}):
+        return user_id
+
+    LOGGER.warning(
+        "Invalid or disabled owner '%s' supplied — falling back to %s",
+        user_id,
+        ADMIN_USER,
+    )
+    return ADMIN_USER
+
+
+# --------------------------------------------------------------------------- #
+# Controller
+# --------------------------------------------------------------------------- #
 class ClarinetIntake(Document):
-    """
-    Clarinet Intake Controller
-    Handles validation, lifecycle hooks, and automatic related record creation.
-    """
+    # ------------------------ Early lifecycle ---------------------------- #
+    def before_validate(self) -> None:
+        """Set a guaranteed-valid owner before Frappe validates the doc."""
+        self.owner = _get_valid_user(frappe.session.user)
+        LOGGER.info("[OwnerTrace] before_validate → %s", self.owner)
 
-    # ---------------------------------------------------------------------
-    # Core validations
-    # ---------------------------------------------------------------------
-
+    # --------------------------------------------------------------------- #
     def validate(self) -> None:
-        """Run on every save."""
-        clarinet_intake_block_flagged.before_save(self)
-        self._ensure_instrument_profile()
+        """Business-rule validation and defensive defaults."""
+        # Intake-type defaults
+        self.intake_type = (self.intake_type or "Inventory").title()
+
         if self.intake_type == "Inventory":
-            self._ensure_quality_inspection()
+            self.stock_status = self.stock_status or "Inspection"
+            self.repair_status = None
+        else:  # Repair
+            self.repair_status = self.repair_status or "Pending"
+            self.stock_status = None
 
-    def before_insert(self) -> None:
-        self._check_write_permissions()
+        # Require customer on Repair intakes
+        if self.intake_type == "Repair" and not self.customer:
+            frappe.throw(_("Customer is required for Repair intake type."))
 
-    def before_submit(self) -> None:
-        if self.intake_type == "Inventory" and not self.checklist:
-            frappe.throw(
-                _("QC Checklist must be completed before submitting this Intake.")
-            )
-        self._check_submit_permissions()
+        # Checklist completeness
+        if self.checklist:
+            incomplete: List[str] = [
+                row.accessory or row.item
+                for row in self.checklist
+                if row.status != "Completed"
+            ]
+            if incomplete:
+                frappe.throw(
+                    _("All accessories must be marked completed: {0}")
+                    .format(", ".join(incomplete))
+                )
 
-    def before_cancel(self) -> None:
-        self._check_cancel_permissions()
+        # Flag protections
+        clarinet_intake_block_flagged.before_save(self)
 
-    # ---------------------------------------------------------------------
-    # Workflow-state validation
-    # ---------------------------------------------------------------------
+    # Delegate cancel / trash protections
+    before_cancel = clarinet_intake_block_flagged.before_cancel  # type: ignore[attr-defined]
+    on_trash      = clarinet_intake_block_flagged.on_trash       # type: ignore[attr-defined]
 
-    def _validate_workflow_state(self) -> None:
-        """Ensure ``self.workflow_state`` is one of the states defined in the Workflow."""
-        if not states:
-            frappe.throw(_("Workflow states not found"))
+    # --------------------------- Post-insert ----------------------------- #
+    def after_insert(self) -> None:
+        """
+        Post-creation automation:
+          • Queue status e-mail
+          • Log creation event
+        """
+        # Pass the doc itself to the util (matches existing 1-param signature)
+        queue_intake_status_email(self)
 
-        if self.workflow_state and self.workflow_state not in valid_states:
-            frappe.throw(
-                _("Invalid workflow state: {0}").format(self.workflow_state)
-            )
-
-        # If blank, initialise with the first state from the Workflow
-        if not self.workflow_state and states:
-            self.workflow_state = states[0].state  # attribute access, not dict subscript
-
-    # ---------------------------------------------------------------------
-    # Permission checks
-    # ---------------------------------------------------------------------
-
-    def _check_write_permissions(self) -> None:
-        if not frappe.has_permission(self.doctype, "write"):
-            frappe.throw(_("You do not have permission to save this Intake."))
-
-    def _check_submit_permissions(self) -> None:
-        if not frappe.has_permission(self.doctype, "submit"):
-            frappe.throw(_("You do not have permission to submit this Intake."))
-
-    def _check_cancel_permissions(self) -> None:
-        if not frappe.has_permission(self.doctype, "cancel"):
-            frappe.throw(_("You do not have permission to cancel this Intake."))
-
-    # ---------------------------------------------------------------------
-    # Utility helpers
-    # ---------------------------------------------------------------------
-
-    def _ensure_instrument_profile(self) -> None:
-        """Create or link an Instrument Profile record."""
-        # … existing implementation …
-
-    def _ensure_quality_inspection(self) -> None:
-        """Create a Quality Inspection for 'Inventory' intakes."""
-        # … existing implementation …
-
-    def _log_transition(self, action: str) -> None:
-        self.add_comment(
-            "Comment",
-            _("Workflow action '{0}' performed by {1}").format(
-                action, frappe.session.user
-            ),
-        )
-        frappe.publish_realtime(
-            "clarinet_intake_workflow_action",
-            {
-                "intake_name": self.name,
-                "action": action,
-                "user": frappe.session.user,
-            },
-            user=frappe.session.user,
-        )
+        LOGGER.info("New Clarinet Intake %s saved by %s", self.name, self.owner)

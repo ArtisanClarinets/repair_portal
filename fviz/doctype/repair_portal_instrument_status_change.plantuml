@@ -1,4 +1,0 @@
-@startuml
-class "Instrument Status Change" #F5CBA7 {
-}
-@enduml

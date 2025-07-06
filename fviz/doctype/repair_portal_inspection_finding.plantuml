@@ -1,9 +1,0 @@
-@startuml
-class "Inspection Finding" #F9E79F {
-  component : Select
-  issue_type : Select
-  severity : Select
-  recommendation : Text
-  action_required : Select
-}
-@enduml

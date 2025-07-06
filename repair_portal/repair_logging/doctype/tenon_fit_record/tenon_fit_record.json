@@ -1,0 +1,35 @@
+{
+  "doctype": "DocType",
+  "name": "Tenon Fit Record",
+  "module": "Repair Logging",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "joint",
+      "label": "Joint",
+      "fieldtype": "Select",
+      "options": "Barrel-Upper\nUpper-Lower\nLower-Bell"
+    },
+    {
+      "fieldname": "fit_classification",
+      "label": "Fit Classification",
+      "fieldtype": "Select",
+      "options": "Loose\nIdeal\nTight"
+    },
+    {
+      "fieldname": "measured_diameter",
+      "label": "Measured Diameter (mm)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "photo",
+      "label": "Photo",
+      "fieldtype": "Attach Image"
+    }
+  ]
+}

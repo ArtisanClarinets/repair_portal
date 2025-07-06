@@ -1,9 +1,0 @@
-@startuml
-class "Key Measurement" #AED6F1 {
-  pad_id : Data
-  pad_name : Data
-  height_mm : Float
-  seal_status : Select
-  notes : Small Text
-}
-@enduml

@@ -1,4 +1,0 @@
-@startuml
-class "Pending Client Instruments" #F5CBA7 {
-}
-@enduml

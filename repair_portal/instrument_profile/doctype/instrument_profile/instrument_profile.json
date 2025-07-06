@@ -11,7 +11,7 @@
     {"fieldname": "brand", "label": "Brand", "fieldtype": "Data", "in_list_view": 1},
     {"fieldname": "model", "label": "Model", "fieldtype": "Data", "reqd": 1},
     {"fieldname": "instrument_category", "label": "Type", "fieldtype": "Select", "options": "Clarinet\nBass Clarinet\nContrabass Clarinet", "reqd": 1},
-    {"fieldname": "owner", "label": "Owner", "fieldtype": "Link", "options": "Customer", "reqd": 1},
+    {"fieldname": "owner", "label": "Owner", "fieldtype": "Link", "options": "Customer", "in_list_view": 1},
     {"fieldname": "purchase_receipt", "label": "Purchase Receipt", "fieldtype": "Attach"},
     {"fieldname": "external_work_logs", "label": "Previous Repairs", "fieldtype": "Table", "options": "Customer External Work Log"},
     {"fieldname": "condition_images", "label": "Condition Images", "fieldtype": "Table", "options": "Image Log Entry"},

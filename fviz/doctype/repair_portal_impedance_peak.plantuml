@@ -1,7 +1,0 @@
-@startuml
-class "Impedance Peak" #F5CBA7 {
-  frequency : Float
-  impedance : Float
-  q_factor : Float
-}
-@enduml

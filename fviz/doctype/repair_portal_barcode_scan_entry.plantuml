@@ -1,9 +1,0 @@
-@startuml
-"Item" *-- "Barcode Scan Entry" : linked_item
-class "Barcode Scan Entry" #76D7C4 {
-  barcode : Data
-  linked_item : Link
-  scan_time : Datetime
-  context_note : Data
-}
-@enduml

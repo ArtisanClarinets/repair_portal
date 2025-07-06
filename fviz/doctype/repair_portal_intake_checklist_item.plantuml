@@ -1,7 +1,0 @@
-@startuml
-class "Intake Checklist Item" #A9DFBF {
-  check_item : Data
-  checked : Check
-  comments : Small Text
-}
-@enduml

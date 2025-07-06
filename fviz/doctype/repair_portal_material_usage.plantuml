@@ -1,9 +1,0 @@
-@startuml
-"Item" *-- "Material Usage" : item
-"Warehouse" *-- "Material Usage" : source_warehouse
-class "Material Usage" #F9E79F {
-  item : Link
-  quantity : Float
-  source_warehouse : Link
-}
-@enduml

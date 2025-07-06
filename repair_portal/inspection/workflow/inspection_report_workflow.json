@@ -1,0 +1,20 @@
+{
+  "workflow_name": "Inspection QC Workflow",
+  "document_type": "Inspection Report",
+  "is_active": 1,
+  "states": [
+    {"state": "Scheduled", "doc_status": 0, "allow_edit": "Technician"},
+    {"state": "In Progress", "doc_status": 0, "allow_edit": "Technician"},
+    {"state": "Passed", "doc_status": 1, "allow_edit": "QA Manager"},
+    {"state": "Failed", "doc_status": 1, "allow_edit": "QA Manager"},
+    {"state": "Pending Review", "doc_status": 0, "allow_edit": "QA Manager"}
+  ],
+  "transitions": [
+    {"state": "Scheduled", "action": "Start", "next_state": "In Progress", "allowed": "Technician"},
+    {"state": "In Progress", "action": "Pass", "next_state": "Passed", "allowed": "QA Manager"},
+    {"state": "In Progress", "action": "Fail", "next_state": "Failed", "allowed": "QA Manager"},
+    {"state": "Failed", "action": "Reinspect", "next_state": "In Progress", "allowed": "Technician"},
+    {"state": "Passed", "action": "Reopen", "next_state": "In Progress", "allowed": "QA Manager"}
+  ],
+  "workflow_state_field": "status"
+}

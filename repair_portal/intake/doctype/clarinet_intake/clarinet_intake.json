@@ -20,23 +20,26 @@
       "fieldname": "intake_id",
       "fieldtype": "Data",
       "label": "Intake ID",
-      "read_only": 1,
       "fetch_from": "name",
-      "in_list_view": 1
+      "read_only": 1,
+      "in_list_view": 1,
+      "bold": 1
     },
     {
       "fieldname": "intake_type",
       "fieldtype": "Select",
       "label": "Intake Type",
       "options": "Inventory\nRepair",
-      "reqd": 1
+      "reqd": 1,
+      "in_list_view": 1
     },
     {
       "fieldname": "serial_number",
       "fieldtype": "Data",
       "label": "Serial Number",
       "reqd": 1,
-      "unique": 1
+      "unique": 1,
+      "in_list_view": 1
     },
     {
       "fieldname": "quality_inspection",
@@ -66,6 +69,14 @@
       "fieldtype": "Link",
       "label": "Inspected By",
       "options": "User",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "instrument_profile",
+      "fieldtype": "Link",
+      "label": "Instrument Profile",
+      "options": "Instrument Profile",
+      "read_only": 1,
       "depends_on": "eval:doc.intake_type=='Inventory'"
     },
     {
@@ -176,14 +187,6 @@
   ],
   "permissions": [
     {
-      "role": "Inventory Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "submit": 1,
-      "delete": 1
-    },
-    {
       "role": "Repair Technician",
       "read": 1,
       "write": 1,
@@ -195,7 +198,7 @@
       "write": 1,
       "create": 1,
       "submit": 1,
-      "delete": 1
+      "cancel": 1
     },
     {
       "role": "System Manager",
@@ -203,13 +206,8 @@
       "write": 1,
       "create": 1,
       "submit": 1,
+      "cancel": 1,
       "delete": 1
-    },
-    {
-      "role": "Customer",
-      "read": 1,
-      "if_owner": 1,
-      "depends_on": "eval:doc.intake_type=='Repair'"
     }
   ]
 }
