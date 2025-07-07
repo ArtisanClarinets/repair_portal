@@ -21,6 +21,14 @@
       "reqd": 1
     },
     {
+      "fieldname": "clarinet_intake",
+      "label": "Clarinet Intake",
+      "fieldtype": "Link",
+      "options": "Clarinet Intake",
+      "in_list_view": 1,
+      "reqd": 0
+    },
+    {
       "fieldname": "manufacturer",
       "label": "Manufacturer",
       "fieldtype": "Data"

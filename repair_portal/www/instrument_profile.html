@@ -1,0 +1,117 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Instrument Profile{% endblock %}
+
+{% block page_content %}
+<header class="l-header" id="header">
+  <nav class="nav bd-container">
+    <a href="/" class="nav-logo">Instrument Portal</a>
+
+    <div class="nav-menu" id="nav-menu">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#overview" class="nav-link active-link"><i class="bx bx-home"></i>Overview</a>
+        </li>
+        <li class="nav-item">
+          <a href="#details" class="nav-link"><i class="bx bx-info-circle"></i>Details</a>
+        </li>
+        <li class="nav-item">
+          <a href="#history" class="nav-link"><i class="bx bx-history"></i>Service History</a>
+        </li>
+        <li class="nav-item">
+          <a href="#documents" class="nav-link"><i class="bx bx-file"></i>Documents</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="nav-toggle" id="nav-toggle">
+      <i class="bx bx-grid-alt"></i>
+    </div>
+  </nav>
+</header>
+
+<main class="l-main bd-container">
+  <div class="instrument-profile" id="area-cv">
+    <div class="profile-left">
+      <!-- Overview Section -->
+      <section class="overview section" id="overview">
+        <div class="overview-container section bd-grid">
+          <div class="overview-data bd-grid">
+            <img src="{{ instrument.image or '/assets/repair_portal/images/default-instrument.jpg' }}" alt="Instrument Photo" class="instrument-img" />
+            <h1 class="instrument-title">{{ instrument.instrument_name }}</h1>
+            <h3 class="instrument-serial">Serial Number: {{ instrument.serial_no }}</h3>
+          </div>
+        </div>
+
+        <!-- Theme Toggle -->
+        <i class="bx bx-moon change-theme" title="Toggle Theme" id="theme-button"></i>
+      </section>
+
+      <!-- Instrument Details -->
+      <section class="details section" id="details">
+        <h2 class="section-title">Instrument Details</h2>
+        <p class="instrument-description">{{ instrument.description }}</p>
+        <ul class="instrument-info">
+          <li><strong>Model:</strong> {{ instrument.model or '-' }}</li>
+          <li><strong>Brand:</strong> {{ instrument.brand or '-' }}</li>
+          <li><strong>Purchase Date:</strong> {{ instrument.purchase_date or '-' }}</li>
+          <li><strong>Warranty Status:</strong> {{ instrument.warranty_status or '-' }}</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="profile-right">
+      <!-- Service History -->
+      <section class="history section" id="history">
+        <h2 class="section-title">Service History</h2>
+        {% if service_history %}
+          <div class="history-container bd-grid">
+            {% for record in service_history %}
+              <div class="history-content">
+                <div class="history-time">
+                  <span class="history-rounder"></span>
+                  {% if not loop.last %}
+                    <span class="history-line"></span>
+                  {% endif %}
+                </div>
+                <div class="history-data bd-grid">
+                  <h3 class="history-title">{{ record.service_type }}</h3>
+                  <span class="history-date">{{ record.service_date }}</span>
+                  <p class="history-notes">{{ record.notes }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>No service history available.</p>
+        {% endif %}
+      </section>
+
+      <!-- Related Documents -->
+      <section class="documents section" id="documents">
+        <h2 class="section-title">Documents</h2>
+        {% if documents %}
+          <ul class="documents-list">
+            {% for doc in documents %}
+              <li>
+                <a href="{{ doc.url }}" target="_blank">
+                  <i class="bx bx-file"></i> {{ doc.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No documents available for this instrument.</p>
+        {% endif %}
+      </section>
+    </div>
+  </div>
+</main>
+
+<a href="#" class="scrolltop" id="scroll-top">
+  <i class="bx bx-up-arrow-alt scrolltop-icon"></i>
+</a>
+
+<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+<script src="/assets/repair_portal/js/instrument_profile.js"></script>
+{% endblock %}

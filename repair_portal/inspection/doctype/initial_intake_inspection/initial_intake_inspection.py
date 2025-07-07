@@ -1,7 +1,7 @@
 # File Header Template
 # Relative Path: repair_portal/inspection/doctype/initial_intake_inspection/initial_intake_inspection.py
-# Last Updated: 2025-07-06
-# Version: v1.0
+# Last Updated: 2025-07-06 (Updated: 2025-07-07 for Clarinet Intake linkage)
+# Version: v1.1
 # Purpose: Initial Intake Inspection controller for documenting first inspection of clarinets.
 # Enforces complete baseline logging, delivery-triggered acclimatization reminder.
 # Dependencies: frappe.email, frappe.utils
@@ -29,6 +29,16 @@ class InitialIntakeInspection(Document):
         for th in self.tone_hole_inspection:
             if not th.visual_status:
                 frappe.throw(_("Tone hole entry is missing Visual Status."))
+
+        # ---- Auto-link Clarinet Intake by serial ----
+        if not getattr(self, "clarinet_intake", None) and self.instrument_serial:
+            intake_name = frappe.db.get_value(
+                "Clarinet Intake",
+                {"serial_number": self.instrument_serial},
+                "name"
+            )
+            if intake_name:
+                self.clarinet_intake = intake_name
 
     def on_submit(self):
         """Handle post-submission workflows."""

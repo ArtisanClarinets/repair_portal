@@ -1,16 +1,12 @@
 # --------------------------------------------------------------------------- #
 # File Header
 #   Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
-#   Version: v2.1.5  –  Production
+#   Version: v2.1.6  –  Production (Frappe v15+)
 #   Last Updated: 2025-07-06
-#
-#   Purpose:
-#     • Clarinet Intake DocType controller for Frappe/ERPNext v15+
-#     • Assigns safe owner in before_validate (avoids “Could not find Owner”)
-#     • Enforces intake-type rules, checklist completeness, flag protections
-#     • Triggers status e-mail after insert
+#   Changelog:
+#     • No behavioural change; just confirmed compatibility with updated
+#       clarinet_intake_block_flagged (v2.1) that removed deprecated API use.
 # --------------------------------------------------------------------------- #
-
 from __future__ import annotations
 from typing import TYPE_CHECKING, List
 
@@ -18,15 +14,17 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
-from . import clarinet_intake_block_flagged
+from . import clarinet_intake_block_flagged            # (now v2.1)
 from repair_portal.intake.utils.emailer import queue_intake_status_email
 from repair_portal.logger import get_logger
 
 if TYPE_CHECKING:
-    from repair_portal.intake.doctype.clarinet_intake.clarinet_intake import ClarinetIntake
+    from repair_portal.intake.doctype.clarinet_intake.clarinet_intake import (
+        ClarinetIntake,
+    )
 
 LOGGER = get_logger(__name__)
-ADMIN_USER = "Administrator"    # Fallback if session user is invalid/disabled
+ADMIN_USER = "Administrator"      # Fallback if session user is invalid/disabled
 
 
 # --------------------------------------------------------------------------- #
@@ -85,7 +83,7 @@ class ClarinetIntake(Document):
                     .format(", ".join(incomplete))
                 )
 
-        # Flag protections
+        # Flag protections (delegated)
         clarinet_intake_block_flagged.before_save(self)
 
     # Delegate cancel / trash protections
@@ -99,7 +97,5 @@ class ClarinetIntake(Document):
           • Queue status e-mail
           • Log creation event
         """
-        # Pass the doc itself to the util (matches existing 1-param signature)
         queue_intake_status_email(self)
-
         LOGGER.info("New Clarinet Intake %s saved by %s", self.name, self.owner)
