@@ -1,7 +1,0 @@
-/opt/frappe/erp-bench/apps/repair_portal/cl-inst-profile.txt:repair_portal/instrument_profile/web_form/client_instrument_profile/client_instrument_profile.json:  "web_form_name": "client_instrument_profile",
-/opt/frappe/erp-bench/apps/repair_portal/cl-inst-profile.txt:repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.py:# relative path: repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.py
-/opt/frappe/erp-bench/apps/repair_portal/repair_portal/instrument_profile/web_form/client_instrument_profile/client_instrument_profile.json:  "web_form_name": "client_instrument_profile",
-/opt/frappe/erp-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.py:# relative path: repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.py
-/opt/frappe/erp-bench/apps/repair_portal/module_relationships/fviz/repair_portal_mega.plantuml:"Customer" *-- "client_instrument_profile" : owner
-/opt/frappe/erp-bench/apps/repair_portal/module_relationships/fviz/repair_portal_mega.plantuml:"Customer External Work Log" *-- "client_instrument_profile" : external_work_logs
-

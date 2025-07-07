@@ -1,13 +1,13 @@
 {
  "charts": [],
- "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Portal</span>\",\"col\":12}},{\"id\":\"shortcut1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Intake\",\"col\":3}},{\"id\":\"shortcut2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument Profile\",\"col\":3}},{\"id\":\"shortcut3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Setup\",\"col\":3}},{\"id\":\"shortcut4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Loaner Instrument\",\"col\":3}},{\"id\":\"shortcut5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Repair Order\",\"col\":3}},{\"id\":\"shortcut6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Service Plan\",\"col\":3}},{\"id\":\"card1\",\"type\":\"card\",\"data\":{\"card_name\":\"Intake & Front Desk\",\"col\":4}},{\"id\":\"card2\",\"type\":\"card\",\"data\":{\"card_name\":\"Service Planning\",\"col\":4}},{\"id\":\"card3\",\"type\":\"card\",\"data\":{\"card_name\":\"Profiles & Portals\",\"col\":4}},{\"id\":\"card4\",\"type\":\"card\",\"data\":{\"card_name\":\"Repair Orders\",\"col\":4}},{\"id\":\"card5\",\"type\":\"card\",\"data\":{\"card_name\":\"Inspection & QA\",\"col\":4}}]",
+ "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Portal</span>\",\"col\":12}},{\"id\":\"shortcut1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Intake\",\"col\":3}},{\"id\":\"shortcut2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument Profile\",\"col\":3}},{\"id\":\"shortcut3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Setup\",\"col\":3}},{\"id\":\"shortcut4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Loaner Instrument\",\"col\":3}},{\"id\":\"card1\",\"type\":\"card\",\"data\":{\"card_name\":\"Intake & Front Desk\",\"col\":4}},{\"id\":\"card3\",\"type\":\"card\",\"data\":{\"card_name\":\"Profiles & Portals\",\"col\":4}},{\"id\":\"card5\",\"type\":\"card\",\"data\":{\"card_name\":\"Inspection & QA\",\"col\":4}},{\"id\":\"card2\",\"type\":\"card\",\"data\":{\"card_name\":\"Service Planning\",\"col\":4}},{\"id\":\"card4\",\"type\":\"card\",\"data\":{\"card_name\":\"Repair Orders\",\"col\":4}},{\"id\":\"shortcut5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Repair Order\",\"col\":4}}]",
  "creation": "2025-07-07 03:15:44.615952",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "for_user": "",
  "hide_custom": 0,
- "icon": "list-alt",
+ "icon": "quality-3",
  "idx": 0,
  "indicator_color": "blue",
  "is_hidden": 0,
@@ -193,7 +193,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Inspection & QA",
-   "link_count": 4,
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -201,19 +201,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Clarinet Inspection",
+   "label": "New Instrument Inspection",
    "link_count": 0,
-   "link_to": "Clarinet Inspection",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Inspection Finding",
-   "link_count": 0,
-   "link_to": "Inspection Finding",
+   "link_to": "Initial Intake Inspection",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -231,15 +221,15 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Final QA Checklist Item",
+   "label": "Clarinet Inspection",
    "link_count": 0,
-   "link_to": "Final Qa Checklist Item",
+   "link_to": "Clarinet Inspection",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2025-07-07 03:18:43.228294",
+ "modified": "2025-07-07 03:59:36.450888",
  "modified_by": "dylan@artisanclarinets.com",
  "module": "Repair Portal",
  "name": "Repair Portal",
@@ -284,13 +274,6 @@
    "doc_view": "New",
    "label": "New Repair Order",
    "link_to": "Repair Order",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "New",
-   "label": "New Service Plan",
-   "link_to": "Service Plan",
    "type": "DocType"
   }
  ],
