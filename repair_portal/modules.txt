@@ -12,3 +12,4 @@ Repair
 Lab
 Client Profile
 Player Profile
+trade_shows

@@ -1,0 +1,52 @@
+/* File: public/css/clarinetfest.css */
+/* Last Updated: 2025-07-08 */
+/* Deferred styles for ClarinetFest 2025 micro-catalog */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fafafa;
+}
+
+.catalog-wrapper {
+  padding-bottom: 4rem; /* room for back-to-top button */
+}
+
+.item-card img {
+  max-height: 200px;
+}
+
+#noResultsMessage {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Ripple effect for mobile tap feedback */
+.item-card::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.1);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.6s, opacity 1s;
+  pointer-events: none;
+}
+.item-card:active::after {
+  transform: scale(4);
+  opacity: 1;
+  transition: transform 0s, opacity 0s;
+}
+
+/* Footer badges (if you add them) */
+footer .clarinetfest-badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+footer .clarinetfest-badges img {
+  height: 32px;
+  opacity: 0.7;
+}

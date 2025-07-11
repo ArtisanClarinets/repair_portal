@@ -1,0 +1,4736 @@
+Item Code,Item Group,Default Unit of Measure,Series,Item Name,Show Inventory — ClarinetFest 2025,Disabled,Allow Alternative Item,Maintain Stock,Has Variants,Opening Stock,Valuation Rate,Standard Selling Rate,Is Fixed Asset,Auto Create Assets on Purchase,Create Grouped Asset,Asset Category,Asset Naming Series,Over Delivery/Receipt Allowance (%),Over Billing Allowance (%),Image,Description,Brand,Shelf Life In Days,End of Life,Default Material Request Type,Valuation Method,Warranty Period (in days),Weight Per Unit,Weight UOM,Allow Negative Stock,Has Batch No,Automatically Create New Batch,Batch Number Series,Has Expiry Date,Retain Sample,Max Sample Quantity,Has Serial No,Serial Number Series,Variant Of,Variant Based On,Enable Deferred Expense,No of Months (Expense),Enable Deferred Revenue,No of Months (Revenue),Default Purchase Unit of Measure,Minimum Order Qty,Safety Stock,Allow Purchase,Lead Time in days,Last Purchase Rate,Is Customer Provided Item,Customer,Delivered by Supplier (Drop Ship),Country of Origin,Customs Tariff Number,Default Sales Unit of Measure,Grant Commission,Allow Sales,Max Discount (%),Inspection Required before Purchase,Quality Inspection Template,Inspection Required before Delivery,Include Item In Manufacturing,Supply Raw Materials for Purchase,Default BOM,Customer Code,Default Item Manufacturer,Default Manufacturer Part No,Published In Website,Total Projected Qty,ID (UOMs),Conversion Factor (UOMs),UOM (UOMs),ID (Barcodes),Barcode (Barcodes),Barcode Type (Barcodes),UOM (Barcodes),ID (Reorder level based on Warehouse),Check in (group) (Reorder level based on Warehouse),Material Request Type (Reorder level based on Warehouse),Re-order Level (Reorder level based on Warehouse),Re-order Qty (Reorder level based on Warehouse),Request for (Reorder level based on Warehouse),ID (Variant Attributes),Attribute (Variant Attributes),Attribute Value (Variant Attributes),Disabled (Variant Attributes),From Range (Variant Attributes),Increment (Variant Attributes),Numeric Values (Variant Attributes),To Range (Variant Attributes),Variant Of (Variant Attributes),ID (Item Defaults),Company (Item Defaults),Default Buying Cost Center (Item Defaults),Default Discount Account (Item Defaults),Default Expense Account (Item Defaults),Default Income Account (Item Defaults),Default Price List (Item Defaults),Default Provisional Account (Item Defaults),Default Selling Cost Center (Item Defaults),Default Supplier (Item Defaults),Default Warehouse (Item Defaults),Deferred Expense Account (Item Defaults),Deferred Revenue Account (Item Defaults),ID (Supplier Items),Supplier (Supplier Items),Supplier Part Number (Supplier Items),ID (Customer Items),Customer Group (Customer Items),Customer Name (Customer Items),Ref Code (Customer Items),ID (Taxes),Item Tax Template (Taxes),Maximum Net Rate (Taxes),Minimum Net Rate (Taxes),Tax Category (Taxes),Valid From (Taxes)
+BC1221-2-0P,Clarinets,Nos,,Buffet Crampon Gala A Clarinet,,0,,1,0,0.0,2482.0,3782.0,0,,,,,,,,"
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Gala A Clarinet</h1>
+    <p class=""text-center1"">A Fusion of Artistry and Innovation</p>
+    <p class=""text-center"">
+      The <strong>Buffet Crampon Gala A Clarinet</strong> represents the pinnacle of French craftsmanship, combining the timeless elegance of its Légende and Tradition predecessors with innovative design. This professional-grade clarinet delivers rich harmonics, exceptional responsiveness, and an accessible price point, making it a favorite among dedicated musicians.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""design"" class=""tab"">Design</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Elevate Your Musical Expression</strong></p>
+    <p>
+      The Gala A Clarinet offers a versatile and balanced tonal palette that seamlessly adapts to various musical genres. Crafted from premium grenadilla wood, its precise construction ensures consistent intonation and expressive dynamics across all registers, making it ideal for both solo and ensemble performances.
+    </p>
+  </div>
+
+  <!-- Tab Content: Design -->
+  <div class=""tab-content"" id=""design"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Innovative Craftsmanship</strong></h1>
+        <p class=""text-center1""><strong>Elegant &amp; Functional Design</strong></p>
+        <p>
+          Highlighted by its black nickel-plated rings and refined medallion, the Gala A Clarinet exudes understated elegance. Equipped with leather pads and a poly-cylindrical bore, it offers exceptional playability and a warm, resonant sound that meets the demands of professional musicians.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Made in France with Precision</strong></h2>
+      <p>
+        Handcrafted in Buffet Crampon’s French workshops, the Gala A Clarinet is a testament to traditional expertise and modern innovation. Its ergonomic design, adjustable thumb rest, and lightweight pochette-style case make it both a pleasure to play and transport.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>Gala A Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>A</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Stained grenadilla wood (<em>Dalbergia melanoxylon</em>)</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrels</th>
+          <td>65 mm and 64 mm</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, silver-plated</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Pochette-style wooden case</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon Gala A Clarinet</strong> combines superior craftsmanship with exceptional tonal quality, offering musicians a perfect balance of innovation and tradition. Elevate your performances with this masterfully designed instrument.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1239GL-2-0-1,Clarinets,Nos,,Buffet Crampon Festival A Clarinet,,0,,1,0,0.0,5129.0,6762.0,0,,,,,,,,"<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Festival A Clarinet</h1>
+    <p class=""text-center1"">The Versatile Choice for Professional Musicians</p>
+    <p>
+      Designed in 1987 with guidance from Jacques Lancelot, Guy Deplus, and Michel Arrignon, the <strong>Buffet Crampon Festival A Clarinet</strong> meets the highest demands of today’s soloists, teachers, and advanced students. With exceptional versatility and tonal richness, it’s the ideal clarinet for interpreting a wide repertoire, from classical to contemporary.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Performance Redefined</strong></p>
+    <p>
+      The Festival A Clarinet combines Buffet Crampon’s legendary craftsmanship with modern innovation. Its poly-cylindrical bore ensures precise intonation and smooth transitions across all registers, delivering a warm, resonant sound that projects effortlessly in any setting.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Unmatched Craftsmanship</strong></h1>
+        <p class=""text-center1""><strong>A Symphony of Design and Function</strong></p>
+        <p>
+          Made from premium, unstained grenadilla wood, the Festival A Clarinet offers durability and tonal clarity. Its silver-plated keywork ensures smooth action and reliability, while the adjustable thumb rest and E♭/A♭ lever provide enhanced ergonomic comfort for extended play.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>A Clarinet for Every Repertoire</strong></h2>
+      <p>
+        Whether performing Mozart, Boulez, or anything in between, the Festival A Clarinet adapts seamlessly to diverse musical styles. Its expressive capabilities and professional-grade construction make it a top choice for musicians seeking excellence in sound and versatility.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>Festival A Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>A</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Unstained grenadilla wood (Dalbergia Melanoxylon)</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrels</th>
+          <td>65 mm and 64 mm</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>18 keys, 6 rings; silver-plated</td>
+        </tr>
+        <tr>
+          <th>E♭/A♭ Lever</th>
+          <td>Standard</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Needle and flat blue steel</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>GT waterproof, leather, and natural cork</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Traditional wooden case</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Ligature, mouthpiece cap, swab, cork grease, pencil</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon Festival A Clarinet</strong> offers unparalleled sound quality, versatility, and durability. With its professional-grade features and impeccable design, this clarinet is the perfect companion for musicians aiming for excellence.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1239GL-2-0-2,Clarinets,Nos,,Buffet Crampon Festival A Clarinet,,0,,1,0,0.0,5129.0,6762.0,0,,,,,,,,"<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Festival A Clarinet</h1>
+    <p class=""text-center1"">The Versatile Choice for Professional Musicians</p>
+    <p>
+      Designed in 1987 with guidance from Jacques Lancelot, Guy Deplus, and Michel Arrignon, the <strong>Buffet Crampon Festival A Clarinet</strong> meets the highest demands of today’s soloists, teachers, and advanced students. With exceptional versatility and tonal richness, it’s the ideal clarinet for interpreting a wide repertoire, from classical to contemporary.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Performance Redefined</strong></p>
+    <p>
+      The Festival A Clarinet combines Buffet Crampon’s legendary craftsmanship with modern innovation. Its poly-cylindrical bore ensures precise intonation and smooth transitions across all registers, delivering a warm, resonant sound that projects effortlessly in any setting.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Unmatched Craftsmanship</strong></h1>
+        <p class=""text-center1""><strong>A Symphony of Design and Function</strong></p>
+        <p>
+          Made from premium, unstained grenadilla wood, the Festival A Clarinet offers durability and tonal clarity. Its silver-plated keywork ensures smooth action and reliability, while the adjustable thumb rest and E♭/A♭ lever provide enhanced ergonomic comfort for extended play.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>A Clarinet for Every Repertoire</strong></h2>
+      <p>
+        Whether performing Mozart, Boulez, or anything in between, the Festival A Clarinet adapts seamlessly to diverse musical styles. Its expressive capabilities and professional-grade construction make it a top choice for musicians seeking excellence in sound and versatility.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>Festival A Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>A</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Unstained grenadilla wood (Dalbergia Melanoxylon)</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrels</th>
+          <td>65 mm and 64 mm</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>18 keys, 6 rings; silver-plated</td>
+        </tr>
+        <tr>
+          <th>E♭/A♭ Lever</th>
+          <td>Standard</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Needle and flat blue steel</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>GT waterproof, leather, and natural cork</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Traditional wooden case</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Ligature, mouthpiece cap, swab, cork grease, pencil</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon Festival A Clarinet</strong> offers unparalleled sound quality, versatility, and durability. With its professional-grade features and impeccable design, this clarinet is the perfect companion for musicians aiming for excellence.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0695121001984,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1231-5-0,Clarinets,Nos,,Buffet Crampon R13 A Clarinet,,0,,1,0,0.0,4134.0,5118.0,0,,,,,,,,"<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon R13 A Clarinet</h1>
+    <p class=""text-center1"">The Legendary Choice of Professionals</p>
+    <p>
+      Since its creation in 1955 by Robert Carrée, the <strong>Buffet Crampon R13 A Clarinet</strong> has become a cornerstone of professional clarinet performance. Known for its rich harmonics, powerful projection, and warm centered tone, it continues to captivate soloists, orchestras, students, and amateurs worldwide.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>A Clarinet for Every Repertoire</strong></p>
+    <p>
+      The R13 A Clarinet offers unmatched versatility, excelling across symphonic, chamber, and solo repertoire. Its poly-cylindrical bore ensures precise intonation and seamless transitions, allowing musicians to explore the full range of their artistry with confidence and ease.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Professional Design &amp; Artistry</strong></h1>
+        <p class=""text-center1""><strong>Craftsmanship that Inspires</strong></p>
+        <p>
+          Crafted from high-quality grenadilla wood, the R13 A Clarinet produces a warm, resonant tone. Its silver-plated keywork provides a smooth, reliable feel, while the adjustable thumb rest offers ergonomic comfort for extended play sessions. Designed for musicians who demand precision, this clarinet is a timeless classic.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Trusted by Generations</strong></h2>
+      <p>
+        The R13’s legacy as a professional standard is rooted in its consistent performance and quality. Whether performing intricate technical passages or lyrical melodies, this clarinet delivers exceptional sound and reliability that players have trusted for decades.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>R13 A Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>A</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Grenadilla wood (Dalbergia Melanoxylon) or GreenLinE</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrel</th>
+          <td>65 mm</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, 6 rings; silver-plated or nickel-plated</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Bladder</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Traditional wooden case</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Ligature, mouthpiece cap, swab, cork grease, pencil</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon R13 A Clarinet</strong> continues to set the standard for professional clarinets. With its unparalleled craftsmanship, tonal flexibility, and rich legacy, it remains an essential instrument for musicians aspiring to greatness.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1231-2-0,Clarinets,Nos,,Buffet Crampon R13 A Clarinet,,0,,1,0,0.0,4580.0,5671.0,0,,,,,,,,"<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon R13 A Clarinet</h1>
+    <p class=""text-center1"">The Legendary Choice of Professionals</p>
+    <p>
+      Since its creation in 1955 by Robert Carrée, the <strong>Buffet Crampon R13 A Clarinet</strong> has become a cornerstone of professional clarinet performance. Known for its rich harmonics, powerful projection, and warm centered tone, it continues to captivate soloists, orchestras, students, and amateurs worldwide.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>A Clarinet for Every Repertoire</strong></p>
+    <p>
+      The R13 A Clarinet offers unmatched versatility, excelling across symphonic, chamber, and solo repertoire. Its poly-cylindrical bore ensures precise intonation and seamless transitions, allowing musicians to explore the full range of their artistry with confidence and ease.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Professional Design &amp; Artistry</strong></h1>
+        <p class=""text-center1""><strong>Craftsmanship that Inspires</strong></p>
+        <p>
+          Crafted from high-quality grenadilla wood, the R13 A Clarinet produces a warm, resonant tone. Its silver-plated keywork provides a smooth, reliable feel, while the adjustable thumb rest offers ergonomic comfort for extended play sessions. Designed for musicians who demand precision, this clarinet is a timeless classic.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Trusted by Generations</strong></h2>
+      <p>
+        The R13’s legacy as a professional standard is rooted in its consistent performance and quality. Whether performing intricate technical passages or lyrical melodies, this clarinet delivers exceptional sound and reliability that players have trusted for decades.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>R13 A Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>A</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Grenadilla wood (Dalbergia Melanoxylon) or GreenLinE</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrel</th>
+          <td>65 mm</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, 6 rings; silver-plated or nickel-plated</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Bladder</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Traditional wooden case</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Ligature, mouthpiece cap, swab, cork grease, pencil</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon R13 A Clarinet</strong> continues to set the standard for professional clarinets. With its unparalleled craftsmanship, tonal flexibility, and rich legacy, it remains an essential instrument for musicians aspiring to greatness.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0695121001847,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1231G-2-0,Clarinets,Nos,,Buffet Crampon R13 A Clarinet,,0,,1,0,0.0,4580.0,5671.0,0,,,,,,,,"<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon R13 A Clarinet</h1>
+    <p class=""text-center1"">The Legendary Choice of Professionals</p>
+    <p>
+      Since its creation in 1955 by Robert Carrée, the <strong>Buffet Crampon R13 A Clarinet</strong> has become a cornerstone of professional clarinet performance. Known for its rich harmonics, powerful projection, and warm centered tone, it continues to captivate soloists, orchestras, students, and amateurs worldwide.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>A Clarinet for Every Repertoire</strong></p>
+    <p>
+      The R13 A Clarinet offers unmatched versatility, excelling across symphonic, chamber, and solo repertoire. Its poly-cylindrical bore ensures precise intonation and seamless transitions, allowing musicians to explore the full range of their artistry with confidence and ease.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Professional Design &amp; Artistry</strong></h1>
+        <p class=""text-center1""><strong>Craftsmanship that Inspires</strong></p>
+        <p>
+          Crafted from high-quality grenadilla wood, the R13 A Clarinet produces a warm, resonant tone. Its silver-plated keywork provides a smooth, reliable feel, while the adjustable thumb rest offers ergonomic comfort for extended play sessions. Designed for musicians who demand precision, this clarinet is a timeless classic.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Trusted by Generations</strong></h2>
+      <p>
+        The R13’s legacy as a professional standard is rooted in its consistent performance and quality. Whether performing intricate technical passages or lyrical melodies, this clarinet delivers exceptional sound and reliability that players have trusted for decades.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>R13 A Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>A</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Grenadilla wood (Dalbergia Melanoxylon) or GreenLinE</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrel</th>
+          <td>65 mm</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, 6 rings; silver-plated or nickel-plated</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Bladder</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Traditional wooden case</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Ligature, mouthpiece cap, swab, cork grease, pencil</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon R13 A Clarinet</strong> continues to set the standard for professional clarinets. With its unparalleled craftsmanship, tonal flexibility, and rich legacy, it remains an essential instrument for musicians aspiring to greatness.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC2512F-2-0GB,Clarinets,Nos,,Buffet Crampon E12F B♭ Clarinet,,0,,1,0,0.0,1371.0,2580.0,0,,,,,,,,"
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon E12F B♭ Clarinet</h1>
+    <p class=""text-center1"">Where Professional Sound Meets Student Accessibility</p>
+    <p>
+      The <strong>Buffet Crampon E12F B♭ Clarinet</strong> is designed for advanced students and professionals seeking an instrument that combines professional sound quality, precise intonation, and comfortable playability. Developed through Franco-German expertise, this clarinet reflects the best of Buffet Crampon’s craftsmanship.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>A Professional Experience for Aspiring Musicians</strong></p>
+    <p>
+      The E12F offers a warm, resonant tone and precise tuning across registers, thanks to its expertly crafted poly-cylindrical bore. Whether you're performing solo or in an ensemble, the E12F's versatility and expressive sound make it an ideal instrument for advancing your musical journey.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Engineered for Comfort &amp; Excellence</strong></h1>
+        <p class=""text-center1""><strong>Ergonomic Design &amp; Superior Craftsmanship</strong></p>
+        <p>
+          Featuring an adjustable thumb rest and balanced weight distribution, the E12F ensures comfort during long practice sessions or performances. Its durable African blackwood body is treated and lacquered to withstand the rigors of regular use, while leather pads and blue steel springs provide responsive playability and reliable sealing.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Precision Manufacturing</strong></h2>
+      <p>
+        The E12F is crafted in France and assembled with care in Germany, incorporating features from Buffet Crampon's professional line. The digitally calibrated tone holes and silver-plated keywork reflect the high standards of French and German engineering, ensuring consistent performance for every player.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>E12F B♭ Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Dalbergia Melanoxylon, unstained African blackwood, treated and lacquered</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrel</th>
+          <td>65 mm</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, 6 rings, silver-plated</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable, supports neck strap</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Blue steel</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Backpack-style case</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon E12F B♭ Clarinet</strong> offers an unmatched combination of professional sound and student accessibility. Its ergonomic design, precise intonation, and quality craftsmanship make it the perfect choice for advancing musicians.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,666605010501,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1180-2-0,Clarinets,Nos,,Buffet Crampon 1180 Bass Clarinet — Low E♭,,0,,1,0,0.0,5781.0,8093.0,0,,,,,,,,"<!-- 
+  ***********************************************************************
+  *  Page Title: Buffet Crampon 1180 Student Bass Clarinet – Ideal for Young Musicians
+  *  Meta Description: Explore the Buffet Crampon 1180 Student Bass Clarinet, 
+  *  crafted with African blackwood and a redesigned register system for superior playability.
+  ***********************************************************************
+-->
+
+  
+    <link rel=""stylesheet"" href=""https://cdn.shopify.com/s/files/1/0579/3035/0644/files/2025-Product-Description.css?v=1737927231"">
+  
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon 1180 Student Bass Clarinet</h1>
+    <p class=""text-center1"">Redefining Student Excellence</p>
+    <p>
+      The <strong>Buffet Crampon 1180 Student Bass Clarinet</strong> is the world’s leading choice for young musicians and amateurs seeking a bass clarinet with professional-grade features. With its redesigned register key system, high-quality African blackwood body, and exceptional craftsmanship, it sets a new standard for student instruments.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Ease of Play &amp; Rich Tonality</strong></p>
+    <p>
+      Designed with a simplified register key system and a comfortable ergonomic layout, the 1180 Bass Clarinet offers unmatched ease of playability. Its wide, expressive sound palette makes it a versatile choice for any musical genre, helping students grow musically while enjoying a professional experience.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Crafted for Young Musicians</strong></h1>
+        <p class=""text-center1""><strong>Accessible, Durable, &amp; Professional</strong></p>
+        <p>
+          Made from carefully selected African blackwood (<em>Dalbergia melanoxylon</em>), the 1180 boasts a warm, resonant tone that complements its solid construction. With features like an adjustable thumb rest, silver-plated copper bell, and lightweight backpack case, this clarinet offers exceptional comfort and portability.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Unmatched Precision</strong></h2>
+      <p>
+        From its blue steel springs ensuring fluid key movement to its leather pads for a reliable seal, the 1180 delivers precision in every note. The redesigned chalumeau register enhances interval transitions, making it easier for students to explore a full range of musical expression with confidence.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>1180 Student Bass Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Grenadilla wood (<em>Dalbergia melanoxylon</em>)</td>
+        </tr>
+        <tr>
+          <th>Range</th>
+          <td>Down to E♭</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>18 keys, silver-plated</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather with resonators</td>
+        </tr>
+        <tr>
+          <th>Bell</th>
+          <td>Silver-plated copper</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Lightweight, compact backpack style</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Discover the joy of bass clarinet with the <strong>Buffet Crampon 1180 Student Bass Clarinet</strong>. Its professional-level features, unmatched sound quality, and exceptional craftsmanship make it the perfect instrument for students and aspiring musicians.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1195-2-0,Clarinets,Nos,,Buffet Crampon Tosca 1195 Bass Clarinet — Low C,,0,,1,0,0.0,14067.0,17528.0,0,,,,,,,,"<!-- 
+  ***********************************************************************
+  *  Page Title: Buffet Crampon Tosca Bass Clarinet – Symphonic Excellence
+  *  Meta Description: Discover the Buffet Crampon Tosca Bass Clarinet, 
+  *  blending tradition and innovation with a luminous tone and advanced mechanism for professional musicians.
+  ***********************************************************************
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Tosca Bass Clarinet</h1>
+    <p class=""text-center1"">The Ultimate in Symphonic Performance</p>
+    <p>
+      The <strong>Buffet Crampon Tosca Bass Clarinet</strong> redefines symphonic standards with its luminous tone, innovative design, and soundless key mechanism. Perfectly blending traditional craftsmanship with modern advancements, it is the premier choice for professional musicians demanding excellence.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Elevate Your Sound</strong></p>
+    <p>
+      Introduced in 2014, the Tosca Bass Clarinet represents the culmination of Buffet Crampon’s expertise in crafting high-performance instruments. Its new Tosca bore design and ergonomic keywork ensure effortless playability, while its luminous tone enhances symphonic textures and solo passages alike.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Advanced Mechanism &amp; Exceptional Comfort</strong></h1>
+        <p class=""text-center1""><strong>Innovation in Every Detail</strong></p>
+        <p>
+          Equipped with a unique register key system and soundless keying, the Tosca Bass Clarinet offers an unmatched playing experience. The rubber dampers eliminate key noise, and the adjustable thumb key ensures customized comfort, allowing musicians to perform with confidence and precision.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Engineered for Longevity &amp; Versatility</strong></h2>
+      <p>
+        Constructed from premium grenadilla wood, the Tosca’s robust design and metal-capped tenons guarantee durability. Its double low D &amp; E♭ keys and synthetic cork neck add versatility, making it suitable for a wide range of symphonic and solo repertoire.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Technical Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>Tosca Bass Clarinet</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Grenadilla wood (Dalbergia melanoxylon)</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>New Tosca bore design</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>24 keys, silver-plated, soundless mechanism</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather, cork, and metal resonators</td>
+        </tr>
+        <tr>
+          <th>Neck</th>
+          <td>Synthetic cork with adjusting screw</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>High-tech case</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Mouthpiece, ligature, cap, swab, cork grease, strap</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon Tosca Bass Clarinet</strong> sets a new standard for symphonic instruments. Its luminous tone, ergonomic design, and innovative features make it the ultimate choice for professional clarinetists.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0695121117586,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1102C-2-0,Clarinets,Nos,,Buffet Crampon E13 B♭ Clarinet,,0,,1,0,0.0,2632.0,3834.0,0,,,,,,,,"<!-- 
+  ***********************************************************************
+  *  Page Title: Buffet Crampon E13 B♭ Clarinet – A Legacy of Excellence
+  *  Meta Description: Discover the Buffet Crampon E13 B♭ Clarinet, a trusted 
+  *  instrument for advanced musicians featuring professional craftsmanship 
+  *  and exceptional projection.
+  ***********************************************************************
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon E13 B♭ Clarinet</h1>
+    <p class=""text-center1"">A Trusted Instrument for the Advancing Musician</p>
+    <p>
+      For over 40 years, the <strong>Buffet Crampon E13 B♭ Clarinet</strong> has been a benchmark for quality and reliability. Originating from the renowned BC20 model, this clarinet has been the choice of advanced students and conservatory-level musicians seeking a rich, resonant tone and professional-grade features.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Features</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>A Legacy of Sound</strong></p>
+    <p>
+      The E13 blends Buffet Crampon’s heritage with modern innovation, producing a clarinet that excels in tonal projection and harmonic richness. Its cylindrical bore and grenadilla wood body ensure a focused, centered tone, ideal for solo and ensemble performances alike.
+    </p>
+  </div>
+
+  <!-- Tab Content: Features -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Built for Performance</strong></h1>
+        <p class=""text-center1""><strong>Enhanced Design for Today’s Musicians</strong></p>
+        <p>
+          Featuring silver-plated keywork, blue steel springs, and leather pads, the E13 offers a premium playing experience. The addition of a redesigned bell, inspired by the RC model, provides enhanced projection and clarity, while the adjustable thumb rest accommodates all playing styles comfortably.
+        </p>
+      </header>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Dalbergia Melanoxylon, stained African blackwood</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, silver-plated</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Blue steel, flat and needle</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather</td>
+        </tr>
+        <tr>
+          <th>Bell</th>
+          <td>RC-inspired redesigned bell</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable, supports neck strap</td>
+        </tr>
+
+         <tr>
+          <th>Barrel</th>
+          <td>65 mm</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Experience the enduring legacy of the <strong>Buffet Crampon E13 B♭ Clarinet</strong>. Its professional-grade features and versatile performance capabilities make it an excellent choice for advanced players seeking a refined, reliable instrument.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,695121118088,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1116LN-5-0P-1,Clarinets,Nos,,Buffet Crampon Tradition B♭ Clarinet,,0,,1,0,0.0,4759.0,6178.0,0,,,,,,,,"<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Tradition B♭ Clarinet</h1>
+    <p class=""text-center1"">Crafted for Professional Excellence</p>
+    <p>
+      The <strong>Buffet Crampon Tradition B♭ Clarinet</strong>, inspired by the acclaimed Legende model, embodies pure sound and exquisite craftsmanship. Introduced in 2019, it carries forward the legacy of Buffet Crampon’s iconic BC20 model while incorporating modern enhancements for today’s professional musicians.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""design"" class=""tab"">Refined Design</div>
+    <div data-tab=""specifications"" class=""tab"">Technical Details</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Pure Tone &amp; Elegant Craftsmanship</strong></p>
+    <p>
+      The Tradition B♭ Clarinet delivers a woody, well-centered tone reminiscent of the BC20 model, reimagined for the modern performer. Its cylindrical bore ensures even intonation and projection, while the refined features provide a professional playing experience that meets the highest expectations.
+    </p>
+  </div>
+
+  <!-- Tab Content: Refined Design -->
+  <div class=""tab-content"" id=""design"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Modern Enhancements with Timeless Appeal</strong></h1>
+        <p class=""text-center1""><strong>Where Tradition Meets Innovation</strong></p>
+        <p>
+          Borrowing features from the premium Legende model, the Tradition B♭ Clarinet includes metal tenon caps, a low F correction key, and a vertical medallion for added elegance. Each clarinet is crafted from natural, unstained grenadilla wood at Buffet Crampon’s workshops in Mantes la Ville, France, ensuring superior quality and craftsmanship.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Designed for Professional Performance</strong></h2>
+      <p>
+        From its ergonomic adjustable thumb rest to the high-grade blue steel springs, every element of the Tradition clarinet is optimized for comfort, precision, and durability. It bridges the gap between classic artistry and cutting-edge design, making it the preferred choice for clarinetists aiming for perfection.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Technical Details -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Natural grenadilla wood (Dalbergia Melanoxylon)</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrels</th>
+          <td>65 mm and 66 mm</td>
+        </tr>
+        <tr>
+          <th>Keys</th>
+          <td>19 keys, silver- or nickel-plated finish</td>
+        </tr>
+        <tr>
+          <th>Rings</th>
+          <td>6</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Blue steel</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>GT waterproof, leather, and natural cork</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Pochette style, dark naugahyde</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon Tradition B♭ Clarinet</strong> blends the best of heritage and modern innovation, delivering a pure, centered sound with refined features. Elevate your performance with an instrument crafted for the discerning professional.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0695121120104,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1116LN-5-0P-2,Clarinets,Nos,,Buffet Crampon Tradition B♭ Clarinet,,0,,1,0,0.0,5065.0,6564.0,0,,,,,,,,"<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Tradition B♭ Clarinet</h1>
+    <p class=""text-center1"">Crafted for Professional Excellence</p>
+    <p>
+      The <strong>Buffet Crampon Tradition B♭ Clarinet</strong>, inspired by the acclaimed Legende model, embodies pure sound and exquisite craftsmanship. Introduced in 2019, it carries forward the legacy of Buffet Crampon’s iconic BC20 model while incorporating modern enhancements for today’s professional musicians.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""design"" class=""tab"">Refined Design</div>
+    <div data-tab=""specifications"" class=""tab"">Technical Details</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Pure Tone &amp; Elegant Craftsmanship</strong></p>
+    <p>
+      The Tradition B♭ Clarinet delivers a woody, well-centered tone reminiscent of the BC20 model, reimagined for the modern performer. Its cylindrical bore ensures even intonation and projection, while the refined features provide a professional playing experience that meets the highest expectations.
+    </p>
+  </div>
+
+  <!-- Tab Content: Refined Design -->
+  <div class=""tab-content"" id=""design"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Modern Enhancements with Timeless Appeal</strong></h1>
+        <p class=""text-center1""><strong>Where Tradition Meets Innovation</strong></p>
+        <p>
+          Borrowing features from the premium Legende model, the Tradition B♭ Clarinet includes metal tenon caps, a low F correction key, and a vertical medallion for added elegance. Each clarinet is crafted from natural, unstained grenadilla wood at Buffet Crampon’s workshops in Mantes la Ville, France, ensuring superior quality and craftsmanship.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Designed for Professional Performance</strong></h2>
+      <p>
+        From its ergonomic adjustable thumb rest to the high-grade blue steel springs, every element of the Tradition clarinet is optimized for comfort, precision, and durability. It bridges the gap between classic artistry and cutting-edge design, making it the preferred choice for clarinetists aiming for perfection.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Technical Details -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Natural grenadilla wood (Dalbergia Melanoxylon)</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Cylindrical</td>
+        </tr>
+        <tr>
+          <th>Barrels</th>
+          <td>65 mm and 66 mm</td>
+        </tr>
+        <tr>
+          <th>Keys</th>
+          <td>19 keys, silver- or nickel-plated finish</td>
+        </tr>
+        <tr>
+          <th>Rings</th>
+          <td>6</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Blue steel</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>GT waterproof, leather, and natural cork</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Pochette style, dark naugahyde</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon Tradition B♭ Clarinet</strong> blends the best of heritage and modern innovation, delivering a pure, centered sound with refined features. Elevate your performance with an instrument crafted for the discerning professional.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1114-2-0,Clarinets,Nos,,Buffet Crampon RC Series B♭ Clarinet,,0,,1,0,0.0,4832.0,6130.0,0,,,,,,,,"<!-- 
+  ***********************************************************************
+  *  Page Title: Buffet Crampon RC B♭ Clarinet – A Legacy of Excellence
+  *  Meta Description: Explore the Buffet Crampon RC B♭ Clarinet, redesigned for 
+  *  professional performance with enhanced intonation, warm tone, and even response.
+  ***********************************************************************
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon RC B♭ Clarinet</h1>
+    <p class=""text-center1"">A Masterpiece of Legacy and Innovation</p>
+    <p>
+      The <strong>Buffet Crampon RC B♭ Clarinet</strong> represents the visionary contributions of Robert Carrée, whose poly-cylindrical bore design redefined clarinet acoustics. Redesigned in 2014, this instrument offers enhanced intonation, a warm, centered tone, and even response for professionals and aspiring musicians alike.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""history"" class=""tab"">The RC Evolution</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Refined Sound &amp; Performance</strong></p>
+    <p>
+      Crafted from premium grenadilla wood or GreenLinE material, the <strong>RC B♭ Clarinet</strong> offers rich, warm tones and consistent projection. The ergonomic keywork and adjustable thumb rest ensure unparalleled comfort and ease of play, making this clarinet a favorite among professionals and students striving for excellence.
+    </p>
+  </div>
+
+  <!-- Tab Content: The RC Evolution -->
+  <div class=""tab-content"" id=""history"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Robert Carrée’s Transformative Impact</strong></h1>
+        <p class=""text-center1""><strong>The Birth of a Legend</strong></p>
+        <p>
+          Robert Carrée’s poly-cylindrical bore revolutionized clarinet design, creating instruments with improved tonal evenness, projection, and resonance. The RC model embodies his dedication to enhancing both the artistry and mechanics of woodwind instruments.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>A Clarinet Built for the Modern Performer</strong></h2>
+      <p>
+        Redesigned in 2014, the RC model incorporates over a decade of acoustic research to meet the evolving demands of contemporary musicians. Its precise intonation, warm tone, and responsive feel make it an indispensable tool for achieving musical excellence.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Technical Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Stained Grenadilla wood (Dalbergia Melanoxylon) or GreenLinE</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 or 18 keys, 6 rings; silver-plated, with E♭ lever (optional)</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable for ergonomic comfort</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Blue steel for enhanced response</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather and natural cork</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Deluxe leather case included</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Explore the brilliance of the <strong>Buffet Crampon RC B♭ Clarinet</strong>. Its legacy of innovation and refined design continues to inspire musicians worldwide, offering an unmatched combination of tone, precision, and playability.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1512-2-0,Clarinets,Nos,,Buffet Crampon RC Series E♭ Clarinet,,0,,1,0,0.0,5617.0,7124.0,0,,,,,,,,"<!-- 
+  ***********************************************************************
+  *  Page Title: Buffet Crampon RC E♭ Clarinet – Legacy and Innovation
+  *  Meta Description: Discover the legacy of Robert Carrée and the Buffet Crampon RC E♭ Clarinet, 
+  *  a masterpiece blending professional craftsmanship with innovative design.
+  ***********************************************************************
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon RC E♭ Clarinet</h1>
+    <p class=""text-center1"">Where Legacy Meets Innovation</p>
+    <p>
+      The <strong>Buffet Crampon RC E♭ Clarinet</strong> celebrates the ingenuity of Robert Carrée, whose poly-cylindrical bore design revolutionized clarinet acoustics. Redesigned in 2014, this model combines tradition with cutting-edge acoustical advancements, offering unparalleled tone, projection, and balance for professional musicians.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""history"" class=""tab"">RC’s Legacy</div>
+    <div data-tab=""specifications"" class=""tab"">Specifications</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Exceptional Craftsmanship &amp; Superior Sound</strong></p>
+    <p>
+      Crafted from premium grenadilla wood or GreenLinE, the RC E♭ Clarinet produces a warm, centered tone with precise intonation. Its ergonomic keywork and advanced bore design ensure effortless playability, making it a versatile instrument for solo performances and ensemble work alike.
+    </p>
+  </div>
+
+  <!-- Tab Content: Robert Carrée’s Legacy -->
+  <div class=""tab-content"" id=""history"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>A Visionary Innovator</strong></h1>
+        <p class=""text-center1""><strong>The Poly-Cylindrical Bore Revolution</strong></p>
+        <p>
+          Robert Carrée’s contributions to Buffet Crampon include the development of the poly-cylindrical bore, which transformed the acoustic performance of clarinets. This design innovation allows for improved projection, tonal evenness, and resonance, setting the standard for modern clarinet construction.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>A Clarinet Built for Excellence</strong></h2>
+      <p>
+        The RC model exemplifies Carrée’s dedication to elevating the artistry of woodwind instruments. Its redesign in 2014 incorporated over a decade of acoustical research, resulting in a clarinet that meets the highest expectations of today’s professional musicians.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Technical Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Key</th>
+          <td>E♭</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body Material</th>
+          <td>Grenadilla wood (Dalbergia Melanoxylon) or GreenLinE</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, 6 rings; silver-plated</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable for ergonomic comfort</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Blue steel springs for enhanced responsiveness</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather and natural cork</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Deluxe leather case included</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Celebrate the legacy of innovation with the <strong>Buffet Crampon RC E♭ Clarinet</strong>. Its superior tone, advanced design, and ergonomic features make it the instrument of choice for musicians striving for excellence.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1131M-5-0,Clarinets,Nos,,Buffet Crampon Mopane R13 B♭ Clarinet,,0,,1,0,0.0,3747.0,4870.0,0,,,,,,,,"<!-- 
+    Page Title: Buffet Crampon Mopane R13 B♭ Clarinet – Legendary Sound, Reinvented
+  Meta Description: Discover the Buffet Crampon R13 B♭ Clarinet crafted with rare Southern African mopane wood, renowned for its warm, mellow tone and versatility across all registers.
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""philosopher""
+  }
+  .h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Mopane R13 B♭ Clarinet</h1>
+    <p class=""text-center1"">Discover legendary sound enhanced by rare mopane wood</p>
+    <p>
+      The timeless <strong>R13 B♭ Clarinet</strong> meets <strong>Southern African mopane wood</strong>, merging Buffet Crampon’s historic design with a warm, mellow resonance. Ideal for professionals and enthusiasts seeking a powerful, nuanced tone in every register.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""description"" class=""tab"">Description</div>
+    <div data-tab=""specifications"" class=""tab"">Tech Specs</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h1""><strong>Product Overview</strong></p>
+    <p>
+      The <strong>Buffet Crampon Mopane R13 B♭ Clarinet</strong> brings a fresh twist to a legendary instrument. Known for its lush, reddish-brown hue, mopane wood not only adds visual elegance but also imparts a richer, warmer timbre to the iconic R13 model. Limited in availability, this special edition maintains the clarinet’s hallmark versatility while introducing a uniquely captivating sonic character.
+    </p>
+  </div>
+
+  <!-- Tab Content: Description -->
+  <div class=""tab-content"" id=""description"">
+    <section>
+      <header>
+        <h1 class=""h1""><strong>Enhanced Sound and Projection</strong></h1>
+        <p class=""text-center1""><strong>Warm, Mellow, and Expressive</strong></p>
+        <p>
+          By combining the famous poly-cylindrical bore with mopane’s innate acoustic properties, this edition offers remarkable projection and tonal depth. From hushed pianissimos to full-bodied fortes, it captures every subtlety in your performance without sacrificing clarity or brilliance across any register.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h2""><strong>A Choice of Professionals</strong></h2>
+      <p>
+        Since its creation in 1955 by <strong>Robert Carrée</strong>, the R13 has resonated with top-level musicians for its flexibility, focused sound, and robust intonation. The addition of mopane elevates this classic, delivering a beautifully balanced tone that appeals to symphony players, soloists, teachers, and advancing students alike.
+      </p>
+      <p>
+        For those seeking tradition and innovation, the <strong>Mopane R13 B♭ Clarinet</strong> offers the best of both worlds—iconic design and an upgraded acoustic profile that amplifies musical expression.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Technical Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h1""><strong>Key Specifications</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Body</th>
+          <td>Limited Edition Mopane Wood, poly-cylindrical bore</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Barrel</th>
+          <td>66 mm</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, 6 rings, adjustable thumb rest, nickel silver</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Blue steel springs for responsive action</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Celebrate a legacy of excellence with the <strong>Buffet Crampon Mopane R13 B♭ Clarinet</strong>. Its alluring tone, stunning craftsmanship, and time-honored heritage suit any musician looking to blend iconic tradition with modern innovation.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0695121121460,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1231M-5-0,Clarinets,Nos,,Buffet Crampon Mopane R13 A Clarinet,,0,,1,0,0.0,4548.0,5629.0,0,,,,,,,,"<!-- 
+  Page Title: Buffet Crampon Mopane R13 Clarinet – A Masterpiece of Sound & Craftsmanship
+  Meta Description: Discover the exquisite Buffet Crampon Mopane R13 Clarinet. Designed for professionals, it offers rich tones, enhanced projection, and precision engineering.
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Mopane R13 Clarinet</h1>
+    <p class=""text-center1"">Exquisite Tone Meets Cutting-Edge Craftsmanship</p>
+    <p>
+      Experience the pinnacle of clarinet design with the <strong>Mopane R13</strong>. Hand-selected mopane wood delivers a rich, warm resonance, while Buffet Crampon’s legendary engineering ensures perfect intonation, smooth key action, and an elegant look that stands out in any performance setting.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""description"" class=""tab"">Professional Appeal</div>
+    <div data-tab=""specifications"" class=""tab"">Tech Specs</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Unmatched Warmth &amp; Projection</strong></p>
+    <p>
+      The combination of mopane wood’s dense grain and Buffet Crampon’s poly-cylindrical bore design yields a clarinet with remarkable tonal range. From resonant lows to vibrant highs, the <strong>Mopane R13</strong> projects your sound with clarity, filling intimate recital halls or grand auditoriums with equal finesse.
+    </p>
+  </div>
+
+  <!-- Tab Content: Description -->
+  <div class=""tab-content"" id=""description"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Precision Engineering for Demanding Performances</strong></h1>
+        <p class=""text-center1""><strong>Effortless Action &amp; Refined Comfort</strong></p>
+        <p>
+          Every mechanism on this clarinet, from the hand-crafted keys to the blue steel springs, is meticulously calibrated. This professional attention to detail ensures lightning-fast response and fluid fingering. The adjustable thumb rest and silver-plated keys provide comfort and style, reducing fatigue while enhancing onstage presence.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Elevate Your Musical Expression</strong></h2>
+      <p>
+        With each instrument tested and fine-tuned by Buffet Crampon artisans, the <strong>Mopane R13 Clarinet</strong> guarantees a playing experience as inspiring as it is precise. Whether you’re a soloist commanding the spotlight or a chamber musician seeking a unified ensemble sound, this clarinet adapts to your artistic vision effortlessly.
+      </p>
+      <p>
+        From concertos to chamber works, its expressive capabilities and clarity of tone empower you to captivate audiences with every performance.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Technical Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Mopane R13 Clarinet – Key Highlights</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Wood</th>
+          <td>Limited Edition Mopane, Poly-cylindrical bore</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>A</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>17 keys, 6 rings, nickel silver, blue steel springs</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Premium double skin</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable for enhanced comfort</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Leather deluxe case included</td>
+        </tr>
+        <tr>
+          <th>Mouthpiece</th>
+          <td>High-grade Buffet Crampon mouthpiece</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Elevate your musical artistry with the <strong>Buffet Crampon Mopane R13 Clarinet</strong>. Seamlessly blending tradition and innovation, this limited-edition masterpiece embodies the passion and precision that have made Buffet Crampon a gold standard for generations.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+RZ-CL4300-0,Clarinets,Nos,,RZ Andante B♭ Clarinet,,0,,1,0,0.0,850.0,1499.0,0,,,,,,,,"<!-- 
+  Page Title: RZ Andante B♭ Clarinet – Ideal for Student & Intermediate Players
+  Meta Description: The RZ Andante B♭ Clarinet is crafted for student and intermediate musicians, offering warm tone, durable construction, and comfortable playability.
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">RZ Andante B♭ Clarinet</h1>
+    <p class=""text-center1"">A Dependable Choice for Emerging Musicians</p>
+    <p>
+      Handcrafted from premium Grenadilla wood, the <strong>RZ Andante B♭ Clarinet</strong> delivers a full-bodied tone that helps student and intermediate players shine. Its comfortable design and durable components encourage steady progress, ensuring that every note resonates with clarity.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""description"" class=""tab"">Description</div>
+    <div data-tab=""specifications"" class=""tab"">Tech Specs</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Inspiring Consistency &amp; Growth</strong></p>
+    <p>
+      Whether preparing for school band rehearsals or practicing for recitals, the <strong>Andante B♭ Clarinet</strong> offers reliability and comfort that encourage steady musical development. Its ergonomic thumb rest reduces fatigue during extended sessions, while leather pads maintain a secure seal for enhanced pitch stability.
+    </p>
+  </div>
+
+  <!-- Tab Content: Description -->
+  <div class=""tab-content"" id=""description"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Precision Build &amp; Student-Friendly Design</strong></h1>
+        <p class=""text-center1""><strong>Elevate Your Playing Experience</strong></p>
+        <p>
+          Outfitted with 17 keys and 6 rings, the <strong>RZ Andante</strong> boasts silver-plated keywork for a polished look and effortless action. The included single barrel, along with an RZ student set mouthpiece, ligature, and cap, equips you with everything needed to achieve a balanced, resonant sound from day one.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Comprehensive Maintenance &amp; Style</strong></h2>
+      <p>
+        Accompanied by a complete cleaning set and a sturdy RZ case, the Andante clarinet remains performance-ready and protected on the go. This cohesive package ensures you can focus on refining your technique while maintaining the instrument’s pristine condition.
+      </p>
+      <p>
+        From expanding your repertoire to enhancing tonal control, the <strong>RZ Andante B♭ Clarinet</strong> supports an enjoyable learning curve for developing musicians.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Tech Specs -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Andante B♭ Clarinet at a Glance</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Body Material</th>
+          <td>Premium Grenadilla wood</td>
+        </tr>
+        <tr>
+          <th>Keys &amp; Rings</th>
+          <td>17 keys, 6 rings</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>High-quality leather pads for durability</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable for maximum comfort</td>
+        </tr>
+        <tr>
+          <th>Finish</th>
+          <td>Silver-plated keywork for a refined look</td>
+        </tr>
+        <tr>
+          <th>Mouthpiece</th>
+          <td>RZ student set (includes ligature &amp; cap)</td>
+        </tr>
+        <tr>
+          <th>Maintenance Kit</th>
+          <td>Complete RZ cleaning set</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Protective RZ case for transport &amp; storage</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Unlock your potential with the <strong>RZ Andante B♭ Clarinet</strong>. Thoughtfully designed for comfortable play and dependable tone, it nurtures each step of your musical journey, from the practice room to the performance stage.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+RZ-CL4401-0,Clarinets,Nos,,RZ Conservatory B♭ Clarinet,,0,,1,0,0.0,1300.0,2249.0,0,,,,,,,,"<!-- 
+  Page Title: RZ Conservatory B♭ Clarinet – Elevated Performance for Intermediate Musicians
+  Meta Description: The RZ Conservatory B♭ Clarinet is crafted for intermediate musicians, offering rich sound, ergonomic comfort, and high-quality construction.
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Elevate Your Performance with the RZ Conservatory B♭ Clarinet</h1>
+    <p>The <strong>RZ Conservatory B♭ Clarinet</strong> is expertly designed for the intermediate musician, providing a rich and warm sound through its premium Grenadilla wood construction. With a 440/442 Hz pitch, this clarinet is crafted for serious players who demand quality and comfort.</p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""description"" class=""tab"">Description</div>
+    <div data-tab=""specifications"" class=""tab"">Tech Specs</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Exceptional Construction &amp; Ergonomic Design</strong></p>
+    <p>
+      This clarinet features durable leather pads and an adjustable thumb rest, combining longevity with ergonomic comfort for extended playability. The heavily silver-plated keywork enhances elegance and provides increased resistance to wear, ensuring reliable performance over time.
+    </p>
+  </div>
+
+  <!-- Tab Content: Description -->
+  <div class=""tab-content"" id=""description"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Comprehensive Package for Maintenance</strong></h1>
+        <p class=""text-center1""><strong>All Essentials at Your Fingertips</strong></p>
+        <p>
+          Included with the RZ Conservatory B♭ Clarinet are a single barrel, an RZ case, and a cleaning set, offering everything you need for proper upkeep. For added functionality, an optional alternate E♭ lever is available, ensuring adaptability for a range of musical demands.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Crafted for the Serious Musician</strong></h2>
+      <p>
+        Whether you’re focused on honing your skills or preparing for recitals, the <strong>RZ Conservatory B♭ Clarinet</strong> offers superior tone, reliable performance, and comfortable handling. Step up your musical journey with a clarinet designed to support and inspire intermediate players who strive for excellence.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Tech Specs -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Features</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Material</th>
+          <td>Premium Slow Aged Grenadilla wood</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather pads for durability</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable for ergonomic comfort</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>Heavily silver-plated for elegance and reliability</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Includes single barrel, RZ case, and cleaning set</td>
+        </tr>
+        <tr>
+          <th>Optional</th>
+          <td>Alternate E♭ lever available</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Step up your musical journey with the <strong>RZ Conservatory B♭ Clarinet</strong>. Crafted for exceptional sound, comfort, and reliability, it is the ideal choice for the intermediate musician.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+RZ-CL4400-0,Clarinets,Nos,,RZ Conservatory B♭ Clarinet,,0,,1,0,0.0,1150.0,2199.0,0,,,,,,,,"<!-- 
+  Page Title: RZ Conservatory B♭ Clarinet – Elevated Performance for Intermediate Musicians
+  Meta Description: The RZ Conservatory B♭ Clarinet is crafted for intermediate musicians, offering rich sound, ergonomic comfort, and high-quality construction.
+-->
+
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Elevate Your Performance with the RZ Conservatory B♭ Clarinet</h1>
+    <p>The <strong>RZ Conservatory B♭ Clarinet</strong> is expertly designed for the intermediate musician, providing a rich and warm sound through its premium Grenadilla wood construction. With a 440/442 Hz pitch, this clarinet is crafted for serious players who demand quality and comfort.</p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""description"" class=""tab"">Description</div>
+    <div data-tab=""specifications"" class=""tab"">Tech Specs</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>Exceptional Construction &amp; Ergonomic Design</strong></p>
+    <p>
+      This clarinet features durable leather pads and an adjustable thumb rest, combining longevity with ergonomic comfort for extended playability. The heavily silver-plated keywork enhances elegance and provides increased resistance to wear, ensuring reliable performance over time.
+    </p>
+  </div>
+
+  <!-- Tab Content: Description -->
+  <div class=""tab-content"" id=""description"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Comprehensive Package for Maintenance</strong></h1>
+        <p class=""text-center1""><strong>All Essentials at Your Fingertips</strong></p>
+        <p>
+          Included with the RZ Conservatory B♭ Clarinet are a single barrel, an RZ case, and a cleaning set, offering everything you need for proper upkeep. For added functionality, an optional alternate E♭ lever is available, ensuring adaptability for a range of musical demands.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Crafted for the Serious Musician</strong></h2>
+      <p>
+        Whether you’re focused on honing your skills or preparing for recitals, the <strong>RZ Conservatory B♭ Clarinet</strong> offers superior tone, reliable performance, and comfortable handling. Step up your musical journey with a clarinet designed to support and inspire intermediate players who strive for excellence.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Tech Specs -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Key Features</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Material</th>
+          <td>Premium Slow Aged Grenadilla wood</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>Leather pads for durability</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable for ergonomic comfort</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>Heavily silver-plated for elegance and reliability</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Includes single barrel, RZ case, and cleaning set</td>
+        </tr>
+        <tr>
+          <th>Optional</th>
+          <td>Alternate E♭ lever available</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      Step up your musical journey with the <strong>RZ Conservatory B♭ Clarinet</strong>. Crafted for exceptional sound, comfort, and reliability, it is the ideal choice for the intermediate musician.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+RZ-CL5401-0,Clarinets,Nos,,RZ Allegro B♭ Clarinet,,0,,1,0,0.0,2200.0,3800.0,0,,,,,,,,"<!-- 
+  Page Title: RZ Allegro B♭ Clarinet – Authentic Tone and Superior Craftsmanship
+  Meta Description: Discover the RZ Allegro B♭ Clarinet, crafted from slow-aged Grenadilla wood for authentic tone, superior key action, and exceptional Czech craftsmanship.
+-->
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+<article><header>
+<h1 class=""h1"">RZ Allegro B♭ Clarinet</h1>
+<p class=""text-center1"">Step Up Your Musical Journey</p>
+<p>Experience unparalleled craftsmanship with the <strong>RZ Allegro B♭ Clarinet</strong>, meticulously crafted from unstained, slow-aged Grenadilla wood for a warm, resonant tone. Featuring a spring displacement mechanism for superior key action, heavily silver-plated keywork, and comfortable leather pads, this clarinet helps you focus on what truly matters—your performance.</p>
+</header><!-- Tab Navigation -->
+<div class=""tabs"">
+<div class=""tab active"" data-tab=""overview"">Overview</div>
+<div class=""tab"" data-tab=""description"">Description</div>
+<div class=""tab"" data-tab=""specifications"">Tech Specs</div>
+</div>
+<!-- Tab Content: Overview -->
+<div id=""overview"" class=""tab-content active"">
+<p class=""h2""><strong>Designed for Responsiveness &amp; Comfort</strong></p>
+<p>With a unique <strong>spring displacement mechanism</strong> attaching the flaps between the posts, the RZ Allegro responds instantly to the player’s touch. Its durable leather pads and an adjustable thumb rest ensure a secure seal and effortless handling, making practice sessions and performances equally enjoyable.</p>
+</div>
+<!-- Tab Content: Description -->
+<div id=""description"" class=""tab-content"">
+<section><header>
+<h1 class=""h2""><strong>Exclusive Key Action &amp; Superior Craftsmanship</strong></h1>
+<p class=""text-center1""><strong>Elevate Your Performance</strong></p>
+<p>Handcrafted from a minimum of 7-year slow-aged <strong>Grenadilla wood</strong>, the RZ Allegro’s unstained finish showcases its natural beauty. This model boasts heavily silver-plated keywork with carbon rings for added durability and style, embodying the fusion of form and function that is the hallmark of Czech instrument design.</p>
+</header></section>
+<section>
+<h2 class=""h3""><strong>Complete Package for Optimal Versatility</strong></h2>
+<p>Featuring <strong>two barrels</strong> for precise intonation adjustments, the RZ Allegro B♭ Clarinet adapts seamlessly to a range of musical settings. Along with an RZ case and cleaning set, you’ll have everything you need to maintain and transport your clarinet with ease.</p>
+<p>Whether you’re advancing your studies or taking the stage, the RZ Allegro delivers performance-ready reliability and the warmth of authentic Czech craftsmanship.</p>
+</section>
+</div>
+<!-- Tab Content: Technical Specifications -->
+<div id=""specifications"" class=""tab-content"">
+<p class=""h2""><strong>Key Features</strong></p>
+<table class=""spec-table"">
+<colgroup> <col style=""width: 33%;""> <col style=""width: 67%;""> </colgroup>
+<tbody>
+<tr>
+<th>Wood Material</th>
+<td>Slow-aged Grenadilla (7+ years), unstained finish</td>
+</tr>
+<tr>
+<th>Pads</th>
+<td>Leather pads for secure sealing</td>
+</tr>
+<tr>
+<th>Thumb Rest</th>
+<td>Adjustable for personalized comfort</td>
+</tr>
+<tr>
+<th>Key Mechanism</th>
+<td>Spring displacement mechanism for superior key action</td>
+</tr>
+<tr>
+<th>Keywork</th>
+<td>Heavily silver-plated keys</td>
+</tr>
+<tr>
+<th>Rings</th>
+<td>Carbon rings for enhanced durability</td>
+</tr>
+<tr>
+<th>Barrels</th>
+<td>2 barrels included for precise intonation</td>
+</tr>
+<tr>
+<th>Accessories</th>
+<td>RZ case and cleaning set</td>
+</tr>
+</tbody>
+</table>
+</div>
+<footer>
+<p>Embodying remarkable craftsmanship and authentic tonal excellence, the <strong>RZ Allegro B♭ Clarinet</strong> is an investment in your musical future. Harness its quick response, comfortable design, and beautiful resonance to transform every note into an inspiring performance.</p>
+</footer></article>
+<p> </p><script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+RZ-CL5400-0,Clarinets,Nos,,RZ Allegro B♭ Clarinet,,0,,1,0,0.0,2125.0,3600.0,0,,,,,,,,"<!-- 
+  Page Title: RZ Allegro B♭ Clarinet – Authentic Tone and Superior Craftsmanship
+  Meta Description: Discover the RZ Allegro B♭ Clarinet, crafted from slow-aged Grenadilla wood for authentic tone, superior key action, and exceptional Czech craftsmanship.
+-->
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+<article><header>
+<h1 class=""h1"">RZ Allegro B♭ Clarinet</h1>
+<p class=""text-center1"">Step Up Your Musical Journey</p>
+<p>Experience unparalleled craftsmanship with the <strong>RZ Allegro B♭ Clarinet</strong>, meticulously crafted from unstained, slow-aged Grenadilla wood for a warm, resonant tone. Featuring a spring displacement mechanism for superior key action, heavily silver-plated keywork, and comfortable leather pads, this clarinet helps you focus on what truly matters—your performance.</p>
+</header><!-- Tab Navigation -->
+<div class=""tabs"">
+<div class=""tab active"" data-tab=""overview"">Overview</div>
+<div class=""tab"" data-tab=""description"">Description</div>
+<div class=""tab"" data-tab=""specifications"">Tech Specs</div>
+</div>
+<!-- Tab Content: Overview -->
+<div id=""overview"" class=""tab-content active"">
+<p class=""h2""><strong>Designed for Responsiveness &amp; Comfort</strong></p>
+<p>With a unique <strong>spring displacement mechanism</strong> attaching the flaps between the posts, the RZ Allegro responds instantly to the player’s touch. Its durable leather pads and an adjustable thumb rest ensure a secure seal and effortless handling, making practice sessions and performances equally enjoyable.</p>
+</div>
+<!-- Tab Content: Description -->
+<div id=""description"" class=""tab-content"">
+<section><header>
+<h1 class=""h2""><strong>Exclusive Key Action &amp; Superior Craftsmanship</strong></h1>
+<p class=""text-center1""><strong>Elevate Your Performance</strong></p>
+<p>Handcrafted from a minimum of 7-year slow-aged <strong>Grenadilla wood</strong>, the RZ Allegro’s unstained finish showcases its natural beauty. This model boasts heavily silver-plated keywork with carbon rings for added durability and style, embodying the fusion of form and function that is the hallmark of Czech instrument design.</p>
+</header></section>
+<section>
+<h2 class=""h3""><strong>Complete Package for Optimal Versatility</strong></h2>
+<p>Featuring <strong>two barrels</strong> for precise intonation adjustments, the RZ Allegro B♭ Clarinet adapts seamlessly to a range of musical settings. Along with an RZ case and cleaning set, you’ll have everything you need to maintain and transport your clarinet with ease.</p>
+<p>Whether you’re advancing your studies or taking the stage, the RZ Allegro delivers performance-ready reliability and the warmth of authentic Czech craftsmanship.</p>
+</section>
+</div>
+<!-- Tab Content: Technical Specifications -->
+<div id=""specifications"" class=""tab-content"">
+<p class=""h2""><strong>Key Features</strong></p>
+<table class=""spec-table"">
+<colgroup> <col style=""width: 33%;""> <col style=""width: 67%;""> </colgroup>
+<tbody>
+<tr>
+<th>Wood Material</th>
+<td>Slow-aged Grenadilla (7+ years), unstained finish</td>
+</tr>
+<tr>
+<th>Pads</th>
+<td>Leather pads for secure sealing</td>
+</tr>
+<tr>
+<th>Thumb Rest</th>
+<td>Adjustable for personalized comfort</td>
+</tr>
+<tr>
+<th>Key Mechanism</th>
+<td>Spring displacement mechanism for superior key action</td>
+</tr>
+<tr>
+<th>Keywork</th>
+<td>Heavily silver-plated keys</td>
+</tr>
+<tr>
+<th>Rings</th>
+<td>Carbon rings for enhanced durability</td>
+</tr>
+<tr>
+<th>Barrels</th>
+<td>2 barrels included for precise intonation</td>
+</tr>
+<tr>
+<th>Accessories</th>
+<td>RZ case and cleaning set</td>
+</tr>
+</tbody>
+</table>
+</div>
+<footer>
+<p>Embodying remarkable craftsmanship and authentic tonal excellence, the <strong>RZ Allegro B♭ Clarinet</strong> is an investment in your musical future. Harness its quick response, comfortable design, and beautiful resonance to transform every note into an inspiring performance.</p>
+</footer></article>
+<p> </p><script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC2041-2-0,Clarinets,Nos,,Buffet Crampon Pocket Clarinet,,0,,1,0,0.0,136.0,249.0,0,,,,,,,,"<!-- 
+ 
+  Page Title: Buffet Crampon Pocket Clarinet – Inspire Young Musicians
+  Meta Description: Jumpstart a musical journey with the Buffet Crampon Pocket Clarinet. Lightweight, kid-friendly, and crafted from Mozambique grenadilla wood for rich tone.
+-->
+<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+      }
+
+    .h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+    }
+  .h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+<article><header>
+<h1 class=""h1"">Buffet Crampon Pocket Clarinet</h1>
+<p class=""text-center1"">A Perfect Start for Little Hands</p>
+<p>Three years of meticulous research led to the <strong>Buffet Crampon Pocket Clarinet</strong>, a groundbreaking way for young learners to begin their musical journey. Built from Mozambique grenadilla wood (<em>Dalbergia melanoxylon</em>), this instrument provides authentic clarinet tone, offering the chance to develop solid technique while having fun along the way.</p>
+</header><!-- Tab Navigation -->
+<div class=""tabs"">
+<div data-tab=""overview"" class=""tab active"">Overview</div>
+<div data-tab=""description"" class=""tab"">Description</div>
+<div data-tab=""specifications"" class=""tab"">Tech Specs</div>
+</div>
+<!-- Tab Content: Overview -->
+<div class=""tab-content active"" id=""overview"">
+<p class=""h2""><strong>Empower the Young Musician</strong></p>
+<p>The <strong>Pocket Clarinet</strong> gives children the confidence to explore music with a real single-reed instrument. It uses a B♭ clarinet mouthpiece to ensure proper embouchure development, smoothly transitioning students toward a full-sized B♭ clarinet in the future. Its lightweight body and adjustable thumb rest make handling easier for smaller hands, helping kids maintain comfort during practice.</p>
+</div>
+<!-- Tab Content: Description -->
+<div class=""tab-content"" id=""description"">
+<section><header>
+<h1 class=""h2""><strong>Buffet Crampon Pocket Clarinet</strong></h1>
+<p class=""text-center1""><strong>Built for Young Learners</strong></p>
+<p>Developed in collaboration with Buffet Crampon experts from France and Germany, the <strong>Pocket Clarinet</strong> preserves quality craftsmanship while focusing on ease of play. Its Mozambique grenadilla wood body produces a warm, resonant tone that encourages budding musicians to truly appreciate the clarinet’s distinct sound.</p>
+</header></section>
+<section>
+<h2 class=""h3""><strong>Step Up with Confidence</strong></h2>
+<p>Children can immerse themselves in music from day one, thanks to the clarinet’s ergonomic design and innovative research-backed bore. This thoughtfully crafted instrument paves the way for correct posture, proper hand positioning, and embouchure technique—critical foundations for players looking to transition smoothly to a standard B♭ clarinet.</p>
+<p>Whether exploring school band repertoire or preparing for private lessons, young musicians will discover the joy of creating a full, vibrant clarinet tone at an earlier age. The <strong>Buffet Crampon Pocket Clarinet</strong> is more than an introduction; it’s a solid foundation for a lifetime of music.</p>
+</section>
+</div>
+<!-- Tab Content: Technical Specifications -->
+<div class=""tab-content"" id=""specifications"">
+<p class=""h2""><strong>Pocket Clarinet at a Glance</strong></p>
+<table class=""spec-table"">
+<colgroup> <col style=""width: 33%;""> <col style=""width: 67%;""> </colgroup>
+<tbody>
+<tr>
+<th>Key</th>
+<td>D</td>
+</tr>
+<tr>
+<th>Body Material</th>
+<td>Mozambique grenadilla wood (<em>Dalbergia melanoxylon</em>)</td>
+</tr>
+<tr>
+<th>Mouthpiece</th>
+<td>B♭ clarinet mouthpiece</td>
+</tr>
+<tr>
+<th>Thumb Rest</th>
+<td>Adjustable for small hands</td>
+</tr>
+<tr>
+<th>Design Focus</th>
+<td>Lightweight construction for early-stage learners</td>
+</tr>
+<tr>
+<th>Range</th>
+<td>Optimized bore for balanced intonation across registers</td>
+</tr>
+</tbody>
+</table>
+</div>
+<footer>
+<p>Start your child’s musical journey with the <strong>Buffet Crampon Pocket Clarinet</strong>. Offering an authentic clarinet experience, it fosters skill-building, inspires creativity, and sets the stage for smooth progression to a standard B♭ clarinet.</p>
+</footer></article>
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>",,,,,,,200.0,g,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,666605011645,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+BC1139MLN-2-0P,Clarinets,Nos,,Buffet Crampon Mopane Festival B♭ Clarinet — Nº 48/100,,0,,1,0,0.0,5327.0,6764.0,0,,,,,,,,"<style>
+  .h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: bold strong;
+    font-family: ""Philosopher"";
+  }
+  .h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-center1 {
+    text-align: center;
+    font-style: italic;
+    color: #9b7733;
+  }
+  .text-center2 {
+    text-align: center;
+    text-decoration: underline;
+    color: #414040;
+  }
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    margin: 20px 0;
+  }
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #C7B38A;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+  .tab.active {
+    background-color: #dcc18825;
+    border-bottom: 2px solid #dcc18825;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.6);
+  }
+  .tab-content {
+    display: none;
+    padding: 15px;
+    background-color: #DCC18850;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  .spec-table th,
+  .spec-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  .spec-table th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+</style>
+
+<article>
+  <header>
+    <h1 class=""h1"">Buffet Crampon Festival B♭ Clarinet - Limited Edition</h1>
+    <p class=""text-center1"">Only 100 Units Worldwide – Crafted for Excellence</p>
+    <p>
+      The <strong>Buffet Crampon Festival B♭ Clarinet</strong>, Limited Edition, is a stunning collector’s item and a professional musician’s dream. Crafted from rare mopane wood and featuring exquisite rose gold-plated finishes, this clarinet blends traditional craftsmanship with modern innovation to deliver unparalleled tonal brilliance and projection.
+    </p>
+  </header>
+
+  <!-- Tab Navigation -->
+  <div class=""tabs"">
+    <div data-tab=""overview"" class=""tab active"">Overview</div>
+    <div data-tab=""features"" class=""tab"">Description</div>
+    <div data-tab=""specifications"" class=""tab"">Tech Specs</div>
+  </div>
+
+  <!-- Tab Content: Overview -->
+  <div class=""tab-content active"" id=""overview"">
+    <p class=""h2""><strong>A Masterpiece for Collectors and Professionals</strong></p>
+    <p>
+      With only 100 clarinets produced globally, the Limited Edition Festival B♭ Clarinet is a once-in-a-lifetime opportunity to own a true work of art. Its mopane wood body offers a unique tonal profile—rich, resonant, and full of brilliance. Paired with rose gold-plated keywork and the hallmark craftsmanship of Buffet Crampon, this clarinet is as stunning visually as it is acoustically.
+    </p>
+  </div>
+
+  <!-- Tab Content: Description -->
+  <div class=""tab-content"" id=""features"">
+    <section>
+      <header>
+        <h1 class=""h2""><strong>Crafted with Precision and Elegance</strong></h1>
+        <p class=""text-center1""><strong>A Limited Edition Treasure</strong></p>
+        <p>
+          Designed with input from legendary clarinetists Jacques Lancelot, Guy Deplus, and Michel Arrignon, the Limited Edition Festival clarinet incorporates the best of Buffet Crampon’s craftsmanship. Featuring a low F correction key, two interchangeable barrels (65 mm and 66 mm), and rose gold-plated accents, it offers both aesthetic and acoustic perfection.
+        </p>
+      </header>
+    </section>
+
+    <section>
+      <h2 class=""h3""><strong>Innovation Meets Tradition</strong></h2>
+      <p>
+        Mopane wood, renowned for its density and tonal warmth, provides a rich, resonant sound that balances softness with projection. The Grand Siècle-inspired finish adds a luxurious touch, while features like the NFT certificate of authenticity make this clarinet a true collector’s item. This instrument is designed to excel in a wide range of repertoire, from classical to contemporary.
+      </p>
+    </section>
+  </div>
+
+  <!-- Tab Content: Technical Specifications -->
+  <div class=""tab-content"" id=""specifications"">
+    <p class=""h2""><strong>Tech Specs</strong></p>
+    <table class=""spec-table"">
+      <colgroup>
+        <col style=""width: 33%;"">
+        <col style=""width: 67%;"">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Model</th>
+          <td>Festival B♭ Clarinet - Limited Edition</td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>B♭</td>
+        </tr>
+        <tr>
+          <th>Pitch</th>
+          <td>440/442 Hz</td>
+        </tr>
+        <tr>
+          <th>Body</th>
+          <td>Mopane Wood</td>
+        </tr>
+        <tr>
+          <th>Bore</th>
+          <td>Poly-cylindrical</td>
+        </tr>
+        <tr>
+          <th>Tenons</th>
+          <td>Metal-capped</td>
+        </tr>
+        <tr>
+          <th>Barrels</th>
+          <td>65 mm and 66 mm</td>
+        </tr>
+        <tr>
+          <th>Keys</th>
+          <td>19, Rose Gold-Plated</td>
+        </tr>
+        <tr>
+          <th>Rings</th>
+          <td>6</td>
+        </tr>
+        <tr>
+          <th>Thumb Rest</th>
+          <td>Adjustable</td>
+        </tr>
+        <tr>
+          <th>Low F Correction Key</th>
+          <td>Included</td>
+        </tr>
+        <tr>
+          <th>Keywork</th>
+          <td>Silver-plated with Rose Gold Accents</td>
+        </tr>
+        <tr>
+          <th>Springs</th>
+          <td>Blue Steel</td>
+        </tr>
+        <tr>
+          <th>Pads</th>
+          <td>100% Waterproof GT, Leather, Natural Cork</td>
+        </tr>
+        <tr>
+          <th>Case</th>
+          <td>Pochette Style with Synthetic Leather Finish</td>
+        </tr>
+        <tr>
+          <th>Accessories</th>
+          <td>Ligature, Mouthpiece Cap, Swab, Cork Grease, Pencil</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      The <strong>Buffet Crampon Festival B♭ Clarinet - Limited Edition</strong> is an extraordinary instrument for discerning musicians and collectors. Its combination of rare materials, advanced features, and limited availability make it a true masterpiece in the world of professional clarinets.
+    </p>
+  </footer>
+</article>
+
+<script>
+  // Tab functionality
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

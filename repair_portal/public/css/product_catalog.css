@@ -1,0 +1,23 @@
+/* Responsive grid adjustments */
+@media (max-width: 768px) {
+  .product-card {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Text truncation for descriptions */
+.text-truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card hover effect */
+.card {
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}

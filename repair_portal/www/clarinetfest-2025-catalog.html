@@ -1,0 +1,29 @@
+<!-- custom_app/custom_app/page/clarinetfest_2025/clarinetfest_2025.html -->
+
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">ClarinetFest 2025 Catalog</h1>
+    <div class="row">
+        {% for item in items %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ item.image }}" class="card-img-top" alt="{{ item.item_name }}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/EEE/31343C?text=No+Image';">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.item_name }}</h5>
+                    <p class="card-text">{{ item.web_long_description or "" }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="/{{ item.route }}" class="btn btn-primary">View Product</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col">
+            <p class="text-center">No products are currently available for ClarinetFest 2025.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

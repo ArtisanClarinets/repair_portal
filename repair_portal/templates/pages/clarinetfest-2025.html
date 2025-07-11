@@ -1,0 +1,118 @@
+{# -------------------------------------------------------------------------
+	ClarinetFest 2025 · Stand-alone Jinja Page  (Frappe v15 / ERPNext v15)
+	--------------------------------------------------------------------------
+	• Pulls Item docs that are
+		 – disabled = 0
+		 – show_in_clarinetfest_2025 = 1   (custom Checkbox field)
+	• Buckets them by Item Group
+	• Generates absolute routes via frappe.get_url
+	• NO separate Python controller needed
+	---------------------------------------------------------------------- #}
+   
+   {%- extends "templates/web.html" -%}
+   
+   {# -------- 1. DATA FETCH ------------------------------------------------- #}
+   {# Get Item codes that are flagged for ClarinetFest #}
+   {% set item_rows = frappe.get_all(
+		 "Item",
+		 filters = {
+			 "disabled": 0,
+			 "show_in_clarinetfest_2025": 1
+		 },
+		 fields = [
+			 "name",
+			 "item_name",
+			 "description",
+			 "image",
+			 "item_group"
+		 ],
+		 order_by = "item_name asc"
+   ) %}
+   
+   {# -------- 2. BUCKET BY ITEM GROUP -------------------------------------- #}
+   {% set clarinets   = [] %}
+   {% set barrels     = [] %}
+   {% set mouthpieces = [] %}
+   
+   {% for row in item_rows %}
+	   {% set group = row.item_group|lower %}
+	   {% if "clarinet" in group %}     {# matches “Clarinet” or “Clarinets” #}
+		   {% set _ = clarinets.append(row) %}
+	   {% elif "barrel" in group %}
+		   {% set _ = barrels.append(row) %}
+	   {% elif "mouthpiece" in group %}
+		   {% set _ = mouthpieces.append(row) %}
+	   {% endif %}
+   {% endfor %}
+   
+   {# -------- 3. SMALL HELPER MACROS --------------------------------------- #}
+   {% macro abs_route(item_name) -%}
+	   {{ frappe.get_url("/app/item/" ~ item_name) }}
+   {%- endmacro %}
+   
+   {% macro item_card(it) -%}
+   <div class="card shadow-sm h-100">
+	   {%- if it.image %}
+		   <img src="{{ it.image }}"
+				class="card-img-top"
+				alt="{{ it.item_name or it.name }}"
+				style="object-fit:contain; max-height:220px">
+	   {%- endif %}
+	   <div class="card-body d-flex flex-column">
+		   <h5 class="card-title mb-2">{{ it.item_name or it.name }}</h5>
+		   <p class="card-text text-muted small flex-grow-1">
+			   {{ it.description or _("No description available.") }}
+		   </p>
+		   <a href="{{ abs_route(it.name) }}?from=clarinetfest"
+			  class="stretched-link"></a>
+	   </div>
+   </div>
+   {%- endmacro %}
+   
+   {% macro bucket(title, items) -%}
+	   {% if items %}
+		   <h2 class="h4 mt-5">{{ title }}</h2>
+		   <div class="row">
+		   {% for i in items %}
+			   <div class="col-6 col-md-4 mb-4">
+				   {{ item_card(i) }}
+			   </div>
+		   {% endfor %}
+		   </div>
+	   {% endif %}
+   {%- endmacro %}
+   
+   {# -------- 4. PAGE CONTENT ---------------------------------------------- #}
+   {% block page_content %}
+   <div class="container my-5">
+   
+	   <section class="text-center mb-5">
+		   <img src="/assets/repair_portal/img/crest.svg"
+				alt="Artisan Clarinets crest"
+				width="96" height="96" loading="lazy">
+		   <h1 class="h2 font-weight-bold mt-3">
+			   {{ _('ClarinetFest 2025 Catalog') }}
+		   </h1>
+		   <p class="lead text-muted">
+			   {{ _('Hand-built instruments for players who demand perfection.') }}
+		   </p>
+	   </section>
+   
+	   <input id="liveFilter" type="search"
+			  class="form-control mb-4"
+			  placeholder="{{ _('Filter by model, maker, or description…') }}"
+			  aria-label="{{ _('Search catalog items') }}">
+   
+	   {% if not item_rows %}
+		   <p class="text-center text-muted">
+			   {{ _('No ClarinetFest products found.') }}
+		   </p>
+	   {% else %}
+		   {{ bucket(_('Clarinets'),   clarinets) }}
+		   {{ bucket(_('Barrels'),     barrels) }}
+		   {{ bucket(_('Mouthpieces'), mouthpieces) }}
+	   {% endif %}
+   </div>
+   
+   <script src="/assets/repair_portal/js/catalog_live_filter.js"></script>
+   {% endblock %}
