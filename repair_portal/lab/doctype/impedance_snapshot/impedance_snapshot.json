@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Impedance Snapshot",
   "module": "Lab",
+  "autoname": "hash",
   "fields": [
     {
       "fieldname": "instrument",

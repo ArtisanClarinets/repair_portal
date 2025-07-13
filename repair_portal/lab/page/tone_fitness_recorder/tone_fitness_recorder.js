@@ -1,3 +1,4 @@
+// Updated: 2025-07-13 – adds role validation, memory cleanup, error fallback
 frappe.pages["tone_fitness_recorder"].on_page_load = function (wrapper) {
   const page = frappe.ui.make_app_page({
     parent: wrapper,
@@ -8,18 +9,18 @@ frappe.pages["tone_fitness_recorder"].on_page_load = function (wrapper) {
   page.set_primary_action("Start Recording", () => start_recording());
 
   const $status = $('<p class="text-muted">Idle</p>').appendTo(page.body);
-  const $canvas = $(
-    '<canvas style="width:100%;height:120px;"></canvas>',
-  ).appendTo(page.body);
+  const $canvas = $('<canvas style="width:100%;height:120px;"></canvas>').appendTo(page.body);
   const ctx = $canvas[0].getContext("2d");
 
   let running = false;
-  let analyser,
-    audioCtx,
-    stream,
-    fitnessData = [];
+  let analyser, audioCtx, stream, fitnessData = [];
 
   async function start_recording() {
+    if (!frappe.user_roles.includes("Technician")) {
+      frappe.msgprint("Technician role required.");
+      return;
+    }
+
     if (running) return;
     running = true;
     fitnessData = [];
@@ -34,44 +35,42 @@ frappe.pages["tone_fitness_recorder"].on_page_load = function (wrapper) {
     source.connect(analyser);
 
     const buffer = new Float32Array(analyser.fftSize);
-
     const startTime = Date.now();
 
     function loop() {
       if (!running) return;
       analyser.getFloatTimeDomainData(buffer);
-      const rms = Math.sqrt(
-        buffer.reduce((s, v) => s + v * v, 0) / buffer.length,
-      );
-      const now = Date.now();
-
-      fitnessData.push({
-        t_ms: now - startTime,
-        rms,
-      });
+      const rms = Math.sqrt(buffer.reduce((s, v) => s + v * v, 0) / buffer.length);
+      fitnessData.push({ t_ms: Date.now() - startTime, rms });
 
       draw(buffer);
       requestAnimationFrame(loop);
     }
-    loop();
 
+    loop();
     setTimeout(stop_recording, 5000);
   }
 
   function stop_recording() {
     running = false;
     stream.getTracks().forEach((t) => t.stop());
+    audioCtx.close();
+
     $status.text("Saving…");
 
-    frappe
-      .call("repair_portal.lab.api.save_tone_fitness", {
+    frappe.call({
+      method: "repair_portal.lab.api.save_tone_fitness",
+      args: {
         instrument: null,
         readings_json: JSON.stringify(fitnessData),
-      })
-      .then((r) => {
-        frappe.msgprint("Saved Tone Fitness: " + r.message.name);
-        $status.text("Done.");
-      });
+      },
+    }).then((r) => {
+      frappe.msgprint("Saved Tone Fitness: " + r.message.name);
+      $status.text("Done.");
+    }).catch(() => {
+      frappe.msgprint("Error saving data");
+      $status.text("Idle");
+    });
   }
 
   function draw(buf) {

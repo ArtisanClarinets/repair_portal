@@ -1,31 +1,32 @@
 # File: repair_portal/repair/report/repair_revenue_vs_cost/repair_revenue_vs_cost.py
-# Updated: 2025-06-15
-# Version: 1.0
-# Purpose: Script Report showing repair revenue vs cost
+# Updated: 2025-07-13
+# Version: 1.1
+# Purpose: Script Report showing repair revenue vs cost (parameterized and secure)
 
 import frappe
 
-
 def execute(filters=None):
+    filters = filters or {}
     conditions = []
-    if filters.get("from_date"):
-        conditions.append(f"ro.creation >= '{filters['from_date']}'")
-    if filters.get("to_date"):
-        conditions.append(f"ro.creation <= '{filters['to_date']}'")
-    where_clause = f'WHERE {" AND ".join(conditions)}' if conditions else ""
 
-    data = frappe.db.sql(
-        f"""
+    if filters.get("from_date"):
+        conditions.append("ro.creation >= %(from_date)s")
+    if filters.get("to_date"):
+        conditions.append("ro.creation <= %(to_date)s")
+
+    where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
+
+    query = f"""
         SELECT
             ro.name AS repair_order,
             ro.total_parts_cost,
-            ro.total_labor_hours * 50 AS labor_value, -- Assume $50/hour
+            ro.total_labor_hours * 50 AS labor_value,
             (ro.total_parts_cost + ro.total_labor_hours * 50) AS total_cost
         FROM `tabRepair Order` ro
         {where_clause}
-    """,
-        as_dict=True,
-    )
+    """
+
+    data = frappe.db.sql(query, filters, as_dict=True)
 
     columns = [
         {

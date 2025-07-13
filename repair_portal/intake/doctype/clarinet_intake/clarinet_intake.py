@@ -1,11 +1,10 @@
 # --------------------------------------------------------------------------- #
 # File Header
 #   Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
-#   Version: v2.1.6  –  Production (Frappe v15+)
-#   Last Updated: 2025-07-06
+#   Version: v2.2.0  –  Production (Frappe v15+)
+#   Last Updated: 2025-07-13
 #   Changelog:
-#     • No behavioural change; just confirmed compatibility with updated
-#       clarinet_intake_block_flagged (v2.1) that removed deprecated API use.
+#     • Hardened checklist validation logic (null-safe)
 # --------------------------------------------------------------------------- #
 from __future__ import annotations
 from typing import TYPE_CHECKING, List
@@ -73,9 +72,9 @@ class ClarinetIntake(Document):
         # Checklist completeness
         if self.checklist:
             incomplete: List[str] = [
-                row.accessory or row.item
+                (row.accessory or row.item or "<Unnamed>")
                 for row in self.checklist
-                if row.status != "Completed"
+                if getattr(row, "status", None) != "Completed"
             ]
             if incomplete:
                 frappe.throw(

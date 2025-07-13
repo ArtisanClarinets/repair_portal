@@ -1,7 +1,7 @@
 # File: repair_portal/repair_portal/lab/api.py
-# Date Updated: 2025-07-01
-# Version: 1.3
-# Purpose: APIs with size checks and safe imports
+# Date Updated: 2025-07-13
+# Version: 1.4
+# Purpose: APIs with size checks, safe imports, and error handling
 
 import base64
 import math
@@ -9,6 +9,12 @@ import math
 import frappe
 
 MAX_RECORDING_SIZE = 20 * 1024 * 1024  # 20MB
+
+
+class LabAPIError(frappe.ValidationError):
+    def __init__(self, message):
+        super().__init__(message)
+        frappe.log_error(message, "Lab API Error")
 
 
 def _attach_file(parent_doc, b64, fname):
@@ -43,7 +49,10 @@ def calc_cents(freq):
 @frappe.whitelist(allow_guest=False, methods=["POST"])
 @frappe.only_for(["Technician"])
 def save_impedance_snapshot(
-    instrument: str | None, raw_data: str, recording_base64: str | None = None, filename: str | None = None
+    instrument: str | None,
+    raw_data: str,
+    recording_base64: str | None = None,
+    filename: str | None = None
 ) -> dict:
     """
     Create Impedance Snapshot with optional audio processing.
@@ -53,18 +62,14 @@ def save_impedance_snapshot(
 
     spectrum = []
     if recording_base64:
-        if len(recording_base64) > MAX_RECORDING_SIZE * 1.37:  # Base64 overhead ~37%
-            frappe.throw("Recording too large. Maximum size is 20 MB.")
+        if len(recording_base64) > MAX_RECORDING_SIZE * 1.37:
+            raise LabAPIError("Recording too large. Maximum size is 20 MB.")
 
         try:
             import io
-
-            try:
-                import librosa
-                import numpy as np
-                import soundfile as sf
-            except ImportError:
-                frappe.throw("Audio processing libraries are not installed. Please contact support.")
+            import librosa
+            import numpy as np
+            import soundfile as sf
 
             wav_bytes = base64.b64decode(recording_base64)
             wav_buffer = io.BytesIO(wav_bytes)
@@ -74,14 +79,16 @@ def save_impedance_snapshot(
             freqs = librosa.fft_frequencies(sr=sr, n_fft=2048)
             mags = np.mean(S, axis=1)
             spectrum = [
-                {"frequency": float(f), "amplitude": float(a)} for f, a in zip(freqs, mags, strict=False)
+                {"frequency": float(f), "amplitude": float(a)}
+                for f, a in zip(freqs, mags, strict=False)
             ]
 
             doc.json_data = frappe.as_json(spectrum)
 
-        except Exception:
-            frappe.log_error(frappe.get_traceback(), "Impedance Processing Failed")
-            frappe.throw("Error processing audio recording.")
+        except ImportError:
+            raise LabAPIError("Audio processing libraries are not installed. Please contact support.")
+        except Exception as e:
+            raise LabAPIError("Error processing audio recording.") from e
 
     doc.insert(ignore_permissions=True)
 
@@ -89,3 +96,15 @@ def save_impedance_snapshot(
         _attach_file(doc, recording_base64, filename)
 
     return {"name": doc.name}
+
+
+@frappe.whitelist(allow_guest=False, methods=["POST"])
+@frappe.only_for(["Technician"])
+def save_leak_test(*args, **kwargs):
+    raise LabAPIError("This API is not yet implemented.")
+
+
+@frappe.whitelist(allow_guest=False, methods=["POST"])
+@frappe.only_for(["Technician"])
+def save_intonation_session(*args, **kwargs):
+    raise LabAPIError("This API is not yet implemented.")
