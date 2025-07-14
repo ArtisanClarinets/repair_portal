@@ -5,7 +5,7 @@
 	"module": "Repair Logging",
 	"print_format_type": "Jinja",
 	"custom_format": 1,
-	"html": "<h2>Instrument Tracker Log</h2>\n<p><strong>Serial:</strong> {{ doc.serial_number }}<br>\n<strong>Customer:</strong> {{ doc.customer }}<br>\n<strong>Item:</strong> {{ doc.item_code }}</p>\n\n<table class=\"table table-bordered\">\n  <thead>\n    <tr>\n      <th>Date</th><th>Type</th><th>Reference</th><th>Notes</th>\n    </tr>\n  </thead>\n  <tbody>\n    {% for log in doc.interaction_logs %}\n    <tr>\n      <td>{{ log.date }}</td>\n      <td>{{ log.interaction_type }}</td>\n      <td>{{ log.reference_doctype }}: {{ log.reference_name }}</td>\n      <td>{{ log.notes }}</td>\n    </tr>\n    {% endfor %}\n  </tbody>\n</table>",
+	"html": "<h2>Instrument Tracker Log</h2>\n<p><strong>Serial:</strong> {{ doc.serial_no }}<br>\n<strong>Customer:</strong> {{ doc.customer }}<br>\n<strong>Item:</strong> {{ doc.item_code }}</p>\n\n<table class=\"table table-bordered\">\n  <thead>\n    <tr>\n      <th>Date</th><th>Type</th><th>Reference</th><th>Notes</th>\n    </tr>\n  </thead>\n  <tbody>\n    {% for log in doc.interaction_logs %}\n    <tr>\n      <td>{{ log.date }}</td>\n      <td>{{ log.interaction_type }}</td>\n      <td>{{ log.reference_doctype }}: {{ log.reference_name }}</td>\n      <td>{{ log.notes }}</td>\n    </tr>\n    {% endfor %}\n  </tbody>\n</table>",
 	"default": 1,
 	"disabled": 0,
 	"standard": 1,

@@ -25,11 +25,12 @@
       "fetch_from": "instrument_profile.model"
     },
     {
-      "fieldname": "serial_number",
-      "fieldtype": "Data",
+      "fieldname": "serial_no",
+      "fieldtype": "Link",
       "label": "Serial Number",
+      "options": "Serial No",
       "read_only": 1,
-      "fetch_from": "instrument_profile.serial_number"
+      "fetch_from": "instrument_profile.serial_no"
     },
     {
       "fieldname": "inspection",

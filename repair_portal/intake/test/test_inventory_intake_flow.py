@@ -48,7 +48,7 @@ class TestInventoryIntakeFlow(unittest.TestCase):
         intake = frappe.get_doc({
             "doctype": "Clarinet Intake",
             "intake_type": "Inventory",
-            "serial_number": frappe.generate_hash(length=10),
+            "serial_no": frappe.generate_hash(length=10),
             "customer": "Test Customer",
             "brand": "Buffet",
             "model": "Test Model",

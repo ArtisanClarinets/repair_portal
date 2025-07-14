@@ -9,6 +9,9 @@ class StockEntry(Document):
     def on_submit(self):
         for item in self.items:
             if item.get("qc_required"):
+                # PATCH: Ensure serial_no exists in ERPNext Serial No
+                if not frappe.db.exists("Serial No", item.serial_no):
+                    frappe.throw(f"Serial No '{item.serial_no}' does not exist in ERPNext!")
                 # Prevent duplicate reports for the same serial/stock entry
                 exists = frappe.db.exists(
                     "Inspection Report",

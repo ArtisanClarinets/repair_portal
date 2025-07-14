@@ -9,7 +9,7 @@
     {"fieldname": "repair_log_id", "label": "Repair Log", "fieldtype": "Link", "options": "Clarinet Repair Log", "reqd": 1},
     {"fieldname": "item_code", "label": "Item Code", "fieldtype": "Link", "options": "Item", "reqd": 1},
     {"fieldname": "qty_used", "label": "Quantity Used", "fieldtype": "Float", "reqd": 1},
-    {"fieldname": "serial_no", "label": "Serial No", "fieldtype": "Data"},
+    {"fieldname": "serial_no", "label": "Serial No", "fieldtype": "Link", "options": "Serial No"},
     {"fieldname": "location", "label": "Location", "fieldtype": "Data"},
     {"fieldname": "used_on", "label": "Used On", "fieldtype": "Date", "default": "Today"}
   ],

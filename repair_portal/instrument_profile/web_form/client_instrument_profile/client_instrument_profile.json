@@ -29,7 +29,7 @@
       "reqd": 1
     },
     {
-      "fieldname": "serial_number",
+      "fieldname": "serial_no",
       "label": "Serial Number",
       "fieldtype": "Data",
       "reqd": 1

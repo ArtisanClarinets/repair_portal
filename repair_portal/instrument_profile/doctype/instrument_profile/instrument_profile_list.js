@@ -4,7 +4,7 @@
 // Purpose: Customizes Instrument Profile ListView to show Serial Number first.
 
 frappe.listview_settings['Instrument Profile'] = {
-    add_fields: ["serial_number", "brand", "model", "profile_status"],
+    add_fields: ["serial_no", "brand", "model", "profile_status"],
     get_indicator: function (doc) {
         if (doc.profile_status === 'Ready') {
             return [__("Ready"), "green", "profile_status,=,Ready"];
@@ -16,12 +16,12 @@ frappe.listview_settings['Instrument Profile'] = {
         return [__("Draft"), "orange", "profile_status,=,Draft"];
     },
     onload: function (listview) {
-        listview.page.fields_dict.sort_by.set_value('serial_number');
+        listview.page.fields_dict.sort_by.set_value('serial_no');
     },
-    // Prioritize serial_number column in ListView
+    // Prioritize serial_no column in ListView
     fields: [
         {
-            fieldname: 'serial_number',
+            fieldname: 'serial_no',
             label: __('Serial Number'),
             fieldtype: 'Data',
             in_list_view: 1,

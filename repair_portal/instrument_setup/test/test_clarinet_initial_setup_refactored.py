@@ -36,7 +36,7 @@ class TestClarinetInitialSetup(FrappeTestCase):
         self.instrument = frappe.get_doc({
             "doctype": "Instrument Profile",
             "instrument_type": "Clarinet",
-            "serial_number": "SETUP-2025",
+            "serial_no": "SETUP-2025",
             "player_profile": self.player.name
         }).insert()
 

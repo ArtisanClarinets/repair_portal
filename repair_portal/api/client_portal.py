@@ -18,7 +18,7 @@ def get_my_instruments():
     return frappe.get_all(
         "Instrument Profile",
         filters={"player_profile": ["in", player_names]},
-        fields=["name", "instrument_type", "serial_number"]
+        fields=["name", "instrument_type", "serial_no"]
     )
 
 

@@ -20,9 +20,13 @@ def verify_ready_for_sale(serial_no: str) -> dict:
     if not serial_no:
         return {"success": False, "reason": "Missing serial number."}
 
+    # PATCH: Ensure serial_no exists as Serial No in ERPNext
+    if not frappe.db.exists("Serial No", serial_no):
+        return {"success": False, "reason": "Serial No does not exist in ERPNext."}
+
     profile = frappe.get_all(
         "Instrument Profile",
-        filters={"serial_number": serial_no},
+        filters={"serial_no": serial_no},
         fields=["name", "profile_status", "model"]
     )
 

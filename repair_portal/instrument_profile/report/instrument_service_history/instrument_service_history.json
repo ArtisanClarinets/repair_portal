@@ -15,9 +15,10 @@
       "options": "Instrument Profile"
     },
     {
-      "fieldname": "serial_number",
+      "fieldname": "serial_no",
       "label": "Serial Number",
-      "fieldtype": "Data"
+      "fieldtype": "Link",
+      "options": "Serial No"
     },
     {
       "fieldname": "player_profile",

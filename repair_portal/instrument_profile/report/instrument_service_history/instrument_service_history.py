@@ -19,8 +19,8 @@ def execute(filters=None):
     if filters:
         if filters.get("instrument_profile"):
             conditions["instrument_profile"] = filters["instrument_profile"]
-        if filters.get("serial_number"):
-            conditions["serial_number"] = filters["serial_number"]
+        if filters.get("serial_no"):
+            conditions["serial_no"] = filters["serial_no"]
         if filters.get("date_from"):
             conditions["date"] = [">=", filters["date_from"]]
         if filters.get("date_to"):

@@ -10,7 +10,7 @@ def execute(filters=None):
         ["Instrument", "Serial #", "Owner", "Start Date", "End Date", "Status"],
         frappe.db.sql(
             """
-            SELECT name, serial_number, owner_name, warranty_start_date, warranty_end_date,
+            SELECT name, serial_no, owner_name, warranty_start_date, warranty_end_date,
             CASE WHEN warranty_active = 1 THEN 'Active' ELSE 'Expired' END
             FROM `tabInstrument Profile`
             ORDER BY warranty_end_date DESC

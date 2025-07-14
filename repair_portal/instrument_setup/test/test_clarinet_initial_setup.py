@@ -26,7 +26,7 @@ class TestClarinetInitialSetup(unittest.TestCase):
         self.intake = frappe.get_doc(
             {
                 "doctype": "Clarinet Intake",
-                "serial_number": "CLT-0001",
+                "serial_no": "CLT-0001",
                 "item_code": "CLARINET01",
                 "customer": "test@example.com",
                 "received_date": frappe.utils.today(),
@@ -58,6 +58,6 @@ class TestClarinetInitialSetup(unittest.TestCase):
         setup.submit()
 
         assert frappe.db.exists("Stock Entry", {"custom_source_setup": setup.name})
-        assert frappe.db.exists("Serial No", {"serial_no": self.intake.serial_number})
+        assert frappe.db.exists("Serial No", {"serial_no": self.intake.serial_no})
         assert frappe.db.exists("Asset", {"custom_clarinet_setup": setup.name})
         assert frappe.db.exists("Sales Invoice Item", {"item_code": "CLARINET01"})

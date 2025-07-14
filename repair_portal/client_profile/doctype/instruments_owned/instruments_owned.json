@@ -10,9 +10,10 @@
       "label": "Instrument Category"
     },
     {
-      "fieldname": "serial_number",
-      "fieldtype": "Data",
-      "label": "Serial Number"
+      "fieldname": "serial_no",
+      "fieldtype": "Link",
+      "label": "Serial Number",
+      "options": "Serial No"
     }
   ],
   "permissions": [

@@ -34,18 +34,27 @@
       "in_list_view": 1
     },
     {
-      "fieldname": "serial_number",
-      "fieldtype": "Data",
-      "label": "Serial Number",
-      "reqd": 1,
-      "unique": 1,
-      "in_list_view": 1
+      "fieldname": "serial_no",
+      "fieldtype": "Link",
+      "label": "Serial No",
+      "options": "Serial No",
+      "read_only": 1,
+      "in_list_view": 1,
+      "depends_on": "eval:doc.intake_type=='Inventory'"
     },
     {
       "fieldname": "quality_inspection",
       "fieldtype": "Link",
       "label": "Quality Inspection",
       "options": "Quality Inspection",
+      "depends_on": "eval:doc.intake_type=='Inventory'"
+    },
+    {
+      "fieldname": "clarinet_setup",
+      "fieldtype": "Link",
+      "label": "Clarinet Setup",
+      "options": "Clarinet Setup",
+      "read_only": 1,
       "depends_on": "eval:doc.intake_type=='Inventory'"
     },
     {

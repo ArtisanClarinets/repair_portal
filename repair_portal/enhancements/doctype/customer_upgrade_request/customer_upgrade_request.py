@@ -1,16 +1,19 @@
 import frappe
 from frappe.model.document import Document
 
-
 class CustomerUpgradeRequest(Document):
     def on_submit(self):
-        if not self.serial_number:
+        if not self.serial_no:
             return
 
-        if not frappe.db.exists("Instrument Tracker", {"serial_number": self.serial_number}):
+        # PATCH: Ensure serial_no exists in ERPNext Serial No
+        if not frappe.db.exists("Serial No", self.serial_no):
+            frappe.throw(f"Serial No '{self.serial_no}' does not exist in ERPNext!")
+
+        if not frappe.db.exists("Instrument Tracker", {"serial_no": self.serial_no}):
             return
 
-        tracker = frappe.get_doc("Instrument Tracker", {"serial_number": self.serial_number})
+        tracker = frappe.get_doc("Instrument Tracker", {"serial_no": self.serial_no})
         tracker.append(
             "interaction_logs",
             {

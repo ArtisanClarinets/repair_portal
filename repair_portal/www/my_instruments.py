@@ -32,7 +32,7 @@ def get_context(context):
         fields=[
             "name",
             "instrument_name",
-            "serial_number",
+            "serial_no",
             "brand",
             "model",
             "status",

@@ -6,19 +6,19 @@
 
 import frappe
 
-def get_instrument_profile(serial_number):
+def get_instrument_profile(serial_no):
     """
     Fetch Instrument Profile by serial number.
     Raises if not found.
     """
     profile = frappe.db.get_value(
         "Instrument Profile",
-        {"serial_number": serial_number},
+        {"serial_no": serial_no},
         ["name", "instrument_type", "status"],
         as_dict=True
     )
     if not profile:
-        frappe.throw(f"No Instrument Profile found for serial number '{serial_number}'")
+        frappe.throw(f"No Instrument Profile found for serial number '{serial_no}'")
     return profile
 
 def mark_instrument_archived(instrument_name):

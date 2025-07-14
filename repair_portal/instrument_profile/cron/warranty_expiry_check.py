@@ -14,12 +14,12 @@ def execute():
     instruments = frappe.get_all(
         "Instrument Profile",
         filters={"warranty_end_date": ["between", [today, threshold]]},
-        fields=["name", "owner_name", "serial_number", "warranty_end_date"],
+        fields=["name", "owner_name", "serial_no", "warranty_end_date"],
     )
 
     for inst in instruments:
         frappe.sendmail(
             recipients=["admin@artisanclarinets.com"],
-            subject=f"Warranty Expiry Notice: {inst.serial_number} ({inst.owner_name})",
+            subject=f"Warranty Expiry Notice: {inst.serial_no} ({inst.owner_name})",
             message=f"Instrument {inst.name} will expire on {inst.warranty_end_date}. Consider reaching out to the customer.",
         )

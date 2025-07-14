@@ -1,11 +1,10 @@
 # File: repair_portal/repair_portal/instrument_profile/doctype/instrument_intake_batch/instrument_intake_batch.py
-# Updated: 2025-06-26
-# Version: 1.0
+# Updated: 2025-07-14
+# Version: 1.1
 # Purpose: Automates intake to inventory and instrument profile creation
 
 import frappe
 from frappe.model.document import Document
-
 
 class InstrumentIntakeBatch(Document):
     def on_submit(self):
@@ -17,13 +16,16 @@ class InstrumentIntakeBatch(Document):
 
     def create_stock_entry(self, entry):
         # Example stub: log intent
-        frappe.logger().info(f"Would create Stock Entry for serial {entry.serial_number}")
+        frappe.logger().info(f"Would create Stock Entry for serial {entry.serial_no}")
 
     def create_instrument_profile(self, entry):
+        # PATCH: Ensure serial_no exists as Serial No in ERPNext
+        if not frappe.db.exists("Serial No", entry.serial_no):
+            frappe.throw(f"Serial No '{entry.serial_no}' does not exist in ERPNext!")
         profile = frappe.get_doc(
             {
                 "doctype": "Instrument Profile",
-                "serial_number": entry.serial_number,
+                "serial_no": entry.serial_no,
                 "manufacturer": entry.manufacturer,
                 "instrument_type": self.instrument_type,
                 "status": "In Inventory",
@@ -31,4 +33,4 @@ class InstrumentIntakeBatch(Document):
             }
         )
         profile.insert()
-        frappe.logger().info(f"Created Instrument Profile for {entry.serial_number}")
+        frappe.logger().info(f"Created Instrument Profile for {entry.serial_no}")

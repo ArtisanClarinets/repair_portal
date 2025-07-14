@@ -9,6 +9,9 @@ class DeliveryNote(Document):
     def validate(self):
         for item in self.items:
             if item.serial_no:
+                # PATCH: Ensure serial_no exists in ERPNext Serial No
+                if not frappe.db.exists("Serial No", item.serial_no):
+                    frappe.throw(f"Serial No '{item.serial_no}' does not exist in ERPNext!")
                 status = frappe.db.get_value(
                     "Inspection Report",
                     {"serial_no": item.serial_no},

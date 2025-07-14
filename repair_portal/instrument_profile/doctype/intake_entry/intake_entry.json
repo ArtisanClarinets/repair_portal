@@ -5,7 +5,7 @@
   "istable": 1,
   "custom": 0,
   "fields": [
-    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "serial_no", "label": "Serial Number", "fieldtype": "Link", "options": "Serial No", "reqd": 1},
     {"fieldname": "manufacturer", "label": "Manufacturer", "fieldtype": "Data"},
     {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"},
     {"fieldname": "image", "label": "Image", "fieldtype": "Attach"}

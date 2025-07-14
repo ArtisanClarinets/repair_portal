@@ -33,7 +33,7 @@ def get_context(context):
 
             logs = frappe.get_all(
                 "Clarinet Repair Log",
-                filters={"clarinet_serial_number": instrument.serial_number},
+                filters={"clarinet_serial_no": instrument.serial_no},
                 fields=["name", "repair_type", "modified"],
                 order_by="modified desc",
             )

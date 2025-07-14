@@ -3,6 +3,6 @@
   "doctype": "Print Format",
   "name": "Intake Receipt",
   "doc_type": "Clarinet Intake",
-  "html": "<h2>Intake Receipt</h2>\n<table class=\"table table-bordered\">\n<tr><th>Serial Number</th><td>{{ doc.serial_number }}</td></tr>\n<tr><th>Item</th><td>{{ doc.item_code }} - {{ doc.item_name }}</td></tr>\n<tr><th>Intake Type</th><td>{{ doc.intake_type }}</td></tr>\n<tr><th>QC Status</th><td>{{ doc.qc_status }}</td></tr>\n<tr><th>Stock Status</th><td>{{ doc.stock_status }}</td></tr>\n<tr><th>Workflow State</th><td>{{ doc.workflow_state }}</td></tr>\n</table>\n<p><small>Generated on {{ frappe.utils.now_datetime() }}</small></p>",
+  "html": "<h2>Intake Receipt</h2>\n<table class=\"table table-bordered\">\n<tr><th>Serial Number</th><td>{{ doc.serial_no }}</td></tr>\n<tr><th>Item</th><td>{{ doc.item_code }} - {{ doc.item_name }}</td></tr>\n<tr><th>Intake Type</th><td>{{ doc.intake_type }}</td></tr>\n<tr><th>QC Status</th><td>{{ doc.qc_status }}</td></tr>\n<tr><th>Stock Status</th><td>{{ doc.stock_status }}</td></tr>\n<tr><th>Workflow State</th><td>{{ doc.workflow_state }}</td></tr>\n</table>\n<p><small>Generated on {{ frappe.utils.now_datetime() }}</small></p>",
   "standard": "Yes"
 }

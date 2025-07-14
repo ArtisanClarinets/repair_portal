@@ -34,7 +34,7 @@ class InitialIntakeInspection(Document):
         if not getattr(self, "clarinet_intake", None) and self.instrument_serial:
             intake_name = frappe.db.get_value(
                 "Clarinet Intake",
-                {"serial_number": self.instrument_serial},
+                {"serial_no": self.instrument_serial},
                 "name"
             )
             if intake_name:

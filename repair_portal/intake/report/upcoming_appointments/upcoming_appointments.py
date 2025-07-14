@@ -21,7 +21,7 @@ def execute(filters=None):
             "width": 180,
         },
         {
-            "fieldname": "serial_number",
+            "fieldname": "serial_no",
             "label": "Instrument Serial",
             "fieldtype": "Data",
             "width": 140,
@@ -32,7 +32,7 @@ def execute(filters=None):
 
     data = frappe.get_all(
         "Appointment",
-        fields=["appointment_date", "customer", "serial_number", "reason", "confirmed"],
+        fields=["appointment_date", "customer", "serial_no", "reason", "confirmed"],
         filters={"appointment_date": [">=", frappe.utils.now()]},
         order_by="appointment_date asc",
     )

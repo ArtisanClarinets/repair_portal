@@ -26,7 +26,7 @@ class TestClarinetIntake(FrappeTestCase):
         self.instrument = frappe.get_doc({
             "doctype": "Instrument Profile",
             "instrument_type": "Clarinet",
-            "serial_number": "INTAKE-001",
+            "serial_no": "INTAKE-001",
             "player_profile": self.player.name
         }).insert()
 

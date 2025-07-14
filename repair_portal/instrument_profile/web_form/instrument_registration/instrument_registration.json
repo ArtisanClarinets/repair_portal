@@ -58,7 +58,7 @@
   },
   {
    "allow_read_on_all_link_options": 0,
-   "fieldname": "serial_number",
+   "fieldname": "serial_no",
    "fieldtype": "Data",
    "hidden": 0,
    "label": "Serial Number",

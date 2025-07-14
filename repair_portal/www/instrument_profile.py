@@ -24,7 +24,7 @@ def get_context(context):
         frappe.throw(_("Serial number is required."))
 
     try:
-        instrument = frappe.get_doc("Instrument Profile", {"serial_number": serial_no})
+        instrument = frappe.get_doc("Instrument Profile", {"serial_no": serial_no})
     except frappe.DoesNotExistError:
         frappe.throw(_("Instrument with serial number {0} not found.").format(serial_no))
     except Exception:

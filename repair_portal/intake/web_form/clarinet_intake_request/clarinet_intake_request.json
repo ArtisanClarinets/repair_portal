@@ -5,7 +5,7 @@
   "title": "Clarinet Intake Request",
   "fields": [
     {
-      "fieldname": "serial_number",
+      "fieldname": "serial_no",
       "fieldtype": "Data",
       "label": "Serial Number",
       "reqd": 1
