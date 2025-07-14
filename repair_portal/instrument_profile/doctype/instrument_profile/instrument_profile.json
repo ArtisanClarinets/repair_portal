@@ -1,39 +1,37 @@
 {
-  "doctype": "DocType",
   "name": "Instrument Profile",
   "module": "Instrument Profile",
-  "custom": 0,
-  "autoname": "field:serial_number",
+  "doctype": "DocType",
   "fields": [
-    {"fieldname": "serial_number", "label": "Serial Number", "fieldtype": "Data", "reqd": 1, "unique": 1, "in_list_view": 1, "bold": 1},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Draft\nAwaiting Pickup\nDelivered\nArchived", "reqd": 1, "default": "Draft", "in_list_view": 1},
-    {"fieldname": "profile_status", "label": "Profile Status", "fieldtype": "Select", "options": "Draft\nReady\nIn Service\nArchived", "default": "Draft", "reqd": 1, "in_list_view": 1},
-    {"fieldname": "brand", "label": "Brand", "fieldtype": "Data", "in_list_view": 1},
-    {"fieldname": "model", "label": "Model", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "instrument_category", "label": "Type", "fieldtype": "Select", "options": "Clarinet\nBass Clarinet\nContrabass Clarinet", "reqd": 1},
-    {"fieldname": "owner", "label": "Owner", "fieldtype": "Link", "options": "Customer", "in_list_view": 1},
-    {"fieldname": "purchase_receipt", "label": "Purchase Receipt", "fieldtype": "Attach"},
-    {"fieldname": "external_work_logs", "label": "Previous Repairs", "fieldtype": "Table", "options": "Customer External Work Log"},
-    {"fieldname": "condition_images", "label": "Condition Images", "fieldtype": "Table", "options": "Image Log Entry"},
-    {"fieldname": "repair_preferences", "label": "Client Repair Preferences", "fieldtype": "Small Text"},
-    {"fieldname": "verification_status", "label": "Verification Status", "fieldtype": "Select", "options": "Pending\nApproved\nRejected", "default": "Pending"},
-    {"fieldname": "technician_notes", "label": "Technician Review Notes", "fieldtype": "Text"},
-    {"fieldname": "ownership_transfer_to", "label": "Transfer Ownership To", "fieldtype": "Link", "options": "Customer"},
-    {"fieldname": "anonymize_for_research", "label": "Allow Anonymized Sharing", "fieldtype": "Check"},
-    {"fieldname": "consent_log", "label": "Consent Log", "fieldtype": "Table", "options": "Consent Log Entry"},
-    {"fieldname": "document_history", "label": "Document History", "fieldtype": "Table", "options": "Instrument Document History"},
-    {"fieldname": "is_archived", "label": "Archived", "fieldtype": "Check", "default": 0},
-    {"fieldname": "qr_code", "label": "QR Code", "fieldtype": "Data", "read_only": 1, "hidden": 1},
-    {"fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
-    {"fieldname": "player_profile", "label": "Player Profile", "fieldtype": "Link", "options": "Player Profile", "reqd": 0}
+    {
+      "fieldname": "serial_number",
+      "label": "Serial Number",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "erpnext_serial_no",
+      "label": "ERPNext Serial No",
+      "fieldtype": "Link",
+      "options": "Serial No",
+      "read_only": 1,
+      "hidden": 1,
+      "depends_on": "eval:frappe.user.has_role('System Manager') || frappe.user.has_role('Technician')"
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "QA Tech", "read": 1, "write": 1, "create": 1},
-    {"role": "Technician", "read": 1, "write": 1, "create": 1},
-    {"role": "Customer", "read": 1, "write": 1, "create": 1}
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1
+    }
   ],
-  "workflow_state_field": "workflow_state",
-  "title_field": "serial_number",
-  "archived": 0
+  "workflow_state_field": "workflow_state"
 }

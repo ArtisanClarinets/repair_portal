@@ -1,7 +1,9 @@
-# ---------------------------------------------------------------------------
-# Client Profile controller – v4.1.0
-# Centralizes workflow actions by calling a master handler.
-# ---------------------------------------------------------------------------
+# Relative Path: repair_portal/client_profile/doctype/client_profile/client_profile.py
+# Last Updated: 2025-07-13
+# Version: v4.2
+# Purpose: Validates, syncs, and automates Client Profile behavior (Customer creation, rename propagation, audit trail)
+# Dependencies: Customer, Contact, Sales Order, Repair Ticket, Consent Log
+
 from __future__ import annotations
 import frappe
 from frappe.model.document import Document
@@ -23,8 +25,26 @@ class ClientProfile(Document):
         ):
             frappe.throw("Phone already exists in another Client Profile.")
 
+        if self.is_new() is False and not self.change_reason:
+            frappe.throw("Please specify a reason for the update (change_reason).")
+
     def after_insert(self):
         self._sync_contact()
+        self._create_customer_if_missing()
+
+    def on_rename(self, old_name, new_name, merge=False):
+        try:
+            for doctype in ["Sales Order", "Repair Ticket"]:
+                frappe.db.sql(
+                    f"""
+                    UPDATE `tab{doctype}`
+                       SET client_profile = %s
+                     WHERE client_profile = %s
+                    """,
+                    (new_name, old_name),
+                )
+        except Exception as e:
+            frappe.log_error(frappe.get_traceback(), "ClientProfile.on_rename failed")
 
     def before_workflow_action(self, action: str):
         pass
@@ -39,8 +59,22 @@ class ClientProfile(Document):
         )
         if dup:
             frappe.throw(
-                f"Customer <b>{self.customer}</b> already belongs to " f"Client Profile <b>{dup}</b>."
+                f"Customer <b>{self.customer}</b> already belongs to "
+                f"Client Profile <b>{dup}</b>."
             )
+
+    def _create_customer_if_missing(self):
+        if not frappe.db.exists("Customer", self.customer):
+            try:
+                frappe.get_doc({
+                    "doctype": "Customer",
+                    "customer_name": self.client_name,
+                    "customer_type": "Individual",
+                    "customer_group": "All Customer Groups",
+                    "territory": "All Territories"
+                }).insert(ignore_permissions=True)
+            except Exception:
+                frappe.log_error(frappe.get_traceback(), "ClientProfile: Customer creation failed")
 
     @frappe.whitelist()
     def sync_contact(self):
@@ -66,10 +100,7 @@ class ClientProfile(Document):
 
         if not contact_name:
             contact.first_name = self.client_name or self.customer
-            contact.append(
-                "links",
-                {"link_doctype": "Customer", "link_name": self.customer},
-            )
+            contact.append("links", {"link_doctype": "Customer", "link_name": self.customer})
 
         if self.email:
             contact.set("email_ids", [])

@@ -1,175 +1,70 @@
 {
- "actions": [],
- "autoname": "naming_series:CP-.#####",
- "creation": "2025-06-30 03:04:47.853459",
- "doctype": "DocType",
- "editable_grid": 1,
- "engine": "InnoDB",
- "field_order": [
-  "client_profile_name",
-  "client_profile_image",
-  "client_profile_description",
-  "client_profile_type",
-  "client_name",
-  "customer",
-  "email",
-  "phone",
-  "preferred_contact_method",
-  "instruments_owned",
-  "player_profile",
-  "consent_log",
-  "technician_notes",
-  "profile_status"
- ],
- "fields": [
-  {
-   "default": "CP-",
-   "fieldname": "naming_series",
-   "fieldtype": "Data",
-   "label": "Naming Series",
-   "read_only": 1,
-	"in_list_view": 0,
-	"is_hidden": 1
-  },
-  {
-   "fieldname": "client_profile_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Profile Title"
-  },
-  {
-   "fieldname": "client_profile_image",
-   "fieldtype": "Attach Image",
-   "label": "Image"
-  },
-  {
-   "fieldname": "client_profile_description",
-   "fieldtype": "Small Text",
-   "label": "Description"
-  },
-  {
-   "fieldname": "client_profile_type",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Client Profile Type",
-   "options": "Client Profile Type"
-  },
-  {
-   "fieldname": "client_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Display Name",
-   "reqd": 1
-  },
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "label": "Customer",
-   "options": "Customer",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
-   "fieldname": "email",
-   "fieldtype": "Data",
-   "label": "Email"
-  },
-  {
-   "fieldname": "phone",
-   "fieldtype": "Data",
-   "label": "Phone"
-  },
-  {
-   "fieldname": "preferred_contact_method",
-   "fieldtype": "Select",
-   "label": "Preferred Contact Method",
-   "options": "\nEmail\nPhone\nSMS"
-  },
-  {
-   "fieldname": "instruments_owned",
-   "fieldtype": "Link",
-   "label": "Instruments",
-   "options": "Instrument Profile"
-  },
-  {
-   "fieldname": "player_profile",
-   "fieldtype": "Link",
-   "label": "Player Profile",
-   "options": "Player Profile",
-   "reqd": 0
-  },
-  {
-   "fieldname": "consent_log",
-   "fieldtype": "Table",
-   "label": "Consent Log",
-   "options": "Consent Log"
-  },
-  {
-   "fieldname": "technician_notes",
-   "fieldtype": "Text Editor",
-   "label": "Technician Notes (Internal Only)",
-   "description": "Visible only to staff. Use for private client/repair notes."
-  },
-  {
-   "default": "Draft",
-   "fieldname": "profile_status",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Status",
-   "options": "Workflow State",
-   "read_only": 1
-  }
- ],
- "links": [],
- "modified": "2025-06-30 03:12:13.685769",
- "modified_by": "dylan@artisanclarinets.com",
- "module": "Client Profile",
- "name": "Client Profile",
- "naming_rule": "By \"Naming Series\" field",
- "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "read": 1,
-   "role": "System Manager",
-   "write": 1
-  },
-  {
-   "create": 1,
-   "read": 1,
-   "role": "Front Desk",
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "read": 1,
-   "role": "Repair Manager",
-   "write": 1
-  },
-  {
-   "read": 1,
-   "role": "Repair Technician",
-   "write": 1
-  },
-  {
-   "read": 1,
-   "role": "Technician"
-  },
-  {
-   "create": 1,
-   "read": 1,
-   "role": "Client Manager",
-   "write": 1
-  },
-  {
-   "read": 1,
-   "role": "Customer"
-  }
- ],
- "row_format": "Dynamic",
- "sort_field": "modified",
- "sort_order": "DESC",
- "states": []
+  "doctype": "DocType",
+  "name": "Client Profile",
+  "module": "Client Profile",
+  "autoname": "naming_series:CP-.#####",
+  "naming_rule": "By \"Naming Series\" field",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "row_format": "Dynamic",
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "field_order": [
+    "client_profile_name",
+    "client_profile_image",
+    "client_profile_description",
+    "client_profile_type",
+    "client_name",
+    "customer",
+    "billing_address",
+    "primary_contact",
+    "email",
+    "phone",
+    "preferred_contact_method",
+    "preferred_payment_method",
+    "credit_terms",
+    "credit_limit",
+    "change_reason",
+    "instruments_owned",
+    "player_profile",
+    "consent_log",
+    "technician_notes",
+    "profile_status"
+  ],
+  "fields": [
+    {"fieldname": "naming_series", "fieldtype": "Data", "label": "Naming Series", "default": "CP-", "read_only": 1, "in_list_view": 0, "is_hidden": 1},
+    {"fieldname": "linked_user", "fieldtype": "Link", "label": "Linked User", "options": "User", "in_list_view": 1, "read_only": 1, "hidden": 1},
+    {"fieldname": "client_profile_name", "fieldtype": "Data", "label": "Profile Title", "in_list_view": 1},
+    {"fieldname": "client_profile_image", "fieldtype": "Attach Image", "label": "Image"},
+    {"fieldname": "client_profile_description", "fieldtype": "Small Text", "label": "Description"},
+    {"fieldname": "client_profile_type", "fieldtype": "Link", "label": "Client Profile Type", "options": "Client Profile Type", "in_list_view": 1},
+    {"fieldname": "client_name", "fieldtype": "Data", "label": "Display Name", "in_list_view": 1, "reqd": 1},
+    {"fieldname": "customer", "fieldtype": "Link", "label": "Customer", "options": "Customer", "reqd": 1, "unique": 1},
+    {"fieldname": "billing_address", "fieldtype": "Link", "label": "Billing Address", "options": "Address"},
+    {"fieldname": "primary_contact", "fieldtype": "Link", "label": "Primary Contact", "options": "Contact"},
+    {"fieldname": "email", "fieldtype": "Data", "label": "Email"},
+    {"fieldname": "phone", "fieldtype": "Data", "label": "Phone"},
+    {"fieldname": "preferred_contact_method", "fieldtype": "Select", "label": "Preferred Contact Method", "options": "\nEmail\nPhone\nSMS"},
+    {"fieldname": "preferred_payment_method", "fieldtype": "Select", "label": "Preferred Payment Method", "options": "\nCredit Card\nCheck\nPurchase Order"},
+    {"fieldname": "credit_terms", "fieldtype": "Data", "label": "Credit Terms", "permlevel": 1},
+    {"fieldname": "credit_limit", "fieldtype": "Currency", "label": "Credit Limit", "permlevel": 1},
+    {"fieldname": "change_reason", "fieldtype": "Small Text", "label": "Reason for Change", "reqd": 0},
+    {"fieldname": "instruments_owned", "fieldtype": "Link", "label": "Instruments", "options": "Instrument Profile"},
+    {"fieldname": "player_profile", "fieldtype": "Link", "label": "Player Profile", "options": "Player Profile"},
+    {"fieldname": "consent_log", "fieldtype": "Table", "label": "Consent Log", "options": "Consent Log"},
+    {"fieldname": "technician_notes", "fieldtype": "Text Editor", "label": "Technician Notes (Internal Only)", "description": "Visible only to staff. Use for private client/repair notes."},
+    {"fieldname": "profile_status", "fieldtype": "Link", "label": "Status", "options": "Workflow State", "read_only": 1, "in_list_view": 1, "default": "Draft"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Front Desk", "read": 1, "write": 1, "create": 1},
+    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Repair Technician", "read": 1, "write": 1},
+    {"role": "Technician", "read": 1},
+    {"role": "Client Manager", "read": 1, "write": 1, "create": 1},
+    {"role": "Customer", "read": 1}
+  ],
+  "workflow_state_field": "profile_status",
+  "links": [],
+  "states": []
 }

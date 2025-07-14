@@ -10,6 +10,7 @@
     {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
     {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Link", "options": "Instrument Category"},
     {"fieldname": "date_reported", "label": "Date Reported", "fieldtype": "Date"},
+    {"fieldname": "promise_date", "label": "Promise Date", "fieldtype": "Date"},
     {"fieldname": "cb1", "fieldtype": "Column Break"},
     {"fieldname": "issue_description", "label": "Issue Description", "fieldtype": "Text", "reqd": 1},
     {"fieldname": "technician_assigned", "label": "Technician Assigned", "fieldtype": "Link", "options": "User"},

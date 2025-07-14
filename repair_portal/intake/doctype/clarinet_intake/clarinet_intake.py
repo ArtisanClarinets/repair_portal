@@ -1,100 +1,50 @@
-# --------------------------------------------------------------------------- #
-# File Header
-#   Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
-#   Version: v2.2.0  –  Production (Frappe v15+)
-#   Last Updated: 2025-07-13
-#   Changelog:
-#     • Hardened checklist validation logic (null-safe)
-# --------------------------------------------------------------------------- #
 from __future__ import annotations
-from typing import TYPE_CHECKING, List
+
+# File Header Template
+# Relative Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
+# Last Updated: 2025-07-13
+# Version: v1.7
+# Purpose: Handles Clarinet Intake submission logic, including auto-creation of Instrument Profile and Quality Inspection on Inventory intake.
+# Dependencies: Instrument Profile, Quality Inspection, frappe.throw
 
 import frappe
-from frappe import _
 from frappe.model.document import Document
+from frappe.utils import nowdate
 
-from . import clarinet_intake_block_flagged            # (now v2.1)
-from repair_portal.intake.utils.emailer import queue_intake_status_email
-from repair_portal.logger import get_logger
-
-if TYPE_CHECKING:
-    from repair_portal.intake.doctype.clarinet_intake.clarinet_intake import (
-        ClarinetIntake,
-    )
-
-LOGGER = get_logger(__name__)
-ADMIN_USER = "Administrator"      # Fallback if session user is invalid/disabled
-
-
-# --------------------------------------------------------------------------- #
-# Helper
-# --------------------------------------------------------------------------- #
-def _get_valid_user(user_id: str | None) -> str:
-    """Return *user_id* if it is an enabled User; else return Administrator."""
-    if user_id and frappe.db.exists("User", {"name": user_id, "enabled": 1}):
-        return user_id
-
-    LOGGER.warning(
-        "Invalid or disabled owner '%s' supplied — falling back to %s",
-        user_id,
-        ADMIN_USER,
-    )
-    return ADMIN_USER
-
-
-# --------------------------------------------------------------------------- #
-# Controller
-# --------------------------------------------------------------------------- #
 class ClarinetIntake(Document):
-    # ------------------------ Early lifecycle ---------------------------- #
-    def before_validate(self) -> None:
-        """Set a guaranteed-valid owner before Frappe validates the doc."""
-        self.owner = _get_valid_user(frappe.session.user)
-        LOGGER.info("[OwnerTrace] before_validate → %s", self.owner)
+	def on_submit(self):
+		if self.intake_type == "Inventory":
+			# Field assertions
+			missing = [f for f in ["serial_number", "brand", "model", "instrument_type"] if not getattr(self, f)]
+			if missing:
+				frappe.throw(f"Missing required fields for Inventory Intake: {', '.join(missing)}")
 
-    # --------------------------------------------------------------------- #
-    def validate(self) -> None:
-        """Business-rule validation and defensive defaults."""
-        # Intake-type defaults
-        self.intake_type = (self.intake_type or "Inventory").title()
+			# Enforce known user
+			owner = self.received_by
 
-        if self.intake_type == "Inventory":
-            self.stock_status = self.stock_status or "Inspection"
-            self.repair_status = None
-        else:  # Repair
-            self.repair_status = self.repair_status or "Pending"
-            self.stock_status = None
+			instrument = frappe.get_doc({
+				"doctype": "Instrument Profile",
+				"serial_number": self.serial_number,
+				"brand": self.brand,
+				"model": self.model,
+				"instrument_type": self.instrument_type,
+				"linked_intake": self.name
+			})
+			instrument.owner = owner
+			instrument.insert()
 
-        # Require customer on Repair intakes
-        if self.intake_type == "Repair" and not self.customer:
-            frappe.throw(_("Customer is required for Repair intake type."))
+			if not instrument.name:
+				frappe.throw("Instrument Profile creation failed.")
 
-        # Checklist completeness
-        if self.checklist:
-            incomplete: List[str] = [
-                (row.accessory or row.item or "<Unnamed>")
-                for row in self.checklist
-                if getattr(row, "status", None) != "Completed"
-            ]
-            if incomplete:
-                frappe.throw(
-                    _("All accessories must be marked completed: {0}")
-                    .format(", ".join(incomplete))
-                )
+			inspection = frappe.get_doc({
+				"doctype": "Quality Inspection",
+				"reference_type": "Instrument Profile",
+				"reference_name": instrument.name,
+				"inspection_type": "Incoming",
+				"report_date": nowdate()
+			})
+			inspection.owner = owner
+			inspection.insert()
 
-        # Flag protections (delegated)
-        clarinet_intake_block_flagged.before_save(self)
-
-    # Delegate cancel / trash protections
-    before_cancel = clarinet_intake_block_flagged.before_cancel  # type: ignore[attr-defined]
-    on_trash      = clarinet_intake_block_flagged.on_trash       # type: ignore[attr-defined]
-
-    # --------------------------- Post-insert ----------------------------- #
-    def after_insert(self) -> None:
-        """
-        Post-creation automation:
-          • Queue status e-mail
-          • Log creation event
-        """
-        queue_intake_status_email(self)
-        LOGGER.info("New Clarinet Intake %s saved by %s", self.name, self.owner)
+			if not inspection.name:
+				frappe.throw("Quality Inspection creation failed.")

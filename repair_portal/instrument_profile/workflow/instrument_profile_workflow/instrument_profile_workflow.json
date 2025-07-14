@@ -7,10 +7,10 @@
     "is_default": 1,
     "document_type": "Instrument Profile",
     "is_active": 1,
-    "state_field": "status",
+    "state_field": "workflow_state",
     "description": "Workflow for managing instrument profiles in the repair portal.",
     "module": "Instrument Profile",
-    "workflow_state_field": "status",
+    "workflow_state_field": "workflow_state",
     "custom": 0,
     "istable": 0,
     "editable_grid": 1,
@@ -19,7 +19,7 @@
         {
             "state": "Open",
             "doc_status": 0,
-            "update_field": "status"
+            "update_field": "workflow_state"
         },
         {
             "state": "In Progress",

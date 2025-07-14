@@ -1,0 +1,48 @@
+{
+  "workflow_name": "Player Profile Workflow",
+  "label": "Player Profile Workflow",
+  "name": "Player Profile Workflow",
+  "doctype": "Workflow",
+  "doc_type": "Player Profile",
+  "workflow_state_field": "profile_status",
+  "state_field": "profile_status",
+  "is_default": 1,
+  "document_type": "Player Profile",
+  "is_active": 1,
+  "description": "Manages lifecycle states for player profiles.",
+  "module": "Player Profile",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "standard": 1,
+  "states": [
+    {
+      "state": "Active",
+      "doc_status": 0
+    },
+    {
+      "state": "Linked to Client",
+      "doc_status": 0
+    },
+    {
+      "state": "Archived",
+      "doc_status": 1
+    }
+  ],
+  "transitions": [
+    {
+      "state": "Active",
+      "action": "Link",
+      "next_state": "Linked to Client",
+      "allowed": "Customer Service"
+    },
+    {
+      "state": "Linked to Client",
+      "action": "Archive",
+      "next_state": "Archived",
+      "allowed": "Customer Service"
+    }
+  ],
+  "is_standard": 1,
+  "sync_on_migrate": 1
+}

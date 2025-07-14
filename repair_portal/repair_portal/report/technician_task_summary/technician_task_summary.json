@@ -13,6 +13,24 @@
       "fieldtype": "Link",
       "options": "User",
       "default": "frappe.session.user"
+    },
+    {
+      "fieldname": "from_date",
+      "label": "From Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "to_date",
+      "label": "To Date",
+      "fieldtype": "Date"
     }
-  ]
+  ],
+  "chart": {
+    "type": "bar",
+    "data": {
+      "labels": [],
+      "datasets": []
+    },
+    "colors": ["#ffa00a"]
+  }
 }
