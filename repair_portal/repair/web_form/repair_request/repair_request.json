@@ -1,7 +1,7 @@
 {
   "doctype": "Web Form",
   "name": "Repair Request",
-  "module": "Repair Portal",
+  "module": "Repair",
   "standard": "Yes",
   "web_form_name": "repair-request",
   "doc_type": "Repair Request",

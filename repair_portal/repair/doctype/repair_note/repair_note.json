@@ -1,7 +1,7 @@
 {
   "doctype": "DocType",
   "name": "Repair Note",
-  "module": "Repair Portal",
+  "module": "Repair",
   "istable": 1,
   "fields": [
     {"fieldname": "note_time", "label": "Timestamp", "fieldtype": "Datetime", "reqd": 1},
