@@ -1,3 +1,6 @@
+
+repair_portal/scripts/shopify/*
+repair_portal/scripts/invoice_pdf/*
 *.DS_Store
 *.pyc
 *.egg-info
