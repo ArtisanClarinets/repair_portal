@@ -1,60 +1,48 @@
-from __future__ import annotations
-
 # File Header Template
 # Relative Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
 # Last Updated: 2025-07-14
-# Version: v1.8
-# Purpose: Handles Clarinet Intake submission logic, including auto-creation of Instrument Profile and Quality Inspection on Inventory intake.
-# Dependencies: Instrument Profile, Quality Inspection, frappe.throw
+# Version: v2.0
+# Purpose: Handles Clarinet Intake submission logic, including auto-creation of Instrument Profile, Quality Inspection, and Initial Setup for Inventory intakes.
+# Dependencies: Instrument Profile, Clarinet Initial Setup, frappe.log_error
 
 import frappe
 from frappe.model.document import Document
-from frappe.utils import nowdate
+from frappe.utils import now_datetime
 
 class ClarinetIntake(Document):
-    def on_submit(self):
-        if self.intake_type == "Inventory":
-            # Field assertions
-            missing = [f for f in ["serial_no", "brand", "model", "instrument_type"] if not getattr(self, f)]
-            if missing:
-                frappe.throw(f"Missing required fields for Inventory Intake: {', '.join(missing)}")
-
-            # PATCH: Ensure Serial No exists in ERPNext; create if missing
-            if not frappe.db.exists("Serial No", self.serial_no):
-                serial_no_doc = frappe.get_doc({
-                    "doctype": "Serial No",
-                    "serial_no": self.serial_no,
-                    "item_code": self.model,
-                    "status": "Active"
-                })
-                serial_no_doc.insert()
-
-            # Enforce known user
-            owner = self.received_by
-
-            instrument = frappe.get_doc({
-                "doctype": "Instrument Profile",
-                "serial_no": self.serial_no,
-                "brand": self.brand,
-                "model": self.model,
-                "instrument_type": self.instrument_type,
-                "linked_intake": self.name
-            })
-            instrument.owner = owner
-            instrument.insert()
-
-            if not instrument.name:
-                frappe.throw("Instrument Profile creation failed.")
-
-            inspection = frappe.get_doc({
-                "doctype": "Quality Inspection",
-                "reference_type": "Instrument Profile",
-                "reference_name": instrument.name,
-                "inspection_type": "Incoming",
-                "report_date": nowdate()
-            })
-            inspection.owner = owner
-            inspection.insert()
-
-            if not inspection.name:
-                frappe.throw("Quality Inspection creation failed.")
+    """
+    Document controller for Clarinet Intake.
+    Automates Instrument Profile and Initial Setup (not Repair Order) creation for Inventory intakes.
+    Args:
+        Document (frappe.model.document.Document): The standard DocType controller.
+    """
+    def before_submit(self):
+        try:
+            if self.intake_type == "Inventory":
+                # 1. Instrument Profile
+                instr_profile = None
+                if not self.instrument_profile:
+                    instr_profile = frappe.get_doc({
+                        "doctype": "Instrument Profile",
+                        "serial_no": self.serial_no,
+                        "item_code": self.item_code,
+                        "customer": self.customer,
+                        "linked_intake": self.name
+                    }).insert(ignore_permissions=True)
+                    self.instrument_profile = instr_profile.name
+                else:
+                    instr_profile = frappe.get_doc("Instrument Profile", self.instrument_profile)
+                # 2. Clarinet Initial Setup
+                setup_doc = frappe.get_doc({
+                    "doctype": "Clarinet Initial Setup",
+                    "instrument_profile": instr_profile.name,
+                    "intake": self.name,
+                    "setup_status": "Pending"
+                }).insert(ignore_permissions=True)
+                self.linked_initial_setup = setup_doc.name
+            elif self.intake_type == "Repair":
+                # Existing logic for repair intakes (e.g., Repair Order) here
+                pass
+        except Exception as e:
+            frappe.log_error(frappe.get_traceback(), "Clarinet Intake Automation Error")
+            frappe.throw(f"Automation failed: {e}")

@@ -11,7 +11,15 @@
     {"fieldname": "skill_level", "label": "Skill Level", "fieldtype": "Select", "options": "\nBeginner\nIntermediate\nAdvanced"},
     {"fieldname": "client_profile", "label": "Client Profile", "fieldtype": "Link", "options": "Client Profile", "reqd": 1, "in_list_view": 1},
     {"fieldname": "instrument_profiles", "label": "Instruments", "fieldtype": "MultiSelect Link", "options": "Instrument Profile"},
-    {"fieldname": "profile_status", "label": "Profile Status", "fieldtype": "Select", "options": "Draft\nActive\nArchived", "default": "Draft", "in_list_view": 1}
+    {"fieldname": "profile_status", "label": "Profile Status", "fieldtype": "Select", "options": "Draft\nActive\nArchived", "default": "Draft", "in_list_view": 1},
+
+    {"fieldname": "owned_instruments", "label": "Owned Instruments", "fieldtype": "Table", "options": "Instrument Profile", "read_only": 1},
+    {"fieldname": "setup_logs", "label": "Setup Logs", "fieldtype": "Table", "options": "Clarinet Setup Log", "read_only": 1},
+    {"fieldname": "qa_findings", "label": "QA Findings", "fieldtype": "Table", "options": "Clarinet Inspection", "read_only": 1},
+    {"fieldname": "repair_logs", "label": "Repair Logs", "fieldtype": "Table", "options": "Repair Log", "read_only": 1},
+    {"fieldname": "tone_sessions", "label": "Tone Sessions", "fieldtype": "Table", "options": "Intonation Session", "read_only": 1},
+    {"fieldname": "leak_tests", "label": "Leak Tests", "fieldtype": "Table", "options": "Leak Test", "read_only": 1},
+    {"fieldname": "wellness_scores", "label": "Wellness Scores", "fieldtype": "Table", "options": "Instrument Wellness Score", "read_only": 1}
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},

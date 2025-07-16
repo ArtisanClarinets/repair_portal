@@ -1,7 +1,6 @@
-# File Header Template
 # Relative Path: repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.py
-# Last Updated: 2025-07-06
-# Version: v1.5
+# Last Updated: 2025-07-14
+# Version: v2.0
 # Purpose: Complete Clarinet Initial Setup lifecycle:
 #   - Validation
 #   - Material Request handling
@@ -25,6 +24,10 @@ class ClarinetInitialSetup(Document):
                 self.technician = available[0].name
 
     def validate(self):
+        if not self.intake:
+            frappe.throw("Clarinet Intake reference is required.")
+        if not self.instrument_profile:
+            frappe.throw("Instrument Profile reference is required.")
         # Enforce checklist completion
         for row in self.checklist:
             if not row.completed:
