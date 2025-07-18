@@ -1,0 +1,7 @@
+#dashboard-tabs button {
+cursor: pointer;
+}
+
+#dashboard-content .card {
+border: 1px solid #ddd;
+}

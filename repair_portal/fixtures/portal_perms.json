@@ -1,0 +1,37 @@
+[
+  {
+    "doctype": "Custom DocPerm",
+    "role": "Customer",
+    "parent": "Client Profile",
+    "permlevel": 0,
+    "read": 1,
+    "write": 1,
+    "if_owner": 1
+  },
+  {
+    "doctype": "Custom DocPerm",
+    "role": "Customer",
+    "parent": "Player Profile",
+    "permlevel": 0,
+    "read": 1,
+    "write": 1,
+    "if_owner": 1
+  },
+  {
+    "doctype": "Custom DocPerm",
+    "role": "Customer",
+    "parent": "Instrument Profile",
+    "permlevel": 0,
+    "read": 1,
+    "write": 1,
+    "if_owner": 1
+  },
+  {
+    "doctype": "Custom DocPerm",
+    "role": "Technician",
+    "parent": "Instrument Profile",
+    "permlevel": 0,
+    "read": 1,
+    "write": 1
+  }
+]
