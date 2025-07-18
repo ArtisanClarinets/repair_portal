@@ -7,67 +7,17 @@
   "is_active": 1,
   "workflow_state_field": "profile_status",
   "states": [
-    {
-      "state": "Draft",
-      "style": "Warning",
-      "doc_status": 0,
-      "allow_edit": "All"
-    },
-    {
-      "state": "Active",
-      "style": "Success",
-      "doc_status": 0,
-      "allow_edit": "All"
-    },
-    {
-      "state": "Approved",
-      "style": "Primary",
-      "doc_status": 1,
-      "allow_edit": "Role Manager"
-    },
-    {
-      "state": "Archived",
-      "style": "Dark",
-      "doc_status": 0,
-      "allow_edit": "All"
-    },
-    {
-      "state": "Deleted",
-      "style": "Danger",
-      "doc_status": 2,
-      "allow_edit": "System Manager"
-    }
+    {"state": "Draft", "style": "Warning", "doc_status": 0, "allow_edit": "All"},
+    {"state": "Active", "style": "Success", "doc_status": 0, "allow_edit": "All"},
+    {"state": "Approved", "style": "Primary", "doc_status": 1, "allow_edit": "Role Manager"},
+    {"state": "Archived", "style": "Dark", "doc_status": 0, "allow_edit": "All"},
+    {"state": "Deleted", "style": "Danger", "doc_status": 2, "allow_edit": "System Manager"}
   ],
   "transitions": [
-    {
-      "state": "Draft",
-      "action": "Activate",
-      "next_state": "Active",
-      "allowed_role": "System Manager"
-    },
-    {
-      "state": "Active",
-      "action": "Approve",
-      "next_state": "Approved",
-      "allowed_role": "System Manager"
-    },
-    {
-      "state": "Approved",
-      "action": "Archive",
-      "next_state": "Archived",
-      "allowed_role": "System Manager"
-    },
-    {
-      "state": "Archived",
-      "action": "Restore",
-      "next_state": "Deleted",
-      "allowed_role": "System Manager"
-    },
-    {
-      "state": "Deleted",
-      "action": "Delete",
-      "next_state": "Deleted",
-      "allowed_role": "System Manager"
-    }
+    {"state": "Draft", "action": "Activate", "next_state": "Active", "allowed_role": "System Manager"},
+    {"state": "Active", "action": "Approve", "next_state": "Approved", "allowed_role": "System Manager"},
+    {"state": "Approved", "action": "Archive", "next_state": "Archived", "allowed_role": "System Manager"},
+    {"state": "Archived", "action": "Restore", "next_state": "Active", "allowed_role": "System Manager"},
+    {"state": "Active", "action": "Delete", "next_state": "Deleted", "allowed_role": "System Manager"}
   ]
 }

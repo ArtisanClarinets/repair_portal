@@ -3,18 +3,10 @@
   "name": "Client Profile",
   "module": "Client Profile",
   "fields": [
-    {"fieldname": "client_name", "label": "Client Name", "fieldtype": "Data", "reqd": 1},
-    {"fieldname": "display_name", "label": "Display Name", "fieldtype": "Data"},
-    {"fieldname": "customer", "label": "ERPNext Customer", "fieldtype": "Link", "options": "Customer", "unique": 1},
-    {"fieldname": "email", "label": "Email", "fieldtype": "Data"},
-    {"fieldname": "phone", "label": "Phone Number", "fieldtype": "Data"},
-    {"fieldname": "billing_address", "label": "Billing Address", "fieldtype": "Link", "options": "Address"},
-    {"fieldname": "primary_contact", "label": "Primary Contact", "fieldtype": "Link", "options": "Contact"},
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1, "unique": 1},
     {"fieldname": "type", "label": "Type", "fieldtype": "Select", "options": "Individual\nInstitution\nOrganization"},
     {"fieldname": "preferred_contact_method", "label": "Preferred Contact Method", "fieldtype": "Select", "options": "Email\nPhone\nSMS"},
     {"fieldname": "preferred_payment_method", "label": "Preferred Payment Method", "fieldtype": "Select", "options": "Card\nCheck\nBank Transfer"},
-    {"fieldname": "credit_terms", "label": "Credit Terms", "fieldtype": "Data"},
-    {"fieldname": "credit_limit", "label": "Credit Limit", "fieldtype": "Currency"},
 
     {"fieldname": "owned_instruments", "label": "Owned Instruments", "fieldtype": "Table", "options": "Instrument Profile", "read_only": 1},
     {"fieldname": "linked_players", "label": "Linked Players", "fieldtype": "Table", "options": "Player Profile", "read_only": 1},
@@ -32,5 +24,8 @@
     {"role": "Client Manager", "read": 1},
     {"role": "Customer", "read": 1}
   ],
-  "workflow_state_field": "profile_status"
+  "workflow_state_field": "profile_status",
+  "links": [
+    {"link_doctype": "Customer", "fieldname": "customer"}
+  ]
 }

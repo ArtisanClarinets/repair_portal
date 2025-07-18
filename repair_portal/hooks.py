@@ -14,9 +14,10 @@ app_version = "1.2.2"
 
 
 app_include_css = [
-         "/public/css/clarinetfest.css",
-         "/public/css/product_catalog.css",
-        "/assets/repair_portal/dashboard.bundle.css",
+
+        "/public/css/clarinetfest.css",
+        "/public/css/product_catalog.css",
+        "/public/css/dashboard.bundle.css",
 ]
 
 
@@ -27,6 +28,7 @@ app_include_js = [
     "/public/js/recording_analyzer.bundle.js",
     "/public/js/intonation_recorder.bundle.js",
     "/assets/repair_portal/dashboard.bundle.js",
+    "/public/js/client_portal/client_profile/client_profile.bundle.js",
 ]
 
 fixtures = [
@@ -67,7 +69,7 @@ doc_events = {
     }
 }
 
-portal_menu_items = [
+add_portal_menu_items = [
     {
         "title": "My Dashboard",
         "route": "/me/dashboard",
@@ -75,5 +77,6 @@ portal_menu_items = [
         "role": "Customer",
     }
 ]
+
 
 

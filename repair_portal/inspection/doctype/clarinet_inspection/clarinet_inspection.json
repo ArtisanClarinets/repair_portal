@@ -2,7 +2,9 @@
   "doctype": "DocType",
   "name": "Clarinet Inspection",
   "module": "Inspection",
+  "is_child_table": 1,
   "fields": [
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
     {
       "fieldname": "clarinet_intake",
       "fieldtype": "Link",

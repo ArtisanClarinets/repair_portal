@@ -14,10 +14,14 @@ function load_desk_page(wrapper) {
 	let $parent = $(wrapper).find(".layout-main-section");
 	$parent.empty();
 
-	frappe.require("client_portal.bundle.js").then(() => {
-		frappe.client_portal = new frappe.ui.ClientPortal({
-			wrapper: $parent,
-			page: wrapper.page,
+	frappe.require("client_portal.bundle.js")
+		.then(() => {
+			frappe.client_portal = new frappe.ui.ClientPortal({
+				wrapper: $parent,
+				page: wrapper.page,
+			});
+		})
+		.catch(() => {
+			$parent.append(`<div class="alert alert-danger">Unable to load portal resources. Please refresh or contact support.</div>`);
 		});
-	});
 }

@@ -1,0 +1,1 @@
+from repair_portal.client_profile.doctype.client_profile import test_client_profile

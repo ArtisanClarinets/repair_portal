@@ -1,0 +1,36 @@
+<!-- File: repair_portal/page/client_profile/client_profile.html -->
+<!-- Last Updated: 2025-07-16 -->
+<!-- Purpose: Client profile page layout using AdminLTE widgets -->
+
+<script type="text/html" class="template" id="client_profile_html">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+              <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle"
+                     src="/assets/repair_portal/img/avatar5.png"
+                     alt="Client profile picture">
+              </div>
+              <h3 class="profile-username text-center" id="client-name">Loading...</h3>
+              <p class="text-muted text-center" id="client-email">...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header p-2">
+              <h5>Repair Summary</h5>
+            </div>
+            <div class="card-body">
+              <strong>Total Repairs:</strong> <span id="repair-count">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</script>
