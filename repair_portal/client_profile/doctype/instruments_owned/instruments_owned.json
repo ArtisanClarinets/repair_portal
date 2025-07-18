@@ -14,6 +14,13 @@
       "fieldtype": "Link",
       "label": "Serial Number",
       "options": "Serial No"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
     }
   ],
   "permissions": [

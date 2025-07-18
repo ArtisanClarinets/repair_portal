@@ -2,7 +2,9 @@
 	"doctype": "DocType",
 	"name": "Clarinet Setup Log",
 	"module": "Instrument Setup",
+	"is_child_table": 1,
 	"fields": [
+		{"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
 		{
 			"fieldname": "initial_setup",
 			"fieldtype": "Link",

@@ -1,4 +1,4 @@
-/*  Client Profile form – UX sugar and state enforcement  */
+/*  Client Profile form – ERPNext-native refactor */
 
 frappe.ui.form.on("Client Profile", {
     refresh(frm) {
@@ -7,35 +7,15 @@ frappe.ui.form.on("Client Profile", {
         enforce_read_only(frm);
     },
 
-    phone(frm) {
-        const ok = !frm.doc.phone || /^\+?[0-9\-\s()]{7,20}$/.test(frm.doc.phone);
-        if (!ok) {
-            frappe.msgprint({
-                title: __("Invalid phone"),
-                message: __("Use digits, spaces, plus, dash or parentheses only."),
-                indicator: "orange",
-            });
-        }
-    },
-
     onload(frm) {
         if (!frm.doc.profile_status) {
             frm.set_value("profile_status", "Draft");
         }
     },
 
-    before_save(frm) {
-        if (frm.doc.phone && !/^\+?[0-9\-\s()]{7,20}$/.test(frm.doc.phone)) {
-            frappe.throw(__("Please enter a valid phone number."));
-        }
-    },
-
     validate(frm) {
-        if (!frm.doc.client_name) {
-            frappe.throw(__("Client Name is required."));
-        }
-        if (!frm.doc.email) {
-            frappe.throw(__("Email is required."));
+        if (!frm.doc.customer) {
+            frappe.throw(__("Customer link is required."));
         }
     },
 
@@ -73,19 +53,11 @@ function add_quick_buttons(frm) {
     if (frm.doc.profile_status === "Active") {
         frm.add_custom_button(
             __("New Repair Order"),
-            () => frappe.new_doc("Repair Order", { client_profile: frm.doc.name }),
+            () => frappe.new_doc("Repair Order", { customer: frm.doc.customer }),
             __("Create")
         );
     }
-
-    frm.add_custom_button(
-        __("Sync Contact"),
-        () => {
-            frm.call("sync_contact").then(() => frappe.show_alert("Contact synced"));
-        },
-        __("Utilities")
-    );
-}
+} 
 
 function enforce_read_only(frm) {
     const frozen_states = ["Archived", "Deleted"];

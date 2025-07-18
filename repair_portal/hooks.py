@@ -14,8 +14,8 @@ app_version = "1.2.2"
 
 
 app_include_css = [
-	 "/public/css/clarinetfest.css",
- 	 "/public/css/product_catalog.css",
+    "/public/css/clarinetfest.css",
+    "/public/css/product_catalog.css",
 ]
 
 
@@ -23,8 +23,9 @@ app_include_js = [
     "/public/js/client_portal/client_portal.bundle.js",
     "/public/js/technician_dashboard/technician_dashboard.bundle.js",
     "/public/js/technician_dashboard/index.dum.js",
-	"/public/js/recording_analyzer.bundle.js",
-	"/public/js/intonation_recorder.bundle.js",
+    "/public/js/recording_analyzer.bundle.js",
+    "/public/js/intonation_recorder.bundle.js",
+    "/public/js/client_portal/client_profile/client_profile.bundle.js"
 ]
 
 fixtures = [
@@ -64,5 +65,3 @@ doc_events = {
         "on_cancel": "repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_cancel"
     }
 }
-
-

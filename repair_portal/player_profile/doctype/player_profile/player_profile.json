@@ -3,13 +3,14 @@
   "name": "Player Profile",
   "module": "Player Profile",
   "autoname": "naming_series:PL-.#####",
+  "is_child_table": 1,
   "fields": [
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1, "in_list_view": 1},
     {"fieldname": "player_name", "label": "Full Name", "fieldtype": "Data", "reqd": 1, "in_list_view": 1},
     {"fieldname": "pronouns", "label": "Pronouns", "fieldtype": "Select", "options": "\nHe/Him\nShe/Her\nThey/Them\nOther"},
     {"fieldname": "date_of_birth", "label": "Date of Birth", "fieldtype": "Date", "reqd": 1, "permlevel": 1},
     {"fieldname": "school_year", "label": "School Year", "fieldtype": "Select", "options": "\n6th\n7th\n8th\n9th\n10th\n11th\n12th\nCollege"},
     {"fieldname": "skill_level", "label": "Skill Level", "fieldtype": "Select", "options": "\nBeginner\nIntermediate\nAdvanced"},
-    {"fieldname": "client_profile", "label": "Client Profile", "fieldtype": "Link", "options": "Client Profile", "reqd": 1, "in_list_view": 1},
     {"fieldname": "instrument_profiles", "label": "Instruments", "fieldtype": "MultiSelect Link", "options": "Instrument Profile"},
     {"fieldname": "profile_status", "label": "Profile Status", "fieldtype": "Select", "options": "Draft\nActive\nArchived", "default": "Draft", "in_list_view": 1},
 

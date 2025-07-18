@@ -1,0 +1,25 @@
+{
+  "doctype": "Dashboard",
+  "name": "Customer Dashboard",
+  "module": "Client Profile",
+  "extends": "Customer",
+  "charts": [],
+  "transactions": [
+    {
+      "label": "Players & Instruments",
+      "items": ["Player Profile", "Instrument Profile"]
+    },
+    {
+      "label": "Repair History",
+      "items": ["Repair Log", "Clarinet Setup Log"]
+    },
+    {
+      "label": "Lab Results",
+      "items": ["Leak Test", "Intonation Session"]
+    },
+    {
+      "label": "QA Reports",
+      "items": ["Clarinet Inspection"]
+    }
+  ]
+}
