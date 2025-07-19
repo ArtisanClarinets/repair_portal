@@ -14,10 +14,10 @@ class TenonFitRecord(Document):
     def validate(self):
         """Ensure each entry has classification and at least one note or measurement."""
         if not self.fit_classification:
-            frappe.throw(_('Fit Classification is required (Loose, Ideal, or Tight).'))
+            frappe.throw(_("Fit Classification is required (Loose, Ideal, or Tight)."))
 
         if not self.joint:
-            frappe.throw(_('Joint selection is required.'))
+            frappe.throw(_("Joint selection is required."))
 
         if not self.notes and not self.measured_diameter:
-            frappe.throw(_('Please enter a note or measured diameter for Tenon Fit Record.'))
+            frappe.throw(_("Please enter a note or measured diameter for Tenon Fit Record."))

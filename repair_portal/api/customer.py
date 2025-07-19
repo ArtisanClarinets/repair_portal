@@ -14,26 +14,26 @@ def get_customer(client_id: str) -> dict:
         dict: Dictionary of public client profile fields.
     """
     try:
-        doc = frappe.get_doc('Customer', client_id)
+        doc = frappe.get_doc("Customer", client_id)
 
-        if not frappe.has_permission(doc=doc, ptype='read'):
-            raise PermissionError(_('You are not permitted to access this Customer.'))
+        if not frappe.has_permission(doc=doc, ptype="read"):
+            raise PermissionError(_("You are not permitted to access this Customer."))
 
         return {
-            'name': doc.name,
-            'customer_name': doc.customer_name,
-            'contact_email': doc.contact_email,
-            'contact_phone': doc.contact_phone,
-            'default_address': doc.default_address,
-            'billing_address': doc.billing_address,
-            'shipping_address': doc.shipping_address,
-            'created': doc.creation,
-            'modified': doc.modified,
+            "name": doc.name,
+            "customer_name": doc.customer_name,
+            "contact_email": doc.contact_email,
+            "contact_phone": doc.contact_phone,
+            "default_address": doc.default_address,
+            "billing_address": doc.billing_address,
+            "shipping_address": doc.shipping_address,
+            "created": doc.creation,
+            "modified": doc.modified,
         }
 
-    except PermissionError as e:
-        frappe.log_error(frappe.get_traceback(), 'PermissionError in get_customer')
+    except PermissionError:
+        frappe.log_error(frappe.get_traceback(), "PermissionError in get_customer")
         raise
     except Exception as e:
-        frappe.log_error(frappe.get_traceback(), 'Error in get_customer')
-        return {'error': str(e)}
+        frappe.log_error(frappe.get_traceback(), "Error in get_customer")
+        return {"error": str(e)}

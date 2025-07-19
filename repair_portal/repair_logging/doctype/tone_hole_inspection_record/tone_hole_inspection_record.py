@@ -14,10 +14,10 @@ class ToneHoleInspectionRecord(Document):
     def validate(self):
         """Ensure each tone hole record is fully documented."""
         if not self.tone_hole_number:
-            frappe.throw(_('Tone Hole Number is required.'))
+            frappe.throw(_("Tone Hole Number is required."))
 
         if not self.visual_status:
-            frappe.throw(_('Visual Status (Clean, Damaged, etc.) is required.'))
+            frappe.throw(_("Visual Status (Clean, Damaged, etc.) is required."))
 
         if not self.photo:
-            frappe.throw(_('Photo attachment is required for each tone hole inspection.'))
+            frappe.throw(_("Photo attachment is required for each tone hole inspection."))

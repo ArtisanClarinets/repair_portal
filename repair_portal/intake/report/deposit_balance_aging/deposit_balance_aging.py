@@ -17,12 +17,12 @@ def execute(filters=None):
     )
     columns = [
         {
-            'label': 'Customer',
-            'fieldname': 'customer',
-            'fieldtype': 'Link',
-            'options': 'Customer',
-            'width': 180,
+            "label": "Customer",
+            "fieldname": "customer",
+            "fieldtype": "Link",
+            "options": "Customer",
+            "width": 180,
         },
-        {'label': 'Balance', 'fieldname': 'balance', 'fieldtype': 'Currency', 'width': 120},
+        {"label": "Balance", "fieldname": "balance", "fieldtype": "Currency", "width": 120},
     ]
     return columns, data

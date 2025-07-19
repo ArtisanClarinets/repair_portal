@@ -20,33 +20,31 @@ def get_context(context):
     Returns:
         dict: Updated context with instrument data, service history, and related documents.
     """
-    serial_no = frappe.form_dict.get('serial_no')
+    serial_no = frappe.form_dict.get("serial_no")
     if not serial_no:
-        frappe.throw(_('Serial number is required.'))
+        frappe.throw(_("Serial number is required."))
 
     try:
-        instrument = frappe.get_doc('Instrument Profile', {'serial_no': serial_no})
+        instrument = frappe.get_doc("Instrument Profile", {"serial_no": serial_no})
     except frappe.DoesNotExistError:
-        frappe.throw(_('Instrument with serial number {0} not found.').format(serial_no))
+        frappe.throw(_("Instrument with serial number {0} not found.").format(serial_no))
     except Exception:
-        frappe.log_error(frappe.get_traceback(), 'Instrument Profile Fetch Error')
-        frappe.throw(_('An unexpected error occurred while fetching the instrument profile.'))
+        frappe.log_error(frappe.get_traceback(), "Instrument Profile Fetch Error")
+        frappe.throw(_("An unexpected error occurred while fetching the instrument profile."))
 
     # Determine customer ownership
     customer = None
     if instrument.player_profile:
         # Trace via Player Profile and Customer
-        player_profile = frappe.get_doc('Player Profile', instrument.player_profile)
+        player_profile = frappe.get_doc("Player Profile", instrument.player_profile)
 
         if not player_profile.customer:
-            frappe.throw(
-                _('Player Profile {0} is not linked to a Customer.').format(player_profile.name)
-            )
+            frappe.throw(_("Player Profile {0} is not linked to a Customer.").format(player_profile.name))
 
-        customer = frappe.get_doc('Customer', player_profile.customer)
+        customer = frappe.get_doc("Customer", player_profile.customer)
 
         if not customer.customer:
-            frappe.throw(_('Customer {0} is not linked to a Customer.').format(customer.name))
+            frappe.throw(_("Customer {0} is not linked to a Customer.").format(customer.name))
 
         customer = customer.customer
 
@@ -55,33 +53,33 @@ def get_context(context):
         customer = instrument.owner
 
     else:
-        frappe.throw(_('This instrument is not linked to any Player Profile or Owner.'))
+        frappe.throw(_("This instrument is not linked to any Player Profile or Owner."))
 
     # Validate that logged-in user has access
     user = frappe.session.user
 
-    if user == 'Guest':
-        frappe.throw(_('You must be logged in to view this instrument profile.'))
+    if user == "Guest":
+        frappe.throw(_("You must be logged in to view this instrument profile."))
 
     linked_contacts = frappe.get_all(
-        'Contact',
-        filters={'email_id': user},
-        fields=['name'],
+        "Contact",
+        filters={"email_id": user},
+        fields=["name"],
     )
 
     if not linked_contacts:
-        frappe.throw(_('Your user account is not linked to any Customer record. Access denied.'))
+        frappe.throw(_("Your user account is not linked to any Customer record. Access denied."))
 
     # Check whether the Contact is linked to the correct Customer
     has_access = False
     for contact in linked_contacts:
         contact_links = frappe.get_all(
-            'Dynamic Link',
+            "Dynamic Link",
             filters={
-                'link_doctype': 'Customer',
-                'link_name': customer,
-                'parenttype': 'Contact',
-                'parent': contact.name,
+                "link_doctype": "Customer",
+                "link_name": customer,
+                "parenttype": "Contact",
+                "parent": contact.name,
             },
         )
         if contact_links:
@@ -89,21 +87,21 @@ def get_context(context):
             break
 
     if not has_access:
-        frappe.throw(_('You do not have permission to view this instrument profile.'))
+        frappe.throw(_("You do not have permission to view this instrument profile."))
 
     # Fetch Service History
     service_history = frappe.get_all(
-        'Instrument Service Record',
-        filters={'instrument': instrument.name},
-        fields=['service_type', 'service_date', 'notes'],
-        order_by='service_date desc',
+        "Instrument Service Record",
+        filters={"instrument": instrument.name},
+        fields=["service_type", "service_date", "notes"],
+        order_by="service_date desc",
     )
 
     # Fetch Documents
     documents = frappe.get_all(
-        'File',
-        filters={'attached_to_doctype': 'Instrument Profile', 'attached_to_name': instrument.name},
-        fields=['file_url as url', 'file_name as title'],
+        "File",
+        filters={"attached_to_doctype": "Instrument Profile", "attached_to_name": instrument.name},
+        fields=["file_url as url", "file_name as title"],
     )
 
     context.instrument = instrument

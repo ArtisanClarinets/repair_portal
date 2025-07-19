@@ -9,5 +9,5 @@ from frappe import _
 
 def get_context(context):
     """Renders the microphone recorder page inside Desk."""
-    if not frappe.has_role('Technician'):
-        frappe.throw(_('Only Technicians can access this page.'), frappe.PermissionError)
+    if not frappe.has_role("Technician"):
+        frappe.throw(_("Only Technicians can access this page."), frappe.PermissionError)

@@ -7,7 +7,7 @@ import frappe
 
 
 def execute(filters=None):
-    technician = filters.get('technician') if filters else frappe.session.user
+    technician = filters.get("technician") if filters else frappe.session.user
 
     data = frappe.db.sql(
         """
@@ -23,8 +23,8 @@ def execute(filters=None):
     )
 
     columns = [
-        {'label': 'Status', 'fieldname': 'status', 'fieldtype': 'Data', 'width': 150},
-        {'label': 'Total', 'fieldname': 'total', 'fieldtype': 'Int', 'width': 100},
+        {"label": "Status", "fieldname": "status", "fieldtype": "Data", "width": 150},
+        {"label": "Total", "fieldname": "total", "fieldtype": "Int", "width": 100},
     ]
 
     return columns, data

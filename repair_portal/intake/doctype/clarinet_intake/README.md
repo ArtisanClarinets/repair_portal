@@ -13,7 +13,7 @@
   - UI and validation logic handled in `clarinet_intake_inventory.bundle.js`
   - Auto-creates:
     - **ERPNext Serial No** (if not provided)
-    - **Initial Intake Inspection**
+    - **Instrument Inspection**
     - **Clarinet Initial Setup**
   - All required fields are validated and users are prompted with friendly alerts if missing
   - Intake status badge shown on Desk form (Pending, In Progress, Complete)
@@ -48,7 +48,7 @@
     - All inventory fields (item_code, brand, model, etc.) are shown and required
     - On save:
       - Serial No is created/linked
-      - Initial Intake Inspection created
+      - Instrument Inspection created
       - Clarinet Initial Setup created
       - Desk form gives visual status indicators
       - All validation and required prompts are enforced

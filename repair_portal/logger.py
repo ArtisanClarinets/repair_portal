@@ -11,7 +11,6 @@
 from __future__ import annotations
 
 import functools
-from typing import Optional
 
 import frappe
 
@@ -19,8 +18,8 @@ import frappe
 # --------------------------------------------------------------------------- #
 #  Public API
 # --------------------------------------------------------------------------- #
-@functools.lru_cache(maxsize=None)
-def get_logger(suffix: Optional[str] = None) -> 'frappe.utils.logger.Logger':
+@functools.cache
+def get_logger(suffix: str | None = None) -> frappe.utils.logger.Logger:
     """Return a memoised, namespaced logger.
 
     Args:
@@ -31,5 +30,5 @@ def get_logger(suffix: Optional[str] = None) -> 'frappe.utils.logger.Logger':
     Returns:
         frappe.utils.logger.Logger: A standard Frappe logger instance.
     """
-    namespace = 'repair_portal' if not suffix else f'repair_portal.{suffix}'
+    namespace = "repair_portal" if not suffix else f"repair_portal.{suffix}"
     return frappe.logger(namespace)

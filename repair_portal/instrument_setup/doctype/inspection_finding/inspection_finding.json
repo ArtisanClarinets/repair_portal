@@ -39,26 +39,6 @@
       "fieldname": "photo",
       "fieldtype": "Attach Image",
       "label": "Photo"
-    },
-    {
-      "fieldname": "parent",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "parentfield",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "idx",
-      "fieldtype": "Int",
-      "hidden": 1
     }
   ],
   "permissions": [

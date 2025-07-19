@@ -4,7 +4,7 @@
 		{ "chart_name": "Repairs by Status", "doctype": "Clarinet Initial Setup" },
 		{
 			"chart_name": "Common Inspection Findings",
-			"doctype": "Clarinet Inspection"
+			"doctype": "Instrument Inspection"
 		}
 	],
 	"cards": [

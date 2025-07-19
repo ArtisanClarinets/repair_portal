@@ -7,6 +7,6 @@ import frappe
 
 
 def execute():
-    if frappe.db.exists('Module Def', 'Inspection'):
-        frappe.db.delete('Module Def', {'name': 'Inspection'})
+    if frappe.db.exists("Module Def", "Inspection"):
+        frappe.db.delete("Module Def", {"name": "Inspection"})
         frappe.db.commit()

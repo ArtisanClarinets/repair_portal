@@ -28,9 +28,9 @@ class InstrumentPhoto(Document):
         """
         try:
             if not self.image:
-                frappe.throw('Instrument Photo: Image is required.')
+                frappe.throw("Instrument Photo: Image is required.")
             if not self.label:
                 frappe.throw("Instrument Photo: Label is required (e.g., 'Bell', 'Serial Number').")
         except Exception:
-            frappe.log_error(frappe.get_traceback(), 'InstrumentPhoto: Validation Error')
+            frappe.log_error(frappe.get_traceback(), "InstrumentPhoto: Validation Error")
             raise

@@ -14,10 +14,10 @@ class WorkflowState(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        name: 'DF.Data'
-        style: 'DF.Data'
-        doc_status: 'DF.Int'
-        icon: 'DF.Data'  # Optional
-        module: 'DF.Link'
+        name: "DF.Data"
+        style: "DF.Data"
+        doc_status: "DF.Int"
+        icon: "DF.Data"  # Optional
+        module: "DF.Link"
     # end: auto-generated types
     pass

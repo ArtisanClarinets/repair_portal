@@ -35,30 +35,10 @@
       "fieldname": "notes",
       "label": "Notes",
       "fieldtype": "Small Text"
-    },
-    {
-      "fieldname": "parent",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "parentfield",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "idx",
-      "fieldtype": "Int",
-      "hidden": 1
     }
   ],
   "is_child_table": 1,
-  "parent": "Tenon Fit Assessment",
+  "parent": "Tenon Fit Record",
   "engine": "InnoDB",
   "permissions": [
     {

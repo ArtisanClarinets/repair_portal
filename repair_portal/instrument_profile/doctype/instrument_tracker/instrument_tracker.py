@@ -1,6 +1,6 @@
 # File: instrument_profile/doctype/instrument_tracker/instrument_tracker.py
-# Updated: 2025-07-14
-# Version: 1.1
+# Updated: 2025-07-19
+# Version: 1.2
 # Purpose: Backend controller for Instrument Tracker. Aggregates logs and data for a given instrument profile.
 
 import frappe
@@ -18,22 +18,22 @@ class InstrumentTracker(Document):
             return
 
         # PATCH: Ensure serial_no exists in ERPNext Serial No
-        if not frappe.db.exists('Serial No', serial):
+        if not frappe.db.exists("Serial No", serial):
             frappe.throw(f"Serial No '{serial}' does not exist in ERPNext!")
 
         # Aggregate Service Logs
         service_logs = frappe.get_all(
-            'Service Log',
-            filters={'serial_no': serial},
-            fields=['name', 'date', 'service_type', 'description', 'performed_by', 'notes'],
+            "Service Log",
+            filters={"serial_no": serial},
+            fields=["name", "date", "service_type", "description", "performed_by", "notes"],
         )
         # Aggregate Inspection Logs
         inspection_logs = frappe.get_all(
-            'Clarinet Inspection',
-            filters={'serial_no': serial},
-            fields=['name', 'inspection_date', 'inspected_by', 'overall_condition', 'notes'],
+            "Instrument Inspection",
+            filters={"serial_no": serial},
+            fields=["name", "inspection_date", "inspected_by", "overall_condition", "notes"],
         )
         # Additional related records can be fetched here
         # Add aggregated data to __onload for JS access
-        self.set_onload('service_logs', service_logs)
-        self.set_onload('inspection_logs', inspection_logs)
+        self.set_onload("service_logs", service_logs)
+        self.set_onload("inspection_logs", inspection_logs)

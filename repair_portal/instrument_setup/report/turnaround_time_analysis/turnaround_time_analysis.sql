@@ -5,7 +5,7 @@ SELECT
 FROM
   `tabClarinet Intake` ci
 JOIN
-  `tabClarinet Inspection` insp ON ci.name = insp.intake
+  `tabInstrument Inspection` insp ON ci.name = insp.clarinet_intake
 JOIN
   `tabClarinet Initial Setup` cis ON insp.name = cis.inspection
 WHERE

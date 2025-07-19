@@ -45,26 +45,6 @@
       "fieldname": "photo",
       "label": "Photo",
       "fieldtype": "Attach Image"
-    },
-    {
-      "fieldname": "parent",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "parentfield",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "idx",
-      "fieldtype": "Int",
-      "hidden": 1
     }
   ],
   "engine": "InnoDB",
@@ -79,5 +59,6 @@
       "cancel": 0,
       "amend": 0
     }
-  ]
+  ],
+  "is_child_table": 1
 }

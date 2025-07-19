@@ -11,7 +11,7 @@ bench --site erp.artisanclarinets.com execute repair_portal.scripts.fix_all_json
 import json
 import os
 
-APP_PATH = '/opt/frappe/erp-bench/apps/repair_portal/repair_portal'
+APP_PATH = "/opt/frappe/erp-bench/apps/repair_portal/repair_portal"
 
 
 def fix_all_json_names():
@@ -26,7 +26,7 @@ def fix_all_json_names():
 
     for dirpath, dirnames, filenames in os.walk(APP_PATH):
         for filename in filenames:
-            if filename.endswith('.json'):
+            if filename.endswith(".json"):
                 json_path = os.path.join(dirpath, filename)
                 relative_path = os.path.relpath(json_path, APP_PATH)
 
@@ -39,28 +39,26 @@ def fix_all_json_names():
                         skipped_count += 1
                         continue
 
-                    original_name = data.get('name')
+                    original_name = data.get("name")
                     if not original_name:
                         skipped_count += 1
                         continue
 
                     # Clean up the name
-                    cleaned_name = original_name.replace('-', ' ').replace('_', ' ').lower().split()
-                    formatted_name = ' '.join(word.capitalize() for word in cleaned_name)
+                    cleaned_name = original_name.replace("-", " ").replace("_", " ").lower().split()
+                    formatted_name = " ".join(word.capitalize() for word in cleaned_name)
 
                     if formatted_name != original_name:
-                        data['name'] = formatted_name
-                        with open(json_path, 'w') as f:
+                        data["name"] = formatted_name
+                        with open(json_path, "w") as f:
                             json.dump(data, f, indent=2)
-                        print(
-                            f"✅ Fixed 'name' in {relative_path}: '{original_name}' -> '{formatted_name}'"
-                        )
+                        print(f"✅ Fixed 'name' in {relative_path}: '{original_name}' -> '{formatted_name}'")
                         fixed_count += 1
                     else:
                         skipped_count += 1
 
                 except Exception as e:
-                    print(f'❌ Error processing {relative_path}: {e}')
+                    print(f"❌ Error processing {relative_path}: {e}")
                     error_count += 1
 
-    print(f'✅ Complete: {fixed_count} fixed, {skipped_count} unchanged, {error_count} errors.')
+    print(f"✅ Complete: {fixed_count} fixed, {skipped_count} unchanged, {error_count} errors.")

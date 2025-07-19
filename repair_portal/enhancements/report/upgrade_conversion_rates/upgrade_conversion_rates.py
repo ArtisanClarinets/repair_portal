@@ -18,14 +18,14 @@ def execute(filters=None):
 
     columns = [
         {
-            'fieldname': 'customer',
-            'label': 'Customer',
-            'fieldtype': 'Link',
-            'options': 'Customer',
-            'width': 200,
+            "fieldname": "customer",
+            "label": "Customer",
+            "fieldtype": "Link",
+            "options": "Customer",
+            "width": 200,
         },
-        {'fieldname': 'status', 'label': 'Status', 'fieldtype': 'Data', 'width': 100},
-        {'fieldname': 'count', 'label': 'Requests', 'fieldtype': 'Int', 'width': 120},
+        {"fieldname": "status", "label": "Status", "fieldtype": "Data", "width": 100},
+        {"fieldname": "count", "label": "Requests", "fieldtype": "Int", "width": 120},
     ]
 
     return columns, data

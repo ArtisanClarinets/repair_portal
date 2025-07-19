@@ -27,7 +27,7 @@
     {"fieldname": "acclimatization_swabbing", "label": "Swabbing Protocol Explained", "fieldtype": "Check", "default": "0", "depends_on": "eval:doc.inspection_type === 'New Inventory'"},
     {"fieldname": "overall_condition", "label": "Overall Condition", "fieldtype": "Select", "options": "Excellent\nGood\nFair\nPoor", "depends_on": "eval:doc.inspection_type !== 'New Inventory'"},
     {"fieldname": "visual_inspection", "label": "Visual Inspection Findings", "fieldtype": "Table", "options": "Inspection Finding"},
-    {"fieldname": "tenon_fit_assessment", "label": "Tenon Fit Assessment", "fieldtype": "Table", "options": "Tenon Fit Assessment"},
+    {"fieldname": "tenon_fit_assessment", "label": "Tenon Fit Assessment", "fieldtype": "Table", "options": "Tenon Fit Record"},
     {"fieldname": "bore_condition", "label": "Bore Visual Condition", "fieldtype": "Select", "options": "Clean\nDebris Present\nIrregularities Visible", "depends_on": "eval:doc.inspection_type === 'New Inventory'"},
     {"fieldname": "bore_notes", "label": "Bore Inspection Notes", "fieldtype": "Small Text", "depends_on": "eval:doc.inspection_type === 'New Inventory'"},
     {"fieldname": "tone_hole_inspection", "label": "Tone Hole Visual Inspection", "fieldtype": "Table", "options": "Tone Hole Inspection Record"},

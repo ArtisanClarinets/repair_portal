@@ -3,9 +3,9 @@
 # Version: v1.4.1
 # Public API for repair-portal Vue frontend
 
+
 import frappe
 from frappe.utils import now
-from typing import Dict
 
 # ----------------------------------------------------------------------
 # Helpers
@@ -14,10 +14,8 @@ from typing import Dict
 
 def _assert_own_or_permitted(doc, perm_type: str):
     """Raise if current user has no right to doc for given perm_type."""
-    if doc.owner != frappe.session.user and not frappe.has_permission(
-        doc.doctype, perm_type, doc=doc
-    ):
-        frappe.throw('You are not authorized to perform this action.')
+    if doc.owner != frappe.session.user and not frappe.has_permission(doc.doctype, perm_type, doc=doc):
+        frappe.throw("You are not authorized to perform this action.")
 
 
 # ----------------------------------------------------------------------
@@ -26,7 +24,7 @@ def _assert_own_or_permitted(doc, perm_type: str):
 
 
 @frappe.whitelist()
-def get_customer(customer_id: str) -> Dict:
+def get_customer(customer_id: str) -> dict:
     """
     Fetch a Customer profile plus dashboard counters.
 
@@ -35,45 +33,45 @@ def get_customer(customer_id: str) -> Dict:
     """
     try:
         if not customer_id:
-            frappe.throw('Missing customer_id')
+            frappe.throw("Missing customer_id")
 
         # override permission check so we can run our own gate
-        doc = frappe.get_doc('Customer', cust.name, ignore_permissions=True)  # type: ignore[arg-type]
-        _assert_own_or_permitted(doc, 'read')
+        doc = frappe.get_doc("Customer", cust.name, ignore_permissions=True)  # type: ignore[arg-type]
+        _assert_own_or_permitted(doc, "read")
 
         # all simple fields are already on `doc`, avoid extra queries
         result = {
-            'name': doc.name,
-            'full_name': doc.full_name,
-            'email': doc.email_id,
-            'phone': doc.phone,
-            'address': doc.address,
+            "name": doc.name,
+            "full_name": doc.full_name,
+            "email": doc.email_id,
+            "phone": doc.phone,
+            "address": doc.address,
             # dashboard numbers
-            'total_players': frappe.db.count('Player Profile', {'customer': doc.name}),
-            'total_instruments': frappe.db.count('Instrument Profile', {'customer': doc.name}),
-            'total_services': frappe.db.count('Service', {'customer': doc.name}),
+            "total_players": frappe.db.count("Player Profile", {"customer": doc.name}),
+            "total_instruments": frappe.db.count("Instrument Profile", {"customer": doc.name}),
+            "total_services": frappe.db.count("Service", {"customer": doc.name}),
         }
 
         # Repair counters in one trip for efficiency
         repairs_by_status = frappe.db.get_all(
-            'Repair',
-            filters={'customer': doc.name},
-            fields=['status', 'count(name) as total'],
-            group_by='status',
+            "Repair",
+            filters={"customer": doc.name},
+            fields=["status", "count(name) as total"],
+            group_by="status",
             as_list=False,
         )
         for row in repairs_by_status:
-            result[f'total_repairs_{row.status.lower()}'] = row.total
+            result[f"total_repairs_{row.status.lower()}"] = row.total
 
         # optionally add aggregate total
-        result['total_repairs'] = sum(r.total for r in repairs_by_status)
+        result["total_repairs"] = sum(r.total for r in repairs_by_status)
 
         return result
 
     except Exception as e:
         msg = f"Error fetching customer profile '{customer_id}': {e}"
         frappe.log_error(frappe.get_traceback(), msg)
-        return {'error': msg}
+        return {"error": msg}
 
 
 # ----------------------------------------------------------------------
@@ -82,7 +80,7 @@ def get_customer(customer_id: str) -> Dict:
 
 
 @frappe.whitelist()
-def update_customer(customer: Dict | str) -> str:
+def update_customer(customer: dict | str) -> str:
     """
     Update a Customer profile.
 
@@ -94,29 +92,29 @@ def update_customer(customer: Dict | str) -> str:
         if isinstance(customer, str):
             customer = frappe.parse_json(customer) or {}
 
-        if not (customer and customer.get('name')):
-            frappe.throw('Missing customer data or name field')
+        if not (customer and customer.get("name")):
+            frappe.throw("Missing customer data or name field")
 
         cust = frappe._dict(customer)
 
-        doc = frappe.get_doc('Customer', cust.name, ignore_permissions=True)
-        _assert_own_or_permitted(doc, 'write')
+        doc = frappe.get_doc("Customer", cust.name, ignore_permissions=True)
+        _assert_own_or_permitted(doc, "write")
 
         # Only set whitelisted fields
         doc.update(
             {
-                'full_name': cust.get('full_name'),
-                'email_id': cust.get('email'),
-                'phone': cust.get('phone'),
-                'address': cust.get('address'),
-                'modified_by_portal': now(),  # optional audit stamp
+                "full_name": cust.get("full_name"),
+                "email_id": cust.get("email"),
+                "phone": cust.get("phone"),
+                "address": cust.get("address"),
+                "modified_by_portal": now(),  # optional audit stamp
             }
         )
         doc.save()  # respects permissions because we already validated
 
-        return 'success'
+        return "success"
 
     except Exception as e:
         msg = f"Error updating customer '{cust.get('name', '?')}': {e}"
         frappe.log_error(frappe.get_traceback(), msg)
-        return 'error'
+        return "error"

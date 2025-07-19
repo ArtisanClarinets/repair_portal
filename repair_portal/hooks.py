@@ -4,43 +4,43 @@
 # purpose: App configuration hooks and fixtures declaration (Updated for Intake JS split)
 # notes: Added doctype_js for Clarinet Intake mode-specific scripts
 
-app_name = 'repair_portal'
-app_title = 'Repair Portal'
-app_publisher = 'DT'
-app_description = 'Portals for the Repair Portal App'
-app_email = 'DT@DT.com'
-app_license = 'mit'
-app_version = '1.2.2'
+app_name = "repair_portal"
+app_title = "Repair Portal"
+app_publisher = "DT"
+app_description = "Portals for the Repair Portal App"
+app_email = "DT@DT.com"
+app_license = "mit"
+app_version = "1.2.2"
 
 app_include_css = [
-    '/public/css/clarinetfest.css',
-    '/public/css/product_catalog.css',
+    "/public/css/clarinetfest.css",
+    "/public/css/product_catalog.css",
 ]
 
 app_include_js = [
-    '/public/js/client_portal/client_portal.bundle.js',
-    '/public/js/technician_dashboard/technician_dashboard.bundle.js',
-    '/public/js/technician_dashboard/index.dum.js',
-    '/public/js/recording_analyzer.bundle.js',
-    '/public/js/intonation_recorder.bundle.js',
-    '/public/js/client_portal/customer/customer.bundle.js',
+    "/public/js/client_portal/client_portal.bundle.js",
+    "/public/js/technician_dashboard/technician_dashboard.bundle.js",
+    "/public/js/technician_dashboard/index.dum.js",
+    "/public/js/recording_analyzer.bundle.js",
+    "/public/js/intonation_recorder.bundle.js",
+    "/public/js/client_portal/customer/customer.bundle.js",
 ]
 
 after_install = [
-    'repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes',
+    "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
 ]
-after_migrate = ['repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes']
+after_migrate = ["repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"]
 
 doc_events = {
-    'Repair Order': {
-        'on_submit': 'repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_submit',
-        'on_cancel': 'repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_cancel',
+    "Repair Order": {
+        "on_submit": "repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_submit",
+        "on_cancel": "repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_cancel",
     }
 }
 
 doctype_js = {
-    'Clarinet Intake': [
-        '/intake/doctype/clarinet_intake/clarinet_intake.bundle.js',
-        '/public/js/intake/clarinet_intake_repair.bundle.js',
+    "Clarinet Intake": [
+        "/intake/doctype/clarinet_intake/clarinet_intake.bundle.js",
+        "/public/js/intake/clarinet_intake_repair.bundle.js",
     ]
 }

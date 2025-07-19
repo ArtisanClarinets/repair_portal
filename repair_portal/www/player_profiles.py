@@ -10,18 +10,18 @@ import frappe
 
 def get_context(context):
     """Return context for /player_profiles."""
-    context.title = 'Player Profiles'
-    context.header = 'Public Clarinet Player Directory'
+    context.title = "Player Profiles"
+    context.header = "Public Clarinet Player Directory"
     context.player_profiles = frappe.get_all(
-        'Player Profile',
-        filters={'published': 1},
+        "Player Profile",
+        filters={"published": 1},
         fields=[
-            'name',
-            'player_name',
-            'style_preferences',
-            'tonal_goals',
+            "name",
+            "player_name",
+            "style_preferences",
+            "tonal_goals",
         ],
     )
     if not context.player_profiles:
-        context.empty_message = 'No player profiles found.'
+        context.empty_message = "No player profiles found."
     return context

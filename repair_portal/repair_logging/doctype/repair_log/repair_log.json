@@ -1,0 +1,32 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Log",
+  "module": "Repair Logging",
+  "naming_series": "RLOG-.YYYY.-.#####",
+  "workflow_state_field": "status",
+  "track_changes": 1,
+  "track_views": 1,
+  "editable_grid": 0,
+  "custom": 0,
+  "fields": [
+    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "date", "label": "Date", "fieldtype": "Date", "default": "Today", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "summary", "label": "Summary", "fieldtype": "Small Text", "reqd": 1},
+    {"fieldname": "technician", "label": "Technician", "fieldtype": "Link", "options": "User", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "in_list_view": 1},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Open\nIn Progress\nComplete\nCancelled", "default": "Open", "in_list_view": 1},
+    {"fieldname": "clarinet_intake", "label": "Clarinet Intake", "fieldtype": "Link", "options": "Clarinet Intake"},
+    {"fieldname": "attachments", "label": "Attachments", "fieldtype": "Attach"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1},
+    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
+    {"role": "Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "Customer", "read": 1, "if_owner": 1}
+  ],
+  "links": [
+    {"link_doctype": "Instrument", "link_fieldname": "instrument"},
+    {"link_doctype": "Clarinet Intake", "link_fieldname": "clarinet_intake"},
+    {"link_doctype": "Customer", "link_fieldname": "customer"}
+  ]
+}

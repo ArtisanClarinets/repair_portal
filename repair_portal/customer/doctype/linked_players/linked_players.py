@@ -22,7 +22,6 @@ from __future__ import annotations
 import frappe
 from frappe.model.document import Document
 from frappe.utils import getdate, nowdate
-from typing import List, Set
 
 
 class LinkedPlayers(Document):
@@ -54,9 +53,9 @@ class LinkedPlayers(Document):
             raise
         except Exception as exc:  # pragma: no cover
             # Log unexpected errors for ops while shielding end users
-            frappe.log_error(frappe.get_traceback(), f'[LinkedPlayers.validate] {repr(exc)}')
+            frappe.log_error(frappe.get_traceback(), f"[LinkedPlayers.validate] {repr(exc)}")
             raise frappe.ValidationError(
-                'Unexpected error while validating Linked Player. Please contact support.'
+                "Unexpected error while validating Linked Player. Please contact support."
             )
 
     # ------------------------------------------------------------------
@@ -65,44 +64,34 @@ class LinkedPlayers(Document):
 
     def _validate_links_exist(self) -> None:
         """Confirm both linked doctypes exist and are active."""
-        missing: List[str] = []
+        missing: list[str] = []
         # Person
-        if not frappe.db.exists('Person', self.person):
-            missing.append(f'Person: {self.person}')
+        if not frappe.db.exists("Person", self.person):
+            missing.append(f"Person: {self.person}")
         # Player Profile
-        if not frappe.db.exists('Player Profile', self.player_profile):
-            missing.append(f'Player Profile: {self.player_profile}')
+        if not frappe.db.exists("Player Profile", self.player_profile):
+            missing.append(f"Player Profile: {self.player_profile}")
 
         if missing:
-            raise frappe.ValidationError(
-                f"Linked document(s) not found or inactive: {', '.join(missing)}"
-            )
+            raise frappe.ValidationError(f"Linked document(s) not found or inactive: {', '.join(missing)}")
 
     def _validate_unique_per_parent(self) -> None:
         """Prevent duplicate Player Profile links in the same parent document."""
         if not self.parentfield:
             return  # Safety-net for orphaned rows
         duplicates = [
-            d
-            for d in self.get_siblings()
-            if d.player_profile == self.player_profile and d.name != self.name
+            d for d in self.get_siblings() if d.player_profile == self.player_profile and d.name != self.name
         ]
         if duplicates:
-            raise frappe.ValidationError(
-                'This Player Profile is already linked to the current Customer.'
-            )
+            raise frappe.ValidationError("This Player Profile is already linked to the current Customer.")
 
     def _enforce_single_primary(self) -> None:
         """Ensure only one row per parent is flagged as primary."""
         if not self.is_primary:
             return
-        primaries: List[Document] = [
-            d for d in self.get_siblings() if d.is_primary and d.name != self.name
-        ]
+        primaries: list[Document] = [d for d in self.get_siblings() if d.is_primary and d.name != self.name]
         if primaries:
-            raise frappe.ValidationError(
-                'Only one Player Profile may be marked as Primary per Customer.'
-            )
+            raise frappe.ValidationError("Only one Player Profile may be marked as Primary per Customer.")
 
     def _normalize_dates(self) -> None:
         """Guarantee ``date_linked`` is set and sane."""
@@ -118,12 +107,12 @@ class LinkedPlayers(Document):
 
     def as_dict_safe(self) -> dict:  # pragma: no cover
         """Return a sanitized dict (excludes private meta fields)."""
-        public_fields: Set[str] = {
-            'person',
-            'player_profile',
-            'relationship',
-            'date_linked',
-            'is_primary',
-            'notes',
+        public_fields: set[str] = {
+            "person",
+            "player_profile",
+            "relationship",
+            "date_linked",
+            "is_primary",
+            "notes",
         }
         return {k: v for k, v in self.as_dict().items() if k in public_fields}

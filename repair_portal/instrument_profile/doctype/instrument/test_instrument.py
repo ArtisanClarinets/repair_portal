@@ -12,8 +12,8 @@ class TestInstrument(FrappeTestCase):
         self.assertEqual(1, 1)
 
     frappe.log_error(
-        title='Test Instrument Error',
-        message='This is a test error message for the Instrument test case.',
-        reference_doctype='Instrument',
-        reference_name='Test Instrument',
+        title="Test Instrument Error",
+        message="This is a test error message for the Instrument test case.",
+        reference_doctype="Instrument",
+        reference_name="Test Instrument",
     )

@@ -14,6 +14,6 @@ class ConsentLogEntry(Document):
     def validate(self):
         """Ensure that date and method are filled before saving."""
         if not self.entry_date:
-            frappe.throw('Entry Date is required.')
+            frappe.throw("Entry Date is required.")
         if not self.method:
-            frappe.throw('Consent Method is required.')
+            frappe.throw("Consent Method is required.")

@@ -12,15 +12,15 @@ class TestServiceLog(unittest.TestCase):
     def test_service_log_creation(self):
         doc = frappe.get_doc(
             {
-                'doctype': 'Service Log',
-                'instrument_profile': 'TEST-INSTRUMENT',
-                'service_type': 'Repair',
-                'description': 'Complete key overhaul.',
-                'performed_by': 'Administrator',
-                'date': '2025-06-14',
+                "doctype": "Service Log",
+                "instrument_profile": "TEST-INSTRUMENT",
+                "service_type": "Repair",
+                "description": "Complete key overhaul.",
+                "performed_by": "Administrator",
+                "date": "2025-06-14",
             }
         )
         doc.insert(ignore_permissions=True)
-        assert doc.service_type == 'Repair'
-        assert doc.description == 'Complete key overhaul.'
+        assert doc.service_type == "Repair"
+        assert doc.description == "Complete key overhaul."
         assert doc.name is not None

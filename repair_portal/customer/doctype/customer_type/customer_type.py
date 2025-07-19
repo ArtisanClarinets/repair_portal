@@ -30,4 +30,4 @@ class CustomerType(Document):
                 self.name,
             )
         except Exception:
-            frappe.log_error(frappe.get_traceback(), 'CustomerType: deduplication failed')
+            frappe.log_error(frappe.get_traceback(), "CustomerType: deduplication failed")

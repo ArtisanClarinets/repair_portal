@@ -20,8 +20,8 @@ class InstrumentConditionRecord(Document):
         if not self.date_of_record:
             self.date_of_record = frappe.utils.today()
 
-        if self.condition == 'Needs Repair' and not self.notes:
-            frappe.throw('Please provide notes for an instrument that needs repair.')
+        if self.condition == "Needs Repair" and not self.notes:
+            frappe.throw("Please provide notes for an instrument that needs repair.")
 
     def before_save(self):
         """
@@ -34,13 +34,13 @@ class InstrumentConditionRecord(Document):
         """
         Actions to perform when the document is submitted (docstatus=1).
         """
-        frappe.msgprint('Instrument Condition Record submitted successfully.')
+        frappe.msgprint("Instrument Condition Record submitted successfully.")
 
     def on_cancel(self):
         """
         Actions to perform when the document is cancelled (docstatus=2).
         """
-        frappe.msgprint('Instrument Condition Record has been cancelled.')
+        frappe.msgprint("Instrument Condition Record has been cancelled.")
 
     def after_transition(self, transition):
         """
@@ -48,11 +48,11 @@ class InstrumentConditionRecord(Document):
         Handles notifications and updates to related documents based on the new state.
         """
         # Notify the inspection team when the record is assigned for inspection.
-        if transition.next_state == 'Pending Inspection':
+        if transition.next_state == "Pending Inspection":
             self.notify_inspection_team()
 
         # Update the linked instrument's status when the repair is complete.
-        if transition.next_state == 'Repair Complete':
+        if transition.next_state == "Repair Complete":
             self.update_instrument_status()
 
     @frappe.whitelist()
@@ -62,25 +62,25 @@ class InstrumentConditionRecord(Document):
         This can be called from client-side scripts to fetch data dynamically.
         """
         if not self.instrument:
-            frappe.throw('Instrument not selected.')
+            frappe.throw("Instrument not selected.")
 
         try:
-            instrument = frappe.get_doc('Instrument', self.instrument)
+            instrument = frappe.get_doc("Instrument", self.instrument)
             return {
-                'serial_no': instrument.serial_no,
-                'model': instrument.model,
-                'status': instrument.status,
+                "serial_no": instrument.serial_no,
+                "model": instrument.model,
+                "status": instrument.status,
                 # Add any other relevant fields you want to return
             }
         except frappe.DoesNotExistError:
-            frappe.throw(f'Instrument {self.instrument} not found.')
+            frappe.throw(f"Instrument {self.instrument} not found.")
 
     def notify_inspection_team(self):
         """
         Sends an email notification to the inspection team.
         """
-        recipients = ['inspection_team@yourcompany.com']  # Replace with a real email or Role
-        subject = f'Instrument Inspection Required: {self.instrument}'
+        recipients = ["inspection_team@yourcompany.com"]  # Replace with a real email or Role
+        subject = f"Instrument Inspection Required: {self.instrument}"
         message = f"""
         Hello Team,
 
@@ -91,21 +91,21 @@ class InstrumentConditionRecord(Document):
         """
 
         frappe.sendmail(recipients=recipients, subject=subject, message=message)
-        frappe.msgprint('Notification sent to the inspection team.')
+        frappe.msgprint("Notification sent to the inspection team.")
 
     def update_instrument_status(self):
         """
         Updates the status of the linked instrument document.
         """
         try:
-            instrument = frappe.get_doc('Instrument', self.instrument)
-            instrument.status = 'Available'  # Assumes 'Instrument' DocType has a 'status' field
+            instrument = frappe.get_doc("Instrument", self.instrument)
+            instrument.status = "Available"  # Assumes 'Instrument' DocType has a 'status' field
             instrument.save()
             frappe.msgprint(
                 f"Status of Instrument <strong>{self.instrument}</strong> updated to 'Available'."
             )
         except frappe.DoesNotExistError:
             frappe.msgprint(
-                f'Could not find Instrument {self.instrument} to update its status.',
-                indicator='orange',
+                f"Could not find Instrument {self.instrument} to update its status.",
+                indicator="orange",
             )

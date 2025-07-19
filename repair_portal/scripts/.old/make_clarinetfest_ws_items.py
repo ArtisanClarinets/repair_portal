@@ -11,28 +11,28 @@ import frappe
 
 def run():
     item_codes = frappe.get_all(
-        'Item',
-        filters={'disabled': 0, 'show_in_clarinetfest_2025': 1},
-        pluck='name',
+        "Item",
+        filters={"disabled": 0, "show_in_clarinetfest_2025": 1},
+        pluck="name",
     )
 
     created = 0
     for code in item_codes:
-        if frappe.db.exists('Website Item', {'item_code': code}):
+        if frappe.db.exists("Website Item", {"item_code": code}):
             continue
 
         doc = frappe.get_doc(
             {
-                'doctype': 'Website Item',
-                'item_code': code,
-                'published': 1,
-                'web_item_name': frappe.db.get_value('Item', code, 'item_name'),
-                'website_image': frappe.db.get_value('Item', code, 'image'),
-                'website_description': frappe.db.get_value('Item', code, 'description'),
+                "doctype": "Website Item",
+                "item_code": code,
+                "published": 1,
+                "web_item_name": frappe.db.get_value("Item", code, "item_name"),
+                "website_image": frappe.db.get_value("Item", code, "image"),
+                "website_description": frappe.db.get_value("Item", code, "description"),
             }
         )
         doc.insert(ignore_permissions=True)
         created += 1
 
     frappe.db.commit()
-    print(f'✓ Created {created} Website Item(s)')
+    print(f"✓ Created {created} Website Item(s)")

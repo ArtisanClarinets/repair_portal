@@ -6,12 +6,14 @@
 
 
 from __future__ import annotations
-import logging
-import frappe
-from frappe.model.document import Document
-from frappe import _
 
-LOG = frappe.logger('repair_portal.default_operations', allow_site=True)
+import logging
+
+import frappe
+from frappe import _
+from frappe.model.document import Document
+
+LOG = frappe.logger("repair_portal.default_operations", allow_site=True)
 LOG.setLevel(logging.INFO)
 
 
@@ -28,30 +30,30 @@ class DefaultOperations(Document):
     """
 
     # Define all required attributes with default values
-    operation_type: str = ''
-    item_code: str = ''
-    warehouse: str = ''
-    status: str = ''
+    operation_type: str = ""
+    item_code: str = ""
+    warehouse: str = ""
+    status: str = ""
 
     def before_save(self) -> None:
         """
         Runs before saving any Default Operations. Validates operation type and applies business rules.
         """
-        if self.operation_type not in ['Inventory', 'Maintenance', 'Repair']:
-            frappe.throw(_('Operation type must be Inventory, Maintenance, or Repair.'))
+        if self.operation_type not in ["Inventory", "Maintenance", "Repair"]:
+            frappe.throw(_("Operation type must be Inventory, Maintenance, or Repair."))
 
-        if self.status == 'Blocked':
-            _err(f'Edit blocked on operation {self.name}', 'Blocked Operation Edit')
-            frappe.throw(_('Editing is not allowed while operation is Blocked.'))
+        if self.status == "Blocked":
+            _err(f"Edit blocked on operation {self.name}", "Blocked Operation Edit")
+            frappe.throw(_("Editing is not allowed while operation is Blocked."))
 
-        if self.operation_type == 'Inventory':
+        if self.operation_type == "Inventory":
             self._handle_inventory_before_save()
-        elif self.operation_type == 'Maintenance':
+        elif self.operation_type == "Maintenance":
             self._handle_maintenance_before_save()
-        elif self.operation_type == 'Repair':
+        elif self.operation_type == "Repair":
             self._handle_repair_before_save()
         else:
-            frappe.throw(_('Invalid operation type specified.'))
+            frappe.throw(_("Invalid operation type specified."))
 
     def _handle_inventory_before_save(self) -> None:
         """
@@ -78,9 +80,9 @@ class DefaultOperations(Document):
         """
         Block cancel if operation is blocked.
         """
-        if self.status == 'Blocked':
-            _err(f'Cancel blocked on operation {self.name}', 'Blocked Operation Cancel')
-            frappe.throw(_('Canceling a blocked operation is prohibited.'))
+        if self.status == "Blocked":
+            _err(f"Cancel blocked on operation {self.name}", "Blocked Operation Cancel")
+            frappe.throw(_("Canceling a blocked operation is prohibited."))
 
     def on_trash(self) -> None:
         """
@@ -142,9 +144,7 @@ class DefaultOperations(Document):
         """
         Returns a list of operations associated with this document.
         """
-        operations = frappe.get_all(
-            'Default Operations', filters={'parent': self.name}, fields=['*']
-        )
+        operations = frappe.get_all("Default Operations", filters={"parent": self.name}, fields=["*"])
         return operations
 
     def get_operations_for_item(self, item_code: str) -> list:
@@ -152,8 +152,8 @@ class DefaultOperations(Document):
         Returns a list of operations associated with this document for a specific item.
         """
         operations = frappe.get_all(
-            'Default Operations',
-            filters={'parent': self.name, 'item_code': item_code},
-            fields=['*'],
+            "Default Operations",
+            filters={"parent": self.name, "item_code": item_code},
+            fields=["*"],
         )
         return operations

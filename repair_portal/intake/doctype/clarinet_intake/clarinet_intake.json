@@ -9,6 +9,7 @@
   "track_seen": 1,
   "track_views": 1,
   "engine": "InnoDB",
+  "workflow_state_field": "intake_status",
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1},
     {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "submit": 1},
@@ -26,7 +27,7 @@
      "in_list_view":1,"options":"Inventory\nMaintenance\nRepair","reqd":1},
     {"fieldname":"intake_status","label":"Intake Status","fieldtype":"Select",
      "in_list_view":1,"options":"Pending\nIn Progress\nAwaiting Customer Approval\nComplete","default":"Pending"},
-    {"fieldname":"customer","label":"Customer","fieldtype":"Link","options":"Customer", "reqd":1,
+    {"fieldname":"customer","label":"Customer","fieldtype":"Link","options":"Customer",
      "depends_on":"eval:doc.intake_type != 'Inventory'"},
     {"fieldname": "instrument","label": "Instrument","fieldtype": "Link", "options": "Instrument",
      "depends_on":"eval:doc.intake_type == 'Inventory'"},
@@ -49,7 +50,6 @@
   ],
   "links": [
     {"link_doctype":"Instrument","link_fieldname":"serial_no"},
-    {"link_doctype":"Customer","link_fieldname":"customer"},
-    {"link_doctype":"Clarinet Setup","link_fieldname":"clarinet_setup"}
+    {"link_doctype":"Customer","link_fieldname":"customer"}
   ]
 }

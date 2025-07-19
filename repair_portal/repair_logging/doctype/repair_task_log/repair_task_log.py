@@ -14,8 +14,8 @@ Minimal controller, but Fortune-500 ready:
 - Ready for future extension (validation, workflow, automation)
 """
 
-from frappe.model.document import Document
 import frappe
+from frappe.model.document import Document
 
 
 class RepairTaskLog(Document):
@@ -25,11 +25,11 @@ class RepairTaskLog(Document):
     """
 
     def validate(self):
-        if not getattr(self, 'logged_by', None):
+        if not getattr(self, "logged_by", None):
             self.logged_by = frappe.session.user
         elif self.logged_by != frappe.session.user:
             # Audit: log unauthorized modification attempt
             frappe.log_error(
-                f'User {frappe.session.user} tried to set logged_by to {self.logged_by}',
-                'RepairTaskLog: Unauthorized logged_by attempt',
+                f"User {frappe.session.user} tried to set logged_by to {self.logged_by}",
+                "RepairTaskLog: Unauthorized logged_by attempt",
             )

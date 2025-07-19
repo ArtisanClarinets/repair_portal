@@ -5,8 +5,6 @@
 # Purpose: Child table to record diagnostic measurements.
 # Dependencies: frappe
 
-import frappe
-from frappe import _
 from frappe.model.document import Document
 
 

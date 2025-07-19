@@ -6,27 +6,6 @@
   "custom": 0,
   "fields": [
     {
-      "fieldname": "idx",
-      "fieldtype": "Int",
-      "label": "Index"
-    },
-    {
-      "fieldname": "parent",
-      "fieldtype": "Link",
-      "label": "Parent",
-      "options": "Repair Log"
-    },
-    {
-      "fieldname": "parenttype",
-      "fieldtype": "Data",
-      "label": "Parent Type"
-    },
-    {
-      "fieldname": "parentfield",
-      "fieldtype": "Data",
-      "label": "Parent Field"
-    },
-    {
       "fieldname": "timestamp",
       "fieldtype": "Datetime",
       "label": "Timestamp",

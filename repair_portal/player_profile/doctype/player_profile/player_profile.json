@@ -16,7 +16,7 @@
 
     {"fieldname": "instruments_owned", "label": "Owned Instruments", "fieldtype": "Table", "options": "Instrument Profile", "read_only": 1},
     {"fieldname": "setup_logs", "label": "Setup Logs", "fieldtype": "Table", "options": "Clarinet Setup Log", "read_only": 1},
-    {"fieldname": "qa_findings", "label": "QA Findings", "fieldtype": "Table", "options": "Clarinet Inspection", "read_only": 1},
+    {"fieldname": "qa_findings", "label": "QA Findings", "fieldtype": "Table", "options": "Instrument Inspection", "read_only": 1},
     {"fieldname": "repair_logs", "label": "Repair Logs", "fieldtype": "Table", "options": "Repair Log", "read_only": 1},
     {"fieldname": "tone_sessions", "label": "Tone Sessions", "fieldtype": "Table", "options": "Intonation Session", "read_only": 1},
     {"fieldname": "leak_tests", "label": "Leak Tests", "fieldtype": "Table", "options": "Leak Test", "read_only": 1},

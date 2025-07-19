@@ -108,17 +108,10 @@
       "in_list_view": 1
     },
     {
-      "fieldname": "repair_logs",
-      "label": "Repair Logs",
-      "fieldtype": "Table",
-      "options": "Repair Log",
-      "read_only": 1
-    },
-    {
       "fieldname": "inspection_results",
       "label": "Inspection Results",
       "fieldtype": "Table",
-      "options": "Initial Intake Inspection",
+      "options": "Instrument Inspection",
       "read_only": 1
     },
     {
@@ -132,7 +125,7 @@
       "fieldname": "qa_findings",
       "label": "QA Findings",
       "fieldtype": "Table",
-      "options": "Clarinet Inspection",
+      "options": "Instrument Inspection",
       "read_only": 1
     },
     {
