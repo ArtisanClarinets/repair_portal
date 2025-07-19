@@ -12,3 +12,31 @@
 
 ---
 
+## 2025-07-19
+- Major: Inventory intake now enforces **Item Code** and **Item Name** (required fields) in schema, backend, and frontend for new ERPNext Item creation.
+- All Serial No and Instrument creation now link to the user-provided Item Code when available (fallback mapping used only for legacy/test cases).
+- Instrument creation logic links the Instrument to the Item for full ERP traceability.
+- All frontend toggling and validation now include item fields, blocking incomplete submissions at Desk.
+- Code, comments, and validation updated to Fortune-500, Frappe v15, and security standards.
+
+**Files updated:**
+- intake/doctype/clarinet_intake/clarinet_intake.json
+- intake/doctype/clarinet_intake/clarinet_intake.py
+- intake/doctype/clarinet_intake/clarinet_intake_serial.py
+- intake/doctype/clarinet_intake/clarinet_intake.js
+
+---
+
+## 2025-07-19
+- All Clarinet Intake submissions now **automatically create a linked Instrument Inspection** (if one doesn't already exist for this intake+instrument).
+    - Inspection is linked to Intake, Instrument, and Serial No.
+    - Inspection type is set to **Initial Inspection** for Inventory, or **Arrival Inspection** for Repair/Maintenance.
+    - Status set to **Open**.
+- No duplicate inspections created per intake.
+- Fully tested and exception-logged. No business logic lost in upgrade.
+
+**Files updated:**
+- intake/doctype/clarinet_intake/clarinet_intake.py
+
+---
+

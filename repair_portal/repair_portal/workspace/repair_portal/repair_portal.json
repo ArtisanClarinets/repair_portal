@@ -1,0 +1,236 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"4n-Uqvyx0e\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Portal</span>\",\"col\":12}},{\"id\":\"951yJKRqEq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Intake\",\"col\":3}},{\"id\":\"_wN7BllJSU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument\",\"col\":3}},{\"id\":\"FRxNw0capw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument Inspection\",\"col\":3}},{\"id\":\"AjkDPiUXIy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Setup\",\"col\":3}},{\"id\":\"5N582qoWHe\",\"type\":\"card\",\"data\":{\"card_name\":\"Intake\",\"col\":3}},{\"id\":\"A0Z_ef_9I5\",\"type\":\"card\",\"data\":{\"card_name\":\"Profiles\",\"col\":3}},{\"id\":\"YSDmhiborC\",\"type\":\"card\",\"data\":{\"card_name\":\"Instrument Setup\",\"col\":3}},{\"id\":\"ILzvWNzFyH\",\"type\":\"card\",\"data\":{\"card_name\":\"Repair Logging\",\"col\":3}},{\"id\":\"98bo94lznz\",\"type\":\"paragraph\",\"data\":{\"text\":\"<br>\",\"col\":12}}]",
+ "creation": "2025-07-19 15:02:00.645522",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "non-profit",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Repair Portal",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Intake",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake",
+   "link_count": 0,
+   "link_to": "Clarinet Intake",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Consent Form",
+   "link_count": 0,
+   "link_to": "Customer Consent Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Instrument",
+   "link_count": 0,
+   "link_to": "Loaner Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Return Check",
+   "link_count": 0,
+   "link_to": "Loaner Return Check",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Profiles",
+   "link_count": 5,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer",
+   "link_count": 0,
+   "link_to": "Customer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Player Profile",
+   "link_count": 0,
+   "link_to": "Player Profile",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument",
+   "link_count": 0,
+   "link_to": "Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Profile",
+   "link_count": 0,
+   "link_to": "Instrument Profile",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Client Instrument Profile",
+   "link_count": 0,
+   "link_to": "Client Instrument Profile",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Setup",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Initial Setup",
+   "link_count": 0,
+   "link_to": "Clarinet Initial Setup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Setup Log",
+   "link_count": 0,
+   "link_to": "Clarinet Setup Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setup Template",
+   "link_count": 0,
+   "link_to": "Setup Template",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Logging",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Log",
+   "link_count": 0,
+   "link_to": "Repair Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-07-19 15:16:22.708005",
+ "modified_by": "Administrator",
+ "module": "Repair Portal",
+ "name": "Repair Portal",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Repair Technician"
+  },
+  {
+   "role": "Repair Manager"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Clarinet Intake",
+   "link_to": "Clarinet Intake",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Instrument Inspection",
+   "link_to": "Instrument Inspection",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Instrument",
+   "link_to": "Instrument",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Clarinet Setup",
+   "link_to": "Clarinet Initial Setup",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Repair Portal"
+}

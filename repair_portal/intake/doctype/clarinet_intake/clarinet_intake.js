@@ -1,76 +1,59 @@
 // File: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.js
-// Last Updated: 2025-07-19
-// Version: v2.1
-// Purpose: Unified UI logic for Clarinet Intake—Inventory, Repair, Maintenance. Fortune-500 grade UX.
+// Version: v3.2
 
 frappe.ui.form.on('Clarinet Intake', {
     onload(frm) {
-        // Default intake_status to 'Pending' if blank
-        if (!frm.doc.intake_status) {
-            frm.set_value('intake_status', 'Pending');
-        }
+        if (!frm.doc.intake_status) frm.set_value('intake_status', 'Pending');
     },
-    refresh(frm) {
-        // Status indicator
-        if (frm.doc.intake_status) {
-            let color = frm.doc.intake_status === "Pending" ? "orange"
-                        : frm.doc.intake_status === "In Progress" ? "blue"
-                        : frm.doc.intake_status === "Complete" ? "green" : "gray";
-            frm.dashboard.clear_indicators && frm.dashboard.clear_indicators();
-            frm.dashboard.add_indicator(frm.doc.intake_status, color);
-        }
-        frm.trigger('toggle_fields_by_type');
-    },
+
     intake_type(frm) {
         frm.trigger('toggle_fields_by_type');
-        // Clear instrument-related fields when switching types
-        if (frm.doc.intake_type === 'Inventory') {
-            frm.set_value('customer', '');
-            frm.set_value('date_purchased', '');
-            frm.set_value('customer_concerns', '');
-        } else {
-            frm.set_value('instrument', '');
-        }
     },
-    instrument(frm) {
-        if (frm.doc.intake_type === 'Inventory' && frm.doc.instrument) {
-            frappe.call({
-                method: 'frappe.client.get',
-                args: {
-                    doctype: 'Instrument',
-                    name: frm.doc.instrument
-                },
-                callback: function(r) {
-                    if (r.message) {
-                        frm.set_value('instrument_type', r.message.instrument_type || '');
-                        frm.set_value('brand', r.message.brand || '');
-                        frm.set_value('model', r.message.model || '');
-                        frm.set_value('serial_no', r.message.serial_no || '');
-                    }
-                }
-            });
-        }
+
+    serial_no(frm) {
+        if (!frm.doc.serial_no) return;
+        frappe.call({
+            method: 'repair_portal.intake.doctype.clarinet_intake.clarinet_intake.get_instrument_by_serial',
+            args: { serial_no: frm.doc.serial_no },
+            freeze: true,
+            callback: r => {
+                if (!r.message) return;
+                const inst = r.message;
+                frm.set_value('instrument_unique_id', inst.name);
+                ['manufacturer', 'model', 'clarinet_type', 'year_of_manufacture',
+                    'body_material', 'keywork_plating', 'pitch_standard']
+                    .forEach(f => {
+                        if (!frm.doc[f] && inst[f]) frm.set_value(f, inst[f]);
+                    });
+            }
+        });
     },
+
     toggle_fields_by_type(frm) {
-        const is_inventory = frm.doc.intake_type === 'Inventory';
-        // For Inventory: Show instrument selection field, hide customer fields
-        frm.set_df_property('instrument', 'hidden', !is_inventory);
-        frm.set_df_property('instrument', 'reqd', is_inventory);
-        // Hide customer-specific fields for Inventory
-        frm.set_df_property('customer', 'hidden', is_inventory);
-        frm.set_df_property('customer', 'reqd', !is_inventory);
-        frm.set_df_property('date_purchased', 'hidden', is_inventory);
-        frm.set_df_property('customer_concerns', 'hidden', is_inventory);
-        frm.refresh_fields();
+        // Set required fields based on Intake Type, including item_code/item_name for Inventory
+        const t = frm.doc.intake_type || 'New Inventory';
+        const inv = t === 'New Inventory';
+        const reqd = (fields, flag) => fields.forEach(f => frm.toggle_reqd(f, flag));
+
+        reqd(['customer', 'customers_stated_issue', 'service_type_requested'], !inv);
+        reqd(['body_material', 'acquisition_source', 'acquisition_cost', 'store_asking_price', 'item_code', 'item_name'], inv);
+        frm.toggle_reqd('consent_liability_waiver', !inv);
     },
+
     validate(frm) {
-        let missing = [];
-        if (!frm.doc.serial_no) missing.push("Serial Number");
+        // Client-side validation including item_code and item_name for New Inventory
+        const map = {
+            'New Inventory': ['body_material', 'acquisition_source', 'acquisition_cost', 'store_asking_price', 'item_code', 'item_name'],
+            'Repair': ['customers_stated_issue', 'service_type_requested', 'customer'],
+            'Maintenance': ['customers_stated_issue', 'service_type_requested', 'customer']
+        };
+        const missing = (map[frm.doc.intake_type] || []).filter(f => !frm.doc[f])
+            .map(f => frm.get_field(f).label);
         if (missing.length) {
             frappe.msgprint({
-                title: "Missing Required Information",
-                message: "Please fill the following fields:<br>" + missing.join("<br>"),
-                indicator: "red"
+                title: 'Missing Required Information',
+                message: `Please fill:<br>${missing.join('<br>')}`,
+                indicator: 'red'
             });
             frappe.validated = false;
         }

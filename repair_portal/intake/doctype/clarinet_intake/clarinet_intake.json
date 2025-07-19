@@ -2,54 +2,334 @@
   "doctype": "DocType",
   "name": "Clarinet Intake",
   "module": "Intake",
+  "autoname": "field:intake_record_id",
+  "naming_series": "",
   "istable": 0,
   "editable_grid": 0,
-  "naming_series": "CLIN-.YYYY.-",
   "track_changes": 1,
   "track_seen": 1,
   "track_views": 1,
-  "engine": "InnoDB",
   "workflow_state_field": "intake_status",
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1},
-    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "submit": 1},
-    {"role": "Technician", "read": 1, "write": 1, "create": 1}
-  ],
-  "field_order": [
-    "intake_type", "instrument", "instrument_type", "brand", "model",
-    "serial_no", "customer", "date_purchased", "intake_status",
-    "environment_log", "visual_inspection", "tenon_fit_log",
-    "diagnostic_metrics", "customer_concerns",
-    "technician_remarks", "notes", "attachments"
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1
+    },
+    {
+      "role": "Repair Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
   ],
   "fields": [
-    {"fieldname":"intake_type","label":"Intake Type","fieldtype":"Select",
-     "in_list_view":1,"options":"Inventory\nMaintenance\nRepair","reqd":1},
-    {"fieldname":"intake_status","label":"Intake Status","fieldtype":"Select",
-     "in_list_view":1,"options":"Pending\nIn Progress\nAwaiting Customer Approval\nComplete","default":"Pending"},
-    {"fieldname":"customer","label":"Customer","fieldtype":"Link","options":"Customer",
-     "depends_on":"eval:doc.intake_type != 'Inventory'"},
-    {"fieldname": "instrument","label": "Instrument","fieldtype": "Link", "options": "Instrument",
-     "depends_on":"eval:doc.intake_type == 'Inventory'"},
-    {"fieldname":"instrument_type","label":"Instrument Type","fieldtype":"Select",
-     "options":"B♭ Clarinet\nA Clarinet\nE♭ Clarinet\nBass Clarinet\nOther",
-     "read_only_depends_on":"eval:doc.intake_type == 'Inventory' && doc.instrument"},
-    {"fieldname":"brand","label":"Brand","fieldtype":"Link","options":"Brand","in_list_view":1,
-     "read_only_depends_on":"eval:doc.intake_type == 'Inventory' && doc.instrument"},
-    {"fieldname":"model","label":"Model","fieldtype":"Data",
-     "read_only_depends_on":"eval:doc.intake_type == 'Inventory' && doc.instrument"},
-    {"fieldname":"serial_no","label":"Serial Number","fieldtype":"Data","in_list_view":1,"unique":1,
-     "read_only_depends_on":"eval:doc.intake_type == 'Inventory' && doc.instrument"},
-    {"fieldname":"date_purchased","label":"Date Purchased","fieldtype":"Date",
-     "depends_on":"eval:doc.intake_type != 'Inventory'"},
-    {"fieldname":"customer_concerns","label":"Customer Concerns","fieldtype":"Small Text",
-     "depends_on":"eval:doc.intake_type != 'Inventory'"},
-    {"fieldname":"technician_remarks","label":"Technician Remarks","fieldtype":"Small Text"},
-    {"fieldname":"notes","label":"General Notes","fieldtype":"Small Text"},
-    {"fieldname":"attachments","label":"Attachments","fieldtype":"Attach"}
-  ],
-  "links": [
-    {"link_doctype":"Instrument","link_fieldname":"serial_no"},
-    {"link_doctype":"Customer","link_fieldname":"customer"}
+    {
+      "fieldname": "intake_record_id",
+      "label": "Intake Record ID",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "intake_date",
+      "label": "Intake Date & Time",
+      "fieldtype": "Datetime",
+      "default": "now",
+      "read_only": 1
+    },
+    {
+      "fieldname": "intake_type",
+      "label": "Intake Type",
+      "fieldtype": "Select",
+      "options": "New Inventory\nRepair\nMaintenance",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "employee",
+      "label": "Employee / Technician",
+      "fieldtype": "Link",
+      "options": "Employee",
+      "reqd": 1,
+      "default": "frappe.session.user"
+    },
+    {
+      "fieldname": "instrument_unique_id",
+      "label": "Instrument Unique ID",
+      "fieldtype": "Link",
+      "options": "Instrument",
+      "reqd": 1
+    },
+    {
+      "fieldname": "manufacturer",
+      "label": "Manufacturer",
+      "fieldtype": "Link",
+      "options": "Brand",
+      "reqd": 1
+    },
+    {
+      "fieldname": "model",
+      "label": "Model",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "serial_no",
+      "label": "Serial Number",
+      "fieldtype": "Data",
+      "unique": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "item_code",
+      "label": "Item Code",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1,
+      "depends_on": "eval:doc.intake_type == 'New Inventory'",
+      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+    },
+    {
+      "fieldname": "item_name",
+      "label": "Item Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "depends_on": "eval:doc.intake_type == 'New Inventory'",
+      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+    },
+    {
+      "fieldname": "clarinet_type",
+      "label": "Type of Clarinet",
+      "fieldtype": "Select",
+      "options": "B♭ Soprano\nA Soprano\nE♭ Soprano\nB♭ Bass",
+      "reqd": 1
+    },
+    {
+      "fieldname": "year_of_manufacture",
+      "label": "Year of Manufacture",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "body_material",
+      "label": "Body Material",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+    },
+    {
+      "fieldname": "keywork_plating",
+      "label": "Keywork Plating",
+      "fieldtype": "Data",
+      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+    },
+    {
+      "fieldname": "pitch_standard",
+      "label": "Pitch Standard",
+      "fieldtype": "Data",
+      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+    },
+    {
+      "fieldname": "bore_type",
+      "label": "Bore Type / Size",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "tone_hole_style",
+      "label": "Tone Hole Style",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "thumb_rest_type",
+      "label": "Thumb Rest Type",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer ID",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'",
+      "reqd": 1,
+      "mandatory_depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "customer_full_name",
+      "label": "Customer Full Name",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "customer_phone",
+      "label": "Customer Phone",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "customer_email",
+      "label": "Customer Email",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "customer_type",
+      "label": "Customer Type",
+      "fieldtype": "Select",
+      "options": "Professional\nStudent\nUniversity\nCollector",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "customers_stated_issue",
+      "label": "Customer's Stated Issue",
+      "fieldtype": "Small Text",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "initial_assessment_notes",
+      "label": "Initial Assessment Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "wood_body_condition",
+      "label": "Wood/Body Condition",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "keywork_condition",
+      "label": "Keywork Condition",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "pad_condition",
+      "label": "Pad Condition",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "spring_condition",
+      "label": "Spring Condition",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "cork_condition",
+      "label": "Cork Condition",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "initial_intake_photos",
+      "label": "Initial Intake Photos",
+      "fieldtype": "Attach"
+    },
+    {
+      "fieldname": "work_order_number",
+      "label": "Work Order Number",
+      "fieldtype": "Link",
+      "options": "Work Order",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "service_type_requested",
+      "label": "Service Type Requested",
+      "fieldtype": "Select",
+      "options": "COA\nOverhaul\nCrack Repair\nPlay Condition",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "estimated_cost",
+      "label": "Estimated Cost",
+      "fieldtype": "Currency"
+    },
+    {
+      "fieldname": "deposit_paid",
+      "label": "Deposit Paid",
+      "fieldtype": "Currency"
+    },
+    {
+      "fieldname": "customer_approval",
+      "label": "Customer Approval",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "promised_completion_date",
+      "label": "Promised Completion Date",
+      "fieldtype": "Date",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "acquisition_source",
+      "label": "Acquisition Source",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.intake_type == 'New Inventory'"
+    },
+    {
+      "fieldname": "acquisition_cost",
+      "label": "Acquisition Cost",
+      "fieldtype": "Currency",
+      "depends_on": "eval:doc.intake_type == 'New Inventory'"
+    },
+    {
+      "fieldname": "store_asking_price",
+      "label": "Store Asking Price",
+      "fieldtype": "Currency",
+      "depends_on": "eval:doc.intake_type == 'New Inventory'"
+    },
+    {
+      "fieldname": "case_included",
+      "label": "Case Included",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "case_cover_included",
+      "label": "Case Cover Included",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "barrels_included",
+      "label": "Barrel(s) Included",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "bell_included",
+      "label": "Bell Included",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "mouthpiece_included",
+      "label": "Mouthpiece Included",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "ligature_cap_included",
+      "label": "Ligature/Cap Included",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "other_accessories",
+      "label": "Other Accessories",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "consent_liability_waiver",
+      "label": "Consent / Liability Waiver",
+      "fieldtype": "Attach",
+      "mandatory_depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "fieldname": "intake_status",
+      "label": "Intake Status",
+      "fieldtype": "Select",
+      "options": "Pending\nIn Progress\nAwaiting Customer Approval\nComplete",
+      "default": "Pending",
+      "in_list_view": 1
+    }
   ]
 }
