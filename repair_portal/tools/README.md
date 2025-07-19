@@ -1,7 +1,7 @@
 # Tools Module
 
 ## 🎯 Purpose
-Track specialized and general tools, manage calibration schedules, and monitor lifecycle status of all instruments used in clarinet repair operations.
+Track specialized and general tools, manage calibration schedules, monitor lifecycle status, and ensure full financial/audit traceability via ERPNext Asset integration.
 
 ## 📂 Structure
 ```
@@ -24,6 +24,8 @@ tools/
 
 ## ✅ Doctypes
 - Tool
+  - Now links to ERPNext Asset for financial tracking (`asset` field)
+  - Calibration notifications automated (see Automation)
 - Tool Calibration Log
 
 ## 📊 Reports
@@ -35,9 +37,20 @@ tools/
 ## 🔁 Workflows
 - Tool Lifecycle ✅
   - States: Available → Out for Calibration → Retired
+  - State managed by workflow automation and read-only field
 
 ## 🔒 Permissions
 - `Technician` (Read), `Service Manager`, `System Manager`
 
+## 🤖 Automation
+- **Calibration Due Notifications:**
+  - Nightly, all tools requiring calibration within 7 days trigger a notification to owner (and can be extended to managers)
+  - Robust error logging for audit
+- **ERPNext Asset Integration:**
+  - New field (`asset`) for linking or creating Asset in ERPNext for depreciation, insurance, or accounting needs
+
 ## 🚦 Status
 Production-ready ✅
+
+## 🗂️ Change Log
+- 2025-07-17: Calibration due notification and ERPNext Asset link field added. Audit logging and README updated.

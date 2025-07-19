@@ -1,0 +1,22 @@
+{
+  "doctype": "Workflow Action Master",
+  "name": "Customer Setup Actions",
+  "module": "Customer",
+  "is_standard": 1,
+  "sync_on_migrate": 1,
+  "doc_type": "Customer",
+  "is_active": 1,
+  "workflow_state_field": "profile_status",
+  "actions": [
+    { "workflow_action_name": "Verify Info" },
+    { "workflow_action_name": "Activate Client" },
+    { "workflow_action_name": "Deploy" },
+    { "workflow_action_name": "Deactivate" },
+    { "workflow_action_name": "Re-activate" },
+    { "workflow_action_name": "Delete" },
+    { "workflow_action_name": "Restore" },
+    { "workflow_action_name": "Reject" },
+    { "workflow_action_name": "Approve" },
+    { "workflow_action_name": "Archive" }
+  ]
+}

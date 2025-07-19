@@ -13,6 +13,26 @@
       "fieldname": "is_default",
       "fieldtype": "Check",
       "label": "Is Default"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     }
   ],
   "permissions": [
@@ -25,9 +45,9 @@
     },
     {
       "role": "Technician",
-      "read": 1,
-      "write": 1
+      "read": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "engine": "InnoDB"
 }

@@ -37,5 +37,21 @@ frappe.ui.form.on('Player Profile', {
         });
       }, __('Actions'));
     }
+
+    // Add Restore button if Archived
+    if (frm.doc.profile_status === 'Archived') {
+      frm.add_custom_button(__('Restore'), () => {
+        frappe.call({
+          method: 'frappe.model.workflow.apply_workflow',
+          args: {
+            doc: frm.doc,
+            action: 'Restore'
+          },
+          callback: () => {
+            frm.reload_doc();
+          }
+        });
+      }, __('Actions'));
+    }
   }
 });

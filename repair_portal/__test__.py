@@ -1,1 +1,1 @@
-from repair_portal.client_profile.doctype.client_profile import test_client_profile
+from repair_portal.customer.doctype.customer import test_customer

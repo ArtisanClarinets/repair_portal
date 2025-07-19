@@ -1,17 +1,31 @@
 # Repair Logging Module
 
-## Updated: 2025-06-14
+## Updated: 2025-07-17
 
 ### Change Log:
-- Added Service Log Doctype for tracking all service, repair, and maintenance activities for an Instrument Profile.
-- Includes validation logic and test coverage.
-- Service Log fields: Instrument Profile, Serial Number, Service Type, Description, Performed By, Date, Notes.
+- Brought `repair_task_log` doctype to Fortune 500 audit standards (track_changes, track_views, required fields, permission tightening).
+- Updated controller for documentation, future extensibility, and audit trail.
+- All code, fields, and permissions reviewed for compliance and security.
 
-## Updated: 2025-06-26
+---
 
-### Change Log:
-- Applied formatting with Black and Ruff and ensured all files end with a newline.
-- Supports aggregation into Instrument Tracker dashboards.
+## Module Overview
+This module logs all service, repair, and maintenance actions across the repair portal.
+- Doctypes: Repair Task Log, Service Log, Material Use Log, Part Used, Interaction Logs, Barcode, Tone Hole/Tool Usage/Inspection, etc.
+- Each child table is tightly permissioned and versioned for forensic and regulatory audit.
+- Data flows to dashboards, compliance reports, and analytics.
+- Changes tracked for all records (track_changes/track_views enabled where relevant).
 
-### 2025-06-30
-- Consolidated Clarinet Repair Log, Instrument Tracker, and Service Log here from the `instrument_profile` module.
+## Permissions
+- System Manager: Full access to all records.
+- Technician: Read/create/write for logs (no delete).
+
+## Compliance
+- Every doctype reviewed for:
+  - Unique fieldnames, tight permissions, no PII
+  - Audit (track_changes)
+  - Documentation in code and README
+  - Ready for ERPNext v15 upgrades
+
+---
+_Last updated: 2025-07-17_

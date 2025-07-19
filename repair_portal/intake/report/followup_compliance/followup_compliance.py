@@ -23,7 +23,7 @@ from frappe import _
 
 from repair_portal.logger import get_logger
 
-LOGGER = get_logger("report.followup_compliance")
+LOGGER = get_logger('report.followup_compliance')
 
 
 # --------------------------------------------------------------------------- #
@@ -48,24 +48,24 @@ def execute(filters: Dict | None = None) -> Tuple[List[Dict], List[Dict]]:
     conditions: List[str] = []
     params: Dict = {}
 
-    status = filters.get("status")
+    status = filters.get('status')
     if status:
-        conditions.append("f.status = %(status)s")
-        params["status"] = status
+        conditions.append('f.status = %(status)s')
+        params['status'] = status
 
-    from_date = filters.get("from_date")
+    from_date = filters.get('from_date')
     if from_date:
-        conditions.append("f.followup_date >= %(from_date)s")
-        params["from_date"] = from_date
+        conditions.append('f.followup_date >= %(from_date)s')
+        params['from_date'] = from_date
 
-    to_date = filters.get("to_date")
+    to_date = filters.get('to_date')
     if to_date:
-        conditions.append("f.followup_date <= %(to_date)s")
-        params["to_date"] = to_date
+        conditions.append('f.followup_date <= %(to_date)s')
+        params['to_date'] = to_date
 
-    condition_sql = " AND ".join(conditions)
+    condition_sql = ' AND '.join(conditions)
     if condition_sql:
-        condition_sql = "WHERE " + condition_sql
+        condition_sql = 'WHERE ' + condition_sql
 
     query = f"""
         SELECT
@@ -80,7 +80,7 @@ def execute(filters: Dict | None = None) -> Tuple[List[Dict], List[Dict]]:
         ORDER BY f.followup_date DESC
     """
 
-    LOGGER.debug("Running Follow-up Compliance query: %s", query)
+    LOGGER.debug('Running Follow-up Compliance query: %s', query)
     data = frappe.db.sql(query, params, as_dict=True)
 
     columns = _get_columns()
@@ -94,28 +94,28 @@ def _get_columns() -> List[Dict]:
     """Define report columns (labels translated)."""
     return [
         {
-            "label": _("Customer"),
-            "fieldname": "customer",
-            "fieldtype": "Link",
-            "options": "Customer",
-            "width": 200,
+            'label': _('Customer'),
+            'fieldname': 'customer',
+            'fieldtype': 'Link',
+            'options': 'Customer',
+            'width': 200,
         },
         {
-            "label": _("Status"),
-            "fieldname": "status",
-            "fieldtype": "Data",
-            "width": 120,
+            'label': _('Status'),
+            'fieldname': 'status',
+            'fieldtype': 'Data',
+            'width': 120,
         },
         {
-            "label": _("Follow-up Date"),
-            "fieldname": "followup_date",
-            "fieldtype": "Date",
-            "width": 120,
+            'label': _('Follow-up Date'),
+            'fieldname': 'followup_date',
+            'fieldtype': 'Date',
+            'width': 120,
         },
         {
-            "label": _("Intake State"),
-            "fieldname": "intake_state",
-            "fieldtype": "Data",
-            "width": 120,
+            'label': _('Intake State'),
+            'fieldname': 'intake_state',
+            'fieldtype': 'Data',
+            'width': 120,
         },
     ]

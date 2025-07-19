@@ -2,18 +2,101 @@
   "doctype": "DocType",
   "name": "Repair Parts Used",
   "module": "Repair Logging",
-  "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
+  "custom": 1,
+  "istable": 1,
   "fields": [
-    {"fieldname": "repair_log_id", "label": "Repair Log", "fieldtype": "Link", "options": "Clarinet Repair Log", "reqd": 1},
-    {"fieldname": "item_code", "label": "Item Code", "fieldtype": "Link", "options": "Item", "reqd": 1},
-    {"fieldname": "qty_used", "label": "Quantity Used", "fieldtype": "Float", "reqd": 1},
-    {"fieldname": "serial_no", "label": "Serial No", "fieldtype": "Link", "options": "Serial No"},
-    {"fieldname": "location", "label": "Location", "fieldtype": "Data"},
-    {"fieldname": "used_on", "label": "Used On", "fieldtype": "Date", "default": "Today"}
+    {
+      "fieldname": "item_code",
+      "fieldtype": "Link",
+      "label": "Item Code",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "item_name",
+      "fieldtype": "Data",
+      "label": "Item Name",
+      "fetch_from": "item_code.item_name"
+    },
+    {
+      "fieldname": "qty",
+      "fieldtype": "Float",
+      "label": "Qty",
+      "reqd": 1
+    },
+    {
+      "fieldname": "uom",
+      "fieldtype": "Link",
+      "label": "UOM",
+      "options": "UOM",
+      "fetch_from": "item_code.stock_uom"
+    },
+    {
+      "fieldname": "rate",
+      "fieldtype": "Currency",
+      "label": "Rate"
+    },
+    {
+      "fieldname": "amount",
+      "fieldtype": "Currency",
+      "label": "Amount",
+      "read_only": 1
+    },
+    {
+      "fieldname": "warehouse",
+      "fieldtype": "Link",
+      "label": "Warehouse",
+      "options": "Warehouse"
+    },
+    {
+      "fieldname": "serial_no",
+      "fieldtype": "Link",
+      "label": "Serial No",
+      "options": "Serial No"
+    },
+    {
+      "fieldname": "used_on",
+      "fieldtype": "Date",
+      "label": "Used On",
+      "default": "Today"
+    },
+    {
+      "fieldname": "location",
+      "fieldtype": "Data",
+      "label": "Location"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1
+    }
+  ],
+  "engine": "InnoDB"
 }

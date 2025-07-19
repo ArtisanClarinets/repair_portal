@@ -5,12 +5,57 @@
   "istable": 1,
   "custom": 0,
   "fields": [
-    {"fieldname": "serial_no", "label": "Serial Number", "fieldtype": "Link", "options": "Serial No", "reqd": 1},
-    {"fieldname": "manufacturer", "label": "Manufacturer", "fieldtype": "Data"},
-    {"fieldname": "notes", "label": "Notes", "fieldtype": "Text"},
-    {"fieldname": "image", "label": "Image", "fieldtype": "Attach"}
+    {
+      "fieldname": "serial_no",
+      "label": "Serial Number",
+      "fieldtype": "Link",
+      "options": "Serial No",
+      "reqd": 1
+    },
+    {
+      "fieldname": "manufacturer",
+      "label": "Manufacturer",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Text"
+    },
+    {
+      "fieldname": "image",
+      "label": "Image",
+      "fieldtype": "Attach"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
   ],
   "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
-  ]
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "engine": "InnoDB"
 }

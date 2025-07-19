@@ -32,6 +32,26 @@
       "label": "Amount",
       "fieldtype": "Currency",
       "depends_on": "eval: doc.hours && doc.rate"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     }
   ],
   "permissions": [
@@ -41,7 +61,19 @@
       "write": 1,
       "create": 1,
       "delete": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "create": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "engine": "InnoDB"
 }

@@ -12,5 +12,5 @@
   {% if frappe.session.user != 'Guest' and frappe.has_permission('Player Profile', 'read') %}
     <div class="alert alert-warning"><strong>Technician Notes (Internal Only):</strong> {{ profile.technician_notes or '' }}</div>
   {% endif %}
-  <p><a href="/my-client-profile">Back to My Client Profile</a></p>
+  <p><a href="/my-client-profile">Back to My Customer</a></p>
 </section>

@@ -17,7 +17,7 @@ def execute(filters=None):
         as_dict=True,
     )
     columns = [
-        {"label": "Date", "fieldname": "date", "fieldtype": "Date", "width": 120},
-        {"label": "Intake Count", "fieldname": "count", "fieldtype": "Int", "width": 100},
+        {'label': 'Date', 'fieldname': 'date', 'fieldtype': 'Date', 'width': 120},
+        {'label': 'Intake Count', 'fieldname': 'count', 'fieldtype': 'Int', 'width': 100},
     ]
     return columns, data

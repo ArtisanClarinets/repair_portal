@@ -6,6 +6,39 @@
   "custom": 0,
   "fields": [
     {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "label": "Index"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Link",
+      "label": "Parent",
+      "options": "Repair Log"
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "label": "Parent Type"
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "label": "Parent Field"
+    },
+    {
+      "fieldname": "timestamp",
+      "fieldtype": "Datetime",
+      "label": "Timestamp",
+      "default": "now"
+    },
+    {
+      "fieldname": "user",
+      "fieldtype": "Link",
+      "label": "User",
+      "options": "User"
+    },
+    {
       "fieldname": "image",
       "fieldtype": "Attach Image",
       "label": "Image"
@@ -23,7 +56,14 @@
       "write": 1,
       "create": 1,
       "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "engine": "InnoDB"
 }

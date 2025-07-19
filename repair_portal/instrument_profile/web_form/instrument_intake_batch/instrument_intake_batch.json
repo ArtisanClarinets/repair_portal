@@ -54,7 +54,7 @@
             "label": "Instrument Type",
             "max_length": 0,
             "max_value": 0,
-            "options": "Bb Clarinet\nA Clarinet\nBass Clarinet",
+            "options": "B♭ Clarinet\nA Clarinet\nBass Clarinet\nE♭ Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther",
             "read_only": 0,
             "reqd": 1,
             "show_in_filter": 0

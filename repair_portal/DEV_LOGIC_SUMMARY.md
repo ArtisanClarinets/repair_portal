@@ -7,9 +7,9 @@ This summary documents core automation, entity relationships, and recent changes
 
 ## Core Relationships
 
-- **Client Profile**: Links to Customer, may have multiple Player Profiles.
-- **Player Profile**: Linked to Client Profile; represents musician or user.
-- **Instrument Profile**: Unique instrument record; links to Serial No, Client Profile, and Player Profile. Stores most recent Intake & Setup.
+- **Customer**: Links to Customer, may have multiple Player Profiles.
+- **Player Profile**: Linked to Customer; represents musician or user.
+- **Instrument Profile**: Unique instrument record; links to Serial No, Customer, and Player Profile. Stores most recent Intake & Setup.
 - **Clarinet Intake**: Intake event for each instrument arrival. Links to Instrument Profile and, for inventory, triggers Clarinet Initial Setup.
 - **Clarinet Initial Setup**: Setup and QA for new instruments. Linked to Intake and Instrument Profile. Tracked status.
 - **Repair Order**: Only created for "Repair" type intakes (not inventory).
@@ -35,7 +35,7 @@ This summary documents core automation, entity relationships, and recent changes
 ## Quick Visual (Entity Relationships)
 
 ```
-Client Profile
+Customer
    └─ Player Profile(s)
         └─ Instrument Profile(s)
              └─ Clarinet Intake(s)

@@ -7,16 +7,19 @@
 import frappe
 import unittest
 
+
 class TestRepairOrder(unittest.TestCase):
     def test_create_minimal_repair_order(self):
-        doc = frappe.get_doc({
-            "doctype": "Repair Order",
-            "customer": "Test Customer",
-            "issue_description": "Example problem",
-        })
+        doc = frappe.get_doc(
+            {
+                'doctype': 'Repair Order',
+                'customer': 'Test Customer',
+                'issue_description': 'Example problem',
+            }
+        )
         doc.insert(ignore_permissions=True)
         self.assertTrue(doc.name)
-        self.assertEqual(doc.customer, "Test Customer")
-        self.assertEqual(doc.issue_description, "Example problem")
+        self.assertEqual(doc.customer, 'Test Customer')
+        self.assertEqual(doc.issue_description, 'Example problem')
         # Clean up
-        frappe.delete_doc("Repair Order", doc.name)
+        frappe.delete_doc('Repair Order', doc.name)

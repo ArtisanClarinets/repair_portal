@@ -2,221 +2,54 @@
   "doctype": "DocType",
   "name": "Clarinet Intake",
   "module": "Intake",
-  "custom": 0,
-  "is_submittable": 1,
-  "autoname": "naming_series:CI-.#####",
-  "apply_workflow": "Clarinet Intake Workflow",
-  "fields": [
-    {
-      "fieldname": "naming_series",
-      "fieldtype": "Select",
-      "label": "Naming Series",
-      "options": "CI-.#####",
-      "default": "CI-.#####",
-      "hidden": 1,
-      "reqd": 1
-    },
-    {
-      "fieldname": "intake_id",
-      "fieldtype": "Data",
-      "label": "Intake ID",
-      "fetch_from": "name",
-      "read_only": 1,
-      "in_list_view": 1,
-      "bold": 1
-    },
-    {
-      "fieldname": "intake_type",
-      "fieldtype": "Select",
-      "label": "Intake Type",
-      "options": "Inventory\nRepair",
-      "reqd": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "serial_no",
-      "fieldtype": "Link",
-      "label": "Serial No",
-      "options": "Serial No",
-      "read_only": 1,
-      "in_list_view": 1,
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "quality_inspection",
-      "fieldtype": "Link",
-      "label": "Quality Inspection",
-      "options": "Quality Inspection",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "clarinet_setup",
-      "fieldtype": "Link",
-      "label": "Clarinet Setup",
-      "options": "Clarinet Setup",
-      "read_only": 1,
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "stock_status",
-      "fieldtype": "Select",
-      "label": "Stock Status",
-      "options": "Inspection\nSetup\nQC\nAvailable\nHold",
-      "default": "Inspection",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "repair_status",
-      "fieldtype": "Select",
-      "label": "Repair Status",
-      "options": "Pending\nIn Progress\nCompleted",
-      "default": "Pending",
-      "depends_on": "eval:doc.intake_type=='Repair'"
-    },
-    {
-      "fieldname": "inspected_by",
-      "fieldtype": "Link",
-      "label": "Inspected By",
-      "options": "User",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "instrument_profile",
-      "fieldtype": "Link",
-      "label": "Instrument Profile",
-      "options": "Instrument Profile",
-      "read_only": 1,
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "brand",
-      "fieldtype": "Link",
-      "label": "Brand",
-      "options": "Supplier"
-    },
-    {
-      "fieldname": "model",
-      "fieldtype": "Data",
-      "label": "Model"
-    },
-    {
-      "fieldname": "instrument_category",
-      "fieldtype": "Select",
-      "label": "Instrument Category",
-      "options": "B♭\nA\nE♭\nBass\nOther"
-    },
-    {
-      "fieldname": "purchase_order",
-      "fieldtype": "Link",
-      "label": "Purchase Order",
-      "options": "Purchase Order",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "purchase_receipt",
-      "fieldtype": "Link",
-      "label": "Purchase Receipt",
-      "options": "Purchase Receipt",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "warehouse",
-      "fieldtype": "Link",
-      "label": "Warehouse",
-      "options": "Warehouse",
-      "depends_on": "eval:doc.intake_type=='Inventory'"
-    },
-    {
-      "fieldname": "received_date",
-      "fieldtype": "Date",
-      "label": "Received Date",
-      "reqd": 1
-    },
-    {
-      "fieldname": "received_by",
-      "fieldtype": "Link",
-      "label": "Received By",
-      "options": "User"
-    },
-    {
-      "fieldname": "customer",
-      "fieldtype": "Link",
-      "label": "Customer",
-      "options": "Customer",
-      "depends_on": "eval:doc.intake_type=='Repair'"
-    },
-    {
-      "fieldname": "repair_priority",
-      "fieldtype": "Select",
-      "label": "Repair Priority",
-      "options": "Immediate\nUrgent\nNormal",
-      "depends_on": "eval:doc.intake_type=='Repair'"
-    },
-    {
-      "fieldname": "due_date",
-      "fieldtype": "Date",
-      "label": "Due Date",
-      "depends_on": "eval:doc.intake_type=='Repair'"
-    },
-    {
-      "fieldname": "customer_notes",
-      "fieldtype": "Text",
-      "label": "Customer Notes",
-      "depends_on": "eval:doc.intake_type=='Repair'"
-    },
-    {
-      "fieldname": "checklist",
-      "fieldtype": "Table",
-      "label": "Accessories Checklist",
-      "options": "Intake Accessory Item"
-    },
-    {
-      "fieldname": "initial_photos",
-      "fieldtype": "Attach Image",
-      "label": "Initial Photos"
-    },
-    {
-      "fieldname": "attachments",
-      "fieldtype": "Attach",
-      "label": "Attachments"
-    },
-    {
-      "fieldname": "condition_notes",
-      "fieldtype": "Text",
-      "label": "Condition Notes and Concerns"
-    },
-    {
-      "fieldname": "workflow_state",
-      "fieldtype": "Link",
-      "label": "Workflow State",
-      "options": "Workflow State",
-      "read_only": 1,
-      "in_list_view": 1
-    }
-  ],
+  "istable": 0,
+  "editable_grid": 0,
+  "naming_series": "CLIN-.YYYY.-",
+  "track_changes": 1,
+  "track_seen": 1,
+  "track_views": 1,
+  "engine": "InnoDB",
   "permissions": [
-    {
-      "role": "Repair Technician",
-      "read": 1,
-      "write": 1,
-      "create": 1
-    },
-    {
-      "role": "Repair Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "submit": 1,
-      "cancel": 1
-    },
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "submit": 1,
-      "cancel": 1,
-      "delete": 1
-    }
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1},
+    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "submit": 1},
+    {"role": "Technician", "read": 1, "write": 1, "create": 1}
+  ],
+  "field_order": [
+    "intake_type", "instrument", "instrument_type", "brand", "model",
+    "serial_no", "customer", "date_purchased", "intake_status",
+    "environment_log", "visual_inspection", "tenon_fit_log",
+    "diagnostic_metrics", "customer_concerns",
+    "technician_remarks", "notes", "attachments"
+  ],
+  "fields": [
+    {"fieldname":"intake_type","label":"Intake Type","fieldtype":"Select",
+     "in_list_view":1,"options":"Inventory\nMaintenance\nRepair","reqd":1},
+    {"fieldname":"intake_status","label":"Intake Status","fieldtype":"Select",
+     "in_list_view":1,"options":"Pending\nIn Progress\nAwaiting Customer Approval\nComplete","default":"Pending"},
+    {"fieldname":"customer","label":"Customer","fieldtype":"Link","options":"Customer", "reqd":1,
+     "depends_on":"eval:doc.intake_type != 'Inventory'"},
+    {"fieldname": "instrument","label": "Instrument","fieldtype": "Link", "options": "Instrument",
+     "depends_on":"eval:doc.intake_type == 'Inventory'"},
+    {"fieldname":"instrument_type","label":"Instrument Type","fieldtype":"Select",
+     "options":"B♭ Clarinet\nA Clarinet\nE♭ Clarinet\nBass Clarinet\nOther",
+     "read_only_depends_on":"eval:doc.intake_type == 'Inventory' && doc.instrument"},
+    {"fieldname":"brand","label":"Brand","fieldtype":"Link","options":"Brand","in_list_view":1,
+     "read_only_depends_on":"eval:doc.intake_type == 'Inventory' && doc.instrument"},
+    {"fieldname":"model","label":"Model","fieldtype":"Data",
+     "read_only_depends_on":"eval:doc.intake_type == 'Inventory' && doc.instrument"},
+    {"fieldname":"serial_no","label":"Serial Number","fieldtype":"Data","in_list_view":1,"unique":1,
+     "read_only_depends_on":"eval:doc.intake_type == 'Inventory' && doc.instrument"},
+    {"fieldname":"date_purchased","label":"Date Purchased","fieldtype":"Date",
+     "depends_on":"eval:doc.intake_type != 'Inventory'"},
+    {"fieldname":"customer_concerns","label":"Customer Concerns","fieldtype":"Small Text",
+     "depends_on":"eval:doc.intake_type != 'Inventory'"},
+    {"fieldname":"technician_remarks","label":"Technician Remarks","fieldtype":"Small Text"},
+    {"fieldname":"notes","label":"General Notes","fieldtype":"Small Text"},
+    {"fieldname":"attachments","label":"Attachments","fieldtype":"Attach"}
+  ],
+  "links": [
+    {"link_doctype":"Instrument","link_fieldname":"serial_no"},
+    {"link_doctype":"Customer","link_fieldname":"customer"},
+    {"link_doctype":"Clarinet Setup","link_fieldname":"clarinet_setup"}
   ]
 }

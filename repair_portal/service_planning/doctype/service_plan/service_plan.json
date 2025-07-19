@@ -24,13 +24,24 @@
 		{
 			"fieldname": "notes",
 			"label": "Notes",
-			"fieldtype": "Small Text"
+			"fieldtype": "Small Text",
+			"description": "Planning notes or special instructions for this service plan."
 		},
 		{
 			"fieldname": "tasks",
 			"label": "Planned Tasks",
 			"fieldtype": "Table",
 			"options": "Repair Task Log"
+		},
+		{
+			"fieldname": "plan_status",
+			"label": "Plan Status",
+			"fieldtype": "Select",
+			"options": "Draft\nScheduled\nIn Progress\nCompleted\nArchived",
+			"default": "Draft",
+			"read_only": 1,
+			"in_list_view": 1,
+			"description": "Current workflow state of this service plan. Managed by workflow automation."
 		}
 	],
 	"permissions": [
@@ -40,6 +51,18 @@
 			"write": 1,
 			"create": 1,
 			"delete": 1
+		},
+		{
+			"role": "Repair Manager",
+			"read": 1,
+			"write": 1,
+			"create": 1,
+			"delete": 1
+		},
+		{
+			"role": "Technician",
+			"read": 1,
+			"create": 1
 		}
 	]
 }

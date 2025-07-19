@@ -5,7 +5,7 @@
   "custom": 0,
   "fields": [
     {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument Profile"},
-    {"fieldname": "client", "label": "Client", "fieldtype": "Link", "options": "Client Profile"},
+    {"fieldname": "client", "label": "Client", "fieldtype": "Link", "options": "Customer"},
     {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
     {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Link", "options": "Instrument Category"},
     {"fieldname": "date_reported", "label": "Date Reported", "fieldtype": "Date"},
@@ -22,7 +22,8 @@
   ],
   "permissions": [
     {"role": "Technician", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1}
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
+    {"role": "Customer", "read": 1}
   ],
   "is_submittable": 1,
   "workflow_state_field": "status",

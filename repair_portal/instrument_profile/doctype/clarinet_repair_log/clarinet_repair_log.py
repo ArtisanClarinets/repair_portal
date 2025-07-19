@@ -9,8 +9,8 @@ from frappe.model.document import Document
 
 class ClarinetRepairLog(Document):
     def after_insert(self):
-        if not frappe.db.exists("Service Order Tracker", {"repair_log": self.name}):
-            tracker = frappe.new_doc("Service Order Tracker")
+        if not frappe.db.exists('Service Order Tracker', {'repair_log': self.name}):
+            tracker = frappe.new_doc('Service Order Tracker')
             tracker.repair_log = self.name
-            tracker.current_stage = "Estimate Sent"
+            tracker.current_stage = 'Estimate Sent'
             tracker.insert(ignore_permissions=True)

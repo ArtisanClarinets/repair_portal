@@ -1,0 +1,73 @@
+{
+  "name": "Instrument Photo",
+  "module": "Repair Logging",
+  "doctype": "DocType",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "image",
+      "label": "Image",
+      "fieldtype": "Attach Image",
+      "reqd": 1,
+      "description": "Instrument photo. Required."
+    },
+    {
+      "fieldname": "label",
+      "label": "Photo Label",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "description": "Short descriptor, e.g. 'Bell', 'Serial Number'. Required."
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Text",
+      "description": "Optional context, comments, or observed issues."
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "track_changes": 1,
+  "track_views": 1,
+  "engine": "InnoDB"
+}

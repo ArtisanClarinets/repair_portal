@@ -47,10 +47,10 @@
         },
         {
             "state": "Waiting on Client",
-            "action": "Attach Client Profile",
+            "action": "Attach Customer",
             "next_state": "Waiting on Player",
             "allowed": "Repair Manager",
-            "condition": "doc.client_profile"
+            "condition": "doc.customer"
         },
         {
             "state": "Waiting on Player",

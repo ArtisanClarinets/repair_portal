@@ -10,4 +10,4 @@ from frappe.model.document import Document
 class MeasurementSession(Document):
     def validate(self):
         if not self.instrument:
-            frappe.throw("Instrument is required.")
+            frappe.throw('Instrument is required.')

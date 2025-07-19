@@ -7,7 +7,7 @@ import frappe
 
 def execute(filters=None):
     return [
-        ["Instrument", "Model", "Owner", "Verification Status"],
+        ['Instrument', 'Model', 'Owner', 'Verification Status'],
         frappe.db.sql(
             """
             SELECT

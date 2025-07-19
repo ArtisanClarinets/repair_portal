@@ -20,8 +20,8 @@ def execute(filters=None):
     )
 
     columns = [
-        {"fieldname": "upgrade_description", "label": "Upgrade", "fieldtype": "Data", "width": 300},
-        {"fieldname": "total", "label": "Total Requested", "fieldtype": "Int", "width": 120},
+        {'fieldname': 'upgrade_description', 'label': 'Upgrade', 'fieldtype': 'Data', 'width': 300},
+        {'fieldname': 'total', 'label': 'Total Requested', 'fieldtype': 'Int', 'width': 120},
     ]
 
     return columns, data

@@ -10,8 +10,36 @@
       "label": "Frequency (Hz)",
       "fieldtype": "Float"
     },
-    { "fieldname": "impedance", "label": "Impedance", "fieldtype": "Float" },
-    { "fieldname": "q_factor", "label": "Q Factor", "fieldtype": "Float" }
+    {
+      "fieldname": "impedance",
+      "label": "Impedance",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "q_factor",
+      "label": "Q Factor",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
   ],
   "permissions": [
     {
@@ -20,6 +48,13 @@
       "write": 1,
       "create": 1,
       "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
     }
-  ]
+  ],
+  "engine": "InnoDB"
 }

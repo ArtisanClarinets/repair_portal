@@ -1,0 +1,74 @@
+{
+  "doctype": "DocType",
+  "name": "Key Measurement",
+  "module": "Repair Logging",
+  "istable": 1,
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "pad_id",
+      "label": "Pad ID",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "pad_name",
+      "label": "Pad Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "height_mm",
+      "label": "Key Height (mm)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "seal_status",
+      "label": "Seal Status",
+      "fieldtype": "Select",
+      "options": "Good\nLeaking\nUncertain"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1,
+  "engine": "InnoDB"
+}

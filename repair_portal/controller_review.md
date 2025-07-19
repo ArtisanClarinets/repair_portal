@@ -741,7 +741,7 @@ Next per your instructions:
 
 /instrument_profile/
 /instrument_setup/
-/client_profile/
+/customer/
 /player_profile/
 
 Shall I proceed immediately with /instrument_profile/ and begin reviewing in the same level of detail?
@@ -1206,13 +1206,13 @@ Every component—controllers, reports, dashboards, and web forms—was reviewed
 
 Next per your instructions:
 
-/client_profile/
+/customer/
 /player_profile/
 
-Shall I proceed to /client_profile/ now?
+Shall I proceed to /customer/ now?
 
 
-Here is your review of the Client Profile Web Form JSON:
+Here is your review of the Customer Web Form JSON:
 
 ⸻
 
@@ -1220,7 +1220,7 @@ Here is your review of the Client Profile Web Form JSON:
 
 Path:
 
-/opt/frappe/erp-bench/apps/repair_portal/repair_portal/client_profile/web_form/client_profile/client_profile.json
+/opt/frappe/erp-bench/apps/repair_portal/repair_portal/customer/web_form/customer/customer.json
 
 Type:
 ✅ Web Form Configuration
@@ -1235,7 +1235,7 @@ Provides a web interface for clients to view or edit their profile.
 ⸻
 
 🟢 Key Configuration
-	•	DocType: Client Profile
+	•	DocType: Customer
 	•	Route: /my-client-profile
 	•	Login Required: ✅ (login_required = 1)
 	•	Allow Edit: ✅
@@ -1293,7 +1293,7 @@ Provides a web interface for clients to view or edit their profile.
 
 ⸻
 
-Here is your review of the Draft Client Profile Notification:
+Here is your review of the Draft Customer Notification:
 
 ⸻
 
@@ -1301,7 +1301,7 @@ Here is your review of the Draft Client Profile Notification:
 
 Path:
 
-/opt/frappe/erp-bench/apps/repair_portal/repair_portal/client_profile/notification/draft_client_profile.json
+/opt/frappe/erp-bench/apps/repair_portal/repair_portal/customer/notification/draft_customer.json
 
 Type:
 ✅ Notification JSON
@@ -1311,12 +1311,12 @@ Type:
 🧠 Logic Overview
 
 Purpose:
-Automatically alert managers when a Client Profile stays in Draft status.
+Automatically alert managers when a Customer stays in Draft status.
 
 ⸻
 
 🟢 Configuration
-	•	Document Type: Client Profile
+	•	Document Type: Customer
 	•	Event: Value Change
 	•	Trigger Field: profile_status
 	•	Trigger Value: Draft
@@ -1324,7 +1324,7 @@ Automatically alert managers when a Client Profile stays in Draft status.
 	•	Role: Repair Manager
 	•	Subject:
 
-Draft Client Profile
+Draft Customer
 
 
 	•	Message:
@@ -1366,7 +1366,7 @@ Client {{ doc.name }} remains in Draft and must be verified.
 
 ⸻
 
-✅ This completes all components under /client_profile/.
+✅ This completes all components under /customer/.
 
 ⸻
 
@@ -1579,7 +1579,7 @@ Here is your Fortune-500-level review of this critical workflow orchestrator:
 
 Path:
 
-/client_profile/workflow_action_master/workflow_action_master.py
+/customer/workflow_action_master/workflow_action_master.py
 
 Type:
 ✅ Workflow Action Controller
@@ -1588,8 +1588,8 @@ Type:
 
 🧠 Logic Overview
 
-This is the core workflow router for Client Profile state transitions:
-	•	Activated from after_workflow_action() hook in client_profile.py
+This is the core workflow router for Customer state transitions:
+	•	Activated from after_workflow_action() hook in customer.py
 	•	Centralizes all state change logic
 	•	Manages cascading child state updates
 
@@ -1704,7 +1704,7 @@ _set_state(doc, state)
 
 ⸻
 
-✅ Client Profile module is now fully reviewed.
+✅ Customer module is now fully reviewed.
 
 ⸻
 
@@ -1750,7 +1750,7 @@ autoname()
 ✅ Logic:
 	•	If no route is provided, it builds:
 
-players/{client_profile}-{scrubbed_player_name}
+players/{customer}-{scrubbed_player_name}
 
 
 	•	Uses frappe.scrub() for URL safety.
@@ -1764,10 +1764,10 @@ players/{client_profile}-{scrubbed_player_name}
 validate()
 
 ✅ Purpose:
-	•	Enforce linkage to Client Profile.
+	•	Enforce linkage to Customer.
 
 ✅ Logic:
-	•	Throws error if client_profile is empty.
+	•	Throws error if customer is empty.
 
 ✅ Strengths:
 	•	Critical data integrity check.
@@ -1780,7 +1780,7 @@ has_website_permission()
 	•	Restrict visibility to only the linked client’s user.
 
 ✅ Logic:
-	•	Compares frappe.session.user to Client Profile.linked_user.
+	•	Compares frappe.session.user to Customer.linked_user.
 
 ✅ Strengths:
 	•	Tight security.
@@ -1814,7 +1814,7 @@ get_context()
 
 ⚠️ Potential Enhancements:
 	1.	Slug Collision:
-	•	If client_profile names collide (e.g., same numeric code), consider adding a unique hash suffix.
+	•	If customer names collide (e.g., same numeric code), consider adding a unique hash suffix.
 	2.	Caching:
 	•	Use caching in has_website_permission() to avoid redundant db.get_value.
 	3.	SEO:

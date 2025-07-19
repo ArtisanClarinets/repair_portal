@@ -28,7 +28,8 @@
     {
       "fieldname": "overall_passed",
       "fieldtype": "Check",
-      "label": "Overall Passed"
+      "label": "Overall Passed",
+      "description": "Check if all items pass QA and no critical issues remain."
     },
     {
       "fieldname": "comments",
@@ -38,10 +39,11 @@
     {
       "fieldname": "workflow_state",
       "label": "Workflow State",
-      "fieldtype": "Link",
-      "options": "Workflow State",
+      "fieldtype": "Select",
+      "options": "Pending\nIn Progress\nPassed\nFailed\nArchived",
       "read_only": 1,
-      "in_list_view": 1
+      "in_list_view": 1,
+      "description": "QA workflow state; managed automatically."
     }
   ],
   "permissions": [
@@ -67,6 +69,10 @@
       "create": 1,
       "submit": 1,
       "cancel": 1
+    },
+    {
+      "role": "Customer",
+      "read": 1
     }
   ]
 }

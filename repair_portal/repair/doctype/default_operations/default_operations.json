@@ -1,0 +1,73 @@
+{
+    "doctype": "DocType",
+    "name": "Default Operations",
+    "module": "Repair",
+    "custom": 0,
+    "is_standard": 1,
+    "label": "Default Operations",
+    "engine": "InnoDB",
+    "fields": [
+        {
+            "fieldname": "operation_type",
+            "fieldtype": "Select",
+            "label": "Operation Type",
+            "options": "\nInventory\nMaintenance\nRepair",
+            "in_filter": 1,
+            "in_list_view": 1,
+            "in_preview": 1,
+            "in_standard_filter": 1,            
+            "reqd": 1
+        },
+        {
+            "fieldname": "operation_template",
+            "fieldtype": "Table",
+            "label": "Operation Template",
+            "options": "Operation Template",
+            "reqd": 1
+        },
+        {
+            "fieldname": "material_used",
+            "fieldtype": "Table",
+            "label": "Material Used",
+            "options": "Material Use Log"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1
+        },
+        {
+            "role": "Technician",
+            "read": 1,
+            "create": 1
+        }
+    ],
+    "default_operations": 1,
+    "default_operations_description": "Default operations for inventory, maintenance, and repair tasks.",
+    "default_operations_example": "This document contains default operations that can be used across various repair tasks. It includes operation types such as Inventory, Maintenance, and Repair, along with associated materials used.",
+    "default_operations_version": "1.0",
+    "operations": [
+        {
+            "operation_type": "Inventory",
+            "item_code": "ITEM-001",
+            "warehouse": "Warehouse A",
+            "status": "Active"
+        },
+        {
+            "operation_type": "Maintenance",
+            "item_code": "ITEM-002",
+            "warehouse": "Warehouse B",
+            "status": "Active"
+        },
+        {
+            "operation_type": "Repair",
+            "item_code": "ITEM-003",
+            "warehouse": "Warehouse C",
+            "status": "Blocked"
+        }
+    ]
+}

@@ -1,21 +1,22 @@
 <!-- File: client_portal/App.vue -->
-<!-- Last Updated: 2025-07-16 -->
+<!-- Last Updated: 2025-07-18 -->
 <template>
-  <LayoutShell>
+  <LayoutShell :active="view">
     <component :is="activeComponent" />
   </LayoutShell>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import LayoutShell from './LayoutShell.vue';
-import ClientProfile from './client_profile/ClientProfile.vue';
+import Customer from './customer/Customer.vue';
+import NotFound from './NotFound.vue';
 
-const view = new URLSearchParams(window.location.search).get('view') || 'client_profile';
+const view = new URL(window.location.href).searchParams.get('view') || 'customer';
 
 const views = {
-  client_profile: ClientProfile
+  customer: Customer
 };
 
-const activeComponent = computed(() => views[view] || ClientProfile);
+const activeComponent = computed(() => views[view] || NotFound);
 </script>

@@ -1,0 +1,63 @@
+{
+  "doctype": "DocType",
+  "name": "Tenon Socket Measurements",
+  "label": "Tenon Socket Measurements",
+  "module": "Repair Logging",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "socket_type",
+      "label": "Socket Type",
+      "fieldtype": "Select",
+      "options": "Barrel: Top\nBarrel: Bottom\nLower Joint: Top\nBell: Top",
+      "reqd": 1
+    },
+    {
+      "fieldname": "socket_height",
+      "label": "Socket Height (mm)",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "socket_diameter",
+      "label": "Socket Diameter (mm)",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "socket_length",
+      "label": "Socket Length (mm)",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
+  ],
+  "is_child_table": 1,
+  "parent": "Tenon Fit Assessment",
+  "engine": "InnoDB"
+}

@@ -23,6 +23,26 @@
       "fieldname": "notes",
       "fieldtype": "Small Text",
       "label": "Notes"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     }
   ],
   "permissions": [
@@ -51,5 +71,6 @@
       "create": 1
     }
   ],
-  "is_child_table": 1
+  "is_child_table": 1,
+  "engine": "InnoDB"
 }

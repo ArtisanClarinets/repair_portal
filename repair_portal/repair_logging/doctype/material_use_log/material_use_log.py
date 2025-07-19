@@ -11,26 +11,25 @@ from frappe.model.document import Document
 
 
 class MaterialUseLog(Document):
-
     def validate(self):
         if self.qty <= 0:
-            frappe.throw(_("Quantity must be greater than zero."))
+            frappe.throw(_('Quantity must be greater than zero.'))
 
-        if not frappe.db.exists("Item", self.item_code):
-            frappe.throw(_("Item {0} does not exist.").format(self.item_code))
+        if not frappe.db.exists('Item', self.item_code):
+            frappe.throw(_('Item {0} does not exist.').format(self.item_code))
 
     def on_submit(self):
         # Create a Stock Entry to deduct material
         stock_entry = frappe.get_doc(
             {
-                "doctype": "Stock Entry",
-                "stock_entry_type": "Material Issue",
-                "items": [
+                'doctype': 'Stock Entry',
+                'stock_entry_type': 'Material Issue',
+                'items': [
                     {
-                        "item_code": self.item_code,
-                        "qty": self.qty,
-                        "uom": self.uom,
-                        "s_warehouse": self.source_warehouse,
+                        'item_code': self.item_code,
+                        'qty': self.qty,
+                        'uom': self.uom,
+                        's_warehouse': self.source_warehouse,
                     }
                 ],
             }

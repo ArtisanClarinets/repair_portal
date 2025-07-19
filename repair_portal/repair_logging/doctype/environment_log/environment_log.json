@@ -1,0 +1,53 @@
+{
+  "doctype": "DocType",
+  "name": "Environment Log",
+  "istable": 1,
+  "module": "Repair Logging",
+  "custom": 0,
+  "label": "Environment Log",
+  "fields": [
+    {
+      "fieldname": "log_datetime",
+      "label": "Date / Time",
+      "fieldtype": "Datetime",
+      "reqd": 1
+    },
+    {
+      "fieldname": "humidity",
+      "label": "RH (%)",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "temperature",
+      "label": "Temp (\u00b0C)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
+    }
+  ],
+  "engine": "InnoDB"
+}

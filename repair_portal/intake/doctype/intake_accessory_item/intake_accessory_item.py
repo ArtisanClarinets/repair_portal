@@ -10,6 +10,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+
 class IntakeAccessoryItem(Document):
     """
     Accessories Checklist Row Controller
@@ -24,15 +25,15 @@ class IntakeAccessoryItem(Document):
         Validation before saving the accessory row.
         """
         if not self.accessory:
-            frappe.throw(_("Accessory description cannot be empty."))
+            frappe.throw(_('Accessory description cannot be empty.'))
 
         if self.quantity is None:
             self.quantity = 1
 
         if self.quantity < 0:
-            frappe.throw(_("Quantity cannot be negative."))
+            frappe.throw(_('Quantity cannot be negative.'))
 
         if self.quantity == 0:
             frappe.msgprint(
-                _("Warning: Quantity is set to zero. Consider updating if this is unintended.")
+                _('Warning: Quantity is set to zero. Consider updating if this is unintended.')
             )

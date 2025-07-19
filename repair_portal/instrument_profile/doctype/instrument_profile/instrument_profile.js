@@ -1,3 +1,10 @@
+// File Header Template
+// Relative Path: repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.js
+// Last Updated: 2025-07-17
+// Version: v1.2
+// Purpose: Instrument Profile client logic for dashboards, status, workflow actions, and warranty expiration UX
+// Dependencies: frappe.ui.form, frappe.model.workflow
+
 frappe.ui.form.on('Instrument Profile', {
   refresh(frm) {
     // Show status badges
@@ -54,6 +61,18 @@ frappe.ui.form.on('Instrument Profile', {
       frm.dashboard.add_indicator(
         __('Workflow: {0}', [frm.doc.workflow_state]),
         'blue'
+      );
+    }
+
+    // Warranty expiration dashboard indicator
+    if (frm.doc.warranty_expiration) {
+      const days = frappe.datetime.get_diff(frm.doc.warranty_expiration, frappe.datetime.now_date());
+      let color = 'green';
+      if (days < 0) color = 'red';
+      else if (days < 60) color = 'orange';
+      frm.dashboard.add_indicator(
+        __('Warranty: {0}', [frappe.datetime.str_to_user(frm.doc.warranty_expiration)]),
+        color
       );
     }
   }

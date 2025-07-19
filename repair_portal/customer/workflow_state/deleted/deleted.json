@@ -1,0 +1,9 @@
+{
+    "doctype": "Workflow State",
+    "name": "Deleted",
+    "module": "Customer",
+    "is_standard": 1,
+    "sync_on_migrate": 1,
+    "style": "Warning",
+    "doc_status": 1
+}

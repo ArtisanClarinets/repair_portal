@@ -8,13 +8,12 @@ from frappe.model.document import Document
 
 
 class InstrumentWellnessScore(Document):
-
     def validate(self):
         """
         On save, calculate individual and overall scores.
         """
         if not self.instrument:
-            frappe.throw("Instrument is required.")
+            frappe.throw('Instrument is required.')
 
         self.intonation_score = self._calculate_intonation_score()
         self.impedance_score = self._calculate_impedance_score()
@@ -53,7 +52,7 @@ class InstrumentWellnessScore(Document):
         for row in readings:
             notes = frappe.parse_json(row.json_data)
             for note in notes:
-                deviations.append(abs(note.get("cents_offset", 0)))
+                deviations.append(abs(note.get('cents_offset', 0)))
 
         if not deviations:
             return 50
@@ -67,7 +66,7 @@ class InstrumentWellnessScore(Document):
         Simpler: count snapshots in last 5 records.
         More impedance data = higher score.
         """
-        count = frappe.db.count("Impedance Snapshot", {"instrument": self.instrument})
+        count = frappe.db.count('Impedance Snapshot', {'instrument': self.instrument})
         return min(100, count * 20)
 
     def _calculate_leak_score(self):
@@ -76,7 +75,7 @@ class InstrumentWellnessScore(Document):
         Less leakage = higher score.
         """
         latest = frappe.db.get_value(
-            "Leak Test", {"instrument": self.instrument}, ["leak_rate"], order_by="creation DESC"
+            'Leak Test', {'instrument': self.instrument}, ['leak_rate'], order_by='creation DESC'
         )
         if latest is None:
             return 50

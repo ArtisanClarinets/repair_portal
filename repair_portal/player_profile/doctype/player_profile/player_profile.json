@@ -14,7 +14,7 @@
     {"fieldname": "instrument_profiles", "label": "Instruments", "fieldtype": "MultiSelect Link", "options": "Instrument Profile"},
     {"fieldname": "profile_status", "label": "Profile Status", "fieldtype": "Select", "options": "Draft\nActive\nArchived", "default": "Draft", "in_list_view": 1},
 
-    {"fieldname": "owned_instruments", "label": "Owned Instruments", "fieldtype": "Table", "options": "Instrument Profile", "read_only": 1},
+    {"fieldname": "instruments_owned", "label": "Owned Instruments", "fieldtype": "Table", "options": "Instrument Profile", "read_only": 1},
     {"fieldname": "setup_logs", "label": "Setup Logs", "fieldtype": "Table", "options": "Clarinet Setup Log", "read_only": 1},
     {"fieldname": "qa_findings", "label": "QA Findings", "fieldtype": "Table", "options": "Clarinet Inspection", "read_only": 1},
     {"fieldname": "repair_logs", "label": "Repair Logs", "fieldtype": "Table", "options": "Repair Log", "read_only": 1},
@@ -29,6 +29,9 @@
     {"role": "Customer", "read": 1}
   ],
   "workflow_state_field": "profile_status",
-  "links": [],
+  "links": [
+    {"fieldname": "customer", "label": "Customer"},
+    {"fieldname": "instrument_profiles", "label": "Instrument Profile"}
+  ],
   "title_field": "player_name"
 }

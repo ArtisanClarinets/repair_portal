@@ -56,7 +56,6 @@ frappe.pages["intonation_recorder"].on_page_load = function (wrapper) {
           });
           frappe.show_alert("Intonation saved");
         } catch (e) {
-          console.error(e);
           frappe.msgprint("Upload failed");
         } finally {
           $spinner.addClass("d-none");

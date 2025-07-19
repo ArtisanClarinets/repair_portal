@@ -8,7 +8,7 @@ from repair_portal.repair.dashboard_chart_source.turnaround_time import get_data
 
 def get_context(context):
     stats = get_data()
-    context.average_turnaround = stats.get("average_turnaround_days")
-    context.total_repairs = stats.get("total_repairs")
-    context.title = "Repair Status Overview"
+    context.average_turnaround = stats.get('average_turnaround_days')
+    context.total_repairs = stats.get('total_repairs')
+    context.title = 'Repair Status Overview'
     return context

@@ -21,7 +21,7 @@
       "fieldname": "instrument_category",
       "fieldtype": "Select",
       "label": "Instrument Category",
-      "options": "Bb\nA\nEb\nBass\nOther"
+      "options": "B♭\nA\nE♭\nC\nD\nBass\nOther"
     },
     {
       "fieldname": "received_date",

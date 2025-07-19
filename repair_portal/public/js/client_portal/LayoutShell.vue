@@ -1,5 +1,5 @@
 <!-- File: client_portal/LayoutShell.vue -->
-<!-- Last Updated: 2025-07-16 -->
+<!-- Last Updated: 2025-07-18 -->
 <template>
   <div class="wrapper">
     <!-- Top Navbar -->
@@ -25,9 +25,9 @@
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
             <li class="nav-item">
-              <a href="?view=client_profile" class="nav-link">
+              <a href="?view=customer" class="nav-link" :class="{ active: active === 'customer' }">
                 <i class="nav-icon fas fa-user"></i>
-                <p>Client Profile</p>
+                <p>Customer</p>
               </a>
             </li>
           </ul>
@@ -42,9 +42,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "LayoutShell"
-};
+<script setup>
+const props = defineProps({
+  active: String
+});
 </script>
 
+<style scoped>
+.nav-link.active {
+  background-color: #007bff;
+  color: white;
+}
+</style>

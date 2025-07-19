@@ -36,7 +36,7 @@
             "action": "Link to Client",
             "next_state": "Linked to Client",
             "allowed": "Repair Manager",
-            "condition": "doc.client_profile"
+            "condition": "doc.customer"
         },
         {
             "state": "Linked to Client",

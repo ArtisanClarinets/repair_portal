@@ -77,7 +77,7 @@ export default {
       if (clientProfileName) {
         frappe.call({
           method: "repair_portal.api.client_portal.get_client_portal_data",
-          args: { client_profile_name: clientProfileName },
+          args: { customer_name: clientProfileName },
           callback: (r) => {
             if (r.message) {
               clientInfo.value = r.message.client_info;
@@ -92,7 +92,7 @@ export default {
     });
 
     const editClientInfo = () => {
-      frappe.set_route("Form", "Client Profile", clientInfo.value.name);
+      frappe.set_route("Form", "Customer", clientInfo.value.name);
     };
 
     const viewPlayer = (player) => {

@@ -3,6 +3,7 @@
   "name": "Inspection Finding",
   "module": "Instrument Setup",
   "istable": 1,
+  "is_child_table": 1,
   "fields": [
     {
       "fieldname": "component",
@@ -14,13 +15,13 @@
       "fieldname": "issue_type",
       "fieldtype": "Select",
       "label": "Issue Type",
-      "options": "Crack\nBent Key\nPad Leak\nCork Wear\nPlating Wear"
+      "options": "Crack\nBent Key\nPad Leak\nCork Wear\nPlating Wear\nOther"
     },
     {
       "fieldname": "severity",
       "fieldtype": "Select",
       "label": "Severity",
-      "options": "Low\nMedium\nHigh"
+      "options": "Low\nMedium\nHigh\nCritical"
     },
     {
       "fieldname": "recommendation",
@@ -33,6 +34,31 @@
       "fieldtype": "Select",
       "label": "Action Required",
       "options": "Repair\nReplace\nMonitor"
+    },
+    {
+      "fieldname": "photo",
+      "fieldtype": "Attach Image",
+      "label": "Photo"
+    },
+    {
+      "fieldname": "parent",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parenttype",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "parentfield",
+      "fieldtype": "Data",
+      "hidden": 1
+    },
+    {
+      "fieldname": "idx",
+      "fieldtype": "Int",
+      "hidden": 1
     }
   ],
   "permissions": [
@@ -47,5 +73,5 @@
       "write": 1
     }
   ],
-  "is_child_table": 1
+  "engine": "InnoDB"
 }

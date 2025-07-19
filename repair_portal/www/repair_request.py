@@ -10,10 +10,10 @@ from frappe.utils import get_fullname
 
 def get_context(context):
     request_id = frappe.form_dict.name
-    doc = frappe.get_doc("Repair Request", request_id)
+    doc = frappe.get_doc('Repair Request', request_id)
 
     if doc.customer != frappe.session.user:
-        frappe.throw(_("Not permitted"))
+        frappe.throw(_('Not permitted'))
 
     context.doc = doc
     context.fullname = get_fullname(frappe.session.user)

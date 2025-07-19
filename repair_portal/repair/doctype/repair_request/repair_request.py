@@ -10,7 +10,7 @@ from frappe.model.document import Document
 class RepairRequest(Document):
     def validate(self):
         if not self.customer:
-            frappe.throw("Customer is required")
+            frappe.throw('Customer is required')
 
     def on_submit(self):
-        frappe.msgprint("Repair Request submitted.")
+        frappe.msgprint('Repair Request submitted.')
