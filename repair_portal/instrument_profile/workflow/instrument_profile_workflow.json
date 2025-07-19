@@ -1,5 +1,6 @@
 {
   "doctype": "Workflow",
+  "name": "Instrument Profile Workflow",
   "workflow_name": "Instrument Profile Lifecycle",
   "document_type": "Instrument Profile",
   "is_active": 1,

@@ -15,5 +15,7 @@
     {"fieldname": "technician_assigned"},
     {"fieldname": "priority_level"}
   ],
-  "title_field": "issue_description"
+  "title_field": "issue_description",
+  "title": "Repair Request",
+  "web_form_fields": []
 }

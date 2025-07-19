@@ -1,6 +1,7 @@
 {
   "doctype": "Dashboard",
   "name": "Client Dashboard",
+  "dashboard_name": "Customer Dashboard",
   "charts": [],
   "cards": [
     {
