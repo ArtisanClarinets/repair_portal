@@ -1,6 +1,6 @@
 {
     "doctype": "Workflow",
-    "name": "Player Profile Setup",
+    "name": "player_profile_setup",
     "document_type": "Player Profile",
     "module": "Player Profile",
     "workflow_name": "Player Profile Setup",

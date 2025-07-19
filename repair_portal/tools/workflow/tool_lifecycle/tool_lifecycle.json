@@ -2,7 +2,7 @@
     "doctype": "Workflow",
     "workflow_name": "Tool Lifecycle",
     "label": "Tool Lifecycle",
-    "name": "Tool Lifecycle",
+    "name": "tool_lifecycle",
     "doc_type": "Tool",
     "module": "Tools",
     "description": "Workflow for managing the lifecycle of tools in the repair portal.",

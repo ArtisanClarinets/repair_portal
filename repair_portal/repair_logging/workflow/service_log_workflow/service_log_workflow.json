@@ -1,6 +1,6 @@
 {
     "doctype": "Workflow",
-    "name": "Service Log Workflow",
+    "name": "service_log_workflow",
     "workflow_name": "Service Log Workflow",
     "document_type": "Repair Order",
     "is_active": 1,

@@ -4,6 +4,7 @@ import re
 import subprocess
 from pathlib import Path
 
+
 APP_DIR = Path('/opt/frappe/erp-bench/apps/repair_portal/repair_portal')
 MODULES_FILE = Path('/opt/frappe/erp-bench/apps/repair_portal/repair_portal/modules.txt')
 
@@ -179,3 +180,7 @@ else:
     print('✅ All WebsiteGenerators are properly defined.')
 
 print('\n✔ Use this report before any install or migration.')
+
+if __name__ == '__main__':
+    print('\nPre-migration checks completed successfully.')
+    print('Please review the report above for any issues before proceeding with migration.')

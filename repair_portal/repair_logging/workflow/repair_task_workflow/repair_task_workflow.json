@@ -1,7 +1,7 @@
 {
     "doctype": "Workflow",
     "workflow_name": "Repair Task Workflow",
-    "name": "Repair Task Workflow",
+    "name": "repair_task_workflow",
     "document_type": "Repair Order",
     "is_active": 1,
     "workflow_state_field": "status",
