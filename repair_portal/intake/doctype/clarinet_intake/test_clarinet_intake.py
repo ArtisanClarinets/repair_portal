@@ -106,3 +106,26 @@ class TestClarinetIntake(FrappeTestCase):
         # Test delete
         with self.assertRaises(frappe.ValidationError):
             intake.delete()
+
+    def test_instrument_auto_created_on_intake(self):
+        """
+        Should auto-create Instrument if serial_no does not exist
+        """
+        serial_no = "TST-NEW-SN-001"
+        # Clean up any previous test data
+        frappe.db.delete("Instrument", {"serial_no": serial_no})
+        intake = frappe.get_doc(
+            {
+                "doctype": "Clarinet Intake",
+                "intake_type": "New Inventory",
+                "intake_status": "Pending",
+                "serial_no": serial_no,
+                "manufacturer": "Buffet",
+                "model": "E12F",
+                "clarinet_type": "B♭ Soprano",
+            }
+        ).insert(ignore_permissions=True)
+        # Now instrument should exist
+        instrument = frappe.db.get_value("Instrument", {"serial_no": serial_no}, "name")
+        self.assertIsNotNone(instrument, "Instrument should be auto-created from Intake")
+        self.assertEqual(intake.instrument_unique_id, instrument)

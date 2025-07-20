@@ -33,6 +33,7 @@ The Clarinet Intake doctype is the central entry point for all clarinets coming 
    - Always creates a Serial No for the instrument (linked to Item, assigned to inspection warehouse).
 4. **Instrument Record Creation/Linkage:**
    - Finds or creates an Instrument document, always linked to Serial No and Item.
+   - **NEW:** If an Intake is submitted with a serial number that does not match any Instrument, a new Instrument is automatically created and linked, with as much data prefilled as possible.
 5. **Instrument Inspection:**
    - Always creates an Instrument Inspection linked to the intake and instrument.
    - Sets inspection type label from settings ("Initial Inspection" for inventory, "Arrival Inspection" for repair/maintenance).
@@ -92,6 +93,7 @@ The Clarinet Intake doctype is the central entry point for all clarinets coming 
 - **Data integrity:** Intake record naming, linkage, and all automated relationships are validated at every step.
 - **Idempotency:** Automation avoids duplicate objects if intake is resubmitted or edited.
 - **Upgrade-friendly:** As Frappe/ERPNext evolves, core settings logic ensures business flexibility with no need for code changes.
+- **Instrument Auto-Creation:** When a Clarinet Intake is submitted, the controller checks for an existing Instrument by serial number. If not found, it creates one automatically, ensuring every Intake always has a linked Instrument.
 
 ---
 
@@ -114,7 +116,7 @@ The Clarinet Intake doctype is the central entry point for all clarinets coming 
 
 ## **Version**
 - Frappe/ERPNext v15
-- Last updated: 2025-07-19
+- Last updated: 2025-07-20
 
 ---
 

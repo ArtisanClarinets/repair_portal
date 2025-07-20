@@ -1,8 +1,8 @@
 # File Header Template
 # Relative Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
-# Last Updated: 2025-07-19
-# Version: v3.6
-# Purpose: Controller logic for Clarinet Intake. Fully settings-driven: all key config (warehouse, price lists, group, brand, labels, automation) now comes from Clarinet Intake Settings.
+# Last Updated: 2025-07-20
+# Version: v3.7
+# Purpose: Controller logic for Clarinet Intake. Fully settings-driven: all key config (warehouse, price lists, group, brand, labels, automation) now comes from Clarinet Intake Settings. Instrument is now auto-created if serial number is not found.
 # Dependencies: ERPNext Item, Item Price, Serial No, Instrument, Instrument Inspection, Clarinet Initial Setup, Clarinet Intake Settings
 
 from __future__ import annotations
@@ -231,6 +231,17 @@ class ClarinetIntake(Document):
             for intake_field, instrument_key in field_map.items():
                 if not self.get(intake_field):
                     self.set(intake_field, instrument.get(instrument_key))
+        else:
+            # Auto-create Instrument if not found
+            instrument_doc = frappe.new_doc("Instrument")
+            instrument_doc.serial_no = self.serial_no
+            instrument_doc.instrument_type = self.clarinet_type or ""
+            instrument_doc.brand = self.manufacturer or ""
+            instrument_doc.model = self.model or ""
+            instrument_doc.year_of_manufacture = self.year_of_manufacture or ""
+            instrument_doc.insert(ignore_permissions=True)
+            self.instrument_unique_id = instrument_doc.name
+            frappe.msgprint(_(f"Instrument <b>{instrument_doc.serial_no}</b> was auto-created and linked to Intake."))
 
 @frappe.whitelist()
 def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | None:
