@@ -36,7 +36,27 @@
     {"fieldname": "notes", "label": "General Notes", "fieldtype": "Text"},
     {"fieldname": "instrument_delivered", "label": "Instrument Delivered to Customer", "fieldtype": "Check", "default": "0", "depends_on": "eval:doc.inspection_type === 'New Inventory'"},
     {"fieldname": "qc_certificate", "label": "QC Certificate", "fieldtype": "Attach"},
-    {"fieldname": "digital_signature", "label": "Technician Signature", "fieldtype": "Signature"}
+    {"fieldname": "digital_signature", "label": "Technician Signature", "fieldtype": "Signature"},
+
+    {"fieldname": "body_material", "label": "Body Material", "fieldtype": "Data"},
+    {"fieldname": "keywork_plating", "label": "Keywork Plating", "fieldtype": "Data"},
+    {"fieldname": "key_system", "label": "Key System", "fieldtype": "Select", "options": "Boehm\nAlbert\nOehler\nOther"},
+    {"fieldname": "number_of_keys_rings", "label": "Number of Keys/Rings", "fieldtype": "Data"},
+    {"fieldname": "pitch_standard", "label": "Pitch Standard", "fieldtype": "Data"},
+    {"fieldname": "bore_style", "label": "Bore Style", "fieldtype": "Data"},
+    {"fieldname": "bore_measurement", "label": "Bore Measurement (mm)", "fieldtype": "Float"},
+    {"fieldname": "tone_hole_style", "label": "Tone Hole Style", "fieldtype": "Data"},
+    {"fieldname": "thumb_rest", "label": "Thumb Rest", "fieldtype": "Data"},
+    {"fieldname": "spring_type", "label": "Spring Type", "fieldtype": "Data"},
+    {"fieldname": "pad_type_current", "label": "Pad Type (Current)", "fieldtype": "Data"},
+    {"fieldname": "current_status", "label": "Current Status", "fieldtype": "Select", "options": "For Sale\nIn Workshop\nWith Customer\nSold\nArchived"},
+    {"fieldname": "current_location", "label": "Current Location", "fieldtype": "Data"},
+    {"fieldname": "profile_image", "label": "Profile Image (Hero Shot)", "fieldtype": "Attach Image"},
+    {"fieldname": "marketing_photos", "label": "Marketing Photo Gallery", "fieldtype": "Table", "options": "Instrument Photo"},
+    {"fieldname": "service_photos", "label": "Service Photo Log", "fieldtype": "Table", "options": "Instrument Photo"},
+    {"fieldname": "audio_video_demos", "label": "Audio/Video Demos", "fieldtype": "Table", "options": "Instrument Media"},
+    {"fieldname": "accessory_log", "label": "Current Accessories Log", "fieldtype": "Table", "options": "Instrument Accessory"}
+
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},

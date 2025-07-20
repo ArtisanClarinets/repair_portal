@@ -1,92 +1,122 @@
-# Clarinet Intake Doctype — Logic & Automation Map
+# Clarinet Intake Doctype — Comprehensive Logic & Usage Guide
 
-## Overview
-
-**Clarinet Intake** is the gateway for all instruments entering the shop—whether Inventory or Repair. All workflows, automations, and UI rules are now split into inventory and repair modes for clarity, maintainability, and scalability. This README gives you (or any new developer) a comprehensive, up-to-date roadmap.
-
----
-
-## What happens on save?
-
-- **Inventory Intake**:
-  - Shows and requires `item_code` and all core inventory fields
-  - UI and validation logic handled in `clarinet_intake_inventory.bundle.js`
-  - Auto-creates:
-    - **ERPNext Serial No** (if not provided)
-    - **Instrument Inspection**
-    - **Clarinet Initial Setup**
-  - All required fields are validated and users are prompted with friendly alerts if missing
-  - Intake status badge shown on Desk form (Pending, In Progress, Complete)
-- **Repair Intake**:
-  - Hides inventory-specific fields and only shows repair-relevant ones
-  - Validates required repair fields (e.g. consent form)
-  - Consent/phone/email validation is enforced
-  - No auto-creation (yet), but logic can be extended in `clarinet_intake_repair.py`
-  - Intake status badge shown on Desk form (Pending, In Progress, Complete)
+## **Purpose & Scope**
+The Clarinet Intake doctype is the central entry point for all clarinets coming into the system—whether as new inventory for sale, customer repairs, or maintenance. It automates and enforces full traceability and quality for every instrument, from intake to sale or service completion.
 
 ---
 
-## File Map & Roles
-
-| File                                                  | Role                                                                                         |
-|-------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| `clarinet_intake.json`                                | Field schema and permission model. Adds item_code for Inventory.                             |
-| `clarinet_intake.py`                                  | Main router — delegates to intake-type helper.                                               |
-| `clarinet_intake_inventory.py`                        | Inventory: business rules (serial, setup, inspection auto-creation, error logging).          |
-| `clarinet_intake_repair.py`                           | Repair: (currently minimal), future repair automation.                                       |
-| `public/js/intake/clarinet_intake_inventory.bundle.js`| Desk logic for Inventory intake: field toggling, validation, indicators, and alerts.         |
-| `public/js/intake/clarinet_intake_repair.bundle.js`   | Desk logic for Repair intake: field toggling, validation, consent alerts, and indicators.    |
-| `hooks.py`                                            | Loads both JS files for Clarinet Intake (via doctype_js).                                    |
-| `tests/test_inventory_intake.py`                      | Automated test: ensures automation works for Inventory intake.                               |
+## **Supported Intake Types**
+- **New Inventory:** New clarinets being added to shop inventory (no customer linked).
+- **Repair:** Customer-owned instruments received for repair (must link customer).
+- **Maintenance:** Customer-owned instruments received for routine service (must link customer).
 
 ---
 
-## Workflow — Step by Step
-
-1. **User picks Intake Type** (Inventory or Repair)
-2. If **Inventory**:
-    - All inventory fields (item_code, brand, model, etc.) are shown and required
-    - On save:
-      - Serial No is created/linked
-      - Instrument Inspection created
-      - Clarinet Initial Setup created
-      - Desk form gives visual status indicators
-      - All validation and required prompts are enforced
-3. If **Repair**:
-    - Only repair-relevant fields shown
-    - Consent form is validated
-    - Desk form gives visual status indicators
-    - No child automation by default (extend as needed)
+## **Field Logic & Required Data**
+- **Dynamic required fields:** The set of required fields changes depending on the intake type, enforced on both the frontend and backend.
+  - *New Inventory*: Requires item_code, item_name, manufacturer, acquisition source/cost, asking price, serial number, and key instrument details.
+  - *Repair/Maintenance*: Requires customer, service request, stated issue, manufacturer, model, and serial number.
+- **Validation** occurs both client-side and server-side before submit.
 
 ---
 
-## How to Extend
-- Want to add automation for Repairs? Use `clarinet_intake_repair.py`.
-- Want to add fields? Edit `clarinet_intake.json` and update the matching JS (bundle).
-- All server-side automation should be wrapped in try/except and use `frappe.log_error()` per best practice.
-- Update or add new tests in `tests/` for any new automation.
+## **Automation & Record Creation**
+### **Upon Intake Submission:**
+1. **Item Creation/Update (Inventory):**
+   - Creates or updates an ERPNext Item.
+   - Maps: item code, item name, item group, brand, warehouse, supplier code, stock UOM—all from settings.
+   - Sets custom clarinet fields (body, keywork, pitch, etc).
+   - Applies brand mapping logic from settings JSON (if set).
+2. **Item Price Records (Inventory):**
+   - Creates/updates buying price (acquisition cost) and selling price (asking price) using price lists from settings.
+3. **Serial No Creation:**
+   - Always creates a Serial No for the instrument (linked to Item, assigned to inspection warehouse).
+4. **Instrument Record Creation/Linkage:**
+   - Finds or creates an Instrument document, always linked to Serial No and Item.
+5. **Instrument Inspection:**
+   - Always creates an Instrument Inspection linked to the intake and instrument.
+   - Sets inspection type label from settings ("Initial Inspection" for inventory, "Arrival Inspection" for repair/maintenance).
+6. **Clarinet Initial Setup (Inventory):**
+   - Auto-creates a Clarinet Initial Setup record for each new inventory intake (linked to instrument and intake) if enabled in settings.
+7. **Stock Validation & Notification:**
+   - Warns (via Desk message) if Serial No or Item is not present in the inspection warehouse or actual stock is 0.
+   - Notification toggles controlled via settings.
 
 ---
 
-## Test Coverage
-- Run tests in `tests/test_inventory_intake.py` to ensure all business rules are live.
-- Add new tests for any extended or custom workflow.
+## **Workflow Logic (Recursive Overview)**
+- **Intake Creation:**
+  - User fills out the form, selects intake type.
+  - Field requirements and validation adapt automatically.
+- **On Submit:**
+  - Controller loads all business logic from the Clarinet Intake Settings doctype.
+  - For new inventory, creates or updates all linked ERPNext objects (Item, Item Prices, Serial No, Instrument, Inspection, Initial Setup) in correct order, with all relationships enforced.
+  - For repair/maintenance, ensures instrument and inspection records are present and properly linked to the intake and customer.
+  - If any linkage or data fails (e.g., missing instrument, stock, or serial), the user is notified immediately with actionable messages. All exceptions are logged for admin review.
+- **Automation Recursion:**
+  - Every newly created document (Item, Serial No, Instrument, Inspection, Setup) is immediately available for further automation downstream—e.g., assignment to customer, triggering QC, or setup tasks.
+  - If an intake is edited and resubmitted, logic is idempotent: duplicate records are never created.
+  - All future changes to business rules (warehouses, item groups, branding, labels, toggles) are handled instantly via the Clarinet Intake Settings doctype—**no code deploy needed**.
 
 ---
 
-## CLI for DevOps
-```sh
-cd /opt/frappe/erp-bench/
-source env/bin/activate
-bench --site erp.artisanclarinets.com migrate
-bench build
-```
+## **Settings-Driven Architecture**
+- All core logic references the **Clarinet Intake Settings** doctype, a single-record Desk form managed by authorized users:
+  - Default item group, warehouse, price lists, stock UOM
+  - Automation toggles (auto-inspection, auto-setup, stock notifications)
+  - Brand mapping (JSON), supplier code prefix, naming series
+  - Custom inspection type labels (for inventory and repair)
+- Any settings change is instantly reflected in all new intakes and automations.
 
 ---
 
-## Gotchas & Tips
-- Only the router (`clarinet_intake.py`) is loaded by Frappe as the DocType controller. Mode-specific logic must live in the helpers.
-- Always update both backend and frontend when adding new required fields, validations, or UI logic.
-- For new automations, create a test in `tests/`, and update the README and CHANGELOG.
-- All indicators now use supported Frappe Desk APIs (no deprecated badge calls).
-- Field toggling and validation are now Fortune-500 clean and split by mode (inventory/repair).
+## **User Interface Features**
+- **Settings Button:** Visible on both the intake form (Actions menu) and intake list view menu for System Manager and Repair Manager roles—direct link to settings.
+- **Dynamic field toggling:** Fields and required-ness change live based on intake type.
+- **Immediate notifications:** Desk messages for any missing required data or stock issues.
+
+---
+
+## **Permissions & Security**
+- **Doctype permissions** follow Frappe/ERPNext best practices.
+- **Settings access** limited to authorized admin/manager roles.
+- **No sensitive business logic is exposed to end users.**
+
+---
+
+## **Technical Details & Best Practices**
+- **All controller logic** (clarinet_intake.py) is PEP8, commented, and settings-driven.
+- **Frontend (clarinet_intake.js)** handles live validation, dynamic field rules, and navigation.
+- **Settings controller** ensures JSON validation for brand mapping and safe pattern use.
+- **All errors are logged** for audit and debugging.
+- **Data integrity:** Intake record naming, linkage, and all automated relationships are validated at every step.
+- **Idempotency:** Automation avoids duplicate objects if intake is resubmitted or edited.
+- **Upgrade-friendly:** As Frappe/ERPNext evolves, core settings logic ensures business flexibility with no need for code changes.
+
+---
+
+## **How to Use**
+1. **Admins:** Configure all settings in "Clarinet Intake Settings" (found in the Intake module or via form/list view button).
+2. **Users:** Open a new Clarinet Intake, select type, and fill all required data. Submit when ready.
+3. **Automation:** All downstream records (Item, Prices, Serial, Instrument, Inspection, Setup) are created and linked automatically.
+4. **Review notifications:** Address any missing stock or linkage issues as prompted in Desk.
+
+---
+
+## **File Index**
+- **clarinet_intake.json**: Doctype schema
+- **clarinet_intake.py**: Backend controller (settings-driven)
+- **clarinet_intake.js**: Frontend logic, validation, settings navigation
+- **clarinet_intake_settings.json/py**: Settings doctype & validation logic
+- **README.md**: (This file)
+
+---
+
+## **Version**
+- Frappe/ERPNext v15
+- Last updated: 2025-07-19
+
+---
+
+## **Support & Documentation**
+For questions, change requests, or onboarding support, contact the ERP team or refer to Desk module documentation. All technical debt and system enhancements are tracked in `/CHANGELOG.md`.

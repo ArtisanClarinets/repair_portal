@@ -1,19 +1,19 @@
 # File Header Template
 # Relative Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
 # Last Updated: 2025-07-19
-# Version: v3.5
-# Purpose: Controller logic for Clarinet Intake. Handles validation, naming,
-# triggers inventory/repair automation, Item/Price/Warehouse/Brand/supplier_code mapping, and always creates Instrument Inspection and Initial Setup.
-# Dependencies: ERPNext Item, Item Price, Serial No, Instrument, Instrument Inspection, Clarinet Initial Setup
+# Version: v3.6
+# Purpose: Controller logic for Clarinet Intake. Fully settings-driven: all key config (warehouse, price lists, group, brand, labels, automation) now comes from Clarinet Intake Settings.
+# Dependencies: ERPNext Item, Item Price, Serial No, Instrument, Instrument Inspection, Clarinet Initial Setup, Clarinet Intake Settings
 
 from __future__ import annotations
 
 from typing import Literal
-
 import frappe
 from frappe import _
 from frappe.model import naming
 from frappe.model.document import Document
+from repair_portal.intake.doctype.clarinet_intake_settings.clarinet_intake_settings import get_intake_settings
+import json
 
 MANDATORY_BY_TYPE = {
     "New Inventory": {"body_material", "acquisition_source", "acquisition_cost", "store_asking_price", "item_code", "item_name"},
@@ -21,10 +21,8 @@ MANDATORY_BY_TYPE = {
     "Maintenance": {"customers_stated_issue", "service_type_requested", "customer"},
 }
 
-CLARINET_INSPECTION_WAREHOUSE = "Clarinet Inspection"  # Set this to your actual warehouse name
-
 class ClarinetIntake(Document):
-    """Business logic & validation for the Clarinet Intake document."""
+    """Business logic & validation for the Clarinet Intake document. Now fully settings-driven!"""
     name: str
     intake_record_id: str
     instrument_unique_id: str | None
@@ -45,8 +43,10 @@ class ClarinetIntake(Document):
     item_name: str | None
 
     def autoname(self) -> None:
+        settings = get_intake_settings()
         if not self.intake_record_id:
-            self.intake_record_id = self._generate_record_id()
+            pattern = settings.get("intake_naming_series") or "INV-#####"
+            self.intake_record_id = naming.make_autoname(pattern)
         self.name = self.intake_record_id
 
     def validate(self) -> None:
@@ -54,43 +54,56 @@ class ClarinetIntake(Document):
         self._sync_instrument_from_serial()
 
     def on_submit(self) -> None:
+        settings = get_intake_settings()
+        # All logic is now settings-driven
         if self.intake_type == "New Inventory":
             try:
-                item = self._ensure_erpnext_item()
-                self._ensure_item_prices(item)
+                item = self._ensure_erpnext_item(settings)
+                if settings.get("buying_price_list") and settings.get("selling_price_list"):
+                    self._ensure_item_prices(item, settings)
             except Exception as e:
                 frappe.log_error(frappe.get_traceback(), _("Item creation/price failed"))
                 frappe.throw(_(f"Failed to create Item/Prices: {e}"))
-        try:
-            self._ensure_instrument_inspection()
-        except Exception as e:
-            frappe.log_error(frappe.get_traceback(), _("Instrument Inspection creation failed"))
-            frappe.throw(_(f"Failed to create Instrument Inspection: {e}"))
-        # Always try to create initial setup for inventory
-        if self.intake_type == "New Inventory":
+        # Instrument Inspection if required
+        if settings.get("require_inspection", 1):
+            try:
+                self._ensure_instrument_inspection(settings)
+            except Exception as e:
+                frappe.log_error(frappe.get_traceback(), _("Instrument Inspection creation failed"))
+                frappe.throw(_(f"Failed to create Instrument Inspection: {e}"))
+        # Initial Setup toggle
+        if self.intake_type == "New Inventory" and settings.get("auto_create_initial_setup", 1):
             try:
                 self._ensure_clarinet_initial_setup()
             except Exception as e:
                 frappe.log_error(frappe.get_traceback(), _("Clarinet Initial Setup failed"))
                 frappe.msgprint(_(f"Warning: Initial Setup could not be created: {e}"))
         # Stock validation & notification
-        try:
-            self._validate_stock_in_inspection_warehouse()
-        except Exception as e:
-            frappe.log_error(frappe.get_traceback(), _("Stock Validation failed"))
-            frappe.msgprint(_(f"Warning: Stock validation error: {e}"))
+        if settings.get("notify_on_stock_issue", 1):
+            try:
+                self._validate_stock_in_inspection_warehouse(settings)
+            except Exception as e:
+                frappe.log_error(frappe.get_traceback(), _("Stock Validation failed"))
+                frappe.msgprint(_(f"Warning: Stock validation error: {e}"))
 
-    def _ensure_erpnext_item(self):
-        """Create or update Item with mapping for group, brand, warehouse, supplier code."""
+    def _ensure_erpnext_item(self, settings):
         item = frappe.db.exists("Item", {"item_code": self.item_code})
         doc = frappe.get_doc("Item", item) if item else frappe.new_doc("Item")
+        # Brand mapping via settings (optional JSON)
+        brand = self.manufacturer or "Unknown"
+        try:
+            mapping = json.loads(settings.get("brand_mapping", "{}"))
+            brand = mapping.get(brand, brand)
+        except Exception:
+            pass
+        supplier_code = (settings.get("supplier_code_prefix") or "") + (self.item_code or "")
         doc.item_code = self.item_code
         doc.item_name = self.item_name
-        doc.item_group = "Clarinets"
-        doc.brand = self.manufacturer or "Unknown"
-        doc.default_warehouse = CLARINET_INSPECTION_WAREHOUSE
-        doc.supplier_code = self.item_code  # assumes custom field
-        doc.stock_uom = "Nos"
+        doc.item_group = settings.get("default_item_group") or "Clarinets"
+        doc.brand = brand
+        doc.default_warehouse = settings.get("default_inspection_warehouse") or "Clarinet Inspection"
+        doc.supplier_code = supplier_code
+        doc.stock_uom = settings.get("stock_uom") or "Nos"
         doc.is_stock_item = 1
         doc.description = f"{self.item_name or ''} - {self.manufacturer or ''} - {self.model or ''}"
         doc.custom_clarinet_type = self.clarinet_type
@@ -102,10 +115,9 @@ class ClarinetIntake(Document):
         frappe.msgprint(_(f"Item <b>{self.item_code}</b> created/updated."))
         return doc
 
-    def _ensure_item_prices(self, item):
-        """Create or update Item Prices for buying/selling."""
-        self._upsert_item_price(item.item_code, self.acquisition_cost, "Standard Buying")
-        self._upsert_item_price(item.item_code, self.store_asking_price, "Standard Selling")
+    def _ensure_item_prices(self, item, settings):
+        self._upsert_item_price(item.item_code, self.acquisition_cost, settings.get("buying_price_list", "Standard Buying"))
+        self._upsert_item_price(item.item_code, self.store_asking_price, settings.get("selling_price_list", "Standard Selling"))
 
     def _upsert_item_price(self, item_code, price, price_list):
         exists = frappe.db.exists("Item Price", {"item_code": item_code, "price_list": price_list})
@@ -122,9 +134,14 @@ class ClarinetIntake(Document):
             })
             doc.insert(ignore_permissions=True)
 
-    def _ensure_instrument_inspection(self) -> None:
+    def _ensure_instrument_inspection(self, settings):
         if not self.instrument_unique_id:
             return
+        inspection_type = "Initial Inspection" if self.intake_type == "New Inventory" else "Arrival Inspection"
+        if self.intake_type == "New Inventory":
+            inspection_type = settings.get("inspection_type_inventory", "Initial Inspection")
+        else:
+            inspection_type = settings.get("inspection_type_repair", "Arrival Inspection")
         existing = frappe.db.exists(
             "Instrument Inspection",
             {
@@ -139,7 +156,7 @@ class ClarinetIntake(Document):
             "instrument": self.instrument_unique_id,
             "serial_no": self.serial_no,
             "intake_record_id": self.name,
-            "inspection_type": "Initial Inspection" if self.intake_type == "New Inventory" else "Arrival Inspection",
+            "inspection_type": inspection_type,
             "status": "Open"
         })
         inspection.insert(ignore_permissions=True)
@@ -165,19 +182,19 @@ class ClarinetIntake(Document):
         setup.insert(ignore_permissions=True)
         frappe.msgprint(_(f"Clarinet Initial Setup <b>{setup.name}</b> created and linked."))
 
-    def _validate_stock_in_inspection_warehouse(self):
-        """Notify if Item/Serial not present in inspection warehouse."""
-        sn = frappe.db.exists("Serial No", {"serial_no": self.serial_no, "warehouse": CLARINET_INSPECTION_WAREHOUSE})
+    def _validate_stock_in_inspection_warehouse(self, settings):
+        warehouse = settings.get("default_inspection_warehouse") or "Clarinet Inspection"
+        sn = frappe.db.exists("Serial No", {"serial_no": self.serial_no, "warehouse": warehouse})
         if not sn:
-            frappe.msgprint(_(f"Warning: Serial No {self.serial_no} not found in warehouse '{CLARINET_INSPECTION_WAREHOUSE}'."))
-        bin_qty = frappe.db.get_value("Bin", {"item_code": self.item_code, "warehouse": CLARINET_INSPECTION_WAREHOUSE}, "actual_qty")
+            frappe.msgprint(_(f"Warning: Serial No {self.serial_no} not found in warehouse '{warehouse}'."))
+        bin_qty = frappe.db.get_value("Bin", {"item_code": self.item_code, "warehouse": warehouse}, "actual_qty")
         if not bin_qty or float(bin_qty) <= 0:
-            frappe.msgprint(_(f"Warning: No stock found for Item {self.item_code} in warehouse '{CLARINET_INSPECTION_WAREHOUSE}'."))
+            frappe.msgprint(_(f"Warning: No stock found for Item {self.item_code} in warehouse '{warehouse}'."))
 
     def _generate_record_id(self) -> str:
-        prefix_map = {"New Inventory": "INV", "Repair": "REP", "Maintenance": "MAIN"}
-        prefix = prefix_map.get(self.intake_type, "INT")
-        return f"{prefix}-{naming.make_autoname('#####')}"
+        settings = get_intake_settings()
+        pattern = settings.get("intake_naming_series") or "INV-#####"
+        return naming.make_autoname(pattern)
 
     def _enforce_dynamic_mandatory_fields(self) -> None:
         missing = [

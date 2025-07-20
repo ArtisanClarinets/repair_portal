@@ -1,5 +1,5 @@
 // File: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.js
-// Version: v3.2
+// Version: v3.3
 
 frappe.ui.form.on('Clarinet Intake', {
     onload(frm) {
@@ -57,5 +57,24 @@ frappe.ui.form.on('Clarinet Intake', {
             });
             frappe.validated = false;
         }
+    },
+
+    refresh(frm) {
+        // Add Settings button for managers/admins
+        if (frappe.user.has_role("System Manager") || frappe.user.has_role("Repair Manager")) {
+            frm.add_custom_button(__('Settings'), () => {
+                frappe.set_route('Form', 'Clarinet Intake Settings');
+            }, __('Actions'));
+        }
     }
 });
+
+frappe.listview_settings['Clarinet Intake'] = {
+    onload: function(listview) {
+        if (frappe.user.has_role("System Manager") || frappe.user.has_role("Repair Manager")) {
+            listview.page.add_menu_item(__('Settings'), function() {
+                frappe.set_route('Form', 'Clarinet Intake Settings');
+            });
+        }
+    }
+};

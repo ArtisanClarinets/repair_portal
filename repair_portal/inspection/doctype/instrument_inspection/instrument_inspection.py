@@ -1,9 +1,9 @@
 # File Header Template
 # Relative Path: repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.py
-# Last Updated: 2025-07-19
-# Version: v1.1
-# Purpose: Controller for Instrument Inspection DocType - handles validation, automation, and exception logging for all inspection scenarios (inventory, repair, maintenance, QA).
-# Dependencies: frappe, Inspection Finding, Tenon Fit Record, Tone Hole Inspection Record
+# Last Updated: 2025-07-20
+# Version: v1.2
+# Purpose: Controller for Instrument Inspection DocType - handles validation, automation, and exception logging for all inspection scenarios (inventory, repair, maintenance, QA). Also syncs deep inspection specs to Instrument Profile.
+# Dependencies: frappe, Inspection Finding, Tenon Fit Record, Tone Hole Inspection Record, Instrument Profile
 
 import frappe
 from frappe.model.document import Document
@@ -50,3 +50,40 @@ class InstrumentInspection(Document):
             )
             if duplicate:
                 frappe.throw(f"An Instrument Inspection already exists for Serial No: {self.serial_no}")
+
+    def on_submit(self) -> None:
+        """
+        On submit, update or create Instrument Profile for this serial. Syncs all persistent fields (specs, images, logs, etc.).
+        """
+        try:
+            serial = self.serial_no
+            profile_name = frappe.db.get_value("Instrument Profile", {"instrument": serial})
+            data = {
+                "body_material": self.body_material,
+                "keywork_plating": self.keywork_plating,
+                "key_system": self.key_system,
+                "number_of_keys_rings": self.number_of_keys_rings,
+                "pitch_standard": self.pitch_standard,
+                "bore_style": self.bore_style,
+                "bore_measurement": self.bore_measurement,
+                "tone_hole_style": self.tone_hole_style,
+                "thumb_rest": self.thumb_rest,
+                "spring_type": self.spring_type,
+                "pad_type_current": self.pad_type_current,
+                "current_status": self.current_status,
+                "current_location": self.current_location,
+                "profile_image": self.profile_image
+                # TODO: Add child table mappings for photos, media, accessories, etc.
+            }
+            if profile_name:
+                profile = frappe.get_doc("Instrument Profile", profile_name)
+                for k, v in data.items():
+                    if v:
+                        profile.set(k, v)
+                profile.save(ignore_permissions=True)
+            else:
+                data.update({"instrument": serial})
+                profile = frappe.get_doc({"doctype": "Instrument Profile", **data})
+                profile.insert(ignore_permissions=True)
+        except Exception:
+            frappe.log_error(frappe.get_traceback(), "InstrumentInspection.on_submit")

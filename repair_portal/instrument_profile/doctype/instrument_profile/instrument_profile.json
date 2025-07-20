@@ -6,218 +6,57 @@
   "track_views": 1,
   "workflow_state_field": "workflow_state",
   "fields": [
-    {
-      "fieldname": "instrument",
-      "label": "Instrument",
-      "fieldtype": "Link",
-      "options": "Instrument",
-      "reqd": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "brand",
-      "label": "Brand",
-      "fieldtype": "Data",
-      "fetch_from": "instrument.brand",
-      "read_only": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "model",
-      "label": "Model",
-      "fieldtype": "Data",
-      "fetch_from": "instrument.model",
-      "read_only": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "instrument_category",
-      "label": "Instrument Category",
-      "fieldtype": "Data",
-      "fetch_from": "instrument.instrument_category",
-      "read_only": 1
-    },
-    {
-      "fieldname": "wood_type",
-      "label": "Wood Type",
-      "fieldtype": "Data",
-      "fetch_from": "instrument.wood_type",
-      "read_only": 1
-    },
-    {
-      "fieldname": "key_plating",
-      "label": "Key Plating",
-      "fieldtype": "Data",
-      "fetch_from": "instrument.key_plating",
-      "read_only": 1
-    },
-    {
-      "fieldname": "purchase_order",
-      "label": "Purchase Order",
-      "fieldtype": "Link",
-      "options": "Purchase Order",
-      "fetch_from": "instrument.purchase_order",
-      "read_only": 1
-    },
-    {
-      "fieldname": "purchase_receipt",
-      "label": "Purchase Receipt",
-      "fieldtype": "Link",
-      "options": "Purchase Receipt",
-      "fetch_from": "instrument.purchase_receipt",
-      "read_only": 1
-    },
-    {
-      "fieldname": "received_date",
-      "label": "Received Date",
-      "fieldtype": "Date",
-      "fetch_from": "instrument.received_date",
-      "read_only": 1
-    },
-    {
-      "fieldname": "warehouse",
-      "label": "Warehouse",
-      "fieldtype": "Link",
-      "options": "Warehouse",
-      "fetch_from": "instrument.warehouse",
-      "read_only": 1
-    },
-    {
-      "fieldname": "initial_condition_notes",
-      "label": "Initial Condition Notes",
-      "fieldtype": "Text"
-    },
-    {
-      "fieldname": "serial_photos",
-      "label": "Instrument Photos",
-      "fieldtype": "Table",
-      "options": "Instrument Photo"
-    },
-    {
-      "fieldname": "linked_intake",
-      "label": "Last Intake",
-      "fieldtype": "Link",
-      "options": "Clarinet Intake",
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "linked_initial_setup",
-      "label": "Last Initial Setup",
-      "fieldtype": "Link",
-      "options": "Clarinet Initial Setup",
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "inspection_results",
-      "label": "Inspection Results",
-      "fieldtype": "Table",
-      "options": "Instrument Inspection",
-      "read_only": 1
-    },
-    {
-      "fieldname": "setup_logs",
-      "label": "Setup Logs",
-      "fieldtype": "Table",
-      "options": "Clarinet Setup Log",
-      "read_only": 1
-    },
-    {
-      "fieldname": "qa_findings",
-      "label": "QA Findings",
-      "fieldtype": "Table",
-      "options": "Instrument Inspection",
-      "read_only": 1
-    },
-    {
-      "fieldname": "condition_logs",
-      "label": "Condition Logs",
-      "fieldtype": "Table",
-      "options": "Instrument Condition Record",
-      "read_only": 1
-    },
-    {
-      "fieldname": "external_work_logs",
-      "label": "External Work Logs",
-      "fieldtype": "Table",
-      "options": "External Work Logs",
-      "read_only": 1
-    },
-    {
-      "fieldname": "warranty_logs",
-      "label": "Warranty Logs",
-      "fieldtype": "Table",
-      "options": "Warranty Modification Log",
-      "read_only": 1
-    },
-    {
-      "fieldname": "material_usage",
-      "label": "Material Usage",
-      "fieldtype": "Table",
-      "options": "Material Use Log",
-      "read_only": 1
-    },
-    {
-      "fieldname": "lab_readings",
-      "label": "Lab Readings",
-      "fieldtype": "Table",
-      "options": "Leak Test",
-      "read_only": 1
-    },
-    {
-      "fieldname": "document_history",
-      "label": "Document History",
-      "fieldtype": "Table",
-      "options": "Instrument Document History",
-      "read_only": 1
-    },
-    {
-      "fieldname": "interaction_logs",
-      "label": "Interaction Logs",
-      "fieldtype": "Table",
-      "options": "Instrument Interaction Log",
-      "read_only": 1
-    },
-    {
-      "fieldname": "workflow_state",
-      "label": "Workflow State",
-      "fieldtype": "Select",
-      "options": "Open\nIn Progress\nDelivered\nArchived",
-      "read_only": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "warranty_expiration",
-      "label": "Warranty Expiration",
-      "fieldtype": "Date",
-      "fetch_from": "instrument.warranty_expiration",
-      "read_only": 1,
-      "in_list_view": 1
-    }
+    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "brand", "label": "Brand", "fieldtype": "Data", "fetch_from": "instrument.brand", "read_only": 1, "in_list_view": 1},
+    {"fieldname": "model", "label": "Model", "fieldtype": "Data", "fetch_from": "instrument.model", "read_only": 1, "in_list_view": 1},
+    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Data", "fetch_from": "instrument.instrument_category", "read_only": 1},
+    {"fieldname": "wood_type", "label": "Wood Type", "fieldtype": "Data", "fetch_from": "instrument.wood_type", "read_only": 1},
+    {"fieldname": "key_plating", "label": "Key Plating", "fieldtype": "Data", "fetch_from": "instrument.key_plating", "read_only": 1},
+    {"fieldname": "purchase_order", "label": "Purchase Order", "fieldtype": "Link", "options": "Purchase Order", "fetch_from": "instrument.purchase_order", "read_only": 1},
+    {"fieldname": "purchase_receipt", "label": "Purchase Receipt", "fieldtype": "Link", "options": "Purchase Receipt", "fetch_from": "instrument.purchase_receipt", "read_only": 1},
+    {"fieldname": "received_date", "label": "Received Date", "fieldtype": "Date", "fetch_from": "instrument.received_date", "read_only": 1},
+    {"fieldname": "warehouse", "label": "Warehouse", "fieldtype": "Link", "options": "Warehouse", "fetch_from": "instrument.warehouse", "read_only": 1},
+    {"fieldname": "initial_condition_notes", "label": "Initial Condition Notes", "fieldtype": "Text"},
+    {"fieldname": "serial_photos", "label": "Instrument Photos", "fieldtype": "Table", "options": "Instrument Photo"},
+    {"fieldname": "linked_intake", "label": "Last Intake", "fieldtype": "Link", "options": "Clarinet Intake", "in_list_view": 1},
+    {"fieldname": "linked_initial_setup", "label": "Last Initial Setup", "fieldtype": "Link", "options": "Clarinet Initial Setup", "in_list_view": 1},
+    {"fieldname": "inspection_results", "label": "Inspection Results", "fieldtype": "Table", "options": "Instrument Inspection", "read_only": 1},
+    {"fieldname": "setup_logs", "label": "Setup Logs", "fieldtype": "Table", "options": "Clarinet Setup Log", "read_only": 1},
+    {"fieldname": "qa_findings", "label": "QA Findings", "fieldtype": "Table", "options": "Instrument Inspection", "read_only": 1},
+    {"fieldname": "condition_logs", "label": "Condition Logs", "fieldtype": "Table", "options": "Instrument Condition Record", "read_only": 1},
+    {"fieldname": "external_work_logs", "label": "External Work Logs", "fieldtype": "Table", "options": "External Work Logs", "read_only": 1},
+    {"fieldname": "warranty_logs", "label": "Warranty Logs", "fieldtype": "Table", "options": "Warranty Modification Log", "read_only": 1},
+    {"fieldname": "material_usage", "label": "Material Usage", "fieldtype": "Table", "options": "Material Use Log", "read_only": 1},
+    {"fieldname": "lab_readings", "label": "Lab Readings", "fieldtype": "Table", "options": "Leak Test", "read_only": 1},
+    {"fieldname": "document_history", "label": "Document History", "fieldtype": "Table", "options": "Instrument Document History", "read_only": 1},
+    {"fieldname": "interaction_logs", "label": "Interaction Logs", "fieldtype": "Table", "options": "Instrument Interaction Log", "read_only": 1},
+    {"fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Select", "options": "Open\nIn Progress\nDelivered\nArchived", "read_only": 1, "in_list_view": 1},
+    {"fieldname": "warranty_expiration", "label": "Warranty Expiration", "fieldtype": "Date", "fetch_from": "instrument.warranty_expiration", "read_only": 1, "in_list_view": 1},
+
+    {"fieldname": "body_material", "label": "Body Material", "fieldtype": "Data"},
+    {"fieldname": "keywork_plating", "label": "Keywork Plating", "fieldtype": "Data"},
+    {"fieldname": "key_system", "label": "Key System", "fieldtype": "Select", "options": "Boehm\nAlbert\nOehler\nOther"},
+    {"fieldname": "number_of_keys_rings", "label": "Number of Keys/Rings", "fieldtype": "Data"},
+    {"fieldname": "pitch_standard", "label": "Pitch Standard", "fieldtype": "Data"},
+    {"fieldname": "bore_style", "label": "Bore Style", "fieldtype": "Data"},
+    {"fieldname": "bore_measurement", "label": "Bore Measurement (mm)", "fieldtype": "Float"},
+    {"fieldname": "tone_hole_style", "label": "Tone Hole Style", "fieldtype": "Data"},
+    {"fieldname": "thumb_rest", "label": "Thumb Rest", "fieldtype": "Data"},
+    {"fieldname": "spring_type", "label": "Spring Type", "fieldtype": "Data"},
+    {"fieldname": "pad_type_current", "label": "Pad Type (Current)", "fieldtype": "Data"},
+    {"fieldname": "current_status", "label": "Current Status", "fieldtype": "Select", "options": "For Sale\nIn Workshop\nWith Customer\nSold\nArchived"},
+    {"fieldname": "current_location", "label": "Current Location", "fieldtype": "Data"},
+    {"fieldname": "profile_image", "label": "Profile Image (Hero Shot)", "fieldtype": "Attach Image"},
+    {"fieldname": "marketing_photos", "label": "Marketing Photo Gallery", "fieldtype": "Table", "options": "Instrument Photo"},
+    {"fieldname": "service_photos", "label": "Service Photo Log", "fieldtype": "Table", "options": "Instrument Photo"},
+    {"fieldname": "audio_video_demos", "label": "Audio/Video Demos", "fieldtype": "Table", "options": "Instrument Media"},
+    {"fieldname": "accessory_log", "label": "Current Accessories Log", "fieldtype": "Table", "options": "Instrument Accessory"}
+
   ],
   "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    },
-    {
-      "role": "Technician",
-      "read": 1
-    },
-    {
-      "role": "Customer",
-      "read": 1,
-      "if_owner": 1
-    },
-    {
-      "role": "Repair Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "submit": 1,
-      "cancel": 1
-    }
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Technician", "read": 1},
+    {"role": "Customer", "read": 1, "if_owner": 1},
+    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1}
   ]
 }
