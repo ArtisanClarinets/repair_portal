@@ -1,10 +1,10 @@
 # File Header Template
 # Relative Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
 # Last Updated: 2025-07-19
-# Version: v3.4
+# Version: v3.5
 # Purpose: Controller logic for Clarinet Intake. Handles validation, naming,
-# triggers inventory/repair automation, and always creates an Instrument Inspection.
-# Dependencies: ERPNext Item, Serial No, Instrument, Instrument Inspection
+# triggers inventory/repair automation, Item/Price/Warehouse/Brand/supplier_code mapping, and always creates Instrument Inspection and Initial Setup.
+# Dependencies: ERPNext Item, Item Price, Serial No, Instrument, Instrument Inspection, Clarinet Initial Setup
 
 from __future__ import annotations
 
@@ -20,6 +20,8 @@ MANDATORY_BY_TYPE = {
     "Repair": {"customers_stated_issue", "service_type_requested", "customer"},
     "Maintenance": {"customers_stated_issue", "service_type_requested", "customer"},
 }
+
+CLARINET_INSPECTION_WAREHOUSE = "Clarinet Inspection"  # Set this to your actual warehouse name
 
 class ClarinetIntake(Document):
     """Business logic & validation for the Clarinet Intake document."""
@@ -54,18 +56,73 @@ class ClarinetIntake(Document):
     def on_submit(self) -> None:
         if self.intake_type == "New Inventory":
             try:
-                self._ensure_erpnext_item()
+                item = self._ensure_erpnext_item()
+                self._ensure_item_prices(item)
             except Exception as e:
-                frappe.log_error(frappe.get_traceback(), _("Item creation failed"))
-                frappe.throw(_(f"Failed to create Item: {e}"))
+                frappe.log_error(frappe.get_traceback(), _("Item creation/price failed"))
+                frappe.throw(_(f"Failed to create Item/Prices: {e}"))
         try:
             self._ensure_instrument_inspection()
         except Exception as e:
             frappe.log_error(frappe.get_traceback(), _("Instrument Inspection creation failed"))
             frappe.throw(_(f"Failed to create Instrument Inspection: {e}"))
+        # Always try to create initial setup for inventory
+        if self.intake_type == "New Inventory":
+            try:
+                self._ensure_clarinet_initial_setup()
+            except Exception as e:
+                frappe.log_error(frappe.get_traceback(), _("Clarinet Initial Setup failed"))
+                frappe.msgprint(_(f"Warning: Initial Setup could not be created: {e}"))
+        # Stock validation & notification
+        try:
+            self._validate_stock_in_inspection_warehouse()
+        except Exception as e:
+            frappe.log_error(frappe.get_traceback(), _("Stock Validation failed"))
+            frappe.msgprint(_(f"Warning: Stock validation error: {e}"))
+
+    def _ensure_erpnext_item(self):
+        """Create or update Item with mapping for group, brand, warehouse, supplier code."""
+        item = frappe.db.exists("Item", {"item_code": self.item_code})
+        doc = frappe.get_doc("Item", item) if item else frappe.new_doc("Item")
+        doc.item_code = self.item_code
+        doc.item_name = self.item_name
+        doc.item_group = "Clarinets"
+        doc.brand = self.manufacturer or "Unknown"
+        doc.default_warehouse = CLARINET_INSPECTION_WAREHOUSE
+        doc.supplier_code = self.item_code  # assumes custom field
+        doc.stock_uom = "Nos"
+        doc.is_stock_item = 1
+        doc.description = f"{self.item_name or ''} - {self.manufacturer or ''} - {self.model or ''}"
+        doc.custom_clarinet_type = self.clarinet_type
+        doc.custom_body_material = self.body_material
+        doc.custom_keywork_plating = self.keywork_plating
+        doc.custom_pitch_standard = self.pitch_standard
+        doc.flags.ignore_mandatory = True
+        doc.save(ignore_permissions=True)
+        frappe.msgprint(_(f"Item <b>{self.item_code}</b> created/updated."))
+        return doc
+
+    def _ensure_item_prices(self, item):
+        """Create or update Item Prices for buying/selling."""
+        self._upsert_item_price(item.item_code, self.acquisition_cost, "Standard Buying")
+        self._upsert_item_price(item.item_code, self.store_asking_price, "Standard Selling")
+
+    def _upsert_item_price(self, item_code, price, price_list):
+        exists = frappe.db.exists("Item Price", {"item_code": item_code, "price_list": price_list})
+        if exists:
+            doc = frappe.get_doc("Item Price", exists)
+            doc.price_list_rate = price
+            doc.save(ignore_permissions=True)
+        else:
+            doc = frappe.get_doc({
+                "doctype": "Item Price",
+                "item_code": item_code,
+                "price_list": price_list,
+                "price_list_rate": price
+            })
+            doc.insert(ignore_permissions=True)
 
     def _ensure_instrument_inspection(self) -> None:
-        """Create Instrument Inspection linked to this Intake and Instrument, if one doesn't exist."""
         if not self.instrument_unique_id:
             return
         existing = frappe.db.exists(
@@ -88,24 +145,34 @@ class ClarinetIntake(Document):
         inspection.insert(ignore_permissions=True)
         frappe.msgprint(_(f"Instrument Inspection <b>{inspection.name}</b> created and linked."))
 
-    def _ensure_erpnext_item(self) -> None:
-        if frappe.db.exists("Item", {"item_code": self.item_code}):
+    def _ensure_clarinet_initial_setup(self):
+        existing = frappe.db.exists(
+            "Clarinet Initial Setup",
+            {
+                "instrument": self.instrument_unique_id,
+                "intake_record_id": self.name,
+            },
+        )
+        if existing:
             return
-        item = frappe.get_doc({
-            "doctype": "Item",
-            "item_code": self.item_code,
-            "item_name": self.item_name,
-            "item_group": "Instruments",
-            "stock_uom": "Nos",
-            "is_stock_item": 1,
-            "description": f"{self.item_name or ''} - {self.manufacturer or ''} - {self.model or ''}",
-            "custom_clarinet_type": self.clarinet_type,
-            "custom_body_material": self.body_material,
-            "custom_keywork_plating": self.keywork_plating,
-            "custom_pitch_standard": self.pitch_standard,
+        setup = frappe.get_doc({
+            "doctype": "Clarinet Initial Setup",
+            "instrument": self.instrument_unique_id,
+            "serial_no": self.serial_no,
+            "intake_record_id": self.name,
+            "status": "Open"
         })
-        item.insert(ignore_permissions=True)
-        frappe.msgprint(_(f"Item <b>{self.item_code}</b> created."))
+        setup.insert(ignore_permissions=True)
+        frappe.msgprint(_(f"Clarinet Initial Setup <b>{setup.name}</b> created and linked."))
+
+    def _validate_stock_in_inspection_warehouse(self):
+        """Notify if Item/Serial not present in inspection warehouse."""
+        sn = frappe.db.exists("Serial No", {"serial_no": self.serial_no, "warehouse": CLARINET_INSPECTION_WAREHOUSE})
+        if not sn:
+            frappe.msgprint(_(f"Warning: Serial No {self.serial_no} not found in warehouse '{CLARINET_INSPECTION_WAREHOUSE}'."))
+        bin_qty = frappe.db.get_value("Bin", {"item_code": self.item_code, "warehouse": CLARINET_INSPECTION_WAREHOUSE}, "actual_qty")
+        if not bin_qty or float(bin_qty) <= 0:
+            frappe.msgprint(_(f"Warning: No stock found for Item {self.item_code} in warehouse '{CLARINET_INSPECTION_WAREHOUSE}'."))
 
     def _generate_record_id(self) -> str:
         prefix_map = {"New Inventory": "INV", "Repair": "REP", "Maintenance": "MAIN"}
