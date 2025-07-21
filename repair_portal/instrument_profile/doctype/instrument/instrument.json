@@ -10,8 +10,11 @@
   "instrument_type",
   "brand",
   "model",
-  "instrument_category",
-  "wood_type",
+  "clarinet_type",
+  "body_material",
+  "keywork_plating",
+  "pitch_standard",
+  "year_of_manufacture",
   "key_plating",
   "customer",
   "current_status",
@@ -23,132 +26,38 @@
   "interaction_type"
  ],
  "fields": [
-  {
-   "fieldname": "serial_no",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Serial Number",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
-   "fieldname": "instrument_type",
-   "fieldtype": "Select",
-   "label": "Instrument Type",
-   "options": "B\u266d Clarinet\nA Clarinet\nBass Clarinet\nE\u266d Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther"
-  },
-  {
-   "fieldname": "brand",
-   "fieldtype": "Link",
-   "label": "Brand",
-   "options": "Brand"
-  },
-  {
-   "fieldname": "model",
-   "fieldtype": "Data",
-   "label": "Model"
-  },
-  {
-   "fieldname": "instrument_category",
-   "fieldtype": "Select",
-   "label": "Instrument Category",
-   "options": "A Clarinet\nB\u266d Clarinet\nBass Clarinet\nE\u266d Clarinet\nAlto Clarinet\nContrabass Clarinet"
-  },
-  {
-   "fieldname": "wood_type",
-   "fieldtype": "Select",
-   "label": "Wood Type",
-   "options": "Grenadilla\nMopane\nCocobolo\nOther"
-  },
-  {
-   "fieldname": "key_plating",
-   "fieldtype": "Select",
-   "label": "Key Plating",
-   "options": "Silver\nNickel\nGold\nOther"
-  },
-  {
-   "default": "Active",
-   "fieldname": "current_status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "Active\nNeeds Repair\nAwaiting Parts\nIn Service\nArchived"
-  },
-  {
-   "fieldname": "date_purchased",
-   "fieldtype": "Date",
-   "label": "Date Purchased"
-  },
-  {
-   "fieldname": "last_service_date",
-   "fieldtype": "Date",
-   "label": "Last Service Date"
-  },
-  {
-   "fieldname": "assigned_technician",
-   "fieldtype": "Link",
-   "label": "Assigned Technician",
-   "options": "Technician"
-  },
-  {
-   "fieldname": "notes",
-   "fieldtype": "Small Text",
-   "label": "Notes"
-  },
-  {
-   "fieldname": "attachments",
-   "fieldtype": "Attach Image",
-   "label": "Instrument Photos"
-  },
-  {
-   "fieldname": "interaction_type",
-   "fieldtype": "Table",
-   "label": "Repair History",
-   "options": "Instrument Interaction Log"
-  },
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "label": "Client",
-   "options": "Customer"
-  }
+  {"fieldname": "serial_no", "fieldtype": "Data", "in_list_view": 1, "label": "Serial Number", "reqd": 1, "unique": 1},
+  {"fieldname": "instrument_type", "fieldtype": "Select", "label": "Instrument Type", "options": "B\u266d Clarinet\nA Clarinet\nBass Clarinet\nE\u266d Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther"},
+  {"fieldname": "brand", "fieldtype": "Link", "label": "Brand", "options": "Brand"},
+  {"fieldname": "model", "fieldtype": "Data", "label": "Model"},
+  {"fieldname": "clarinet_type", "fieldtype": "Select", "label": "Type of Clarinet", "options": "B\u266d Soprano\nA Soprano\nE\u266d Soprano\nB\u266d Bass"},
+  {"fieldname": "body_material", "fieldtype": "Data", "label": "Body Material"},
+  {"fieldname": "keywork_plating", "fieldtype": "Data", "label": "Keywork Plating"},
+  {"fieldname": "pitch_standard", "fieldtype": "Data", "label": "Pitch Standard"},
+  {"fieldname": "year_of_manufacture", "fieldtype": "Int", "label": "Year of Manufacture"},
+  {"fieldname": "key_plating", "fieldtype": "Select", "label": "Key Plating", "options": "Silver\nNickel\nGold\nOther"},
+  {"fieldname": "current_status", "default": "Active", "fieldtype": "Select", "label": "Status", "options": "Active\nNeeds Repair\nAwaiting Parts\nIn Service\nArchived"},
+  {"fieldname": "date_purchased", "fieldtype": "Date", "label": "Date Purchased"},
+  {"fieldname": "last_service_date", "fieldtype": "Date", "label": "Last Service Date"},
+  {"fieldname": "assigned_technician", "fieldtype": "Link", "label": "Assigned Technician", "options": "Technician"},
+  {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"},
+  {"fieldname": "attachments", "fieldtype": "Attach Image", "label": "Instrument Photos"},
+  {"fieldname": "interaction_type", "fieldtype": "Table", "label": "Repair History", "options": "Instrument Interaction Log"},
+  {"fieldname": "customer", "fieldtype": "Link", "label": "Client", "options": "Customer"}
  ],
  "grid_page_length": 50,
  "image_field": "attachments",
  "links": [],
- "modified": "2025-07-19 15:23:28.894660",
- "modified_by": "Administrator",
+ "modified": "2025-07-21 00:00:00.000000",
+ "modified_by": "Priscilla Frappe Engineer",
  "module": "Instrument Profile",
  "name": "Instrument",
  "owner": "Administrator",
  "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "read": 1,
-   "role": "Technician",
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "read": 1,
-   "role": "Repair Manager",
-   "write": 1
-  },
-  {
-   "read": 1,
-   "role": "Client"
-  }
+  {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "System Manager", "share": 1, "write": 1},
+  {"read": 1, "role": "Technician", "write": 1},
+  {"create": 1, "delete": 1, "read": 1, "role": "Repair Manager", "write": 1},
+  {"read": 1, "role": "Client"}
  ],
  "quick_entry": 1,
  "row_format": "Dynamic",

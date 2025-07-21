@@ -60,7 +60,7 @@ class InstrumentInspection(Document):
             profile_name = frappe.db.get_value("Instrument Profile", {"instrument": serial})
             data = {
                 "body_material": self.body_material,
-                "keywork_plating": self.keywork_plating,
+                "key_plating": self.key_plating,
                 "key_system": self.key_system,
                 "number_of_keys_rings": self.number_of_keys_rings,
                 "pitch_standard": self.pitch_standard,

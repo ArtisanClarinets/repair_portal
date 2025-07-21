@@ -2,8 +2,8 @@
   "doctype": "DocType",
   "name": "Clarinet Intake Settings",
   "module": "Intake",
-  "custom": 1,
-  "is_single": 1,
+  "custom": 0,
+  "issingle": 1,
   "read_only": 0,
   "editable_grid": 0,
   "track_changes": 1,
@@ -24,7 +24,7 @@
     {"fieldname": "inspection_type_inventory", "label": "Inspection Type Name (Inventory)", "fieldtype": "Data", "default": "Initial Inspection"},
     {"fieldname": "inspection_type_repair", "label": "Inspection Type Name (Repair/Maintenance)", "fieldtype": "Data", "default": "Arrival Inspection"},
     {"fieldname": "supplier_code_prefix", "label": "Supplier Code Prefix", "fieldtype": "Data", "default": ""},
-    {"fieldname": "intake_naming_series", "label": "Intake Naming Series", "fieldtype": "Data", "default": "INV-#####"},
+    {"fieldname": "intake_naming_series", "label": "Intake Naming Series", "fieldtype": "Data", "default": "INV-.#####"},
     {"fieldname": "brand_mapping", "label": "Brand Mapping Rules (JSON)", "fieldtype": "Code", "options": "JSON", "default": "{}"}
   ],
   "permissions": [

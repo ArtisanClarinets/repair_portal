@@ -39,7 +39,7 @@
     {"fieldname": "digital_signature", "label": "Technician Signature", "fieldtype": "Signature"},
 
     {"fieldname": "body_material", "label": "Body Material", "fieldtype": "Data"},
-    {"fieldname": "keywork_plating", "label": "Keywork Plating", "fieldtype": "Data"},
+    {"fieldname": "key_plating", "label": "Keywork Plating", "fieldtype": "Data"},
     {"fieldname": "key_system", "label": "Key System", "fieldtype": "Select", "options": "Boehm\nAlbert\nOehler\nOther"},
     {"fieldname": "number_of_keys_rings", "label": "Number of Keys/Rings", "fieldtype": "Data"},
     {"fieldname": "pitch_standard", "label": "Pitch Standard", "fieldtype": "Data"},

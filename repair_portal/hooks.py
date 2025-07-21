@@ -48,9 +48,4 @@ doc_events = {
     },
 }
 
-doctype_js = {
-    "Clarinet Intake": [
-        "/intake/doctype/clarinet_intake/clarinet_intake.bundle.js",
-        "/public/js/intake/clarinet_intake_repair.bundle.js",
-    ]
-}
+

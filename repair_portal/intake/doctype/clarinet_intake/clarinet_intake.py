@@ -1,31 +1,48 @@
-# File Header Template
+# Copyright (c) 2024, jHetzer and contributors
+# For license information, please see license.txt
+
+# ---
+# File Header:
 # Relative Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
-# Last Updated: 2025-07-20
-# Version: v3.7
-# Purpose: Controller logic for Clarinet Intake. Fully settings-driven: all key config (warehouse, price lists, group, brand, labels, automation) now comes from Clarinet Intake Settings. Instrument is now auto-created if serial number is not found.
-# Dependencies: ERPNext Item, Item Price, Serial No, Instrument, Instrument Inspection, Clarinet Initial Setup, Clarinet Intake Settings
+# Last Updated: 2025-07-21
+# Version: v5.0 (Refactored for on_submit orchestration)
+# Purpose: Controller logic for Clarinet Intake. On submit, this controller now:
+#          1. ALWAYS creates an Instrument Inspection.
+#          2. For "New Inventory" type: Creates/updates Instrument, ERPNext Item, ERPNext Serial No, and Initial Setup.
+#          Logic is settings-driven via 'Clarinet Intake Settings'.
+# ---
 
 from __future__ import annotations
-
-from typing import Literal
 import frappe
 from frappe import _
 from frappe.model import naming
 from frappe.model.document import Document
 from repair_portal.intake.doctype.clarinet_intake_settings.clarinet_intake_settings import get_intake_settings
 import json
+from typing import Literal
 
+# Defines which fields are mandatory based on the intake type.
 MANDATORY_BY_TYPE = {
-    "New Inventory": {"body_material", "acquisition_source", "acquisition_cost", "store_asking_price", "item_code", "item_name"},
+    "New Inventory": {
+        "body_material",
+        "acquisition_source",
+        "acquisition_cost",
+        "store_asking_price",
+        "item_code",
+        "item_name",
+    },
     "Repair": {"customers_stated_issue", "service_type_requested", "customer"},
     "Maintenance": {"customers_stated_issue", "service_type_requested", "customer"},
 }
 
+
 class ClarinetIntake(Document):
-    """Business logic & validation for the Clarinet Intake document. Now fully settings-driven!"""
+    """Business logic & validation for the Clarinet Intake document."""
+
+    # --- Type Hinting for Document Fields ---
     name: str
     intake_record_id: str
-    instrument_unique_id: str | None
+    instrument: str | None  # Changed from instrument_unique_id for clarity
     customer: str | None
     intake_type: Literal["New Inventory", "Repair", "Maintenance"]
     service_type_requested: str | None
@@ -41,162 +58,68 @@ class ClarinetIntake(Document):
     store_asking_price: float
     item_code: str | None
     item_name: str | None
+    consent_liability_waiver: str | None
+    inspection_type: str | None
+
+    # --- Standard Frappe Hooks ---
 
     def autoname(self) -> None:
+        """Sets the document name based on a naming series from settings."""
         settings = get_intake_settings()
         if not self.intake_record_id:
-            pattern = settings.get("intake_naming_series") or "INV-#####"
+            pattern = settings.get("intake_naming_series") or "INTAKE-.#####"
             self.intake_record_id = naming.make_autoname(pattern)
         self.name = self.intake_record_id
 
     def validate(self) -> None:
+        """Runs before 'save'. Used for data validation and pre-save logic."""
         self._enforce_dynamic_mandatory_fields()
-        self._sync_instrument_from_serial()
+        self._sync_info_from_existing_instrument()
 
     def on_submit(self) -> None:
+        """
+        Runs after 'submit'. This is the main orchestrator for creating other documents.
+        """
         settings = get_intake_settings()
-        # All logic is now settings-driven
+
+        # STEP 1: Always create the Instrument Inspection for every intake type.
+        # This logic is now unconditional to meet the requirement.
+        self._ensure_instrument_inspection(settings)
+
+        # STEP 2: For "New Inventory" intakes, create all related ERPNext documents.
         if self.intake_type == "New Inventory":
             try:
-                item = self._ensure_erpnext_item(settings)
-                if settings.get("buying_price_list") and settings.get("selling_price_list"):
-                    self._ensure_item_prices(item, settings)
-            except Exception as e:
-                frappe.log_error(frappe.get_traceback(), _("Item creation/price failed"))
-                frappe.throw(_(f"Failed to create Item/Prices: {e}"))
-        # Instrument Inspection if required
-        if settings.get("require_inspection", 1):
-            try:
-                self._ensure_instrument_inspection(settings)
-            except Exception as e:
-                frappe.log_error(frappe.get_traceback(), _("Instrument Inspection creation failed"))
-                frappe.throw(_(f"Failed to create Instrument Inspection: {e}"))
-        # Initial Setup toggle
-        if self.intake_type == "New Inventory" and settings.get("auto_create_initial_setup", 1):
-            try:
-                self._ensure_clarinet_initial_setup()
-            except Exception as e:
-                frappe.log_error(frappe.get_traceback(), _("Clarinet Initial Setup failed"))
-                frappe.msgprint(_(f"Warning: Initial Setup could not be created: {e}"))
-        # Stock validation & notification
-        if settings.get("notify_on_stock_issue", 1):
-            try:
-                self._validate_stock_in_inspection_warehouse(settings)
-            except Exception as e:
-                frappe.log_error(frappe.get_traceback(), _("Stock Validation failed"))
-                frappe.msgprint(_(f"Warning: Stock validation error: {e}"))
+                # Create or update the core Instrument document first.
+                instrument = self._ensure_instrument()
 
-    def _ensure_erpnext_item(self, settings):
-        item = frappe.db.exists("Item", {"item_code": self.item_code})
-        doc = frappe.get_doc("Item", item) if item else frappe.new_doc("Item")
-        # Brand mapping via settings (optional JSON)
-        brand = self.manufacturer or "Unknown"
-        try:
-            mapping = json.loads(settings.get("brand_mapping", "{}"))
-            brand = mapping.get(brand, brand)
-        except Exception:
-            pass
-        supplier_code = (settings.get("supplier_code_prefix") or "") + (self.item_code or "")
-        doc.item_code = self.item_code
-        doc.item_name = self.item_name
-        doc.item_group = settings.get("default_item_group") or "Clarinets"
-        doc.brand = brand
-        doc.default_warehouse = settings.get("default_inspection_warehouse") or "Clarinet Inspection"
-        doc.supplier_code = supplier_code
-        doc.stock_uom = settings.get("stock_uom") or "Nos"
-        doc.is_stock_item = 1
-        doc.description = f"{self.item_name or ''} - {self.manufacturer or ''} - {self.model or ''}"
-        doc.custom_clarinet_type = self.clarinet_type
-        doc.custom_body_material = self.body_material
-        doc.custom_keywork_plating = self.keywork_plating
-        doc.custom_pitch_standard = self.pitch_standard
-        doc.flags.ignore_mandatory = True
-        doc.save(ignore_permissions=True)
-        frappe.msgprint(_(f"Item <b>{self.item_code}</b> created/updated."))
-        return doc
+                # Link the newly created/verified instrument back to this intake.
+                self.db_set("instrument", instrument.name)
 
-    def _ensure_item_prices(self, item, settings):
-        self._upsert_item_price(item.item_code, self.acquisition_cost, settings.get("buying_price_list", "Standard Buying"))
-        self._upsert_item_price(item.item_code, self.store_asking_price, settings.get("selling_price_list", "Standard Selling"))
+                # Create the corresponding ERPNext Item, linked to the Instrument.
+                item = self._ensure_erpnext_item(settings, instrument)
 
-    def _upsert_item_price(self, item_code, price, price_list):
-        exists = frappe.db.exists("Item Price", {"item_code": item_code, "price_list": price_list})
-        if exists:
-            doc = frappe.get_doc("Item Price", exists)
-            doc.price_list_rate = price
-            doc.save(ignore_permissions=True)
-        else:
-            doc = frappe.get_doc({
-                "doctype": "Item Price",
-                "item_code": item_code,
-                "price_list": price_list,
-                "price_list_rate": price
-            })
-            doc.insert(ignore_permissions=True)
+                # Create the ERPNext Serial No, which makes the item available in stock.
+                self._ensure_serial_no(item, settings)
 
-    def _ensure_instrument_inspection(self, settings):
-        if not self.instrument_unique_id:
-            return
-        inspection_type = "Initial Inspection" if self.intake_type == "New Inventory" else "Arrival Inspection"
-        if self.intake_type == "New Inventory":
-            inspection_type = settings.get("inspection_type_inventory", "Initial Inspection")
-        else:
-            inspection_type = settings.get("inspection_type_repair", "Arrival Inspection")
-        existing = frappe.db.exists(
-            "Instrument Inspection",
-            {
-                "intake_record_id": self.name,
-                "instrument": self.instrument_unique_id,
-            },
+                # Set the buying and selling prices for the item.
+                self._ensure_item_prices(item, settings)
+
+                # Finally, create the initial setup record if enabled in settings.
+                if settings.get("auto_create_initial_setup", 1):
+                    self._ensure_clarinet_initial_setup(instrument)
+
+            except Exception as e:
+                frappe.log_error(frappe.get_traceback(), _("New Inventory Processing Failed"))
+                frappe.throw(_("Failed to process New Inventory intake: {0}").format(e))
+
+        frappe.msgprint(
+            _("Intake {0} submitted successfully.").format(self.name), alert=True, indicator="green"
         )
-        if existing:
-            return
-        inspection = frappe.get_doc({
-            "doctype": "Instrument Inspection",
-            "instrument": self.instrument_unique_id,
-            "serial_no": self.serial_no,
-            "intake_record_id": self.name,
-            "inspection_type": inspection_type,
-            "status": "Open"
-        })
-        inspection.insert(ignore_permissions=True)
-        frappe.msgprint(_(f"Instrument Inspection <b>{inspection.name}</b> created and linked."))
 
-    def _ensure_clarinet_initial_setup(self):
-        existing = frappe.db.exists(
-            "Clarinet Initial Setup",
-            {
-                "instrument": self.instrument_unique_id,
-                "intake_record_id": self.name,
-            },
-        )
-        if existing:
-            return
-        setup = frappe.get_doc({
-            "doctype": "Clarinet Initial Setup",
-            "instrument": self.instrument_unique_id,
-            "serial_no": self.serial_no,
-            "intake_record_id": self.name,
-            "status": "Open"
-        })
-        setup.insert(ignore_permissions=True)
-        frappe.msgprint(_(f"Clarinet Initial Setup <b>{setup.name}</b> created and linked."))
-
-    def _validate_stock_in_inspection_warehouse(self, settings):
-        warehouse = settings.get("default_inspection_warehouse") or "Clarinet Inspection"
-        sn = frappe.db.exists("Serial No", {"serial_no": self.serial_no, "warehouse": warehouse})
-        if not sn:
-            frappe.msgprint(_(f"Warning: Serial No {self.serial_no} not found in warehouse '{warehouse}'."))
-        bin_qty = frappe.db.get_value("Bin", {"item_code": self.item_code, "warehouse": warehouse}, "actual_qty")
-        if not bin_qty or float(bin_qty) <= 0:
-            frappe.msgprint(_(f"Warning: No stock found for Item {self.item_code} in warehouse '{warehouse}'."))
-
-    def _generate_record_id(self) -> str:
-        settings = get_intake_settings()
-        pattern = settings.get("intake_naming_series") or "INV-#####"
-        return naming.make_autoname(pattern)
+    # --- Helper Methods for Validation ---
 
     def _enforce_dynamic_mandatory_fields(self) -> None:
+        """Checks if all required fields for the selected intake_type are filled."""
         missing = [
             self.meta.get_label(field)
             for field in MANDATORY_BY_TYPE.get(self.intake_type, set())
@@ -210,55 +133,181 @@ class ClarinetIntake(Document):
             )
             frappe.throw(message, title=_("Incomplete Intake"))
 
-    def _sync_instrument_from_serial(self) -> None:
+    def _sync_info_from_existing_instrument(self) -> None:
+        """
+        During validation, if a serial number is entered, this fetches data
+        from an existing Instrument to auto-fill fields.
+        It does NOT create an instrument; creation now happens `on_submit`.
+        """
         if not self.serial_no:
             return
+
         instrument = frappe.db.get_value(
             "Instrument",
             {"serial_no": self.serial_no},
-            ["name", "manufacturer", "model", "clarinet_type", "year_of_manufacture"],
+            ["name", "brand", "model", "clarinet_type"],
             as_dict=True,
         )
+
         if instrument:
-            if not self.instrument_unique_id:
-                self.instrument_unique_id = instrument.get("name")
-            field_map = {
-                "manufacturer": "manufacturer",
-                "model": "model",
-                "clarinet_type": "clarinet_type",
-                "year_of_manufacture": "year_of_manufacture",
-            }
-            for intake_field, instrument_key in field_map.items():
-                if not self.get(intake_field):
-                    self.set(intake_field, instrument.get(instrument_key))
+            self.instrument = instrument.get("name")
+            # Map Instrument fields to Intake fields if they are empty
+            if not self.manufacturer:
+                self.manufacturer = instrument.get("brand")
+            if not self.model:
+                self.model = instrument.get("model")
+            if not self.clarinet_type:
+                self.clarinet_type = instrument.get("clarinet_type")
+
+    # --- Helper Methods for Document Creation (`on_submit`) ---
+
+    def _ensure_instrument(self) -> Document:
+        """
+        Finds an existing Instrument by serial number or creates a new one.
+        This is the single source of truth for instrument creation.
+        Returns the Instrument document.
+        """
+        if frappe.db.exists("Instrument", {"serial_no": self.serial_no}):
+            instrument_doc = frappe.get_doc("Instrument", {"serial_no": self.serial_no})
         else:
-            # Auto-create Instrument if not found
             instrument_doc = frappe.new_doc("Instrument")
             instrument_doc.serial_no = self.serial_no
-            instrument_doc.instrument_type = self.clarinet_type or ""
-            instrument_doc.brand = self.manufacturer or ""
-            instrument_doc.model = self.model or ""
-            instrument_doc.year_of_manufacture = self.year_of_manufacture or ""
+            instrument_doc.brand = self.manufacturer  # Maps Intake 'manufacturer' to Instrument 'brand'
+            instrument_doc.model = self.model
+            instrument_doc.instrument_type = self.clarinet_type
             instrument_doc.insert(ignore_permissions=True)
-            self.instrument_unique_id = instrument_doc.name
-            frappe.msgprint(_(f"Instrument <b>{instrument_doc.serial_no}</b> was auto-created and linked to Intake."))
+            frappe.msgprint(_("New Instrument <b>{0}</b> created.").format(instrument_doc.name))
 
+        return instrument_doc
+
+    def _ensure_erpnext_item(self, settings: Document, instrument: Document) -> Document:
+        """
+        Creates or updates an Item in ERPNext.
+        Now links the item directly to the Instrument document.
+        """
+        if frappe.db.exists("Item", {"item_code": self.item_code}):
+            item_doc = frappe.get_doc("Item", self.item_code)
+        else:
+            item_doc = frappe.new_doc("Item")
+
+        item_doc.item_code = self.item_code
+        item_doc.item_name = self.item_name
+        item_doc.item_group = settings.get("default_item_group") or "Products"
+        item_doc.brand = instrument.brand  # Use brand from the instrument document
+        item_doc.stock_uom = settings.get("stock_uom") or "Nos"
+        item_doc.is_stock_item = 1
+        item_doc.has_serial_no = 1  # Crucial for serialized inventory
+
+        # Link to the instrument
+        item_doc.custom_instrument = (
+            instrument.name
+        )  # Assuming you have a custom field 'custom_instrument' of type Link on your Item doctype
+
+        item_doc.save(ignore_permissions=True)
+        frappe.msgprint(_("ERPNext Item <b>{0}</b> created/updated.").format(self.item_code))
+        return item_doc
+
+    def _ensure_serial_no(self, item: Document, settings: Document) -> None:
+        """Creates the ERPNext Serial No document, making the item available in stock."""
+        warehouse = settings.get("default_inspection_warehouse")
+        if not warehouse:
+            frappe.throw(_("Please set the 'Default Inspection Warehouse' in Clarinet Intake Settings."))
+
+        if not frappe.db.exists("Serial No", {"serial_no": self.serial_no, "item_code": item.item_code}):
+            serial_no_doc = frappe.new_doc("Serial No")
+            serial_no_doc.serial_no = self.serial_no
+            serial_no_doc.item_code = item.item_code
+            serial_no_doc.warehouse = warehouse  # Set the warehouse from settings
+            serial_no_doc.insert(ignore_permissions=True)
+            frappe.msgprint(
+                _("Serial Number <b>{0}</b> registered in warehouse '{1}'.").format(self.serial_no, warehouse)
+            )
+
+    def _ensure_item_prices(self, item: Document, settings: Document) -> None:
+        """Creates or updates the buying and selling prices for the item."""
+        if settings.get("buying_price_list"):
+            self._upsert_item_price(item.item_code, self.acquisition_cost, settings.get("buying_price_list"))
+        if settings.get("selling_price_list"):
+            self._upsert_item_price(
+                item.item_code, self.store_asking_price, settings.get("selling_price_list")
+            )
+
+    def _upsert_item_price(self, item_code: str, price: float, price_list: str) -> None:
+        """Utility to create or update an Item Price record."""
+        price_doc_name = frappe.db.exists("Item Price", {"item_code": item_code, "price_list": price_list})
+        if price_doc_name:
+            price_doc = frappe.get_doc("Item Price", price_doc_name)
+        else:
+            price_doc = frappe.new_doc("Item Price")
+            price_doc.item_code = item_code
+            price_doc.price_list = price_list
+
+        price_doc.price_list_rate = price
+        price_doc.save(ignore_permissions=True)
+
+    def _ensure_instrument_inspection(self, settings: Document) -> None:
+        """Creates the Instrument Inspection record, now linked to the intake."""
+        # This check prevents creating a duplicate inspection if the doc is amended and re-submitted.
+        if frappe.db.exists("Instrument Inspection", {"intake_record_id": self.name}):
+            return
+
+        inspection = frappe.new_doc("Instrument Inspection")
+        inspection.intake_record_id = self.name  # Link back to this intake
+        inspection.customer = self.customer
+        inspection.inspection_date = self.date
+        inspection.status = "Open"
+
+        # Determine inspection type from settings
+        if self.intake_type == "New Inventory":
+            inspection.inspection_type = settings.get("inspection_type_inventory", "Initial Inspection")
+        else:
+            inspection.inspection_type = settings.get("inspection_type_repair", "Arrival Inspection")
+
+        inspection.insert(ignore_permissions=True)
+        inspection.submit()
+        frappe.msgprint(_("Instrument Inspection <b>{0}</b> created.").format(inspection.name))
+
+    def _ensure_clarinet_initial_setup(self, instrument: Document) -> None:
+        """Creates the Clarinet Initial Setup record, linked to the new Instrument."""
+        if frappe.db.exists("Clarinet Initial Setup", {"instrument": instrument.name}):
+            return
+
+        setup = frappe.new_doc("Clarinet Initial Setup")
+        setup.instrument = instrument.name  # Link to the instrument
+        setup.date = self.date
+        setup.status = "Open"
+        setup.insert(ignore_permissions=True)
+        setup.submit()
+        frappe.msgprint(_("Clarinet Initial Setup <b>{0}</b> created.").format(setup.name))
+
+
+# This whitelisted function remains unchanged. It is used for fetching data on the client-side.
 @frappe.whitelist()
 def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | None:
+    """
+    Fetch Instrument by serial_no, mapping Instrument.brand -> manufacturer.
+    Args:
+        serial_no (str): Serial number of instrument.
+    Returns:
+        dict or None: Instrument info (brand is mapped to manufacturer)
+    """
     if not serial_no:
         return None
-    return frappe.db.get_value(
+    data = frappe.db.get_value(
         "Instrument",
         {"serial_no": serial_no},
         [
             "name",
-            "manufacturer",
+            "brand",
             "model",
             "clarinet_type",
             "body_material",
-            "keywork_plating",
-            "pitch_standard",
+            "key_plating",
             "year_of_manufacture",
         ],
         as_dict=True,
     )
+    if data:
+        # Map Instrument.brand to manufacturer for frontend compatibility
+        data["manufacturer"] = data.pop("brand", None)
+    return data
