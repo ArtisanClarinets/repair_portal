@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"4n-Uqvyx0e\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Portal</span>\",\"col\":12}},{\"id\":\"951yJKRqEq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Intake\",\"col\":3}},{\"id\":\"_wN7BllJSU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument\",\"col\":3}},{\"id\":\"FRxNw0capw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument Inspection\",\"col\":3}},{\"id\":\"AjkDPiUXIy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Setup\",\"col\":3}},{\"id\":\"5N582qoWHe\",\"type\":\"card\",\"data\":{\"card_name\":\"Intake\",\"col\":3}},{\"id\":\"A0Z_ef_9I5\",\"type\":\"card\",\"data\":{\"card_name\":\"Profiles\",\"col\":3}},{\"id\":\"YSDmhiborC\",\"type\":\"card\",\"data\":{\"card_name\":\"Instrument Setup\",\"col\":3}},{\"id\":\"ILzvWNzFyH\",\"type\":\"card\",\"data\":{\"card_name\":\"Repair Logging\",\"col\":3}},{\"id\":\"98bo94lznz\",\"type\":\"paragraph\",\"data\":{\"text\":\"<br>\",\"col\":12}}]",
+ "content": "[{\"id\":\"4n-Uqvyx0e\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Portal</span>\",\"col\":12}},{\"id\":\"951yJKRqEq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Intake\",\"col\":3}},{\"id\":\"_wN7BllJSU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument\",\"col\":3}},{\"id\":\"FRxNw0capw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Instrument Inspection\",\"col\":3}},{\"id\":\"AjkDPiUXIy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Clarinet Setup\",\"col\":3}},{\"id\":\"5N582qoWHe\",\"type\":\"card\",\"data\":{\"card_name\":\"Intake\",\"col\":4}},{\"id\":\"peJmmx_HQm\",\"type\":\"card\",\"data\":{\"card_name\":\"Inspection & QC\",\"col\":4}},{\"id\":\"A0Z_ef_9I5\",\"type\":\"card\",\"data\":{\"card_name\":\"Profiles\",\"col\":4}},{\"id\":\"YSDmhiborC\",\"type\":\"card\",\"data\":{\"card_name\":\"Instrument Setup\",\"col\":3}},{\"id\":\"ILzvWNzFyH\",\"type\":\"card\",\"data\":{\"card_name\":\"Repair Logging\",\"col\":3}},{\"id\":\"98bo94lznz\",\"type\":\"paragraph\",\"data\":{\"text\":\"<br>\",\"col\":12}}]",
  "creation": "2025-07-19 15:02:00.645522",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,55 +13,6 @@
  "is_hidden": 0,
  "label": "Repair Portal",
  "links": [
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Intake",
-   "link_count": 4,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Clarinet Intake",
-   "link_count": 0,
-   "link_to": "Clarinet Intake",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Customer Consent Form",
-   "link_count": 0,
-   "link_to": "Customer Consent Form",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Loaner Instrument",
-   "link_count": 0,
-   "link_to": "Loaner Instrument",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Loaner Return Check",
-   "link_count": 0,
-   "link_to": "Loaner Return Check",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -178,9 +129,127 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Intake",
+   "link_count": 5,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake",
+   "link_count": 0,
+   "link_to": "Clarinet Intake",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Consent Form",
+   "link_count": 0,
+   "link_to": "Customer Consent Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Instrument",
+   "link_count": 0,
+   "link_to": "Loaner Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Return Check",
+   "link_count": 0,
+   "link_to": "Loaner Return Check",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake Settings",
+   "link_count": 0,
+   "link_to": "Clarinet Intake Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Inspection & QC",
+   "link_count": 5,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Inspection",
+   "link_count": 0,
+   "link_to": "Instrument Inspection",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Quality Inspection",
+   "link_count": 0,
+   "link_to": "Quality Inspection",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Quality Inspection Template",
+   "link_count": 0,
+   "link_to": "Quality Inspection Template",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Quality Inspection Parameter",
+   "link_count": 0,
+   "link_to": "Quality Inspection Parameter",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Quality Inspection Parameter",
+   "link_count": 0,
+   "link_to": "Quality Inspection Parameter",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2025-07-19 15:16:22.708005",
+ "modified": "2025-07-21 17:44:39.499186",
  "modified_by": "Administrator",
  "module": "Repair Portal",
  "name": "Repair Portal",

@@ -35,17 +35,7 @@ doc_events = {
     "Repair Order": {
         "on_submit": "repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_submit",
         "on_cancel": "repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_cancel",
-    },
-    # ─── Clarinet Intake automation ───────────────────────────────────────
-    "Clarinet Intake": {
-        # Create Serial No immediately after insert (draft) **and** on_submit (final).
-        "after_insert": (
-            "repair_portal.intake.doctype.clarinet_intake.clarinet_intake_serial.create_serial_no"
-        ),
-        "on_submit": (
-            "repair_portal.intake.doctype.clarinet_intake.clarinet_intake_serial.create_serial_no"
-        ),
-    },
+    }
 }
 
 

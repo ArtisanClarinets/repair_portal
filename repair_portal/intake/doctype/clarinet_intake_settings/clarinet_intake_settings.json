@@ -25,7 +25,7 @@
     {"fieldname": "inspection_type_repair", "label": "Inspection Type Name (Repair/Maintenance)", "fieldtype": "Data", "default": "Arrival Inspection"},
     {"fieldname": "supplier_code_prefix", "label": "Supplier Code Prefix", "fieldtype": "Data", "default": ""},
     {"fieldname": "intake_naming_series", "label": "Intake Naming Series", "fieldtype": "Data", "default": "INV-.#####"},
-    {"fieldname": "brand_mapping", "label": "Brand Mapping Rules (JSON)", "fieldtype": "Code", "options": "JSON", "default": "{}"}
+    {"fieldname": "brand_mapping_rules", "label": "Brand Mapping Rules", "fieldtype": "Table", "options": "Brand Mapping Rule"}
   ],
   "permissions": [
     {"role": "System Manager", "read": 1, "write": 1, "create": 1},
