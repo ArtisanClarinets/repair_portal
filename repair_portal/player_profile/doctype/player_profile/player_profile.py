@@ -6,8 +6,10 @@
 # Dependencies: Customer, Instrument Profile, Sales Invoice, Repair Log, Email Group Member, Frappe/ERPNext APIs
 
 from datetime import datetime
+
 import frappe
 from frappe.model.document import Document
+
 
 class PlayerProfile(Document):
     """

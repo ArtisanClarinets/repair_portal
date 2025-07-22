@@ -5,7 +5,6 @@
 # Purpose: Child table for Instrument Accessories (paired, acquired/removed, desc)
 # Dependencies: None
 
-import frappe
 from frappe.model.document import Document
 
 

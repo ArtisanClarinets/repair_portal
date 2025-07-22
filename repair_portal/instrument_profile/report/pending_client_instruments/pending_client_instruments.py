@@ -8,15 +8,15 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Tuple, cast
+from typing import Any, cast
 
 import frappe
 
 # Type alias for readability
-Row = List[Any]
+Row = list[Any]
 
 
-def execute(filters: Dict[str, Any] | None = None) -> Tuple[List[str], List[Row]]:
+def execute(filters: dict[str, Any] | None = None) -> tuple[list[str], list[Row]]:
     """Entry point for Frappe Query Reports.
 
     Args:
@@ -50,6 +50,6 @@ def execute(filters: Dict[str, Any] | None = None) -> Tuple[List[str], List[Row]
     )
 
     # Explicitly cast to satisfy static type checkers (Pylance/mypy)
-    data: List[Row] = cast(List[Row], raw_data)
+    data: list[Row] = cast(list[Row], raw_data)
 
     return [], data

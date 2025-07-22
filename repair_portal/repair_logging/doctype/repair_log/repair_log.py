@@ -6,8 +6,9 @@
 # Dependencies: Instrument, User, Clarinet Intake, Customer
 
 import frappe
-from frappe.model.document import Document
 from frappe import _
+from frappe.model.document import Document
+
 
 class RepairLog(Document):
     """

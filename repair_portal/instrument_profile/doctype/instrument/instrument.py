@@ -4,6 +4,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class Instrument(Document):
     """Instrument Document Model"""
     def validate(self):

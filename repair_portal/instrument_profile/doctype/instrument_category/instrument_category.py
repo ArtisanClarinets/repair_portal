@@ -5,8 +5,8 @@
 # Purpose: Minimal controller for Instrument Category DocType (used as category master for instruments).
 # Dependencies: None
 
-import frappe
 from frappe.model.document import Document
+
 
 class InstrumentCategory(Document):
     """

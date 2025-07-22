@@ -7,6 +7,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class BrandMappingRule(Document):
     """
     Controller for managing brand mapping rules.

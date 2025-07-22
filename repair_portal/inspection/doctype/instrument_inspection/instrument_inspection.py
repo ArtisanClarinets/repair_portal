@@ -8,6 +8,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class InstrumentInspection(Document):
     """
     Controller for Instrument Inspection. Handles validation and custom automation.

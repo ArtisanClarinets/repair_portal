@@ -4,8 +4,10 @@
 # Purpose: Test coverage for Repair Log creation and business logic.
 # Dependencies: Repair Log, Instrument, Clarinet Intake, Customer, User
 
-import frappe
 import unittest
+
+import frappe
+
 
 class TestRepairLog(unittest.TestCase):
     def test_repair_log_creation(self):

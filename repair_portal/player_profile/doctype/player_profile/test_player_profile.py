@@ -5,8 +5,10 @@
 # Purpose: Automated test stub for Player Profile Doctype, covering CRUD, business logic, and linkage for Fortune-500 CRM quality.
 # Dependencies: frappe, Player Profile, Instrument Profile, Sales Invoice
 
-import frappe
 import unittest
+
+import frappe
+
 
 class TestPlayerProfile(unittest.TestCase):
     def setUp(self):

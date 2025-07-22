@@ -4,9 +4,7 @@
 # Purpose: Manage media files associated with instrument profiles in the Repair Portal
 
 
-import frappe
 from frappe.model.document import Document
-
 
 
 class InstrumentMedia(Document):
