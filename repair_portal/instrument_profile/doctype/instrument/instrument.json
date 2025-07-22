@@ -1,71 +1,186 @@
 {
- "actions": [],
- "allow_rename": 1,
- "creation": "2025-07-19 15:22:32.380337",
- "doctype": "DocType",
- "editable_grid": 1,
- "engine": "InnoDB",
- "field_order": [
-  "serial_no",
-  "instrument_type",
-  "brand",
-  "model",
-  "clarinet_type",
-  "body_material",
-  "keywork_plating",
-  "pitch_standard",
-  "year_of_manufacture",
-  "key_plating",
-  "customer",
-  "current_status",
-  "date_purchased",
-  "last_service_date",
-  "assigned_technician",
-  "notes",
-  "attachments",
-  "interaction_type"
- ],
- "fields": [
-  {"fieldname": "serial_no", "fieldtype": "Data", "in_list_view": 1, "label": "Serial Number", "reqd": 1, "unique": 1},
-  {"fieldname": "instrument_type", "fieldtype": "Select", "label": "Instrument Type", "options": "B\u266d Clarinet\nA Clarinet\nBass Clarinet\nE\u266d Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther"},
-  {"fieldname": "brand", "fieldtype": "Link", "label": "Brand", "options": "Brand"},
-  {"fieldname": "model", "fieldtype": "Data", "label": "Model"},
-  {"fieldname": "clarinet_type", "fieldtype": "Select", "label": "Type of Clarinet", "options": "B\u266d Soprano\nA Soprano\nE\u266d Soprano\nB\u266d Bass"},
-  {"fieldname": "body_material", "fieldtype": "Data", "label": "Body Material"},
-  {"fieldname": "keywork_plating", "fieldtype": "Data", "label": "Keywork Plating"},
-  {"fieldname": "pitch_standard", "fieldtype": "Data", "label": "Pitch Standard"},
-  {"fieldname": "year_of_manufacture", "fieldtype": "Int", "label": "Year of Manufacture"},
-  {"fieldname": "key_plating", "fieldtype": "Select", "label": "Key Plating", "options": "Silver\nNickel\nGold\nOther"},
-  {"fieldname": "current_status", "default": "Active", "fieldtype": "Select", "label": "Status", "options": "Active\nNeeds Repair\nAwaiting Parts\nIn Service\nArchived"},
-  {"fieldname": "date_purchased", "fieldtype": "Date", "label": "Date Purchased"},
-  {"fieldname": "last_service_date", "fieldtype": "Date", "label": "Last Service Date"},
-  {"fieldname": "assigned_technician", "fieldtype": "Link", "label": "Assigned Technician", "options": "Technician"},
-  {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"},
-  {"fieldname": "attachments", "fieldtype": "Attach Image", "label": "Instrument Photos"},
-  {"fieldname": "interaction_type", "fieldtype": "Table", "label": "Repair History", "options": "Instrument Interaction Log"},
-  {"fieldname": "customer", "fieldtype": "Link", "label": "Client", "options": "Customer"}
- ],
- "grid_page_length": 50,
- "image_field": "attachments",
- "links": [],
- "modified": "2025-07-21 00:00:00.000000",
- "modified_by": "Priscilla Frappe Engineer",
- "module": "Instrument Profile",
- "name": "Instrument",
- "owner": "Administrator",
- "permissions": [
-  {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "System Manager", "share": 1, "write": 1},
-  {"read": 1, "role": "Technician", "write": 1},
-  {"create": 1, "delete": 1, "read": 1, "role": "Repair Manager", "write": 1},
-  {"read": 1, "role": "Client"}
- ],
- "quick_entry": 1,
- "row_format": "Dynamic",
- "sort_field": "modified",
- "sort_order": "DESC",
- "states": [],
- "title_field": "serial_no",
- "track_changes": 1,
- "track_seen": 1,
- "track_views": 1
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2025-07-19 15:22:32.380337",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "customer",
+        "serial_no",
+        "instrument_type",
+        "brand",
+        "model",
+        "clarinet_type",
+        "body_material",
+        "keywork_plating",
+        "pitch_standard",
+        "year_of_manufacture",
+        "key_plating",
+        "column_break_wmgr",
+        "instrument_category",
+        "current_status",
+        "attachments",
+        "last_service_date",
+        "assigned_technician",
+        "date_purchased",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "serial_no",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Serial Number",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "instrument_type",
+            "fieldtype": "Select",
+            "label": "Instrument Type",
+            "options": "B\u266d Clarinet\nA Clarinet\nBass Clarinet\nE\u266d Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther"
+        },
+        {
+            "fieldname": "brand",
+            "fieldtype": "Link",
+            "label": "Brand",
+            "options": "Brand"
+        },
+        {
+            "fieldname": "model",
+            "fieldtype": "Data",
+            "label": "Model"
+        },
+        {
+            "fieldname": "clarinet_type",
+            "fieldtype": "Select",
+            "label": "Type of Clarinet",
+            "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther",
+            "reqd": 1
+        },
+        {
+            "fieldname": "body_material",
+            "fieldtype": "Data",
+            "label": "Body Material"
+        },
+        {
+            "fieldname": "keywork_plating",
+            "fieldtype": "Data",
+            "label": "Keywork Plating"
+        },
+        {
+            "fieldname": "pitch_standard",
+            "fieldtype": "Data",
+            "label": "Pitch Standard"
+        },
+        {
+            "fieldname": "year_of_manufacture",
+            "fieldtype": "Int",
+            "label": "Year of Manufacture"
+        },
+        {
+            "fieldname": "key_plating",
+            "fieldtype": "Select",
+            "label": "Key Plating",
+            "options": "Silver\nNickel\nGold\nOther"
+        },
+        {
+            "fieldname": "instrument_category",
+            "fieldtype": "Link",
+            "label": "Instrument Category",
+            "options": "Instrument Category",
+            "in_list_view": 1
+        },
+        {
+            "default": "Active",
+            "fieldname": "current_status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Active\nNeeds Repair\nAwaiting Parts\nIn Service\nArchived"
+        },
+        {
+            "fieldname": "date_purchased",
+            "fieldtype": "Date",
+            "label": "Date Purchased"
+        },
+        {
+            "fieldname": "last_service_date",
+            "fieldtype": "Date",
+            "label": "Last Service Date"
+        },
+        {
+            "fieldname": "assigned_technician",
+            "fieldtype": "Link",
+            "label": "Assigned Technician",
+            "options": "Technician"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Small Text",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "attachments",
+            "fieldtype": "Attach Image",
+            "label": "Instrument Photos"
+        },
+        {
+            "fieldname": "customer",
+            "fieldtype": "Link",
+            "label": "Client",
+            "options": "Customer"
+        },
+        {
+            "fieldname": "column_break_wmgr",
+            "fieldtype": "Column Break"
+        }
+    ],
+    "grid_page_length": 50,
+    "image_field": "attachments",
+    "links": [],
+    "modified": "2025-07-22 01:41:58.331762",
+    "modified_by": "Administrator",
+    "module": "Instrument Profile",
+    "name": "Instrument",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "read": 1,
+            "role": "Technician",
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "read": 1,
+            "role": "Repair Manager",
+            "write": 1
+        },
+        {
+            "read": 1,
+            "role": "Client"
+        }
+    ],
+    "quick_entry": 1,
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "serial_no",
+    "track_changes": 1,
+    "track_seen": 1,
+    "track_views": 1
 }

@@ -4,6 +4,7 @@
 # purpose: App configuration hooks and fixtures declaration (Updated for Intake JS split)
 # notes: Added doctype_js for Clarinet Intake mode-specific scripts
 
+export_python_type_annotations = True
 app_name = "repair_portal"
 app_title = "Repair Portal"
 app_publisher = "DT"

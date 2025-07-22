@@ -1,99 +1,6 @@
-// Version: v3.7 – 2025-07-21
-// Changelog:
-//   • PATCH: migrate instrument_unique_id → instrument everywhere.
-//   • PATCH: clarify all field sets for orchestration and controller alignment.
-
 frappe.ui.form.on('Clarinet Intake', {
-    onload(frm) {
-        // Set default status
-        if (!frm.doc.intake_status) {
-            frm.set_value('intake_status', 'Pending');
-        }
-        // NEW → show/hide/require the right fields immediately
-        frm.trigger('toggle_fields_by_type');
-    },
-
-    intake_type(frm) {
-        frm.trigger('toggle_fields_by_type');
-    },
-
-    serial_no(frm) {
-        if (!frm.doc.serial_no) return;
-        frappe.call({
-            method: 'repair_portal.intake.doctype.clarinet_intake.clarinet_intake.get_instrument_by_serial',
-            args: { serial_no: frm.doc.serial_no },
-            freeze: true,
-            callback: r => {
-                if (!r.message) return;
-                const inst = r.message;
-                frm.set_value('instrument', inst.name); // PATCH: renamed field
-                [
-                    'manufacturer',
-                    'model',
-                    'clarinet_type',
-                    'year_of_manufacture',
-                    'body_material',
-                    'key_plating',
-                    'pitch_standard',
-                ].forEach(f => {
-                    if (!frm.doc[f] && inst[f]) frm.set_value(f, inst[f]);
-                });
-            },
-        });
-    },
-
-    toggle_fields_by_type(frm) {
-        const t = frm.doc.intake_type || 'New Inventory';
-        const inv = t === 'New Inventory';
-        const reqd = (fields, flag) => fields.forEach(f => frm.toggle_reqd(f, flag));
-
-        // Customer‐flow
-        reqd(['customer', 'customers_stated_issue', 'service_type_requested'], !inv);
-        // Inventory‐flow
-        reqd(
-            [
-                'body_material',
-                'acquisition_source',
-                'acquisition_cost',
-                'store_asking_price',
-                'item_code',
-                'item_name',
-            ],
-            inv
-        );
-        // PATCH: Clear customer when switching to Inventory
-        if (inv) frm.set_value('customer', "");
-    },
-
-    validate(frm) {
-        const map = {
-            'New Inventory': [
-                'body_material',
-                'acquisition_source',
-                'acquisition_cost',
-                'store_asking_price',
-                'item_code',
-                'item_name',
-            ],
-            Repair: ['customers_stated_issue', 'service_type_requested', 'customer'],
-            Maintenance: ['customers_stated_issue', 'service_type_requested', 'customer'],
-        };
-        (map[frm.doc.intake_type] || []).forEach(f => {
-            if (!frm.doc[f]) {
-                frappe.msgprint({
-                    title: __('Validation Error'),
-                    message: __(
-                        'Field {0} is required for {1} intake type.',
-                        [__(f), __(frm.doc.intake_type)]
-                    ),
-                    indicator: 'red',
-                });
-                frappe.validated = false;
-            }
-        });
-    },
-
     refresh(frm) {
+        // System Manager or Repair Manager: quick link to Settings
         if (
             frappe.user.has_role('System Manager') ||
             frappe.user.has_role('Repair Manager')
@@ -104,22 +11,67 @@ frappe.ui.form.on('Clarinet Intake', {
                 __('Actions')
             );
         }
-    },
-});
-
-frappe.listview_settings['Clarinet Intake'] = {
-    onload(listview) {
-        if (
-            frappe.user.has_role('System Manager') ||
-            frappe.user.has_role('Repair Manager')
-        ) {
-            listview.page.add_menu_item(__('Settings'), () =>
-                frappe.set_route('Form', 'Clarinet Intake Settings')
-            );
+        // Only show Inspection/Setup links after save
+        if (frm.doc.__islocal) return;
+        // 1. Use whitelisted method for Instrument Inspection link
+        frappe.call({
+            method: 'repair_portal.intake.doctype.clarinet_intake.clarinet_intake.get_instrument_inspection_name',
+            args: { intake_record_id: frm.doc.name },
+            callback: function(r) {
+                if (r.message) {
+                    frm.add_custom_button(
+                        __('Instrument Inspection'),
+                        () => frappe.set_route('Form', 'Instrument Inspection', r.message),
+                        __('View')
+                    );
+                }
+            }
+        });
+        // 2. For New Inventory: link to Initial Setup if exists
+        if (frm.doc.intake_type === 'New Inventory' && frm.doc.instrument) {
+            frappe.db.get_list('Clarinet Initial Setup', {
+                filters: { instrument: frm.doc.instrument },
+                fields: ['name']
+            }).then(res => {
+                if (res && res.length > 0) {
+                    frm.add_custom_button(
+                        __('Initial Setup'),
+                        () => frappe.set_route('Form', 'Clarinet Initial Setup', res[0].name),
+                        __('View')
+                    );
+                }
+            });
         }
     },
-};
-// File: intake/doctype/clarinet_intake/clarinet_intake.js
-// Last Updated: 2025-07-21
-// Version: v3.7
-// Purpose: Dynamic form handling for Clarinet Intake
+    intake_type(frm) {
+        // Refresh required fields depending on intake type
+        const required_fields = {
+            'New Inventory': ['item_code', 'item_name', 'acquisition_cost', 'store_asking_price'],
+            'Repair': ['customer', 'customers_stated_issue'],
+            'Maintenance': ['customer', 'customers_stated_issue'],
+        };
+        Object.keys(required_fields).forEach(type => {
+            (required_fields[type] || []).forEach(field => {
+                frm.toggle_reqd(field, frm.doc.intake_type === type);
+            });
+        });
+    },
+    serial_no(frm) {
+        // Autofill from Instrument by Serial No
+        if (frm.doc.serial_no) {
+            frappe.call({
+                method: 'repair_portal.intake.doctype.clarinet_intake.clarinet_intake.get_instrument_by_serial',
+                args: { serial_no: frm.doc.serial_no },
+                callback: r => {
+                    if (r.message) {
+                        Object.keys(r.message).forEach(key => {
+                            if (!frm.doc[key]) {
+                                frm.set_value(key, r.message[key]);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+});

@@ -8,8 +8,7 @@
     {
       "fieldname": "task",
       "fieldtype": "Data",
-      "label": "Task",
-      "reqd": 1
+      "label": "Task"
     },
     {
       "fieldname": "completed",

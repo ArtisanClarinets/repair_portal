@@ -84,3 +84,7 @@ combine-as-imports = true
 quote-style = "double"
 indent-style = "tab"
 docstring-code-format = true
+
+[tool.mypy]
+strict = true
+plugins = []

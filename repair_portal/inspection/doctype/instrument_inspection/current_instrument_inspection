@@ -1,26 +1,4 @@
-# File Header Template
-# Relative Path: repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.py
-# Last Updated: 2025-07-20
-# Version: v1.2
-# Purpose: Controller for Instrument Inspection DocType - handles validation, automation, and exception logging for all inspection scenarios (inventory, repair, maintenance, QA). Also syncs deep inspection specs to Instrument Profile.
-# Dependencies: frappe, Inspection Finding, Tenon Fit Record, Tone Hole Inspection Record, Instrument Profile
-
-import frappe
-from frappe.model.document import Document
-
-
-class InstrumentInspection(Document):
-    """
-    Controller for Instrument Inspection. Handles validation and custom automation.
-
-    Args:
-        Document (frappe.model.document.Document): Frappe Document base class
-    Returns:
-        None
-    """
-    pass
-
-    def validate(self) -> None:
+def validate(self) -> None:
         """
         Validation hook to enforce business rules for each inspection type.
         Logs any exceptions for audit.
