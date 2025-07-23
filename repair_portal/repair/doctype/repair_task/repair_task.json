@@ -19,6 +19,11 @@
       "fieldtype": "Text"
     },
     {
+      "fieldname": "long_description",
+      "label": "Detailed Notes",
+      "fieldtype": "Text Editor"
+    },
+    {
       "fieldname": "technician",
       "label": "Technician",
       "fieldtype": "Link",

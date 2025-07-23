@@ -94,7 +94,7 @@ class ClarinetInitialSetup(Document):
     def on_submit(self):
         # Create Material Request
         mr = frappe.new_doc("Material Request")
-        mr.material_request_type = "Material Transfer"
+        mr.request_type = "Material Transfer"
         for item in self.materials_used:
             mr.append(
                 "items",

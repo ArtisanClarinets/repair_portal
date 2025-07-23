@@ -10,6 +10,70 @@ from frappe.model.document import Document
 
 
 class InstrumentInspection(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
+        from repair_portal.instrument_setup.doctype.inspection_finding.inspection_finding import InspectionFinding
+        from repair_portal.repair_logging.doctype.instrument_photo.instrument_photo import InstrumentPhoto
+        from repair_portal.repair_logging.doctype.tenon_fit_record.tenon_fit_record import TenonFitRecord
+        from repair_portal.repair_logging.doctype.tone_hole_inspection_record.tone_hole_inspection_record import ToneHoleInspectionRecord
+
+        accessory_log: DF.Table[InstrumentAccessory]
+        acclimatization_controlled_env: DF.Check
+        acclimatization_playing_schedule: DF.Check
+        acclimatization_swabbing: DF.Check
+        amended_from: DF.Link | None
+        audio_video_demos: DF.Literal["Instrument Media"]
+        body_material: DF.Data | None
+        bore_condition: DF.Literal["Clean", "Debris Present", "Irregularities Visible"]
+        bore_measurement: DF.Float
+        bore_notes: DF.SmallText | None
+        bore_style: DF.Data | None
+        clarinet_intake: DF.Link | None
+        current_location: DF.Data | None
+        current_status: DF.Literal["For Sale", "In Workshop", "With Customer", "Sold", "Archived"]
+        customer: DF.Link | None
+        hygrometer_photo: DF.AttachImage | None
+        inspected_by: DF.Link
+        inspection_date: DF.Date | None
+        inspection_findings: DF.Table[InspectionFinding]
+        inspection_type: DF.Literal["New Inventory", "Repair", "Maintenance", "QA", "Other"]
+        instrument_delivered: DF.Check
+        intake_record_id: DF.Link | None
+        key: DF.Literal["B\u266d", "A", "E\u266d", "C", "D"]
+        key_plating: DF.Data | None
+        key_system: DF.Literal["Boehm", "Albert", "Oehler", "Other"]
+        manufacturer: DF.Data | None
+        marketing_photos: DF.Table[InstrumentPhoto]
+        model: DF.Data | None
+        notes: DF.Text | None
+        number_of_keys_rings: DF.Data | None
+        overall_condition: DF.Literal["Excellent", "Good", "Fair", "Poor"]
+        pad_type_current: DF.Data | None
+        pitch_standard: DF.Data | None
+        preliminary_estimate: DF.Currency
+        profile_image: DF.AttachImage | None
+        qc_certificate: DF.Attach | None
+        rested_unopened: DF.Check
+        serial_no: DF.Link
+        service_photos: DF.Table[InstrumentPhoto]
+        spring_type: DF.Data | None
+        tenon_fit_assessment: DF.Table[TenonFitRecord]
+        thumb_rest: DF.Data | None
+        tone_hole_inspection: DF.Table[ToneHoleInspectionRecord]
+        tone_hole_notes: DF.Text | None
+        tone_hole_style: DF.Data | None
+        unboxing_rh: DF.Float
+        unboxing_temperature: DF.Float
+        unboxing_time: DF.Datetime | None
+        visual_inspection: DF.Table[InspectionFinding]
+        wood_type: DF.Literal["Grenadilla", "Mopane", "Cocobolo", "Synthetic", "Other"]
+    # end: auto-generated types
     """
     Controller for Instrument Inspection. Handles validation and custom automation.
 

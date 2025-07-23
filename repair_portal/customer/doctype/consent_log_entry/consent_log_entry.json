@@ -38,6 +38,18 @@
       "fieldname": "date_given",
       "fieldtype": "Date",
       "label": "Date Given"
+    },
+    {
+      "fieldname": "reference_doctype",
+      "fieldtype": "Link",
+      "options": "DocType",
+      "label": "Reference Doctype"
+    },
+    {
+      "fieldname": "reference_name",
+      "fieldtype": "Dynamic Link",
+      "options": "reference_doctype",
+      "label": "Reference Name"
     }
   ],
   "permissions": [

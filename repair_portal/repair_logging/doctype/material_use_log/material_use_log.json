@@ -29,6 +29,24 @@
       "fieldname": "remarks",
       "label": "Remarks",
       "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "source_warehouse",
+      "label": "Source Warehouse",
+      "fieldtype": "Link",
+      "options": "Warehouse"
+    },
+    {
+      "fieldname": "operation_type",
+      "label": "Operation Type",
+      "fieldtype": "Link",
+      "options": "DocType"
+    },
+    {
+      "fieldname": "operation_link",
+      "label": "Operation",
+      "fieldtype": "Dynamic Link",
+      "options": "operation_type"
     }
   ],
   "permissions": [

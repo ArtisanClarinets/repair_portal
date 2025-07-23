@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:CL-SU-.YYYY.MM.DD.-.####.-{serial_no}",
+ "autoname": "format:CL-SU-{YYYY}-{####}-{serial_no}",
  "creation": "2025-07-22 17:34:30.520633",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -186,7 +186,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-22 17:40:37.956860",
+ "modified": "2025-07-22 17:54:30.549776",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Initial Setup",
