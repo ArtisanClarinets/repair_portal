@@ -1,0 +1,60 @@
+{
+  "name": "Instrument Photo",
+  "doctype": "DocType",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "is_submittable": 0,
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "photo",
+      "fieldtype": "Attach Image",
+      "label": "Photo",
+      "reqd": 1
+    },
+    {
+      "fieldname": "category",
+      "fieldtype": "Select",
+      "label": "Category",
+      "options": "Hero\nMarketing\nService Before\nService After\nOther",
+      "reqd": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Data",
+      "label": "Description",
+      "reqd": 0
+    },
+    {
+      "fieldname": "timestamp",
+      "fieldtype": "Datetime",
+      "label": "Photo Timestamp",
+      "reqd": 0
+    },
+    {
+      "fieldname": "uploaded_by",
+      "fieldtype": "Link",
+      "label": "Uploaded By",
+      "options": "User",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "workflow_state_field": "",
+  "links": [],
+  "engine": "InnoDB"
+}

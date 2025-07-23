@@ -129,7 +129,7 @@
    "fieldname": "materials_used",
    "fieldtype": "Table",
    "label": "Materials Used",
-   "options": "Material Usage"
+   "options": "Material Use Log"
   },
   {
    "fieldname": "operations_performed",

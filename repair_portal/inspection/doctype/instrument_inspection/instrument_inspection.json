@@ -62,7 +62,8 @@
    "default": "Today",
    "fieldname": "inspection_date",
    "fieldtype": "Date",
-   "label": "Inspection Date"
+   "label": "Inspection Date",
+   "hidden": 1
   },
   {
    "fieldname": "inspection_type",
@@ -212,7 +213,7 @@
    "fieldname": "tenon_fit_assessment",
    "fieldtype": "Table",
    "label": "Tenon Fit Assessment",
-   "options": "Tenon Fit Record"
+   "options": "Tenon Measurement"
   },
   {
    "depends_on": "eval:doc.inspection_type === 'New Inventory'",
