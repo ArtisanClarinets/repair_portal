@@ -12,7 +12,7 @@
   "fields": [
     {"fieldname": "section_defaults", "label": "Defaults", "fieldtype": "Section Break"},
     {"fieldname": "default_item_group", "label": "Default Item Group", "fieldtype": "Data", "default": "Clarinets"},
-    {"fieldname": "default_inspection_warehouse", "label": "Default Inspection Warehouse", "fieldtype": "Link", "options": "Warehouse", "default": "Clarinet Inspection"},
+    {"fieldname": "default_inspection_warehouse", "label": "Default Inspection Warehouse", "fieldtype": "Link", "options": "Warehouse"},
     {"fieldname": "buying_price_list", "label": "Buying Price List", "fieldtype": "Link", "options": "Price List", "default": "Standard Buying"},
     {"fieldname": "selling_price_list", "label": "Selling Price List", "fieldtype": "Link", "options": "Price List", "default": "Standard Selling"},
     {"fieldname": "stock_uom", "label": "Stock UOM", "fieldtype": "Data", "default": "Nos"},

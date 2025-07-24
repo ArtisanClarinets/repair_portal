@@ -13,18 +13,9 @@ app_email = "DT@DT.com"
 app_license = "mit"
 app_version = "1.2.2"
 
-app_include_css = [
-    "/public/css/clarinetfest.css",
-    "/public/css/product_catalog.css",
-]
 
 app_include_js = [
-    "/public/js/client_portal/client_portal.bundle.js",
-    "/public/js/technician_dashboard/technician_dashboard.bundle.js",
-    "/public/js/technician_dashboard/index.dum.js",
-    "/public/js/recording_analyzer.bundle.js",
-    "/public/js/intonation_recorder.bundle.js",
-    "/public/js/client_portal/customer/customer.bundle.js",
+    "/public/js/tone_processor.js",
 ]
 
 after_install = [
