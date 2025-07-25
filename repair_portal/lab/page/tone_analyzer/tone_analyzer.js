@@ -99,7 +99,7 @@ frappe.pages.tone_analyzer = {
 			frm.analyzer.stop();
 		}
 	}
-});
+};
 
 
 class ToneAnalyzer {

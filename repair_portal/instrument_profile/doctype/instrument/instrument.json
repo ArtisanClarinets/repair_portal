@@ -21,9 +21,6 @@
         "instrument_category",
         "current_status",
         "attachments",
-        "last_service_date",
-        "assigned_technician",
-        "date_purchased",
         "notes"
     ],
     "fields": [
@@ -98,22 +95,6 @@
             "fieldtype": "Select",
             "label": "Status",
             "options": "Active\nNeeds Repair\nAwaiting Parts\nIn Service\nArchived"
-        },
-        {
-            "fieldname": "date_purchased",
-            "fieldtype": "Date",
-            "label": "Date Purchased"
-        },
-        {
-            "fieldname": "last_service_date",
-            "fieldtype": "Date",
-            "label": "Last Service Date"
-        },
-        {
-            "fieldname": "assigned_technician",
-            "fieldtype": "Link",
-            "label": "Assigned Technician",
-            "options": "Technician"
         },
         {
             "fieldname": "notes",

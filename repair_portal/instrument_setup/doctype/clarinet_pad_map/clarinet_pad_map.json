@@ -1,0 +1,35 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Pad Map",
+  "module": "Instrument Setup",
+  "istable": 0,
+  "fields": [
+    {
+      "fieldname": "clarinet_model",
+      "label": "Clarinet Model",
+      "fieldtype": "Link",
+      "options": "Instrument"
+    },
+    {
+      "fieldname": "top_joint_pads",
+      "label": "Top Joint Pads",
+      "fieldtype": "Table",
+      "options": "Clarinet Pad Entry"
+    },
+    {
+      "fieldname": "bottom_joint_pads",
+      "label": "Bottom Joint Pads",
+      "fieldtype": "Table",
+      "options": "Clarinet Pad Entry"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

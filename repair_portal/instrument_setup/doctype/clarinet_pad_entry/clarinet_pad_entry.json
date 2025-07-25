@@ -1,0 +1,33 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Pad Entry",
+  "module": "Instrument Setup",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "pad_position",
+      "label": "Pad Position",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "pad_type",
+      "label": "Pad Type",
+      "fieldtype": "Select",
+      "options": "Cork\nSynthetic\nFelt\nOther"
+    },
+    {
+      "fieldname": "is_open_key",
+      "label": "Is Open Key",
+      "fieldtype": "Check"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

@@ -25,6 +25,29 @@ except ModuleNotFoundError:
 
 
 class ToneIntonationAnalyzer(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+
+        amended_from: DF.Link | None
+        audio_blob: DF.Attach | None
+        avg_cent_dev: DF.Float
+        baseline: DF.Check
+        harmonics_json: DF.LongText | None
+        instrument: DF.Link
+        notes: DF.TextEditor | None
+        pitch_stability: DF.Float
+        player: DF.Link | None
+        reference_pitch: DF.Literal["A=440", "A=441", "A=442"]
+        session_datetime: DF.Datetime | None
+        spectral_cent: DF.Float
+        spectrogram_image: DF.AttachImage | None
+        status: DF.Literal["Draft", "Analyzed", "Reviewed"]
+    # end: auto-generated types
     """
     Manages the backend logic for tone and intonation analysis, including
     audio processing, spectrogram generation, and baseline management.

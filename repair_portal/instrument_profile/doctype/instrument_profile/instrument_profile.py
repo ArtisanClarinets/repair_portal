@@ -24,6 +24,59 @@ from frappe.model.document import Document
 
 
 class InstrumentProfile(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.instrument_profile.doctype.external_work_logs.external_work_logs import ExternalWorkLogs
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
+        from repair_portal.instrument_profile.doctype.instrument_condition_record.instrument_condition_record import InstrumentConditionRecord
+        from repair_portal.instrument_profile.doctype.instrument_document_history.instrument_document_history import InstrumentDocumentHistory
+        from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import InstrumentPhoto
+        from repair_portal.repair_logging.doctype.instrument_interaction_log.instrument_interaction_log import InstrumentInteractionLog
+        from repair_portal.repair_logging.doctype.material_use_log.material_use_log import MaterialUseLog
+        from repair_portal.repair_logging.doctype.warranty_modification_log.warranty_modification_log import WarrantyModificationLog
+
+        accessory_log: DF.Table[InstrumentAccessory]
+        amended_from: DF.Link | None
+        body_material: DF.Data | None
+        bore_measurement: DF.Float
+        bore_style: DF.Data | None
+        brand: DF.Data | None
+        condition_logs: DF.Table[InstrumentConditionRecord]
+        current_location: DF.Data | None
+        current_status: DF.Literal["For Sale", "In Workshop", "With Customer", "Sold", "Archived"]
+        document_history: DF.Table[InstrumentDocumentHistory]
+        external_work_logs: DF.Table[ExternalWorkLogs]
+        initial_condition_notes: DF.Text | None
+        instrument: DF.Link
+        instrument_category: DF.Data | None
+        intake_date: DF.Date | None
+        interaction_logs: DF.Table[InstrumentInteractionLog]
+        key_plating: DF.Data | None
+        key_system: DF.Literal["Boehm", "Albert", "Oehler", "Other"]
+        linked_inspection: DF.Link | None
+        material_usage: DF.Table[MaterialUseLog]
+        model: DF.Data | None
+        number_of_keys_rings: DF.Data | None
+        pad_type_current: DF.Data | None
+        pitch_standard: DF.Data | None
+        profile_image: DF.AttachImage | None
+        purchase_order: DF.Link | None
+        purchase_receipt: DF.Link | None
+        serial_photos: DF.Table[InstrumentPhoto]
+        service_photos: DF.Table[InstrumentPhoto]
+        spring_type: DF.Data | None
+        thumb_rest: DF.Data | None
+        tone_hole_style: DF.Data | None
+        warranty_expiration: DF.Date | None
+        warranty_logs: DF.Table[WarrantyModificationLog]
+        wood_type: DF.Data | None
+        workflow_state: DF.Literal["Open", "In Progress", "Delivered", "Archived"]
+    # end: auto-generated types
     def on_update(self) -> None:
         """
         Sync Serial No, warranty expiration, and populate all related logs as child tables for UI and audit.

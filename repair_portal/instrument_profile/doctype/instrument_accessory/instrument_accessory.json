@@ -70,7 +70,7 @@
             "create": 1
         },
         {
-            "role": "Repair Technician",
+            "role": "Technician",
             "read": 1,
             "write": 1,
             "create": 1

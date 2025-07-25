@@ -1,0 +1,24 @@
+{
+  "doctype": "DocType",
+  "name": "Player Equipment Preference",
+  "module": "Player Profile",
+  "istable": 1,
+  "fields": [
+    {"fieldname": "mouthpiece", "label": "Mouthpiece", "fieldtype": "Data"},
+    {"fieldname": "ligature", "label": "Ligature", "fieldtype": "Data"},
+    {"fieldname": "reed_brand", "label": "Reed Brand", "fieldtype": "Data"},
+    {"fieldname": "reed_model", "label": "Reed Model", "fieldtype": "Data"},
+    {"fieldname": "reed_strength", "label": "Reed Strength", "fieldtype": "Data"},
+    {"fieldname": "barrel", "label": "Barrel", "fieldtype": "Data"},
+    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument Profile"},
+    {"fieldname": "comments", "label": "Comments", "fieldtype": "Small Text"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Technician", "read": 1, "write": 1},
+    {"role": "Repair Manager", "read": 1, "write": 1}
+  ],
+  "links": [],
+  "workflow_state_field": "",
+  "title_field": "mouthpiece"
+}

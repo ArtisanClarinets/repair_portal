@@ -1,62 +1,362 @@
 {
-  "name": "Instrument Profile",
-  "module": "Instrument Profile",
-  "doctype": "DocType",
-  "track_changes": 1,
-  "track_views": 1,
-  "workflow_state_field": "workflow_state",
-  "fields": [
-    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument", "reqd": 1, "in_list_view": 1},
-    {"fieldname": "brand", "label": "Brand", "fieldtype": "Data", "fetch_from": "instrument.brand", "read_only": 1, "in_list_view": 1},
-    {"fieldname": "model", "label": "Model", "fieldtype": "Data", "fetch_from": "instrument.model", "read_only": 1, "in_list_view": 1},
-    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Data", "fetch_from": "instrument.instrument_category", "read_only": 1},
-    {"fieldname": "wood_type", "label": "Wood Type", "fieldtype": "Data", "fetch_from": "instrument.wood_type", "read_only": 1},
-    {"fieldname": "key_plating", "label": "Key Plating", "fieldtype": "Data", "fetch_from": "instrument.key_plating", "read_only": 1},
-    {"fieldname": "purchase_order", "label": "Purchase Order", "fieldtype": "Link", "options": "Purchase Order", "fetch_from": "instrument.purchase_order", "read_only": 1},
-    {"fieldname": "purchase_receipt", "label": "Purchase Receipt", "fieldtype": "Link", "options": "Purchase Receipt", "fetch_from": "instrument.purchase_receipt", "read_only": 1},
-    {"fieldname": "received_date", "label": "Received Date", "fieldtype": "Date", "fetch_from": "instrument.received_date", "read_only": 1},
-    {"fieldname": "warehouse", "label": "Warehouse", "fieldtype": "Link", "options": "Warehouse", "fetch_from": "instrument.warehouse", "read_only": 1},
-    {"fieldname": "initial_condition_notes", "label": "Initial Condition Notes", "fieldtype": "Text"},
-    {"fieldname": "serial_photos", "label": "Instrument Photos", "fieldtype": "Table", "options": "Instrument Photo"},
-    {"fieldname": "linked_intake", "label": "Last Intake", "fieldtype": "Link", "options": "Clarinet Intake", "in_list_view": 1},
-    {"fieldname": "linked_initial_setup", "label": "Last Initial Setup", "fieldtype": "Link", "options": "Clarinet Initial Setup", "in_list_view": 1},
-    {"fieldname": "inspection_results", "label": "Inspection Results", "fieldtype": "Table", "options": "Instrument Inspection", "read_only": 1},
-    {"fieldname": "setup_logs", "label": "Setup Logs", "fieldtype": "Table", "options": "Clarinet Setup Log", "read_only": 1},
-    {"fieldname": "qa_findings", "label": "QA Findings", "fieldtype": "Table", "options": "Instrument Inspection", "read_only": 1},
-    {"fieldname": "condition_logs", "label": "Condition Logs", "fieldtype": "Table", "options": "Instrument Condition Record", "read_only": 1},
-    {"fieldname": "external_work_logs", "label": "External Work Logs", "fieldtype": "Table", "options": "External Work Logs", "read_only": 1},
-    {"fieldname": "warranty_logs", "label": "Warranty Logs", "fieldtype": "Table", "options": "Warranty Modification Log", "read_only": 1},
-    {"fieldname": "material_usage", "label": "Material Usage", "fieldtype": "Table", "options": "Material Use Log", "read_only": 1},
-    {"fieldname": "lab_readings", "label": "Lab Readings", "fieldtype": "Table", "options": "Leak Test", "read_only": 1},
-    {"fieldname": "document_history", "label": "Document History", "fieldtype": "Table", "options": "Instrument Document History", "read_only": 1},
-    {"fieldname": "interaction_logs", "label": "Interaction Logs", "fieldtype": "Table", "options": "Instrument Interaction Log", "read_only": 1},
-    {"fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Select", "options": "Open\nIn Progress\nDelivered\nArchived", "read_only": 1, "in_list_view": 1},
-    {"fieldname": "warranty_expiration", "label": "Warranty Expiration", "fieldtype": "Date", "fetch_from": "instrument.warranty_expiration", "read_only": 1, "in_list_view": 1},
-
-    {"fieldname": "body_material", "label": "Body Material", "fieldtype": "Data"},
-    {"fieldname": "key_plating", "label": "Keywork Plating", "fieldtype": "Data"},
-    {"fieldname": "key_system", "label": "Key System", "fieldtype": "Select", "options": "Boehm\nAlbert\nOehler\nOther"},
-    {"fieldname": "number_of_keys_rings", "label": "Number of Keys/Rings", "fieldtype": "Data"},
-    {"fieldname": "pitch_standard", "label": "Pitch Standard", "fieldtype": "Data"},
-    {"fieldname": "bore_style", "label": "Bore Style", "fieldtype": "Data"},
-    {"fieldname": "bore_measurement", "label": "Bore Measurement (mm)", "fieldtype": "Float"},
-    {"fieldname": "tone_hole_style", "label": "Tone Hole Style", "fieldtype": "Data"},
-    {"fieldname": "thumb_rest", "label": "Thumb Rest", "fieldtype": "Data"},
-    {"fieldname": "spring_type", "label": "Spring Type", "fieldtype": "Data"},
-    {"fieldname": "pad_type_current", "label": "Pad Type (Current)", "fieldtype": "Data"},
-    {"fieldname": "current_status", "label": "Current Status", "fieldtype": "Select", "options": "For Sale\nIn Workshop\nWith Customer\nSold\nArchived"},
-    {"fieldname": "current_location", "label": "Current Location", "fieldtype": "Data"},
-    {"fieldname": "profile_image", "label": "Profile Image (Hero Shot)", "fieldtype": "Attach Image"},
-    {"fieldname": "marketing_photos", "label": "Marketing Photo Gallery", "fieldtype": "Table", "options": "Instrument Photo"},
-    {"fieldname": "service_photos", "label": "Service Photo Log", "fieldtype": "Table", "options": "Instrument Photo"},
-    {"fieldname": "audio_video_demos", "label": "Audio/Video Demos", "fieldtype": "Table", "options": "Instrument Media"},
-    {"fieldname": "accessory_log", "label": "Current Accessories Log", "fieldtype": "Table", "options": "Instrument Accessory"}
-
-  ],
-  "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "Technician", "read": 1},
-    {"role": "Customer", "read": 1, "if_owner": 1},
-    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1}
-  ]
+    "actions": [],
+    "creation": "2025-07-25 03:04:50.911831",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "instrument",
+        "general_info_section",
+        "brand",
+        "model",
+        "instrument_category",
+        "cb_general_info",
+        "wood_type",
+        "body_material",
+        "key_plating",
+        "key_system",
+        "number_of_keys_rings",
+        "specs_section",
+        "pitch_standard",
+        "bore_style",
+        "bore_measurement",
+        "tone_hole_style",
+        "thumb_rest",
+        "spring_type",
+        "pad_type_current",
+        "purchase_section",
+        "purchase_order",
+        "purchase_receipt",
+        "intake_date",
+        "inspection_section",
+        "initial_condition_notes",
+        "linked_inspection",
+        "condition_logs",
+        "logs_section",
+        "external_work_logs",
+        "warranty_logs",
+        "material_usage",
+        "document_history",
+        "interaction_logs",
+        "accessory_log",
+        "media_section",
+        "serial_photos",
+        "profile_image",
+        "service_photos",
+        "status_section",
+        "workflow_state",
+        "warranty_expiration",
+        "current_status",
+        "current_location",
+        "amended_from"
+    ],
+    "fields": [
+        {
+            "fieldname": "instrument",
+            "fieldtype": "Link",
+            "label": "Instrument",
+            "options": "Instrument",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "general_info_section",
+            "fieldtype": "Section Break",
+            "label": "General Information"
+        },
+        {
+            "fieldname": "brand",
+            "fieldtype": "Data",
+            "label": "Brand",
+            "fetch_from": "instrument.brand",
+            "read_only": 1
+        },
+        {
+            "fieldname": "model",
+            "fieldtype": "Data",
+            "label": "Model",
+            "fetch_from": "instrument.model",
+            "read_only": 1
+        },
+        {
+            "fieldname": "instrument_category",
+            "fieldtype": "Data",
+            "label": "Instrument Category",
+            "fetch_from": "instrument.instrument_category",
+            "read_only": 1
+        },
+        {
+            "fieldname": "cb_general_info",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "wood_type",
+            "fieldtype": "Data",
+            "label": "Wood Type",
+            "fetch_from": "instrument.body_material",
+            "read_only": 1
+        },
+        {
+            "fieldname": "body_material",
+            "fieldtype": "Data",
+            "label": "Body Material"
+        },
+        {
+            "fieldname": "key_plating",
+            "fieldtype": "Data",
+            "label": "Key Plating",
+            "fetch_from": "instrument.key_plating",
+            "read_only": 1
+        },
+        {
+            "fieldname": "key_system",
+            "fieldtype": "Select",
+            "label": "Key System",
+            "options": "Boehm\nAlbert\nOehler\nOther"
+        },
+        {
+            "fieldname": "number_of_keys_rings",
+            "fieldtype": "Data",
+            "label": "Number of Keys/Rings"
+        },
+        {
+            "fieldname": "specs_section",
+            "fieldtype": "Section Break",
+            "label": "Specifications"
+        },
+        {
+            "fieldname": "pitch_standard",
+            "fieldtype": "Data",
+            "label": "Pitch Standard"
+        },
+        {
+            "fieldname": "bore_style",
+            "fieldtype": "Data",
+            "label": "Bore Style"
+        },
+        {
+            "fieldname": "bore_measurement",
+            "fieldtype": "Float",
+            "label": "Bore Measurement (mm)"
+        },
+        {
+            "fieldname": "tone_hole_style",
+            "fieldtype": "Data",
+            "label": "Tone Hole Style"
+        },
+        {
+            "fieldname": "thumb_rest",
+            "fieldtype": "Data",
+            "label": "Thumb Rest"
+        },
+        {
+            "fieldname": "spring_type",
+            "fieldtype": "Data",
+            "label": "Spring Type"
+        },
+        {
+            "fieldname": "pad_type_current",
+            "fieldtype": "Data",
+            "label": "Pad Type (Current)"
+        },
+        {
+            "fieldname": "purchase_section",
+            "fieldtype": "Section Break",
+            "label": "Purchase & Intake"
+        },
+        {
+            "fieldname": "purchase_order",
+            "fieldtype": "Link",
+            "label": "Purchase Order",
+            "options": "Purchase Order",
+            "read_only": 1
+        },
+        {
+            "fieldname": "purchase_receipt",
+            "fieldtype": "Link",
+            "label": "Purchase Receipt",
+            "options": "Purchase Receipt",
+            "read_only": 1
+        },
+        {
+            "fieldname": "intake_date",
+            "fieldtype": "Date",
+            "label": "Last Intake Date",
+            "fetch_from": "clarinet_intake.intake_date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "inspection_section",
+            "fieldtype": "Section Break",
+            "label": "Condition & Inspection"
+        },
+        {
+            "fieldname": "initial_condition_notes",
+            "fieldtype": "Text",
+            "label": "Initial Condition Notes"
+        },
+        {
+            "fieldname": "linked_inspection",
+            "fieldtype": "Link",
+            "label": "Instrument Inspection",
+            "options": "Instrument Inspection",
+            "fetch_from": "instrument_inspection.inspection_date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "condition_logs",
+            "fieldtype": "Table",
+            "label": "Condition Logs",
+            "options": "Instrument Condition Record",
+            "read_only": 1
+        },
+        {
+            "fieldname": "logs_section",
+            "fieldtype": "Section Break",
+            "label": "Logs"
+        },
+        {
+            "fieldname": "external_work_logs",
+            "fieldtype": "Table",
+            "label": "External Work Logs",
+            "options": "External Work Logs",
+            "read_only": 1
+        },
+        {
+            "fieldname": "warranty_logs",
+            "fieldtype": "Table",
+            "label": "Warranty Logs",
+            "options": "Warranty Modification Log",
+            "read_only": 1
+        },
+        {
+            "fieldname": "material_usage",
+            "fieldtype": "Table",
+            "label": "Material Usage",
+            "options": "Material Use Log",
+            "read_only": 1
+        },
+        {
+            "fieldname": "document_history",
+            "fieldtype": "Table",
+            "label": "Document History",
+            "options": "Instrument Document History",
+            "read_only": 1
+        },
+        {
+            "fieldname": "interaction_logs",
+            "fieldtype": "Table",
+            "label": "Interaction Logs",
+            "options": "Instrument Interaction Log",
+            "read_only": 1
+        },
+        {
+            "fieldname": "accessory_log",
+            "fieldtype": "Table",
+            "label": "Current Accessories Log",
+            "options": "Instrument Accessory",
+            "read_only": 1
+        },
+        {
+            "fieldname": "media_section",
+            "fieldtype": "Section Break",
+            "label": "Media & Photos"
+        },
+        {
+            "fieldname": "serial_photos",
+            "fieldtype": "Table",
+            "label": "Instrument Photos",
+            "options": "Instrument Photo"
+        },
+        {
+            "fieldname": "profile_image",
+            "fieldtype": "Attach Image",
+            "label": "Profile Image (Hero Shot)"
+        },
+        {
+            "fieldname": "service_photos",
+            "fieldtype": "Table",
+            "label": "Service Photo Log",
+            "options": "Instrument Photo"
+        },
+        {
+            "fieldname": "status_section",
+            "fieldtype": "Section Break",
+            "label": "Status & Workflow"
+        },
+        {
+            "fieldname": "workflow_state",
+            "fieldtype": "Select",
+            "label": "Workflow State",
+            "options": "Open\nIn Progress\nDelivered\nArchived",
+            "in_list_view": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "warranty_expiration",
+            "fieldtype": "Date",
+            "label": "Warranty Expiration",
+            "in_list_view": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "current_status",
+            "fieldtype": "Select",
+            "label": "Current Status",
+            "options": "For Sale\nIn Workshop\nWith Customer\nSold\nArchived"
+        },
+        {
+            "fieldname": "current_location",
+            "fieldtype": "Data",
+            "label": "Current Location"
+        },
+        {
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "label": "Amended From",
+            "options": "Instrument Profile",
+            "no_copy": 1,
+            "print_hide": 1,
+            "read_only": 1,
+            "search_index": 1
+        }
+    ],
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2025-07-25 03:11:01.710654",
+    "modified_by": "Administrator",
+    "module": "Instrument Profile",
+    "name": "Instrument Profile",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "create": 1,
+            "delete": 1,
+            "read": 1,
+            "write": 1
+        },
+        {
+            "role": "Technician",
+            "read": 1
+        },
+        {
+            "role": "Customer",
+            "read": 1,
+            "if_owner": 1
+        },
+        {
+            "role": "Repair Manager",
+            "create": 1,
+            "cancel": 1,
+            "read": 1,
+            "write": 1,
+            "submit": 1
+        }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1,
+    "track_views": 1
 }

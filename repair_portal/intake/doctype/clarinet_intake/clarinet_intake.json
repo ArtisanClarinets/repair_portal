@@ -379,7 +379,7 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Repair Technician",
+   "role": "Technician",
    "write": 1
   }
  ],

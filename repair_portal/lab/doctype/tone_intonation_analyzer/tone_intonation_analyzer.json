@@ -58,7 +58,6 @@
    "options": "A=440\nA=441\nA=442"
   },
   {
-   "default": "<div id=\"tuner-display-area\" class=\"mb-4 rounded\" style=\"display: none; border: 1px solid #d1d8dd; padding: 1.5rem;\">\n    <div class=\"d-flex justify-content-center\">\n        <canvas id=\"tuner-canvas\" width=\"350\" height=\"175\"></canvas>\n    </div>\n\n    <div class=\"text-center mt-2\">\n        <h2 id=\"note-display\" class=\"font-weight-bold\" style=\"font-size: 3.5rem; line-height: 1; margin-bottom: 0;\">--</h2>\n        <div id=\"in-tune-indicator\" style=\"font-size: 2rem; color: #28a745; height: 40px;\"></div>\n    </div>\n</div>",
    "fieldname": "audio_blob",
    "fieldtype": "Attach",
    "label": "Raw Audio"
@@ -153,7 +152,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-23 23:44:20.610462",
+ "modified": "2025-07-24 04:14:42.165668",
  "modified_by": "Administrator",
  "module": "Lab",
  "name": "Tone Intonation Analyzer",
