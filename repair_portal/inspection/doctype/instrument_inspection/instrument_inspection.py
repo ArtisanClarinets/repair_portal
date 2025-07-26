@@ -17,9 +17,16 @@ class InstrumentInspection(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
-        from repair_portal.instrument_setup.doctype.inspection_finding.inspection_finding import InspectionFinding
-        from repair_portal.repair_logging.doctype.tone_hole_inspection_record.tone_hole_inspection_record import ToneHoleInspectionRecord
+
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
+            InstrumentAccessory,
+        )
+        from repair_portal.instrument_setup.doctype.inspection_finding.inspection_finding import (
+            InspectionFinding,
+        )
+        from repair_portal.repair_logging.doctype.tone_hole_inspection_record.tone_hole_inspection_record import (
+            ToneHoleInspectionRecord,
+        )
 
         accessory_log: DF.Table[InstrumentAccessory]
         acclimatization_controlled_env: DF.Check

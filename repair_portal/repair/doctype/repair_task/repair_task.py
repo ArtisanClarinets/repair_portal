@@ -7,6 +7,7 @@
 # begin: auto-generated types
 # This code is auto-generated. Do not touch it – Frappe will overwrite.
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from frappe.types import DF
     repair_order: DF.Link

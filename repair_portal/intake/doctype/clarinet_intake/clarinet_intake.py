@@ -7,13 +7,18 @@
 # Dependencies: Clarinet Intake Settings, Instrument, Item, Serial No, Instrument Inspection, Clarinet Initial Setup, Instrument Category
 
 from __future__ import annotations
+
 from typing import Literal
+
 import frappe
 from frappe import _
 from frappe.model import naming
 from frappe.model.document import Document
 from frappe.utils import nowdate
-from repair_portal.intake.doctype.clarinet_intake_settings.clarinet_intake_settings import get_intake_settings
+
+from repair_portal.intake.doctype.clarinet_intake_settings.clarinet_intake_settings import (
+    get_intake_settings,
+)
 
 MANDATORY_BY_TYPE = {
     "New Inventory": {"item_code", "item_name", "acquisition_cost", "store_asking_price"},
@@ -22,6 +27,61 @@ MANDATORY_BY_TYPE = {
 }
 
 class ClarinetIntake(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
+
+        accessory_id: DF.Table[InstrumentAccessory]
+        acquisition_cost: DF.Currency
+        acquisition_source: DF.Data | None
+        amended_from: DF.Link | None
+        body_material: DF.Data | None
+        bore_type: DF.Data | None
+        clarinet_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "Bass Clarinet", "Alto Clarinet", "Contrabass Clarinet", "Other"]
+        consent_liability_waiver: DF.Link | None
+        cork_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        customer: DF.Link | None
+        customer_approval: DF.Data | None
+        customer_email: DF.Data | None
+        customer_full_name: DF.Data | None
+        customer_phone: DF.Data | None
+        customer_type: DF.Literal["Professional", "Student", "University", "Collector"]
+        customers_stated_issue: DF.SmallText | None
+        deposit_paid: DF.Currency
+        employee: DF.Link | None
+        estimated_cost: DF.Currency
+        initial_assessment_notes: DF.SmallText | None
+        initial_intake_photos: DF.Attach | None
+        instrument: DF.Link | None
+        instrument_category: DF.Link
+        intake_date: DF.Datetime | None
+        intake_record_id: DF.Data | None
+        intake_status: DF.Literal["Received", "Pending", "In Progress", "Inspection", "Setup", "Repair", "Awaiting Customer Approval", "Awaiting Payment", "In Transit", "Repair Complete", "Returned to Customer"]
+        intake_type: DF.Literal["New Inventory", "Repair", "Maintenance"]
+        item_code: DF.Data | None
+        item_name: DF.Data | None
+        key_plating: DF.Data | None
+        keywork_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        manufacturer: DF.Link
+        model: DF.Data
+        pad_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        pitch_standard: DF.Data | None
+        promised_completion_date: DF.Date | None
+        serial_no: DF.Data
+        service_type_requested: DF.Literal["COA", "Overhaul", "Crack Repair", "Play Condition"]
+        spring_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        store_asking_price: DF.Currency
+        thumb_rest_type: DF.Data | None
+        tone_hole_style: DF.Data | None
+        wood_body_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        work_order_number: DF.Link | None
+        year_of_manufacture: DF.Int
+    # end: auto-generated types
     """
     Controller for the Clarinet Intake document.
     Ensures all automations for Item, Serial No, Instrument, and Inspection are handled for every intake type.

@@ -8,96 +8,116 @@
   "workflow_state_field": "workflow_state",
   "states": [
     {
-      "state": "New",
-      "style": "Warning",
-      "doc_status": 0,
-      "allow_edit": "All"
+      "state": "Received",
+      "doc_status": 0
+    },
+    {
+      "state": "In Progress",
+      "doc_status": 0
     },
     {
       "state": "Inspection",
-      "style": "Primary",
-      "doc_status": 0,
-      "allow_edit": "All"
+      "doc_status": 0
     },
     {
-      "state": "Setup",
-      "style": "Info",
-      "doc_status": 0,
-      "allow_edit": "All"
+      "state": "Awaiting Customer Approval",
+      "doc_status": 0
     },
     {
-      "state": "QC",
-      "style": "Success",
-      "doc_status": 0,
-      "allow_edit": "All"
+      "state": "Repair",
+      "doc_status": 0
     },
     {
-      "state": "Hold",
-      "style": "Danger",
-      "doc_status": 0,
-      "allow_edit": "All"
+      "state": "Awaiting Payment",
+      "doc_status": 0
     },
     {
-      "state": "Available",
-      "style": "Success",
-      "doc_status": 0,
-      "allow_edit": "All"
+      "state": "Repair Complete",
+      "doc_status": 1
     },
     {
-      "state": "Flagged",
-      "style": "Orange",
-      "doc_status": 1,
-      "allow_edit": "System Manager"
+      "state": "Returned to Customer",
+      "doc_status": 1
+    },
+    {
+      "state": "Rejected",
+      "doc_status": 2
     }
   ],
   "transitions": [
     {
-      "state": "New",
-      "action": "Start Inspection",
+      "state": "Received",
+      "action": "Begin Intake",
+      "next_state": "In Progress",
+      "allowed": [
+        "Technician"
+      ]
+    },
+    {
+      "state": "In Progress",
+      "action": "Send to Inspection",
       "next_state": "Inspection",
-      "allowed": "Inventory Manager"
+      "allowed": [
+        "Technician"
+      ]
     },
     {
       "state": "Inspection",
-      "action": "Complete Inspection",
-      "next_state": "Setup",
-      "allowed": "Inventory Manager"
+      "action": "Request Approval",
+      "next_state": "Awaiting Customer Approval",
+      "allowed": [
+        "Technician"
+      ]
     },
     {
-      "state": "Setup",
-      "action": "Finish Setup",
-      "next_state": "QC",
-      "allowed": "Inventory Manager"
+      "state": "Awaiting Customer Approval",
+      "action": "Approve",
+      "next_state": "Repair",
+      "allowed": [
+        "Repair Manager",
+        "System Manager"
+      ]
     },
     {
-      "state": "QC",
-      "action": "QC Pass",
-      "next_state": "Available",
-      "allowed": "Inventory Manager"
+      "state": "Awaiting Customer Approval",
+      "action": "Reject",
+      "next_state": "Rejected",
+      "allowed": [
+        "Repair Manager",
+        "System Manager"
+      ]
     },
     {
-      "state": "QC",
-      "action": "QC Fail",
-      "next_state": "Flagged",
-      "allowed": "Inventory Manager"
+      "state": "Repair",
+      "action": "Complete Repair",
+      "next_state": "Awaiting Payment",
+      "allowed": [
+        "Technician"
+      ]
     },
     {
-      "state": "Hold",
-      "action": "Retry QC",
-      "next_state": "QC",
-      "allowed": "Inventory Manager"
+      "state": "Awaiting Payment",
+      "action": "Mark as Complete",
+      "next_state": "Repair Complete",
+      "allowed": [
+        "Repair Manager"
+      ]
     },
     {
-      "state": "Available",
-      "action": "Reset to New",
-      "next_state": "New",
-      "allowed": "System Manager"
+      "state": "Repair Complete",
+      "action": "Return to Customer",
+      "next_state": "Returned to Customer",
+      "allowed": [
+        "Repair Manager"
+      ]
     },
     {
-      "state": "Flagged",
-      "action": "Revert to QC",
-      "next_state": "QC",
-      "allowed": "Inventory Manager"
+      "state": "Returned to Customer",
+      "action": "Close",
+      "next_state": "Closed",
+      "allowed": [
+        "System Manager"
+      ]
     }
   ]
 }

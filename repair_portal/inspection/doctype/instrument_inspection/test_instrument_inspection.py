@@ -12,13 +12,15 @@ import unittest
 
 # Frappe framework imports
 import frappe
-from frappe.tests.utils import FrappeTestCase
-from frappe.utils import add_days, now_datetime, today
-from frappe.model.document import Document
 from frappe.exceptions import ValidationError
+from frappe.tests.utils import FrappeTestCase
+from frappe.utils import today
 
 # Import the class to be tested
-from repair_portal.inspection.doctype.instrument_inspection.instrument_inspection import InstrumentInspection
+from repair_portal.inspection.doctype.instrument_inspection.instrument_inspection import (
+    InstrumentInspection,
+)
+
 
 class TestInstrumentInspection(FrappeTestCase):
     """

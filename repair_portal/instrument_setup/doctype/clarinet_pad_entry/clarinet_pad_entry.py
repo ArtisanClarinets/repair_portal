@@ -5,8 +5,8 @@
 # Purpose: Represents a single pad definition for top/bottom joint pad entries
 # Dependencies: None
 
-import frappe
 from frappe.model.document import Document
+
 
 class ClarinetPadEntry(Document):
     """

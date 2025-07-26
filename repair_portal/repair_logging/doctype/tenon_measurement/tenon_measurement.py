@@ -5,8 +5,8 @@
 # This module is part of the Repair Portal application for Frappe/ERPNext
 
 
-import frappe
 from frappe.model.document import Document
+
 
 class TenonMeasurement(Document):
     """

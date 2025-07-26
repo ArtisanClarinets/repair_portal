@@ -4,19 +4,21 @@
 # Purpose: Enterprise-grade server-side controller for acoustic analysis.
 
 from __future__ import annotations
-import json, io, base64
-from pathlib import Path
-from typing import Any, Dict, List, Optional
+
+import base64
+import io
+import json
+from typing import Any
+
 import frappe
 from frappe.model.document import Document
-from frappe.utils import now
 
 # Graceful degradation if heavy DSP libraries are not installed
 try:
     import librosa
     import librosa.display
-    import numpy as np
     import matplotlib.pyplot as plt
+    import numpy as np
 
     LIBS_AVAILABLE = True
 except ModuleNotFoundError:
@@ -46,7 +48,7 @@ class ToneIntonationAnalyzer(Document):
         session_datetime: DF.Datetime | None
         spectral_cent: DF.Float
         spectrogram_image: DF.AttachImage | None
-        status: DF.Literal["Draft", "Analyzed", "Reviewed"]
+        status: DF.Literal[Draft, Analyzed, Reviewed]
     # end: auto-generated types
     """
     Manages the backend logic for tone and intonation analysis, including
@@ -173,7 +175,7 @@ class ToneIntonationAnalyzer(Document):
 
     # region: Whitelisted API Methods for Client-Side
     @frappe.whitelist()
-    def run_live_analysis(self, chunk: List[float], a_ref: int = 440) -> Dict[str, Any]:
+    def run_live_analysis(self, chunk: list[float], a_ref: int = 440) -> dict[str, Any]:
         """Analyzes a real-time audio chunk from the browser."""
         if not LIBS_AVAILABLE:
             return {"error": "DSP libraries not available on server."}
@@ -195,7 +197,7 @@ class ToneIntonationAnalyzer(Document):
         return {"f0": mean_f0, "cents_dev": cents_dev, "note_name": note_name}
 
     @frappe.whitelist()
-    def get_baseline_for_instrument(self, instrument: str) -> Optional[Dict[str, Any]]:
+    def get_baseline_for_instrument(self, instrument: str) -> dict[str, Any] | None:
         """Fetches the latest approved baseline for a given instrument."""
         baseline = frappe.db.get_value(
             "Tone & Intonation Analyzer",

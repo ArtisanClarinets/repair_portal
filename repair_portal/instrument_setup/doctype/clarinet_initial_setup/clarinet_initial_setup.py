@@ -18,9 +18,16 @@ class ClarinetInitialSetup(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.instrument_setup.doctype.clarinet_setup_operation.clarinet_setup_operation import ClarinetSetupOperation
-        from repair_portal.instrument_setup.doctype.material_usage.material_usage import MaterialUsage
-        from repair_portal.instrument_setup.doctype.setup_checklist_item.setup_checklist_item import SetupChecklistItem
+
+        from repair_portal.instrument_setup.doctype.clarinet_setup_operation.clarinet_setup_operation import (
+            ClarinetSetupOperation,
+        )
+        from repair_portal.instrument_setup.doctype.material_usage.material_usage import (
+            MaterialUsage,
+        )
+        from repair_portal.instrument_setup.doctype.setup_checklist_item.setup_checklist_item import (
+            SetupChecklistItem,
+        )
 
         amended_from: DF.Link | None
         checklist: DF.Table[SetupChecklistItem]

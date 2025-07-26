@@ -81,11 +81,9 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Employee / Technician",
    "options": "User",
-   "auto-fetch": 1,
-   "auto_fetch_field": "full_name",
-   "in_list_view": 1,
    "read_only": 1,
    "search_index": 1
   },
@@ -99,10 +97,10 @@
   {
    "fieldname": "instrument_category",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Instrument Category",
    "options": "Instrument Category",
-   "reqd": 1,
-   "in_list_view": 1
+   "reqd": 1
   },
   {
    "fieldname": "manufacturer",
@@ -333,7 +331,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Intake Status",
-   "options": "Pending\nIn Progress\nAwaiting Customer Approval\nComplete"
+   "options": "Received\nPending\nIn Progress\nInspection\nSetup\nRepair\nAwaiting Customer Approval\nAwaiting Payment\nIn Transit\nRepair Complete\nReturned to Customer"
   },
   {
    "fieldname": "amended_from",
@@ -354,7 +352,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-22 03:08:37.172393",
+ "modified": "2025-07-25 17:59:09.358258",
  "modified_by": "Administrator",
  "module": "Intake",
  "name": "Clarinet Intake",

@@ -13,4 +13,3 @@ Lab
 Customer
 Player Profile
 Trade Shows
-Repair Portal Settings

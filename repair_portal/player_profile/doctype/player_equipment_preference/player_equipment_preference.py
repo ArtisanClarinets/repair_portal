@@ -5,8 +5,8 @@
 # Purpose: Controller for the Player Equipment Preference child table, capturing all equipment choices in one child table for simplified player profiling.
 # Dependencies: Instrument Profile (Doctype)
 
-import frappe
 from frappe.model.document import Document
+
 
 class PlayerEquipmentPreference(Document):
     """

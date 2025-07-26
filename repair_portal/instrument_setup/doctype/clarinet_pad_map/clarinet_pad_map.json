@@ -1,35 +1,50 @@
 {
-  "doctype": "DocType",
-  "name": "Clarinet Pad Map",
-  "module": "Instrument Setup",
-  "istable": 0,
-  "fields": [
-    {
-      "fieldname": "clarinet_model",
-      "label": "Clarinet Model",
-      "fieldtype": "Link",
-      "options": "Instrument"
-    },
-    {
-      "fieldname": "top_joint_pads",
-      "label": "Top Joint Pads",
-      "fieldtype": "Table",
-      "options": "Clarinet Pad Entry"
-    },
-    {
-      "fieldname": "bottom_joint_pads",
-      "label": "Bottom Joint Pads",
-      "fieldtype": "Table",
-      "options": "Clarinet Pad Entry"
-    }
-  ],
-  "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    }
-  ]
+ "actions": [],
+ "creation": "2025-07-25 17:51:20.705604",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "clarinet_model",
+  "top_joint_pads",
+  "bottom_joint_pads"
+ ],
+ "fields": [
+  {
+   "fieldname": "clarinet_model",
+   "fieldtype": "Data",
+   "label": "Clarinet Model",
+   "options": "Instrument"
+  },
+  {
+   "fieldname": "top_joint_pads",
+   "fieldtype": "Table",
+   "label": "Top Joint Pads",
+   "options": "Clarinet Pad Entry"
+  },
+  {
+   "fieldname": "bottom_joint_pads",
+   "fieldtype": "Table",
+   "label": "Bottom Joint Pads",
+   "options": "Clarinet Pad Entry"
+  }
+ ],
+ "links": [],
+ "modified": "2025-07-25 18:42:51.253165",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Pad Map",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
 }

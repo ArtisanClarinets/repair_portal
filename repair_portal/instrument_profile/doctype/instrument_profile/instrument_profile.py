@@ -31,14 +31,31 @@ class InstrumentProfile(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.instrument_profile.doctype.external_work_logs.external_work_logs import ExternalWorkLogs
-        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
-        from repair_portal.instrument_profile.doctype.instrument_condition_record.instrument_condition_record import InstrumentConditionRecord
-        from repair_portal.instrument_profile.doctype.instrument_document_history.instrument_document_history import InstrumentDocumentHistory
-        from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import InstrumentPhoto
-        from repair_portal.repair_logging.doctype.instrument_interaction_log.instrument_interaction_log import InstrumentInteractionLog
-        from repair_portal.repair_logging.doctype.material_use_log.material_use_log import MaterialUseLog
-        from repair_portal.repair_logging.doctype.warranty_modification_log.warranty_modification_log import WarrantyModificationLog
+
+        from repair_portal.instrument_profile.doctype.external_work_logs.external_work_logs import (
+            ExternalWorkLogs,
+        )
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
+            InstrumentAccessory,
+        )
+        from repair_portal.instrument_profile.doctype.instrument_condition_record.instrument_condition_record import (
+            InstrumentConditionRecord,
+        )
+        from repair_portal.instrument_profile.doctype.instrument_document_history.instrument_document_history import (
+            InstrumentDocumentHistory,
+        )
+        from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import (
+            InstrumentPhoto,
+        )
+        from repair_portal.repair_logging.doctype.instrument_interaction_log.instrument_interaction_log import (
+            InstrumentInteractionLog,
+        )
+        from repair_portal.repair_logging.doctype.material_use_log.material_use_log import (
+            MaterialUseLog,
+        )
+        from repair_portal.repair_logging.doctype.warranty_modification_log.warranty_modification_log import (
+            WarrantyModificationLog,
+        )
 
         accessory_log: DF.Table[InstrumentAccessory]
         amended_from: DF.Link | None

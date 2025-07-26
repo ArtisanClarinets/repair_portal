@@ -6,8 +6,10 @@
 # Dependencies: Frappe, Instrument Profile, Impedance Snapshot, Tone Fitness, Leak Test, librosa, soundfile, numpy
 
 from __future__ import annotations
+
 import base64
 import math
+
 import frappe
 from frappe import _
 from frappe.utils import now_datetime
@@ -118,7 +120,7 @@ def save_impedance_snapshot(instrument=None, raw_data="{}", recording_base64=Non
 
         frappe.logger().info(f"Impedance snapshot saved by {user} for {instrument} ({snapshot.name})")
         return {"name": snapshot.name}
-    except Exception as e:
+    except Exception:
         frappe.log_error(frappe.get_traceback(), "Lab API: Save Impedance Snapshot Error")
         raise LabAPIError(_("Failed to save impedance snapshot."))
 
@@ -163,7 +165,7 @@ def save_intonation_session(instrument=None, recording_base64=None, filename=Non
 
         frappe.logger().info(f"Intonation session saved by {user} for {instrument} ({session.name})")
         return {"name": session.name}
-    except Exception as e:
+    except Exception:
         frappe.log_error(frappe.get_traceback(), "Lab API: Save Intonation Session Error")
         raise LabAPIError(_("Failed to save intonation session."))
 
@@ -185,6 +187,7 @@ def save_tone_fitness(instrument=None, recording_base64=None, filename=None):
 
     try:
         import io
+
         import librosa
         import numpy as np
         import soundfile as sf
@@ -204,7 +207,7 @@ def save_tone_fitness(instrument=None, recording_base64=None, filename=None):
             _attach_file(doc, recording_base64, filename)
 
         return {"name": doc.name}
-    except Exception as e:
+    except Exception:
         frappe.log_error(frappe.get_traceback(), "Lab API: Tone Fitness Error")
         raise LabAPIError(_("Error processing tone fitness."))
 
@@ -240,6 +243,6 @@ def save_leak_test(instrument=None, recording_base64=None, filename=None):
             _attach_file(doc, recording_base64, filename)
 
         return {"name": doc.name}
-    except Exception as e:
+    except Exception:
         frappe.log_error(frappe.get_traceback(), "Lab API: Leak Test Error")
         raise LabAPIError(_("Error saving leak test."))

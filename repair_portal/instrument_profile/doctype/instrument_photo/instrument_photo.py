@@ -5,8 +5,8 @@
 # Purpose: Child table to store all photo/image records linked to an instrument's lifecycle (hero/profile, marketing, service, etc.)
 # Dependencies: frappe, User
 
-import frappe
 from frappe.model.document import Document
+
 
 class InstrumentPhoto(Document):
     """

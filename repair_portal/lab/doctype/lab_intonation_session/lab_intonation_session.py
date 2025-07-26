@@ -8,6 +8,7 @@
 import frappe
 from frappe.model.document import Document
 
+
 class LabIntonationSession(Document):
     """
     Stores data for intonation analysis, including average impedance and spectrogram output
