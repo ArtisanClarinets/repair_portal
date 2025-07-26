@@ -61,7 +61,7 @@ class ClarinetIntake(Document):
         instrument_category: DF.Link
         intake_date: DF.Datetime | None
         intake_record_id: DF.Data | None
-        intake_status: DF.Literal["Received", "Pending", "In Progress", "Inspection", "Setup", "Repair", "Awaiting Customer Approval", "Awaiting Payment", "In Transit", "Repair Complete", "Returned to Customer"]
+        intake_status: DF.Literal["Pending", "Received", "Inspection", "Setup", "Repair", "Awaiting Customer Approval", "Awaiting Payment", "In Transit", "Repair Complete", "Returned to Customer"]
         intake_type: DF.Literal["New Inventory", "Repair", "Maintenance"]
         item_code: DF.Data | None
         item_name: DF.Data | None

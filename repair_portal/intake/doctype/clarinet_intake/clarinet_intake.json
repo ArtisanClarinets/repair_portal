@@ -331,7 +331,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Intake Status",
-   "options": "Received\nPending\nIn Progress\nInspection\nSetup\nRepair\nAwaiting Customer Approval\nAwaiting Payment\nIn Transit\nRepair Complete\nReturned to Customer"
+   "options": "Pending\nReceived\nInspection\nSetup\nRepair\nAwaiting Customer Approval\nAwaiting Payment\nIn Transit\nRepair Complete\nReturned to Customer"
   },
   {
    "fieldname": "amended_from",
@@ -352,7 +352,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-25 17:59:09.358258",
+ "modified": "2025-07-25 21:59:19.443467",
  "modified_by": "Administrator",
  "module": "Intake",
  "name": "Clarinet Intake",
@@ -384,7 +384,48 @@
  "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [],
+ "states": [
+  {
+   "color": "Light Blue",
+   "title": "Pending"
+  },
+  {
+   "color": "Blue",
+   "title": "Received"
+  },
+  {
+   "color": "Green",
+   "title": "Inspection"
+  },
+  {
+   "color": "Green",
+   "title": "Setup"
+  },
+  {
+   "color": "Green",
+   "title": "Repair"
+  },
+  {
+   "color": "Orange",
+   "title": "Awaiting Custom Approval"
+  },
+  {
+   "color": "Yellow",
+   "title": "Awaiting Payment"
+  },
+  {
+   "color": "Light Blue",
+   "title": "In Transit"
+  },
+  {
+   "color": "Orange",
+   "title": "Repair Complete"
+  },
+  {
+   "color": "Purple",
+   "title": "Returned to Customer"
+  }
+ ],
  "track_changes": 1,
  "track_seen": 1,
  "track_views": 1

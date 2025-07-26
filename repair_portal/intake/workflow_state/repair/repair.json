@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Repair",
+    "style": "Info",
+    "doc_status": 1,
+    "name": "Repair",
+    "module": "Intake",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

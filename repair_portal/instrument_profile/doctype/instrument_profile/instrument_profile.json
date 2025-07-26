@@ -35,7 +35,6 @@
         "external_work_logs",
         "warranty_logs",
         "material_usage",
-        "document_history",
         "interaction_logs",
         "accessory_log",
         "media_section",
@@ -235,13 +234,7 @@
             "options": "Material Use Log",
             "read_only": 1
         },
-        {
-            "fieldname": "document_history",
-            "fieldtype": "Table",
-            "label": "Document History",
-            "options": "Instrument Document History",
-            "read_only": 1
-        },
+
         {
             "fieldname": "interaction_logs",
             "fieldtype": "Table",

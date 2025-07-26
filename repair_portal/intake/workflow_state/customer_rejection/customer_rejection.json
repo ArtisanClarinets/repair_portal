@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Customer Rejection",
+    "style": "Warning",
+    "doc_status": 0,
+    "name": "Customer Rejection",
+    "module": "Intake",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

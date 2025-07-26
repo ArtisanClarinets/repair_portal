@@ -41,9 +41,6 @@ class InstrumentProfile(Document):
         from repair_portal.instrument_profile.doctype.instrument_condition_record.instrument_condition_record import (
             InstrumentConditionRecord,
         )
-        from repair_portal.instrument_profile.doctype.instrument_document_history.instrument_document_history import (
-            InstrumentDocumentHistory,
-        )
         from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import (
             InstrumentPhoto,
         )

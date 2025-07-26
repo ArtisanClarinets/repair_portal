@@ -1,0 +1,17 @@
+{
+    "doctype": "Workflow Action Master",
+    "name": "Customer Rejection",
+    "module": "Intake",
+    "workflow": "Intake Workflow",
+    "document_type": "Clarinet Intake",
+    "workflow_state_field": "intake_status",
+    "action": "Customer Rejection",
+    "from_state": "Awaiting Customer Approval",
+    "to_state": "Return to Customer",
+    "allowed_role": "Technician",
+    "options": [],
+    "style": "Primary",
+    "description": "Reject the estimate and return to the customer.",
+    "sync_on_migrate": 1,
+    "is_standard": 1
+}

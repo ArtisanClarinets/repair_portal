@@ -17,16 +17,11 @@ class InstrumentInspection(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-
-        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
-            InstrumentAccessory,
-        )
-        from repair_portal.instrument_setup.doctype.inspection_finding.inspection_finding import (
-            InspectionFinding,
-        )
-        from repair_portal.repair_logging.doctype.tone_hole_inspection_record.tone_hole_inspection_record import (
-            ToneHoleInspectionRecord,
-        )
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
+        from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import InstrumentPhoto
+        from repair_portal.instrument_setup.doctype.inspection_finding.inspection_finding import InspectionFinding
+        from repair_portal.repair_logging.doctype.tenon_measurement.tenon_measurement import TenonMeasurement
+        from repair_portal.repair_logging.doctype.tone_hole_inspection_record.tone_hole_inspection_record import ToneHoleInspectionRecord
 
         accessory_log: DF.Table[InstrumentAccessory]
         acclimatization_controlled_env: DF.Check
@@ -54,6 +49,7 @@ class InstrumentInspection(Document):
         key_plating: DF.Data | None
         key_system: DF.Literal["Boehm", "Albert", "Oehler", "Other"]
         manufacturer: DF.Data | None
+        marketing_photos: DF.Table[InstrumentPhoto]
         model: DF.Data | None
         notes: DF.Text | None
         number_of_keys_rings: DF.Data | None
@@ -65,7 +61,9 @@ class InstrumentInspection(Document):
         qc_certificate: DF.Attach | None
         rested_unopened: DF.Check
         serial_no: DF.Link
+        service_photos: DF.Table[InstrumentPhoto]
         spring_type: DF.Data | None
+        tenon_fit_assessment: DF.Table[TenonMeasurement]
         thumb_rest: DF.Data | None
         tone_hole_inspection: DF.Table[ToneHoleInspectionRecord]
         tone_hole_notes: DF.Text | None

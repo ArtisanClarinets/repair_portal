@@ -1,0 +1,15 @@
+{
+    "doctype": "Workflow Action Master",
+    "name": "Begin Inspection",
+    "module": "Intake",
+    "workflow": "Intake Workflow",
+    "document_type": "Clarinet Intake",
+    "workflow_state_field": "intake_status",
+    "action": "Begin Inspection",
+    "from_state": "Received",
+    "to_state": "Inspection",
+    "allowed_role": "Technician",
+    "options": [],
+    "style": "Primary",
+    "description": "Begin the inspection process for the intakebegin."
+}

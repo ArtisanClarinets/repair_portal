@@ -62,8 +62,8 @@
    "default": "Today",
    "fieldname": "inspection_date",
    "fieldtype": "Date",
-   "label": "Inspection Date",
-   "hidden": 1
+   "hidden": 1,
+   "label": "Inspection Date"
   },
   {
    "fieldname": "inspection_type",
@@ -376,7 +376,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-22 17:52:18.778020",
+ "modified": "2025-07-25 22:35:11.495399",
  "modified_by": "Administrator",
  "module": "Inspection",
  "name": "Instrument Inspection",
@@ -410,5 +410,26 @@
  "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [
+  {
+   "color": "Light Blue",
+   "title": "Pending"
+  },
+  {
+   "color": "Green",
+   "title": "In Progress"
+  },
+  {
+   "color": "Purple",
+   "title": "Referred to Setup"
+  },
+  {
+   "color": "Orange",
+   "title": "Referred to Repair"
+  },
+  {
+   "color": "Yellow",
+   "title": "Referred to Maintenance"
+  }
+ ]
 }
