@@ -1,4 +1,8 @@
 {
+  "doctype": "Workflow",
+  "module": "Repair Portal",
+  "name": "Inspection QC Workflow",
+  "label": "Inspection QC Workflow",
   "workflow_name": "Inspection QC Workflow",
   "document_type": "Inspection Report",
   "is_active": 1,

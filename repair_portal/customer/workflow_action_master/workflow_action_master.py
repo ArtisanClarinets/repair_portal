@@ -1,6 +1,6 @@
 # repair_portal/customer/workflow_action_master/workflow_action_master.py
 #
-# Version: 2.0.0
+# Version: 2.0.1
 #
 # Purpose: Master controller for all Customer workflow transitions.
 # This script is designed to be the single source of truth for what should
@@ -108,8 +108,6 @@ def restore_children(doc: Document):
     Handles the 'Restore' action.
     - Restores all child Player and Instrument Profiles to 'Active'.
     """
-    # Note: Your workflow transitions from 'Archived' to 'Deleted' on 'Restore'.
-    # This function assumes the intent is to un-archive children.
     players = frappe.get_all("Player Profile", {"customer": doc.name})
     for p in players:
         pp = frappe.get_doc("Player Profile", p.name)
@@ -160,5 +158,4 @@ def _set_state(doc: Document, state: str):
     state_field = "profile_status" if hasattr(doc, "profile_status") else "workflow_state"
     if hasattr(doc, state_field):
         setattr(doc, state_field, state)
-        doc.save(ignore_permissions=True)
-        frappe.db.commit()
+        doc.save(ignore_permissions=True)  # removed frappe.db.commit() here

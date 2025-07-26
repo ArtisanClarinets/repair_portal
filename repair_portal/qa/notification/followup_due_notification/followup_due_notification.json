@@ -1,4 +1,8 @@
 {
+  "doctype": "Notification",
+  "module": "QA",
+  "name": "Follow-up Due Notification",
+  "notification_type": "Email",
   "notification_name": "Follow-up Due Notification",
   "enabled": 1,
   "document_type": "Inspection Report",

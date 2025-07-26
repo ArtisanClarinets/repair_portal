@@ -3,6 +3,7 @@
     "module": "Instrument Profile",
     "workflow_name": "Instrument Condition Workflow",
     "document_type": "Instrument Condition Record",
+    "name": "Instrument Condition Workflow",
     "states": [
         {
             "state": "Draft",

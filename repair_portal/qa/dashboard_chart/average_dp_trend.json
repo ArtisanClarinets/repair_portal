@@ -1,4 +1,7 @@
 {
+  "doctype": "Dashboard Chart",
+  "module": "QA",
+  "name": "Average DP Trend",
   "chart_name": "Average DP Trend",
   "document_type": "Inspection Checklist Item",
   "chart_type": "Line",

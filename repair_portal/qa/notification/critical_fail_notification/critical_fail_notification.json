@@ -1,4 +1,8 @@
 {
+  "doctype": "Notification",
+  "module": "QA",
+  "name": "Critical Fail Notification",
+  "notification_type": "Email",
   "notification_name": "Critical Fail Notification",
   "enabled": 1,
   "document_type": "Inspection Report",

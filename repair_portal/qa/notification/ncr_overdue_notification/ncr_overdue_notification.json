@@ -1,4 +1,8 @@
 {
+  "doctype": "Notification",
+  "module": "QA",
+  "name": "NCR Overdue Notification",
+  "notification_type": "Email",
   "notification_name": "NCR Overdue Notification",
   "enabled": 1,
   "document_type": "Non Conformance Report",

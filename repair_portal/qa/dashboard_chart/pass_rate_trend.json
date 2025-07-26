@@ -1,4 +1,7 @@
 {
+  "doctype": "Dashboard Chart",
+  "module": "QA",
+  "name": "Pass Rate Trend",
   "chart_name": "Pass Rate Trend",
   "document_type": "Inspection Report",
   "chart_type": "Line",
