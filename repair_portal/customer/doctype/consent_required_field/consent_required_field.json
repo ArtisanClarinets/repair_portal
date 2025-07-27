@@ -1,0 +1,42 @@
+{
+  "doctype": "DocType",
+  "name": "Consent Required Field",
+  "module": "Customer",
+  "istable": 1,
+  "allow_import": 1,
+  "fields": [
+    {
+      "fieldname": "field_label",
+      "fieldtype": "Data",
+      "label": "Field Label",
+      "reqd": 1
+    },
+    {
+      "fieldname": "field_type",
+      "fieldtype": "Select",
+      "label": "Field Type",
+      "options": "Data\nInt\nDate\nFloat\nSmall Text\nText\nCheck\nSignature",
+      "reqd": 1
+    },
+    {
+      "fieldname": "is_required",
+      "fieldtype": "Check",
+      "label": "Required",
+      "default": 1
+    },
+    {
+      "fieldname": "default_value",
+      "fieldtype": "Data",
+      "label": "Default Value"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

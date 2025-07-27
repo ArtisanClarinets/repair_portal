@@ -1,0 +1,60 @@
+{
+  "doctype": "DocType",
+  "name": "Consent Form",
+  "module": "Customer",
+  "fields": [
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "consent_template",
+      "fieldtype": "Link",
+      "label": "Consent Template",
+      "options": "Consent Template",
+      "reqd": 1
+    },
+    {
+      "fieldname": "consent_field_values",
+      "fieldtype": "Table",
+      "label": "Field Values",
+      "options": "Consent Field Value"
+    },
+    {
+      "fieldname": "signature",
+      "fieldtype": "Signature",
+      "label": "Customer Signature",
+      "reqd": 1
+    },
+    {
+      "fieldname": "signed_on",
+      "fieldtype": "Datetime",
+      "label": "Signed On"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nSigned\nCancelled",
+      "default": "Draft"
+    },
+    {
+      "fieldname": "rendered_content",
+      "fieldtype": "Text Editor",
+      "label": "Rendered Agreement (Read Only)",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}
