@@ -1,4 +1,4 @@
-
+repair_portal/public/frontend/*
 repair_portal/scripts/shopify/*.csv
 repair_portal/scripts/invoice_pdf/*.pdf
 *.DS_Store
