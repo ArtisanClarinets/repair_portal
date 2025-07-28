@@ -1,32 +1,33 @@
 {
  "actions": [],
- "autoname": "format:CL-SU-{YYYY}-{####}-{serial_no}",
+ "autoname": "format:SETUP-{serial_no}",
  "creation": "2025-07-22 17:34:30.520633",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "instrument_information_section",
-  "clarinet_initial_setup_id",
+  "status",
   "serial_no",
-  "instrument_profile",
-  "intake",
   "instrument",
+  "instrument_profile",
   "clarinet_type",
   "model",
-  "inspection",
-  "setup_template",
-  "setup_date",
-  "technician",
-  "checklist",
-  "materials_used",
-  "operations_performed",
   "work_photos",
-  "labor_hours",
-  "status",
-  "qa_inspection",
+  "column_break_ezgh",
+  "setup_date",
+  "clarinet_initial_setup_id",
+  "intake",
+  "inspection",
   "amended_from",
-  "technical_tags",
-  "column_break_ezgh"
+  "setup_template",
+  "qa_inspection",
+  "labor_hours",
+  "technician",
+  "setup_logs",
+  "materials_used",
+  "checklist",
+  "operations_performed",
+  "technical_tags"
  ],
  "fields": [
   {
@@ -144,8 +145,8 @@
   },
   {
    "fieldname": "technical_tags",
-   "fieldtype": "Text",
-   "label": "Technical Tags"
+   "fieldtype": "Text Editor",
+   "label": "Technician Notes"
   },
   {
    "fieldname": "labor_hours",
@@ -182,11 +183,16 @@
   {
    "fieldname": "column_break_ezgh",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "setup_logs",
+   "fieldtype": "Section Break",
+   "label": "Setup Logs"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-22 17:54:30.549776",
+ "modified": "2025-07-28 15:58:14.942906",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Initial Setup",

@@ -34,7 +34,10 @@ class ClarinetIntake(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
+
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
+            InstrumentAccessory,
+        )
 
         accessory_id: DF.Table[InstrumentAccessory]
         acquisition_cost: DF.Currency
@@ -184,9 +187,13 @@ class ClarinetIntake(Document):
                             inspected_by_value = emp
                     elif frappe.db.exists(inspected_by_options, frappe.session.user):
                         inspected_by_value = frappe.session.user
-                if not inspected_by_value and getattr(self, 'inspected_by', None):
-                    if frappe.db.exists(inspected_by_options, self.inspected_by):
-                        inspected_by_value = self.inspected_by
+                # FIX: Combine nested ifs and use getattr safely
+                if (
+                    not inspected_by_value
+                    and getattr(self, 'inspected_by', None)
+                    and frappe.db.exists(inspected_by_options, getattr(self, 'inspected_by', None))
+                ):
+                    inspected_by_value = getattr(self, 'inspected_by', None)
                 if not inspected_by_value:
                     frappe.throw(_(
                         f"Cannot create Instrument Inspection: No valid Employee/User found for 'inspected_by'. "

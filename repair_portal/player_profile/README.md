@@ -1,39 +1,15 @@
 # Player Profile Module
 
-**Location:** `repair_portal/player_profile/`
+## Workflow Consolidation — 2025-07-27
 
-## Overview
-Player Profile manages musician identity, permissions, compliance, and analytics for students and clients. It is fully portal-ready, compliant with data privacy (COPPA/FERPA), and integrates all session, service, and audit history. Designed for ERPNext v15.
+**Major update:**
+- Consolidated two overlapping workflow files (`player_profile_workflow.json`, `player_profile_setup.json`) into a single canonical workflow for the `Player Profile` doctype.
+- The unified workflow covers the states: Draft → Active → Archived, with all transitions performed by the Repair Manager role only.
+- Legacy or non-aligned states such as `Linked to Client` have been removed for clarity and maintainability.
+- All forms, reports, and automations now reference only the official workflow states, matching the select field options.
 
----
-
-## Main Features
-
-- **ERPNext Integration:**
-  - Each profile links to Customer and Instrument Profiles for master data hygiene.
-  - All logs—setup, QA, repairs, intonation, wellness—are tracked as child tables for 360° audit.
-- **Workflow & UX:**
-  - Workflow-driven status (Draft, Active, Archived), with dashboard headline and context-aware buttons (Activate, Archive, Restore).
-  - No inline HTML, all UI logic via Frappe API. All buttons and labels localized for global use.
-  - Portal analytics: exposes session/repair/QA stats and compliance via `/portal/player_profile.py`.
-- **Compliance:**
-  - Age-based marketing block with parental notification (COPPA safe).
-  - Portal route and page protection—parents and profile owners only.
-- **Navigation:**
-  - `links` array in doctype for instant nav to Customer, Instrument Profile.
-- **Notifications:**
-  - Parental email is sent if compliance triggers a marketing block.
-- **Portal Analytics:**
-  - Full context, session history, compliance flags, and repair/QA analytics in portal context.
+> This change reduces confusion, prevents workflow collisions, and aligns player profile lifecycle with Frappe/ERPNext best practices.
 
 ---
 
-## Portal API: `/portal/player_profile.py`
-- Returns full player context, linked logs, session analytics, compliance status, and parent email if blocked.
-- Validates user permissions and protects all PII.
-
----
-
-## Change Log (see root CHANGELOG.md for details)
-- 2025-07-17: Portal script, Restore button, compliance notifications, nav links, and dashboard enhancements added.
-- 2025-06-30: Notes field refactor for technician/internal UX.
+For details, see `/workflow/player_profile_workflow/player_profile_workflow.json` and project changelog.

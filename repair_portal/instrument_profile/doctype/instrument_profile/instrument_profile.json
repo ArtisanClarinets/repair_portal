@@ -3,6 +3,7 @@
     "creation": "2025-07-25 03:04:50.911831",
     "doctype": "DocType",
     "engine": "InnoDB",
+    "autoname": "field:instrument_profile_id",
     "field_order": [
         "instrument",
         "general_info_section",
@@ -50,12 +51,21 @@
     ],
     "fields": [
         {
+            "fieldname": "instrument_profile_id",
+            "label": "Instrument Profile ID",
+            "fieldtype": "Data",
+            "read_only": 1,
+            "unique": 1,
+            "reqd": 1,
+            "bold": 1,
+            "description": "Automatically generated unique Instrument Profile ID"
+        },
+        {
             "fieldname": "instrument",
             "fieldtype": "Link",
             "label": "Instrument",
             "options": "Instrument",
-            "reqd": 1,
-            "in_list_view": 1
+            "reqd": 1
         },
         {
             "fieldname": "general_info_section",
@@ -234,7 +244,6 @@
             "options": "Material Use Log",
             "read_only": 1
         },
-
         {
             "fieldname": "interaction_logs",
             "fieldtype": "Table",

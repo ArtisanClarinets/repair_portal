@@ -320,10 +320,10 @@
   },
   {
    "depends_on": "eval:doc.intake_type != 'Repair'",
-   "fieldname": "consent_liability_waiver",
+   "fieldname": "consent_form",
    "fieldtype": "Link",
-   "label": "Consent / Liability Waiver",
-   "options": "Customer Consent Form"
+   "label": "Consent Form",
+   "options": "Consent Form"
   },
   {
    "default": "Pending",

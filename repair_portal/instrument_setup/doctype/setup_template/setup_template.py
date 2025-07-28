@@ -10,6 +10,22 @@ from frappe.model.document import Document
 
 
 class SetupTemplate(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.instrument_setup.doctype.clarinet_setup_operation.clarinet_setup_operation import ClarinetSetupOperation
+        from repair_portal.instrument_setup.doctype.setup_checklist_item.setup_checklist_item import SetupChecklistItem
+
+        checklist_items: DF.Table[SetupChecklistItem]
+        clarinet_model: DF.Data
+        default_operations: DF.Table[ClarinetSetupOperation]
+        pad_map: DF.Link | None
+        template_name: DF.Data
+    # end: auto-generated types
     def validate(self):
         if not self.pad_map:
             pad_map = frappe.get_doc({

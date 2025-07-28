@@ -1,8 +1,8 @@
-## 2025-07-25
-### Added
-- Created new child table Doctype: Player Equipment Preference (`istable: 1`) for condensing all player equipment preferences under one table. Includes mouthpiece, ligature, reed, barrel, and instrument fields, plus comments.
-- Updated Player Profile Doctype to remove individual preference fields and replaced with a single Equipment Preference(s) table field.
+## [2025-07-27] Player Profile Workflow Consolidation
 
-### Notes
-- File consolidation improves maintenance and UX. Old fields and child tables should be considered for removal after legacy data is migrated.
-- Run `bench --site erp.artisanclarinets.com export-fixtures` after review.
+- Merged and simplified workflows for Player Profile: removed legacy `player_profile_setup.json`, now only `player_profile_workflow.json` is active and default.
+- Official workflow states: Draft, Active, Archived. All transitions handled by Repair Manager.
+- Improved auditability and reduced potential workflow collisions.
+- Updated documentation in player_profile/README.md.
+
+---

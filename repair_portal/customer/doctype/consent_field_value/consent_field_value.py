@@ -5,8 +5,12 @@
 # Purpose: Child table to store each consent form's field values
 # Dependencies: Consent Form
 
+
+from __future__ import annotations
+
 import frappe
 from frappe.model.document import Document
+
 
 class ConsentFieldValue(Document):
     """

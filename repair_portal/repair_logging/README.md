@@ -16,16 +16,4 @@ This module logs all service, repair, and maintenance actions across the repair 
 - Data flows to dashboards, compliance reports, and analytics.
 - Changes tracked for all records (track_changes/track_views enabled where relevant).
 
-## Permissions
-- System Manager: Full access to all records.
-- Technician: Read/create/write for logs (no delete).
 
-## Compliance
-- Every doctype reviewed for:
-  - Unique fieldnames, tight permissions, no PII
-  - Audit (track_changes)
-  - Documentation in code and README
-  - Ready for ERPNext v15 upgrades
-
----
-_Last updated: 2025-07-17_

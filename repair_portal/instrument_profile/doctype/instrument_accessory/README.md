@@ -14,9 +14,4 @@ Captures all accessories currently paired or historically associated with an ins
 - `removed_date` (Date): If/when it left the instrument's profile.
 - `current` (Check): If it is currently with the instrument.
 
-## Usage
-- Logged at intake, inspection, service, and sales.
-- Enables granular historical/analytics tracking and enhances bundle sale value.
 
-## Compliance
-- Accessories log is staff-only editable; always retained as history (not deleted on removal, just marked as not current).

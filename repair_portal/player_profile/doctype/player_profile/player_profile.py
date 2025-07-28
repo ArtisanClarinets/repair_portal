@@ -12,6 +12,43 @@ from frappe.model.document import Document
 
 
 class PlayerProfile(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.customer.doctype.instruments_owned.instruments_owned import InstrumentsOwned
+        from repair_portal.player_profile.doctype.player_equipment_preference.player_equipment_preference import PlayerEquipmentPreference
+
+        affiliation: DF.Data | None
+        communication_preference: DF.Literal["Email", "SMS", "Phone Call"]
+        customer_lifetime_value: DF.Currency
+        equipment_preferences: DF.Table[PlayerEquipmentPreference]
+        g_sharp_a_connection: DF.Data | None
+        instruments_owned: DF.Table[InstrumentsOwned]
+        intonation_notes: DF.SmallText | None
+        key_height_preference: DF.Literal["Low/Close", "Standard", "High/Open"]
+        last_visit_date: DF.Date | None
+        mailing_address: DF.SmallText | None
+        newsletter_subscription: DF.Check
+        player_level: DF.Literal["Student (Beginner)", "Student (Advanced)", "Amateur/Hobbyist", "University Student", "Professional (Orchestral)", "Professional (Jazz/Commercial)", "Educator", "Collector"]
+        player_name: DF.Data
+        player_profile_id: DF.Data
+        preferred_name: DF.Data | None
+        preferred_pad_type: DF.Data | None
+        primary_email: DF.Data
+        primary_phone: DF.Data | None
+        primary_playing_styles: DF.Check
+        primary_teacher: DF.Data | None
+        profile_creation_date: DF.Date | None
+        profile_status: DF.Literal["Draft", "Active", "Archived"]
+        referral_source: DF.Data | None
+        spring_tension_preference: DF.Literal["Light/Fluid", "Standard/Firm", "Heavy/Resistant"]
+        targeted_marketing_optin: DF.Check
+        technician_notes: DF.SmallText | None
+    # end: auto-generated types
     """
     Player Profile - Persistent CRM profile for a unique musician/player.
     Handles full identity, musical, equipment, service preferences, analytics, permissions, and CRM automations.

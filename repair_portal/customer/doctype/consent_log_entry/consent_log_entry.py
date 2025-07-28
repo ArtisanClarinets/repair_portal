@@ -5,6 +5,7 @@ Version: 1.1
 Purpose: Enforces required fields for Consent Log Entry child table
 Dependencies: frappe.model.document
 """
+from __future__ import annotations
 
 import frappe
 from frappe.model.document import Document

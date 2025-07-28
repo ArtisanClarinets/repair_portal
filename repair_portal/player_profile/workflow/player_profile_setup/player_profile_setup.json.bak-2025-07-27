@@ -1,0 +1,56 @@
+{
+    "doctype": "Workflow",
+    "name": "player_profile_setup",
+    "document_type": "Player Profile",
+    "module": "Player Profile",
+    "workflow_name": "Player Profile Setup",
+    "is_active": 1,
+    "label": "Player Profile Setup",
+    "state_field": "profile_status",
+    "description": "Workflow for setting up a player profile in the repair portal.",
+    "doc_type": "Player Profile",
+    "is_default": 1,
+    "workflow_state_field": "profile_status",
+    "states": [
+        {
+            "state": "Draft",
+            "doc_status": 0,
+            "update_field": "profile_status"
+        },
+        {
+            "state": "Linked to Client",
+            "doc_status": 0
+        },
+        {
+            "state": "Active",
+            "doc_status": 1
+        },
+        {
+            "state": "Archived",
+            "doc_status": 2
+        }
+    ],
+    "transitions": [
+        {
+            "state": "Draft",
+            "action": "Link to Client",
+            "next_state": "Linked to Client",
+            "allowed": "Repair Manager",
+            "condition": "doc.customer"
+        },
+        {
+            "state": "Linked to Client",
+            "action": "Activate Player",
+            "next_state": "Active",
+            "allowed": "Repair Manager"
+        },
+        {
+            "state": "Active",
+            "action": "Archive",
+            "next_state": "Archived",
+            "allowed": "Repair Manager"
+        }
+    ],
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

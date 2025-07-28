@@ -18,16 +18,9 @@ class ClarinetInitialSetup(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-
-        from repair_portal.instrument_setup.doctype.clarinet_setup_operation.clarinet_setup_operation import (
-            ClarinetSetupOperation,
-        )
-        from repair_portal.instrument_setup.doctype.material_usage.material_usage import (
-            MaterialUsage,
-        )
-        from repair_portal.instrument_setup.doctype.setup_checklist_item.setup_checklist_item import (
-            SetupChecklistItem,
-        )
+        from repair_portal.instrument_setup.doctype.clarinet_setup_operation.clarinet_setup_operation import ClarinetSetupOperation
+        from repair_portal.instrument_setup.doctype.setup_checklist_item.setup_checklist_item import SetupChecklistItem
+        from repair_portal.repair_logging.doctype.material_use_log.material_use_log import MaterialUseLog
 
         amended_from: DF.Link | None
         checklist: DF.Table[SetupChecklistItem]
@@ -38,7 +31,7 @@ class ClarinetInitialSetup(Document):
         instrument_profile: DF.Link | None
         intake: DF.Link | None
         labor_hours: DF.Float
-        materials_used: DF.Table[MaterialUsage]
+        materials_used: DF.Table[MaterialUseLog]
         model: DF.Data | None
         operations_performed: DF.Table[ClarinetSetupOperation]
         qa_inspection: DF.Link | None
@@ -46,7 +39,7 @@ class ClarinetInitialSetup(Document):
         setup_date: DF.Date | None
         setup_template: DF.Link | None
         status: DF.Literal["Open", "Pending", "Pass", "Fail"]
-        technical_tags: DF.Text | None
+        technical_tags: DF.TextEditor | None
         technician: DF.Link | None
         work_photos: DF.AttachImage | None
     # end: auto-generated types
