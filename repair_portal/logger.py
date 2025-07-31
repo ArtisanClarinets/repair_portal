@@ -19,7 +19,7 @@ import frappe
 #  Public API
 # --------------------------------------------------------------------------- #
 @functools.cache
-def get_logger(suffix: str | None = None) -> frappe.utils.logger.Logger:
+def get_logger(suffix: str | None = None) -> frappe.utils.logger.Logger: # type: ignore
     """Return a memoised, namespaced logger.
 
     Args:
@@ -31,4 +31,4 @@ def get_logger(suffix: str | None = None) -> frappe.utils.logger.Logger:
         frappe.utils.logger.Logger: A standard Frappe logger instance.
     """
     namespace = "repair_portal" if not suffix else f"repair_portal.{suffix}"
-    return frappe.logger(namespace)
+    return frappe.log_error(namespace) # pyright: ignore[reportAttributeAccessIssue]

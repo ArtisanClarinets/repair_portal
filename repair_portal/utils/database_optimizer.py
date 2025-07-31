@@ -211,7 +211,7 @@ class DatabaseOptimizer:
 
 
 # Example usage in API endpoints:
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_optimized_dashboard_data():
     """Example of optimized API endpoint using the DatabaseOptimizer."""
     try:

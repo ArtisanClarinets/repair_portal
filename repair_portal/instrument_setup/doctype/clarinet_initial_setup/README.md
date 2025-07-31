@@ -1,3 +1,30 @@
+# Clarinet Initial Setup Doctype Overview
+
+## Files Reviewed
+- clarinet_initial_setup.js
+- clarinet_initial_setup.py
+
+## Purpose
+Manages the initial setup process for clarinets, including QA, customer notification, and strict checklist enforcement.
+
+## Main Functions
+### clarinet_initial_setup.js
+- Dashboard status, template operation loading, work photo attachment, navigation to related docs, real-time updates, and validation.
+
+### clarinet_initial_setup.py
+- `ensure_checklist`: Guarantees at least one checklist item.
+- `before_insert`: Auto-assigns technician and ensures checklist.
+- `validate`: Enforces intake reference, completed operations, checklist presence, and stock validation.
+- `on_submit`: Creates material requests and triggers PDF certificate generation.
+- `load_operations_from_template`: Loads default operations from setup template.
+- `_generate_setup_certificate`: Renders and attaches setup certificate PDF.
+
+## Doctypes Created/Updated/Modified
+- Creates `Material Request` on submit.
+- Updates `Setup Checklist Item`, `Clarinet Setup Operation`, `Material Use Log`.
+
+---
+
 # Clarinet Initial Setup Doctype: Technical & Operational Reference
 
 **Module:** `Instrument Setup`  

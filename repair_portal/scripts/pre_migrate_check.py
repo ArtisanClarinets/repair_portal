@@ -37,7 +37,7 @@ try:
                 with open(file_path) as f:
                     lines = f.readlines()
                 with open(file_path, "w") as f:
-                    for l in lines:
+                    for l in lines:  # noqa: E741
                         if "import frappe" in l and "frappe" not in "".join(lines[lines.index(l) + 1 :]):
                             continue
                         f.write(l)
@@ -93,16 +93,15 @@ for root, _dirs, files in os.walk(APP_DIR):
                             invalid_modules.append(f'{json_path} - invalid module: {doc["module"]}')
 
                         # Website generator validation
-                        if doc.get("is_published_field") or any(
+                        if (doc.get("is_published_field") or any(
                             f.get("fieldname") == "route" for f in doc.get("fields", [])
-                        ):
-                            if py_path.exists():
-                                with open(py_path) as f:
-                                    py_code = f.read()
-                                    if "WebsiteGenerator" not in py_code:
-                                        invalid_website_generators.append(
-                                            f"{py_path} - missing WebsiteGenerator base class"
-                                        )
+                        )) and py_path.exists():
+                            with open(py_path) as f:
+                                py_code = f.read()
+                                if "WebsiteGenerator" not in py_code:
+                                    invalid_website_generators.append(
+                                        f"{py_path} - missing WebsiteGenerator base class"
+                                    )
                 except Exception as e:
                     invalid_json_schemas.append(f"{str(json_path)} - Error: {e}")
 

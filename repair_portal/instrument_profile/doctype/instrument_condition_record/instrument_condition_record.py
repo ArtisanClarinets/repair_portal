@@ -55,7 +55,7 @@ class InstrumentConditionRecord(Document):
         if transition.next_state == "Repair Complete":
             self.update_instrument_status()
 
-    @frappe.whitelist()
+    @frappe.whitelist(allow_guest=False)
     def get_instrument_details(self):
         """
         A whitelisted method to get details of the linked instrument.

@@ -31,28 +31,13 @@ class InstrumentProfile(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-
-        from repair_portal.instrument_profile.doctype.external_work_logs.external_work_logs import (
-            ExternalWorkLogs,
-        )
-        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
-            InstrumentAccessory,
-        )
-        from repair_portal.instrument_profile.doctype.instrument_condition_record.instrument_condition_record import (
-            InstrumentConditionRecord,
-        )
-        from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import (
-            InstrumentPhoto,
-        )
-        from repair_portal.repair_logging.doctype.instrument_interaction_log.instrument_interaction_log import (
-            InstrumentInteractionLog,
-        )
-        from repair_portal.repair_logging.doctype.material_use_log.material_use_log import (
-            MaterialUseLog,
-        )
-        from repair_portal.repair_logging.doctype.warranty_modification_log.warranty_modification_log import (
-            WarrantyModificationLog,
-        )
+        from repair_portal.instrument_profile.doctype.external_work_logs.external_work_logs import ExternalWorkLogs
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
+        from repair_portal.instrument_profile.doctype.instrument_condition_record.instrument_condition_record import InstrumentConditionRecord
+        from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import InstrumentPhoto
+        from repair_portal.repair_logging.doctype.instrument_interaction_log.instrument_interaction_log import InstrumentInteractionLog
+        from repair_portal.repair_logging.doctype.material_use_log.material_use_log import MaterialUseLog
+        from repair_portal.repair_logging.doctype.warranty_modification_log.warranty_modification_log import WarrantyModificationLog
 
         accessory_log: DF.Table[InstrumentAccessory]
         amended_from: DF.Link | None
@@ -63,11 +48,11 @@ class InstrumentProfile(Document):
         condition_logs: DF.Table[InstrumentConditionRecord]
         current_location: DF.Data | None
         current_status: DF.Literal["For Sale", "In Workshop", "With Customer", "Sold", "Archived"]
-        document_history: DF.Table[InstrumentDocumentHistory]
         external_work_logs: DF.Table[ExternalWorkLogs]
         initial_condition_notes: DF.Text | None
         instrument: DF.Link
         instrument_category: DF.Data | None
+        instrument_profile_id: DF.Data | None
         intake_date: DF.Date | None
         interaction_logs: DF.Table[InstrumentInteractionLog]
         key_plating: DF.Data | None
@@ -81,6 +66,7 @@ class InstrumentProfile(Document):
         profile_image: DF.AttachImage | None
         purchase_order: DF.Link | None
         purchase_receipt: DF.Link | None
+        serial_no: DF.Link | None
         serial_photos: DF.Table[InstrumentPhoto]
         service_photos: DF.Table[InstrumentPhoto]
         spring_type: DF.Data | None

@@ -34,7 +34,6 @@ class ClarinetInitialSetup(Document):
         materials_used: DF.Table[MaterialUseLog]
         model: DF.Data | None
         operations_performed: DF.Table[ClarinetSetupOperation]
-        qa_inspection: DF.Link | None
         serial_no: DF.Link
         setup_date: DF.Date | None
         setup_template: DF.Link | None

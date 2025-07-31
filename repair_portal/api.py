@@ -31,7 +31,7 @@ def get_customer(customer_id: str) -> dict:
         if not customer_id:
             frappe.throw("Missing customer_id")
 
-        doc = frappe.get_doc("Customer", customer_id, ignore_permissions=True)  # updated line
+        doc = frappe.get_doc("Customer", customer_id, ignore_permissions=True)  # type: ignore # updated line
         _assert_own_or_permitted(doc, "read")
 
         result = {
@@ -83,7 +83,7 @@ def update_customer(customer: dict | str) -> dict:
         if not (customer and customer.get("name")):
             frappe.throw("Missing customer data or name field")
 
-        cust = frappe._dict(customer)
+        cust = frappe._dict(customer) # type: ignore
 
         doc = frappe.get_doc("Customer", cust.name, ignore_permissions=True)
         _assert_own_or_permitted(doc, "write")

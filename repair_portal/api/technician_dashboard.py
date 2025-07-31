@@ -7,7 +7,7 @@ import frappe
 from frappe import _
 
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_dashboard_data(technician=None):
     """
     Fetches all necessary data for the technician's dashboard, including

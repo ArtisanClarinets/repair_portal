@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:SETUP-{serial_no}",
+ "autoname": "format: CSU-{YY}{MM}-{####}",
  "creation": "2025-07-22 17:34:30.520633",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -20,13 +20,13 @@
   "inspection",
   "amended_from",
   "setup_template",
-  "qa_inspection",
   "labor_hours",
   "technician",
-  "setup_logs",
-  "materials_used",
+  "setup_checklist_section",
   "checklist",
+  "setup_logs",
   "operations_performed",
+  "materials_used",
   "technical_tags"
  ],
  "fields": [
@@ -68,6 +68,8 @@
    "read_only": 1
   },
   {
+   "fetch_from": "intake.instrument",
+   "fetch_if_empty": 1,
    "fieldname": "instrument",
    "fieldtype": "Link",
    "in_filter": 1,
@@ -78,7 +80,8 @@
    "reqd": 1
   },
   {
-   "fetch_from": "instrument.clarinet_type",
+   "fetch_from": "instrument.instrument_category",
+   "fetch_if_empty": 1,
    "fieldname": "clarinet_type",
    "fieldtype": "Select",
    "label": "Type of Clarinet",
@@ -86,12 +89,15 @@
   },
   {
    "fetch_from": "instrument.model",
+   "fetch_if_empty": 1,
    "fieldname": "model",
    "fieldtype": "Data",
    "label": "Model",
    "read_only": 1
   },
   {
+   "fetch_from": "instrument_profile.linked_inspection",
+   "fetch_if_empty": 1,
    "fieldname": "inspection",
    "fieldtype": "Link",
    "label": "Inspection",
@@ -160,12 +166,6 @@
    "options": "Open\nPending\nPass\nFail"
   },
   {
-   "fieldname": "qa_inspection",
-   "fieldtype": "Link",
-   "label": "QA Inspection",
-   "options": "Quality Inspection"
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -188,11 +188,16 @@
    "fieldname": "setup_logs",
    "fieldtype": "Section Break",
    "label": "Setup Logs"
+  },
+  {
+   "fieldname": "setup_checklist_section",
+   "fieldtype": "Section Break",
+   "label": "Setup Checklist"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-28 15:58:14.942906",
+ "modified": "2025-07-30 02:04:56.270221",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Initial Setup",

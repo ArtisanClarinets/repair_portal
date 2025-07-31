@@ -8,7 +8,7 @@ Purpose: Secure API endpoints for client portal UI dashboard
 import frappe
 
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_my_instruments():
     """Return instrument list where the linked player belongs to the logged-in user."""
     client = frappe.db.get_value("Customer", {"linked_user": frappe.session.user}, "name")
@@ -23,7 +23,7 @@ def get_my_instruments():
     )
 
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_my_repairs():
     """Return recent Repair Orders linked to instruments owned by this client."""
     client = frappe.db.get_value("Customer", {"linked_user": frappe.session.user}, "name")

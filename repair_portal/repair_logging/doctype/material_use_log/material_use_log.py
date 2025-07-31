@@ -11,6 +11,25 @@ from frappe.model.document import Document
 
 
 class MaterialUseLog(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+
+        item_name: DF.Link
+        operation_link: DF.DynamicLink | None
+        operation_type: DF.Link | None
+        parent: DF.Data
+        parentfield: DF.Data
+        parenttype: DF.Data
+        qty: DF.Float
+        remarks: DF.SmallText | None
+        source_warehouse: DF.Link | None
+        used_on: DF.Data | None
+    # end: auto-generated types
     def validate(self):
         if self.qty <= 0:
             frappe.throw(_("Quantity must be greater than zero."))

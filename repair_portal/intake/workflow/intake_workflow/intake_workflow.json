@@ -25,7 +25,7 @@
             "state": "Pending",
             "action": "Log Received",
             "next_state": "Received",
-            "allowed": "Intake Specialist",
+            "allowed": "Technician",
             "allow_self_approval": 0,
             "send_email_to_creator": 0,
             "parent": "Intake Workflow",

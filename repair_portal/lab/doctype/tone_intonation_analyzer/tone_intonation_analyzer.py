@@ -174,7 +174,7 @@ class ToneIntonationAnalyzer(Document):
     # endregion
 
     # region: Whitelisted API Methods for Client-Side
-    @frappe.whitelist()
+    @frappe.whitelist(allow_guest=False)
     def run_live_analysis(self, chunk: list[float], a_ref: int = 440) -> dict[str, Any]:
         """Analyzes a real-time audio chunk from the browser."""
         if not LIBS_AVAILABLE:
@@ -196,7 +196,7 @@ class ToneIntonationAnalyzer(Document):
 
         return {"f0": mean_f0, "cents_dev": cents_dev, "note_name": note_name}
 
-    @frappe.whitelist()
+    @frappe.whitelist(allow_guest=False)
     def get_baseline_for_instrument(self, instrument: str) -> dict[str, Any] | None:
         """Fetches the latest approved baseline for a given instrument."""
         baseline = frappe.db.get_value(

@@ -48,9 +48,8 @@
   "acquisition_cost",
   "store_asking_price",
   "accessory_id",
-  "consent_liability_waiver",
-  "intake_status",
-  "amended_from"
+  "amended_from",
+  "consent_form"
  ],
  "fields": [
   {
@@ -326,14 +325,6 @@
    "options": "Consent Form"
   },
   {
-   "default": "Pending",
-   "fieldname": "intake_status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Intake Status",
-   "options": "Pending\nReceived\nInspection\nSetup\nRepair\nAwaiting Customer Approval\nAwaiting Payment\nIn Transit\nRepair Complete\nReturned to Customer"
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -352,7 +343,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-25 21:59:19.443467",
+ "modified": "2025-07-29 17:25:15.056962",
  "modified_by": "Administrator",
  "module": "Intake",
  "name": "Clarinet Intake",

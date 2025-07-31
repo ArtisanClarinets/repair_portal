@@ -13,6 +13,31 @@ from frappe.model.naming import make_autoname
 
 
 class Instrument(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+
+        attachments: DF.AttachImage | None
+        body_material: DF.Data | None
+        brand: DF.Link | None
+        clarinet_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "Bass Clarinet", "Alto Clarinet", "Contrabass Clarinet", "Other"]
+        current_status: DF.Literal["Active", "Needs Repair", "Awaiting Parts", "In Service", "Archived"]
+        customer: DF.Link | None
+        instrument_category: DF.Link | None
+        instrument_id: DF.Data | None
+        instrument_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "Bass Clarinet", "E\u266d Clarinet", "Alto Clarinet", "Contrabass Clarinet", "Other"]
+        key_plating: DF.Literal["Silver", "Nickel", "Gold", "Other"]
+        keywork_plating: DF.Data | None
+        model: DF.Data | None
+        notes: DF.SmallText | None
+        pitch_standard: DF.Data | None
+        serial_no: DF.Data
+        year_of_manufacture: DF.Int
+    # end: auto-generated types
     """Instrument Document Model"""
     def validate(self):
         self.check_duplicate_serial_no()

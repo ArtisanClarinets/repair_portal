@@ -1,0 +1,14 @@
+[
+  {
+    "doctype": "Instrument Model",
+    "model_name": "YCL-221II",
+    "brand": "Yamaha",
+    "instrument_type": "Bass Clarinet"
+  },
+  {
+    "doctype": "Instrument Model",
+    "model_name": "E11",
+    "brand": "Buffet Crampon",
+    "instrument_type": "B♭ Clarinet"
+  }
+]

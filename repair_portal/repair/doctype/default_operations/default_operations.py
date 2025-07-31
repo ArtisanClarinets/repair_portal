@@ -24,6 +24,20 @@ def _err(msg: str, title: str) -> None:
 
 
 class DefaultOperations(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.instrument_setup.doctype.operation_template.operation_template import OperationTemplate
+        from repair_portal.repair_logging.doctype.material_use_log.material_use_log import MaterialUseLog
+
+        material_used: DF.Table[MaterialUseLog]
+        operation_template: DF.Table[OperationTemplate]
+        operation_type: DF.Literal["", "Inventory", "Maintenance", "Repair"]
+    # end: auto-generated types
     """
     Handles default operations for repair processes. This includes inventory management, maintenance rules,
     and other business logic that applies to all repair operations.

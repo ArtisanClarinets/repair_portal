@@ -1,0 +1,46 @@
+[
+  {
+    "doctype": "Setup Template",
+    "template_name": "Bass Clarinet Setup",
+    "clarinet_model": "YCL-221II",
+    "pad_map": "Bass Clarinet Standard",
+    "default_operations": [
+      {
+        "operation_name": "Replace Pads"
+      },
+      {
+        "operation_name": "Clean Body"
+      }
+    ],
+    "checklist_items": [
+      {
+        "item_description": "Check pad seating"
+      },
+      {
+        "item_description": "Inspect keywork"
+      }
+    ]
+  },
+  {
+    "doctype": "Setup Template",
+    "template_name": "Bb Clarinet Setup",
+    "clarinet_model": "E11",
+    "pad_map": "Bb Clarinet Standard",
+    "default_operations": [
+      {
+        "operation_name": "Replace Pads"
+      },
+      {
+        "operation_name": "Clean Body"
+      }
+    ],
+    "checklist_items": [
+      {
+        "item_description": "Check pad seating"
+      },
+      {
+        "item_description": "Inspect keywork"
+      }
+    ]
+  }
+]

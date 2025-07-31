@@ -6,7 +6,7 @@
 import frappe
 
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_intake_counts():
     return {
         "New": frappe.db.count("Clarinet Intake", {"workflow_state": "New"}),
@@ -17,7 +17,7 @@ def get_intake_counts():
     }
 
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_recent_intakes():
     return frappe.get_all(
         "Clarinet Intake",

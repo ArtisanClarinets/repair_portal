@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+Relative Path: repair_portal/scripts/hooks/reload_all_doctypes.py
+
 Reloads all documents in the 'repair_portal' app by recursively finding
 all *.json files that follow the standard Frappe structure:
 .../doctype_type/docname/docname.json
@@ -61,7 +63,7 @@ def sanitize_workflow_json(json_path):
     entries within, and write back if anything changed.
     """
     try:
-        with open(json_path, "r") as f:
+        with open(json_path, "r") as f:  # noqa: UP015
             data = json.load(f)
     except json.JSONDecodeError as e:
         log(f"⚠️  Could not parse JSON in {json_path}: {e}")
@@ -127,7 +129,7 @@ def reload_all_doctypes():
                 sanitize_workflow_json(json_path)
 
             try:
-                log(f"🔹 Reloading: {module} > {doctype_type} > {docname}")
+                frappe.logger().info(f"🔹 Reloading: {module} > {doctype_type} > {docname}")
                 frappe.reload_doc(module, doctype_type, docname, force=True)
                 reload_count += 1
             except Exception as e:

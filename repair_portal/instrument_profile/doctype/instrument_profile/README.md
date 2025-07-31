@@ -1,11 +1,24 @@
-# Instrument Profile Doctype
+# Instrument Profile Doctype Overview
+
+## Files Reviewed
+- instrument_profile_list.js
+- instrument_profile.js
+- instrument_profile.py
 
 ## Purpose
-The Instrument Profile DocType is the **single source of truth** for every unique clarinet (or instrument) in your system. Think of it as a "social media profile" for each instrument, aggregating its complete story:
-- Specifications and configuration (core and evolving)
-- All service, repair, and ownership history
-- Commercial, appraisal, warranty, and status data
-- Media gallery (hero images, marketing, service photos, audio/video demos)
-- Analytics tags and staff notes
+Manages instrument profiles, linking them to ERPNext Serial Numbers and aggregating all related logs (repairs, inspections, setups, QA, warranty).
 
-This persistent record enables provenance, customer engagement, analytics, and premium resale value.
+## Main Functions
+### instrument_profile_list.js
+- Customizes list view to prioritize serial number and status indicators.
+
+### instrument_profile.js
+- Adds dashboard indicators for status, verification, workflow, and warranty expiration.
+- Provides workflow action buttons.
+
+### instrument_profile.py
+- `on_update`: Syncs ERPNext Serial No, warranty expiration, and populates all related logs as child tables.
+- Auto-populates linked records for repairs, inspections, setups, QA, condition logs, external work, warranty, material usage, lab readings, document history, and interactions.
+
+## Doctypes Created/Updated/Modified
+- Links and syncs with `Serial No`, `Repair Log`, `Instrument Inspection`, `Clarinet Setup Log`, `Instrument Condition Record`, `External Work Logs`, `Warranty Modification Log`, `Material Use Log`, `Leak Test`, `Instrument Document History`, `Instrument Interaction Log`.

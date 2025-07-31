@@ -1,0 +1,12 @@
+[
+  {
+    "doctype": "Setup Checklist Item",
+    "item_description": "Check pad seating",
+    "status": "Pending"
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "item_description": "Inspect keywork",
+    "status": "Pending"
+  }
+]

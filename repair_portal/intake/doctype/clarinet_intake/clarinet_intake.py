@@ -34,10 +34,7 @@ class ClarinetIntake(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-
-        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
-            InstrumentAccessory,
-        )
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
 
         accessory_id: DF.Table[InstrumentAccessory]
         acquisition_cost: DF.Currency
@@ -46,7 +43,7 @@ class ClarinetIntake(Document):
         body_material: DF.Data | None
         bore_type: DF.Data | None
         clarinet_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "Bass Clarinet", "Alto Clarinet", "Contrabass Clarinet", "Other"]
-        consent_liability_waiver: DF.Link | None
+        consent_form: DF.Link | None
         cork_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
         customer: DF.Link | None
         customer_approval: DF.Data | None
@@ -64,7 +61,6 @@ class ClarinetIntake(Document):
         instrument_category: DF.Link
         intake_date: DF.Datetime | None
         intake_record_id: DF.Data | None
-        intake_status: DF.Literal["Pending", "Received", "Inspection", "Setup", "Repair", "Awaiting Customer Approval", "Awaiting Payment", "In Transit", "Repair Complete", "Returned to Customer"]
         intake_type: DF.Literal["New Inventory", "Repair", "Maintenance"]
         item_code: DF.Data | None
         item_name: DF.Data | None
@@ -259,7 +255,7 @@ class ClarinetIntake(Document):
                 if not self.instrument_category:
                     self.instrument_category = instrument["instrument_category"]
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | None:
     if not serial_no:
         return None
@@ -282,7 +278,7 @@ def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | No
         data["manufacturer"] = data.pop("brand", None)
     return data
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def get_instrument_inspection_name(intake_record_id: str) -> str | None:
     if not intake_record_id:
         return None

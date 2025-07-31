@@ -1,3 +1,24 @@
+# Setup Template Doctype Overview
+
+## Files Reviewed
+- setup_template.js
+- setup_template.py
+
+## Purpose
+Automates the creation of clarinet pad maps and setup operations for instrument setup templates.
+
+## Main Functions
+### setup_template.js
+- Placeholder for future UI logic.
+
+### setup_template.py
+- `validate`: Auto-creates a Clarinet Pad Map if not already linked, using the clarinet model.
+
+## Doctypes Created/Updated/Modified
+- Creates `Clarinet Pad Map` on save if not present.
+
+---
+
 # Setup Template Doctype: Technical & Operational Reference
 
 **Module:** `Instrument Setup`  

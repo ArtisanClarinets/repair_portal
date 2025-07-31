@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "format:INSP-{YY}{MM}-{####}",
  "creation": "2025-07-22 17:28:02.880841",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -376,10 +377,11 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-25 22:35:11.495399",
+ "modified": "2025-07-29 17:59:52.898818",
  "modified_by": "Administrator",
  "module": "Inspection",
  "name": "Instrument Inspection",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

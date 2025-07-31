@@ -21,10 +21,10 @@ class SetupTemplate(Document):
         from repair_portal.instrument_setup.doctype.setup_checklist_item.setup_checklist_item import SetupChecklistItem
 
         checklist_items: DF.Table[SetupChecklistItem]
-        clarinet_model: DF.Data
+        clarinet_model: DF.Link
         default_operations: DF.Table[ClarinetSetupOperation]
         pad_map: DF.Link | None
-        template_name: DF.Data
+        template_name: DF.Data | None
     # end: auto-generated types
     def validate(self):
         if not self.pad_map:

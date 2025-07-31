@@ -1456,7 +1456,7 @@ If frappe.response.display_content_as is set to "inline", it indicates that the 
 
 To create an API endpoint that would directly download the file you require, you could craft something like the following to download the file directly.
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def download(name):
  file = frappe.get_doc("File", name)
  frappe.response.filename = file.file_name

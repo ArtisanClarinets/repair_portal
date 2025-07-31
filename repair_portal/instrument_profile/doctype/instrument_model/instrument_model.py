@@ -14,10 +14,10 @@ class InstrumentModel(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		body_material: DF.Data | None
-		bore_type: DF.Data | None
+		body_material: DF.Data
 		brand: DF.Link
-		instrument_type: DF.Link | None
+		instrument_category: DF.Link
+		instrument_model_id: DF.Data | None
 		model: DF.Data
 	# end: auto-generated types
 	pass

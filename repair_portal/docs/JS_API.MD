@@ -334,7 +334,7 @@ Note: While accessing any server side method using frm.call(), you need to white
 For the following controller code:
 
 class ToDo(Document):
- @frappe.whitelist()
+ @frappe.whitelist(allow_guest=False)
  def get_linked_doc(self, throw_if_missing=False):
  if not frappe.db.exists(self.reference_type, self.reference_name):
  if throw_if_missing:
@@ -1677,7 +1677,7 @@ frappe.utils.logger.set_log_level("DEBUG")
 logger = frappe.logger("api", allow_site=True, file_count=50)
 
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=False)
 def update(value):
     user = frappe.session.user
     logger.info(f"{user} accessed counter_app.update with value={value}")
