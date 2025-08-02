@@ -9,16 +9,10 @@ Comprehensive scientific measurement, test, and analytics tracking for all instr
 - **Impedance Peak, Intonation Session, Tone Fitness:** Advanced acoustics/analytics
 
 ## Permissions
-- **Lab Technician:** Full CRUD on measurements, sessions, and tests
+- **Repair Technician:** Full CRUD on measurements, sessions, and tests
 - **Workshop Manager:** Approval and review of test data
-- **Client:** Read-only portal access to their own results (when applicable)
+- **Customer:** Read-only portal access to their own results (when applicable)
 
-## Workflows
-All key records now have a `workflow_state` field for audit, review, and compliance. Typical states:
-- Draft
-- Awaiting Review
-- Approved
-- Archived
 
 ## Audit & Compliance
 All records are linked to instrument, customer, and technician. Attachments and raw data fields support full traceability for scientific and regulatory requirements.

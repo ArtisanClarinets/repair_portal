@@ -6,5 +6,5 @@ from frappe import _
 
 
 def get_context(context):
-    if not frappe.has_role("Technician"):
+    if not frappe.has_role("Technician"): # type: ignore
         frappe.throw(_("Only Technicians can access this page."), frappe.PermissionError)

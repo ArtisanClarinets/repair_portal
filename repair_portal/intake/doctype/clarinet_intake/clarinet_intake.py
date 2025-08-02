@@ -1,6 +1,6 @@
 # ---
 # File Header:
-# Relative Path: repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
+# Absolute Path: /opt/frappe/erp-bench/apps/repair_portal/repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
 # Last Updated: 2025-07-22
 # Version: v9.1.1 (Initial Setup intake link patch)
 # Purpose: Ensures all intake types auto-create Instrument, Item, Serial No, and Instrument Inspection as needed, plus Clarinet Initial Setup for New Inventory. Handles Instrument Category and Initial Setup-intake link.
