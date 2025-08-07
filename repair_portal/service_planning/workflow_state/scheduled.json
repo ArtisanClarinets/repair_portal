@@ -1,0 +1,10 @@
+{
+  "doctype": "Workflow State",
+  "workflow_state_name": "Scheduled",
+  "style": "Yellow",
+  "doc_status": 0,
+  "module": "Service Planning",
+  "is_standard": 1,
+  "name": "Scheduled",
+  "description": "Indicates that the service has been scheduled and is awaiting execution."
+}

@@ -1,0 +1,10 @@
+{
+  "workflow_state_name": "In Progress",
+  "style": "Blue",
+  "doc_status": 0,
+  "module": "Service Planning",
+  "is_standard": 1,
+  "name": "In Progress",
+  "doctype": "Workflow State",
+  "description": "Indicates that the service is currently being worked on and is not yet completed."
+}

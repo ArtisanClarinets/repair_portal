@@ -1,0 +1,32 @@
+{
+	"doctype": "Web Form",
+	"module": "Instrument Setup",
+	"name": "Repair Status",
+	"title": "Repair Status",
+	"doc_type": "Clarinet Intake",
+	"is_standard": 1,
+	"is_list": 1,
+	"login_required": 1,
+	"read_only": 1,
+	"web_form_fields": [
+		{
+			"fieldname": "serial_no",
+			"label": "Serial Number",
+			"fieldtype": "Link",
+			"options": "Serial No"
+		},
+		{
+			"fieldname": "received_date",
+			"label": "Received Date",
+			"fieldtype": "Date"
+		},
+		{
+			"fieldname": "customer_notes",
+			"label": "Customer Notes",
+			"fieldtype": "Text"
+		}
+	],
+	"filters": {
+		"customer": "__user"
+	}
+}

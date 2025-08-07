@@ -1,0 +1,16 @@
+{
+  "name": "leak_test_recorder",
+  "doctype": "Page",
+  "module": "Lab",
+  "page_name": "leak_test_recorder",
+  "title": "Leak Test Recorder",
+  "standard": "Yes",
+  "roles": [],
+  "icon": "octicon octicon-flame",
+  "style": null,
+  "system_page": 0,
+  "content": null,
+  "script": null,
+  "idx": 0,
+  "docstatus": 0
+}

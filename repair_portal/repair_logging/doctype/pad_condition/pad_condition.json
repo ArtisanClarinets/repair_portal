@@ -1,0 +1,45 @@
+{
+  "doctype": "DocType",
+  "name": "Pad Condition",
+  "module": "Repair Logging",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "pad_id",
+      "label": "Pad ID",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "pad_name",
+      "label": "Pad Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "OK\nLeaking\nReplaced\nAdjusted\nRequires Shim",
+      "default": "OK",
+      "reqd": 1
+    },
+    {
+      "fieldname": "technician_notes",
+      "label": "Technician Notes",
+      "fieldtype": "Text"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "is_child_table": 1,
+  "engine": "InnoDB"
+}

@@ -1,0 +1,21 @@
+{
+  "doctype": "Web Form",
+  "name": "Repair Request",
+  "module": "Repair",
+  "standard": "Yes",
+  "web_form_name": "repair-request",
+  "doc_type": "Repair Request",
+  "is_list": 1,
+  "login_required": 1,
+  "show_list": 1,
+  "publish": 1,
+  "list_columns": [
+    {"fieldname": "status"},
+    {"fieldname": "issue_description"},
+    {"fieldname": "technician_assigned"},
+    {"fieldname": "priority_level"}
+  ],
+  "title_field": "issue_description",
+  "title": "Repair Request",
+  "web_form_fields": []
+}

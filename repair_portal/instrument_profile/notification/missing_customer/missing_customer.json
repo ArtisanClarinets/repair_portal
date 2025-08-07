@@ -1,0 +1,14 @@
+{
+  "doctype": "Notification",
+  "name": "missing_customer",
+  "document_type": "Instrument Profile",
+  "subject": "Customer Missing",
+  "message": "Instrument {{ doc.name }} is waiting on a Customer.",
+  "event": "Value Change",
+  "send_alert_on": "profile_status",
+  "value_changed": "Waiting on Client",
+  "recipients": [{"receiver_by_role": "Repair Manager"}],
+  "enabled": 1,
+  "channel": "Email",
+  "send_on": "Value Change"
+}

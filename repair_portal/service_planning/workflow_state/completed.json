@@ -1,0 +1,10 @@
+{
+  "doctype": "Workflow State",
+  "workflow_state_name": "Completed",
+  "style": "Green",
+  "doc_status": 1,
+  "name": "Completed",
+  "module": "Service Planning",
+  "is_standard": 1,
+  "description": "Indicates that the service has been successfully completed and all tasks are finalized."
+}

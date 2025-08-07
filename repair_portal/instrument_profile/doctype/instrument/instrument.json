@@ -1,0 +1,180 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format: INST-{#####}",
+ "creation": "2025-07-19 15:22:32.380337",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "serial_no",
+  "instrument_id",
+  "instrument_type",
+  "brand",
+  "model",
+  "clarinet_type",
+  "body_material",
+  "keywork_plating",
+  "pitch_standard",
+  "year_of_manufacture",
+  "key_plating",
+  "column_break_wmgr",
+  "instrument_category",
+  "current_status",
+  "attachments",
+  "notes"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "description": "Automatically generated unique Instrument ID",
+   "fieldname": "instrument_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Instrument ID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Serial Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "instrument_type",
+   "fieldtype": "Select",
+   "label": "Instrument Type",
+   "options": "B\u266d Clarinet\nA Clarinet\nBass Clarinet\nE\u266d Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "fieldname": "clarinet_type",
+   "fieldtype": "Select",
+   "label": "Type of Clarinet",
+   "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "body_material",
+   "fieldtype": "Data",
+   "label": "Body Material"
+  },
+  {
+   "fieldname": "keywork_plating",
+   "fieldtype": "Data",
+   "label": "Keywork Plating"
+  },
+  {
+   "fieldname": "pitch_standard",
+   "fieldtype": "Data",
+   "label": "Pitch Standard"
+  },
+  {
+   "fieldname": "year_of_manufacture",
+   "fieldtype": "Int",
+   "label": "Year of Manufacture"
+  },
+  {
+   "fieldname": "key_plating",
+   "fieldtype": "Select",
+   "label": "Key Plating",
+   "options": "Silver\nNickel\nGold\nOther"
+  },
+  {
+   "fieldname": "instrument_category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Instrument Category",
+   "options": "Instrument Category"
+  },
+  {
+   "default": "Active",
+   "fieldname": "current_status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nNeeds Repair\nAwaiting Parts\nIn Service\nArchived"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "attachments",
+   "fieldtype": "Attach Image",
+   "label": "Instrument Photos"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Client",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_wmgr",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "image_field": "attachments",
+ "links": [],
+ "modified": "2025-07-29 18:01:23.933455",
+ "modified_by": "Administrator",
+ "module": "Instrument Profile",
+ "name": "Instrument",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Technician",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Repair Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Client"
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "serial_no",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

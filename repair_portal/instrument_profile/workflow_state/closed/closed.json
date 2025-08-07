@@ -1,0 +1,9 @@
+{
+  "doctype": "Workflow State",
+  "workflow_state_name": "Closed",
+  "name": "Closed",
+  "style": "Dark",
+  "doc_status": 1,
+  "module": "Instrument Profile",
+  "is_standard": 1
+}

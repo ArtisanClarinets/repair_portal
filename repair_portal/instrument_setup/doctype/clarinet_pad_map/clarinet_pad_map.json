@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "autoname": "format:PDMP-{clarinet_model}-{####}",
+ "creation": "2025-07-30 03:20:56.315260",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "instrument_category",
+  "pad_map_title",
+  "clarinet_model",
+  "top_joint_pads",
+  "bottom_joint_pads"
+ ],
+ "fields": [
+  {
+   "fieldname": "clarinet_model",
+   "fieldtype": "Link",
+   "label": "Clarinet Model",
+   "options": "Instrument Model"
+  },
+  {
+   "columns": 6,
+   "fieldname": "top_joint_pads",
+   "fieldtype": "Table",
+   "label": "Top Joint Pads",
+   "options": "Clarinet Pad Entry"
+  },
+  {
+   "columns": 6,
+   "fieldname": "bottom_joint_pads",
+   "fieldtype": "Table",
+   "label": "Bottom Joint Pads",
+   "options": "Clarinet Pad Entry"
+  },
+  {
+   "fieldname": "pad_map_title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Pad Map Title",
+   "search_index": 1
+  },
+  {
+   "fetch_from": "clarinet_model.instrument_category",
+   "fetch_if_empty": 1,
+   "fieldname": "instrument_category",
+   "fieldtype": "Link",
+   "label": "Instrument Key ",
+   "options": "Instrument Category"
+  }
+ ],
+ "links": [],
+ "modified": "2025-07-30 05:54:54.092844",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Pad Map",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

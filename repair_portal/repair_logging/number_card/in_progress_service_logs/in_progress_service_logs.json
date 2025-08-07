@@ -1,0 +1,11 @@
+{
+  "doctype": "Number Card",
+  "card_name": "In Progress Service Logs",
+  "label": "In Progress Service Logs",
+  "name": "In Progress Service Logs",
+  "document_type": "Service Log",
+  "function": "Count",
+  "filters_json": "{\"service_type\":\"Repair\",\"status\":\"In Progress\"}",
+  "is_standard": 1,
+  "module": "Repair Logging"
+}

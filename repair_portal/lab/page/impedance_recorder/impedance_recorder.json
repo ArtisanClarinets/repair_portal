@@ -1,0 +1,16 @@
+{
+  "name": "impedance_recorder",
+  "doctype": "Page",
+  "module": "Lab",
+  "page_name": "impedance_recorder",
+  "title": "Impedance Recorder",
+  "standard": "Yes",
+  "roles": [],
+  "icon": "octicon octicon-graph",
+  "style": null,
+  "system_page": 0,
+  "content": null,
+  "script": null,
+  "idx": 0,
+  "docstatus": 0
+}

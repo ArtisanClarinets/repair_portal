@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "In Transit",
+    "style": "Success",
+    "doc_status": 0,
+    "name": "In Transit",
+    "module": "Intake",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

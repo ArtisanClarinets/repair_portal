@@ -1,0 +1,26 @@
+{
+  "doctype": "Dashboard",
+  "name": "Client Dashboard",
+  "dashboard_name": "Customer Dashboard",
+  "charts": [],
+  "cards": [
+    {
+      "label": "View Service History",
+      "type": "Link",
+      "link": "/service_summary",
+      "icon": "fa fa-wrench",
+      "color": "blue",
+      "dependencies": []
+    }
+  ],
+  "transactions": [
+    {
+      "label": "Linked Records",
+      "items": [
+        "Instrument Profile",
+        "Repair Log",
+        "Inspection Log"
+      ]
+    }
+  ]
+}

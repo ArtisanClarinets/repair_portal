@@ -1,0 +1,82 @@
+[
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Standard B♭ Clarinet",
+    "instrument_category": "B♭",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-bb-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Standard A Clarinet",
+    "instrument_category": "A",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-a-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Standard E♭ Clarinet",
+    "instrument_category": "E♭",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-eb-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Standard C Clarinet",
+    "instrument_category": "C",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-c-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Standard D Clarinet",
+    "instrument_category": "D",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-d-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Bass Clarinet Low E♭",
+    "instrument_category": "Bass — Low E♭",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-bass-eb-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Bass Clarinet Low C",
+    "instrument_category": "Bass — Low C",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-bass-c-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Alto Clarinet",
+    "instrument_category": "Alto",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-alto-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Contra-Alto Clarinet",
+    "instrument_category": "Contra-Alto",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-contra-alto-grenadilla"
+  },
+  {
+    "doctype": "Instrument Model",
+    "brand": "Generic",
+    "model": "Contra-Bass Clarinet",
+    "instrument_category": "Contra-Bass",
+    "body_material": "Grenadilla",
+    "instrument_model_id": "generic-contra-bass-grenadilla"
+  }
+]

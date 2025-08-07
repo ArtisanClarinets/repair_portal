@@ -1,0 +1,13 @@
+{
+  "title": "Recording Analyzer",
+  "name": "recording_analyzer",
+  "doctype": "Page",
+  "module": "Lab",
+  "icon": "mic",
+  "standard": 1,
+  "developer_mode": 1,
+  "content": "",
+  "page_name": "recording_analyzer",
+  "route": "recording-analyzer",
+  "single_column": 1
+}

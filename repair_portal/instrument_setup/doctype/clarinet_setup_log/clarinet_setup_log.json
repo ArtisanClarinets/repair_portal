@@ -1,0 +1,26 @@
+{
+	"doctype": "DocType",
+	"name": "Clarinet Setup Log",
+	"module": "Instrument Setup",
+	"is_child_table": 1,
+	"fields": [
+		{ "fieldname": "parent", "label": "Parent", "fieldtype": "Dynamic Link", "options": "parenttype", "hidden": 1 },
+		{ "fieldname": "parenttype", "label": "Parenttype", "fieldtype": "Data", "hidden": 1 },
+		{ "fieldname": "parentfield", "label": "Parentfield", "fieldtype": "Data", "hidden": 1 },
+		{ "fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1 },
+		{ "fieldname": "initial_setup", "fieldtype": "Link", "label": "Initial Setup", "options": "Clarinet Initial Setup", "reqd": 1 },
+		{ "fieldname": "log_time", "fieldtype": "Datetime", "label": "Log Time", "fetch_from": "frappe.utils.now_datetime"},
+		{ "fieldname": "instrument_profile", "fieldtype": "Link", "label": "Instrument Profile", "options": "Instrument Profile", "reqd": 1 },
+		{ "fieldname": "serial_no", "fieldtype": "Link", "label": "Serial Number", "options": "Serial No", "reqd": 1 },
+		{ "fieldname": "description", "fieldtype": "Text", "label": "Description" },
+		{ "fieldname": "action_by", "fieldtype": "Link", "label": "Action By", "options": "User", "default": "frappe.session.user" },
+		{ "fieldname": "notes", "fieldtype": "Text", "label": "Notes" },
+		{ "fieldname": "attachments", "fieldtype": "Attach", "label": "Attachments" }
+	],
+	"permissions": [
+		{ "role": "QA Inspector", "read": 1, "write": 1, "create": 1 },
+		{ "role": "Technician", "read": 1 },
+		{ "role": "Service Manager", "read": 1, "write": 1, "create": 1 },
+		{ "role": "Customer", "read": 1, "if_owner": 1 }
+	]
+}

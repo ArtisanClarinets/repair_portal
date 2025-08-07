@@ -1,0 +1,12 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Avg Intake to Repair Time",
+  "label": "Avg Intake to Repair Time",
+  "name": "Avg Intake To Repair Time",
+  "chart_type": "Line",
+  "based_on": "Daily",
+  "timespan": "Last 30 days",
+  "document_type": "Clarinet Intake",
+  "filters_json": "{}",
+  "module": "Repair Portal"
+}

@@ -1,0 +1,57 @@
+{
+  "doctype": "DocType",
+  "name": "Reed Match Result",
+  "module": "Lab",
+  "fields": [
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
+    },
+    {
+      "fieldname": "player",
+      "label": "Player",
+      "fieldtype": "Link",
+      "options": "Player Profile"
+    },
+    {
+      "fieldname": "repair_order",
+      "label": "Repair Order",
+      "fieldtype": "Link",
+      "options": "Repair Request"
+    },
+    {
+      "fieldname": "session_type",
+      "label": "Session Type",
+      "fieldtype": "Select",
+      "options": "Pre-Repair\nPost-Repair\nStandalone"
+    },
+    {
+      "fieldname": "json_data",
+      "label": "Raw JSON",
+      "fieldtype": "Long Text"
+    },
+    {
+      "fieldname": "plot_attachment",
+      "label": "Plot",
+      "fieldtype": "Attach Image"
+    },
+    {
+      "fieldname": "recommended_reeds",
+      "label": "Recommended Reeds",
+      "fieldtype": "Data"
+    }
+  ],
+  "permissions": [
+    { "role": "Technician", "read": 1, "write": 1, "create": 1 },
+    {
+      "role": "Workshop Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    { "role": "Client", "read": 1, "if_owner": 1 }
+  ]
+}

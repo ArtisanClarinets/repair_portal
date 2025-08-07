@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Out for Calibration",
+    "style": "Blue",
+    "doc_status": 0,
+    "name": "Out For Calibration",
+    "module": "Tools",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

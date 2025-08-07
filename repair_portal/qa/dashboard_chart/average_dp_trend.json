@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "module": "QA",
+  "name": "Average DP Trend",
+  "chart_name": "Average DP Trend",
+  "document_type": "Inspection Checklist Item",
+  "chart_type": "Line",
+  "y_axis": [ { "fieldname": "value", "label": "Avg ΔP (psi)", "function": "Average", "group_by": "parent", "conditions": [ { "field": "criteria", "operator": "like", "value": "%ΔP%" } ] } ],
+  "filters": [ { "fieldname": "area", "label": "Area", "fieldtype": "Data" } ],
+  "timespan": "Last 30 Days"
+}

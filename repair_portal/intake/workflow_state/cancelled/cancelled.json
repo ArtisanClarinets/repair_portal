@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Cancelled",
+    "style": "Dark",
+    "doc_status": 2,
+    "name": "Cancelled",
+    "module": "Intake",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

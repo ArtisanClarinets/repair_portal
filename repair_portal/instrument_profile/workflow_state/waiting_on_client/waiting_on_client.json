@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Waiting on Client",
+    "style": "Yellow",
+    "doc_status": 0,
+    "name": "Waiting On Client",
+    "module": "Instrument Profile",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

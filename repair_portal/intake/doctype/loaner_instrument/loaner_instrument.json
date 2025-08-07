@@ -1,0 +1,22 @@
+{
+  "doctype": "DocType",
+  "name": "Loaner Instrument",
+  "module": "Intake",
+  "custom": 0,
+  "fields": [
+    {"fieldname": "loaner_serial", "fieldtype": "Data", "label": "Loaner Serial Number", "reqd": 1},
+    {"fieldname": "item_code", "fieldtype": "Link", "label": "Instrument Item Code", "options": "Item"},
+    {"fieldname": "issued_to", "fieldtype": "Link", "label": "Issued To (Customer)", "options": "Customer"},
+    {"fieldname": "issued_date", "fieldtype": "Date", "label": "Issued Date", "reqd": 1},
+    {"fieldname": "expected_return_date", "fieldtype": "Date", "label": "Expected Return Date"},
+    {"fieldname": "returned", "fieldtype": "Check", "label": "Returned"},
+    {"fieldname": "loaner_status", "fieldtype": "Select", "label": "Loaner Status", "options": "Issued\nReturned\nOverdue", "default": "Issued"}
+  ],
+  "permissions": [
+    {"role": "Technician", "read": 1, "write": 1, "create": 1},
+    {"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
+    {"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
+  ],
+  "workflow_state_field": "loaner_status"
+}

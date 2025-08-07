@@ -1,0 +1,66 @@
+{
+  "doctype": "DocType",
+  "name": "Instruments Owned",
+  "module": "Customer",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "instrument_category",
+      "fieldtype": "Data",
+      "label": "Instrument Category"
+    },
+    {
+      "fieldname": "serial_no",
+      "fieldtype": "Link",
+      "label": "Serial Number",
+      "options": "Serial No"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument_profile",
+      "fieldtype": "Link",
+      "label": "Instrument Profile",
+      "options": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "purchase_date",
+      "fieldtype": "Date",
+      "label": "Purchase Date"
+    },
+    {
+      "fieldname": "condition",
+      "fieldtype": "Select",
+      "label": "Condition",
+      "options": "\nNew\nGood\nFair\nPoor"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1,
+  "engine": "InnoDB"
+}

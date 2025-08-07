@@ -1,0 +1,46 @@
+{
+  "doctype": "DocType",
+  "name": "Upgrade Option",
+  "module": "Enhancements",
+  "istable": 1,
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "upgrade_description",
+      "fieldtype": "Data",
+      "label": "Upgrade Description",
+      "reqd": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Service Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "delete": 1
+    }
+  ],
+  "is_child_table": 1,
+  "engine": "InnoDB"
+}

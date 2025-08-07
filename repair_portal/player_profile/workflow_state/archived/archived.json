@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Archived",
+    "style": "Dark",
+    "doc_status": 2,
+    "name": "Archived",
+    "module": "Player Profile",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

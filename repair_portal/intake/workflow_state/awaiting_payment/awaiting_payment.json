@@ -1,0 +1,13 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Awaiting Payment",
+    "color": "#f0ad4e",
+    "style": "Warning",
+    "icon": "fa fa-money",
+    "description": "The instrument is awaiting payment from the customer before proceeding to the next stage.",
+    "doc_status": 1,
+    "name": "Awaiting Payment",
+    "module": "Intake",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

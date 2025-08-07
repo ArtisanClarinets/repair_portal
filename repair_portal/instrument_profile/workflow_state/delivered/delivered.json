@@ -1,0 +1,10 @@
+{
+  "doctype": "Workflow State",
+  "name": "Delivered",
+  "workflow_state_name": "Delivered",
+  "description": "Indicates the instrument has been delivered to the customer.",
+  "style": "Gray",
+  "doc_status": 0,
+  "module": "Instrument Profile",
+  "is_standard": 1
+}

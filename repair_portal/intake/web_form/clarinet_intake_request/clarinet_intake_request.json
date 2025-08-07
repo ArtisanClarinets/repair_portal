@@ -1,0 +1,91 @@
+{
+  "doctype": "Web Form",
+  "name": "Clarinet Intake Request",
+  "module": "Intake",
+  "title": "Clarinet Intake Request",
+  "fields": [
+    {
+      "fieldname": "serial_no",
+      "fieldtype": "Data",
+      "label": "Serial Number",
+      "reqd": 1
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument_category",
+      "fieldtype": "Select",
+      "label": "Instrument Category",
+      "options": "B♭\nA\nE♭\nC\nD\nBass\nOther"
+    },
+    {
+      "fieldname": "received_date",
+      "fieldtype": "Date",
+      "label": "Received Date"
+    },
+    {
+      "fieldname": "due_date",
+      "fieldtype": "Date",
+      "label": "Due Date"
+    },
+    {
+      "fieldname": "customer_notes",
+      "fieldtype": "Text",
+      "label": "Customer Notes"
+    },
+    {
+      "fieldname": "inspection_completed",
+      "fieldtype": "Check",
+      "label": "Inspection Completed?"
+    }
+  ],
+  "doc_type": "Clarinet Intake",
+  "web_form_fields": [
+    {
+      "fieldname": "serial_no",
+      "fieldtype": "Data",
+      "label": "Serial Number",
+      "reqd": 1
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument_category",
+      "fieldtype": "Select",
+      "label": "Instrument Category",
+      "options": "B♭\nA\nE♭\nC\nD\nBass\nOther"
+    },
+    {
+      "fieldname": "received_date",
+      "fieldtype": "Date",
+      "label": "Received Date"
+    },
+    {
+      "fieldname": "due_date",
+      "fieldtype": "Date",
+      "label": "Due Date"
+    },
+    {
+      "fieldname": "customer_notes",
+      "fieldtype": "Text",
+      "label": "Customer Notes"
+    },
+    {
+      "fieldname": "inspection_completed",
+      "fieldtype": "Check",
+      "label": "Inspection Completed?"
+    }
+  ],
+  "is_standard": 1,
+  "login_required": 1
+}

@@ -1,0 +1,27 @@
+
+{
+  "doctype": "DocType",
+  "name": "Client Instrument Profile",
+  "module": "Instrument Profile",
+  "custom": 0,
+  "autoname": "field:serial_no",
+  "fields": [
+    {"fieldname": "owner", "fieldtype": "Link", "options": "Customer", "label": "Owner", "reqd": 1},
+    {"fieldname": "instrument_model", "fieldtype": "Data", "label": "Model", "reqd": 1},
+    {"fieldname": "serial_no", "fieldtype": "Link", "label": "Serial Number", "options": "Serial No", "reqd": 1},
+    {"fieldname": "instrument_category", "fieldtype": "Select", "options": "Clarinet\nBass Clarinet\nContrabass Clarinet", "label": "Type", "reqd": 1},
+    {"fieldname": "purchase_receipt", "fieldtype": "Attach", "label": "Purchase Receipt"},
+    {"fieldname": "external_work_logs", "fieldtype": "Table", "options": "Customer External Work Log", "label": "Previous Repairs"},
+    {"fieldname": "condition_images", "fieldtype": "Table", "options": "Image Log Entry", "label": "Condition Images"},
+    {"fieldname": "repair_preferences", "fieldtype": "Small Text", "label": "Client Repair Preferences"},
+    {"fieldname": "verification_status", "fieldtype": "Select", "options": "Pending\nApproved\nRejected", "default": "Pending", "label": "Verification Status"},
+    {"fieldname": "technician_notes", "fieldtype": "Text", "label": "Technician Review Notes"},
+    {"fieldname": "ownership_transfer_to", "fieldtype": "Link", "options": "Customer", "label": "Transfer Ownership To"},
+    {"fieldname": "anonymize_for_research", "fieldtype": "Check", "label": "Allow Anonymized Sharing"},
+    {"fieldname": "consent_log", "fieldtype": "Table", "options": "Consent Log Entry", "label": "Consent Log"}
+  ],
+  "permissions": [
+    {"role": "Customer", "read": 1, "write": 1, "create": 1, "submit": 0, "cancel": 0, "amend": 0},
+    {"role": "Technician", "read": 1, "write": 1, "create": 0}
+  ]
+}

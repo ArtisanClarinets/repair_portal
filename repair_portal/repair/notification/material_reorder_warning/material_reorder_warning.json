@@ -1,0 +1,27 @@
+{
+  "doctype": "Notification",
+  "module": "Repair",
+  "for_doctype": "Item",
+  "is_standard": 1,
+  "is_active": 1,
+  "is_system_notification": 1,
+  "is_email": 1,
+  "is_sms": 0,
+  "is_push": 0, 
+  "is_notification": 1,
+  "is_alert": 1,
+  "is_communication": 1,
+  "enabled": 1,
+  "name": "Material Reorder Warning",
+  "subject": "Material Running Low: {{ doc.item_name }}",
+  "document_type": "Item",
+  "event": "Value Change",
+  "value_changed": "actual_qty",
+  "condition": "doc.re_order_level and doc.actual_qty <= doc.re_order_level",
+  "message": "Stock level of {{ doc.item_name }} is at {{ doc.actual_qty }}. Please reorder soon.",
+  "recipients": [
+    {"receiver_by_role": "Inventory Manager"}
+  ],
+  "channel": "Email",
+  "send_on": "Value Change"
+}

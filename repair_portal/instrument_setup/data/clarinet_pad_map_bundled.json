@@ -1,0 +1,12 @@
+[
+  {
+    "doctype": "Clarinet Pad Map",
+    "pad_map_name": "Bass Clarinet Standard",
+    "description": "Standard pad layout for bass clarinet"
+  },
+  {
+    "doctype": "Clarinet Pad Map",
+    "pad_map_name": "Bb Clarinet Standard",
+    "description": "Standard pad layout for Bb clarinet"
+  }
+]

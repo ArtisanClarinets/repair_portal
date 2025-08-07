@@ -1,0 +1,69 @@
+def validate(self) -> None:
+        """
+        Validation hook to enforce business rules for each inspection type.
+        Logs any exceptions for audit.
+        """
+        try:
+            # Ensure serial_no is unique
+            self._validate_unique_serial()
+            # Required fields for New Inventory
+            if self.inspection_type == "New Inventory":
+                missing = [
+                    f for f in ["manufacturer", "model", "key", "wood_type"] if not getattr(self, f, None)
+                ]
+                if missing:
+                    frappe.throw(f"Missing required field(s) for New Inventory: {', '.join(missing)}")
+            # Customer fields only for non-inventory
+            if self.inspection_type == "New Inventory" and (self.customer or self.preliminary_estimate):
+                frappe.throw("Customer and pricing fields must be empty for New Inventory inspections.")
+        except Exception:
+            frappe.log_error(frappe.get_traceback(), "InstrumentInspection.validate")
+            raise
+
+    def _validate_unique_serial(self) -> None:
+        """
+        Ensures the serial_no is unique for the current inspection record.
+        """
+        if self.serial_no:
+            duplicate = frappe.db.exists(
+                "Instrument Inspection", {"serial_no": self.serial_no, "name": ("!=", self.name)}
+            )
+            if duplicate:
+                frappe.throw(f"An Instrument Inspection already exists for Serial No: {self.serial_no}")
+
+    def on_submit(self) -> None:
+        """
+        On submit, update or create Instrument Profile for this serial. Syncs all persistent fields (specs, images, logs, etc.).
+        """
+        try:
+            serial = self.serial_no
+            profile_name = frappe.db.get_value("Instrument Profile", {"instrument": serial})
+            data = {
+                "body_material": self.body_material,
+                "key_plating": self.key_plating,
+                "key_system": self.key_system,
+                "number_of_keys_rings": self.number_of_keys_rings,
+                "pitch_standard": self.pitch_standard,
+                "bore_style": self.bore_style,
+                "bore_measurement": self.bore_measurement,
+                "tone_hole_style": self.tone_hole_style,
+                "thumb_rest": self.thumb_rest,
+                "spring_type": self.spring_type,
+                "pad_type_current": self.pad_type_current,
+                "current_status": self.current_status,
+                "current_location": self.current_location,
+                "profile_image": self.profile_image
+                # TODO: Add child table mappings for photos, media, accessories, etc.
+            }
+            if profile_name:
+                profile = frappe.get_doc("Instrument Profile", profile_name)
+                for k, v in data.items():
+                    if v:
+                        profile.set(k, v)
+                profile.save(ignore_permissions=True)
+            else:
+                data.update({"instrument": serial})
+                profile = frappe.get_doc({"doctype": "Instrument Profile", **data})
+                profile.insert(ignore_permissions=True)
+        except Exception:
+            frappe.log_error(frappe.get_traceback(), "InstrumentInspection.on_submit")

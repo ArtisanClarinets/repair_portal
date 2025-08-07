@@ -1,0 +1,90 @@
+[project]
+name = "repair_portal"
+authors = [
+    { name = "DT", email = "dylan@artisanclarinets.com" }
+]
+description = "Repair Portal"
+requires-python = ">=3.10"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = [
+    # "frappe~=15.0.0" # Installed and managed by bench.
+]
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+# Dev dependencies via bench (optional override)
+[tool.bench.dev-dependencies]
+black = "24.4.2"
+ruff = "0.4.3"
+flake8 = "7.0.0"
+
+[tool.black]
+line-length = 110
+target-version = ["py310"]
+skip-string-normalization = false
+include = '\.py$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | env
+  | node_modules
+  | public
+  | build
+  | dist
+  | __pycache__
+)/
+'''
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+exclude = [
+    ".git",
+    "__pycache__",
+    "env",
+    ".venv",
+    "node_modules",
+    "public",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+select = [
+    "F",    # pyflakes
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "I",    # import sorting
+    "UP",   # pyupgrade
+    "B",    # bugbear
+    "RUF",  # Ruff-specific rules
+    "C4",   # comprehensions
+    "SIM"   # simplify
+]
+ignore = [
+    "B017", "B018", "B023", "B904",
+    "E101", "E402", "E501", "E741",
+    "F401", "F403", "F405", "F722",
+    "W191"
+]
+typing-modules = ["frappe.types.DF"]
+
+[tool.ruff.per-file-ignores]
+"**/test_*.py" = ["S101"]
+
+[tool.ruff.isort]
+known-first-party = ["repair_portal"]
+combine-as-imports = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+docstring-code-format = true
+
+[tool.mypy]
+strict = true
+plugins = []

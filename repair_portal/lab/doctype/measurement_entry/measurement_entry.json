@@ -1,0 +1,45 @@
+{
+  "doctype": "DocType",
+  "name": "Measurement Entry",
+  "module": "Lab",
+  "custom": 0,
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "parameter",
+      "label": "Parameter",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "value",
+      "label": "Value",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "unit",
+      "label": "Unit",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "comments",
+      "label": "Comments",
+      "fieldtype": "Small Text"
+    }
+  ],
+  "engine": "InnoDB",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    }
+  ],
+  "is_child_table": 1
+}

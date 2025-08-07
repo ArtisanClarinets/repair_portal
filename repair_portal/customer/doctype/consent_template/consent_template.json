@@ -1,0 +1,103 @@
+{
+    "actions": [],
+    "allow_events_in_timeline": 1,
+    "allow_import": 1,
+    "autoname": "field:title",
+    "color": "#1c64f2",
+    "creation": "2025-07-26 15:02:39.390240",
+    "description": "Template for legal consent forms used in various processes like sales, repairs, and privacy agreements.",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "title",
+        "consent_type",
+        "version",
+        "content",
+        "is_active",
+        "valid_from",
+        "valid_upto",
+        "required_fields"
+    ],
+    "fields": [
+        {
+            "bold": 1,
+            "fieldname": "title",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Title",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "consent_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Consent Type",
+            "options": "Sales\nRepair\nCustom\nPrivacy\nShipping\nHealth",
+            "reqd": 1
+        },
+        {
+            "default": "1",
+            "fieldname": "version",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Version",
+            "reqd": 1
+        },
+        {
+            "description": "The full legal text or template content for this consent form.",
+            "fieldname": "content",
+            "fieldtype": "Text Editor",
+            "in_list_view": 1,
+            "label": "Consent Content",
+            "reqd": 1
+        },
+        {
+            "default": "1",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Active"
+        },
+        {
+            "fieldname": "valid_from",
+            "fieldtype": "Date",
+            "label": "Valid From"
+        },
+        {
+            "fieldname": "valid_upto",
+            "fieldtype": "Date",
+            "label": "Valid Upto"
+        },
+        {
+            "fieldname": "required_fields",
+            "fieldtype": "Table",
+            "label": "Required Fields",
+            "options": "Consent Required Field"
+        }
+    ],
+    "icon": "fa fa-file-contract",
+    "links": [],
+    "modified": "2025-07-26 15:32:51.163376",
+    "modified_by": "Administrator",
+    "module": "Customer",
+    "name": "Consent Template",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "read": 1,
+            "role": "System Manager",
+            "write": 1
+        }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "title",
+    "sort_order": "ASC",
+    "states": [],
+    "track_changes": 1,
+    "track_seen": 1,
+    "track_views": 1
+}

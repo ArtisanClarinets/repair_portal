@@ -1,0 +1,56 @@
+{
+  "doctype": "Report",
+  "name": "Pending Client Instruments",
+  "module": "Instrument Profile",
+  "report_name": "Pending Client Instruments",
+  "ref_doctype": "Client Instrument Profile",
+  "report_type": "Query Report",
+  "is_standard": "Yes",
+  "add_total_row": 0,
+  "apply_user_permissions": 1,
+  "prepared_report": 0,
+  "disable_prepared_report": 0,
+  "show_toolbar": 1,
+  "javascript": "",
+  "filters": [
+    {
+      "fieldname": "client",
+      "label": "Client",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "default": "",
+      "reqd": 0
+    },
+    {
+      "fieldname": "status",
+      "label": "Instrument Status",
+      "fieldtype": "Select",
+      "options": "\nPending\nIn Repair\nReady",
+      "default": "Pending",
+      "reqd": 0
+    },
+    {
+      "fieldname": "created_from",
+      "label": "Created From",
+      "fieldtype": "Date",
+      "default": "",
+      "reqd": 0
+    },
+    {
+      "fieldname": "created_to",
+      "label": "Created To",
+      "fieldtype": "Date",
+      "default": "",
+      "reqd": 0
+    }
+  ],
+  "query": "SELECT\n  cip.name AS \"Instrument ID:Link/Client Instrument Profile:160\",\n  cip.client_name AS \"Client::180\",\n  cip.instrument_type AS \"Type::120\",\n  cip.status AS \"Status::90\",\n  cip.creation AS \"Created On:Datetime:150\"\nFROM `tabClient Instrument Profile` cip\nWHERE cip.docstatus = 0\n  AND (%(client)s = '' OR cip.client_name = %(client)s)\n  AND (%(status)s = '' OR cip.status = %(status)s)\n  AND (%(created_from)s = '' OR cip.creation >= %(created_from)s)\n  AND (%(created_to)s = '' OR cip.creation <= %(created_to)s)\nORDER BY cip.creation DESC",
+  "roles": [
+    {
+      "role": "System Manager"
+    },
+    {
+      "role": "Instrument Admin"
+    }
+  ]
+}

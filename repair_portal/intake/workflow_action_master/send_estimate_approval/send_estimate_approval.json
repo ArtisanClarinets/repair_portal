@@ -1,0 +1,17 @@
+{
+    "doctype": "Workflow Action Master",
+    "name": "Send Estimate Approval",
+    "module": "Intake",
+    "workflow": "Intake Workflow",
+    "document_type": "Clarinet Intake",
+    "workflow_state_field": "intake_status",
+    "action": "Send Estimate Approval",
+    "from_state": "Received",
+    "to_state": "Awaiting Customer Approval",
+    "allowed_role": "Technician",
+    "options": [],
+    "style": "Primary",
+    "description": "Send the estimate for customer approval.",
+    "sync_on_migrate": 1,
+    "is_standard": 1
+}

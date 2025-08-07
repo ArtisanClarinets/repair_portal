@@ -1,0 +1,12 @@
+[
+  {
+    "doctype": "Clarinet Setup Operation",
+    "operation_name": "Replace Pads",
+    "description": "Replace all pads as per pad map"
+  },
+  {
+    "doctype": "Clarinet Setup Operation",
+    "operation_name": "Clean Body",
+    "description": "Clean instrument body thoroughly"
+  }
+]

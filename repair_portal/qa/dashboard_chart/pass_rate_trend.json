@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "module": "QA",
+  "name": "Pass Rate Trend",
+  "chart_name": "Pass Rate Trend",
+  "document_type": "Inspection Report",
+  "chart_type": "Line",
+  "y_axis": [ { "fieldname": "status", "label": "Pass Rate", "function": "Percent", "group_by": "inspection_date", "conditions": [ { "field": "status", "operator": "=", "value": "Passed" } ] } ],
+  "filters": [ { "fieldname": "inspection_type", "label": "Inspection Type", "fieldtype": "Select", "options": "Clarinet QA\nAnnual Cleaning\nRepair Check-in\nOther" } ],
+  "timespan": "Last 30 Days"
+}

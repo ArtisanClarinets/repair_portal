@@ -1,0 +1,36 @@
+{
+  "doctype": "Dashboard Chart",
+  "module": "Service Planning",
+  "is_standard": 1,
+  "is_query_report": 1,
+  "query": "repair_portal.repair_planning.dashboard_chart.scheduled_service_tasks_by_day.scheduled_service_tasks_by_day_query",
+  "report_fields": [
+    {
+      "fieldname": "planned_date",
+      "label": "Planned Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "technician",
+      "label": "Technician",
+      "fieldtype": "Link",
+      "options": "Technician"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "\nDraft\nIn Progress\nSubmitted"
+    }
+  ],
+  "name": "Scheduled Service Tasks By Day",
+  "chart_name": "Scheduled Service Tasks by Day",
+  "chart_type": "Group By",
+  "document_type": "Service Task",
+  "based_on": "planned_date",
+  "timespan": "Last 30 days",
+  "time_interval": "Daily",
+  "group_by_type": "Count",
+  "is_public": 0,
+  "filters_json": "{}"
+}

@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Submitted",
+    "style": "Green",
+    "doc_status": 1,
+    "name": "Submitted",
+    "module": "Repair Logging",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

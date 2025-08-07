@@ -1,0 +1,9 @@
+{
+  "doctype": "Print Format",
+  "name": "Instrument Summary",
+  "doc_type": "Client Instrument Profile",
+  "module": "Instrument Profile",
+  "print_format_type": "Jinja",
+  "standard": 1,
+  "html": "<div>\n  <h2>Instrument Summary</h2>\n  <p><strong>Owner:</strong> {{ doc.owner }}</p>\n  <p><strong>Model:</strong> {{ doc.instrument_model }}</p>\n  <p><strong>Serial Number:</strong> {{ doc.serial_no }}</p>\n  <p><strong>Type:</strong> {{ doc.instrument_category }}</p>\n  <p><strong>Status:</strong> {{ doc.verification_status }}</p>\n  {% if doc.repair_preferences %}\n  <p><strong>Preferences:</strong> {{ doc.repair_preferences }}</p>\n  {% endif %}\n  {% if doc.technician_notes %}\n  <p><strong>Technician Notes:</strong> {{ doc.technician_notes }}</p>\n  {% endif %}\n</div>"
+}

@@ -1,0 +1,17 @@
+{
+    "doctype": "Workflow Action Master",
+    "name": "Customer Approval",
+    "module": "Intake",
+    "workflow": "Intake Workflow",
+    "document_type": "Clarinet Intake",
+    "workflow_state_field": "intake_status",
+    "action": "Customer Approval",
+    "from_state": "Awaiting Customer Approval",
+    "to_state": "Repair",
+    "allowed_role": "Technician",
+    "options": [],
+    "style": "Primary",
+    "description": "Approve the estimate and move to the inspection stage.",
+    "sync_on_migrate": 1,
+    "is_standard": 1
+}

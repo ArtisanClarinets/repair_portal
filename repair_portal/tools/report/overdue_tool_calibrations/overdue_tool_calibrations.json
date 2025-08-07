@@ -1,0 +1,20 @@
+{
+  "doctype": "Report",
+  "name": "Overdue Tool Calibrations",
+  "ref_doctype": "Tool",
+  "report_type": "Script Report",
+  "is_standard": "Yes",
+  "report_name": "Overdue Tool Calibrations",
+  "filters": [
+    {"fieldname": "name", "label": "Name", "fieldtype": "Data", "default": ""},
+    {"fieldname": "lab", "label": "Lab", "fieldtype": "Link", "options": "Lab"}
+  ],
+  "chart": {
+    "type": "bar",
+    "data": {
+      "labels": [],
+      "datasets": []
+    },
+    "colors": ["#28a745"]
+  }
+}

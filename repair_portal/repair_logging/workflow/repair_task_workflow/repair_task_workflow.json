@@ -1,0 +1,48 @@
+{
+    "doctype": "Workflow",
+    "workflow_name": "Repair Task Workflow",
+    "name": "repair_task_workflow",
+    "document_type": "Repair Order",
+    "is_active": 1,
+    "workflow_state_field": "status",
+    "is_standard": 1,
+    "sync_on_migrate": 1,
+    "module": "Repair Logging",
+    "description": "Workflow for managing repair tasks in the repair portal.",
+    "workflow_id": "Repair Task Workflow",
+    "state_field": "status",
+    "is_default": 1,
+    "label": "Repair Task Workflow",
+    "allow_edit": "Technician",
+    "states": [
+        {
+            "state": "Draft",
+            "doc_status": 0,
+            "allow_edit": "Technician"
+        },
+        {
+            "state": "In Progress",
+            "doc_status": 0,
+            "allow_edit": "Technician"
+        },
+        {
+            "state": "Submitted",
+            "doc_status": 1,
+            "allow_edit": "QA"
+        }
+    ],
+    "transitions": [
+        {
+            "state": "Draft",
+            "action": "Start Work",
+            "next_state": "In Progress",
+            "allowed": "Technician"
+        },
+        {
+            "state": "In Progress",
+            "action": "Complete",
+            "next_state": "Submitted",
+            "allowed": "Technician"
+        }
+    ]
+}

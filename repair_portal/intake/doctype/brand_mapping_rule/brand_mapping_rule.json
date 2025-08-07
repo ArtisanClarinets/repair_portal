@@ -1,0 +1,31 @@
+{
+  "doctype": "DocType",
+  "name": "Brand Mapping Rule",
+  "module": "Intake",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 1,
+  "track_seen": 1,
+  "track_views": 1,
+  "allow_import": 1,
+  "is_standard": 1,
+  "fields": [
+    {
+      "fieldname": "from_brand",
+      "label": "Source Brand",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "to_brand",
+      "label": "Mapped Brand",
+      "fieldtype": "Data",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1}
+  ]
+}

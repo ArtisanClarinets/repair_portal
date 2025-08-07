@@ -1,0 +1,9 @@
+{
+  "doctype": "Workflow State",
+  "name": "In Progress",
+  "workflow_state_name": "In Progress",
+  "style": "Warning",
+  "doc_status": 0,
+  "module": "Instrument Profile",
+  "is_standard": 1
+}

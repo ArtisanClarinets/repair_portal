@@ -1,0 +1,62 @@
+{
+  "doctype": "DocType",
+  "name": "Tenon Measurement",
+  "module": "Repair Logging",
+  "istable": 1,
+  "is_child_table": 1,
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "measurement_type",
+      "fieldtype": "Select",
+      "options": "tenon\nsocket\nfit",
+      "label": "Measurement Type",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "tenon_type",
+      "label": "Tenon Type",
+      "fieldtype": "Select",
+      "options": "Mouthpiece\nUpper Joint: Top\nUpper Joint: Bottom\nLower Joint: Bottom",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "tenon_height",
+      "label": "Tenon Height (mm)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "tenon_external_diameter",
+      "label": "Tenon External Diameter (mm)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "tenon_internal_diameter",
+      "label": "Tenon Internal Diameter (mm)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "tenon_wall_thickness",
+      "label": "Tenon Wall Thickness (mm)",
+      "fieldtype": "Float"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "engine": "InnoDB"
+}

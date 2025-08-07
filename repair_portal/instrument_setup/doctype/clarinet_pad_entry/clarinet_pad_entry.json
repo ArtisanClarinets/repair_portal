@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "creation": "2025-07-28 21:49:20.685714",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_vhmi",
+  "pad_position",
+  "pad_type",
+  "is_open_key"
+ ],
+ "fields": [
+  {
+   "fieldname": "pad_position",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Pad Position"
+  },
+  {
+   "fieldname": "pad_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Pad Type",
+   "options": "Leather\nCork\nSkin\nGoreTex (GT)\nSynthetic\nFelt\nOther"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_open_key",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Open Key"
+  },
+  {
+   "columns": 3,
+   "fieldname": "section_break_vhmi",
+   "fieldtype": "Section Break",
+   "in_preview": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2025-07-28 23:24:34.673592",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Pad Entry",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

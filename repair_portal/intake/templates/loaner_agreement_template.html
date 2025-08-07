@@ -1,0 +1,14 @@
+<html>
+<head><style>body { font-family: Inter; }</style></head>
+<body>
+  <h2>Loaner Instrument Agreement</h2>
+  <p>This document certifies that {{ customer.customer_name }} has been issued the loaner instrument:</p>
+  <ul>
+    <li><strong>Instrument ID:</strong> {{ doc.name }}</li>
+    <li><strong>Issued On:</strong> {{ doc.issue_date }}</li>
+    <li><strong>Condition:</strong> {{ doc.condition_on_issue }}</li>
+  </ul>
+  <p>The customer agrees to return the instrument in comparable condition or be liable for damage/loss fees.</p>
+  <p><strong>Digital Signature:</strong> ______________________</p>
+</body>
+</html>

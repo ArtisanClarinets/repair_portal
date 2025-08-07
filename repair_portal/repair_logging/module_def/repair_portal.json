@@ -1,0 +1,15 @@
+{
+  "doctype": "Module Def",
+  "module": "Repair Logging",
+  "module_name": "Repair Portal",
+  "label": "Repair Portal",
+  "name": "Repair Portal",
+  "app_name": "repair_portal",
+  "app_label": "Repair Portal",
+  "is_custom": 0,
+  "is_standard": 1,
+  "is_system": 0,
+  "is_published": 1,
+  "is_hidden": 0,
+  "is_module": 1
+}

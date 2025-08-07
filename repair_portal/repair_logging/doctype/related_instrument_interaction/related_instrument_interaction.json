@@ -1,0 +1,42 @@
+{
+  "doctype": "DocType",
+  "name": "Related Instrument Interaction",
+  "module": "Repair Logging",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "related_instrument",
+      "label": "Related Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
+    },
+    {
+      "fieldname": "interaction_type",
+      "label": "Interaction Type",
+      "fieldtype": "Select",
+      "options": "Follow-up\nReferred\nReference"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1,
+  "engine": "InnoDB"
+}

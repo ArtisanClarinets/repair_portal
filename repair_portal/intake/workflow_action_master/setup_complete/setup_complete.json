@@ -1,0 +1,15 @@
+{
+    "doctype": "Workflow Action Master",
+    "name": "Setup Completed",
+    "module": "Intake",
+    "workflow": "Intake Workflow",
+    "document_type": "Clarinet Intake",
+    "workflow_state_field": "intake_status",
+    "action": "Setup Completed",
+    "from_state": "Setup",
+    "to_state": "Completed",
+    "allowed_role": "Technician",
+    "options": [],
+    "style": "Primary",
+    "description": "Mark the setup as completed."
+}

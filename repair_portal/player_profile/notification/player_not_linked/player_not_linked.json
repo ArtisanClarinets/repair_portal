@@ -1,0 +1,11 @@
+{
+  "doctype": "Notification",
+  "name": "Player Not Linked",
+  "subject": "Player Profile Not Linked",
+  "document_type": "Player Profile",
+  "channel": "Email",
+  "send_on": "Days After",
+  "message": "This is a placeholder notification.",
+  "event": "Days After",
+  "recipients": []
+}

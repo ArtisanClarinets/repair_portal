@@ -1,0 +1,27 @@
+{
+	"doctype": "Report",
+	"name": "Turnaround Time Analysis",
+	"report_name": "Turnaround Time Analysis",
+	"ref_doctype": "Clarinet Initial Setup",
+	"report_type": "Query Report",
+	"is_standard": "Yes",
+	"module": "Instrument Setup",
+	"filters": [
+		{
+			"fieldname": "technician",
+			"label": "Technician",
+			"fieldtype": "Link",
+			"options": "User",
+			"default": "",
+			"reqd": 0
+		},
+		{
+			"fieldname": "model",
+			"label": "Clarinet Model",
+			"fieldtype": "Link",
+			"options": "Item",
+			"default": "",
+			"reqd": 0
+		}
+	]
+}

@@ -1,0 +1,12 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Overdue Intakes",
+  "label": "Overdue Intakes",
+  "name": "Overdue Intakes",
+  "chart_type": "Bar",
+  "based_on": "Daily",
+  "timespan": "Last 7 days",
+  "document_type": "Clarinet Intake",
+  "filters_json": "{\"status\": \"Overdue\"}",
+  "module": "Repair Portal"
+}

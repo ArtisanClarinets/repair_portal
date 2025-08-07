@@ -1,0 +1,64 @@
+{
+  "doctype": "DocType",
+  "name": "Visual Inspection",
+  "istable": 1,
+  "module": "Repair Logging",
+  "custom": 0,
+  "label": "Visual Inspection",
+  "fields": [
+    {
+      "fieldname": "serial_no",
+      "label": "Serial Number",
+      "fieldtype": "Link",
+      "options": "Serial No",
+      "reqd": 1
+    },
+    {
+      "fieldname": "inspection_date",
+      "label": "Inspection Date",
+      "fieldtype": "Date",
+      "reqd": 1,
+      "default": "Today"
+    },
+    {
+      "fieldname": "inspected_by",
+      "label": "Inspected By",
+      "fieldtype": "Link",
+      "options": "User",
+      "reqd": 1,
+      "default": "frappe.session.user.full_name"
+    },
+    {
+      "fieldname": "component",
+      "label": "Component",
+      "fieldtype": "Select",
+      "options": "Body Wood\nTone Holes\nKeywork\nPads\nCorks\nOther",
+      "reqd": 1
+    },
+    {
+      "fieldname": "condition",
+      "label": "Condition / Finding",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "photo",
+      "label": "Photo",
+      "fieldtype": "Attach Image"
+    }
+  ],
+  "engine": "InnoDB",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    }
+  ],
+  "is_child_table": 1
+}

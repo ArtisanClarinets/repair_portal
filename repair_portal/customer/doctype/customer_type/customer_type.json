@@ -1,0 +1,64 @@
+{
+  "doctype": "DocType",
+  "name": "Customer Type",
+  "module": "Customer",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "autoname": "naming_series:CPT-.###",
+  "field_order": [
+    "naming_series",
+    "type_name",
+    "is_default",
+    "portal_visible",
+    "description",
+    "color"
+  ],
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "label": "Naming Series",
+      "fieldtype": "Data",
+      "default": "CPT-",
+      "read_only": 1
+    },
+    {
+      "fieldname": "type_name",
+      "label": "Profile Type",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "translatable": 1
+    },
+    {
+      "fieldname": "is_default",
+      "label": "Default",
+      "fieldtype": "Check",
+      "bold": 1
+    },
+    {
+      "fieldname": "portal_visible",
+      "label": "Show in Portal",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "description",
+      "label": "Description",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "color",
+      "label": "Color",
+      "fieldtype": "Color"
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "create": 1, "read": 1, "write": 1, "delete": 1},
+    {"role": "Client Manager", "create": 1, "read": 1, "write": 1}
+  ],
+  "search_fields": "type_name",
+  "sort_field": "type_name",
+  "sort_order": "ASC"
+}

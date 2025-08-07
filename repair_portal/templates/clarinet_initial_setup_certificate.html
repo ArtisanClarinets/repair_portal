@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    @font-face {
+      font-family: "DejaVu";
+      src: url("/assets/frappe/fonts/DejaVuSans.ttf") format("truetype");
+    }
+    body { font-family: "DejaVu", sans-serif; }
+    h2 { text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 6px; }
+    th { background-color: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h2>Clarinet Setup Certificate</h2>
+  <p><strong>Instrument Profile:</strong> {{ doc.instrument_profile }}</p>
+  <p><strong>Technician:</strong> {{ doc.technician }}</p>
+  <p><strong>Setup Date:</strong> {{ frappe.utils.formatdate(doc.setup_date) }}</p>
+  <h3>Checklist</h3>
+  <table>
+    <tr><th>Task</th><th>Completed</th><th>Notes</th></tr>
+    {% for item in doc.checklist %}
+    <tr>
+      <td>{{ item.task }}</td>
+      <td>{{ '✔' if item.completed else '✘' }}</td>
+      <td>{{ item.notes or '' }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <h3>Materials Used</h3>
+  <table>
+    <tr><th>Item</th><th>Quantity</th><th>Warehouse</th></tr>
+    {% for mat in doc.materials %}
+    <tr>
+      <td>{{ mat.item }}</td>
+      <td>{{ mat.quantity }}</td>
+      <td>{{ mat.warehouse }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <h3>Operations Performed</h3>
+  <table>
+    <tr><th>Operation</th><th>Details</th></tr>
+    {% for op in doc.operations_performed %}
+    <tr>
+      <td>{{ op.operation_type }}</td>
+      <td>{{ op.details or '' }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

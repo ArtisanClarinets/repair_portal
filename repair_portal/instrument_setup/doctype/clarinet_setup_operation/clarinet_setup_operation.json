@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "creation": "2025-07-30 03:20:56.186243",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "operation_type",
+  "section",
+  "component_ref",
+  "details",
+  "completed"
+ ],
+ "fields": [
+  {
+   "fieldname": "operation_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Operation Type",
+   "options": "Tone Hole Reaming\nTone Hole Repair\nChimney Leak\nTenon Fitting\nKey Height Adjustment\nSpring Tension Adjustment\nPad Leveling\nCork Replacement\nSetup\nOther"
+  },
+  {
+   "fieldname": "section",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Section",
+   "options": "Mouthpiece\nBarrel\nUpper Joint\nLower Joint\nBell"
+  },
+  {
+   "fieldname": "component_ref",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Component Ref (Tone Hole, Key, etc.)"
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Text",
+   "label": "Details / Notes"
+  },
+  {
+   "default": "0",
+   "fieldname": "completed",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Completed"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2025-07-30 20:55:59.165686",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Setup Operation",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

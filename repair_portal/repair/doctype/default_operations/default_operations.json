@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "creation": "2025-07-29 23:43:17.427917",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "operation_type",
+  "operation_template",
+  "material_used"
+ ],
+ "fields": [
+  {
+   "fieldname": "operation_type",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Operation Type",
+   "options": "\nInventory\nMaintenance\nRepair",
+   "reqd": 1
+  },
+  {
+   "fieldname": "operation_template",
+   "fieldtype": "Table",
+   "label": "Operation Template",
+   "options": "Operation Template",
+   "reqd": 1
+  },
+  {
+   "fieldname": "material_used",
+   "fieldtype": "Table",
+   "label": "Material Used",
+   "options": "Material Use Log"
+  }
+ ],
+ "links": [],
+ "modified": "2025-07-29 23:47:04.753992",
+ "modified_by": "Administrator",
+ "module": "Repair",
+ "name": "Default Operations",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Technician"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,59 @@
+{
+  "doctype": "DocType",
+  "name": "Estimate Line Item",
+  "module": "Service Planning",
+  "istable": 1,
+  "custom": 0,
+  "fields": [
+    {
+      "fieldname": "description",
+      "label": "Service Description",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "part_code",
+      "label": "Part Code",
+      "fieldtype": "Link",
+      "options": "Item"
+    },
+    {
+      "fieldname": "hours",
+      "label": "Hours",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "rate",
+      "label": "Rate ($/hr)",
+      "fieldtype": "Currency"
+    },
+    {
+      "fieldname": "amount",
+      "label": "Amount",
+      "fieldtype": "Currency",
+      "depends_on": "eval: doc.hours && doc.rate"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "create": 1
+    }
+  ],
+  "is_child_table": 1,
+  "engine": "InnoDB"
+}

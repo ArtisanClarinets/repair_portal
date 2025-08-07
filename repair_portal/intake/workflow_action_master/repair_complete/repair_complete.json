@@ -1,0 +1,15 @@
+{
+    "doctype": "Workflow Action Master",
+    "name": "Repair Completed",
+    "module": "Intake",
+    "workflow": "Intake Workflow",
+    "document_type": "Clarinet Intake",
+    "workflow_state_field": "intake_status",
+    "action": "Repair Completed",
+    "from_state": "Repair",
+    "to_state": "Awaiting Payment",
+    "allowed_role": "Technician",
+    "options": [],
+    "style": "Primary",
+    "description": "Mark the repair as completed."
+}

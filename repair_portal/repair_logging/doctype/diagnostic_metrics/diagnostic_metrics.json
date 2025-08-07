@@ -1,0 +1,53 @@
+{
+  "doctype": "DocType",
+  "name": "Diagnostic Metrics",
+  "istable": 1,
+  "module": "Repair Logging",
+  "custom": 0,
+  "label": "Diagnostic Metrics",
+  "editable_grid": 1,
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "create": 1
+    }
+  ],
+  "fields": [
+    {
+      "fieldname": "metric",
+      "label": "Metric",
+      "fieldtype": "Select",
+      "options": "Leak Test (Magnehelic)\nEndoscopic Finding\nKey Clearance\nSpring Tension\nAcoustic Baseline"
+    },
+    {
+      "fieldname": "value",
+      "label": "Value",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "unit",
+      "label": "Unit",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "benchmark",
+      "label": "Benchmark / Target",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Data"
+    }
+  ],
+  "engine": "InnoDB",
+  "is_child_table": 1
+}

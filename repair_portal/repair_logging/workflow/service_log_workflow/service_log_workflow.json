@@ -1,0 +1,58 @@
+{
+    "doctype": "Workflow",
+    "name": "service_log_workflow",
+    "workflow_name": "Service Log Workflow",
+    "document_type": "Repair Order",
+    "is_active": 1,
+    "is_standard": 1,
+    "sync_on_migrate": 1,
+    "module": "Repair Logging",
+    "description": "Workflow for managing service logs in the repair portal.",
+    "workflow_id": "Service Log Workflow",
+    "state_field": "status",
+    "is_default": 1,
+    "label": "Service Log Workflow",
+    "workflow_state_field": "status",
+    "states": [
+        {
+            "state": "Open",
+            "doc_status": 0,
+            "allow_edit": "Technician"
+        },
+        {
+            "state": "In Progress",
+            "doc_status": 0,
+            "allow_edit": "Technician"
+        },
+        {
+            "state": "Resolved",
+            "doc_status": 1,
+            "allow_edit": "Service Manager"
+        },
+        {
+            "state": "Closed",
+            "doc_status": 2,
+            "allow_edit": "Service Manager"
+        }
+    ],
+    "transitions": [
+        {
+            "state": "Open",
+            "action": "Start Work",
+            "next_state": "In Progress",
+            "allowed": "Technician"
+        },
+        {
+            "state": "In Progress",
+            "action": "Resolve",
+            "next_state": "Resolved",
+            "allowed": "Technician"
+        },
+        {
+            "state": "Resolved",
+            "action": "Close",
+            "next_state": "Closed",
+            "allowed": "Service Manager"
+        }
+    ]
+}

@@ -1,0 +1,226 @@
+{
+ "actions": [],
+ "autoname": "format:PLAYER-.####.",
+ "creation": "2025-07-27 03:28:59.133394",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "player_profile_id",
+  "player_name",
+  "preferred_name",
+  "primary_email",
+  "primary_phone",
+  "mailing_address",
+  "profile_creation_date",
+  "player_level",
+  "primary_playing_styles",
+  "affiliation",
+  "primary_teacher",
+  "equipment_preferences",
+  "key_height_preference",
+  "spring_tension_preference",
+  "preferred_pad_type",
+  "g_sharp_a_connection",
+  "intonation_notes",
+  "technician_notes",
+  "instruments_owned",
+  "last_visit_date",
+  "customer_lifetime_value",
+  "communication_preference",
+  "newsletter_subscription",
+  "targeted_marketing_optin",
+  "referral_source",
+  "profile_status"
+ ],
+ "fields": [
+  {
+   "default": "New",
+   "fieldname": "player_profile_id",
+   "fieldtype": "Data",
+   "label": "Player Profile ID",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "player_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Full Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "preferred_name",
+   "fieldtype": "Data",
+   "label": "Preferred Name"
+  },
+  {
+   "fieldname": "primary_email",
+   "fieldtype": "Data",
+   "label": "Primary Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "primary_phone",
+   "fieldtype": "Data",
+   "label": "Primary Phone"
+  },
+  {
+   "fieldname": "mailing_address",
+   "fieldtype": "Small Text",
+   "label": "Mailing Address"
+  },
+  {
+   "default": "Today",
+   "fieldname": "profile_creation_date",
+   "fieldtype": "Date",
+   "label": "Profile Creation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "player_level",
+   "fieldtype": "Select",
+   "label": "Player Level",
+   "options": "Student (Beginner)\nStudent (Advanced)\nAmateur/Hobbyist\nUniversity Student\nProfessional (Orchestral)\nProfessional (Jazz/Commercial)\nEducator\nCollector",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "primary_playing_styles",
+   "fieldtype": "Check",
+   "label": "Primary Playing Style(s)",
+   "options": "Orchestral\nChamber\nSolo\nJazz\nKlezmer\nContemporary\nConcert Band"
+  },
+  {
+   "fieldname": "affiliation",
+   "fieldtype": "Data",
+   "label": "Affiliation / Organization"
+  },
+  {
+   "fieldname": "primary_teacher",
+   "fieldtype": "Data",
+   "label": "Primary Teacher / Mentor"
+  },
+  {
+   "fieldname": "equipment_preferences",
+   "fieldtype": "Table",
+   "label": "Equipment Preference(s)",
+   "options": "Player Equipment Preference"
+  },
+  {
+   "fieldname": "key_height_preference",
+   "fieldtype": "Select",
+   "label": "Key Height Preference",
+   "options": "Low/Close\nStandard\nHigh/Open"
+  },
+  {
+   "fieldname": "spring_tension_preference",
+   "fieldtype": "Select",
+   "label": "Spring Tension Preference",
+   "options": "Light/Fluid\nStandard/Firm\nHeavy/Resistant"
+  },
+  {
+   "fieldname": "preferred_pad_type",
+   "fieldtype": "Data",
+   "label": "Preferred Pad Type"
+  },
+  {
+   "fieldname": "g_sharp_a_connection",
+   "fieldtype": "Data",
+   "label": "G#/A Key Connection"
+  },
+  {
+   "fieldname": "intonation_notes",
+   "fieldtype": "Small Text",
+   "label": "Tuning & Intonation Notes"
+  },
+  {
+   "fieldname": "technician_notes",
+   "fieldtype": "Small Text",
+   "label": "Technician Notes"
+  },
+  {
+   "fieldname": "instruments_owned",
+   "fieldtype": "Table",
+   "label": "Instruments Currently Owned",
+   "options": "Instruments Owned"
+  },
+  {
+   "fieldname": "last_visit_date",
+   "fieldtype": "Date",
+   "label": "Last Visit Date"
+  },
+  {
+   "fieldname": "customer_lifetime_value",
+   "fieldtype": "Currency",
+   "label": "Customer Lifetime Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "communication_preference",
+   "fieldtype": "Select",
+   "label": "Communication Preference",
+   "options": "Email\nSMS\nPhone Call"
+  },
+  {
+   "default": "0",
+   "fieldname": "newsletter_subscription",
+   "fieldtype": "Check",
+   "label": "Newsletter Subscription"
+  },
+  {
+   "default": "0",
+   "fieldname": "targeted_marketing_optin",
+   "fieldtype": "Check",
+   "label": "Targeted Marketing Opt-In",
+   "options": "New Pro-Level Clarinets\nUsed/Consignment Deals\nMouthpiece/Accessory Sales\nRepair Service Promotions\nLocal Events/Clinics"
+  },
+  {
+   "fieldname": "referral_source",
+   "fieldtype": "Data",
+   "label": "Referral Source"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "profile_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Profile Status",
+   "options": "Draft\nActive\nArchived"
+  }
+ ],
+ "links": [],
+ "modified": "2025-07-27 03:32:32.608032",
+ "modified_by": "Administrator",
+ "module": "Player Profile",
+ "name": "Player Profile",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Technician",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Repair Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Customer"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "player_name"
+}

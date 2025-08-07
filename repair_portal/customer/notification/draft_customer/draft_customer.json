@@ -1,0 +1,14 @@
+{
+  "doctype": "Notification",
+  "name": "Draft Customer",
+  "document_type": "Customer",
+  "subject": "Draft Customer",
+  "message": "Client {{ doc.name }} remains in Draft and must be verified.",
+  "event": "Value Change",
+  "send_alert_on": "profile_status",
+  "value_changed": "Draft",
+  "recipients": [{"receiver_by_role": "Repair Manager"}],
+  "enabled": 1,
+  "channel": "Email",
+  "send_on": "Value Change"
+}

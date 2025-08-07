@@ -1,0 +1,48 @@
+{
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint repair_portal/public/js/**/*.js --fix",
+		"lint:frontend": "biome check .",
+		"format:frontend": "biome format . --write",
+		"lint:backend": "ruff check repair_portal/lab",
+		"format:backend": "ruff format .",
+		"validate": "python validate_app.py",
+		"clean:console": "find repair_portal/public -name '*.js' -exec sed -i '/console\\./d' {} +"
+	},
+	"directories": {
+		"doc": "docs",
+		"test": "test"
+	},
+	"dependencies": {
+		"@vue/compiler-sfc": "^3.5.17",
+		"autoprefixer": "^10.4.21",
+		"eslint": "^9.30.1",
+		"frappe-ui": "^0.1.177",
+		"meyda": "^5.6.3",
+		"plotly.js-dist": "^3.0.1",
+		"postcss": "^8.5.6",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"ruff": "^1.5.4",
+		"tailwindcss": "^4.1.11",
+		"tone": "15.1.22",
+		"vite": "^7.0.5",
+		"vue": "^3.5.17",
+		"vue-router": "^4.5.1",
+		"webpack": "^5.100.2"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.22.0",
+		"@babel/preset-env": "^7.22.0",
+		"@biomejs/biome": "2.0.6",
+		"babel-plugin-transform-remove-console": "^6.9.4",
+		"css-minimizer-webpack-plugin": "^7.0.2",
+		"cypress": "^14.4.1",
+		"frappe-charts": "^1.6.2",
+		"less": "^4.3.0",
+		"stylus": "^0.64.0",
+		"terser-webpack-plugin": "^5.3.14",
+		"vue-template-compiler": "^0.1.0"
+	},
+	"version": "1.22.19"
+}

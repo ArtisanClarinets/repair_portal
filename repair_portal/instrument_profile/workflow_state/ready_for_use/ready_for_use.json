@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Ready for Use",
+    "style": "Green",
+    "doc_status": 1,
+    "name": "Ready For Use",
+    "module": "Instrument Profile",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

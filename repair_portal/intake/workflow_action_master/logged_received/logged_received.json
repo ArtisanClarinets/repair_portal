@@ -1,0 +1,15 @@
+{
+    "doctype": "Workflow Action Master",
+    "name": "Log Received",
+    "module": "Intake",
+    "workflow": "Intake Workflow",
+    "document_type": "Clarinet Intake",
+    "workflow_state_field": "intake_status",
+    "action": "Log Received",
+    "from_state": "Pending",
+    "to_state": "Received",
+    "allowed_role": "Technician",
+    "options": [],
+    "style": "Primary",
+    "description": "Log the intake as received and move to 'Received'."
+}

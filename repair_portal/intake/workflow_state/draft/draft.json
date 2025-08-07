@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow State",
+    "workflow_state_name": "Draft",
+    "style": "Info",
+    "doc_status": 0,
+    "name": "Draft",
+    "module": "Intake",
+    "is_standard": 1,
+    "sync_on_migrate": 1
+}

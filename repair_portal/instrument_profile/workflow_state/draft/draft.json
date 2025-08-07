@@ -1,0 +1,9 @@
+{
+  "doctype": "Workflow State",
+  "name": "Draft",
+  "workflow_state_name": "Draft",
+  "style": "Gray",
+  "doc_status": 0,
+  "module": "Instrument Profile",
+  "is_standard": 1
+}

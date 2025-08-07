@@ -1,0 +1,222 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "format:TA-{instrument}-{#####}",
+    "creation": "2025-07-25 16:10:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "session_information_section",
+        "instrument",
+        "player",
+        "session_datetime",
+        "reference_pitch",
+        "audio_blob",
+        "live_analyzer_section",
+        "analyzer_html",
+        "analysis_results_section",
+        "column_break_1",
+        "avg_cent_dev",
+        "pitch_stability",
+        "column_break_2",
+        "spectral_cent",
+        "harmonics_json",
+        "spectrogram_section",
+        "spectrogram_image",
+        "harmonics_chart_html",
+        "technician_review_section",
+        "status",
+        "baseline",
+        "notes",
+        "help_section",
+        "help_html"
+    ],
+    "fields": [
+        {
+            "fieldname": "session_information_section",
+            "fieldtype": "Section Break",
+            "label": "Session Information"
+        },
+        {
+            "fieldname": "instrument",
+            "fieldtype": "Link",
+            "label": "Instrument",
+            "options": "Clarinet Intake",
+            "reqd": 1
+        },
+        {
+            "fieldname": "player",
+            "fieldtype": "Link",
+            "label": "Player",
+            "options": "User"
+        },
+        {
+            "fieldname": "session_datetime",
+            "fieldtype": "Datetime",
+            "label": "Session Time",
+            "default": "Now"
+        },
+        {
+            "fieldname": "reference_pitch",
+            "fieldtype": "Select",
+            "label": "Reference Pitch (A4)",
+            "options": "440 Hz\n441 Hz\n442 Hz\n432 Hz",
+            "default": "440 Hz"
+        },
+        {
+            "fieldname": "audio_blob",
+            "fieldtype": "Attach",
+            "label": "Upload Audio Recording (for Batch Analysis)"
+        },
+        {
+            "fieldname": "live_analyzer_section",
+            "fieldtype": "Section Break",
+            "label": "Live Analyzer"
+        },
+        {
+            "fieldname": "analyzer_html",
+            "fieldtype": "HTML",
+            "label": "Analyzer Tool"
+        },
+        {
+            "fieldname": "analysis_results_section",
+            "fieldtype": "Section Break",
+            "label": "Batch Analysis Results",
+            "depends_on": "eval:doc.status==='Analyzed'"
+        },
+        {
+            "fieldname": "avg_cent_dev",
+            "fieldtype": "Float",
+            "label": "Avg. Cent Deviation",
+            "precision": "2",
+            "read_only": 1
+        },
+        {
+            "fieldname": "pitch_stability",
+            "fieldtype": "Float",
+            "label": "Pitch Stability (Cents STD)",
+            "precision": "2",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "spectral_cent",
+            "fieldtype": "Float",
+            "label": "Spectral Centroid (Hz)",
+            "precision": "2",
+            "read_only": 1
+        },
+        {
+            "fieldname": "spectrogram_section",
+            "fieldtype": "Section Break",
+            "label": "Spectrogram",
+            "depends_on": "eval:doc.status==='Analyzed'"
+        },
+        {
+            "fieldname": "spectrogram_image",
+            "fieldtype": "Attach Image",
+            "label": "Spectrogram Image",
+            "read_only": 1
+        },
+        {
+            "fieldname": "harmonics_chart_html",
+            "fieldtype": "HTML",
+            "label": "Harmonics Chart"
+        },
+        {
+            "fieldname": "technician_review_section",
+            "fieldtype": "Section Break",
+            "label": "Technician Review"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Draft\nAnalyzed\nReviewed",
+            "default": "Draft",
+            "reqd": 1
+        },
+        {
+            "fieldname": "baseline",
+            "fieldtype": "Check",
+            "label": "Use this analysis as a baseline for this instrument model"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text Editor",
+            "label": "Technician Notes"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "harmonics_json",
+            "fieldtype": "Long Text",
+            "hidden": 1,
+            "label": "Harmonics Data"
+        },
+        {
+            "fieldname": "help_section",
+            "fieldtype": "Section Break",
+            "label": "Help"
+        },
+        {
+            "fieldname": "help_html",
+            "fieldtype": "HTML",
+            "label": "Interpreting the Results"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2025-07-25 16:10:00.000000",
+    "modified_by": "Administrator",
+    "module": "Lab",
+    "name": "Tone Analyzer",
+    "label": "Tone and Intonation Analyzer",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Lab Technician",
+            "share": 1,
+            "submit": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Musician",
+            "share": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

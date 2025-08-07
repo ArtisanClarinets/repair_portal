@@ -1,0 +1,17 @@
+{
+  "doctype": "Notification",
+  "module": "QA",
+  "name": "Follow-up Due Notification",
+  "notification_type": "Email",
+  "notification_name": "Follow-up Due Notification",
+  "enabled": 1,
+  "document_type": "Inspection Report",
+  "condition": "frappe.utils.add_days(doc.inspection_date, 90) <= frappe.utils.nowdate() and doc.status == 'Passed'",
+  "subject": "[QA Portal] Follow-up QC Recommended for {{ doc.instrument_id }}",
+  "message": "A complimentary post-sale follow-up QC is due for instrument {{ doc.instrument_id }}. Please contact the customer for scheduling.",
+  "recipients": [
+    { "role": "Client" },
+    { "role": "Technician" },
+    { "role": "Senior Technician" }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+	"doctype": "DocType",
+	"name": "Service Plan",
+	"module": "Service Planning",
+	"custom": 0,
+	"fields": [
+		{ "fieldname": "plan_date", "label": "Plan Date", "fieldtype": "Date" },
+		{
+			"fieldname": "instrument",
+			"label": "Instrument",
+			"fieldtype": "Link",
+			"options": "Instrument Profile"
+		},
+		{
+			"fieldname": "estimated_cost",
+			"label": "Estimated Cost",
+			"fieldtype": "Currency"
+		},
+		{
+			"fieldname": "labor_hours",
+			"label": "Labor Hours",
+			"fieldtype": "Float"
+		},
+		{
+			"fieldname": "notes",
+			"label": "Notes",
+			"fieldtype": "Small Text",
+			"description": "Planning notes or special instructions for this service plan."
+		},
+		{
+			"fieldname": "tasks",
+			"label": "Planned Tasks",
+			"fieldtype": "Table",
+			"options": "Repair Task Log"
+		},
+		{
+			"fieldname": "plan_status",
+			"label": "Plan Status",
+			"fieldtype": "Select",
+			"options": "Draft\nScheduled\nIn Progress\nCompleted\nArchived",
+			"default": "Draft",
+			"read_only": 1,
+			"in_list_view": 1,
+			"description": "Current workflow state of this service plan. Managed by workflow automation."
+		}
+	],
+	"permissions": [
+		{
+			"role": "System Manager",
+			"read": 1,
+			"write": 1,
+			"create": 1,
+			"delete": 1
+		},
+		{
+			"role": "Repair Manager",
+			"read": 1,
+			"write": 1,
+			"create": 1,
+			"delete": 1
+		},
+		{
+			"role": "Technician",
+			"read": 1,
+			"create": 1
+		}
+	]
+}

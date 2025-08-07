@@ -1,0 +1,34 @@
+{
+  "doctype": "DocType",
+  "name": "Leak Reading",
+  "module": "Lab",
+  "istable": 1,
+  "is_child_table": 1,
+  "fields": [
+    {
+      "fieldname": "tone_hole",
+      "label": "Tone Hole",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "leak_score",
+      "label": "Leak Score",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "time_logged",
+      "label": "Time",
+      "fieldtype": "Datetime"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "engine": "InnoDB"
+}

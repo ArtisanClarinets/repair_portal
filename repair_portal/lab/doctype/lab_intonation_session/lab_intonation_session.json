@@ -1,0 +1,47 @@
+{
+  "name": "Lab Intonation Session",
+  "module": "Lab",
+  "doctype": "DocType",
+  "custom": 0,
+  "istable": 0,
+  "fields": [
+    {
+      "fieldname": "instrument",
+      "fieldtype": "Link",
+      "label": "Instrument",
+      "options": "Instrument"
+    },
+    {
+      "fieldname": "session_type",
+      "fieldtype": "Select",
+      "label": "Session Type",
+      "options": "Tone\nImpedance\nFull Sweep"
+    },
+    {
+      "fieldname": "note_data",
+      "fieldtype": "Table",
+      "label": "Note Data",
+      "options": "Intonation Note"
+    },
+    {
+      "fieldname": "avg_impedance",
+      "fieldtype": "Float",
+      "label": "Average Impedance"
+    },
+    {
+      "fieldname": "spectrogram_json",
+      "fieldtype": "Code",
+      "label": "Spectrogram Data",
+      "options": "JSON"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Lab Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "workflow_state_field": "status"
+}

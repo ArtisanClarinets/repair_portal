@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2025-07-03 02:34:34.180519",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2025-07-03 02:34:34.180519",
+ "modified_by": "Administrator",
+ "module": "Inspection",
+ "name": "technician_dashboard",
+ "owner": "Administrator",
+ "page_name": "technician_dashboard",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "technician_dashboard"
+}
