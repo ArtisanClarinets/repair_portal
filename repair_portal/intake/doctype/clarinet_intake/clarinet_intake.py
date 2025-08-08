@@ -103,9 +103,6 @@ class ClarinetIntake(Document):
                 inspection.key_plating = self.key_plating
                 inspection.inspection_date = self.intake_date or nowdate()
                 inspection.status = "Pending"
-                # PATCH: Ensure required fields for New Inventory
-                inspection.key = self.key or frappe.db.get_value("Instrument", self.instrument, "key") if self.instrument else None
-                inspection.wood_type = self.body_material or frappe.db.get_value("Instrument", self.instrument, "wood_type") if self.instrument else None
 
                 # Robust inspected_by fallback
                 inspected_by_meta = frappe.get_meta("Instrument Inspection").get_field("inspected_by")

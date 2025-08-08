@@ -1,7 +1,7 @@
 # File Header Template
 # Relative Path: repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.py
-# Last Updated: 2025-07-20
-# Version: v1.2
+# Last Updated: 2025-08-07
+# Version: v1.2.1 (Patch: Autofill key & wood_type from Instrument on validate)
 # Purpose: Controller for Instrument Inspection DocType - handles validation, automation, and exception logging for all inspection scenarios (inventory, repair, maintenance, QA). Also syncs deep inspection specs to Instrument Profile.
 # Dependencies: frappe, Inspection Finding, Tenon Fit Record, Tone Hole Inspection Record, Instrument Profile
 
@@ -74,15 +74,6 @@ class InstrumentInspection(Document):
         visual_inspection: DF.Table[InspectionFinding]
         wood_type: DF.Literal["Grenadilla", "Mopane", "Cocobolo", "Synthetic", "Other"]
     # end: auto-generated types
-    """
-    Controller for Instrument Inspection. Handles validation and custom automation.
-
-    Args:
-        Document (frappe.model.document.Document): Frappe Document base class
-    Returns:
-        None
-    """
-    pass
 
     def validate(self) -> None:
         """
@@ -92,13 +83,13 @@ class InstrumentInspection(Document):
         try:
             # Ensure serial_no is unique
             self._validate_unique_serial()
+
             # Required fields for New Inventory
             if self.inspection_type == "New Inventory":
-                missing = [
-                    f for f in ["manufacturer", "model", "key", "wood_type"] if not getattr(self, f, None)
-                ]
+                missing = [f for f in ["manufacturer", "model", "key", "wood_type"] if not getattr(self, f, None)]
                 if missing:
                     frappe.throw(f"Missing required field(s) for New Inventory: {', '.join(missing)}")
+
             # Customer fields only for non-inventory
             if self.inspection_type == "New Inventory" and (self.customer or self.preliminary_estimate):
                 frappe.throw("Customer and pricing fields must be empty for New Inventory inspections.")
