@@ -17,7 +17,7 @@ import os
 import frappe
 
 # Path to your app’s folder under apps/
-APP_PATH = "/opt/frappe/erp-bench/apps/repair_portal/repair_portal"
+APP_PATH = "/home/frappe/frappe-bench/apps/repair_portal/repair_portal"
 
 # Counters
 reload_count = 0
