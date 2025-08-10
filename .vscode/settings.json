@@ -1,0 +1,22 @@
+{
+	"workbench.editor.enablePreviewFromQuickOpen": true,
+	"workbench.editor.enablePreviewFromCodeNavigation": true,
+	"sqltools.connections": [
+		{
+			"mysqlOptions": {
+				"authProtocol": "default",
+				"enableSsl": "Disabled"
+			},
+			"previewLimit": 50,
+			"server": "localhost",
+			"port": 3306,
+			"driver": "MariaDB",
+			"name": "erp_artisanclarinets_com",
+			"group": "frappe",
+			"database": "erp_artisanclarinets_com",
+			"username": "root",
+			"password": "Bhg75jfmc!"
+		}
+	],
+	"python-envs.pythonProjects": []
+}

@@ -13,29 +13,23 @@ app_email = "DT@DT.com"
 app_license = "mit"
 app_version = "1.2.2"
 
-
-doctype_js = {
-    "Import Mapping Setting": {
-			"/public/js/import_mapping_setting_autofill.js"
-}
-	
-}
-
-app_include_js = [
-    "/repair_portal/repair_portal_settings/doctype/import_mapping_setting/import_mapping_setting.js",
-    "/repair_portal/repair_portal_settings/doctype/import_mapping_setting_field/import_mapping_setting_field.js"
+required_apps = [
+    "frappe",
+    "erpnext"
 ]
 
+
 # fire this before any DDL, patches or fixtures run
-before_install = [ "repair_portal.install.check_setup_complete"
+before_install = [ "repair_portal.install.check_setup_complete",
 ]
 
 after_install = [
     "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
-"repair_portal.instrument_setup.hooks.load_templates.load_setup_templates",
 ]
+
 after_migrate = [
-   "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes"
+	"repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
+        "repair_portal.install.seed_item_groups_after_migrate",
 ]
 
 doc_events = {
@@ -51,15 +45,6 @@ doc_events = {
         )
     }
 }
-
-fixtures = [
-    {
-        "dt": "Setup Template",
-        "filters": [
-            ["template_name", "=", "Bb Clarinet Standard Setup"]
-        ]
-    }
-]
 
 
 # website_route_rules = [

@@ -80,7 +80,7 @@
    "reqd": 1
   },
   {
-   "fetch_from": "instrument.instrument_category",
+   "fetch_from": "instrument.instrument_type",
    "fetch_if_empty": 1,
    "fieldname": "clarinet_type",
    "fieldtype": "Select",
@@ -197,7 +197,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-30 02:04:56.270221",
+ "modified": "2025-08-08 19:34:33.338854",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Initial Setup",

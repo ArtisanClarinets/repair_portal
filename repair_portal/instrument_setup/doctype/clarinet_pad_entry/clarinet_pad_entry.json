@@ -17,11 +17,25 @@
    "label": "Pad Position"
   },
   {
+    "fieldname": "is_secondary_pad",
+    "fieldtype": "Check",
+    "label": "Is Secondary Pad",
+    "default": 0,
+    "description": "Is this a secondary pad? (Secondary pads are the pads that are controlled by anything but the players finger. E.g. The LH2 is a secondary key when the RH1 is pressed for 1-and-1"
+  },
+  {
+    "fieldname": "parent_pad",
+    "fieldtype": "Link",
+    "label": "Parent Pad",
+    "options": "Clarinet Pad Entry",
+    "mandatory_depends_on": "is_secondary_pad=1"
+  },
+  {
    "fieldname": "pad_type",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Pad Type",
-   "options": "Leather\nCork\nSkin\nGoreTex (GT)\nSynthetic\nFelt\nOther"
+   "description": "Please only input the type of material of the pad. (E.g. Leather, Cork, Double-Skin, GoreTex, etc.)"
   },
   {
    "default": "0",
