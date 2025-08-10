@@ -1,5 +1,6 @@
 # repair_portal/install.py
 import sys
+import traceback
 import frappe
 
 
@@ -86,3 +87,18 @@ def seed_item_groups_after_migrate():
         frappe.log_error(title="Item Group Seeding Failed", message=traceback.format_exc())
         # If you prefer to fail the migration on errors, uncomment:
         # raise
+
+#############################################################################
+# in repair_portal/install.py
+def seed_all_from_schemas():
+    from .scripts.doctype_loader import load_from_default_schemas
+    try:
+        print("🌱 Seeding doctypes from schemas …")
+        load_from_default_schemas()
+        print("✅ Seeding complete.")
+    except Exception as e:
+        frappe.db.rollback()
+        print(f"\033[91m❌ Seeding failed: {e}\033[0m")
+        frappe.log_error(title="Schema Seeding Failed", message=traceback.format_exc())
+        # raise  # uncomment if you want migrate to fail on errors
+#############################################################################

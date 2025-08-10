@@ -25,12 +25,15 @@ before_install = [ "repair_portal.install.check_setup_complete",
 
 after_install = [
     "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
+    "repair_portal.install.seed_all_from_schemas",
 ]
 
 after_migrate = [
 	"repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
         "repair_portal.install.seed_item_groups_after_migrate",
-]
+        "repair_portal.install.seed_all_from_schemas",
+    ]
+
 
 doc_events = {
     "Repair Order": {
