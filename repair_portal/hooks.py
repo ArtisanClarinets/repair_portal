@@ -30,7 +30,7 @@ after_install = [
 
 after_migrate = [
 	"repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
-        "repair_portal.install.seed_item_groups_after_migrate",
+#        "repair_portal.install.seed_item_groups_after_migrate",
         "repair_portal.install.seed_all_from_schemas",
     ]
 
