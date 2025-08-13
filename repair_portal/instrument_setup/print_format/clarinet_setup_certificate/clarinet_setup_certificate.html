@@ -1,0 +1,356 @@
+{% set default_company = frappe.db.get_single_value("Global Defaults","default_company") %}
+{% set company = frappe.get_doc("Company", default_company) if default_company else None %}
+{% set logo = (company.company_logo if company and company.company_logo else None) %}
+{% set status_color = 'var(--ok)' if doc.status == 'Pass' else ('var(--err)' if doc.status == 'Fail' else 'var(--muted)') %}
+{% set status_label = doc.status or 'Open' %}
+{% set tasks = frappe.get_all('Clarinet Setup Task',
+    filters={'clarinet_initial_setup': doc.name},
+    fields=['name','subject','status','priority','exp_start_date','exp_end_date','progress','sequence'],
+    order_by='sequence asc, exp_start_date asc') %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Clarinet Setup Certificate – {{ doc.name }}</title>
+<style>
+  /* --- Print-safe design tokens --- */
+  :root{
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol", sans-serif;
+    --title: #0b5fff;
+    --ink: #111;
+    --muted: #5b6672;
+    --line: #dfe3e8;
+    --bg: #f8fafc;
+    --ok: #0aa35b;
+    --warn: #e3a008;
+    --err: #d93025;
+  }
+
+  @page { size: A4; margin: 18mm 16mm; }
+  body { font-family: var(--font); color: var(--ink); font-size: 12.5px; line-height: 1.45; }
+
+  .wrap { width: 100%; }
+  .header {
+    display: grid; grid-template-columns: 72px auto 160px; gap: 16px; align-items: center;
+    border-bottom: 2px solid var(--line); padding-bottom: 10px; margin-bottom: 14px;
+  }
+  .logo-box { width: 72px; height: 72px; border: 1px solid var(--line); border-radius: 8px; display:flex; align-items:center; justify-content:center; overflow: hidden; background:#fff; }
+  .logo-box img { width: 100%; height: 100%; object-fit: contain; }
+  .co {
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .co .name { font-weight: 700; font-size: 16px; letter-spacing:.2px; }
+  .co .sub  { color: var(--muted); font-size: 11.5px; }
+  .badge {
+    border-left: 4px solid {{ status_color }}; padding: 8px 10px; border-radius: 6px; background: #fff; border:1px solid var(--line);
+  }
+  .badge .title { font-weight: 700; font-size: 14px; color: var(--title); margin-bottom: 3px; }
+  .badge .kvs { display:grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; font-size: 11.5px; }
+  .k  { color: var(--muted); }
+  .v  { font-weight: 600; color: var(--ink); }
+
+  h1.title {
+    font-size: 20px; color: var(--title); margin: 10px 0 6px 0; letter-spacing:.3px;
+  }
+  h2.sec { font-size: 13px; color:#1f2937; margin: 14px 0 6px 0; padding-top: 4px; border-top: 1px solid var(--line);}
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display:grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 12px; }
+
+  .card { border:1px solid var(--line); border-radius: 10px; background: #fff; padding: 10px 12px; }
+  .muted { color: var(--muted); }
+
+  table.tbl { width:100%; border-collapse: separate; border-spacing: 0; }
+  .tbl th, .tbl td { text-align:left; padding: 8px 10px; vertical-align: top; }
+  .tbl th { font-size: 11.5px; color: var(--muted); border-bottom: 1px solid var(--line); font-weight: 600; }
+  .tbl tr td { border-bottom: 1px solid #eef2f6; }
+  .tbl tr:last-child td { border-bottom: 0; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+
+  .stat { display:flex; gap:8px; align-items:center; }
+  .dot { width:10px; height:10px; border-radius:50%; background: var(--muted); }
+  .dot.ok { background: var(--ok); }
+  .dot.warn { background: var(--warn); }
+  .dot.err { background: var(--err); }
+  .pill {
+    border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; font-size: 11.5px; color: var(--muted);
+  }
+
+  .totals { display:flex; justify-content:flex-end; margin-top: 6px; }
+  .totals .row { display:grid; grid-template-columns: 160px 140px; gap: 10px; }
+  .totals .lbl { text-align:right; color: var(--muted); }
+  .totals .val { text-align:right; font-weight:700; }
+
+  .sig { display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 16px; }
+  .sig .line { border-top: 1px solid var(--ink); height: 28px; margin-top: 24px; }
+  .foot { margin-top: 16px; font-size: 10.5px; color: var(--muted); border-top:1px dashed var(--line); padding-top: 8px;}
+
+  .check { font-weight: 700; }
+  .check.ok { color: var(--ok); }
+  .check.no { color: var(--muted); }
+
+  .kv { display:grid; grid-template-columns: 140px 1fr; gap: 6px 10px; }
+  .kv .k { color: var(--muted); }
+  .kv .v { font-weight: 600; }
+
+  .mt-6{ margin-top: 6px; } .mt-8{ margin-top: 8px; } .mt-10{ margin-top:10px; }
+  .mb-6{ margin-bottom: 6px; } .mb-8{ margin-bottom: 8px; }
+
+  .shadow-card{ box-shadow: 0 1px 0 #e5e7eb, 0 6px 12px -6px rgba(0,0,0,.08); }
+  .r8{ border-radius: 8px; }
+
+  .watermark {
+    position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%) rotate(-20deg);
+    font-size: 68px; color: rgba(217,48,37,0.09); font-weight: 900; letter-spacing: 3px; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  {% if status_label == 'Fail' %}
+    <div class="watermark">REWORK</div>
+  {% endif %}
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-box r8 shadow-card">
+      {% if logo %}
+        <img src="{{ logo }}">
+      {% else %}
+        <span class="mono" style="font-size:11px;">{{ company.name if company else 'Company' }}</span>
+      {% endif %}
+    </div>
+    <div class="co">
+      <div class="name">{{ company.name if company else 'Instrument Service' }}</div>
+      <div class="sub">
+        {{ company.website or '' }}{% if company.website and company.email_id %} · {% endif %}{{ company.email_id or '' }}
+      </div>
+      <div class="sub">{{ company.phone_no or '' }}</div>
+    </div>
+    <div class="badge">
+      <div class="title">Clarinet Setup Certificate</div>
+      <div class="kvs">
+        <div class="k">Certificate ID</div><div class="v mono">{{ doc.name }}</div>
+        <div class="k">Status</div><div class="v" style="color: {{ status_color }};">{{ status_label }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="grid-3">
+    <div class="card">
+      <h2 class="sec">Instrument</h2>
+      <div class="kv mt-6">
+        <div class="k">Instrument</div><div class="v">{{ doc.instrument or '—' }}</div>
+        <div class="k">Model</div><div class="v">{{ doc.model or '—' }}</div>
+        <div class="k">Serial No.</div><div class="v mono">{{ doc.serial_no or '—' }}</div>
+        <div class="k">Type</div><div class="v">{{ doc.clarinet_type or '—' }}</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2 class="sec">Setup</h2>
+      <div class="kv mt-6">
+        <div class="k">Setup Date</div><div class="v">{{ frappe.utils.formatdate(doc.setup_date) if doc.setup_date else '—' }}</div>
+        <div class="k">Technician</div><div class="v">{{ doc.technician or '—' }}</div>
+        <div class="k">Template</div><div class="v">{{ doc.setup_template or '—' }}</div>
+        <div class="k">Progress</div><div class="v">{{ (doc.progress|string) ~ '%' if doc.progress is not none else '—' }}</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2 class="sec">References</h2>
+      <div class="kv mt-6">
+        <div class="k">Intake</div><div class="v mono">{{ doc.intake or '—' }}</div>
+        <div class="k">Inspection</div><div class="v mono">{{ doc.inspection or '—' }}</div>
+        <div class="k">Certificate</div><div class="v mono">{{ doc.clarinet_initial_setup_id or '—' }}</div>
+      </div>
+      <div class="mt-8 muted">All work performed to MRW/The Clarinet Wizard standards of professional repair and setup.</div>
+    </div>
+  </div>
+
+  <!-- Checklist & Operations -->
+  <div class="grid-2 mt-10">
+    <div class="card">
+      <h2 class="sec">Checklist</h2>
+      {% if doc.checklist and doc.checklist|length %}
+        <table class="tbl mt-6">
+          <thead>
+            <tr>
+              <th style="width:22px;">✓</th>
+              <th>Item</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for r in doc.checklist %}
+            <tr>
+              <td class="check {{ 'ok' if (r.completed or 0) else 'no' }}">{{ '✓' if (r.completed or 0) else '—' }}</td>
+              <td>{{ r.task or '—' }}</td>
+              <td>{{ r.notes or '' }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="muted mt-6">No checklist items recorded.</div>
+      {% endif %}
+    </div>
+
+    <div class="card">
+      <h2 class="sec">Operations Performed</h2>
+      {% if doc.operations_performed and doc.operations_performed|length %}
+        <table class="tbl mt-6">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Operation</th>
+              <th>Component</th>
+              <th>Details</th>
+              <th style="width:22px; text-align:center;">✓</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for op in doc.operations_performed %}
+            <tr>
+              <td>{{ op.section or '—' }}</td>
+              <td>{{ op.operation_type or '—' }}</td>
+              <td class="mono">{{ op.component_ref or '—' }}</td>
+              <td>{{ op.details or '' }}</td>
+              <td style="text-align:center;" class="check {{ 'ok' if (op.completed or 0) else 'no' }}">{{ '✓' if (op.completed or 0) else '—' }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="muted mt-6">No operations recorded.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Tasks (live roll-up) -->
+  <div class="card mt-10">
+    <h2 class="sec">Task Summary</h2>
+    {% if tasks and tasks|length %}
+      <table class="tbl mt-6">
+        <thead>
+          <tr>
+            <th style="width:48px;">Seq</th>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Expected</th>
+            <th style="width:75px; text-align:right;">Progress</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in tasks %}
+          <tr>
+            <td class="mono">{{ t.sequence or '' }}</td>
+            <td>{{ t.subject or t.name }}</td>
+            <td>
+              <span class="pill">{{ t.status or 'Open' }}</span>
+            </td>
+            <td>{{ t.priority or '—' }}</td>
+            <td>
+              {% if t.exp_start_date %}{{ frappe.utils.formatdate(t.exp_start_date) }}{% endif %}
+              {% if t.exp_end_date %} – {{ frappe.utils.formatdate(t.exp_end_date) }}{% endif %}
+            </td>
+            <td style="text-align:right;">{{ (t.progress|string) ~ '%' if t.progress is not none else '—' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="muted mt-6">No tasks available for this setup.</div>
+    {% endif %}
+  </div>
+
+  <!-- Materials Used -->
+  <div class="card mt-10">
+    <h2 class="sec">Materials Used</h2>
+    {% if doc.materials_used and doc.materials_used|length %}
+      {% set ns = namespace(total=0) %}
+      <table class="tbl mt-6">
+        <thead>
+          <tr>
+            <th style="width:140px;">Item</th>
+            <th>Description</th>
+            <th style="width:60px; text-align:right;">Qty</th>
+            <th style="width:70px;">UOM</th>
+            <th style="width:80px; text-align:right;">Rate</th>
+            <th style="width:90px; text-align:right;">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in doc.materials_used %}
+          {% set line_amt = (m.amount if m.amount is not none else ((m.qty or 0) * (m.rate or 0))) %}
+          {% set ns.total = ns.total + (line_amt or 0) %}
+          <tr>
+            <td class="mono">{{ m.item_code or '—' }}</td>
+            <td>{{ m.description or '' }}</td>
+            <td style="text-align:right;">{{ '{:,.2f}'.format(m.qty or 0) }}</td>
+            <td>{{ m.uom or '' }}</td>
+            <td style="text-align:right;">{{ '{:,.2f}'.format(m.rate or 0) }}</td>
+            <td style="text-align:right; font-weight:600;">{{ '{:,.2f}'.format(line_amt or 0) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="totals">
+        <div class="row">
+          <div class="lbl">Materials Total</div>
+          <div class="val">{{ '{:,.2f}'.format(ns.total) }}</div>
+        </div>
+      </div>
+    {% else %}
+      <div class="muted mt-6">No materials logged.</div>
+    {% endif %}
+  </div>
+
+  <!-- Logs (optional) -->
+  <div class="card mt-10">
+    <h2 class="sec">Setup Logs</h2>
+    {% if doc.setup_logs_table and doc.setup_logs_table|length %}
+      <table class="tbl mt-6">
+        <thead>
+          <tr>
+            <th style="width:100px;">When</th>
+            <th>Note</th>
+            <th style="width:160px;">By</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for l in doc.setup_logs_table %}
+          <tr>
+            <td class="mono">{{ frappe.utils.format_datetime(l.creation) if l.creation else '' }}</td>
+            <td>{{ l.note or l.description or '' }}</td>
+            <td>{{ l.owner or '' }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="muted mt-6">No setup log entries.</div>
+    {% endif %}
+  </div>
+
+  <!-- Signatures -->
+  <div class="sig">
+    <div>
+      <div class="line"></div>
+      <div class="muted">Technician Signature &nbsp; · &nbsp; {{ doc.technician or '' }}</div>
+    </div>
+    <div>
+      <div class="line"></div>
+      <div class="muted">Client Signature &nbsp; · &nbsp; {{ doc.customer_name or '' }}</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Generated for {{ company.name if company else 'our valued client' }} on {{ frappe.utils.format_datetime(frappe.utils.now_datetime()) }}.
+    This certificate summarizes work performed during the clarinet setup process and is part of the instrument’s permanent service record.
+  </div>
+
+</div>
+</body>
+</html>

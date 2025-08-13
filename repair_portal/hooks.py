@@ -7,11 +7,10 @@
 export_python_type_annotations = True
 app_name = "repair_portal"
 app_title = "Repair Portal"
-app_publisher = "DT"
+app_publisher = "Dylan Thompson"
 app_description = "Portals for the Repair Portal App"
-app_email = "DT@DT.com"
+app_email = "info@artisanclarinets.com"
 app_license = "mit"
-app_version = "1.2.2"
 
 required_apps = [
     "frappe",
@@ -20,7 +19,9 @@ required_apps = [
 
 
 # fire this before any DDL, patches or fixtures run
-before_install = [ "repair_portal.install.check_setup_complete",
+before_install = [ 
+    "repair_portal.install.check_setup_complete",
+    "repair_portal.install.seed_item_groups_after_migrate",
 ]
 
 after_install = [
@@ -30,8 +31,8 @@ after_install = [
 
 after_migrate = [
 	"repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
-#        "repair_portal.install.seed_item_groups_after_migrate",
-        "repair_portal.install.seed_all_from_schemas",
+#   "repair_portal.install.seed_item_groups_after_migrate",
+#   "repair_portal.install.seed_all_from_schemas",
     ]
 
 

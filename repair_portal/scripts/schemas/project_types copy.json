@@ -1,0 +1,5 @@
+[
+  { "doctype": "Project Type", "name": "Instrument Setup", "project_type": "Instrument Setup", "description": "Instrument setup, adjustment, validation" },
+  { "doctype": "Project Type", "name": "Instrument Repair", "project_type": "Instrument Repair", "description": "Instrument repair and maintenance" },
+  { "doctype": "Project Type", "name": "Maintenance", "project_type": "Maintenance", "description": "Maintenance and quality assurance" }
+]

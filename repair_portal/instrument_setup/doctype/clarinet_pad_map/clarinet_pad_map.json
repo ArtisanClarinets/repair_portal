@@ -1,12 +1,11 @@
 {
  "actions": [],
- "autoname": "format:PDMP-{clarinet_model}-{####}",
+ "autoname": "prompt",
  "creation": "2025-07-30 03:20:56.315260",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "instrument_category",
-  "pad_map_title",
   "clarinet_model",
   "top_joint_pads",
   "bottom_joint_pads"
@@ -33,14 +32,6 @@
    "options": "Clarinet Pad Entry"
   },
   {
-   "fieldname": "pad_map_title",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "in_list_view": 1,
-   "label": "Pad Map Title",
-   "search_index": 1
-  },
-  {
    "fetch_from": "clarinet_model.instrument_category",
    "fetch_if_empty": 1,
    "fieldname": "instrument_category",
@@ -50,11 +41,11 @@
   }
  ],
  "links": [],
- "modified": "2025-07-30 05:54:54.092844",
+ "modified": "2025-08-11 19:11:47.276918",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Pad Map",
- "naming_rule": "Expression",
+ "naming_rule": "Set by user",
  "owner": "Administrator",
  "permissions": [
   {

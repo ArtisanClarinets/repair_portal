@@ -1,0 +1,22 @@
+[
+  {
+    "doctype": "Brand",
+    "brand": "Generic",
+    "description": "Generic brand for standard models"
+  },
+  {
+    "doctype": "Brand",
+    "brand": "Buffet Crampon",
+    "description": "Premium brand known for high-quality clarinets"
+  },
+  {
+    "doctype":"Brand",
+    "brand": "Yamaha",
+    "description": "Well-known brand offering a range of musical instruments"
+  },
+  {
+    "doctype": "Brand",
+    "brand": "RZ Clarinets",
+    "description": "Specialized brand for hand-crafted clarinets"
+  }
+]

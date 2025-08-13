@@ -42,41 +42,41 @@
   {
     "doctype": "Instrument Model",
     "brand": "Generic",
-    "model": "Bass Clarinet Low E♭",
+    "model": "Standard Bass Clarinet — Low E♭",
     "instrument_category": "Bass — Low E♭",
     "body_material": "Grenadilla",
-    "instrument_model_id": "Standard Bass Clarinet Low E♭"
+    "instrument_model_id": "Standard Bass Clarinet — Low E♭"
   },
   {
     "doctype": "Instrument Model",
     "brand": "Generic",
-    "model": "Bass Clarinet Low C",
+    "model": "Standard Bass Clarinet — Low C",
     "instrument_category": "Bass — Low C",
     "body_material": "Grenadilla",
-    "instrument_model_id": "Standard Bass Clarinet Low C"
+    "instrument_model_id": "Standard Bass Clarinet — Low C"
   },
   {
     "doctype": "Instrument Model",
     "brand": "Generic",
-    "model": "Alto Clarinet",
+    "model": "Standard Alto Clarinet",
     "instrument_category": "Alto",
     "body_material": "Grenadilla",
-    "instrument_model_id": "Alto Clarinet"
+    "instrument_model_id": "Standard Alto Clarinet"
   },
   {
     "doctype": "Instrument Model",
     "brand": "Generic",
-    "model": "Contra-Alto Clarinet",
-    "instrument_category": "Contra-Alto",
+    "model": "Standard ContraAlto Clarinet",
+    "instrument_category": "ContraAlto",
     "body_material": "Grenadilla",
-    "instrument_model_id": "Contra-Alto Clarinet"
+    "instrument_model_id": "Standard ContraAlto Clarinet"
   },
   {
     "doctype": "Instrument Model",
     "brand": "Generic",
-    "model": "Contra-Bass Clarinet",
-    "instrument_category": "Contra-Bass",
+    "model": "Standard ContraBass Clarinet",
+    "instrument_category": "ContraBass",
     "body_material": "Grenadilla",
-    "instrument_model_id": "Contra-Bass Clarinet"
+    "instrument_model_id": "Standard ContraBass Clarinet"
   }
 ]

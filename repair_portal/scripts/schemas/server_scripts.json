@@ -1,0 +1,25 @@
+[
+  {
+    "doctype": "Server Script",
+    "name": "Clarinet Template: populate child rows",
+    "enabled": 1,
+    "script_type": "DocType Event",
+    "reference_doctype": "Project Template",
+    "doctype_event": "After Save",
+    "view": "Server",
+    "module": "Projects",
+    "script": "\n# Populate Project Template.tasks by resolving Task names from subjects (works with autoname)\nTEMPLATE_NAME = 'B♭ Clarinet Standard Setup (v1.0)'\nORDER = [\n  'Perform Environmental Logging & Acclimatization',\n  'Complete Visual and Tactile Inspection',\n  'Assess Initial Tenon Fit (No Grease)',\n  'Execute Standardized Break-In Schedule',\n  'Perform Bore Oiling',\n  'Verify Tone Hole Geometry',\n  'Perform Precision Tenon Cork Replacement',\n  'Select and Install All Pads',\n  'Optimize Key Heights (Venting)',\n  'Calibrate Spring Tensions',\n  'Perform Inter-Key Regulation',\n  'Validate System-Wide Airtightness',\n  'Generate Empirical Pitch Curve',\n  'Perform Voicing & Micro-Adjustments',\n  'Complete Final Performance Validation',\n  'Generate Certificate of Acoustic Performance'\n]\n\nif doc.name == TEMPLATE_NAME:\n  # subject -> Task.name (only template tasks)\n  rows = frappe.get_all('Task', filters={'is_template': 1, 'subject': ['in', ORDER]}, fields=['name','subject'])\n  by_subject = {r['subject']: r['name'] for r in rows}\n\n  # existing links\n  existing = set([r.task for r in (doc.tasks or []) if r.task])\n\n  changed = False\n  for subj in ORDER:\n    taskname = by_subject.get(subj)\n    if taskname and taskname not in existing:\n      doc.append('tasks', {'doctype': 'Project Template Task', 'task': taskname})\n      changed = True\n\n  if changed:\n    doc.save(ignore_permissions=True)\n"
+  },
+  {
+    "doctype": "Server Script",
+    "name": "Clarinet Template: wire dependencies",
+    "enabled": 1,
+    "script_type": "DocType Event",
+    "reference_doctype": "Project",
+    "doctype_event": "After Insert",
+    "view": "Server",
+    "module": "Projects",
+    "condition": "doc.project_template == 'B♭ Clarinet Standard Setup (v1.0)'",
+    "script": "\n# Add Task Depends On rows inside the created Project by matching subjects\nCHAIN = [\n ('Complete Visual and Tactile Inspection','Perform Environmental Logging & Acclimatization'),\n ('Assess Initial Tenon Fit (No Grease)','Complete Visual and Tactile Inspection'),\n ('Execute Standardized Break-In Schedule','Assess Initial Tenon Fit (No Grease)'),\n ('Perform Bore Oiling','Execute Standardized Break-In Schedule'),\n ('Verify Tone Hole Geometry','Perform Bore Oiling'),\n ('Perform Precision Tenon Cork Replacement','Verify Tone Hole Geometry'),\n ('Select and Install All Pads','Perform Precision Tenon Cork Replacement'),\n ('Optimize Key Heights (Venting)','Select and Install All Pads'),\n ('Calibrate Spring Tensions','Optimize Key Heights (Venting)'),\n ('Perform Inter-Key Regulation','Calibrate Spring Tensions'),\n ('Validate System-Wide Airtightness','Perform Inter-Key Regulation'),\n ('Generate Empirical Pitch Curve','Validate System-Wide Airtightness'),\n ('Perform Voicing & Micro-Adjustments','Generate Empirical Pitch Curve'),\n ('Complete Final Performance Validation','Perform Voicing & Micro-Adjustments'),\n ('Generate Certificate of Acoustic Performance','Complete Final Performance Validation')\n]\n\nproj = doc.name\nrows = frappe.get_all('Task', filters={'project': proj}, fields=['name','subject'])\nby_subject = {r['subject']: r['name'] for r in rows}\n\nfor child_subj, parent_subj in CHAIN:\n  child = by_subject.get(child_subj)\n  parent = by_subject.get(parent_subj)\n  if not child or not parent:\n    continue\n  t = frappe.get_doc('Task', child)\n  present = False\n  for row in (t.depends_on or []):\n    if row.task == parent:\n      present = True\n      break\n  if not present:\n    t.append('depends_on', {'task': parent})\n    t.save(ignore_permissions=True)\n"
+  }
+]

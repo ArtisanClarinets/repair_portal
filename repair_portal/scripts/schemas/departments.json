@@ -1,0 +1,26 @@
+[
+    {
+        "doctype": "Department",
+        "department_name": "Clarinet Repair",
+        "parent_department": "All Departments",
+        "company": "MRW Artisan Instruments",
+        "is_group": 1,
+        "disabled": 0
+    },
+{
+        "doctype": "Department",
+        "department_name": "Maintenance",
+        "parent_department": "Clarinet Repair - MAI",
+        "company": "MRW Artisan Instruments",
+        "is_group": 1,
+        "disabled": 0
+    },
+    {
+        "doctype": "Department",
+        "department_name": "Instrument Setup",
+        "parent_department": "Clarinet Repair - MAI",
+        "company": "MRW Artisan Instruments",
+        "is_group": 1,
+        "disabled": 0
+    }
+]

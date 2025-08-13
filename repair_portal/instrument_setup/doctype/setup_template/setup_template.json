@@ -1,88 +1,69 @@
 {
- "actions": [],
- "allow_rename": 1,
- "autoname": "format:STUPT-{clarinet_model}",
- "creation": "2025-07-28 15:44:50.024027",
- "doctype": "DocType",
- "engine": "InnoDB",
- "field_order": [
-  "template_name",
-  "clarinet_model",
-  "pad_map",
-  "default_operations",
-  "checklist_items"
- ],
- "fields": [
-  {
-   "fieldname": "template_name",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Template Name",
-   "set_only_once": 1,
-   "unique": 1
-  },
-  {
-   "description": "The model of the clarinet this setup template is designed for.",
-   "fetch_if_empty": 1,
-   "fieldname": "clarinet_model",
-   "fieldtype": "Link",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Clarinet Model",
-   "options": "Instrument Model",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
-   "description": "Predefined pad layout to associate with this template.",
-   "fieldname": "pad_map",
-   "fieldtype": "Link",
-   "label": "Pad Map",
-   "options": "Clarinet Pad Map"
-  },
-  {
-   "description": "Operations this template should pre-populate.",
-   "fieldname": "default_operations",
-   "fieldtype": "Table",
-   "label": "Default Operations",
-   "options": "Clarinet Setup Operation"
-  },
-  {
-   "description": "List of items to be checked during the setup process. Each item can include a description, status, and any additional notes.",
-   "fieldname": "checklist_items",
-   "fieldtype": "Table",
-   "label": "Checklist Items",
-   "options": "Setup Checklist Item"
-  }
- ],
- "links": [],
- "modified": "2025-07-30 03:07:10.651922",
- "modified_by": "Administrator",
- "module": "Instrument Setup",
- "name": "Setup Template",
- "naming_rule": "Expression",
- "owner": "Administrator",
- "permissions": [
-  {
-   "read": 1,
-   "role": "Technician"
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "read": 1,
-   "role": "Service Manager",
-   "write": 1
-  }
- ],
- "row_format": "Dynamic",
- "sort_field": "modified",
- "sort_order": "DESC",
- "states": []
+  "doctype": "DocType",
+  "name": "Setup Template",
+  "module": "Instrument Setup",
+  "engine": "InnoDB",
+  "track_changes": 1,
+  "field_order": [
+    "template_name",
+    "clarinet_model",
+    "pad_map",
+    "default_operations",
+    "checklist_items",
+    "template_tasks"
+  ],
+  "fields": [
+    {
+      "fieldname": "template_name",
+      "fieldtype": "Data",
+      "label": "Template Name",
+      "unique": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "set_only_once": 1,
+      "hidden": 1
+    },
+    {
+      "fieldname": "clarinet_model",
+      "fieldtype": "Link",
+      "label": "Instrument Model",
+      "options": "Instrument Model",
+      "in_standard_filter": 1,
+      "description": "Model this template is designed for."
+    },
+    {
+      "fieldname": "pad_map",
+      "fieldtype": "Link",
+      "label": "Pad Map",
+      "options": "Clarinet Pad Map"
+    },
+    {
+      "fieldname": "default_operations",
+      "fieldtype": "Table",
+      "label": "Default Operations",
+      "options": "Clarinet Setup Operation",
+      "description": "Operations to pre-populate on a Clarinet Initial Setup."
+    },
+    {
+      "fieldname": "checklist_items",
+      "fieldtype": "Table",
+      "label": "Checklist Items",
+      "options": "Setup Checklist Item",
+      "description": "Items to check during setup (each may have status, notes)."
+    },
+    {
+      "fieldname": "template_tasks",
+      "fieldtype": "Table",
+      "label": "Template Tasks",
+      "options": "Clarinet Template Task",
+      "description": "Task rows used to instantiate Clarinet Setup Task documents."
+    }
+  ],
+  "permissions": [
+    { "role": "Technician", "read": 1, "write": 1, "create": 1 },
+    { "role": "Service Manager", "read": 1, "write": 1, "create": 1 },
+    { "role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1 }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
 }

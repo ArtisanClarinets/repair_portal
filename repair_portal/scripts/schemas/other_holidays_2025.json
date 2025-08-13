@@ -1,0 +1,88 @@
+{
+  "doctype": "Holiday List",
+  "name": "US Minor & National Days 2025",
+  "holiday_list_name": "US Minor & National Days 2025",
+  "from_date": "2025-01-01",
+  "to_date": "2025-12-31",
+  "color": "#FF6347",
+  "holidays": [
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-01-24",
+      "description": "National Peanut Butter Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-03-14",
+      "description": "Pi Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-03-17",
+      "description": "National Corned Beef and Cabbage Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-04-22",
+      "description": "Earth Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-05-5",
+      "description": "Cinco de Mayo",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-06-21",
+      "description": "National Selfie Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-07-17",
+      "description": "World Emoji Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-07-20",
+      "description": "National Hot Dog Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-08-8",
+      "description": "National Cat Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-09-13",
+      "description": "National Peanut Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-10-14",
+      "description": "National Dessert Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-11-13",
+      "description": "World Kindness Day",
+      "weekly_off": 0
+    },
+    {
+      "doctype": "Holiday",
+      "holiday_date": "2025-12-04",
+      "description": "National Cookie Day",
+      "weekly_off": 0
+    }
+  ]
+}

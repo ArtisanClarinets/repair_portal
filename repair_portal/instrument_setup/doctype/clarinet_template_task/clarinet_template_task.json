@@ -1,0 +1,16 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Template Task",
+  "module": "Instrument Setup",
+  "engine": "InnoDB",
+  "istable": 1,
+  "fields": [
+    { "fieldname": "sequence", "fieldtype": "Int", "label": "Sequence", "reqd": 1, "in_list_view": 1 },
+    { "fieldname": "subject", "fieldtype": "Data", "label": "Subject", "reqd": 1, "in_list_view": 1 },
+    { "fieldname": "description", "fieldtype": "Small Text", "label": "Description" },
+    { "fieldname": "default_priority", "fieldtype": "Select", "label": "Priority", "options": "Low\nMedium\nHigh\nUrgent", "default": "Medium" },
+    { "fieldname": "exp_start_offset_days", "fieldtype": "Int", "label": "Expected Start Offset (days)", "default": 0 },
+    { "fieldname": "exp_duration_days", "fieldtype": "Int", "label": "Expected Duration (days)", "default": 1 }
+  ],
+  "permissions": []
+}

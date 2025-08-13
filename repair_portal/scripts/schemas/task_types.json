@@ -1,0 +1,5 @@
+[
+  { "doctype": "Task Type", "name": "Setup",  "task_type": "Setup",  "weight": 1.0 },
+  { "doctype": "Task Type", "name": "Repair", "task_type": "Repair", "weight": 1.0 },
+  { "doctype": "Task Type", "name": "Maintenance", "task_type": "Maintenance", "weight": 1.0 }
+]

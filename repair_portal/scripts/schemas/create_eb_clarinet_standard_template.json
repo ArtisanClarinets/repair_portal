@@ -1,7 +1,9 @@
 {
   "doctype": "Setup Template",
-  "name": "E♭ Clarinet Standard Setup",
-  "instrument_type": "E♭ Clarinet",
+  "name": "SETUP-Standard E♭ Clarinet",
+  "template_name": "SETUP-Standard E♭ Clarinet",
+  "clarinet_model": "Standard E♭ Clarinet",
+  "instrument_type": "Standard E♭ Clarinet",
   "version": "v1.0",
   "description": "A meticulous, data-driven setup process for professional E♭ clarinets, establishing a verifiable, industry-leading standard of performance and transparency.",
   "checklist_items": [

@@ -102,3 +102,48 @@ def seed_all_from_schemas():
         frappe.log_error(title="Schema Seeding Failed", message=traceback.format_exc())
         # raise  # uncomment if you want migrate to fail on errors
 #############################################################################
+
+
+#############################################################################
+# Audit: Naming Series after migrate                                        #
+# Runs the naming_audit and prints to console + logs. Does NOT block        #
+# migrate unless REPAIR_PORTAL_FAIL_ON_NAMING_AUDIT=1                       #
+# Date: 2025-08-10                                                          #
+# Version: 1.1                                                              #
+#############################################################################
+import os
+import traceback
+import frappe
+
+def audit_naming_series_after_migrate():
+    """Hook target for after_migrate: run naming series audit."""
+    # ✅ Correct import path (no double 'repair_portal')
+    from repair_portal.scripts import naming_audit
+
+    # Optional structured logs if you added logger.py
+    try:
+        from repair_portal.logger import get_logger
+        log = get_logger("naming_audit")
+    except Exception:
+        log = None
+
+    try:
+        print("🔎 Auditing naming series …")
+        if log: log.info("Starting naming series audit (after_migrate)")
+        naming_audit.run()  # prints full report
+        print("✅ Naming series audit complete.")
+        if log: log.info("Naming series audit complete.")
+    except Exception as e:
+        # show full traceback in console
+        print(f"\033[91m❌ Naming series audit failed: {e}\033[0m")
+        traceback.print_exc()
+        frappe.log_error(title="Naming Series Audit Failed", message=traceback.format_exc())
+        if log:
+            log.exception("Naming series audit failed")
+        # optional: fail migration only when explicitly enabled
+        if str(os.environ.get("REPAIR_PORTAL_FAIL_ON_NAMING_AUDIT", "0")).lower() in ("1","true","yes","on"):
+            raise
+        try:
+            frappe.db.rollback()
+        except Exception:
+            pass

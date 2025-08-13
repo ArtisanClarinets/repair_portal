@@ -1,0 +1,82 @@
+[
+    {
+        "doctype": "Instrument Category",
+        "title": "B♭",
+        "name": "B♭",
+        "description": "Instruments in the B♭ Soprano Clarinet family"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "Bass",
+        "name": "Bass",
+        "description": "Bass instruments"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "A",
+        "name": "A",
+        "description": "Instruments in the A Soprano Clarinet family"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "E♭",
+        "name": "E♭",
+        "description": "Instruments in the E♭ Soprano Clarinet family"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "Bass — Low E♭",
+        "name": "Bass — Low E♭",
+        "description": "Instruments in the Bass Clarinet family with a range to low E♭"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "Bass — Low C",
+        "name": "Bass — Low C",
+        "description": "Instruments in the Bass Clarinet family with a range to low C"
+    },
+
+    {
+        "doctype": "Instrument Category",
+        "title": "C",
+        "name": "C",
+        "description": "Instruments in the C Soprano Clarinet family"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "D",
+        "name": "D",
+        "description": "Instruments in the D Soprano Clarinet family"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "G",
+        "name": "G",
+        "description": "Instruments in the G Soprano Clarinet family"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "Basset",
+        "name": "Basset",
+        "description": "Instruments in the Basset Clarinet family"
+    },
+
+    {
+        "doctype": "Instrument Category",
+        "title": "ContraAlto",
+        "name": "ContraAlto",
+        "description": "Instruments in the ContraAlto Clarinet family"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "ContraBass",
+        "name": "ContraBass",
+        "description": "Instruments in the ContraBass Clarinet family"
+    },
+    {
+        "doctype": "Instrument Category",
+        "title": "Alto",
+        "name": "Alto",
+        "description": "Instruments in the E♭ Alto Clarinet family"
+    }
+]

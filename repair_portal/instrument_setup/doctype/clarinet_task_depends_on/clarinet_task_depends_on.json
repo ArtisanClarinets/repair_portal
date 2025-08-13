@@ -1,0 +1,11 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Task Depends On",
+  "module": "Instrument Setup",
+  "engine": "InnoDB",
+  "istable": 1,
+  "fields": [
+    { "fieldname": "task", "fieldtype": "Link", "options": "Clarinet Setup Task", "label": "Task", "reqd": 1 }
+  ],
+  "permissions": []
+}

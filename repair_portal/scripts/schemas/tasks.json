@@ -1,0 +1,586 @@
+[
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00002",
+    "subject": "0.1 Create Work Order",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Initiates the service process by generating a formal work order. This task includes capturing the full scope of work, establishing a projected due date, documenting client contact information, and recording any initial project notes or special instructions provided by the client.",
+    "depends_on": []
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00003",
+    "subject": "0.2 Visual Triage & Safety Check",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Conduct a preliminary visual inspection of the instrument upon receipt to identify any immediate safety or transport risks. This includes checking for significant structural damage such as cracks, loose posts, insecure keywork, or any other condition that could worsen during handling.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00002"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00004",
+    "subject": "0.3 Intake Inventory & Photos",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Formally document the instrument and all accompanying items. This involves logging all relevant serial numbers, cataloging accessories (e.g., mouthpiece, ligature, case), and taking a comprehensive set of high-resolution photographs of the case, body, and keywork to establish a visual baseline of the instrument's condition upon arrival.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00002"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00005",
+    "subject": "0.4 Player Profile & Preferences",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Document the client's specific playing preferences and requirements to guide the setup process. This includes recording their desired back-pressure/resistance, target pitch standard (e.g., A=440, A=441), preferred articulation response, and any other special requests regarding the instrument's feel and performance.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00002"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00006",
+    "subject": "0.5 Parts Availability Check",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Verify the in-stock availability of all necessary parts and materials for the planned work. This includes checking inventory levels for specific pads, corks, felts, adhesives, and other consumables. Any potential shortages or items with long lead times (ETAs) must be flagged to prevent delays.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00002"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00007",
+    "subject": "1.1 Prep Environment & Start Data Log",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Prepare the workshop environment to meet specified climate conditions. This involves adjusting the room to the target temperature and relative humidity (RH) and activating an environmental data logger to continuously record these conditions throughout the service period, ensuring material stability.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00002"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00003"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00004"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00005"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00006"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00008",
+    "subject": "1.2 Acclimatize Instrument",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Allow the instrument to physically stabilize within the controlled workshop environment before any assessment or work begins. This involves documenting the start and end time of the acclimatization period and capturing relevant environmental readings to ensure the instrument has reached equilibrium.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00007"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00009",
+    "subject": "1.3 Wood Moisture/Condition Note",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Assess the condition and stability of the instrument's wood. This includes measuring the moisture content where applicable or making qualitative notes on its condition. Any observed risks related to potential wood movement, such as warping or checking, must be documented.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00008"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00010",
+    "subject": "2.1 Tenon Fit (No Grease) — Baseline",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Evaluate the baseline mechanical fit of all tenons before disassembly and without cork grease. This assessment includes documenting the subjective feel upon insertion, the degree of any lateral wobble, and the perceived force required for pull-out, providing a benchmark for later adjustments.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00009"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00011",
+    "subject": "2.2 Bore & Tone-Hole Map",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Conduct a detailed internal inspection of the instrument's bore using a borescope. Systematically map the flatness and condition of each tone hole, recording any geometric variances, imperfections, or damage by their specific location on the instrument body.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00009"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00012",
+    "subject": "2.3 Keywork Survey",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Perform a comprehensive mechanical survey of the entire keywork mechanism. This involves systematically checking for excessive endplay or sideplay in each key, identifying any bent keys or rods, and documenting any missing, damaged, or corroded fasteners (e.g., pivot screws, set screws).",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00009"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00013",
+    "subject": "2.4 Pad & Spring Condition",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Create a detailed log of the current pad and spring setup. For each individual key, document the pad type (e.g., leather, cork, synthetic), its condition (e.g., torn, sticky, hardened), and the material and condition (e.g., rust, fatigue) of its corresponding spring.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00009"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00014",
+    "subject": "2.5 Airtightness (Baseline)",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Measure the instrument's initial airtightness to establish a performance baseline. This task requires documenting the testing method used (e.g., manometer, leak light), the quantitative reading or result, and the specific location of any identified leak sources.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00009"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00015",
+    "subject": "2.6 Quick Intonation Pass",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Conduct a preliminary intonation assessment to identify major tuning issues. This involves setting the reference pitch (A=) on a tuner and creating a chart or sketch of the pitch tendencies (cents sharp/flat) across the instrument's range, noting any particularly unstable or problematic notes.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00009"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00016",
+    "subject": "2.7 Parts/Risk Finalization & Client OK",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Consolidate all findings from the diagnostic phase to finalize the required parts list and identify any procedural risks. Present any necessary changes to the original work scope or cost estimate to the client for their formal approval before proceeding with invasive work.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00010"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00011"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00012"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00013"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00014"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00015"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00017",
+    "subject": "3.1 Disassembly & Cleaning",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Systematically disassemble the instrument's keywork and body components. Clean all parts using approved methods, such as ultrasonic baths or manual techniques. All component assemblies must be organized in trays and clearly labeled to ensure proper reassembly.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00016"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00018",
+    "subject": "3.2 Keywork Truing & Play Control",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Perform precision mechanical fitting of the keywork. This includes straightening bent keys and hinge rods, and eliminating excess play by swedging or re-tubing key hinges as required. Adjust and verify that all key endplay and sideplay are within specified shop tolerances.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00017"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00019",
+    "subject": "3.3 Tone-Hole Flatting/Chamfering",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Address any identified imperfections in the tone hole surfaces. This involves precisely flattening or chamfering the tone hole rims to ensure a perfect pad seat, while carefully preserving the original bore and tone hole geometry. All modifications must be logged against their specific location.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00017"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00011"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00020",
+    "subject": "3.4 Tenon Corks (Replace/Refit)",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Replace or refit all tenon corks to achieve the target thickness and compression specifications for a secure, non-binding fit. A mandatory 24-hour settling period and subsequent re-check must be scheduled to account for cork compression.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00017"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00021",
+    "subject": "3.5 Pad Selection & Installation",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Select the appropriate pads based on the work order and instrument requirements. Install each pad, floating it into position with shellac or adhesive, and meticulously seat it to be perfectly level with the tone hole. Use feeler gauges and ring impressions to verify a complete, even seal and eliminate any pad rock.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00018"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00019"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00022",
+    "subject": "3.6 Springing & Regulation",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Adjust the tension of all springs to meet specified gram-force targets for a balanced and responsive feel. Synchronize all keywork linkages and interactions (e.g., bridge keys, articulated G#) to eliminate any lost motion and ensure precise, coordinated action.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00021"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00023",
+    "subject": "3.7 Initial Key Heights (Venting)",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Establish the initial opening height for each key, also known as venting, according to standard shop specifications. This involves installing and trimming key stop materials (e.g., cork, felt) to set the foundation for the acoustic voicing stage.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00022"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00024",
+    "subject": "3.8 Airtightness (Post-Mechanical)",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Perform a comprehensive airtightness test after all mechanical repairs and pad work are complete. The instrument must meet or exceed the shop's defined airtightness threshold before it can proceed to the acoustic setup and voicing stage.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00021"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00022"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00023"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00025",
+    "subject": "4.1 Pitch Curve (Baseline)",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Generate a detailed, baseline pitch curve by measuring the intonation of each note across the instrument's practical range (typically 2.5 octaves). This measurement must be documented with the current environmental conditions (temperature/RH) and player setup details (mouthpiece, reed).",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00024"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00026",
+    "subject": "4.2 Voicing & Micro-Adjust",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Perform the fine-tuning of the instrument's acoustic properties, known as voicing. This iterative process involves making micro-adjustments to key heights, pad seating, and critical relationships (e.g., throat A, register tube) to optimize tone, response, and intonation.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00025"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00027",
+    "subject": "4.3 Response & Articulation Validation",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Systematically test and validate the instrument's dynamic response and articulation. This includes checking for clean note initiation (attacks) from pianissimo to fortissimo, smooth transitions across register breaks, stable throat tones, and reliable speech in the altissimo register.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00026"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00028",
+    "subject": "4.4 Iteration / Lock Targets",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Continue the iterative cycle of voicing adjustments and validation testing until the instrument's pitch curve and response characteristics consistently meet all established shop tolerances and client preferences. Once achieved, formally lock in the final key heights and regulation.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00025"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00026"
+      },
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00027"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00029",
+    "subject": "5.1 Airtightness (Final QA)",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Conduct a final, documented quality assurance test to confirm the instrument's airtightness meets or exceeds the required shop standard. The testing method, final reading, and pass/fail result must be formally recorded as part of the QA process.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00028"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00030",
+    "subject": "5.2 Functional QA (Cycle Test)",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Perform a functional endurance test on the keywork. This involves actuating each key through a set number of cycles (e.g., 50 actuations) to verify consistent spring rebound, silent operation (no clicks or extraneous noise), and the stability of the final regulation.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00029"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00031",
+    "subject": "5.3 Play-Test Sign-Off",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Conduct a final, holistic play-test under real-world conditions, performing musical excerpts to confirm that the instrument's overall response, feel, and intonation are satisfactory. The technician must provide final sign-off comments and formal approval.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00030"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00032",
+    "subject": "5.4 Documentation Pack",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Compile a complete documentation package for the client. This includes the final 'after' photographs, a summary of key mechanical measurements, the final intonation/pitch map, a customized instrument care guide, and all relevant warranty information.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00031"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00033",
+    "subject": "5.5 Certificate of Acoustic Performance",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Generate and issue a formal Certificate of Acoustic Performance that summarizes the key performance metrics achieved during the service (e.g., final airtightness reading, pitch standard). This document requires a final quality assurance sign-off from a senior technician or manager.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00032"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00034",
+    "subject": "6.1 Client Handover & Demo",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Formally hand over the completed instrument to the client. This includes a demonstration of the work performed, a review of the measured results, and a clear explanation of any minor variances or characteristics the player should be aware of.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00033"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00035",
+    "subject": "6.2 Care & Break-In Guide",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Provide the client with the prepared documentation on proper instrument care and break-in procedures for new pads. Specifically review the importance of humidity control and the recommended schedule for routine maintenance and future check-ups.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00034"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00036",
+    "subject": "6.3 Follow-Up Check Booking",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Schedule the complimentary follow-up appointment with the client to check on pad seating and overall setup after the initial break-in period. Enter the appointment and related reminders into the Customer Relationship Management (CRM) system.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00035"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00037",
+    "subject": "C1 Tool Calibration Log (Pre-Work Check)",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Verify and document that all critical measurement tools are within their valid calibration period before starting work. This control task includes checking the calibration status of the spring tension gauge, feeler gauges, leak testing equipment (e.g., manometer), and digital calipers.",
+    "depends_on": []
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00038",
+    "subject": "C2 Materials & Lot Tracking",
+    "status": "Open",
+    "is_template": 1,
+    "description": "Maintain material traceability by recording the specific lot or batch numbers for all key consumables used in the service. This includes, but is not limited to, tenon cork, key pads, adhesives, and key oils, linking them directly to the specific work order.",
+    "depends_on": [
+      {
+        "task": "TASK-2025-00020"
+      },
+      {
+        "task": "TASK-2025-00021"
+      }
+    ]
+  },
+  {
+    "doctype": "Task",
+    "name": "TASK-2025-00039",
+    "subject": "C3 Audit Sampling (1-in-10) Post-Delivery",
+    "status": "Open",
+    "is_template": 1,
+    "description": "As part of the continuous improvement process, perform a random post-delivery quality audit on a statistical sample of completed work (e.g., 1 in every 10 jobs). Document all audit findings and implement any necessary corrective actions to address systemic issues.",
+    "depends_on": [
+      {
+        "doctype": "Task Depends On",
+        "task": "TASK-2025-00034"
+      }
+    ]
+  }
+]
