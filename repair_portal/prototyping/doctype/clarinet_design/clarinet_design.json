@@ -1,0 +1,47 @@
+{
+ "doctype": "DocType",
+ "name": "Clarinet Design",
+ "module": "Prototyping",
+ "autoname": "format:CLDES-{prototype}",
+ "istable": 0,
+ "engine": "InnoDB",
+ "track_changes": 1,
+ "title_field": "title",
+ "field_order": [
+  "prototype",
+  "title",
+  "clarinet_type",
+  "overall_length_mm",
+  "barrel_length_mm",
+  "upper_joint_length_mm",
+  "tenon_gap_mm",
+  "lower_joint_length_mm",
+  "bell_length_mm",
+  "wall_thickness_mm",
+  "grid_mm",
+  "section_break_geom",
+  "bore_segments",
+  "tone_holes"
+ ],
+ "fields": [
+  {"fieldname":"prototype","fieldtype":"Link","label":"Prototype","options":"Prototype","reqd":1},
+  {"fieldname":"title","fieldtype":"Data","label":"Title","reqd":1},
+  {"fieldname":"clarinet_type","fieldtype":"Select","label":"Clarinet Type","options":"B♭\nA\nE♭\nC\nBass (Low E♭)\nBass (Low C)","default":"B♭","reqd":1},
+  {"fieldname":"overall_length_mm","fieldtype":"Float","label":"Overall Length (mm)","default":600},
+  {"fieldname":"barrel_length_mm","fieldtype":"Float","label":"Barrel Length (mm)","default":66},
+  {"fieldname":"upper_joint_length_mm","fieldtype":"Float","label":"Upper Joint Length (mm)","default":230},
+  {"fieldname":"tenon_gap_mm","fieldtype":"Float","label":"Tenon Gap Between Joints (mm)","default":2.0},
+  {"fieldname":"lower_joint_length_mm","fieldtype":"Float","label":"Lower Joint Length (mm)","default":250},
+  {"fieldname":"bell_length_mm","fieldtype":"Float","label":"Bell Length (mm)","default":110},
+  {"fieldname":"wall_thickness_mm","fieldtype":"Float","label":"Wall Thickness (mm)","default":2.5},
+  {"fieldname":"grid_mm","fieldtype":"Float","label":"Grid Interval (mm)","default":5.0},
+  {"fieldname":"section_break_geom","fieldtype":"Section Break","label":"Geometry"},
+  {"fieldname":"bore_segments","fieldtype":"Table","label":"Bore Segments (samples along axis)","options":"Clarinet Bore Segment"},
+  {"fieldname":"tone_holes","fieldtype":"Table","label":"Tone Holes","options":"Clarinet Tone Hole"}
+ ],
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"create":1,"delete":1,"export":1},
+  {"role":"Manufacturing Manager","read":1,"write":1,"create":1,"delete":1,"export":1},
+  {"role":"Manufacturing User","read":1,"write":1,"create":1,"export":1}
+ ]
+}

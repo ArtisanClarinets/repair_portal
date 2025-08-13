@@ -50,6 +50,9 @@ doc_events = {
     }
 }
 
+app_include_css = [
+    "/assets/repair_portal/css/clarinet_editor.css"
+]
 
 # website_route_rules = [
 #     {'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},

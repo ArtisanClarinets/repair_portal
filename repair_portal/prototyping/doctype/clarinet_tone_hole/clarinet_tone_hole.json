@@ -1,0 +1,26 @@
+{
+ "doctype": "DocType",
+ "name": "Clarinet Tone Hole",
+ "module": "Prototyping",
+ "istable": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "idx","name_label","note_label","joint","x_mm",
+  "diameter_mm","chimney_mm","undercut_pct",
+  "azimuth_deg","y_offset_mm","ringed","is_open_key","notes"
+ ],
+ "fields": [
+  {"fieldname":"name_label","fieldtype":"Data","label":"Name/Key","in_list_view":1,"reqd":1},
+  {"fieldname":"note_label","fieldtype":"Data","label":"Intended Note (label)","in_list_view":1},
+  {"fieldname":"joint","fieldtype":"Select","label":"Joint","options":"Barrel\nUpper\nLower\nBell","in_list_view":1,"default":"Upper"},
+  {"fieldname":"x_mm","fieldtype":"Float","label":"X from Barrel Top (mm)","in_list_view":1,"reqd":1},
+  {"fieldname":"diameter_mm","fieldtype":"Float","label":"Hole Diameter (mm)","in_list_view":1,"reqd":1},
+  {"fieldname":"chimney_mm","fieldtype":"Float","label":"Chimney Height (mm)","in_list_view":1,"default":4.0},
+  {"fieldname":"undercut_pct","fieldtype":"Float","label":"Undercut (%)","default":0},
+  {"fieldname":"azimuth_deg","fieldtype":"Float","label":"Azimuth (° around tube, 0=top)","default":0},
+  {"fieldname":"y_offset_mm","fieldtype":"Float","label":"Y Offset for Drawing (mm)","default":0},
+  {"fieldname":"ringed","fieldtype":"Check","label":"Ringed"},
+  {"fieldname":"is_open_key","fieldtype":"Check","label":"Open-Key?"},
+  {"fieldname":"notes","fieldtype":"Small Text","label":"Notes"}
+ ]
+}

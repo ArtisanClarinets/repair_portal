@@ -1,0 +1,6 @@
+.clarinet-editor { max-width: 1600px; }
+.editor-side { width: 380px; min-width: 340px; }
+.editor-canvas { flex: 1; min-width: 900px; overflow: auto; }
+.clarinet-svg { border: 1px solid #ddd; background: #fafafa; }
+.hole:hover { cursor: ew-resize; }
+.clarinet-editor .hole { cursor: pointer; }

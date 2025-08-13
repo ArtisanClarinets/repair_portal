@@ -1,0 +1,13 @@
+{
+ "doctype": "DocType",
+ "name": "Clarinet Bore Segment",
+ "module": "Prototyping",
+ "istable": 1,
+ "engine": "InnoDB",
+ "field_order": ["idx","x_mm","bore_mm","notes"],
+ "fields": [
+  {"fieldname":"x_mm","fieldtype":"Float","label":"X from Barrel Top (mm)","in_list_view":1,"reqd":1},
+  {"fieldname":"bore_mm","fieldtype":"Float","label":"Bore Diameter (mm)","in_list_view":1,"reqd":1},
+  {"fieldname":"notes","fieldtype":"Data","label":"Notes"}
+ ]
+}
