@@ -17,7 +17,7 @@ class CustomerType(Document):
         self._deduplicate_default()
 
     def _deduplicate_default(self):
-        if not self.is_default:
+        if not self.is_default: # type: ignore
             return
 
         try:
@@ -27,7 +27,7 @@ class CustomerType(Document):
                    SET is_default = 0
                  WHERE name != %s
                 """,
-                self.name,
+                self.name, # type: ignore
             )
         except Exception:
             frappe.log_error(frappe.get_traceback(), "CustomerType: deduplication failed")

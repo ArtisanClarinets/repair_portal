@@ -1,12 +1,33 @@
 # File Header Template
 # Relative Path: repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.py
-# Last Updated: 2025-08-07
-# Version: v1.2.1 (Patch: Autofill key & wood_type from Instrument on validate)
-# Purpose: Controller for Instrument Inspection DocType - handles validation, automation, and exception logging for all inspection scenarios (inventory, repair, maintenance, QA). Also syncs deep inspection specs to Instrument Profile.
-# Dependencies: frappe, Inspection Finding, Tenon Fit Record, Tone Hole Inspection Record, Instrument Profile
+# Last Updated: 2025-08-14
+# Version: v2.0.0 (First-class ISN; graceful legacy handling)
+# Purpose: Controller for Instrument Inspection DocType - validation, automation, and audit for inspections
+#          (inventory, repair, maintenance, QA). Ensures serial_no links to Instrument Serial Number (ISN),
+#          auto-resolves/creates ISN from raw/legacy values, and syncs key specs to Instrument Profile.
+# Dependencies: frappe, Inspection Finding, Tenon Measurement, Tone Hole Inspection Record, Instrument Profile
+#               repair_portal.utils.serials (ensure_instrument_serial, find_by_serial)
+
+from __future__ import annotations
+
+from typing import Optional, Tuple, List, Dict
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
+
+# ---- ISN utilities (single source of truth) ----
+# Support either app path to avoid import-order issues.
+try:
+    from repair_portal.repair_portal.utils.serials import (  # preferred
+        ensure_instrument_serial,
+        find_by_serial as isn_find_by_serial,
+    )
+except Exception:
+    from repair_portal.utils.serials import (  # fallback
+        ensure_instrument_serial,
+        find_by_serial as isn_find_by_serial,
+    )
 
 
 class InstrumentInspection(Document):
@@ -75,46 +96,55 @@ class InstrumentInspection(Document):
         wood_type: DF.Literal["Grenadilla", "Mopane", "Cocobolo", "Synthetic", "Other"]
     # end: auto-generated types
 
+    # ----------------------
+    # Lifecycle
+    # ----------------------
+    def before_validate(self):
+        """
+        Ensure serial_no is a valid ISN docname:
+          - If user pasted a raw string or an ERPNext 'Serial No' name, resolve/create ISN and assign its docname.
+          - If already an ISN docname, keep as-is.
+        This guarantees mandatory + link validation will pass.
+        """
+        try:
+            self._ensure_isn_on_self()
+        except Exception:
+            frappe.log_error(title="InstrumentInspection.before_validate", message=frappe.get_traceback())
+            # Let validate raise the right error if needed
+
     def validate(self) -> None:
         """
         Validation hook to enforce business rules for each inspection type.
-        Logs any exceptions for audit.
+        Logs any exceptions for audit. Also supports autofill from Instrument.
         """
         try:
-            # Ensure serial_no is unique
-            self._validate_unique_serial()
+            # Ensure serial_no uniqueness (now that it's guaranteed to be ISN docname)
+            self._validate_unique_serial_smart()
+
+            # Autofill key & wood_type (and helpful fields) from Instrument
+            self._autofill_from_instrument()
 
             # Required fields for New Inventory
             if self.inspection_type == "New Inventory":
                 missing = [f for f in ["manufacturer", "model", "key", "wood_type"] if not getattr(self, f, None)]
                 if missing:
-                    frappe.throw(f"Missing required field(s) for New Inventory: {', '.join(missing)}")
+                    frappe.throw(_("Missing required field(s) for New Inventory: {0}").format(", ".join(missing)))
 
             # Customer fields only for non-inventory
             if self.inspection_type == "New Inventory" and (self.customer or self.preliminary_estimate):
-                frappe.throw("Customer and pricing fields must be empty for New Inventory inspections.")
+                frappe.throw(_("Customer and pricing fields must be empty for New Inventory inspections."))
         except Exception:
-            frappe.log_error(frappe.get_traceback(), "InstrumentInspection.validate")
+            frappe.log_error(title="InstrumentInspection.validate", message=frappe.get_traceback())
             raise
-
-    def _validate_unique_serial(self) -> None:
-        """
-        Ensures the serial_no is unique for the current inspection record.
-        """
-        if self.serial_no:
-            duplicate = frappe.db.exists(
-                "Instrument Inspection", {"serial_no": self.serial_no, "name": ("!=", self.name)}
-            )
-            if duplicate:
-                frappe.throw(f"An Instrument Inspection already exists for Serial No: {self.serial_no}")
 
     def on_submit(self) -> None:
         """
-        On submit, update or create Instrument Profile for this serial. Syncs all persistent fields (specs, images, logs, etc.).
+        On submit, upsert Instrument Profile for the resolved instrument.
         """
         try:
-            serial = self.serial_no
-            profile_name = frappe.db.get_value("Instrument Profile", {"instrument": serial})
+            instrument_name, _ = self._resolve_instrument_by_serial(self.serial_no)
+            target_instrument = instrument_name or self.serial_no  # conservative fallback
+
             data = {
                 "body_material": self.body_material,
                 "key_plating": self.key_plating,
@@ -129,18 +159,173 @@ class InstrumentInspection(Document):
                 "pad_type_current": self.pad_type_current,
                 "current_status": self.current_status,
                 "current_location": self.current_location,
-                "profile_image": self.profile_image
-                # TODO: Add child table mappings for photos, media, accessories, etc.
+                "profile_image": self.profile_image,
+                # TODO: map child tables (photos/media/accessories) as needed
             }
+
+            profile_name = frappe.db.get_value("Instrument Profile", {"instrument": target_instrument})
             if profile_name:
                 profile = frappe.get_doc("Instrument Profile", profile_name)
                 for k, v in data.items():
-                    if v:
+                    if v not in (None, "", []):
                         profile.set(k, v)
                 profile.save(ignore_permissions=True)
             else:
-                data.update({"instrument": serial})
-                profile = frappe.get_doc({"doctype": "Instrument Profile", **data})
+                payload = {"doctype": "Instrument Profile", "instrument": target_instrument}
+                payload.update({k: v for k, v in data.items() if v not in (None, "", [])})
+                profile = frappe.get_doc(payload)
                 profile.insert(ignore_permissions=True)
         except Exception:
-            frappe.log_error(frappe.get_traceback(), "InstrumentInspection.on_submit")
+            frappe.log_error(title="InstrumentInspection.on_submit", message=frappe.get_traceback())
+            # don't raise, to avoid blocking downstream flows
+
+    # ----------------------
+    # Internal helpers
+    # ----------------------
+    def _ensure_isn_on_self(self) -> None:
+        """
+        Guarantee that self.serial_no is an **Instrument Serial Number** docname.
+        Accepts any of:
+          - ISN docname (noop)
+          - ERPNext 'Serial No' docname (legacy) -> convert to ISN using same text
+          - Raw stamped text -> resolve or create ISN
+        """
+        val = (self.serial_no or "").strip()
+        if not val:
+            return  # let "reqd" enforce presence
+
+        # Already an ISN docname?
+        if frappe.db.exists("Instrument Serial Number", val):
+            return
+
+        # Legacy: ERPNext Serial No by exact name?
+        if frappe.db.exists("Serial No", val):
+            # Convert to ISN using the same visible token
+            isn_name = ensure_instrument_serial(serial_input=val, instrument=getattr(self, "instrument", None), link_on_instrument=False)
+            if not isn_name:
+                frappe.throw(_("Unable to ensure Instrument Serial Number from legacy Serial No '{0}'").format(val))
+            self.serial_no = isn_name
+            return
+
+        # Treat as raw stamped text
+        row = isn_find_by_serial(val)
+        if row and row.get("name"):
+            self.serial_no = row["name"]
+            return
+
+        # Create a fresh ISN
+        isn_name = ensure_instrument_serial(serial_input=val, instrument=getattr(self, "instrument", None), link_on_instrument=False)
+        if not isn_name:
+            frappe.throw(_("Unable to create Instrument Serial Number from value '{0}'").format(val))
+        self.serial_no = isn_name
+
+    def _validate_unique_serial_smart(self) -> None:
+        """
+        Enforce uniqueness for Instrument Inspection by **ISN docname**.
+        (The migration guarantees serial_no now points to ISN, so a simple check suffices.)
+        """
+        if not self.serial_no:
+            return
+
+        duplicate = frappe.db.get_value(
+            "Instrument Inspection",
+            {"name": ["!=", self.name], "serial_no": self.serial_no},
+            "name",
+        )
+        if duplicate:
+            frappe.throw(_("An Instrument Inspection already exists for this serial: {0}").format(duplicate))
+
+    def _autofill_from_instrument(self) -> None:
+        """
+        Autofill key & wood_type (and a few safe fields) from the linked Instrument.
+        """
+        if not self.serial_no:
+            return
+        instr_name, instr_doc = self._resolve_instrument_by_serial(self.serial_no)
+        if not instr_doc:
+            return
+
+        # key: store musical key (B♭, A, etc.) from Instrument.clarinet_type if available
+        if not self.key and getattr(instr_doc, "clarinet_type", None):
+            self.key = instr_doc.clarinet_type
+
+        # wood_type from Instrument.body_material if available
+        if not self.wood_type and getattr(instr_doc, "body_material", None):
+            self.wood_type = instr_doc.body_material
+
+        # Also backfill manufacturer & model for convenience
+        if not self.manufacturer and getattr(instr_doc, "brand", None):
+            self.manufacturer = instr_doc.brand
+        if not self.model and getattr(instr_doc, "model", None):
+            self.model = instr_doc.model
+
+    # -- Resolution core --
+
+    def _resolve_instrument_by_serial(self, serial_link_or_text: str) -> Tuple[Optional[str], Optional[Document]]:
+        """
+        Resolve the Instrument by any serial representation (ISN/legacy/raw).
+        Prefers ISN→Instrument. Falls back to legacy pathways for safety.
+        Returns: (instrument_name, instrument_doc) or (None, None)
+        """
+        token = (serial_link_or_text or "").strip()
+        if not token:
+            return None, None
+
+        # Case 1: treat input as ISN docname
+        if frappe.db.exists("Instrument Serial Number", token):
+            isn = frappe.get_value("Instrument Serial Number", token, ["instrument"], as_dict=True)
+            if isn and isn.get("instrument") and frappe.db.exists("Instrument", isn["instrument"]):
+                doc = frappe.get_doc("Instrument", isn["instrument"])
+                return doc.name, doc
+
+        # Case 2: legacy ERPNext Serial No docname (Instrument.serial_no might have stored it historically)
+        if frappe.db.exists("Serial No", token):
+            instr_name = frappe.db.get_value("Instrument", {"serial_no": token}, "name")
+            if instr_name:
+                return instr_name, frappe.get_doc("Instrument", instr_name)
+
+        # Case 3: raw→ISN (normalized), then Instrument
+        isn_row = isn_find_by_serial(token)
+        if isn_row and isn_row.get("instrument") and frappe.db.exists("Instrument", isn_row["instrument"]):
+            doc = frappe.get_doc("Instrument", isn_row["instrument"])
+            return doc.name, doc
+
+        # Case 3b: raw→Instrument (legacy Data field)
+        instr_name = frappe.db.get_value("Instrument", {"serial_no": token}, "name")
+        if instr_name:
+            return instr_name, frappe.get_doc("Instrument", instr_name)
+
+        # Case 3c: raw→ISN name stored into Instrument.serial_no (when Instrument.serial_no is a Link)
+        if isn_row and isn_row.get("name"):
+            instr_name = frappe.db.get_value("Instrument", {"serial_no": isn_row["name"]}, "name")
+            if instr_name:
+                return instr_name, frappe.get_doc("Instrument", instr_name)
+
+        return None, None
+
+    def _equivalent_serial_identifiers(self, serial_link_or_text: str) -> List[str]:
+        """
+        (Kept for reference; no longer used by the simplified uniqueness rule above.)
+        Produce a set of equivalent identifiers for a given serial to catch duplicates:
+        - The input itself
+        - The ISN docname (if resolvable from raw)
+        - The ERPNext Serial No docname (if resolvable from raw)
+        """
+        eq: List[str] = []
+        val = (serial_link_or_text or "").strip()
+        if not val:
+            return eq
+
+        eq.append(val)
+
+        isn_row = isn_find_by_serial(val) if val else None
+        if isn_row and isn_row.get("name"):
+            eq.append(isn_row["name"])
+
+        if frappe.db.exists("Serial No", val):
+            eq.append(val)
+
+        # Deduplicate
+        eq = list(dict.fromkeys(eq))
+        return eq
+    

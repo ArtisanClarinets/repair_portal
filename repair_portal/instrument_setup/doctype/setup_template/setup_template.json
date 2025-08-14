@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Setup Template",
   "module": "Instrument Setup",
+  "creation": "2025-08-13 21:36:46.970156",
   "engine": "InnoDB",
   "track_changes": 1,
   "field_order": [
@@ -62,7 +63,13 @@
   "permissions": [
     { "role": "Technician", "read": 1, "write": 1, "create": 1 },
     { "role": "Service Manager", "read": 1, "write": 1, "create": 1 },
-    { "role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1 }
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
   ],
   "sort_field": "modified",
   "sort_order": "DESC"

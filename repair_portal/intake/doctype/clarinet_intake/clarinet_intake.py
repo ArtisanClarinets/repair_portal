@@ -1,14 +1,16 @@
 # ---
 # File Header:
 # Absolute Path: /opt/frappe/erp-bench/apps/repair_portal/repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
-# Last Updated: 2025-08-07
-# Version: v9.1.3 (Patch: Ensure Instrument Inspection includes key, wood_type for New Inventory)
-# Purpose: Ensures all intake types auto-create Instrument, Item, Serial No, and Instrument Inspection as needed, plus Clarinet Initial Setup for New Inventory. Handles Instrument Category and Initial Setup-intake link.
-# Dependencies: Clarinet Intake Settings, Instrument, Item, Serial No, Instrument Inspection, Clarinet Initial Setup, Instrument Category
+# Last Updated: 2025-08-14
+# Version: v9.2.4 (Fix: use keyworded frappe.log_error with short title to avoid length overflow)
+# Purpose: Ensures all intake types auto-create Instrument (custom), Item (for New Inventory), Instrument Serial Number (custom),
+#          Instrument Inspection, and (for New Inventory) Clarinet Initial Setup.
+#          IMPORTANT: This version never creates ERPNext "Serial No". All serial logic is handled by Instrument Serial Number.
+# Dependencies: Clarinet Intake Settings, Instrument, Item, Instrument Serial Number, Instrument Inspection, Clarinet Initial Setup, Instrument Category
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Optional, Tuple
 
 import frappe
 from frappe import _
@@ -19,6 +21,20 @@ from frappe.utils import nowdate
 from repair_portal.intake.doctype.clarinet_intake_settings.clarinet_intake_settings import (
     get_intake_settings,
 )
+
+# Serial utilities (single source of truth) – support either module path
+try:
+    from repair_portal.repair_portal.utils.serials import (  # preferred
+        ensure_instrument_serial,
+        find_by_serial,
+        attach_to_instrument as link_isn_to_instrument,
+    )
+except Exception:
+    from repair_portal.utils.serials import (  # fallback
+        ensure_instrument_serial,
+        find_by_serial,
+        attach_to_instrument as link_isn_to_instrument,
+    )
 
 MANDATORY_BY_TYPE = {
     "New Inventory": {"item_code", "item_name", "acquisition_cost", "store_asking_price"},
@@ -31,6 +47,7 @@ class ClarinetIntake(Document):
         settings = get_intake_settings()
         try:
             # --- 1. ITEM CREATION (ERPNext) --- #
+            # (unchanged) Only for New Inventory
             item_name = self.item_name or self.model or "Instrument"
             item_code = self.item_code or self.serial_no
             item = None
@@ -48,26 +65,44 @@ class ClarinetIntake(Document):
                 else:
                     item = frappe.get_doc("Item", item_code) if item_code else None
 
-            # --- 2. SERIAL NO CREATION (ERPNext) --- #
-            serial_no = self.serial_no
-            serial = None
-            serial_exists = serial_no and frappe.db.exists("Serial No", {"serial_no": serial_no})
-            if not serial_exists and serial_no:
-                serial = frappe.new_doc("Serial No")
-                serial.serial_no = serial_no
-                serial.item_code = item_code or (item.item_code if item else None) or "Customer Instrument"
-                serial.status = "Active"
-                serial.save(ignore_permissions=True)
-            elif serial_exists:
-                serial = frappe.get_doc("Serial No", {"serial_no": serial_no})
+            # --- 2. INSTRUMENT SERIAL NUMBER (Custom Doctype) --- #
+            # REPLACEMENT for ERPNext "Serial No" logic. We NEVER create ERPNext Serial Nos here.
+            isn_name: Optional[str] = None
+            serial_no_input = (self.serial_no or "").strip()
+
+            if serial_no_input:
+                # Try to find an existing ISN (normalized)
+                existing_isn = find_by_serial(serial_no_input)  # returns dict or None
+                if existing_isn:
+                    isn_name = existing_isn.get("name")
+
+                if not isn_name:
+                    # Idempotent creation; do not link yet (Instrument may be created below)
+                    isn_name = ensure_instrument_serial(
+                        serial_input=serial_no_input,
+                        instrument=None,
+                        link_on_instrument=False,
+                        status="Active",
+                    )
 
             # --- 3. INSTRUMENT CREATION (Custom Doctype) --- #
+            # Keep legacy search semantics but prefer ISN if Instrument.serial_no is a Link.
             instrument = None
-            if serial_no:
-                inst = frappe.db.get_value("Instrument", {"serial_no": serial_no}, ["name"], as_dict=True)
-                if not inst:
+            if serial_no_input:
+                instrument = self._find_existing_instrument_by_serial(serial_no_input, isn_name)
+
+                if not instrument:
+                    # Create new Instrument
                     instrument = frappe.new_doc("Instrument")
-                    instrument.serial_no = serial_no
+                    # Attach serial according to field type (Link vs Data)
+                    serial_field_type = _get_instrument_serial_field_type()
+
+                    if serial_field_type == "Link" and isn_name:
+                        instrument.serial_no = isn_name
+                    else:
+                        # Fallback for legacy Data field or when ISN missing
+                        instrument.serial_no = serial_no_input
+
                     instrument.instrument_type = self.clarinet_type or "B♭ Clarinet"
                     instrument.brand = self.manufacturer
                     instrument.model = self.model
@@ -76,24 +111,40 @@ class ClarinetIntake(Document):
                     instrument.pitch_standard = self.pitch_standard
                     instrument.customer = self.customer if self.intake_type != "New Inventory" else None
                     instrument.current_status = "Active"
-                    # PATCH: instrument_category as Link
+
+                    # Instrument Category handling (unchanged)
                     if self.instrument_category and frappe.db.exists("Instrument Category", self.instrument_category):
                         instrument.instrument_category = self.instrument_category
                     else:
                         default_cat = frappe.db.get_value("Instrument Category", {"is_active": 1}, "name")
                         if default_cat:
                             instrument.instrument_category = default_cat
+
                     instrument.insert(ignore_permissions=True)
-                    self.instrument = instrument.name
-                else:
-                    self.instrument = inst["name"]
+
+                # Set intake link
+                self.instrument = instrument.name
+
+                # Link ISN ⇄ Instrument and (if Link field exists) ensure Instrument.serial_no points to ISN
+                if isn_name:
+                    try:
+                        link_isn_to_instrument(isn_name=isn_name, instrument=instrument.name, link_on_instrument=True)
+                    except Exception:
+                        frappe.log_error(
+                            title="ClarinetIntake.after_insert",
+                            message=frappe.get_traceback(),
+                        )
 
             # --- 4. Instrument Inspection (all types) --- #
             if not frappe.db.exists("Instrument Inspection", {"intake_record_id": self.name}):
                 inspection = frappe.new_doc("Instrument Inspection")
                 inspection.intake_record_id = self.name
                 inspection.customer = self.customer
-                inspection.serial_no = self.serial_no
+
+                # Compute correct value for serial_no based on the field's target
+                insp_serial_value, insp_requires_bypass = self._compute_inspection_serial_value(serial_no_input, isn_name)
+                inspection.serial_no = insp_serial_value
+
                 inspection.instrument = self.instrument
                 inspection.brand = self.manufacturer
                 inspection.manufacturer = self.manufacturer
@@ -104,7 +155,7 @@ class ClarinetIntake(Document):
                 inspection.inspection_date = self.intake_date or nowdate()
                 inspection.status = "Pending"
 
-                # Robust inspected_by fallback
+                # Robust inspected_by fallback (unchanged)
                 inspected_by_meta = frappe.get_meta("Instrument Inspection").get_field("inspected_by")
                 inspected_by_options = (inspected_by_meta.options or "User") if inspected_by_meta else "User"
                 inspected_by_value = None
@@ -132,7 +183,27 @@ class ClarinetIntake(Document):
                 inspection.inspected_by = inspected_by_value
                 allowed_inspection_types = ["New Inventory", "Repair", "Maintenance", "QA", "Other"]
                 inspection.inspection_type = self.intake_type if self.intake_type in allowed_inspection_types else "Other"
-                inspection.insert(ignore_permissions=True)
+
+                # Insert; if schema is legacy (Link→Serial No) and no ERP serial exists, bypass mandatory (documented)
+                if insp_requires_bypass:
+                    inspection.insert(ignore_permissions=True, ignore_mandatory=True)
+                    frappe.msgprint(
+                        _("Instrument Inspection created without a Serial No link because the field is configured "
+                          "as Link → 'Serial No' and no ERPNext Serial No exists. Please migrate the field to "
+                          "Link → 'Instrument Serial Number' for full compatibility."),
+                        alert=True, indicator="orange",
+                    )
+                    frappe.log_error(
+                        title="ClarinetIntake.after_insert (legacy serial_no field)",
+                        message=(
+                            "Instrument Inspection.serial_no is Link→'Serial No' but no ERP Serial exists; "
+                            "inserted with ignore_mandatory=True. Consider changing field to "
+                            "Link→'Instrument Serial Number'."
+                        ),
+                    )
+                else:
+                    inspection.insert(ignore_permissions=True)
+
                 frappe.msgprint(_(f"Instrument Inspection <b>{inspection.name}</b> created."))
 
             # --- 5. Clarinet Initial Setup (new inventory only) --- #
@@ -151,8 +222,60 @@ class ClarinetIntake(Document):
                 frappe.msgprint(_(f"Clarinet Initial Setup <b>{setup.name}</b> created."))
 
         except Exception:
-            frappe.log_error(frappe.get_traceback(), "ClarinetIntake.after_insert")
+            frappe.log_error(title="ClarinetIntake.after_insert", message=frappe.get_traceback())
             frappe.throw(_("An error occurred during automated record creation. Please check system logs or contact an administrator."))
+
+    def _compute_inspection_serial_value(self, serial_no_input: str, isn_name: Optional[str]) -> Tuple[Optional[str], bool]:
+        """
+        Determine what value to put into Instrument Inspection.serial_no, and whether we must bypass mandatory:
+          - If Link to "Instrument Serial Number": ensure/create ISN and return its docname. (no bypass)
+          - If Link to "Serial No": (legacy) try to find ERPNext Serial No by exact name.
+                • If not found, return (None, True) so caller inserts with ignore_mandatory=True.
+          - If Data: return raw serial (no bypass).
+        Returns: (value_to_set, requires_mandatory_bypass)
+        """
+        df = _get_field_df("Instrument Inspection", "serial_no")
+        fieldtype = getattr(df, "fieldtype", None) if df else None
+        options = getattr(df, "options", None) if df else None
+
+        # Link → Instrument Serial Number (preferred)
+        if fieldtype == "Link" and options == "Instrument Serial Number":
+            # If no ISN name yet, ensure it now so link validation never fails
+            if not isn_name and serial_no_input:
+                isn_name = ensure_instrument_serial(
+                    serial_input=serial_no_input,
+                    instrument=None,
+                    link_on_instrument=False,
+                    status="Active",
+                )
+            return isn_name, False
+
+        # Link → Serial No (legacy). We do NOT create ERPNext Serial Nos anymore.
+        if fieldtype == "Link" and options == "Serial No":
+            if serial_no_input and frappe.db.exists("Serial No", serial_no_input):
+                return serial_no_input, False
+            # Mandatory will fail; signal caller to bypass
+            return None, True
+
+        # Data: just store raw
+        return (serial_no_input or None), False
+
+    def _find_existing_instrument_by_serial(self, serial_no_input: str, isn_name: Optional[str]):
+        """
+        Backward/forward compatible search:
+          - If Instrument.serial_no is a Link to Instrument Serial Number, search by ISN name.
+          - Else (legacy Data field), search by raw serial string.
+        Returns an Instrument doc or None.
+        """
+        field_type = _get_instrument_serial_field_type()
+
+        if field_type == "Link" and isn_name:
+            name = frappe.db.get_value("Instrument", {"serial_no": isn_name}, "name")
+            return frappe.get_doc("Instrument", name) if name else None
+
+        # Legacy Data field or no ISN yet — search by plain serial
+        name = frappe.db.get_value("Instrument", {"serial_no": serial_no_input}, "name")
+        return frappe.get_doc("Instrument", name) if name else None
 
     def autoname(self) -> None:
         if not self.intake_record_id:
@@ -175,23 +298,75 @@ class ClarinetIntake(Document):
             )
 
     def _sync_info_from_existing_instrument(self) -> None:
+        """
+        If user typed a serial and we already have an Instrument matching it, sync read-only info
+        for convenience. Compatible with both Link and Data serial fields.
+        """
         if self.serial_no and not self.instrument:
-            instrument = frappe.db.get_value(
-                "Instrument", {"serial_no": self.serial_no}, ["name", "brand", "model", "instrument_category"], as_dict=True
-            )
-            if instrument:
-                self.instrument = instrument["name"]
+            serial_no_input = self.serial_no.strip()
+            isn = find_by_serial(serial_no_input)
+            instr_doc = None
+
+            if isn and isn.get("name"):
+                # Prefer Link search
+                field_type = _get_instrument_serial_field_type()
+                if field_type == "Link":
+                    instr_name = frappe.db.get_value("Instrument", {"serial_no": isn["name"]}, "name")
+                    if instr_name:
+                        instr_doc = frappe.get_doc("Instrument", instr_name)
+
+            if not instr_doc:
+                # Legacy Data fall-back
+                instr_name = frappe.db.get_value("Instrument", {"serial_no": serial_no_input}, "name")
+                if instr_name:
+                    instr_doc = frappe.get_doc("Instrument", instr_name)
+
+            if instr_doc:
+                self.instrument = instr_doc.name
                 if not self.manufacturer:
-                    self.manufacturer = instrument["brand"]
+                    self.manufacturer = getattr(instr_doc, "brand", None)
                 if not self.model:
-                    self.model = instrument["model"]
+                    self.model = getattr(instr_doc, "model", None)
                 if not self.instrument_category:
-                    self.instrument_category = instrument["instrument_category"]
+                    self.instrument_category = getattr(instr_doc, "instrument_category", None)
 
 @frappe.whitelist(allow_guest=False)
 def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | None:
+    """
+    Backwards-compatible fetch:
+      - If Instrument.serial_no is a Link, normalize/resolve serial → ISN → Instrument.
+      - Else (Data), match Instrument.serial_no by plain string.
+    """
     if not serial_no:
         return None
+
+    # Prefer ISN match for Link-style serial_no
+    isn = find_by_serial(serial_no)
+    if isn and isn.get("name"):
+        field_type = _get_instrument_serial_field_type()
+        if field_type == "Link":
+            instr_name = frappe.db.get_value("Instrument", {"serial_no": isn["name"]}, "name")
+            if instr_name:
+                data = frappe.db.get_value(
+                    "Instrument",
+                    instr_name,
+                    [
+                        "name",
+                        "brand",
+                        "model",
+                        "clarinet_type",
+                        "body_material",
+                        "key_plating",
+                        "year_of_manufacture",
+                        "instrument_category",
+                    ],
+                    as_dict=True,
+                )
+                if data:
+                    data["manufacturer"] = data.pop("brand", None)
+                return data
+
+    # Legacy Data fallback
     data = frappe.db.get_value(
         "Instrument",
         {"serial_no": serial_no},
@@ -203,7 +378,7 @@ def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | No
             "body_material",
             "key_plating",
             "year_of_manufacture",
-            "instrument_category"
+            "instrument_category",
         ],
         as_dict=True,
     )
@@ -216,3 +391,28 @@ def get_instrument_inspection_name(intake_record_id: str) -> str | None:
     if not intake_record_id:
         return None
     return frappe.db.get_value("Instrument Inspection", {"intake_record_id": intake_record_id}, "name")
+
+
+# -----------------------
+# Internals (helpers)
+# -----------------------
+
+def _get_instrument_serial_field_type() -> Optional[str]:
+    """
+    Return the fieldtype of Instrument.serial_no ('Link' | 'Data' | None).
+    We keep this dynamic so the controller works against both legacy and new schemas.
+    """
+    try:
+        meta = frappe.get_meta("Instrument")
+        df = meta.get_field("serial_no")
+        return getattr(df, "fieldtype", None) if df else None
+    except Exception:
+        return None
+
+
+def _get_field_df(doctype: str, fieldname: str):
+    """Return the DocField for (doctype, fieldname) or None."""
+    try:
+        return frappe.get_meta(doctype).get_field(fieldname)
+    except Exception:
+        return None
