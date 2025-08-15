@@ -1,73 +1,81 @@
+# Path: repair_portal/api/frontend/instrument_profile.py
+# Last Updated: 2025-08-14
+# Version: v1.2
+# Purpose: Frontend APIs for Instrument and the aggregated Instrument Profile snapshot.
+from __future__ import annotations
+
 import frappe
 from frappe import _
 
-@frappe.whitelist(allow_guest=False)
-def get(instrument_id=None):
-    """
-    Fetch a single instrument by ID.
-    Staff: access any
-    Customer/Player: only if linked by 'customer'
-    """
-    if not instrument_id:
-        frappe.throw(_('Instrument ID is required'))
-    user = frappe.session.user
-    roles = set(frappe.get_roles(user))
-    staff_roles = {"Technician", "Repair Manager", "System Manager"}
-    is_staff = bool(roles & staff_roles)
-    instrument = frappe.get_doc('Instrument', instrument_id)
-    # If not staff, check customer link
-    if not is_staff:
-        email = frappe.db.get_value('User', user, 'email')
-        customer = frappe.db.get_value('Customer', {'email_id': email})
-        if not (customer and instrument.customer == customer):
-            frappe.throw(_('You are not permitted to view this instrument.'), frappe.PermissionError)
-    # Only return fields that exist
-    return {
-        'name': instrument.name,
-        'serial_no': instrument.serial_no,
-        'instrument_type': instrument.instrument_type,
-        'brand': instrument.brand,
-        'model': instrument.model,
-        'clarinet_type': getattr(instrument, 'clarinet_type', None),
-        'body_material': getattr(instrument, 'body_material', None),
-        'keywork_plating': getattr(instrument, 'keywork_plating', None),
-        'pitch_standard': getattr(instrument, 'pitch_standard', None),
-        'year_of_manufacture': getattr(instrument, 'year_of_manufacture', None),
-        'key_plating': getattr(instrument, 'key_plating', None),
-        'instrument_category': getattr(instrument, 'instrument_category', None),
-        'current_status': getattr(instrument, 'current_status', None),
-        'notes': getattr(instrument, 'notes', None),
-        'attachments': getattr(instrument, 'attachments', None),
-        'customer': instrument.customer,
-    }
+from repair_portal.instrument_profile.services.profile_sync import (
+    sync_now as _sync_now,
+    get_snapshot as _get_snapshot,
+)
 
 @frappe.whitelist(allow_guest=False)
-def list():
-    """
-    List all instruments user can view:
-    Staff: all instruments.
-    Customer/Player: only instruments linked by customer.
-    """
+def get(instrument_id=None):
+    """Fetch a single Instrument by ID with basic fields (backward compatible)."""
+    if not instrument_id:
+        frappe.throw(_('Instrument ID is required'))
+
     user = frappe.session.user
     roles = set(frappe.get_roles(user))
     staff_roles = {"Technician", "Repair Manager", "System Manager"}
     is_staff = bool(roles & staff_roles)
-    instruments = []
+    fields = ['name', 'serial_no', 'instrument_type', 'brand', 'model', 'customer', 'current_status']
+
     if is_staff:
-        docs = frappe.get_all('Instrument', fields=[
-            'name', 'serial_no', 'instrument_type', 'brand', 'model', 'customer', 'current_status'
-        ])
+        return frappe.db.get_value('Instrument', instrument_id, fields, as_dict=True)
+
+    email = frappe.db.get_value('User', user, 'email')
+    customer = frappe.db.get_value('Customer', {'email_id': email})
+    doc = frappe.db.get_value('Instrument', instrument_id, fields, as_dict=True)
+    if not customer or not doc or doc.get("customer") != customer:
+        frappe.throw(_('Not permitted'), frappe.PermissionError)
+    return doc
+
+
+@frappe.whitelist(allow_guest=False)
+def list_for_user():
+    """List Instruments for current user. Staff see all; Customers see their own."""
+    user = frappe.session.user
+    roles = set(frappe.get_roles(user))
+    staff_roles = {"Technician", "Repair Manager", "System Manager"}
+    is_staff = bool(roles & staff_roles)
+
+    fields = ['name','serial_no','instrument_type','brand','model','customer','current_status']
+    docs = frappe.get_all('Instrument', fields=fields)
+    if is_staff:
+        return docs
+
+    email = frappe.db.get_value('User', user, 'email')
+    customer = frappe.db.get_value('Customer', {'email_id': email})
+    return [d for d in docs if (customer and d.customer and d.customer == customer)]
+
+
+@frappe.whitelist(allow_guest=False)
+def get_profile(instrument=None, profile=None):
+    """
+    Return the fully-synced Instrument Profile document (scalar snapshot only).
+    For an aggregated "everything" snapshot, call get_profile_snapshot.
+    """
+    if not instrument and not profile:
+        frappe.throw(_("Provide instrument or profile"))
+    if not profile and instrument:
+        res = _sync_now(instrument=instrument)
+        profile = res.get("profile")
     else:
-        email = frappe.db.get_value('User', user, 'email')
-        customer = frappe.db.get_value('Customer', {'email_id': email})
-        docs = frappe.get_all('Instrument', fields=[
-            'name', 'serial_no', 'instrument_type', 'brand', 'model', 'customer', 'current_status'
-        ])
-        # Filter to only those linked (safe)
-        docs = [
-            d for d in docs
-            if (customer and d.customer and d.customer == customer)
-        ]
-    for d in docs:
-        instruments.append(d)
-    return instruments
+        _sync_now(profile=profile)
+
+    return frappe.get_doc("Instrument Profile", profile).as_dict()
+
+
+@frappe.whitelist(allow_guest=False)
+def get_profile_snapshot(instrument=None, profile=None):
+    """
+    Return the aggregated snapshot for UI: instrument + owner + serial record +
+    accessories, media, condition history, interactions (if doctypes exist).
+    """
+    if not instrument and not profile:
+        frappe.throw(_("Provide instrument or profile"))
+    return _get_snapshot(instrument=instrument, profile=profile)

@@ -47,8 +47,32 @@ doc_events = {
             "repair_portal.intake.doctype.clarinet_intake"
             + ".clarinet_intake_timeline.add_timeline_entries"
         )
+    },
+    "Instrument": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_change": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+    },
+    "Instrument Serial Number": {
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+    },
+    # Optional handlers if these doctypes exist in your app/site:
+    "Instrument Condition Record": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+    },
+    "Instrument Media": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+    },
+    "Instrument Interaction Log": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
     }
+
 }
+
 
 app_include_css = [
     "/assets/repair_portal/css/clarinet_editor.css"

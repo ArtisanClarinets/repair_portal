@@ -1,19 +1,101 @@
 {
-  "doctype": "DocType",
-  "name": "Customer External Work Log",
-  "module": "Instrument Profile",
-  "custom": 0,
-  "fields": [
-    {"fieldname": "instrument_profile", "fieldtype": "Link", "label": "Instrument Profile", "options": "Instrument Profile", "reqd": 1},
-    {"fieldname": "service_date", "fieldtype": "Date", "label": "Service Date", "reqd": 1},
-    {"fieldname": "service_type", "fieldtype": "Select", "label": "Type of Service", "options": "Setup\nRepair\nInspection\nOther"},
-    {"fieldname": "service_notes", "fieldtype": "Text", "label": "Description / Notes"},
-    {"fieldname": "external_shop_name", "fieldtype": "Data", "label": "Performed By (Shop Name)"},
-    {"fieldname": "receipt_attachment", "fieldtype": "Attach", "label": "Receipt / Proof of Service"}
-  ],
-  "permissions": [
-    {"role": "Customer", "read": 1, "write": 1, "create": 1, "submit": 0},
-    {"role": "Technician", "read": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1}
-  ]
+ "actions": [],
+ "creation": "2025-08-15 01:34:21.967873",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "instrument_profile",
+  "service_date",
+  "service_type",
+  "service_notes",
+  "external_shop_name",
+  "receipt_attachment"
+ ],
+ "fields": [
+  {
+   "fieldname": "instrument_profile",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Instrument Profile",
+   "options": "Instrument Profile",
+   "reqd": 1
+  },
+  {
+   "fieldname": "service_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Service Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "service_type",
+   "fieldtype": "Select",
+   "label": "Type of Service",
+   "options": "Setup\nRepair\nInspection\nOther"
+  },
+  {
+   "fieldname": "service_notes",
+   "fieldtype": "Text",
+   "label": "Description / Notes"
+  },
+  {
+   "fieldname": "external_shop_name",
+   "fieldtype": "Data",
+   "label": "Performed By (Shop Name)"
+  },
+  {
+   "fieldname": "receipt_attachment",
+   "fieldtype": "Attach",
+   "label": "Receipt / Proof of Service"
+  }
+ ],
+ "links": [],
+ "modified": "2025-08-15 02:09:05.022713",
+ "modified_by": "Administrator",
+ "module": "Instrument Profile",
+ "name": "Customer External Work Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Customer",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Technician",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
 }

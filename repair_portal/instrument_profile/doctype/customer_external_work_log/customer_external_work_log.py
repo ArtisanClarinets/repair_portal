@@ -7,4 +7,19 @@ from frappe.model.document import Document
 
 
 class CustomerExternalWorkLog(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+
+        external_shop_name: DF.Data | None
+        instrument_profile: DF.Link
+        receipt_attachment: DF.Attach | None
+        service_date: DF.Date
+        service_notes: DF.Text | None
+        service_type: DF.Literal["Setup", "Repair", "Inspection", "Other"]
+    # end: auto-generated types
     pass

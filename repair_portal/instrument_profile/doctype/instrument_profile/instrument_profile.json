@@ -1,12 +1,25 @@
 {
  "actions": [],
  "autoname": "format:INSTPR-{####}",
- "creation": "2025-07-29 02:15:59.399014",
+ "creation": "2025-08-15 00:00:00",
  "doctype": "DocType",
+ "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "instrument_details_tab",
+  "workflow_state",
+  "column_break_bigo",
+  "status",
+  "current_location",
+  "section_break_identity",
+  "instrument_profile_id",
   "instrument",
-  "general_info_section",
+  "serial_no",
+  "column_break_right_identity",
+  "customer",
+  "owner_name",
+  "section_break_overview",
+  "headline",
   "brand",
   "model",
   "instrument_category",
@@ -16,22 +29,21 @@
   "key_plating",
   "key_system",
   "number_of_keys_rings",
-  "specs_section",
-  "pitch_standard",
-  "bore_style",
-  "bore_measurement",
-  "tone_hole_style",
-  "thumb_rest",
-  "spring_type",
-  "pad_type_current",
+  "tab_break_purchase_intake",
   "purchase_section",
+  "purchase_date",
   "purchase_order",
   "purchase_receipt",
   "intake_date",
+  "section_break_warranty",
+  "warranty_start_date",
+  "warranty_end_date",
+  "warranty_expiration",
   "inspection_section",
   "initial_condition_notes",
   "linked_inspection",
   "condition_logs",
+  "tab_break_logs",
   "logs_section",
   "external_work_logs",
   "warranty_logs",
@@ -42,23 +54,53 @@
   "serial_photos",
   "profile_image",
   "service_photos",
-  "status_section",
-  "workflow_state",
-  "warranty_expiration",
-  "current_status",
-  "current_location",
-  "amended_from",
-  "instrument_profile_id",
-  "serial_no"
+  "amended_from"
  ],
  "fields": [
+  {
+   "fieldname": "instrument_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Overview"
+  },
+  {
+   "fieldname": "workflow_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Workflow State",
+   "options": "Open\nIn Progress\nDelivered\nArchived",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_bigo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Auto-synced from Instrument.current_status",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_location",
+   "fieldtype": "Data",
+   "label": "Current Location"
+  },
+  {
+   "fieldname": "section_break_identity",
+   "fieldtype": "Section Break",
+   "label": "Identity"
+  },
   {
    "bold": 1,
    "description": "Automatically generated unique Instrument Profile ID",
    "fieldname": "instrument_profile_id",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Instrument Profile ID",
    "read_only": 1,
+   "show_on_timeline": 1,
    "unique": 1
   },
   {
@@ -69,9 +111,41 @@
    "reqd": 1
   },
   {
-   "fieldname": "general_info_section",
+   "description": "Raw serial string from Instrument.serial_no",
+   "fieldname": "serial_no",
+   "fieldtype": "Data",
+   "label": "Serial Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_right_identity",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "owner_name",
+   "fieldtype": "Data",
+   "label": "Owner Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_overview",
    "fieldtype": "Section Break",
    "label": "General Information"
+  },
+  {
+   "description": "Brand Model \u2022 Serial",
+   "fieldname": "headline",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Headline",
+   "read_only": 1
   },
   {
    "fetch_from": "instrument.brand",
@@ -88,7 +162,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "instrument.instrument_category",
+   "description": "Auto-synced from Instrument.instrument_type or clarinet_type",
    "fieldname": "instrument_category",
    "fieldtype": "Data",
    "label": "Instrument Category",
@@ -129,49 +203,20 @@
    "label": "Number of Keys/Rings"
   },
   {
-   "fieldname": "specs_section",
-   "fieldtype": "Section Break",
-   "label": "Specifications"
-  },
-  {
-   "fieldname": "pitch_standard",
-   "fieldtype": "Data",
-   "label": "Pitch Standard"
-  },
-  {
-   "fieldname": "bore_style",
-   "fieldtype": "Data",
-   "label": "Bore Style"
-  },
-  {
-   "fieldname": "bore_measurement",
-   "fieldtype": "Float",
-   "label": "Bore Measurement (mm)"
-  },
-  {
-   "fieldname": "tone_hole_style",
-   "fieldtype": "Data",
-   "label": "Tone Hole Style"
-  },
-  {
-   "fieldname": "thumb_rest",
-   "fieldtype": "Data",
-   "label": "Thumb Rest"
-  },
-  {
-   "fieldname": "spring_type",
-   "fieldtype": "Data",
-   "label": "Spring Type"
-  },
-  {
-   "fieldname": "pad_type_current",
-   "fieldtype": "Data",
-   "label": "Pad Type (Current)"
+   "fieldname": "tab_break_purchase_intake",
+   "fieldtype": "Tab Break",
+   "label": "Purchase & Intake"
   },
   {
    "fieldname": "purchase_section",
    "fieldtype": "Section Break",
-   "label": "Purchase & Intake"
+   "label": "Purchase"
+  },
+  {
+   "fieldname": "purchase_date",
+   "fieldtype": "Date",
+   "label": "Purchase Date",
+   "read_only": 1
   },
   {
    "fieldname": "purchase_order",
@@ -188,10 +233,35 @@
    "read_only": 1
   },
   {
-   "fetch_from": "clarinet_intake.intake_date",
    "fieldname": "intake_date",
    "fieldtype": "Date",
    "label": "Last Intake Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_warranty",
+   "fieldtype": "Section Break",
+   "label": "Warranty"
+  },
+  {
+   "fieldname": "warranty_start_date",
+   "fieldtype": "Date",
+   "label": "Warranty Start Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "warranty_end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Warranty End Date",
+   "read_only": 1
+  },
+  {
+   "description": "Kept for backward compatibility; use warranty_end_date",
+   "fieldname": "warranty_expiration",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Warranty Expiration (Deprecated)",
    "read_only": 1
   },
   {
@@ -205,7 +275,6 @@
    "label": "Initial Condition Notes"
   },
   {
-   "fetch_from": "instrument_inspection.inspection_date",
    "fieldname": "linked_inspection",
    "fieldtype": "Link",
    "label": "Instrument Inspection",
@@ -218,6 +287,11 @@
    "label": "Condition Logs",
    "options": "Instrument Condition Record",
    "read_only": 1
+  },
+  {
+   "fieldname": "tab_break_logs",
+   "fieldtype": "Tab Break",
+   "label": "Logs"
   },
   {
    "fieldname": "logs_section",
@@ -282,37 +356,6 @@
    "options": "Instrument Photo"
   },
   {
-   "fieldname": "status_section",
-   "fieldtype": "Section Break",
-   "label": "Status & Workflow"
-  },
-  {
-   "fieldname": "workflow_state",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Workflow State",
-   "options": "Open\nIn Progress\nDelivered\nArchived",
-   "read_only": 1
-  },
-  {
-   "fieldname": "warranty_expiration",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Warranty Expiration",
-   "read_only": 1
-  },
-  {
-   "fieldname": "current_status",
-   "fieldtype": "Select",
-   "label": "Current Status",
-   "options": "For Sale\nIn Workshop\nWith Customer\nSold\nArchived"
-  },
-  {
-   "fieldname": "current_location",
-   "fieldtype": "Data",
-   "label": "Current Location"
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -321,17 +364,12 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
-  },
-  {
-   "fieldname": "serial_no",
-   "fieldtype": "Link",
-   "label": "Serial Number",
-   "options": "Instrument"
   }
  ],
+ "image_field": "profile_image",
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-29 02:24:54.250969",
+ "modified": "2025-08-15 02:48:39.571042",
  "modified_by": "Administrator",
  "module": "Instrument Profile",
  "name": "Instrument Profile",
@@ -339,34 +377,26 @@
  "owner": "Administrator",
  "permissions": [
   {
-   "create": 1,
-   "delete": 1,
-   "read": 1,
-   "role": "System Manager",
-   "write": 1
-  },
-  {
-   "read": 1,
-   "role": "Technician"
-  },
-  {
-   "if_owner": 1,
-   "read": 1,
-   "role": "Customer"
-  },
-  {
    "cancel": 1,
    "create": 1,
    "read": 1,
    "role": "Repair Manager",
    "submit": 1,
    "write": 1
+  },
+  {
+   "if_owner": 1,
+   "read": 1,
+   "role": "Customer"
   }
  ],
  "row_format": "Dynamic",
+ "search_fields": "serial_no,brand,model,customer",
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
+ "title_field": "headline",
  "track_changes": 1,
  "track_views": 1
 }
