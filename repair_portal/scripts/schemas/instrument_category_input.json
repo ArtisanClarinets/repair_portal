@@ -35,7 +35,12 @@
         "name": "Bass — Low C",
         "description": "Instruments in the Bass Clarinet family with a range to low C"
     },
-
+    {
+        "doctype": "Instrument Category",
+        "title": "Bass — Low D",
+        "name": "Bass — Low D",
+        "description": "Instruments in the Bass Clarinet family with a range to low D"
+    },
     {
         "doctype": "Instrument Category",
         "title": "C",

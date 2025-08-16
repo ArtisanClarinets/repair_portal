@@ -2,11 +2,24 @@
   "doctype": "DocType",
   "name": "Clarinet Task Depends On",
   "module": "Instrument Setup",
- "creation": "2025-08-13 03:20:56.186243",
   "engine": "InnoDB",
   "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "description": "Child table storing predecessor tasks (dependencies) for a Clarinet Setup Task. Each row links to another task that must be Completed before the current task can proceed.",
+  "field_order": [
+    "task"
+  ],
   "fields": [
-    { "fieldname": "task", "fieldtype": "Link", "options": "Clarinet Setup Task", "label": "Task", "reqd": 1 }
+    {
+      "fieldname": "task",
+      "fieldtype": "Link",
+      "options": "Clarinet Setup Task",
+      "label": "Task",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "The prerequisite Clarinet Setup Task that this task depends on."
+    }
   ],
   "permissions": []
 }

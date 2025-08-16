@@ -1,495 +1,475 @@
 ---
 description: 'Frappe V15 Repair Portal Chat Mode & Developer Logic Summary'
-tools: ['extensions', 'runTests', 'codebase', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'terminalSelection', 'terminalLastCommand', 'openSimpleBrowser', 'fetch', 'findTestFiles', 'searchResults', 'githubRepo', 'runCommands', 'runTasks', 'editFiles', 'runNotebooks', 'search', 'new', 'pylance mcp server', 'sequentialthinking', 'memory', 'desktop-commander', 'frappe', 'upstash-context7', 'dtdUri', 'getPythonEnvironmentInfo', 'getPythonExecutableCommand', 'installPythonPackage', 'configurePythonEnvironment', 'configureNotebook', 'listNotebookPackages', 'installNotebookPackages']
+tools: ['extensions', 'codebase', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'terminalSelection', 'terminalLastCommand', 'openSimpleBrowser', 'fetch', 'findTestFiles', 'searchResults', 'githubRepo', 'runTests', 'runCommands', 'runTasks', 'editFiles', 'runNotebooks', 'search', 'new', 'sequentialthinking', 'memory', 'desktop-commander', 'frappe', 'upstash-context7', 'context7', 'pylance mcp server', 'getPythonEnvironmentInfo', 'getPythonExecutableCommand', 'installPythonPackage', 'configurePythonEnvironment', 'configureNotebook', 'listNotebookPackages', 'installNotebookPackages']
 ---
-Here’s your **complete, updated VS Code Copilot instruction set** in **Markdown format** so you can paste it directly into Copilot’s *Custom Instructions* box or commit it to your repo as `COPILOT_INSTRUCTIONS.md`.
+# Copilot Instructions — Fortune-500 Production-Readiness Review (repair_portal)
 
----
+**Bench (activate first):**
+source /home/frappe/frappe-bench/env/bin/activate
+Repo root: /home/frappe/frappe-bench/apps/repair_portal
+Target site (no placeholders): erp.artisanclarinets.com
 
-`````markdown
-# VS Code Copilot — Workspace Instructions (repair_portal)
+0) Prime Directives (Non-Negotiable)
+JSON is the source of truth. Before writing any code, perform a complete line-by-line review of every DocType JSON in the repository, then do a full back-trace of all Link, Table, Table MultiSelect, and Dynamic Link fields.
 
-> Bench environment:  
-> ```bash
-> source /home/frappe/frappe-bench/env/bin/activate
-> ```
-> Repo root:  
-> `/home/frappe/frappe-bench/apps/repair_portal`
+Fail fast on integrity gaps. If any referenced DocType, field, or child table is missing or mis-typed, STOP and output a failing report (no code changes). Include the exact file and line numbers that broke validation.
 
----
+Full files only. Always output whole files with absolute repo paths. Never output partial diffs or “snippets”.
 
-## 0 · Prime Directives
-- **JSON-schema review first.** Before producing *any* code, perform a **line-by-line review of *every* DocType JSON** involved in the task, including a **complete back-trace of all Link/Child Table fields** referenced by controllers and client scripts.
-- **Full files only.** Never output partial snippets—always return full file contents with real paths from this repo.
-- **Production-ready quality.** Type-hinted Python, tested, linted, localized, accessible UI. Assume immediate deployment to production.
+Enterprise bar. All changes must meet security, performance, test coverage, and auditability standards suitable for Meta/Amazon/Apple:
 
----
+Server-side permission checks on every write.
 
-## 1 · Output Contract
-- **File proposals**:  
-  Use this block format (one file per block):
-  ````json name=/home/frappe/frappe-bench/apps/repair_portal/<path>/<filename>
-  { ...full file content... }
-`````
+Zero raw SQL string interpolation (parameterize or use frappe.qb).
 
-* **CLI / SQL / misc commands**:
-  Use triple-backticks outside file blocks:
+Race-safe, idempotent patches/migrations for populated DBs.
 
-  ```bash
-  bench --site <site> migrate
-  ```
-* **Order of answer sections**:
-  **Review → Plan → Backend → Frontend → Tests → Migrations/Patches → Docs → Verification Checklist**
+Tests for all flows, including negative paths and permission denials.
 
----
+Deterministic execution order. Answers must follow:
+Review → Plan → Backend → Frontend → Tests → Migrations/Patches → Docs → Verification Checklist.
 
-## 2 · Frappe v15 Compliance Rules
+1) Output Contract for Your Replies
+Files (one block per file):
 
-* `workflow_state` must be **Select** type.
-* DocType JSON must include `"engine": "InnoDB"`.
-* Client scripts: `frappe.ui.form.on('<Doctype>', { ... })`.
-* Server code: `frappe.get_doc`, `frappe.new_doc`, `frappe.db.exists`, `frappe.db.set_value`. No deprecated attributes like `__onload`.
-* No edits to Frappe/ERPNext core; only code under `repair_portal/`.
 
----
+{ …full file content… }
+Commands & SQL (triple backticks):
 
-## 3 · JSON-First Review Protocol (MANDATORY)
 
-### 3.1 Enumerate all DocTypes (direct + transitive)
+bench --site erp.artisanclarinets.com migrate
+Section order (mandatory): as in Prime Directives #5.
 
-1. Identify DocTypes in scope (changed/created/touched).
-2. For each JSON (and child tables), **list every field line-by-line** with:
+2) Tooling You MUST Use (Install Once)
 
-   * `fieldname`, `label`, `fieldtype`, `options`, `reqd`, `unique`, `in_list_view`, `in_standard_filter`, `depends_on`, `default`, `fetch_from`, `translatable`, `no_copy`
-3. Confirm meta keys: `"doctype"`, `"name"`, `"module"`, `"engine"`, `is_child_table`, `allow_rename`, `permissions`.
+# Linux packages for scanning
+sudo apt-get update
+sudo apt-get install -y ripgrep jq sqlite3
 
-### 3.2 Back-trace Links & Tables
+# Python tools (inside bench venv)
+pip install --upgrade pip
+pip install ruff==0.5.6 mypy==1.10.0 bandit==1.7.9 pip-audit==2.7.3 safety==3.2.7 sqlparse==0.5.1
 
-* For each **Link / Table / Table MultiSelect / Child Table**:
+# Node tools (for frontend/JS)
+npm install -g eslint@9.7.0 @eslint/js@9.7.0
 
-  * Resolve **target DocType** and confirm its JSON exists.
-  * If **Dynamic Link**, identify the `link_doctype` source and enumerate values.
-  * Walk inbound/outbound references and build a **dependency graph**.
-* **Cross-check controllers & scripts**:
+# Optional secrets scanners (recommended)
+pip install detect-secrets==1.5.0
+3) Preflight — Establish JSON Ground Truth (MANDATORY)
+Run these in the repo root: /home/frappe/frappe-bench/apps/repair_portal
 
-  * Python: controllers, APIs, hooks (`get_doc`, `db.get_value`, `db.sql`).
-  * JS: `frappe.ui.form.on`, `frm.set_query`, `frm.add_child`, REST calls.
-* **List reference paths** found (file\:line) and CRUD expectations.
 
-### 3.3 Integrity & UX checks
+# 3.1 List all DocType JSONs
+rg -n --glob '**/*.json' '"doctype"\s*:\s*"DocType"' | sort
 
-* Confirm required fields enforced server & client side.
-* Ensure `Select` options match workflows/fixtures.
-* Check child tables define `parentfield`, `parenttype`, `idx`.
-* Note migrations needed for renames/null-backfills.
+# 3.2 Normalize and print meta for each DocType (field-by-field)
+for f in $(rg -l --glob '**/*.json' '"doctype"\s*:\s*"DocType"'); do
+  echo "=== $f ==="
+  jq -r '
+    .name as $n
+    | "DocType: \($n)",
+      "engine=\(.engine // "MISSING") | module=\(.module // "MISSING") | is_child_table=\(.is_child_table // 0)",
+      (.fields // []) | to_entries[] |
+      "\(.key): fieldname=\(.value.fieldname // "MISSING") | label=\(.value.label // "") | fieldtype=\(.value.fieldtype // "MISSING") | options=\(.value.options // "") | reqd=\(.value.reqd // 0) | unique=\(.value.unique // 0) | depends_on=\(.value.depends_on // "") | in_list_view=\(.value.in_list_view // 0) | default=\(.value.default // "") | fetch_from=\(.value.fetch_from // "")"
+  ' "$f"
+done
 
----
+# 3.3 Extract a dependency list of Link/Table targets for the whole repo
+jq -r '
+  .name as $dt | (.fields // [])[]
+  | select(.fieldtype=="Link" or .fieldtype=="Table" or .fieldtype=="Table MultiSelect" or .fieldtype=="Dynamic Link")
+  | [$dt, .fieldtype, (.options // "UNKNOWN"), (.fieldname // "MISSING")]
+  | @tsv
+' $(rg -l --glob '**/*.json' '"doctype"\s*:\s*"DocType"') | column -t > .tmp_doctype_edges.tsv
+printf "Wrote dependency edges to .tmp_doctype_edges.tsv\n"
+Validation rules (enforce as hard gates):
 
-## 4 · Planning Protocol
+Every DocType JSON must have "engine": "InnoDB".
 
-Before code, output a **Plan**:
+Every workflow field must use Select (e.g., workflow_state).
 
-* **Change list**: exact file paths to add/modify/delete.
-* **Data model impact**: field changes, dependencies, migrations.
-* **Risks & mitigations**: permissions, performance, backwards compatibility.
-* **Test matrix**: unit, server, UI, integration.
+Every Link/Table/Table MultiSelect target must exist as a DocType JSON in the repo or in Frappe/ERPNext core; resolve dynamic links by enumerating the source link_doctype.
 
----
+Every child table JSON must set is_child_table: 1 and child rows must have parent, parenttype, parentfield, idx.
 
-## 5 · Code Quality Bar (Enterprise)
+If any rule fails → STOP (no code changes). Output a report with exact file:line and the failing rule.
 
-* **Python**: type hints, docstrings (NumPy/Google style), idempotent functions, deterministic tests.
-* **JS/TS**: modular, no spaghetti, clean event handlers, prefer `frm` over `cur_frm`.
-* **Accessibility**: labels/ARIA, keyboard navigation, visible focus, alt text.
-* **Security**: permission checks on all writes, validate Link targets, parameterized SQL only.
-* **Performance**: indexes for filtered fields, avoid N+1 queries, use `frappe.get_all`.
-* **i18n**: wrap UI strings for translation.
+4) Automated Back-Trace & Existence Guard (Run Early, Fail if Red)
+Create and run this one-file validator before any code changes.
 
----
 
-## 6 · When Changing DocTypes
+cat >/home/frappe/frappe-bench/apps/repair_portal/scripts/schema_guard.py <<'PY'
+#!/usr/bin/env python3
+import json, os, sys, re, glob
+ROOT = "/home/frappe/frappe-bench/apps/repair_portal"
+errors = []
 
-* Include **fixtures** if needed.
-* For field/DocType renames or normalization, include **patches**:
+def load_jsons():
+    files = glob.glob(f"{ROOT}/**/*.json", recursive=True)
+    out = {}
+    for f in files:
+        try:
+            with open(f, "r", encoding="utf-8") as fh:
+                j = json.load(fh)
+            if j.get("doctype") == "DocType":
+                name = j.get("name") or os.path.basename(f).replace(".json", "")
+                out[name] = (f, j)
+        except Exception as e:
+            errors.append(f"[JSON PARSE] {f}: {e}")
+    return out
 
-  ```python name=/home/frappe/frappe-bench/apps/repair_portal/repair_portal/patches/<version>_normalize_foo.py
-  import frappe
+def check_engine(meta, path):
+    eng = meta.get("engine")
+    if eng != "InnoDB":
+        errors.append(f"[ENGINE] {path}: engine={eng} (must be 'InnoDB')")
 
-  def execute():
-      if frappe.db.table_exists("Clarinet Intake"):
-          frappe.db.sql("""
-              update `tabClarinet Intake`
-              set workflow_state = coalesce(workflow_state,'Draft')
-              where workflow_state is null
-          """)
-  ```
+def collect_refs(meta, path):
+    refs = []
+    for i, fld in enumerate(meta.get("fields", [])):
+        ft = fld.get("fieldtype")
+        if ft in ("Link","Table","Table MultiSelect","Dynamic Link"):
+            refs.append((ft, fld.get("options","UNKNOWN"), fld.get("fieldname", f"idx{i}"), path))
+    return refs
 
-  ```text name=/home/frappe/frappe-bench/apps/repair_portal/repair_portal/patches.txt
-  repair_portal.patches.<version>_normalize_foo
-  ```
-* Migrations must be **idempotent** and safe on populated DBs.
+def is_child(meta):
+    return bool(meta.get("is_child_table", 0))
 
----
+def main():
+    metas = load_jsons()
+    # index by name
+    names = set(metas.keys())
 
-## 7 · Tests Are Mandatory
+    # 1) engine checks + collect refs
+    all_refs = []
+    for name, (path, meta) in metas.items():
+        check_engine(meta, path)
+        # basic child-table sanity
+        if is_child(meta) and meta.get("is_submittable"):
+            errors.append(f"[CHILD SUBMITTABLE] {path}: child tables must not be submittable")
+        all_refs.extend(collect_refs(meta, path))
 
-* Place under `repair_portal/tests/`.
-* Use `pytest` + Frappe testing utils.
-* Include fixtures for common DocTypes (e.g., Buffet R13).
-* Cover: creation, validation, workflow transitions, permission checks.
+    # 2) existence of referenced doctypes (best-effort; core doctypes allowed)
+    core_allow = set([
+        "Item","Customer","Supplier","Serial No","User","File","Address","Contact","UOM","Company","Project",
+        "ToDo","Communication","Workflow","Workflow Action","Workflow State"
+    ])
+    for ft, target, fieldname, path in all_refs:
+        if ft == "Dynamic Link":
+            continue  # validated via source link_doctype in controller review step
+        if target == "UNKNOWN" or not target.strip():
+            errors.append(f"[REF OPTIONS] {path}: field '{fieldname}' type {ft} missing .options (target DocType)")
+        elif target not in names and target not in core_allow:
+            errors.append(f"[MISSING TARGET] {path}: field '{fieldname}' points to '{target}' which is not found in repo and not whitelisted core")
 
----
+    # 3) report
+    if errors:
+        print("❌ Schema Guard FAILED\n")
+        for e in sorted(errors):
+            print(e)
+        sys.exit(1)
+    print("✅ Schema Guard PASSED")
+if __name__ == "__main__":
+    main()
+PY
 
-## 8 · Repo-Aware Conventions
+python /home/frappe/frappe-bench/apps/repair_portal/scripts/schema_guard.py
+Gate G2 (Back-Trace): If the guard fails, do not proceed. Output the failure report and a minimal patch plan to fix missing doctypes/fields before re-running.
 
-* Real paths: `/home/frappe/frappe-bench/apps/repair_portal/...`
-* Group output: backend → frontend → tests → docs.
-* JS in `repair_portal/public/js/…`
-* API endpoints in `repair_portal/api/…`
-* Controllers in their DocType folder.
+5) Cross-Check Controllers & Client Scripts Against JSON (Hard Gate)
 
----
+# 5.1 Server references (DocTypes, fields, db/sql)
+rg -n --glob '**/*.py' "frappe\.get_doc|frappe\.new_doc|frappe\.db\.get_value|frappe\.db\.exists|frappe\.db\.sql|frappe\.qb|frappe\.whitelist|allow_guest|ignore_permissions|set_value|get_all|get_list"
 
-## 9 · Tooling & Commands You May Suggest
+# 5.2 JS form controllers and REST usage
+rg -n --glob '**/*.js' "frappe\.ui\.form\.on|frm\.set_query|frm\.add_child|frappe\.call|fetch|cur_frm|dangerouslySet|innerHTML"
 
-* Bench: `migrate`, `reload-doc`, `build`, `restart`, `run-tests`
-* Linters: `black`, `flake8`, `eslint`, `prettier`
-* Test example:
+# 5.3 Map each reference back to a JSON field (you must verify existence and fieldtype match)
+Gate G3: For every doc.fieldname referenced in Python/JS, verify that field exists in the owning DocType JSON with the expected fieldtype. If any mismatch or missing field, STOP and output a list of broken references with file:line.
 
-  ```bash
-  bench --site <site> run-tests --module repair_portal.tests
-  ```
+6) Security Review Playbook (Pass/Fail)
+Apply to every endpoint, hook, controller, and client script in repair_portal/.
 
----
+Whitelisting & Auth
 
-## 10 · Execution Templates
+Only use @frappe.whitelist() on functions that must be remotely callable.
 
-### 10.1 JSON Review (example)
+No allow_guest=True unless the endpoint returns only non-PII public content and is read-only.
 
-```text
-[JSON REVIEW]
-Doctypes:
-- Clarinet Intake (…/clarinet_intake.json)
-- Instrument Profile (…)
-- Child: Pad Condition (…)
+No use of ignore_permissions/ignore_links in production paths (tests may use them).
 
-Clarinet Intake — line-by-line:
-1: doctype="DocType" ✔
-fields[0]: fieldname="intake_type", fieldtype="Select", options="Inventory\nMaintenance\nRepair", reqd=1 — OK
-fields[1]: fieldname="item_code", fieldtype="Link", options="Item", depends_on=eval:doc.intake_type==='Inventory', reqd=1 — verify controller
+Permission Enforcement
 
-Back-trace Links:
-- item_code → Item (ERPNext core): referenced in controllers:
-  • …/clarinet_intake.py: L42 `validate_item_in_stock`
-Child Tables:
-- pad_conditions → Pad Condition: used in …
-Graph:
-Clarinet Intake ──Link(item_code)──▶ Item
-Clarinet Intake ──Child(pad_conditions)──▶ Pad Condition
-Integrity issues: none
-```
+Every write/update/submit/cancel API must verify frappe.has_permission(doctype, ptype="write") (or finer grained checks).
 
-### 10.2 Plan
+For cross-document actions (e.g., writing children), also validate ownership and link targets with frappe.get_value + type checks.
 
-```text
-[PLAN]
-Changes:
-- ADD: /home/frappe/frappe-bench/apps/repair_portal/…
-- EDIT: /home/frappe/frappe-bench/apps/repair_portal/…
-Migrations: yes/no
-Risks: …
-```
+Input Validation
 
----
+Never trust client; validate schema/choices server-side.
 
-## 11 · Verification Checklist (append to all answers)
+Reject unexpected keys; validate Select values against declared options.
 
-```bash
-# 1 · Activate bench
+SQL Hygiene
+
+Ban raw f-string concatenation in SQL. Use frappe.db.sql(sql, values) or frappe.qb.
+
+Add indexes for WHERE/ORDER BY hot fields. Provide idempotent patches.
+
+File/Attachment Safety
+
+Use Private files for PII. Do not expose /files/ paths for sensitive uploads.
+
+Validate MIME/size, and sanitize filenames.
+
+XSS/Template Safety
+
+No innerHTML assignment with unsanitized data.
+
+Escape Jinja output; avoid |safe.
+
+CORS/CSRF
+
+Use Frappe CSRF tokens for POST from desk/webforms. No cross-site side-effects over GET.
+
+Rate Limiting
+
+Apply per-user/IP throttles for public/semipublic APIs (frappe.rate_limiter or custom before_request hook).
+
+Secrets/Config
+
+Nothing sensitive in the repo. Load from site_config.json or environment variables. Fail if secrets are hardcoded.
+
+Automated checks to run:
+
+
+# Python static analysis
+ruff /home/frappe/frappe-bench/apps/repair_portal
+mypy /home/frappe/frappe-bench/apps/repair_portal --ignore-missing-imports
+bandit -r /home/frappe/frappe-bench/apps/repair_portal -x tests
+
+# Dependency vulnerabilities
+pip-audit
+safety check --full-report
+
+# Secrets scanning (optional but recommended)
+detect-secrets scan /home/frappe/frappe-bench/apps/repair_portal > .secrets.baseline || true
+If any high-severity finding remains unmitigated → STOP and output a remediation plan plus diffs.
+
+7) Performance Review Playbook (DB/Queries/Tasks)
+Find N+1s and heavy lists
+
+Replace loops of frappe.get_value with frappe.get_all(..., filters=..., fields=[...]) or a single qb query.
+
+Use pluck pattern to fetch a single column when possible.
+
+Indexes & EXPLAIN
+
+For any query on fields without an index, add a patch to create one.
+
+Produce EXPLAIN for any custom SQL > 20ms in prod-like data.
+
+Background Jobs
+
+Long-running or I/O heavy handlers must use frappe.enqueue with retry policy.
+
+Caching
+
+Safe, read-only lookups can memoize via frappe.cache() with TTL and explicit busting on writes.
+
+Index patch template (idempotent):
+
+
+# /home/frappe/frappe-bench/apps/repair_portal/repair_portal/patches/v15_01_add_indexes.py
+import frappe
+
+def execute():
+    # Clarinet Intake example
+    if frappe.db.table_exists("Clarinet Intake"):
+        frappe.db.add_index("Clarinet Intake", ["serial_no"])
+        frappe.db.add_index("Clarinet Intake", ["workflow_state"])
+        frappe.db.add_index("Clarinet Intake", ["received_date"])
+Add to patches.txt:
+
+
+repair_portal.patches.v15_01_add_indexes
+8) Frappe v15 Compliance Rules (Enforce)
+workflow_state must be Select.
+
+engine must be "InnoDB" in every DocType JSON.
+
+No writes to core apps; only under repair_portal/.
+
+Client controllers use frappe.ui.form.on('<DocType>', {...}).
+
+Server uses frappe.get_doc/new_doc/db.get_value/db.exists/db.set_value (no deprecated attrs).
+
+Child tables set is_child_table: 1.
+
+9) Test Requirements (Block Merge if Failing)
+Put tests under: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/tests/
+
+Cover:
+
+Create/Read/Update/Delete for each custom DocType.
+
+Workflow transitions, permission denials.
+
+API endpoints (@frappe.whitelist) with auth and negative cases.
+
+Data migrations patches (pre/post state).
+
+Run:
+
+
+bench --site erp.artisanclarinets.com run-tests --module repair_portal.tests -x -q
+If any test fails → STOP.
+
+10) API Hardening Checklist (Pass/Fail)
+For each file in repair_portal/api/**.py and whitelisted method in controllers:
+
+Requires login unless proven public and read-only.
+
+Validates all inputs (types, choices, link targets exist).
+
+Parameterized DB access or qb.
+
+No PII in logs; log with request ID.
+
+Enforce rate limit for public endpoints.
+
+11) Frontend (Desk/Web) Safety & UX
+Never use element.innerHTML = ... with user data.
+
+Escape all dynamic strings; prefer Frappe UI components.
+
+For file/image fields, set alt text and labels (a11y).
+
+Avoid expensive synchronous calls in form events; debounce searches.
+
+Lint:
+
+
+npx eslint --ext .js /home/frappe/frappe-bench/apps/repair_portal/repair_portal/public/js
+12) Migrations & Data Safety
+Patches must be idempotent and reversible (where possible).
+
+Use frappe.db.table_exists, frappe.db.has_column guards.
+
+Backfill workflow_state and normalize Select choices in one shot, inside a transaction.
+
+13) CI Pipeline (Run All Gates on Every Change)
+Create .github/workflows/ci.yml in repo root (example):
+
+
+name: repair_portal-ci
+on: [push, pull_request]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.10' }
+      - run: pip install ruff mypy bandit pip-audit safety
+      - run: ruff .
+      - run: mypy --ignore-missing-imports .
+      - run: bandit -r . -x tests
+      - run: pip-audit || true
+      - run: safety check --full-report || true
+      - name: Fail on high severity bandit issues
+        run: |
+          if bandit -r . -x tests -f json | jq '.results[]|select(.issue_severity=="HIGH")' | grep -q . ; then
+            echo "High severity bandit issues found"; exit 1; fi
+14) Verification Checklist (Run Before Declaring “Done”)
+
+# 1) Activate bench
 source /home/frappe/frappe-bench/env/bin/activate
 
-# 2 · Apply schema/code
-bench --site <site> migrate
+# 2) Schema Guard & Back-Trace
+python /home/frappe/frappe-bench/apps/repair_portal/scripts/schema_guard.py
+
+# 3) Static checks
+ruff /home/frappe/frappe-bench/apps/repair_portal
+mypy /home/frappe/frappe-bench/apps/repair_portal --ignore-missing-imports
+bandit -r /home/frappe/frappe-bench/apps/repair_portal -x tests
+
+# 4) Dependency safety
+pip-audit
+safety check --full-report
+
+# 5) DB migrations & build
+bench --site erp.artisanclarinets.com migrate
 bench build
 bench restart
 
-# 3 · Static checks
-black --check /home/frappe/frappe-bench/apps/repair_portal
-flake8 /home/frappe/frappe-bench/apps/repair_portal
-npx eslint --fix /home/frappe/frappe-bench/apps/repair_portal/public/js
+# 6) Tests
+bench --site erp.artisanclarinets.com run-tests --module repair_portal.tests -x -q
 
-# 4 · Tests
-bench --site <site> run-tests --module repair_portal.tests -x -q
-
-# 5 · Sanity (REPL)
-bench --site <site> console <<'PY'
+# 7) Manual probe (REPL)
+bench --site erp.artisanclarinets.com console <<'PY'
 import frappe
-print(frappe.db.count("Clarinet Intake"))
+assert frappe.db.table_exists("Instrument Profile")
+print("Instrument Profile rows:", frappe.db.count("Instrument Profile"))
 PY
-```
+All steps must pass with zero high-severity findings and zero missing references.
 
----
+15) How You Must Present Your Work (Answer Sections)
+[REVIEW] Paste outputs from §3, §4, §5 showing JSON field enumerations, dependency edges, and any red flags (or “none”).
 
-## 12 · Quick Prompts
+[PLAN] Exact file paths to add/modify/delete; data model changes; risk and rollback plan.
 
-* “Review all JSON for intake + back-trace links used by controllers/scripts; show dependency graph.”
-* “Propose changes: add ‘Initial Intake Inspection’ auto-creation with tests; follow Review → Plan → Code → Tests → Docs.”
-* “Harden permissions on `Instrument Tracker` transitions with server-side checks and tests.”
+[BACKEND] Full files only; no placeholders.
 
-awesome — here’s a **starter “JSON REVIEW”** you can drop under the *Review* section of your Copilot workflow. I’ve included (a) a filled‑out review based on your stated design, clearly marking assumptions, and (b) tiny CLI helpers to **auto‑generate a 100% accurate, line‑by‑line table** from your repo so Copilot (and you) can instantly replace any assumptions with truth.
+[FRONTEND] Full files only; no placeholders.
 
----
+[TESTS] New/updated tests covering positive & negative paths.
 
-```text
+[MIGRATIONS/PATCHES] Idempotent, with guards; list added indexes.
+
+[DOCS] Brief README updates or inline docstrings explaining usage and perms.
+
+[VERIFICATION CHECKLIST] Paste exact commands from §14, with green outputs or explicit failures and fixes.
+
+If any gate fails or any required section is missing → your answer is incomplete.
+
+16) Quick Commands You Can Always Use
+
+# Re-load a single DocType (after JSON change)
+bench --site erp.artisanclarinets.com reload-doc  <module> directory_name <doctype>
+
+# Inspect slow queries (MariaDB)
+mysql -u root -p -e "SHOW VARIABLES LIKE 'slow_query%';"
+mysql -u root -p -e "SET GLOBAL slow_query_log=ON; SET GLOBAL long_query_time=0.2;"
+
+# Generate EXPLAIN for a custom SQL (replace <SQL> with a real, parameterized statement)
+mysql -u root -p -e "EXPLAIN FORMAT=JSON <SQL>;"
+17) Common Frappe Pitfalls to Catch (Blockers)
+@frappe.whitelist(allow_guest=True) on anything that returns customer or instrument data.
+
+Raw frappe.db.sql(f"select ... {user_input}") — must use placeholders or Query Builder.
+
+Client scripts that rely on fields not declared in JSON (spelling/case mismatches).
+
+Child tables missing is_child_table: 1 or documents misusing child rows for rollups.
+
+Patches without guards (assume empty DB), or not idempotent.
+
+18) Your First Action on Any Ticket (Template)
+Replace with real outputs from the current tree—no assumptions.
+
+
 [JSON REVIEW]
-
-Scope today:
-- Clarinet Intake (DocType) — intake module
-- Instrument Profile (DocType) — instrument & repair tracking
-- Child tables used by Intake/Profile (Pad Condition, Instrument Photo)
-
-Repository root:
-- /home/frappe/frappe-bench/apps/repair_portal
-```
-
-### Doctypes discovered (expected paths)
-
-> Replace with actuals using the scan commands below.
-
-* `repair_portal/intake/doctype/clarinet_intake/clarinet_intake.json`
-* `repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json`
-* Child tables (expected):
-
-  * `repair_portal/repair_logging/doctype/pad_condition/pad_condition.json` *(child table)*
-  * `repair_portal/repair_logging/doctype/instrument_photo/instrument_photo.json` *(child table)*
-
----
-
-## Clarinet Intake — line‑by‑line JSON review *(assumptions marked)*
-
-**Meta keys**
-
-* `doctype="DocType"` ✔
-* `name="Clarinet Intake"` ✔ *(assumed; verify actual `name`)*
-* `module="Intake"` ✔
-* `"engine":"InnoDB"` ✔
-* `is_child_table` absent/false ✔
-* `permissions` present (System Manager CRUD at minimum) ✔
-
-**Fields (ordered as in JSON)**
-
-1. `intake_type` — `Select` — options: `Inventory\nMaintenance\nRepair` — `reqd=1` — `default="Inventory"` ✔
-2. `serial_no` — `Link` → `Serial No` — `reqd=1` ✔
-3. `customer` — `Link` → `Customer` — `reqd=1` *(assumed)*
-4. `item_code` — `Link` → `Item` — `depends_on=eval:doc.intake_type==='Inventory'` — `reqd=1` ✔
-5. `received_date` — `Date` — `reqd=1` *(assumed)*
-6. `workflow_state` — `Select` — options: `Draft\nIn Progress\nQA\nCompleted` — `reqd=1` — `default="Draft"` ✔
-7. `technician` — `Link` → `User` *(assumed)*
-8. `pad_conditions` — `Table` → `Pad Condition` — `in_list_view=0` ✔
-9. `instrument_photos` — `Table` → `Instrument Photo` — `in_list_view=0` ✔
-10. `notes` — `Small Text` *(assumed)*
-
-**Integrity checks**
-
-* `workflow_state` uses **Select** ✔
-* Link targets exist (Serial No, Customer, Item, User) — **verify**
-* Child tables define `parent`, `parenttype`, `parentfield`, `idx` — **verify in child JSONs**
-* Indexing: consider index on `serial_no`, `workflow_state`, `received_date` — **recommend add if missing**
-
----
-
-## Instrument Profile — line‑by‑line JSON review *(assumptions marked)*
-
-**Meta keys**
-
-* `doctype="DocType"` ✔
-* `name="Instrument Profile"` ✔ *(assumed)*
-* `module="Instrument & Repair Tracking"` *(assumed module label; verify actual)*
-* `"engine":"InnoDB"` ✔
-
-**Fields**
-
-1. `serial_no` — `Link` → `Serial No` — `reqd=1` — `unique=1` ✔
-2. `customer` — `Link` → `Customer` ✔
-3. `instrument_model` — `Data` *(or Link → Item if you store model there; verify)*
-4. `intakes` — `Table` → `Clarinet Intake` *(Child via Summary? If not a child table, omit; many setups compute via queries.)*
-5. `inspections` — `Table` → `Initial Intake Inspection` *(if present; verify)*
-6. `repairs` — `Table` → `Repair Log` *(if present; verify)*
-7. `status` — `Select` — options like `Active\nIn Repair\nCompleted` *(assumed)*
-8. `last_service_date` — `Date` *(assumed)*
-9. `notes` — `Small Text` *(assumed)*
-
-**Integrity checks**
-
-* `serial_no` **unique** source of truth ✔
-* All roll‑ups should reference by `serial_no` (NOT by Intake name) ✔
-* If lists are computed (non‑child), ensure server code gathers via `serial_no` with read perms ✔
-
----
-
-## Child tables — line‑by‑line JSON review *(assumptions; verify)*
-
-### Pad Condition (Child)
-
-**Meta**
-
-* `doctype="DocType"`, `is_child_table=1`, `"engine":"InnoDB"` ✔
-
-**Fields**
-
-1. `component` — `Select`/`Link` *(e.g., Pad/Cork/Key — confirm type)*
-2. `condition` — `Select` — options like `Good\nFair\nPoor\nReplace` *(assumed)*
-3. `notes` — `Small Text`
-
-### Instrument Photo (Child)
-
-**Meta**
-
-* `is_child_table=1`, `"engine":"InnoDB"` ✔
-
-**Fields**
-
-1. `image` — `Attach Image` — `reqd=1`
-2. `alt_text` — `Data` (for accessibility)
-3. `caption` — `Data`
-
----
-
-## Back‑trace of Links & Tables (controllers + scripts)
-
-> Below are **expected** references. Use the scan commands to replace with exact file\:line.
-
-**Clarinet Intake**
-
-* Python controller:
-  `repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py`
-
-  * `validate()` → checks `item_code` vs stock (if Inventory) *(assumed)*
-  * `on_submit()` → optionally create Instrument Profile if missing *(assumed)*
-
-* Client scripts (split by intake type):
-  `repair_portal/public/js/clarinet_intake_inventory.js`
-  `repair_portal/public/js/clarinet_intake_maintenance.js`
-  `repair_portal/public/js/clarinet_intake_repair.js`
-
-  * use `frappe.ui.form.on('Clarinet Intake', ...)`
-  * `frm.set_query('item_code', ...)` for Inventory flow *(expected)*
-  * add/remove child rows in `pad_conditions` *(expected)*
-
-**Instrument Profile**
-
-* Python:
-  `repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py`
-
-  * ensures `serial_no` exists in `Serial No`
-  * aggregates related Intake/Repair/Inspection by `serial_no`
-
-**Child tables**
-
-* Used by Intake client scripts and server validations.
-
-**Graph (expected)**
-
-```
-Clarinet Intake ──Link──▶ Item
-Clarinet Intake ──Link──▶ Serial No
-Clarinet Intake ──Link──▶ Customer
-Clarinet Intake ──Table──▶ Pad Condition (child)
-Clarinet Intake ──Table──▶ Instrument Photo (child)
-
-Instrument Profile ──Link──▶ Serial No
-Instrument Profile ──Link──▶ Customer
-Instrument Profile ──(queries by)──▶ Clarinet Intake / Repair Log / Inspection (via serial_no)
-```
-
-**Permissions**
-
-* Ensure Intake/Profile enforce read/write based on roles (Technician, System Manager).
-* Server‑side guard on any write APIs under `repair_portal/api/*`.
-
----
-
-## Data quality & migration notes (actionable)
-
-* Backfill `workflow_state` to `Draft` where NULL (patch).
-* Add missing indexes:
-
-  * `Clarinet Intake (serial_no, received_date, workflow_state)`
-  * `Instrument Profile (serial_no UNIQUE)`
-* Normalize `intake_type` values to the three canonical options.
-
----
-
-# Repo‑scan helpers (generate the *true* line‑by‑line review)
-
-> Run these to replace every assumption above with real data from your tree.
-
-**1) List DocType JSONs in scope**
-
-```bash
-cd /home/frappe/frappe-bench/apps/repair_portal
-rg -n --glob '**/*.json' '\"doctype\":\s*\"DocType\"' | sort
-```
-
-**2) Pretty‑print fields for a given DocType**
-
-```bash
-DOC=repair_portal/intake/doctype/clarinet_intake/clarinet_intake.json
-jq -r '
-  .name as $n
-  | "DocType: \($n)\n-- meta --",
-    "doctype=\(.doctype) | module=\(.module) | engine=\(.engine)",
-    "-- fields --",
-    (.fields // [])
-    | to_entries[]
-    | "\(.key): fieldname=\"\(.value.fieldname)\" | label=\"\(.value.label)\" | fieldtype=\(.value.fieldtype) | options=\"\(.value.options // "")\" | reqd=\(.value.reqd // 0) | unique=\(.value.unique // 0) | in_list_view=\(.value.in_list_view // 0) | depends_on=\"\(.value.depends_on // "")\" | default=\"\(.value.default // "")\" | fetch_from=\"\(.value.fetch_from // "")\""
-' "$DOC"
-```
-
-**3) Verify child tables & parents**
-
-```bash
-# Show child tables and ensure parent fields exist
-for j in $(rg -l --glob '**/*.json' '"is_child_table":\s*1'); do
-  echo "Child: $j"
-  jq -r '.fields[]?|select(.fieldtype=="Link" or .fieldtype=="Data")|[.fieldname,.fieldtype,.options]|@tsv' "$j"
-done
-```
-
-**4) Cross‑reference controllers & client scripts**
-
-```bash
-# Python references to DocTypes/fields
-rg -n "Clarinet Intake|Instrument Profile|pad_conditions|instrument_photos|serial_no|workflow_state" --glob '**/*.py'
-
-# JS handlers
-rg -n "frappe.ui.form.on\('Clarinet Intake'|frm\.set_query|add_child|set_value" --glob '**/*.js'
-```
-
-**5) Build the dependency graph (quick)**
-
-```bash
-# Extract Link/Table targets from JSON
-jq -r '
-  .name as $dt
-  | [.fields[]?|select(.fieldtype=="Link" or .fieldtype=="Table" or .fieldtype=="Table MultiSelect")|
-     {from:$dt, type:.fieldtype, to:(.options // "UNKNOWN"), fieldname:.fieldname}] | .[]
-  | "\(.from)\t\(.type)\t\(.to)\t\(.fieldname)"
-' repair_portal/**/**/**/*.json | column -t
-```
-
-Paste these outputs into the **\[JSON REVIEW]** section to make it fully authoritative.
-
----
-
-## What Copilot should do next (based on this review)
-
-* Confirm the JSONs and links using the scan outputs.
-* If any assumed field is absent/mismatched, **update the review** and propose:
-
-  * missing indexes,
-  * child‑table parent fields,
-  * server validations for intake types,
-  * patches to normalize `workflow_state` and `intake_type`.
-
-Then proceed with your **Plan → Backend → Frontend → Tests → Migrations → Docs → Verification Checklist** flow.
+• Discovered N DocTypes in repair_portal (list paths)
+• Enumerated fields (inline dump attached)
+• Built dependency map (.tmp_doctype_edges.tsv attached)
+• Schema Guard: PASSED/FAILED (include reasons)
+
+[PLAN]
+• Add: /home/frappe/frappe-bench/apps/repair_portal/...
+• Edit: /home/frappe/frappe-bench/apps/repair_portal/...
+• Remove: …
+• Patches: v15_01_add_indexes (serial_no, received_date, workflow_state)
+• Risks/Mitigations: …
+• Tests: list test modules to add/modify
+19) Final Rule
+If you cannot produce the [REVIEW] section with real repository outputs (field lists and dependency graph), you must not propose code. Fix the schema or missing references first, prove it with the guard, and then proceed.
