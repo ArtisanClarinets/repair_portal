@@ -1,435 +1,428 @@
 {
-  "actions": [],
-  "autoname": "format:INSP-{YY}{MM}-{####}",
-  "creation": "2025-07-22 17:28:02.880841",
-  "doctype": "DocType",
-  "editable_grid": 1,
-  "engine": "InnoDB",
-  "field_order": [
-    "inspection_date",
-    "inspection_type",
-    "serial_no",
-    "clarinet_intake",
-    "intake_record_id",
-    "inspected_by",
-    "customer",
-    "preliminary_estimate",
-    "manufacturer",
-    "model",
-    "key",
-    "wood_type",
-    "unboxing_rh",
-    "unboxing_temperature",
-    "unboxing_time",
-    "hygrometer_photo",
-    "rested_unopened",
-    "acclimatization_controlled_env",
-    "acclimatization_playing_schedule",
-    "acclimatization_swabbing",
-    "overall_condition",
-    "visual_inspection",
-    "tenon_fit_assessment",
-    "bore_condition",
-    "bore_notes",
-    "tone_hole_inspection",
-    "tone_hole_notes",
-    "inspection_findings",
-    "notes",
-    "instrument_delivered",
-    "qc_certificate",
-    "digital_signature",
-    "body_material",
-    "key_plating",
-    "key_system",
-    "number_of_keys_rings",
-    "pitch_standard",
-    "bore_style",
-    "bore_measurement",
-    "tone_hole_style",
-    "thumb_rest",
-    "spring_type",
-    "pad_type_current",
-    "current_status",
-    "current_location",
-    "profile_image",
-    "marketing_photos",
-    "service_photos",
-    "audio_video_demos",
-    "accessory_log",
-    "amended_from"
-  ],
-  "fields": [
-    {
-      "default": "Today",
-      "fieldname": "inspection_date",
-      "fieldtype": "Date",
-      "hidden": 1,
-      "label": "Inspection Date"
-    },
-    {
-      "fieldname": "inspection_type",
-      "fieldtype": "Select",
-      "label": "Inspection Type",
-      "options": "New Inventory\nRepair\nMaintenance\nQA\nOther",
-      "reqd": 1
-    },
-    {
-      "fieldname": "serial_no",
-      "fieldtype": "Link",
-      "in_filter": 1,
-      "in_global_search": 1,
-      "label": "Instrument Serial Number",
-      "options": "Instrument Serial Number",
-      "reqd": 1,
-      "unique": 1
-    },
-    {
-      "fieldname": "clarinet_intake",
-      "fieldtype": "Link",
-      "label": "Clarinet Intake",
-      "options": "Clarinet Intake"
-    },
-    {
-      "fieldname": "intake_record_id",
-      "fieldtype": "Link",
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "label": "Intake Record ID",
-      "options": "Clarinet Intake"
-    },
-    {
-      "fieldname": "inspected_by",
-      "fieldtype": "Link",
-      "label": "Inspected By",
-      "options": "User",
-      "reqd": 1
-    },
-    {
-      "depends_on": "eval:doc.inspection_type !== 'New Inventory'",
-      "fieldname": "customer",
-      "fieldtype": "Link",
-      "label": "Customer",
-      "options": "Customer"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type !== 'New Inventory'",
-      "fieldname": "preliminary_estimate",
-      "fieldtype": "Currency",
-      "label": "Preliminary Estimate"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "manufacturer",
-      "fieldtype": "Data",
-      "label": "Manufacturer"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "model",
-      "fieldtype": "Data",
-      "label": "Model"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "key",
-      "fieldtype": "Select",
-      "label": "Key",
-      "options": "B\u266d\nA\nE\u266d\nC\nD"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "wood_type",
-      "fieldtype": "Select",
-      "label": "Wood Type",
-      "options": "Grenadilla\nMopane\nCocobolo\nSynthetic\nOther"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "unboxing_rh",
-      "fieldtype": "Float",
-      "label": "Initial Relative Humidity (%)"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "unboxing_temperature",
-      "fieldtype": "Float",
-      "label": "Initial Temperature (\u00b0C)"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "unboxing_time",
-      "fieldtype": "Datetime",
-      "label": "Date and Time of Unboxing"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "hygrometer_photo",
-      "fieldtype": "Attach Image",
-      "label": "Hygrometer Reading Photo"
-    },
-    {
-      "default": "0",
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "rested_unopened",
-      "fieldtype": "Check",
-      "label": "Instrument Rested Min. 4 Hours Before Handling"
-    },
-    {
-      "default": "0",
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "acclimatization_controlled_env",
-      "fieldtype": "Check",
-      "label": "Controlled Environment Confirmed"
-    },
-    {
-      "default": "0",
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "acclimatization_playing_schedule",
-      "fieldtype": "Check",
-      "label": "Daily Playing Schedule Explained"
-    },
-    {
-      "default": "0",
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "acclimatization_swabbing",
-      "fieldtype": "Check",
-      "label": "Swabbing Protocol Explained"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type !== 'New Inventory'",
-      "fieldname": "overall_condition",
-      "fieldtype": "Select",
-      "label": "Overall Condition",
-      "options": "Excellent\nGood\nFair\nPoor"
-    },
-    {
-      "fieldname": "visual_inspection",
-      "fieldtype": "Table",
-      "label": "Visual Inspection Findings",
-      "options": "Inspection Finding"
-    },
-    {
-      "fieldname": "tenon_fit_assessment",
-      "fieldtype": "Table",
-      "label": "Tenon Fit Assessment",
-      "options": "Tenon Measurement"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "bore_condition",
-      "fieldtype": "Select",
-      "label": "Bore Visual Condition",
-      "options": "Clean\nDebris Present\nIrregularities Visible"
-    },
-    {
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "bore_notes",
-      "fieldtype": "Small Text",
-      "label": "Bore Inspection Notes"
-    },
-    {
-      "fieldname": "tone_hole_inspection",
-      "fieldtype": "Table",
-      "label": "Tone Hole Visual Inspection",
-      "options": "Tone Hole Inspection Record"
-    },
-    {
-      "fieldname": "tone_hole_notes",
-      "fieldtype": "Text",
-      "label": "Tone Hole Inspection Notes"
-    },
-    {
-      "fieldname": "inspection_findings",
-      "fieldtype": "Table",
-      "label": "Inspection Findings",
-      "options": "Inspection Finding"
-    },
-    {
-      "fieldname": "notes",
-      "fieldtype": "Text",
-      "label": "General Notes"
-    },
-    {
-      "default": "0",
-      "depends_on": "eval:doc.inspection_type === 'New Inventory'",
-      "fieldname": "instrument_delivered",
-      "fieldtype": "Check",
-      "label": "Instrument Delivered to Customer"
-    },
-    {
-      "fieldname": "qc_certificate",
-      "fieldtype": "Attach",
-      "label": "QC Certificate"
-    },
-    {
-      "fieldname": "digital_signature",
-      "fieldtype": "Signature",
-      "label": "Technician Signature"
-    },
-    {
-      "fieldname": "body_material",
-      "fieldtype": "Data",
-      "label": "Body Material"
-    },
-    {
-      "fieldname": "key_plating",
-      "fieldtype": "Data",
-      "label": "Keywork Plating"
-    },
-    {
-      "fieldname": "key_system",
-      "fieldtype": "Select",
-      "label": "Key System",
-      "options": "Boehm\nAlbert\nOehler\nOther"
-    },
-    {
-      "fieldname": "number_of_keys_rings",
-      "fieldtype": "Data",
-      "label": "Number of Keys/Rings"
-    },
-    {
-      "fieldname": "pitch_standard",
-      "fieldtype": "Data",
-      "label": "Pitch Standard"
-    },
-    {
-      "fieldname": "bore_style",
-      "fieldtype": "Data",
-      "label": "Bore Style"
-    },
-    {
-      "fieldname": "bore_measurement",
-      "fieldtype": "Float",
-      "label": "Bore Measurement (mm)"
-    },
-    {
-      "fieldname": "tone_hole_style",
-      "fieldtype": "Data",
-      "label": "Tone Hole Style"
-    },
-    {
-      "fieldname": "thumb_rest",
-      "fieldtype": "Data",
-      "label": "Thumb Rest"
-    },
-    {
-      "fieldname": "spring_type",
-      "fieldtype": "Data",
-      "label": "Spring Type"
-    },
-    {
-      "fieldname": "pad_type_current",
-      "fieldtype": "Data",
-      "label": "Pad Type (Current)"
-    },
-    {
-      "fieldname": "current_status",
-      "fieldtype": "Select",
-      "label": "Current Status",
-      "options": "For Sale\nIn Workshop\nWith Customer\nSold\nArchived"
-    },
-    {
-      "fieldname": "current_location",
-      "fieldtype": "Data",
-      "label": "Current Location"
-    },
-    {
-      "fieldname": "profile_image",
-      "fieldtype": "Attach Image",
-      "label": "Profile Image (Hero Shot)"
-    },
-    {
-      "fieldname": "marketing_photos",
-      "fieldtype": "Table",
-      "label": "Marketing Photo Gallery",
-      "options": "Instrument Photo"
-    },
-    {
-      "fieldname": "service_photos",
-      "fieldtype": "Table",
-      "label": "Service Photo Log",
-      "options": "Instrument Photo"
-    },
-    {
-      "fieldname": "audio_video_demos",
-      "fieldtype": "Select",
-      "label": "Audio/Video Demos",
-      "options": "Instrument Media"
-    },
-    {
-      "fieldname": "accessory_log",
-      "fieldtype": "Table",
-      "label": "Current Accessories Log",
-      "options": "Instrument Accessory"
-    },
-    {
-      "fieldname": "amended_from",
-      "fieldtype": "Link",
-      "label": "Amended From",
-      "no_copy": 1,
-      "options": "Instrument Inspection",
-      "print_hide": 1,
-      "read_only": 1,
-      "search_index": 1
-    }
-  ],
-  "is_submittable": 1,
-  "links": [],
-  "modified": "2025-07-29 17:59:52.898818",
-  "modified_by": "Administrator",
-  "module": "Inspection",
-  "name": "Instrument Inspection",
-  "naming_rule": "Expression",
-  "owner": "Administrator",
-  "permissions": [
-    {
-      "cancel": 1,
-      "create": 1,
-      "delete": 1,
-      "read": 1,
-      "role": "System Manager",
-      "submit": 1,
-      "write": 1
-    },
-    {
-      "create": 1,
-      "read": 1,
-      "role": "Technician",
-      "submit": 1,
-      "write": 1
-    },
-    {
-      "create": 1,
-      "delete": 1,
-      "read": 1,
-      "role": "Service Manager",
-      "submit": 1,
-      "write": 1
-    }
-  ],
-  "row_format": "Dynamic",
-  "sort_field": "modified",
-  "sort_order": "DESC",
-  "states": [
-    {
-      "color": "Light Blue",
-      "title": "Pending"
-    },
-    {
-      "color": "Green",
-      "title": "In Progress"
-    },
-    {
-      "color": "Purple",
-      "title": "Referred to Setup"
-    },
-    {
-      "color": "Orange",
-      "title": "Referred to Repair"
-    },
-    {
-      "color": "Yellow",
-      "title": "Referred to Maintenance"
-    }
-  ]
+ "actions": [],
+ "autoname": "format:INSP-{YY}{MM}-{####}",
+ "creation": "2025-07-22 17:28:02.880841",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "inspection_date",
+  "inspection_type",
+  "serial_no",
+  "clarinet_intake",
+  "intake_record_id",
+  "inspected_by",
+  "customer",
+  "preliminary_estimate",
+  "manufacturer",
+  "model",
+  "key",
+  "wood_type",
+  "unboxing_rh",
+  "unboxing_temperature",
+  "unboxing_time",
+  "hygrometer_photo",
+  "rested_unopened",
+  "acclimatization_controlled_env",
+  "acclimatization_playing_schedule",
+  "acclimatization_swabbing",
+  "overall_condition",
+  "condition",
+  "tenon_fit_assessment",
+  "bore_condition",
+  "bore_notes",
+  "tone_hole_inspection",
+  "tone_hole_notes",
+  "notes",
+  "instrument_delivered",
+  "qc_certificate",
+  "digital_signature",
+  "body_material",
+  "key_plating",
+  "key_system",
+  "number_of_keys_rings",
+  "pitch_standard",
+  "bore_style",
+  "bore_measurement",
+  "tone_hole_style",
+  "thumb_rest",
+  "spring_type",
+  "pad_type_current",
+  "current_status",
+  "current_location",
+  "profile_image",
+  "marketing_photos",
+  "service_photos",
+  "audio_video_demos",
+  "accessory_log",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "inspection_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Inspection Date"
+  },
+  {
+   "fieldname": "inspection_type",
+   "fieldtype": "Select",
+   "label": "Inspection Type",
+   "options": "New Inventory\nRepair\nMaintenance\nQA\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_global_search": 1,
+   "label": "Instrument Serial Number",
+   "options": "Instrument Serial Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "clarinet_intake",
+   "fieldtype": "Link",
+   "label": "Clarinet Intake",
+   "options": "Clarinet Intake"
+  },
+  {
+   "fieldname": "intake_record_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Intake Record ID",
+   "options": "Clarinet Intake"
+  },
+  {
+   "fieldname": "inspected_by",
+   "fieldtype": "Link",
+   "label": "Inspected By",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.inspection_type !== 'New Inventory'",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type !== 'New Inventory'",
+   "fieldname": "preliminary_estimate",
+   "fieldtype": "Currency",
+   "label": "Preliminary Estimate"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "manufacturer",
+   "fieldtype": "Data",
+   "label": "Manufacturer"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "key",
+   "fieldtype": "Select",
+   "label": "Key",
+   "options": "B\u266d\nA\nE\u266d\nC\nD"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "wood_type",
+   "fieldtype": "Select",
+   "label": "Wood Type",
+   "options": "Grenadilla\nMopane\nCocobolo\nSynthetic\nOther"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "unboxing_rh",
+   "fieldtype": "Float",
+   "label": "Initial Relative Humidity (%)"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "unboxing_temperature",
+   "fieldtype": "Float",
+   "label": "Initial Temperature (\u00b0C)"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "unboxing_time",
+   "fieldtype": "Datetime",
+   "label": "Date and Time of Unboxing"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "hygrometer_photo",
+   "fieldtype": "Attach Image",
+   "label": "Hygrometer Reading Photo"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "rested_unopened",
+   "fieldtype": "Check",
+   "label": "Instrument Rested Min. 4 Hours Before Handling"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "acclimatization_controlled_env",
+   "fieldtype": "Check",
+   "label": "Controlled Environment Confirmed"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "acclimatization_playing_schedule",
+   "fieldtype": "Check",
+   "label": "Daily Playing Schedule Explained"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "acclimatization_swabbing",
+   "fieldtype": "Check",
+   "label": "Swabbing Protocol Explained"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type !== 'New Inventory'",
+   "fieldname": "overall_condition",
+   "fieldtype": "Select",
+   "label": "Overall Condition",
+   "options": "Excellent\nGood\nFair\nPoor"
+  },
+  {
+   "fieldname": "tenon_fit_assessment",
+   "fieldtype": "Table",
+   "label": "Tenon Fit Assessment",
+   "options": "Tenon Measurement"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "bore_condition",
+   "fieldtype": "Select",
+   "label": "Bore Visual Condition",
+   "options": "Clean\nDebris Present\nIrregularities Visible"
+  },
+  {
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "bore_notes",
+   "fieldtype": "Small Text",
+   "label": "Bore Inspection Notes"
+  },
+  {
+   "fieldname": "tone_hole_inspection",
+   "fieldtype": "Table",
+   "label": "Tone Hole Visual Inspection",
+   "options": "Tone Hole Inspection Record"
+  },
+  {
+   "fieldname": "tone_hole_notes",
+   "fieldtype": "Text",
+   "label": "Tone Hole Inspection Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "General Notes"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.inspection_type === 'New Inventory'",
+   "fieldname": "instrument_delivered",
+   "fieldtype": "Check",
+   "label": "Instrument Delivered to Customer"
+  },
+  {
+   "fieldname": "qc_certificate",
+   "fieldtype": "Attach",
+   "label": "QC Certificate"
+  },
+  {
+   "fieldname": "digital_signature",
+   "fieldtype": "Signature",
+   "label": "Technician Signature"
+  },
+  {
+   "fieldname": "body_material",
+   "fieldtype": "Data",
+   "label": "Body Material"
+  },
+  {
+   "fieldname": "key_plating",
+   "fieldtype": "Data",
+   "label": "Keywork Plating"
+  },
+  {
+   "fieldname": "key_system",
+   "fieldtype": "Select",
+   "label": "Key System",
+   "options": "Boehm\nAlbert\nOehler\nOther"
+  },
+  {
+   "fieldname": "number_of_keys_rings",
+   "fieldtype": "Data",
+   "label": "Number of Keys/Rings"
+  },
+  {
+   "fieldname": "pitch_standard",
+   "fieldtype": "Data",
+   "label": "Pitch Standard"
+  },
+  {
+   "fieldname": "bore_style",
+   "fieldtype": "Data",
+   "label": "Bore Style"
+  },
+  {
+   "fieldname": "bore_measurement",
+   "fieldtype": "Float",
+   "label": "Bore Measurement (mm)"
+  },
+  {
+   "fieldname": "tone_hole_style",
+   "fieldtype": "Data",
+   "label": "Tone Hole Style"
+  },
+  {
+   "fieldname": "thumb_rest",
+   "fieldtype": "Data",
+   "label": "Thumb Rest"
+  },
+  {
+   "fieldname": "spring_type",
+   "fieldtype": "Data",
+   "label": "Spring Type"
+  },
+  {
+   "fieldname": "pad_type_current",
+   "fieldtype": "Data",
+   "label": "Pad Type (Current)"
+  },
+  {
+   "fieldname": "current_status",
+   "fieldtype": "Select",
+   "label": "Current Status",
+   "options": "For Sale\nIn Workshop\nWith Customer\nSold\nArchived"
+  },
+  {
+   "fieldname": "current_location",
+   "fieldtype": "Data",
+   "label": "Current Location"
+  },
+  {
+   "fieldname": "profile_image",
+   "fieldtype": "Attach Image",
+   "label": "Profile Image (Hero Shot)"
+  },
+  {
+   "fieldname": "marketing_photos",
+   "fieldtype": "Table",
+   "label": "Marketing Photo Gallery",
+   "options": "Instrument Photo"
+  },
+  {
+   "fieldname": "service_photos",
+   "fieldtype": "Table",
+   "label": "Service Photo Log",
+   "options": "Instrument Photo"
+  },
+  {
+   "fieldname": "audio_video_demos",
+   "fieldtype": "Select",
+   "label": "Audio/Video Demos",
+   "options": "Instrument Media"
+  },
+  {
+   "fieldname": "accessory_log",
+   "fieldtype": "Table",
+   "label": "Current Accessories Log",
+   "options": "Instrument Accessory"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Instrument Inspection",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "condition",
+   "fieldtype": "Table",
+   "label": "Visual Inspection Findings",
+   "options": "Visual Inspection"
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-15 23:06:10.586214",
+ "modified_by": "Administrator",
+ "module": "Inspection",
+ "name": "Instrument Inspection",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Technician",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Service Manager",
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Light Blue",
+   "title": "Pending"
+  },
+  {
+   "color": "Green",
+   "title": "In Progress"
+  },
+  {
+   "color": "Purple",
+   "title": "Referred to Setup"
+  },
+  {
+   "color": "Orange",
+   "title": "Referred to Repair"
+  },
+  {
+   "color": "Yellow",
+   "title": "Referred to Maintenance"
+  }
+ ]
 }

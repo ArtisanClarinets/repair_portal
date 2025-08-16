@@ -18,9 +18,11 @@ class ClarinetPadEntry(Document):
         from frappe.types import DF
 
         is_open_key: DF.Check
+        is_secondary_pad: DF.Check
         pad_position: DF.Data | None
         pad_type: DF.Data | None
         parent: DF.Data
+        parent_pad: DF.Link | None
         parentfield: DF.Data
         parenttype: DF.Data
     # end: auto-generated types

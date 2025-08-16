@@ -1,24 +1,77 @@
 {
-  "doctype": "DocType",
-  "name": "Player Equipment Preference",
-  "module": "Player Profile",
-  "istable": 1,
-  "fields": [
-    {"fieldname": "mouthpiece", "label": "Mouthpiece", "fieldtype": "Data"},
-    {"fieldname": "ligature", "label": "Ligature", "fieldtype": "Data"},
-    {"fieldname": "reed_brand", "label": "Reed Brand", "fieldtype": "Data"},
-    {"fieldname": "reed_model", "label": "Reed Model", "fieldtype": "Data"},
-    {"fieldname": "reed_strength", "label": "Reed Strength", "fieldtype": "Data"},
-    {"fieldname": "barrel", "label": "Barrel", "fieldtype": "Data"},
-    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument Profile"},
-    {"fieldname": "comments", "label": "Comments", "fieldtype": "Small Text"}
-  ],
-  "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "Technician", "read": 1, "write": 1},
-    {"role": "Repair Manager", "read": 1, "write": 1}
-  ],
-  "links": [],
-  "workflow_state_field": "",
-  "title_field": "mouthpiece"
+ "actions": [],
+ "creation": "2025-08-15 22:29:46.776244",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "mouthpiece",
+  "ligature",
+  "reed_brand",
+  "reed_model",
+  "reed_strength",
+  "barrel",
+  "instrument",
+  "comments"
+ ],
+ "fields": [
+  {
+   "fieldname": "mouthpiece",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Mouthpiece"
+  },
+  {
+   "fieldname": "ligature",
+   "fieldtype": "Data",
+   "label": "Ligature"
+  },
+  {
+   "fieldname": "reed_brand",
+   "fieldtype": "Data",
+   "label": "Reed Brand"
+  },
+  {
+   "fieldname": "reed_model",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reed Model"
+  },
+  {
+   "fieldname": "reed_strength",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reed Strength"
+  },
+  {
+   "fieldname": "barrel",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Barrel"
+  },
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Instrument",
+   "options": "Instrument Profile"
+  },
+  {
+   "fieldname": "comments",
+   "fieldtype": "Small Text",
+   "label": "Comments"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-15 22:56:42.912241",
+ "modified_by": "Administrator",
+ "module": "Player Profile",
+ "name": "Player Equipment Preference",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "mouthpiece"
 }

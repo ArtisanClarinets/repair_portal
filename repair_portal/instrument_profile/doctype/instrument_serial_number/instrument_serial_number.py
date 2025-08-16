@@ -23,7 +23,9 @@ from repair_portal.utils.serials import (
 class InstrumentSerialNumber(Document):
     # begin: auto-generated types
     # This code is auto-generated. Do not modify anything in this block.
+
     from typing import TYPE_CHECKING
+
     if TYPE_CHECKING:
         from frappe.types import DF
 
@@ -35,7 +37,7 @@ class InstrumentSerialNumber(Document):
         photo: DF.AttachImage | None
         scan_code: DF.Data | None
         serial: DF.Data
-        serial_source: DF.Literal["Stamped", "Engraved", "Etched", "Label/Sticker", "Handwritten", "Unknown"] | None
+        serial_source: DF.Literal["Stamped", "Engraved", "Etched", "Label/Sticker", "Handwritten", "Unknown"]
         status: DF.Literal["Active", "Deprecated", "Replaced", "Error"]
         verification_status: DF.Literal["Unverified", "Verified by Technician", "Customer Reported", "Disputed"]
         verified_by: DF.Link | None

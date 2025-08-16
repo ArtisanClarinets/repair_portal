@@ -10,20 +10,23 @@
   "serial",
   "normalized_serial",
   "serial_source",
-  "scan_code",
   "photo",
-  "linkage_section",
+  "column_break_kpge",
+  "linkage",
   "instrument",
   "erpnext_serial_no",
-  "dup_section",
-  "duplicate_of",
+  "scan_code",
   "verification_section",
+  "verification",
   "verification_status",
   "verified_by",
   "verified_on",
-  "meta_section",
+  "column_break_qppd",
+  "isn_meta",
   "status",
-  "notes"
+  "notes",
+  "dup_section",
+  "duplicate_of"
  ],
  "fields": [
   {
@@ -52,6 +55,7 @@
    "search_index": 1
   },
   {
+   "default": "Etched",
    "fieldname": "serial_source",
    "fieldtype": "Select",
    "label": "Serial Source",
@@ -67,11 +71,6 @@
    "fieldname": "photo",
    "fieldtype": "Attach Image",
    "label": "Serial Photo"
-  },
-  {
-   "fieldname": "linkage_section",
-   "fieldtype": "Section Break",
-   "label": "Linkage"
   },
   {
    "description": "All instrument details live on Instrument",
@@ -103,7 +102,7 @@
   {
    "fieldname": "verification_section",
    "fieldtype": "Section Break",
-   "label": "Verification"
+   "label": "Serial Number Verification & Status"
   },
   {
    "default": "Unverified",
@@ -128,11 +127,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "meta_section",
-   "fieldtype": "Section Break",
-   "label": "Meta"
-  },
-  {
    "default": "Active",
    "fieldname": "status",
    "fieldtype": "Select",
@@ -144,6 +138,29 @@
    "fieldname": "notes",
    "fieldtype": "Small Text",
    "label": "Notes"
+  },
+  {
+   "fieldname": "column_break_kpge",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "linkage",
+   "fieldtype": "Heading",
+   "label": "Linkage"
+  },
+  {
+   "fieldname": "verification",
+   "fieldtype": "Heading",
+   "label": "Verification"
+  },
+  {
+   "fieldname": "column_break_qppd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "isn_meta",
+   "fieldtype": "Heading",
+   "label": "Meta"
   }
  ],
  "icon": "fa fa-hashtag",
@@ -154,7 +171,7 @@
    "link_fieldname": "serial_no"
   }
  ],
- "modified": "2025-08-13 22:38:03.426061",
+ "modified": "2025-08-15 22:43:07.930749",
  "modified_by": "Administrator",
  "module": "Instrument Profile",
  "name": "Instrument Serial Number",

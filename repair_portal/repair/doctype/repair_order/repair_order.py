@@ -24,6 +24,33 @@ from frappe.model.document import Document
 
 
 class RepairOrder(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.repair_logging.doctype.repair_task_log.repair_task_log import RepairTaskLog
+        from repair_portal.repair_portal.doctype.qa_checklist_item.qa_checklist_item import QaChecklistItem
+
+        amended_from: DF.Link | None
+        client: DF.Link | None
+        customer: DF.Link
+        date_reported: DF.Date | None
+        description: DF.Text | None
+        estimated_completion: DF.Date | None
+        instrument: DF.Link | None
+        instrument_category: DF.Link | None
+        issue_description: DF.Text
+        priority_level: DF.Literal["", "Low", "Medium", "High"]
+        promise_date: DF.Date | None
+        qa_checklist: DF.Table[QaChecklistItem]
+        repair_notes: DF.Table[RepairTaskLog]
+        status: DF.Literal["Open", "In Progress", "Resolved", "Closed", "Completed", "Cancelled"]
+        technician_assigned: DF.Link | None
+        total_cost: DF.Currency
+    # end: auto-generated types
     def validate(self):
         """Ensures all required fields are present before save/submit."""
         if not self.customer:

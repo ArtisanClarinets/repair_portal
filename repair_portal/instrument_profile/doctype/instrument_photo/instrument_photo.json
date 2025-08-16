@@ -1,60 +1,59 @@
 {
-  "name": "Instrument Photo",
-  "doctype": "DocType",
-  "module": "Instrument Profile",
-  "custom": 0,
-  "is_submittable": 0,
-  "istable": 1,
-  "fields": [
-    {
-      "fieldname": "photo",
-      "fieldtype": "Attach Image",
-      "label": "Photo",
-      "reqd": 1
-    },
-    {
-      "fieldname": "category",
-      "fieldtype": "Select",
-      "label": "Category",
-      "options": "Hero\nMarketing\nService Before\nService After\nOther",
-      "reqd": 1
-    },
-    {
-      "fieldname": "description",
-      "fieldtype": "Data",
-      "label": "Description",
-      "reqd": 0
-    },
-    {
-      "fieldname": "timestamp",
-      "fieldtype": "Datetime",
-      "label": "Photo Timestamp",
-      "reqd": 0
-    },
-    {
-      "fieldname": "uploaded_by",
-      "fieldtype": "Link",
-      "label": "Uploaded By",
-      "options": "User",
-      "reqd": 1
-    }
-  ],
-  "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    },
-    {
-      "role": "Technician",
-      "read": 1,
-      "write": 1,
-      "create": 1
-    }
-  ],
-  "workflow_state_field": "",
-  "links": [],
-  "engine": "InnoDB"
+ "actions": [],
+ "creation": "2025-08-15 22:29:51.427228",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "photo",
+  "category",
+  "description",
+  "timestamp",
+  "uploaded_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "label": "Photo",
+   "reqd": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Profile Picture\nService Before\nService After\nDamage Documentation\nRepair Documentation\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "timestamp",
+   "fieldtype": "Datetime",
+   "label": "Photo Timestamp"
+  },
+  {
+   "fieldname": "uploaded_by",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Uploaded By",
+   "options": "User",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-15 22:37:32.342252",
+ "modified_by": "Administrator",
+ "module": "Instrument Profile",
+ "name": "Instrument Photo",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
 }

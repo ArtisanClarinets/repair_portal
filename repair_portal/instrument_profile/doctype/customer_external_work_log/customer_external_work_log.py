@@ -16,10 +16,13 @@ class CustomerExternalWorkLog(Document):
         from frappe.types import DF
 
         external_shop_name: DF.Data | None
-        instrument_profile: DF.Link
+        instrument: DF.Link
+        parent: DF.Data
+        parentfield: DF.Data
+        parenttype: DF.Data
         receipt_attachment: DF.Attach | None
         service_date: DF.Date
         service_notes: DF.Text | None
-        service_type: DF.Literal["Setup", "Repair", "Inspection", "Other"]
+        service_type: DF.Literal["Inspection", "Setup", "Maintenance", "Repair", "Other"]
     # end: auto-generated types
     pass

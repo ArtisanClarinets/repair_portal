@@ -29,7 +29,6 @@
   "key_plating",
   "key_system",
   "number_of_keys_rings",
-  "tab_break_purchase_intake",
   "purchase_section",
   "purchase_date",
   "purchase_order",
@@ -43,7 +42,6 @@
   "initial_condition_notes",
   "linked_inspection",
   "condition_logs",
-  "tab_break_logs",
   "logs_section",
   "external_work_logs",
   "warranty_logs",
@@ -203,11 +201,6 @@
    "label": "Number of Keys/Rings"
   },
   {
-   "fieldname": "tab_break_purchase_intake",
-   "fieldtype": "Tab Break",
-   "label": "Purchase & Intake"
-  },
-  {
    "fieldname": "purchase_section",
    "fieldtype": "Section Break",
    "label": "Purchase"
@@ -289,11 +282,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "tab_break_logs",
-   "fieldtype": "Tab Break",
-   "label": "Logs"
-  },
-  {
    "fieldname": "logs_section",
    "fieldtype": "Section Break",
    "label": "Logs"
@@ -369,7 +357,7 @@
  "image_field": "profile_image",
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-15 02:48:39.571042",
+ "modified": "2025-08-15 22:33:30.914934",
  "modified_by": "Administrator",
  "module": "Instrument Profile",
  "name": "Instrument Profile",

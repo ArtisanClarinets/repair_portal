@@ -18,6 +18,14 @@ class ClarinetTemplateTask(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		test: DF.Attach | None
+		default_priority: DF.Literal["Low", "Medium", "High", "Urgent"]
+		description: DF.SmallText | None
+		exp_duration_days: DF.Int
+		exp_start_offset_days: DF.Int
+		parent: DF.Data
+		parentfield: DF.Data
+		parenttype: DF.Data
+		sequence: DF.Int
+		subject: DF.Data
 	# end: auto-generated types
 	pass

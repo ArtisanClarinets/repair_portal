@@ -1,65 +1,75 @@
 {
-  "doctype": "DocType",
-  "name": "Clarinet Template Task",
-  "module": "Instrument Setup",
-  "engine": "InnoDB",
-  "istable": 1,
-  "editable_grid": 1,
-  "track_changes": 0,
-  "description": "Child table that defines task templates within a Setup Template. Each row generates a real Clarinet Setup Task with expected schedule and priority when applied to a Clarinet Initial Setup.",
-  "field_order": [
-    "sequence",
-    "subject",
-    "description",
-    "default_priority",
-    "exp_start_offset_days",
-    "exp_duration_days"
-  ],
-  "fields": [
-    {
-      "fieldname": "sequence",
-      "fieldtype": "Int",
-      "label": "Sequence",
-      "reqd": 1,
-      "in_list_view": 1,
-      "description": "Ordering number used when generating tasks (e.g., 10, 20, 30)."
-    },
-    {
-      "fieldname": "subject",
-      "fieldtype": "Data",
-      "label": "Subject",
-      "reqd": 1,
-      "in_list_view": 1,
-      "description": "Task title that will be copied to the generated Clarinet Setup Task."
-    },
-    {
-      "fieldname": "description",
-      "fieldtype": "Small Text",
-      "label": "Description",
-      "description": "Optional notes that will be copied to the generated Clarinet Setup Task."
-    },
-    {
-      "fieldname": "default_priority",
-      "fieldtype": "Select",
-      "label": "Priority",
-      "options": "Low\nMedium\nHigh\nUrgent",
-      "default": "Medium",
-      "description": "Priority to apply to the generated task."
-    },
-    {
-      "fieldname": "exp_start_offset_days",
-      "fieldtype": "Int",
-      "label": "Expected Start Offset (days)",
-      "default": 0,
-      "description": "Days after the Setup Date that the generated task should start (0 = same day)."
-    },
-    {
-      "fieldname": "exp_duration_days",
-      "fieldtype": "Int",
-      "label": "Expected Duration (days)",
-      "default": 1,
-      "description": "Planned duration in days for the generated task (at least 1)."
-    }
-  ],
-  "permissions": []
+ "actions": [],
+ "creation": "2025-08-15 22:29:57.926047",
+ "description": "Child table that defines task templates within a Setup Template. Each row generates a real Clarinet Setup Task with expected schedule and priority when applied to a Clarinet Initial Setup.",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sequence",
+  "subject",
+  "description",
+  "default_priority",
+  "exp_start_offset_days",
+  "exp_duration_days"
+ ],
+ "fields": [
+  {
+   "description": "Ordering number used when generating tasks (e.g., 10, 20, 30).",
+   "fieldname": "sequence",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Sequence",
+   "reqd": 1
+  },
+  {
+   "description": "Task title that will be copied to the generated Clarinet Setup Task.",
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Subject",
+   "reqd": 1
+  },
+  {
+   "description": "Optional notes that will be copied to the generated Clarinet Setup Task.",
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "default": "Medium",
+   "description": "Priority to apply to the generated task.",
+   "fieldname": "default_priority",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Priority",
+   "options": "Low\nMedium\nHigh\nUrgent"
+  },
+  {
+   "default": "0",
+   "description": "Days after the Setup Date that the generated task should start (0 = same day).",
+   "fieldname": "exp_start_offset_days",
+   "fieldtype": "Int",
+   "label": "Expected Start Offset (days)"
+  },
+  {
+   "default": "1",
+   "description": "Planned duration in days for the generated task (at least 1).",
+   "fieldname": "exp_duration_days",
+   "fieldtype": "Int",
+   "label": "Expected Duration (days)"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-15 22:45:54.307556",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Template Task",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
 }

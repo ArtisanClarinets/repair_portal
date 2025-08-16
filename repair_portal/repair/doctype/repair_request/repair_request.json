@@ -1,33 +1,163 @@
 {
-  "doctype": "DocType",
-  "name": "Repair Request",
-  "module": "Repair",
-  "custom": 0,
-  "istable": 0,
-  "editable_grid": 1,
-  "fields": [
-    {"fieldname": "section_main", "fieldtype": "Section Break", "label": "Repair Details"},
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
-    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Link", "options": "Instrument Category"},
-    {"fieldname": "date_reported", "label": "Date Reported", "fieldtype": "Date"},
-    {"fieldname": "promise_date", "label": "Promise Date", "fieldtype": "Date"},
-    {"fieldname": "cb1", "fieldtype": "Column Break"},
-    {"fieldname": "issue_description", "label": "Issue Description", "fieldtype": "Text", "reqd": 1},
-    {"fieldname": "technician_assigned", "label": "Technician Assigned", "fieldtype": "Link", "options": "User"},
-    {"fieldname": "priority_level", "label": "Priority", "fieldtype": "Select", "options": "\nLow\nMedium\nHigh", "default": "Medium"},
-    {"fieldname": "section_status", "fieldtype": "Section Break", "label": "Status"},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "\nOpen\nIn Progress\nResolved\nClosed", "default": "Open"},
-    {"fieldname": "section_notes", "fieldtype": "Section Break", "label": "Repair Notes"},
-    {"fieldname": "repair_notes", "label": "Repair Notes", "fieldtype": "Table", "options": "Repair Note"},
-    {"fieldname": "section_qa", "fieldtype": "Section Break", "label": "QA Checklist"},
-    {"fieldname": "qa_checklist", "label": "QA Checklist", "fieldtype": "Table", "options": "Qa Checklist Item"}
-  ],
-  "permissions": [
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
-    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1},
-    {"role": "Technician", "read": 1, "write": 1},
-    {"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-  ],
-  "is_submittable": 1,
-  "workflow_state_field": "status"
+ "actions": [],
+ "creation": "2025-08-15 22:29:47.231887",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_main",
+  "customer",
+  "instrument_category",
+  "date_reported",
+  "promise_date",
+  "cb1",
+  "issue_description",
+  "technician_assigned",
+  "priority_level",
+  "section_status",
+  "status",
+  "section_notes",
+  "repair_notes",
+  "section_qa",
+  "qa_checklist",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_main",
+   "fieldtype": "Section Break",
+   "label": "Repair Details"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instrument_category",
+   "fieldtype": "Link",
+   "label": "Instrument Category",
+   "options": "Instrument Category"
+  },
+  {
+   "fieldname": "date_reported",
+   "fieldtype": "Date",
+   "label": "Date Reported"
+  },
+  {
+   "fieldname": "promise_date",
+   "fieldtype": "Date",
+   "label": "Promise Date"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "issue_description",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "Issue Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "technician_assigned",
+   "fieldtype": "Link",
+   "label": "Technician Assigned",
+   "options": "User"
+  },
+  {
+   "default": "Medium",
+   "fieldname": "priority_level",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "\nLow\nMedium\nHigh"
+  },
+  {
+   "fieldname": "section_status",
+   "fieldtype": "Section Break",
+   "label": "Status"
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nOpen\nIn Progress\nResolved\nClosed"
+  },
+  {
+   "fieldname": "section_notes",
+   "fieldtype": "Section Break",
+   "label": "Repair Notes"
+  },
+  {
+   "fieldname": "repair_notes",
+   "fieldtype": "Table",
+   "label": "Repair Notes",
+   "options": "Repair Task Log"
+  },
+  {
+   "fieldname": "section_qa",
+   "fieldtype": "Section Break",
+   "label": "QA Checklist"
+  },
+  {
+   "fieldname": "qa_checklist",
+   "fieldtype": "Table",
+   "label": "QA Checklist",
+   "options": "Qa Checklist Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Repair Request",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-15 23:00:17.601687",
+ "modified_by": "Administrator",
+ "module": "Repair",
+ "name": "Repair Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Repair Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Technician",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "if_owner": 1,
+   "read": 1,
+   "role": "Customer"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
 }

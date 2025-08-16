@@ -40,9 +40,9 @@ class InstrumentInspection(Document):
         from frappe.types import DF
         from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
         from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import InstrumentPhoto
-        from repair_portal.instrument_setup.doctype.inspection_finding.inspection_finding import InspectionFinding
         from repair_portal.repair_logging.doctype.tenon_measurement.tenon_measurement import TenonMeasurement
         from repair_portal.repair_logging.doctype.tone_hole_inspection_record.tone_hole_inspection_record import ToneHoleInspectionRecord
+        from repair_portal.repair_logging.doctype.visual_inspection.visual_inspection import VisualInspection
 
         accessory_log: DF.Table[InstrumentAccessory]
         acclimatization_controlled_env: DF.Check
@@ -56,13 +56,13 @@ class InstrumentInspection(Document):
         bore_notes: DF.SmallText | None
         bore_style: DF.Data | None
         clarinet_intake: DF.Link | None
+        condition: DF.Table[VisualInspection]
         current_location: DF.Data | None
         current_status: DF.Literal["For Sale", "In Workshop", "With Customer", "Sold", "Archived"]
         customer: DF.Link | None
         hygrometer_photo: DF.AttachImage | None
         inspected_by: DF.Link
         inspection_date: DF.Date | None
-        inspection_findings: DF.Table[InspectionFinding]
         inspection_type: DF.Literal["New Inventory", "Repair", "Maintenance", "QA", "Other"]
         instrument_delivered: DF.Check
         intake_record_id: DF.Link | None
@@ -92,7 +92,6 @@ class InstrumentInspection(Document):
         unboxing_rh: DF.Float
         unboxing_temperature: DF.Float
         unboxing_time: DF.Datetime | None
-        visual_inspection: DF.Table[InspectionFinding]
         wood_type: DF.Literal["Grenadilla", "Mopane", "Cocobolo", "Synthetic", "Other"]
     # end: auto-generated types
 

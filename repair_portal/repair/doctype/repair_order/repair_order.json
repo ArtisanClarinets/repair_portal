@@ -1,31 +1,161 @@
 {
-  "doctype": "DocType",
-  "name": "Repair Order",
-  "module": "Repair",
-  "custom": 0,
-  "fields": [
-    {"fieldname": "instrument", "label": "Instrument", "fieldtype": "Link", "options": "Instrument Profile"},
-    {"fieldname": "client", "label": "Client", "fieldtype": "Link", "options": "Customer"},
-    {"fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1},
-    {"fieldname": "instrument_category", "label": "Instrument Category", "fieldtype": "Link", "options": "Instrument Category"},
-    {"fieldname": "date_reported", "label": "Date Reported", "fieldtype": "Date"},
-    {"fieldname": "promise_date", "label": "Promise Date", "fieldtype": "Date"},
-    {"fieldname": "issue_description", "label": "Issue Description", "fieldtype": "Text", "reqd": 1},
-    {"fieldname": "technician_assigned", "label": "Technician Assigned", "fieldtype": "Link", "options": "User"},
-    {"fieldname": "priority_level", "label": "Priority", "fieldtype": "Select", "options": "\nLow\nMedium\nHigh", "default": "Medium"},
-    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Open\nIn Progress\nResolved\nClosed\nCompleted\nCancelled", "default": "Open"},
-    {"fieldname": "repair_notes", "label": "Repair Notes", "fieldtype": "Table", "options": "Repair Note"},
-    {"fieldname": "qa_checklist", "label": "QA Checklist", "fieldtype": "Table", "options": "Qa Checklist Item"},
-    {"fieldname": "description", "label": "Repair Description", "fieldtype": "Text"},
-    {"fieldname": "estimated_completion", "label": "Estimated Completion", "fieldtype": "Date"},
-    {"fieldname": "total_cost", "label": "Total Cost", "fieldtype": "Currency"}
-  ],
-  "permissions": [
-    {"role": "Technician", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
-    {"role": "Customer", "read": 1}
-  ],
-  "is_submittable": 1,
-  "workflow_state_field": "status",
-  "allow_rename": 0
+ "actions": [],
+ "creation": "2025-08-15 22:29:47.036527",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "instrument",
+  "client",
+  "customer",
+  "instrument_category",
+  "date_reported",
+  "promise_date",
+  "issue_description",
+  "technician_assigned",
+  "priority_level",
+  "status",
+  "repair_notes",
+  "qa_checklist",
+  "description",
+  "estimated_completion",
+  "total_cost",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument Profile"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "label": "Client",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instrument_category",
+   "fieldtype": "Link",
+   "label": "Instrument Category",
+   "options": "Instrument Category"
+  },
+  {
+   "fieldname": "date_reported",
+   "fieldtype": "Date",
+   "label": "Date Reported"
+  },
+  {
+   "fieldname": "promise_date",
+   "fieldtype": "Date",
+   "label": "Promise Date"
+  },
+  {
+   "fieldname": "issue_description",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "Issue Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "technician_assigned",
+   "fieldtype": "Link",
+   "label": "Technician Assigned",
+   "options": "User"
+  },
+  {
+   "default": "Medium",
+   "fieldname": "priority_level",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "\nLow\nMedium\nHigh"
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nIn Progress\nResolved\nClosed\nCompleted\nCancelled"
+  },
+  {
+   "fieldname": "repair_notes",
+   "fieldtype": "Table",
+   "label": "Repair Notes",
+   "options": "Repair Task Log"
+  },
+  {
+   "fieldname": "qa_checklist",
+   "fieldtype": "Table",
+   "label": "QA Checklist",
+   "options": "Qa Checklist Item"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Repair Description"
+  },
+  {
+   "fieldname": "estimated_completion",
+   "fieldtype": "Date",
+   "label": "Estimated Completion"
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Repair Order",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-15 22:58:39.447769",
+ "modified_by": "Administrator",
+ "module": "Repair",
+ "name": "Repair Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Technician",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Customer"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
 }
