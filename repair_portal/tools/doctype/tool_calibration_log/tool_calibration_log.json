@@ -14,7 +14,7 @@
 			"fieldname": "calibrated_by",
 			"fieldtype": "Link",
 			"label": "Calibrated By",
-			"options": "Employee"
+			"options": "Technician"
 		},
 		{
 			"fieldname": "next_due",
