@@ -1,72 +1,185 @@
 {
-  "doctype": "DocType",
-  "name": "Setup Template",
-  "module": "Instrument Setup",
-  "engine": "InnoDB",
-  "track_changes": 1,
-  "sort_field": "modified",
-  "sort_order": "DESC",
-  "description": "Defines reusable defaults for clarinet setup: operations, checklist items, and a list of template tasks. When applied to a Clarinet Initial Setup, this template can populate operations, checklist, and generate scheduled tasks.",
-  "field_order": [
-    "template_name",
-    "clarinet_model",
-    "pad_map",
-    "default_operations",
-    "checklist_items",
-    "template_tasks"
-  ],
-  "fields": [
-    {
-      "fieldname": "template_name",
-      "fieldtype": "Data",
-      "label": "Template Name",
-      "unique": 1,
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "set_only_once": 1,
-      "hidden": 1,
-      "description": "Internal identifier for this template (kept unique and set only once)."
-    },
-    {
-      "fieldname": "clarinet_model",
-      "fieldtype": "Link",
-      "label": "Instrument Model",
-      "options": "Instrument Model",
-      "in_standard_filter": 1,
-      "description": "Model this template is designed for (used for pad maps and model-specific defaults)."
-    },
-    {
-      "fieldname": "pad_map",
-      "fieldtype": "Link",
-      "label": "Pad Map",
-      "options": "Clarinet Pad Map",
-      "description": "Associated pad map record for reference while performing the setup."
-    },
-    {
-      "fieldname": "default_operations",
-      "fieldtype": "Table",
-      "label": "Default Operations",
-      "options": "Clarinet Setup Operation",
-      "description": "Operations to pre-populate into Clarinet Initial Setup → Operations Performed. Each row describes a standard operation you routinely perform."
-    },
-    {
-      "fieldname": "checklist_items",
-      "fieldtype": "Table",
-      "label": "Checklist Items",
-      "options": "Setup Checklist Item",
-      "description": "Checklist rows to pre-populate into Clarinet Initial Setup → Checklist (e.g., safety check, leak test)."
-    },
-    {
-      "fieldname": "template_tasks",
-      "fieldtype": "Table",
-      "label": "Template Tasks",
-      "options": "Clarinet Template Task",
-      "description": "Task blueprints that generate real Clarinet Setup Tasks (with offsets/durations) when applied on a Clarinet Initial Setup."
-    }
-  ],
-  "permissions": [
-    { "role": "Technician", "read": 1, "write": 1, "create": 1 },
-    { "role": "Service Manager", "read": 1, "write": 1, "create": 1 },
-    { "role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1 }
-  ]
+ "actions": [],
+ "autoname": "format:SETUP-{clarinet_model}",
+ "creation": "2025-08-16 00:22:23.976172",
+ "description": "Defines reusable defaults for clarinet setup: operations, checklist items, and a list of template tasks. When applied to a Clarinet Initial Setup, this template can populate operations, checklist, and generate scheduled tasks.",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_info_section",
+  "template_name",
+  "clarinet_model",
+  "setup_type",
+  "column_break_basic",
+  "is_active",
+  "priority",
+  "pad_map",
+  "estimates_section",
+  "estimated_hours",
+  "estimated_cost",
+  "column_break_estimates",
+  "estimated_materials_cost",
+  "default_technician",
+  "template_content_section",
+  "default_operations",
+  "checklist_items",
+  "template_tasks"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_info_section",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "description": "Internal identifier for this template (kept unique and set only once).",
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Template Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Model this template is designed for (used for pad maps and model-specific defaults).",
+   "fieldname": "clarinet_model",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Instrument Model",
+   "options": "Instrument Model",
+   "reqd": 1
+  },
+  {
+   "description": "Type of setup work this template is designed for.",
+   "fieldname": "setup_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Setup Type",
+   "options": "Standard Setup\nAdvanced Setup\nRepair & Setup\nMaintenance\nOverhaul\nCustom Setup",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_basic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "Whether this template is active and available for use.",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Active"
+  },
+  {
+   "default": "Medium",
+   "description": "Default priority level for setups created from this template.",
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Default Priority",
+   "options": "Low\nMedium\nHigh\nUrgent"
+  },
+  {
+   "description": "Associated pad map record for reference while performing the setup.",
+   "fieldname": "pad_map",
+   "fieldtype": "Link",
+   "label": "Pad Map",
+   "options": "Clarinet Pad Map"
+  },
+  {
+   "fieldname": "estimates_section",
+   "fieldtype": "Section Break",
+   "label": "Estimates & Defaults"
+  },
+  {
+   "description": "Estimated labor hours required for this setup type.",
+   "fieldname": "estimated_hours",
+   "fieldtype": "Float",
+   "label": "Estimated Hours",
+   "precision": "2"
+  },
+  {
+   "description": "Estimated total cost including labor and materials.",
+   "fieldname": "estimated_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Total Cost"
+  },
+  {
+   "fieldname": "column_break_estimates",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Estimated materials cost for this setup type.",
+   "fieldname": "estimated_materials_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Materials Cost"
+  },
+  {
+   "description": "Default technician for setups using this template.",
+   "fieldname": "default_technician",
+   "fieldtype": "Link",
+   "label": "Default Technician",
+   "options": "User"
+  },
+  {
+   "fieldname": "template_content_section",
+   "fieldtype": "Section Break",
+   "label": "Template Content"
+  },
+  {
+   "description": "Operations to pre-populate into Clarinet Initial Setup → Operations Performed. Each row describes a standard operation you routinely perform.",
+   "fieldname": "default_operations",
+   "fieldtype": "Table",
+   "label": "Default Operations",
+   "options": "Clarinet Setup Operation"
+  },
+  {
+   "description": "Checklist rows to pre-populate into Clarinet Initial Setup → Checklist (e.g., safety check, leak test).",
+   "fieldname": "checklist_items",
+   "fieldtype": "Table",
+   "label": "Checklist Items",
+   "options": "Setup Checklist Item"
+  },
+  {
+   "description": "Task blueprints that generate real Clarinet Setup Tasks (with offsets/durations) when applied on a Clarinet Initial Setup.",
+   "fieldname": "template_tasks",
+   "fieldtype": "Table",
+   "label": "Template Tasks",
+   "options": "Clarinet Template Task"
+  }
+ ],
+ "links": [],
+ "modified": "2025-08-16 00:28:14.050520",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Setup Template",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Technician",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Service Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
 }

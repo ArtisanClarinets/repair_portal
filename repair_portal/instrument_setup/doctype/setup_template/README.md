@@ -1,32 +1,171 @@
-# Setup Template Doctype Overview
-
-## Files Reviewed
-- setup_template.js
-- setup_template.py
+# Setup Template (`setup_template`)
 
 ## Purpose
-Automates the creation of clarinet pad maps and setup operations for instrument setup templates.
+The Setup Template DocType serves as a project template system for standardizing clarinet setup processes. It mirrors ERPNext's Project Template functionality, allowing technicians to create reusable templates with predefined tasks, operations, and cost estimates that can be applied to individual Clarinet Initial Setup projects.
 
-## Main Functions
-### setup_template.js
-- Placeholder for future UI logic.
+## Schema Summary
 
-### setup_template.py
-- `validate`: Auto-creates a Clarinet Pad Map if not already linked, using the clarinet model.
+### Identification & Basic Info
+- **Naming:** `naming_series` = "ST-.YYYY.-.####"
+- **template_id:** Unique identifier for the template (auto-generated)
+- **template_name:** Human-readable name for the template
+- **setup_type:** Select field (Standard, Premium, Repair, Custom)
+- **priority:** Select field (Low, Medium, High, Critical)
+- **is_active:** Boolean to enable/disable template usage
+- **description:** Text description of the template's purpose
 
-## Doctypes Created/Updated/Modified
-- Creates `Clarinet Pad Map` on save if not present.
+### Cost Estimation
+- **estimated_cost:** Total estimated cost for projects using this template
+- **estimated_materials_cost:** Estimated cost of materials/parts
+- **estimated_hours:** Expected labor hours for completion
 
----
+### Pad Configuration
+- **clarinet_pad_map:** Link to Clarinet Pad Map for pad specifications
+- **auto_create_pad_map:** Boolean to automatically create pad maps
 
-# Setup Template Doctype: Technical & Operational Reference
+### Template Content
+- **template_operations:** Table of Clarinet Setup Operation child records
+- **template_tasks:** Table of Clarinet Template Task child records  
+- **checklist_items:** Table of Setup Checklist Item child records
+  - `pad_map` (Link): Associated pad configuration reference
+- **Child Tables:**
+  - `default_operations` → `Clarinet Setup Operation` (standard operations to perform)
+  - `checklist_items` → `Setup Checklist Item` (QA checklist items)
+  - `template_tasks` → `Clarinet Template Task` (task blueprints with scheduling)
 
-**Module:** `Instrument Setup`  
-**Path:** `repair_portal/instrument_setup/doctype/setup_template/`  
-**Version:** v1.0  
-**Last Updated:** 2025-07-28
+## Business Rules
 
----
+### Validation Logic
+1. **Auto-create Pad Map**: If no pad_map is specified but clarinet_model exists, automatically creates and links a new Clarinet Pad Map
+2. **Template Task Validation**:
+   - Enforces unique sequence numbers across all template tasks
+   - Requires subject field for all template tasks
+   - Prevents duplicate sequence values that could cause ordering conflicts
+
+### Template Application
+Templates serve as blueprints that populate three areas of a Clarinet Initial Setup:
+1. **Operations**: Copied to `operations_performed` table
+2. **Checklist**: Copied to `checklist` table  
+3. **Tasks**: Generate individual Clarinet Setup Task documents with scheduling
+
+## Server Logic (`setup_template.py`)
+
+### Lifecycle Hooks
+1. **`validate()`**:
+   - **Pad Map Auto-creation**: Creates linked Clarinet Pad Map if missing
+   - **Template Task Quality Checks**:
+     - Validates unique sequence numbers using set tracking
+     - Ensures all template tasks have required subject field
+     - Throws descriptive errors for violations
+
+### Auto-generated Types
+The DocType includes comprehensive type hints for:
+- `checklist_items`: Table of SetupChecklistItem records
+- `clarinet_model`: Link to Instrument Model
+- `default_operations`: Table of ClarinetSetupOperation records
+- `pad_map`: Link to Clarinet Pad Map
+- `template_name`: Unique internal identifier
+- `template_tasks`: Table of ClarinetTemplateTask records
+
+### Dependencies
+- **Clarinet Pad Map**: Auto-created when missing
+- **Instrument Model**: Required for template targeting
+- **Child DocTypes**: Setup Checklist Item, Clarinet Setup Operation, Clarinet Template Task
+
+## Client Logic (`setup_template.js`)
+
+### Form Events
+1. **`refresh(frm)`**: Adds utility buttons for saved documents only
+
+### Child Table Events
+1. **`template_tasks_add(frm, cdt, cdn)`**:
+   - **Auto-sequencing**: Automatically assigns sequence numbers to new template task rows
+   - **Gap Management**: Uses increments of 10 (10, 20, 30, etc.) to allow for easy reordering
+   - **Logic**: Finds maximum existing sequence, adds 10 for new row
+
+### Utility Functions
+
+#### Template Tools (Available via custom buttons)
+1. **"Preview Task Schedule"**: 
+   - Opens interactive dialog for schedule preview
+   - Allows user to specify hypothetical setup date
+   - Displays calculated start/end dates for all template tasks
+   - Shows duration, priority, and sequencing information
+   - Helpful for validating template timing before application
+
+2. **"Normalize Sequence"**:
+   - Reorders all template tasks by current sequence values
+   - Reassigns sequence numbers in increments of 10
+   - Eliminates gaps and ensures clean ordering
+   - Updates form display immediately
+
+### Dialog Functions
+- **`preview_schedule_dialog(frm)`**: Creates modal dialog with date picker and preview table
+- **`render_preview(rows, setup_date)`**: Generates HTML table showing calculated schedule
+- **Date Calculations**: Uses Frappe date utilities for accurate start/end date computation
+
+### Helper Functions
+- **`normalize_sequence(frm)`**: Sorts and renumbers template tasks
+- **`add_tools(frm)`**: Manages button state to prevent duplicates
+
+## Data Integrity
+- **Required Fields**: None at schema level, but template_tasks require subject via validation
+- **Unique Fields**: 
+  - `template_name` (unique, set once)
+  - Template task sequence numbers (enforced in validate())
+- **Auto-created**: `pad_map` field when missing
+- **Fetch Fields**: None defined
+
+## Template Task Structure
+Each template task (`template_tasks` table) contains:
+- **`sequence`** (Int): Ordering number for task generation
+- **`subject`** (Data): Task title (required)
+- **`description`** (Small Text): Optional detailed instructions
+- **`default_priority`** (Select): Priority level (Low/Medium/High/Urgent)
+- **`exp_start_offset_days`** (Int): Days after setup date to start (default: 0)
+- **`exp_duration_days`** (Int): Expected task duration in days (default: 1)
+- **`depends_on`** (Table): Template-level dependencies (links to other template tasks)
+
+## Template Application Workflow
+1. **Select Template**: User chooses setup template on Clarinet Initial Setup
+2. **Load Operations**: Button copies `default_operations` to setup document
+3. **Create Tasks**: Button generates individual Clarinet Setup Task documents
+4. **Task Generation Logic**:
+   - Sorts template tasks by sequence
+   - Calculates actual dates using setup_date + offset
+   - Creates linked task documents with proper metadata
+   - Establishes dependencies between generated tasks
+
+## Test Plan
+
+### Unit Tests
+- Test auto-creation of pad map when missing
+- Test template task sequence validation (duplicates, missing subjects)
+- Test template application to setup documents
+- Test task scheduling calculations with various offsets
+
+### Integration Tests
+- Test complete workflow from template creation to task generation
+- Test pad map integration and auto-creation
+- Test dependency handling in generated tasks
+- Test preview schedule calculations
+
+### UI Tests
+- Test auto-sequencing of new template task rows
+- Test sequence normalization functionality
+- Test schedule preview dialog with various dates
+- Test button state management and duplicate prevention
+
+## Changelog
+- **2025-08-16**: Added comprehensive documentation and autoname format update
+- **2025-08-12**: Enhanced template task validation and preview functionality
+- **Previous**: Basic template structure with operations and checklist support
+
+## Dependencies
+- **Frappe Framework**: Document management, dialog system, date utilities
+- **Linked DocTypes**: Instrument Model, Clarinet Pad Map
+- **Child DocTypes**: Setup Checklist Item, Clarinet Setup Operation, Clarinet Template Task
+- **Generated Documents**: Clarinet Setup Task (created from template tasks)
 
 ## 🚀 Overview
 

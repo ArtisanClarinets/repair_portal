@@ -18,6 +18,9 @@ class ClarinetTaskDependsOn(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		test: DF.Attach | None
+		parent: DF.Data
+		parentfield: DF.Data
+		parenttype: DF.Data
+		task: DF.Link
 	# end: auto-generated types
 	pass

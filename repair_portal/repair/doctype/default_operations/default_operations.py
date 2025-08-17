@@ -31,7 +31,7 @@ class DefaultOperations(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.instrument_setup.doctype.operation_template.operation_template import OperationTemplate
+        from repair_portal.repair.doctype.operation_template.operation_template import OperationTemplate
         from repair_portal.repair_logging.doctype.material_use_log.material_use_log import MaterialUseLog
 
         material_used: DF.Table[MaterialUseLog]

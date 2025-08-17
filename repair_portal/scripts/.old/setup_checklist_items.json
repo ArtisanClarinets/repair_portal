@@ -1,0 +1,467 @@
+[
+  {
+    "doctype": "Setup Checklist Item",
+    "name": "SCI-00002",
+    "task": "Perform Environmental Logging & Acclimatization",
+    "notes": "Acclimate case for ≥4 hours at 45–55% RH before opening."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Complete Visual and Tactile Inspection",
+    "notes": "Inspect wood and keywork; document pad/cork condition; upload photos."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Assess Initial Tenon Fit (Dry Fit)",
+    "notes": "Assemble dry; classify fits; log each joint."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Execute Standardized Break-In Schedule",
+    "notes": "14 days, 20–30 min/day; swab thoroughly after each use."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Perform Bore Oiling",
+    "notes": "Light coat only; avoid pads; remove excess after rest."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Verify Tone Hole Geometry",
+    "notes": "Inspect rims/undercutting; correct imperfections."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Precision Tenon Cork Replacement",
+    "notes": "Premium cork; sand to precise diameter; log measurements."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Select and Install All Pads",
+    "notes": "Float pads parallel; verify seal with feeler gauge."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Optimize Key Heights (Venting)",
+    "notes": "Measure and adjust to A-clarinet targets."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Calibrate Spring Tensions",
+    "notes": "Adjust to predefined gram-force specs."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Inter-Key Regulation",
+    "notes": "Linked mechanisms close in perfect synchrony."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Validate System-Wide Airtightness",
+    "notes": "Magnehelic ≤ 0.2 required for certification."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Generate Empirical Pitch Curve",
+    "notes": "Map intonation tendencies across full range."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Voicing and Micro-Adjustments",
+    "notes": "Resolve outliers beyond ±5 cents."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Final Performance Validation",
+    "notes": "Holistic play-test; document response/timbre/feel."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Generate Certificate of Acoustic Performance",
+    "notes": "Compile logs, data, photos for client report."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Complete Final Documentation and Client Handover",
+    "notes": "Ensure all logs, photos, and certificates are ready for client."
+  },
+  {
+    "doctype": "Setup Checklist Item",
+    "task": "Conduct Post-Setup Review",
+    "notes": "Gather feedback, assess performance, and identify improvements."
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 10,
+    "subject": "Intake, Tagging & Baseline Photos",
+    "description": "Tag instrument; verify customer notes; quick photos of current state; protect finish and posts.",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 20,
+    "subject": "Baseline Leak-Light & Suction Check",
+    "description": "Full leak-light sweep + gentle suction per stack to document starting leaks and guide work.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 30,
+    "subject": "Tenon Fit — Barrel ↔ Upper Joint",
+    "description": "Inspect/true cork; correct high spots; ensure airtight fit, smooth rotation, zero wobble.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 40,
+    "subject": "Tenon Fit — Upper ↔ Lower Joint",
+    "description": "Fit cork; verify axial alignment and bridge key clearances; ensure airtight seal.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 50,
+    "subject": "Tenon Fit — Lower Joint ↔ Bell",
+    "description": "Fit and seal bell tenon cork; confirm bell resonance not damped by over-tight fit.",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 60,
+    "subject": "Tone Hole Inspection & Micro-Repair — Upper Joint",
+    "description": "Check for chips/divots/raised grain; micro-fill and burnish; re-true rims minimally.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 70,
+    "subject": "Tone Hole Inspection & Micro-Repair — Lower Joint",
+    "description": "As above for lower joint; special attention to long B/F/E♭ holes.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 80,
+    "subject": "Minimal Corrective Reaming (As-Needed)",
+    "description": "Only where required to restore a true rim. Avoid measurable vent diameter drift (>0.1 mm).",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 90,
+    "subject": "Chimney Leak Detection & Seal",
+    "description": "Dye test; wick thin sealant at chimney junctions; cure; light re-dress of rim; verify no leaks.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 100,
+    "subject": "Pad Leveling & Seating — Upper Joint",
+    "description": "True cups; float/seat pads; heat-seat to uniform impression; verify full seal.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 110,
+    "subject": "Pad Leveling & Seating — Lower Joint",
+    "description": "As above; coordinate linked closures (e.g., long B/F).",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 120,
+    "subject": "Key Height (Vent) Adjustment — Throat & Side Keys",
+    "description": "Set travel stops; verify even venting and twelfths; typical throat group 0.9–1.1 mm (model dependent).",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 130,
+    "subject": "Key Height (Vent) Adjustment — RH Stack & Long Keys",
+    "description": "Balance vent heights across RH stack; ensure long B/F linkage does not over-vent.",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 140,
+    "subject": "Spring Tension Balance — Upper Joint",
+    "description": "Gauge and match return forces for fast, even action with minimal finger load (~30–45 gf typical).",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 150,
+    "subject": "Spring Tension Balance — Lower Joint",
+    "description": "Balance long key return vs linkage friction; ensure positive close (~35–55 gf typical).",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 160,
+    "subject": "Replace Register Cork with Beveled Cork",
+    "description": "Select proper density; cut bevel for glide; cement, cure, and final dress to vent spec; silent closure.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 170,
+    "subject": "Re-Verify Pad Seat & Seal — Upper Joint",
+    "description": "Leak-light + suction after height/spring/cork changes; correct any micro leaks.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 180,
+    "subject": "Re-Verify Pad Seat & Seal — Lower Joint",
+    "description": "Leak-light + suction; correct micro leaks.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 190,
+    "subject": "Lubricate & Quiet Keywork",
+    "description": "Oil pivots/rods sparingly; treat felts/corks; eliminate clicks; wipe excess.",
+    "default_priority": "Low",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 200,
+    "subject": "Final Leak Test (Assembled)",
+    "description": "Full assembled leak-light and suction validation; correct any regression.",
+    "default_priority": "High",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 210,
+    "subject": "Pitch & Response Check",
+    "description": "Tune at A=440/442 per shop standard; verify twelfths; micro-adjust heights if needed.",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 220,
+    "subject": "Final Play Test & Sign-Off",
+    "description": "Scales, interval slurs, articulation pp–ff, side-key trills; sign QC.",
+    "default_priority": "Medium",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 230,
+    "subject": "Sanitize, Clean, and Pack",
+    "description": "Swab, sanitize mouthpiece, polish lightly; pack with care instructions.",
+    "default_priority": "Low",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Template Task",
+    "sequence": 240,
+    "subject": "QC Photos & Worklog Update",
+    "description": "After-photos; record measurements, notes, and advisories in worklog.",
+    "default_priority": "Low",
+    "exp_start_offset_days": 0,
+    "exp_duration_days": 1
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Baseline Leak-Light & Suction Check",
+    "depends_on_subjects": ["Intake, Tagging & Baseline Photos"]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Tenon Fit — Barrel ↔ Upper Joint",
+    "depends_on_subjects": ["Baseline Leak-Light & Suction Check"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Tenon Fit — Upper ↔ Lower Joint",
+    "depends_on_subjects": ["Baseline Leak-Light & Suction Check"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Tenon Fit — Lower Joint ↔ Bell",
+    "depends_on_subjects": ["Baseline Leak-Light & Suction Check"]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Tone Hole Inspection & Micro-Repair — Upper Joint",
+    "depends_on_subjects": ["Baseline Leak-Light & Suction Check"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Tone Hole Inspection & Micro-Repair — Lower Joint",
+    "depends_on_subjects": ["Baseline Leak-Light & Suction Check"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Minimal Corrective Reaming (As-Needed)",
+    "depends_on_subjects": [
+      "Tone Hole Inspection & Micro-Repair — Upper Joint",
+      "Tone Hole Inspection & Micro-Repair — Lower Joint"
+    ]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Chimney Leak Detection & Seal",
+    "depends_on_subjects": [
+      "Tone Hole Inspection & Micro-Repair — Upper Joint",
+      "Tone Hole Inspection & Micro-Repair — Lower Joint"
+    ]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Pad Leveling & Seating — Upper Joint",
+    "depends_on_subjects": [
+      "Chimney Leak Detection & Seal",
+      "Minimal Corrective Reaming (As-Needed)",
+      "Tenon Fit — Barrel ↔ Upper Joint"
+    ]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Pad Leveling & Seating — Lower Joint",
+    "depends_on_subjects": [
+      "Chimney Leak Detection & Seal",
+      "Minimal Corrective Reaming (As-Needed)",
+      "Tenon Fit — Upper ↔ Lower Joint",
+      "Tenon Fit — Lower Joint ↔ Bell"
+    ]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Key Height (Vent) Adjustment — Throat & Side Keys",
+    "depends_on_subjects": ["Pad Leveling & Seating — Upper Joint"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Key Height (Vent) Adjustment — RH Stack & Long Keys",
+    "depends_on_subjects": ["Pad Leveling & Seating — Lower Joint"]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Spring Tension Balance — Upper Joint",
+    "depends_on_subjects": ["Key Height (Vent) Adjustment — Throat & Side Keys"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Spring Tension Balance — Lower Joint",
+    "depends_on_subjects": [
+      "Key Height (Vent) Adjustment — RH Stack & Long Keys"
+    ]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Replace Register Cork with Beveled Cork",
+    "depends_on_subjects": ["Pad Leveling & Seating — Upper Joint"]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Re-Verify Pad Seat & Seal — Upper Joint",
+    "depends_on_subjects": [
+      "Spring Tension Balance — Upper Joint",
+      "Replace Register Cork with Beveled Cork"
+    ]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Re-Verify Pad Seat & Seal — Lower Joint",
+    "depends_on_subjects": ["Spring Tension Balance — Lower Joint"]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Lubricate & Quiet Keywork",
+    "depends_on_subjects": [
+      "Re-Verify Pad Seat & Seal — Upper Joint",
+      "Re-Verify Pad Seat & Seal — Lower Joint"
+    ]
+  },
+
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Final Leak Test (Assembled)",
+    "depends_on_subjects": ["Lubricate & Quiet Keywork"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Pitch & Response Check",
+    "depends_on_subjects": ["Final Leak Test (Assembled)"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Final Play Test & Sign-Off",
+    "depends_on_subjects": ["Pitch & Response Check"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "Sanitize, Clean, and Pack",
+    "depends_on_subjects": ["Final Play Test & Sign-Off"]
+  },
+  {
+    "doctype": "Clarinet Task Depends On",
+    "subject": "QC Photos & Worklog Update",
+    "depends_on_subjects": ["Final Play Test & Sign-Off"]
+  }
+]

@@ -1,61 +1,61 @@
 [
   {
     "doctype": "Item Group",
-    "name": "Musical Instruments",
+    "item_group_name": "Musical Instruments",
     "parent_item_group": "All Item Groups",
     "is_group": 1
   },
   {
     "doctype": "Item Group",
-    "name": "Woodwind Instruments",
+    "item_group_name": "Woodwind Instruments",
     "parent_item_group": "Musical Instruments",
     "is_group": 1
   },
   {
     "doctype": "Item Group",
-    "name": "Clarinets",
+    "item_group_name": "Clarinets",
     "parent_item_group": "Woodwind Instruments",
     "is_group": 1
   },
     {
     "doctype": "Item Group",
-    "name": "Soprano Clarinets",
+    "item_group_name": "Soprano Clarinets",
     "parent_item_group": "Clarinets",
     "is_group": 1
   },
   {
     "doctype": "Item Group",
-    "name": "Low Clarinets",
+    "item_group_name": "Low Clarinets",
     "parent_item_group": "Clarinets",
     "is_group": 1
   },
   {
     "doctype": "Item Group",
-    "name": "B♭ Clarinets",
+    "item_group_name": "B♭ Clarinets",
     "parent_item_group": "Soprano Clarinets",
     "is_group": 1
   },
   {
     "doctype": "Item Group",
-    "name": "Bass Clarinets",
+    "item_group_name": "Bass Clarinets",
     "parent_item_group": "Low Clarinets",
     "is_group": 1
   },
   {
     "doctype": "Item Group",
-    "name": "E♭ Clarinets",
+    "item_group_name": "E♭ Clarinets",
     "parent_item_group": "Soprano Clarinets",
     "is_group": 1
   },
   {
     "doctype": "Item Group",
-    "name": "A Clarinets",
+    "item_group_name": "A Clarinets",
     "parent_item_group": "Soprano Clarinets",
     "is_group": 1
   },
   {
     "doctype": "Item Group",
-    "name": "E♭ Clarinets",
+    "item_group_name": "E♭ Clarinets",
     "parent_item_group": "Soprano Clarinets",
     "is_group": 1
   }

@@ -1,0 +1,546 @@
+{
+  "doctype": "Setup Template",
+  "template_name": "SETUP-Standard B♭ Clarinet",
+  "clarinet_model": "Standard B♭ Clarinet",
+  "pad_map": "PAD-MAP-Standard B♭ Clarinet",
+  "default_operations": [
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Setup",
+      "section": "Barrel",
+      "component_ref": "Instrument Case",
+      "details": "1. Place the sealed case in a workshop maintained at 45–55% RH.\n2. Allow a minimum of four hours for acclimatization before opening.\n3. Log date, time, and ambient RH."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Setup",
+      "section": "Upper Joint",
+      "component_ref": "Wood Body & Keywork",
+      "details": "1. Inspect wood (tenon shoulders, around posts) under raking light for fractures.\n2. Check keywork plating and straightness.\n3. Upload high-resolution photos."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Tenon Fitting",
+      "section": "Lower Joint",
+      "component_ref": "All Tenons",
+      "details": "1. Assemble without grease to assess raw fit.\n2. Log each tenon as 'Loose', 'Snug (Ideal)', or 'Tight'."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Setup",
+      "section": "Bell",
+      "component_ref": "Full Instrument",
+      "details": "1. For 14 consecutive days, play 20–30 minutes per day.\n2. Log each session and swab thoroughly after use."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Setup",
+      "section": "Barrel",
+      "component_ref": "Bore (Internal)",
+      "details": "1. After break-in, apply a very light coat of high-quality bore oil on a pull-through.\n2. 1–2 passes per joint—avoid pad contact.\n3. Rest, then remove excess oil."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Tone Hole Repair",
+      "section": "Upper Joint",
+      "component_ref": "All Tone Holes",
+      "details": "1. Verify rim flatness and surface finish.\n2. Check undercut profiles against design spec.\n3. Correct imperfections with precision facing; log pass/fail for each hole."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Tenon Fitting",
+      "section": "Upper Joint",
+      "component_ref": "All Tenons",
+      "details": "1. Remove factory cork; clean groove.\n2. Install premium cork with beveled joint and contact cement.\n3. Sand to cylindrical profile; log final diameters."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Pad Leveling",
+      "section": "Lower Joint",
+      "component_ref": "All Key Cups",
+      "details": "1. Select pad type (Leather/Synthetic/Cork) and size.\n2. Seat with shellac; heat and float until parallel.\n3. Verify seal with 0.0005\" feeler gauge."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Key Height Adjustment",
+      "section": "Upper Joint",
+      "component_ref": "Key Feet",
+      "details": "1. Measure opening heights.\n2. Adjust foot corks to target specifications for an A clarinet."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Spring Tension Adjustment",
+      "section": "Lower Joint",
+      "component_ref": "All Springs",
+      "details": "1. Measure actuation force with gram gauge.\n2. Adjust to A-clarinet spec sheet targets."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Key Height Adjustment",
+      "section": "Upper Joint",
+      "component_ref": "Bridge Key & Linked Mechanisms",
+      "details": "1. Verify linked closures (timing/pressure) with feeler gauge.\n2. Regulate using cork/felt—no paper shims."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Setup",
+      "section": "Bell",
+      "component_ref": "Full Assembled Instrument",
+      "details": "1. Seal at barrel and bell; introduce low pressure.\n2. Reading on Magnehelic must be ≤ 0.2 (0–8 scale). Correct any leaks."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Setup",
+      "section": "Bell",
+      "component_ref": "Full Assembled Instrument",
+      "details": "1. After warm-up, tune to reference (A=440/441 per client).\n2. Record stabilized cent deviation for full range (no lipping).\n3. Generate visual pitch curve."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Setup",
+      "section": "Upper Joint",
+      "component_ref": "Individual Keys/Pads",
+      "details": "1. For notes outside ±5 cents, micro-adjust.\n2. Lower pitch: lower pad height.\n3. Raise pitch: raise pad height or refine undercut.\n4. Iterate until within tolerance."
+    },
+    {
+      "doctype": "Clarinet Setup Operation",
+      "operation_type": "Setup",
+      "section": "Bell",
+      "component_ref": "Full Assembled Instrument",
+      "details": "Final holistic play-test for response, timbre, and feel; document findings."
+    }
+  ],
+  "checklist_items": [
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Perform Environmental Logging & Acclimatization",
+      "notes": "Acclimate case for ≥4 hours at 45–55% RH before opening."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Complete Visual and Tactile Inspection",
+      "notes": "Inspect wood and keywork; document pad/cork condition; upload photos."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Assess Initial Tenon Fit (Dry Fit)",
+      "notes": "Assemble dry; classify fits; log each joint."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Execute Standardized Break-In Schedule",
+      "notes": "14 days, 20–30 min/day; swab thoroughly after each use."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Perform Bore Oiling",
+      "notes": "Light coat only; avoid pads; remove excess after rest."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Verify Tone Hole Geometry",
+      "notes": "Inspect rims/undercutting; correct imperfections."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Precision Tenon Cork Replacement",
+      "notes": "Premium cork; sand to precise diameter; log measurements."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Select and Install All Pads",
+      "notes": "Float pads parallel; verify seal with feeler gauge."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Optimize Key Heights (Venting)",
+      "notes": "Measure and adjust to A-clarinet targets."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Calibrate Spring Tensions",
+      "notes": "Adjust to predefined gram-force specs."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Inter-Key Regulation",
+      "notes": "Linked mechanisms close in perfect synchrony."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Validate System-Wide Airtightness",
+      "notes": "Magnehelic ≤ 0.2 required for certification."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Generate Empirical Pitch Curve",
+      "notes": "Map intonation tendencies across full range."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Voicing and Micro-Adjustments",
+      "notes": "Resolve outliers beyond ±5 cents."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Final Performance Validation",
+      "notes": "Holistic play-test; document response/timbre/feel."
+    },
+    {
+      "doctype": "Setup Checklist Item",
+      "task": "Generate Certificate of Acoustic Performance",
+      "notes": "Compile logs, data, photos for client report."
+    }
+  ],
+  "template_tasks": [
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 10,
+      "subject": "0.1 Create Work Order",
+      "description": "Open work order; scope, due date, client notes.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 0,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 20,
+      "subject": "0.2 Visual Triage & Safety Check",
+      "description": "Immediate risk screen; structural/keywork issues.",
+      "default_priority": "High",
+      "exp_start_offset_days": 0,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 30,
+      "subject": "0.3 Intake Inventory & Photos",
+      "description": "Inventory accessories; serials; high-res photos.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 0,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 40,
+      "subject": "0.4 Player Profile & Preferences",
+      "description": "Back-pressure, pitch standard (A=440/441), articulation.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 0,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 50,
+      "subject": "0.5 Parts Availability Check",
+      "description": "Confirm pads, corks, felts, adhesives availability.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 0,
+      "exp_duration_days": 1
+    },
+
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 60,
+      "subject": "1.1 Prep Environment & Start Data Log",
+      "description": "Stabilize temperature/RH; start environmental logger.",
+      "default_priority": "High",
+      "exp_start_offset_days": 0,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 70,
+      "subject": "1.2 Acclimatize Instrument",
+      "description": "Acclimatization window prior to diagnostics.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 0,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 80,
+      "subject": "1.3 Wood Moisture/Condition Note",
+      "description": "Assess moisture/condition; note risks.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 1,
+      "exp_duration_days": 1
+    },
+
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 90,
+      "subject": "2.1 Tenon Fit (No Grease) — Baseline",
+      "description": "Dry-fit feel, lateral play, pull-out force baseline.",
+      "default_priority": "High",
+      "exp_start_offset_days": 1,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 100,
+      "subject": "2.2 Bore & Tone-Hole Map",
+      "description": "Borescope; map tone-hole flatness/finish; note variances.",
+      "default_priority": "High",
+      "exp_start_offset_days": 1,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 110,
+      "subject": "2.3 Keywork Survey",
+      "description": "Check endplay/sideplay; bent keys/rods; fasteners.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 1,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 120,
+      "subject": "2.4 Pad & Spring Condition",
+      "description": "Per-key pad type/condition; spring material/condition.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 1,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 130,
+      "subject": "2.5 Airtightness (Baseline)",
+      "description": "Method + reading; locate/record leaks.",
+      "default_priority": "High",
+      "exp_start_offset_days": 1,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 140,
+      "subject": "2.6 Quick Intonation Pass",
+      "description": "Reference pitch set; sketch initial pitch tendencies.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 1,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 150,
+      "subject": "2.7 Parts/Risk Finalization & Client OK",
+      "description": "Finalize parts list/risks; client approval before invasive work.",
+      "default_priority": "High",
+      "exp_start_offset_days": 2,
+      "exp_duration_days": 1
+    },
+
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 160,
+      "subject": "3.1 Disassembly & Cleaning",
+      "description": "Systematic teardown; clean; tray/label sub-assemblies.",
+      "default_priority": "High",
+      "exp_start_offset_days": 3,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 170,
+      "subject": "3.2 Keywork Truing & Play Control",
+      "description": "Straighten keys/rods; swedge/re-tube; set end/sideplay.",
+      "default_priority": "High",
+      "exp_start_offset_days": 3,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 180,
+      "subject": "3.3 Tone-Hole Flatting/Chamfering",
+      "description": "Correct tone-hole surfaces while preserving geometry.",
+      "default_priority": "High",
+      "exp_start_offset_days": 4,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 190,
+      "subject": "3.4 Tenon Corks (Replace/Refit)",
+      "description": "Install premium corks; sand to spec; log diameters.",
+      "default_priority": "High",
+      "exp_start_offset_days": 4,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 200,
+      "subject": "3.5 Pad Selection & Installation",
+      "description": "Select/install pads; float/seat; verify seal.",
+      "default_priority": "High",
+      "exp_start_offset_days": 5,
+      "exp_duration_days": 2
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 210,
+      "subject": "3.6 Springing & Regulation",
+      "description": "Adjust spring tensions to A-clarinet gram-force targets; synchronize linkages.",
+      "default_priority": "High",
+      "exp_start_offset_days": 6,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 220,
+      "subject": "3.7 Initial Key Heights (Venting)",
+      "description": "Set venting per A-clarinet spec; trim stops.",
+      "default_priority": "High",
+      "exp_start_offset_days": 6,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 230,
+      "subject": "3.8 Airtightness (Post-Mechanical)",
+      "description": "Comprehensive leak test after mechanics/pads/regulation.",
+      "default_priority": "High",
+      "exp_start_offset_days": 7,
+      "exp_duration_days": 1
+    },
+
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 240,
+      "subject": "4.1 Pitch Curve (Baseline)",
+      "description": "Measure cent deviation across full range; capture environment & setup.",
+      "default_priority": "High",
+      "exp_start_offset_days": 8,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 250,
+      "subject": "4.2 Voicing & Micro-Adjust",
+      "description": "Iterative key-height/pad/undercut micro-adjust to targets.",
+      "default_priority": "High",
+      "exp_start_offset_days": 9,
+      "exp_duration_days": 2
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 260,
+      "subject": "4.3 Response & Articulation Validation",
+      "description": "Attacks pp–ff; register transitions; throat/altissimo stability.",
+      "default_priority": "High",
+      "exp_start_offset_days": 10,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 270,
+      "subject": "4.4 Iteration / Lock Targets",
+      "description": "Converge and lock final regulation and acoustic targets.",
+      "default_priority": "High",
+      "exp_start_offset_days": 11,
+      "exp_duration_days": 1
+    },
+
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 280,
+      "subject": "5.1 Airtightness (Final QA)",
+      "description": "Final documented airtightness to shop standard.",
+      "default_priority": "High",
+      "exp_start_offset_days": 12,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 290,
+      "subject": "5.2 Functional QA (Cycle Test)",
+      "description": "Cycle keys (e.g., 50x); verify rebound, silence, regulation stability.",
+      "default_priority": "High",
+      "exp_start_offset_days": 12,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 300,
+      "subject": "5.3 Play-Test Sign-Off",
+      "description": "Holistic musical test; final technician sign-off.",
+      "default_priority": "High",
+      "exp_start_offset_days": 13,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 310,
+      "subject": "5.4 Documentation Pack",
+      "description": "Photos; measurements; pitch map; care guide; warranty.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 13,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 320,
+      "subject": "5.5 Certificate of Acoustic Performance",
+      "description": "Generate and attach certificate; QA manager sign-off.",
+      "default_priority": "High",
+      "exp_start_offset_days": 13,
+      "exp_duration_days": 1
+    },
+
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 330,
+      "subject": "6.1 Client Handover & Demo",
+      "description": "Demonstrate results; review measured outcomes and characteristics.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 14,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 340,
+      "subject": "6.2 Care & Break-In Guide",
+      "description": "Provide care + break-in guidance for pads and humidity control.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 14,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 350,
+      "subject": "6.3 Follow-Up Check Booking",
+      "description": "Schedule post-break-in check; set reminders.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 14,
+      "exp_duration_days": 1
+    },
+
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 900,
+      "subject": "C1 Tool Calibration Log (Pre-Work Check)",
+      "description": "Verify calibration status (spring gauge, feelers, manometer, calipers).",
+      "default_priority": "High",
+      "exp_start_offset_days": 0,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 910,
+      "subject": "C2 Materials & Lot Tracking",
+      "description": "Record lot/batch numbers for corks, pads, adhesives, oils; link to work order.",
+      "default_priority": "Medium",
+      "exp_start_offset_days": 5,
+      "exp_duration_days": 1
+    },
+    {
+      "doctype": "Clarinet Template Task",
+      "sequence": 920,
+      "subject": "C3 Audit Sampling (1-in-10) Post-Delivery",
+      "description": "Random post-delivery QA sampling; document findings and corrective actions.",
+      "default_priority": "Low",
+      "exp_start_offset_days": 21,
+      "exp_duration_days": 1
+    }
+  ]
+}

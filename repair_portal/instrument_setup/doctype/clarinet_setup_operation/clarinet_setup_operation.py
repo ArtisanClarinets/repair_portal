@@ -22,6 +22,6 @@ class ClarinetSetupOperation(Document):
         parent: DF.Data
         parentfield: DF.Data
         parenttype: DF.Data
-        section: DF.Literal["Mouthpiece", "Barrel", "Upper Joint", "Lower Joint", "Bell"]
+        section: DF.Literal["All", "Mouthpiece", "Barrel", "Upper Joint", "Lower Joint", "Bell"]
     # end: auto-generated types
     pass

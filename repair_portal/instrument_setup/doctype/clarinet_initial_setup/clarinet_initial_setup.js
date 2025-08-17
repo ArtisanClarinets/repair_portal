@@ -4,34 +4,108 @@ frappe.ui.form.on('Clarinet Initial Setup', {
   refresh(frm) {
     set_headline(frm);
     show_progress(frm);
+    show_project_timeline(frm);
 
     if (frm.doc.docstatus === 0) {
       add_draft_buttons(frm);
     }
 
     add_nav_buttons(frm);
-    add_certificate_button(frm);   // <— NEW
+    add_certificate_button(frm);
+    add_project_actions(frm);
   },
 
   setup_template(frm) {
-    if (!frm.is_new() && frm.doc.setup_template) {
-      frappe.show_alert({
-        message: __('Template selected. Use the buttons to load operations and create tasks.'),
-        indicator: 'blue'
-      });
+    if (frm.doc.setup_template && !frm.is_new()) {
+      load_template_defaults(frm);
     }
+  },
+
+  status(frm) {
+    update_status_indicators(frm);
+  },
+
+  expected_start_date(frm) {
+    calculate_expected_end_date(frm);
+  },
+
+  labor_hours(frm) {
+    calculate_expected_end_date(frm);
+    calculate_estimated_costs(frm);
   }
 });
+
+// ---------- Project Management Functions ----------
+
+function load_template_defaults(frm) {
+  if (frm.doc.setup_template) {
+    frappe.db.get_doc('Setup Template', frm.doc.setup_template).then(template => {
+      // Set defaults from template if not already set
+      if (!frm.doc.setup_type && template.setup_type) {
+        frm.set_value('setup_type', template.setup_type);
+      }
+      if (!frm.doc.priority && template.priority) {
+        frm.set_value('priority', template.priority);
+      }
+      if (!frm.doc.estimated_cost && template.estimated_cost) {
+        frm.set_value('estimated_cost', template.estimated_cost);
+      }
+      if (!frm.doc.estimated_materials_cost && template.estimated_materials_cost) {
+        frm.set_value('estimated_materials_cost', template.estimated_materials_cost);
+      }
+      if (!frm.doc.labor_hours && template.estimated_hours) {
+        frm.set_value('labor_hours', template.estimated_hours);
+      }
+      
+      frappe.show_alert({
+        message: __('Template defaults loaded. Use buttons to load operations and create tasks.'),
+        indicator: 'blue'
+      });
+    });
+  }
+}
+
+function calculate_expected_end_date(frm) {
+  if (frm.doc.expected_start_date && frm.doc.labor_hours && !frm.doc.expected_end_date) {
+    // Assume 8 hours per day
+    const days_needed = Math.max(1, Math.ceil(frm.doc.labor_hours / 8));
+    const end_date = frappe.datetime.add_days(frm.doc.expected_start_date, days_needed);
+    frm.set_value('expected_end_date', end_date);
+  }
+}
+
+function calculate_estimated_costs(frm) {
+  if (frm.doc.labor_hours && !frm.doc.estimated_cost) {
+    // Get standard hourly rate (you may want to make this configurable)
+    const hourly_rate = 75; // This could come from settings
+    const labor_cost = frm.doc.labor_hours * hourly_rate;
+    const materials_cost = frm.doc.estimated_materials_cost || 0;
+    frm.set_value('estimated_cost', labor_cost + materials_cost);
+  }
+}
+
+function update_status_indicators(frm) {
+  // Update actual dates based on status
+  if (frm.doc.status === 'In Progress' && !frm.doc.actual_start_date) {
+    frm.set_value('actual_start_date', frappe.datetime.now_datetime());
+  } else if (['Completed', 'QA Review'].includes(frm.doc.status) && !frm.doc.actual_end_date) {
+    frm.set_value('actual_end_date', frappe.datetime.now_datetime());
+  }
+}
 
 // ---------- helpers ----------
 
 function set_headline(frm) {
-  if (frm.doc.status === 'Pass') {
-    frm.dashboard.set_headline(__('Setup passed QA.'));
-  } else if (frm.doc.status === 'Fail') {
-    frm.dashboard.set_headline(__('Setup requires rework.'));
+  if (frm.doc.status === 'Completed') {
+    frm.dashboard.set_headline(__('Setup project completed successfully.'));
+  } else if (frm.doc.status === 'QA Review') {
+    frm.dashboard.set_headline(__('Setup awaiting quality review.'));
+  } else if (frm.doc.status === 'On Hold') {
+    frm.dashboard.set_headline(__('Setup project is on hold.'));
+  } else if (frm.doc.status === 'Cancelled') {
+    frm.dashboard.set_headline(__('Setup project was cancelled.'));
   } else {
-    frm.dashboard.set_headline(__('Setup in progress.'));
+    frm.dashboard.set_headline(__('Setup project in progress.'));
   }
 }
 
@@ -40,6 +114,67 @@ function show_progress(frm) {
   frm.dashboard.add_progress(__('Overall Progress'), [
     { title: __('Progress'), width: pct + '%', progress_class: (pct === 100 ? 'progress-bar-success' : 'progress-bar-info') }
   ]);
+}
+
+function show_project_timeline(frm) {
+  if (frm.doc.expected_start_date || frm.doc.expected_end_date) {
+    let timeline_html = '<div class="row"><div class="col-sm-6">';
+    
+    if (frm.doc.expected_start_date) {
+      timeline_html += `<p><strong>${__('Expected Start')}:</strong> ${frappe.datetime.str_to_user(frm.doc.expected_start_date)}</p>`;
+    }
+    if (frm.doc.expected_end_date) {
+      timeline_html += `<p><strong>${__('Expected End')}:</strong> ${frappe.datetime.str_to_user(frm.doc.expected_end_date)}</p>`;
+    }
+    
+    timeline_html += '</div><div class="col-sm-6">';
+    
+    if (frm.doc.actual_start_date) {
+      timeline_html += `<p><strong>${__('Actual Start')}:</strong> ${frappe.datetime.str_to_user(frm.doc.actual_start_date)}</p>`;
+    }
+    if (frm.doc.actual_end_date) {
+      timeline_html += `<p><strong>${__('Actual End')}:</strong> ${frappe.datetime.str_to_user(frm.doc.actual_end_date)}</p>`;
+    }
+    
+    timeline_html += '</div></div>';
+    frm.dashboard.add_section(timeline_html, __('Project Timeline'));
+  }
+}
+
+function add_project_actions(frm) {
+  if (frm.is_new() || frm.doc.docstatus !== 0) return;
+  
+  // Quick status change actions
+  if (frm.doc.status !== 'In Progress') {
+    frm.add_custom_button(__('Start Project'), () => {
+      frm.set_value('status', 'In Progress');
+      frm.save();
+    }, __('Project Actions'));
+  }
+  
+  if (frm.doc.status === 'In Progress') {
+    frm.add_custom_button(__('Mark On Hold'), () => {
+      frm.set_value('status', 'On Hold');
+      frm.save();
+    }, __('Project Actions'));
+    
+    frm.add_custom_button(__('Send to QA'), () => {
+      frm.set_value('status', 'QA Review');
+      frm.save();
+    }, __('Project Actions'));
+  }
+  
+  if (frm.doc.status === 'QA Review') {
+    frm.add_custom_button(__('Approve & Complete'), () => {
+      frm.set_value('status', 'Completed');
+      frm.save();
+    }, __('Project Actions'));
+    
+    frm.add_custom_button(__('Return for Rework'), () => {
+      frm.set_value('status', 'In Progress');
+      frm.save();
+    }, __('Project Actions'));
+  }
 }
 
 function add_draft_buttons(frm) {

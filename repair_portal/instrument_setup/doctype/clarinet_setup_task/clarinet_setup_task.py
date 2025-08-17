@@ -12,6 +12,35 @@ from frappe.utils import now_datetime
 
 
 class ClarinetSetupTask(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.instrument_setup.doctype.clarinet_task_depends_on.clarinet_task_depends_on import ClarinetTaskDependsOn
+
+        actual_end: DF.Datetime | None
+        actual_start: DF.Datetime | None
+        amended_from: DF.Link | None
+        assigned_to: DF.Link | None
+        clarinet_initial_setup: DF.Link | None
+        color: DF.Color | None
+        depends_on: DF.Table[ClarinetTaskDependsOn]
+        description: DF.TextEditor | None
+        exp_end_date: DF.Date | None
+        exp_start_date: DF.Date | None
+        instrument: DF.Link | None
+        is_group: DF.Check
+        parent_task: DF.Link | None
+        priority: DF.Literal["Low", "Medium", "High", "Urgent"]
+        progress: DF.Percent
+        sequence: DF.Int
+        serial: DF.Link | None
+        status: DF.Literal["Open", "Working", "Paused", "Pending Review", "Completed", "Canceled"]
+        subject: DF.Data
+    # end: auto-generated types
     def validate(self):
         # Sanity: date ranges
         if self.exp_start_date and self.exp_end_date and self.exp_end_date < self.exp_start_date:

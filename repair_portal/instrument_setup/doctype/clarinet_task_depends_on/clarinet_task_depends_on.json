@@ -1,25 +1,36 @@
 {
-  "doctype": "DocType",
-  "name": "Clarinet Task Depends On",
-  "module": "Instrument Setup",
-  "engine": "InnoDB",
-  "istable": 1,
-  "editable_grid": 1,
-  "track_changes": 0,
-  "description": "Child table storing predecessor tasks (dependencies) for a Clarinet Setup Task. Each row links to another task that must be Completed before the current task can proceed.",
-  "field_order": [
-    "task"
-  ],
-  "fields": [
-    {
-      "fieldname": "task",
-      "fieldtype": "Link",
-      "options": "Clarinet Setup Task",
-      "label": "Task",
-      "reqd": 1,
-      "in_list_view": 1,
-      "description": "The prerequisite Clarinet Setup Task that this task depends on."
-    }
-  ],
-  "permissions": []
+ "actions": [],
+ "autoname": "format:CTDO-{#####}",
+ "creation": "2025-08-17 02:02:38.955125",
+ "description": "Child table storing predecessor tasks (dependencies) for a Clarinet Setup Task. Each row links to another task that must be Completed before the current task can proceed.",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "task"
+ ],
+ "fields": [
+  {
+   "description": "The prerequisite Clarinet Setup Task that this task depends on.",
+   "fieldname": "task",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Task",
+   "options": "Clarinet Setup Task",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-17 02:33:13.045605",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Task Depends On",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
 }

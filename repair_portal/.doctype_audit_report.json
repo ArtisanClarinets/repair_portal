@@ -1,7 +1,7 @@
 {
   "meta": {
     "root": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal",
-    "files_found": 103
+    "files_found": 81
   },
   "files": {
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/consent_field_value/consent_field_value.json": {
@@ -58,7 +58,7 @@
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json": {
       "name": "Instrument Inspection",
-      "fields_count": 51
+      "fields_count": 50
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json": {
       "name": "Client Instrument Profile",
@@ -67,10 +67,6 @@
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/customer_external_work_log/customer_external_work_log.json": {
       "name": "Customer External Work Log",
       "fields_count": 6
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/external_work_logs/external_work_logs.json": {
-      "name": "External Work Logs",
-      "fields_count": 3
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument/instrument.json": {
       "name": "Instrument",
@@ -92,10 +88,6 @@
       "name": "Instrument Condition Workflow",
       "fields_count": 0
     },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_media/instrument_media.json": {
-      "name": "Instrument Media",
-      "fields_count": 4
-    },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_model/instrument_model.json": {
       "name": "Instrument Model",
       "fields_count": 5
@@ -106,11 +98,11 @@
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json": {
       "name": "Instrument Profile",
-      "fields_count": 49
+      "fields_count": 47
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json": {
       "name": "Instrument Serial Number",
-      "fields_count": 18
+      "fields_count": 21
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json": {
       "name": "Clarinet Initial Setup",
@@ -172,10 +164,6 @@
       "name": "Intake Accessory Item",
       "fields_count": 3
     },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/intake_checklist_item/intake_checklist_item.json": {
-      "name": "Intake Checklist Item",
-      "fields_count": 3
-    },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/loaner_instrument/loaner_instrument.json": {
       "name": "Loaner Instrument",
       "fields_count": 7
@@ -188,38 +176,6 @@
       "name": "Environment Log",
       "fields_count": 4
     },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_peak/impedance_peak.json": {
-      "name": "Impedance Peak",
-      "fields_count": 3
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json": {
-      "name": "Impedance Snapshot",
-      "fields_count": 7
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json": {
-      "name": "Instrument Wellness Score",
-      "fields_count": 8
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_note/intonation_note.json": {
-      "name": "Intonation Note",
-      "fields_count": 3
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json": {
-      "name": "Intonation Session",
-      "fields_count": 9
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/lab_intonation_session/lab_intonation_session.json": {
-      "name": "Lab Intonation Session",
-      "fields_count": 5
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_reading/leak_reading.json": {
-      "name": "Leak Reading",
-      "fields_count": 3
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json": {
-      "name": "Leak Test",
-      "fields_count": 9
-    },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/measurement_entry/measurement_entry.json": {
       "name": "Measurement Entry",
       "fields_count": 4
@@ -228,26 +184,6 @@
       "name": "Measurement Session",
       "fields_count": 6
     },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json": {
-      "name": "Reed Match Result",
-      "fields_count": 7
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json": {
-      "name": "Tone Analyzer",
-      "fields_count": 24
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json": {
-      "name": "Tone Fitness",
-      "fields_count": 7
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness_entry/tone_fitness_entry.json": {
-      "name": "Tone Fitness Entry",
-      "fields_count": 3
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json": {
-      "name": "Tone Intonation Analyzer",
-      "fields_count": 20
-    },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json": {
       "name": "Player Equipment Preference",
       "fields_count": 8
@@ -255,26 +191,6 @@
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_profile/player_profile.json": {
       "name": "Player Profile",
       "fields_count": 26
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_bore_segment/clarinet_bore_segment.json": {
-      "name": "Clarinet Bore Segment",
-      "fields_count": 3
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json": {
-      "name": "Clarinet Design",
-      "fields_count": 14
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json": {
-      "name": "Clarinet Tone Hole",
-      "fields_count": 12
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json": {
-      "name": "Prototype",
-      "fields_count": 22
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype_parameter/prototype_parameter.json": {
-      "name": "Prototype Parameter",
-      "fields_count": 4
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/qa/doctype/final_qa_checklist/final_qa_checklist.json": {
       "name": "Final Qa Checklist",
@@ -306,15 +222,11 @@
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json": {
       "name": "Repair Order",
-      "fields_count": 15
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order_settings/repair_order_settings.json": {
-      "name": "Repair Order Settings",
-      "fields_count": 3
+      "fields_count": 16
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json": {
       "name": "Repair Request",
-      "fields_count": 15
+      "fields_count": 16
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json": {
       "name": "Repair Task",
@@ -1721,17 +1633,6 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json"
         },
         {
-          "fieldname": "visual_inspection",
-          "label": "Visual Inspection Findings",
-          "raw": {
-            "fieldname": "visual_inspection",
-            "fieldtype": "Table",
-            "label": "Visual Inspection Findings",
-            "options": "Inspection Finding"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json"
-        },
-        {
           "fieldname": "tenon_fit_assessment",
           "label": "Tenon Fit Assessment",
           "raw": {
@@ -1783,17 +1684,6 @@
             "fieldname": "tone_hole_notes",
             "fieldtype": "Text",
             "label": "Tone Hole Inspection Notes"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json"
-        },
-        {
-          "fieldname": "inspection_findings",
-          "label": "Inspection Findings",
-          "raw": {
-            "fieldname": "inspection_findings",
-            "fieldtype": "Table",
-            "label": "Inspection Findings",
-            "options": "Inspection Finding"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json"
         },
@@ -2039,6 +1929,17 @@
             "search_index": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json"
+        },
+        {
+          "fieldname": "condition",
+          "label": "Visual Inspection Findings",
+          "raw": {
+            "fieldname": "condition",
+            "fieldtype": "Table",
+            "label": "Visual Inspection Findings",
+            "options": "Visual Inspection"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json"
         }
       ]
     },
@@ -2048,23 +1949,12 @@
       ],
       "fields": [
         {
-          "fieldname": "owner",
-          "label": "Owner",
-          "raw": {
-            "fieldname": "owner",
-            "fieldtype": "Link",
-            "options": "Customer",
-            "label": "Owner",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
-        },
-        {
           "fieldname": "instrument_model",
           "label": "Model",
           "raw": {
             "fieldname": "instrument_model",
             "fieldtype": "Data",
+            "in_list_view": 1,
             "label": "Model",
             "reqd": 1
           },
@@ -2076,9 +1966,11 @@
           "raw": {
             "fieldname": "serial_no",
             "fieldtype": "Link",
+            "in_list_view": 1,
             "label": "Serial Number",
             "options": "Serial No",
-            "reqd": 1
+            "reqd": 1,
+            "unique": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
         },
@@ -2088,8 +1980,9 @@
           "raw": {
             "fieldname": "instrument_category",
             "fieldtype": "Select",
-            "options": "Clarinet\nBass Clarinet\nContrabass Clarinet",
+            "in_list_view": 1,
             "label": "Type",
+            "options": "Clarinet\nBass Clarinet\nContrabass Clarinet",
             "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
@@ -2110,8 +2003,8 @@
           "raw": {
             "fieldname": "external_work_logs",
             "fieldtype": "Table",
-            "options": "Customer External Work Log",
-            "label": "Previous Repairs"
+            "label": "Previous Repairs",
+            "options": "Customer External Work Log"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
         },
@@ -2121,8 +2014,8 @@
           "raw": {
             "fieldname": "condition_images",
             "fieldtype": "Table",
-            "options": "Image Log Entry",
-            "label": "Condition Images"
+            "label": "Condition Images",
+            "options": "Instrument Photo"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
         },
@@ -2140,11 +2033,11 @@
           "fieldname": "verification_status",
           "label": "Verification Status",
           "raw": {
+            "default": "Pending",
             "fieldname": "verification_status",
             "fieldtype": "Select",
-            "options": "Pending\nApproved\nRejected",
-            "default": "Pending",
-            "label": "Verification Status"
+            "label": "Verification Status",
+            "options": "Pending\nApproved\nRejected"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
         },
@@ -2164,8 +2057,8 @@
           "raw": {
             "fieldname": "ownership_transfer_to",
             "fieldtype": "Link",
-            "options": "Customer",
-            "label": "Transfer Ownership To"
+            "label": "Transfer Ownership To",
+            "options": "Customer"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
         },
@@ -2173,6 +2066,7 @@
           "fieldname": "anonymize_for_research",
           "label": "Allow Anonymized Sharing",
           "raw": {
+            "default": "0",
             "fieldname": "anonymize_for_research",
             "fieldtype": "Check",
             "label": "Allow Anonymized Sharing"
@@ -2185,8 +2079,21 @@
           "raw": {
             "fieldname": "consent_log",
             "fieldtype": "Table",
-            "options": "Consent Log Entry",
-            "label": "Consent Log"
+            "label": "Consent Log",
+            "options": "Consent Log Entry"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
+        },
+        {
+          "fieldname": "instrument_owner",
+          "label": "Owner",
+          "raw": {
+            "fieldname": "instrument_owner",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Owner",
+            "options": "Customer",
+            "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
         }
@@ -2197,19 +2104,6 @@
         "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/customer_external_work_log/customer_external_work_log.json"
       ],
       "fields": [
-        {
-          "fieldname": "instrument_profile",
-          "label": "Instrument Profile",
-          "raw": {
-            "fieldname": "instrument_profile",
-            "fieldtype": "Link",
-            "in_list_view": 1,
-            "label": "Instrument Profile",
-            "options": "Instrument Profile",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/customer_external_work_log/customer_external_work_log.json"
-        },
         {
           "fieldname": "service_date",
           "label": "Service Date",
@@ -2229,7 +2123,7 @@
             "fieldname": "service_type",
             "fieldtype": "Select",
             "label": "Type of Service",
-            "options": "Setup\nRepair\nInspection\nOther"
+            "options": "Inspection\nSetup\nMaintenance\nRepair\nOther"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/customer_external_work_log/customer_external_work_log.json"
         },
@@ -2262,43 +2156,19 @@
             "label": "Receipt / Proof of Service"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/customer_external_work_log/customer_external_work_log.json"
-        }
-      ]
-    },
-    "External Work Logs": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/external_work_logs/external_work_logs.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "description",
-          "label": "Description",
-          "raw": {
-            "fieldname": "description",
-            "fieldtype": "Small Text",
-            "label": "Description"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/external_work_logs/external_work_logs.json"
         },
         {
-          "fieldname": "performed_by",
-          "label": "Performed By",
+          "fieldname": "instrument",
+          "label": "Instrument",
           "raw": {
-            "fieldname": "performed_by",
-            "fieldtype": "Data",
-            "label": "Performed By"
+            "fieldname": "instrument",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Instrument",
+            "options": "Instrument",
+            "reqd": 1
           },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/external_work_logs/external_work_logs.json"
-        },
-        {
-          "fieldname": "date",
-          "label": "Date",
-          "raw": {
-            "fieldname": "date",
-            "fieldtype": "Date",
-            "label": "Date"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/external_work_logs/external_work_logs.json"
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/customer_external_work_log/customer_external_work_log.json"
         }
       ]
     },
@@ -2715,60 +2585,6 @@
       ],
       "fields": []
     },
-    "Instrument Media": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_media/instrument_media.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "media_title",
-          "label": "Media Title",
-          "raw": {
-            "fieldname": "media_title",
-            "fieldtype": "Data",
-            "label": "Media Title",
-            "reqd": 1,
-            "in_list_view": 1,
-            "description": "Title of the media file"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_media/instrument_media.json"
-        },
-        {
-          "fieldname": "media_type",
-          "label": "Media Type",
-          "raw": {
-            "fieldname": "media_type",
-            "fieldtype": "Select",
-            "label": "Media Type",
-            "options": "Photo\nImage\nVideo\nAudio",
-            "reqd": 1,
-            "in_list_view": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_media/instrument_media.json"
-        },
-        {
-          "fieldname": "media_file",
-          "label": "Media File",
-          "raw": {
-            "fieldname": "media_file",
-            "fieldtype": "Attach",
-            "label": "Media File",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_media/instrument_media.json"
-        },
-        {
-          "fieldname": "description",
-          "label": "Description",
-          "raw": {
-            "fieldname": "description",
-            "fieldtype": "Small Text",
-            "label": "Description"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_media/instrument_media.json"
-        }
-      ]
-    },
     "Instrument Model": {
       "paths": [
         "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_model/instrument_model.json"
@@ -2859,8 +2675,9 @@
           "raw": {
             "fieldname": "category",
             "fieldtype": "Select",
+            "in_list_view": 1,
             "label": "Category",
-            "options": "Hero\nMarketing\nService Before\nService After\nOther",
+            "options": "Profile Picture\nService Before\nService After\nDamage Documentation\nRepair Documentation\nOther",
             "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_photo/instrument_photo.json"
@@ -2871,8 +2688,7 @@
           "raw": {
             "fieldname": "description",
             "fieldtype": "Data",
-            "label": "Description",
-            "reqd": 0
+            "label": "Description"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_photo/instrument_photo.json"
         },
@@ -2882,8 +2698,7 @@
           "raw": {
             "fieldname": "timestamp",
             "fieldtype": "Datetime",
-            "label": "Photo Timestamp",
-            "reqd": 0
+            "label": "Photo Timestamp"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_photo/instrument_photo.json"
         },
@@ -2893,6 +2708,7 @@
           "raw": {
             "fieldname": "uploaded_by",
             "fieldtype": "Link",
+            "in_list_view": 1,
             "label": "Uploaded By",
             "options": "User",
             "reqd": 1
@@ -3167,16 +2983,6 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json"
         },
         {
-          "fieldname": "tab_break_purchase_intake",
-          "label": "Purchase & Intake",
-          "raw": {
-            "fieldname": "tab_break_purchase_intake",
-            "fieldtype": "Tab Break",
-            "label": "Purchase & Intake"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json"
-        },
-        {
           "fieldname": "purchase_section",
           "label": "Purchase",
           "raw": {
@@ -3319,16 +3125,6 @@
             "label": "Condition Logs",
             "options": "Instrument Condition Record",
             "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json"
-        },
-        {
-          "fieldname": "tab_break_logs",
-          "label": "Logs",
-          "raw": {
-            "fieldname": "tab_break_logs",
-            "fieldtype": "Tab Break",
-            "label": "Logs"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json"
         },
@@ -3510,6 +3306,7 @@
           "fieldname": "serial_source",
           "label": "Serial Source",
           "raw": {
+            "default": "Etched",
             "fieldname": "serial_source",
             "fieldtype": "Select",
             "label": "Serial Source",
@@ -3535,16 +3332,6 @@
             "fieldname": "photo",
             "fieldtype": "Attach Image",
             "label": "Serial Photo"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
-        },
-        {
-          "fieldname": "linkage_section",
-          "label": "Linkage",
-          "raw": {
-            "fieldname": "linkage_section",
-            "fieldtype": "Section Break",
-            "label": "Linkage"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
         },
@@ -3597,11 +3384,11 @@
         },
         {
           "fieldname": "verification_section",
-          "label": "Verification",
+          "label": "Serial Number Verification & Status",
           "raw": {
             "fieldname": "verification_section",
             "fieldtype": "Section Break",
-            "label": "Verification"
+            "label": "Serial Number Verification & Status"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
         },
@@ -3643,16 +3430,6 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
         },
         {
-          "fieldname": "meta_section",
-          "label": "Meta",
-          "raw": {
-            "fieldname": "meta_section",
-            "fieldtype": "Section Break",
-            "label": "Meta"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
-        },
-        {
           "fieldname": "status",
           "label": "Status",
           "raw": {
@@ -3672,6 +3449,54 @@
             "fieldname": "notes",
             "fieldtype": "Small Text",
             "label": "Notes"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
+        },
+        {
+          "fieldname": "column_break_kpge",
+          "label": null,
+          "raw": {
+            "fieldname": "column_break_kpge",
+            "fieldtype": "Column Break"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
+        },
+        {
+          "fieldname": "linkage",
+          "label": "Linkage",
+          "raw": {
+            "fieldname": "linkage",
+            "fieldtype": "Heading",
+            "label": "Linkage"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
+        },
+        {
+          "fieldname": "verification",
+          "label": "Verification",
+          "raw": {
+            "fieldname": "verification",
+            "fieldtype": "Heading",
+            "label": "Verification"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
+        },
+        {
+          "fieldname": "column_break_qppd",
+          "label": null,
+          "raw": {
+            "fieldname": "column_break_qppd",
+            "fieldtype": "Column Break"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
+        },
+        {
+          "fieldname": "isn_meta",
+          "label": "Meta",
+          "raw": {
+            "fieldname": "isn_meta",
+            "fieldtype": "Heading",
+            "label": "Meta"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
         }
@@ -3989,11 +3814,12 @@
           "fieldname": "is_secondary_pad",
           "label": "Is Secondary Pad",
           "raw": {
+            "default": "0",
+            "description": "Is this a secondary pad? (Secondary pads are the pads that are controlled by anything but the players finger. E.g. The LH2 is a secondary key when the RH1 is pressed for 1-and-1",
             "fieldname": "is_secondary_pad",
             "fieldtype": "Check",
-            "label": "Is Secondary Pad",
-            "default": 0,
-            "description": "Is this a secondary pad? (Secondary pads are the pads that are controlled by anything but the players finger. E.g. The LH2 is a secondary key when the RH1 is pressed for 1-and-1"
+            "in_list_view": 1,
+            "label": "Is Secondary Pad"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_pad_entry/clarinet_pad_entry.json"
         },
@@ -4001,11 +3827,11 @@
           "fieldname": "parent_pad",
           "label": "Parent Pad",
           "raw": {
+            "depends_on": "eval:\"is_secondary_pad: 1\";",
             "fieldname": "parent_pad",
             "fieldtype": "Link",
             "label": "Parent Pad",
-            "options": "Clarinet Pad Entry",
-            "mandatory_depends_on": "is_secondary_pad=1"
+            "options": "Clarinet Pad Entry"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_pad_entry/clarinet_pad_entry.json"
         },
@@ -4013,11 +3839,11 @@
           "fieldname": "pad_type",
           "label": "Pad Type",
           "raw": {
+            "description": "Please only input the type of material of the pad. (E.g. Leather, Cork, Double-Skin, GoreTex, etc.)",
             "fieldname": "pad_type",
             "fieldtype": "Data",
             "in_list_view": 1,
-            "label": "Pad Type",
-            "description": "Please only input the type of material of the pad. (E.g. Leather, Cork, Double-Skin, GoreTex, etc.)"
+            "label": "Pad Type"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_pad_entry/clarinet_pad_entry.json"
         },
@@ -4566,12 +4392,12 @@
           "fieldname": "sequence",
           "label": "Sequence",
           "raw": {
+            "description": "Ordering number used when generating tasks (e.g., 10, 20, 30).",
             "fieldname": "sequence",
             "fieldtype": "Int",
-            "label": "Sequence",
-            "reqd": 1,
             "in_list_view": 1,
-            "description": "Ordering number used when generating tasks (e.g., 10, 20, 30)."
+            "label": "Sequence",
+            "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
         },
@@ -4579,12 +4405,12 @@
           "fieldname": "subject",
           "label": "Subject",
           "raw": {
+            "description": "Task title that will be copied to the generated Clarinet Setup Task.",
             "fieldname": "subject",
             "fieldtype": "Data",
-            "label": "Subject",
-            "reqd": 1,
             "in_list_view": 1,
-            "description": "Task title that will be copied to the generated Clarinet Setup Task."
+            "label": "Subject",
+            "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
         },
@@ -4592,10 +4418,10 @@
           "fieldname": "description",
           "label": "Description",
           "raw": {
+            "description": "Optional notes that will be copied to the generated Clarinet Setup Task.",
             "fieldname": "description",
             "fieldtype": "Small Text",
-            "label": "Description",
-            "description": "Optional notes that will be copied to the generated Clarinet Setup Task."
+            "label": "Description"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
         },
@@ -4603,12 +4429,13 @@
           "fieldname": "default_priority",
           "label": "Priority",
           "raw": {
+            "default": "Medium",
+            "description": "Priority to apply to the generated task.",
             "fieldname": "default_priority",
             "fieldtype": "Select",
+            "in_list_view": 1,
             "label": "Priority",
-            "options": "Low\nMedium\nHigh\nUrgent",
-            "default": "Medium",
-            "description": "Priority to apply to the generated task."
+            "options": "Low\nMedium\nHigh\nUrgent"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
         },
@@ -4616,11 +4443,11 @@
           "fieldname": "exp_start_offset_days",
           "label": "Expected Start Offset (days)",
           "raw": {
+            "default": "0",
+            "description": "Days after the Setup Date that the generated task should start (0 = same day).",
             "fieldname": "exp_start_offset_days",
             "fieldtype": "Int",
-            "label": "Expected Start Offset (days)",
-            "default": 0,
-            "description": "Days after the Setup Date that the generated task should start (0 = same day)."
+            "label": "Expected Start Offset (days)"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
         },
@@ -4628,11 +4455,11 @@
           "fieldname": "exp_duration_days",
           "label": "Expected Duration (days)",
           "raw": {
+            "default": "1",
+            "description": "Planned duration in days for the generated task (at least 1).",
             "fieldname": "exp_duration_days",
             "fieldtype": "Int",
-            "label": "Expected Duration (days)",
-            "default": 1,
-            "description": "Planned duration in days for the generated task (at least 1)."
+            "label": "Expected Duration (days)"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
         }
@@ -4649,6 +4476,7 @@
           "raw": {
             "fieldname": "task",
             "fieldtype": "Data",
+            "in_list_view": 1,
             "label": "Task"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_checklist_item/setup_checklist_item.json"
@@ -4657,8 +4485,10 @@
           "fieldname": "completed",
           "label": "Completed",
           "raw": {
+            "default": "0",
             "fieldname": "completed",
             "fieldtype": "Check",
+            "in_list_view": 1,
             "label": "Completed"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_checklist_item/setup_checklist_item.json"
@@ -4684,13 +4514,13 @@
           "fieldname": "item_code",
           "label": "Item",
           "raw": {
+            "description": "Stock Item used (e.g., pad, cork, spring).",
             "fieldname": "item_code",
             "fieldtype": "Link",
+            "in_list_view": 1,
             "label": "Item",
             "options": "Item",
-            "reqd": 1,
-            "in_list_view": 1,
-            "description": "Stock Item used (e.g., pad, cork, spring)."
+            "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_material_log/setup_material_log.json"
         },
@@ -4698,10 +4528,10 @@
           "fieldname": "description",
           "label": "Description",
           "raw": {
+            "description": "Optional item description shown on the certificate or internal reports.",
             "fieldname": "description",
             "fieldtype": "Small Text",
-            "label": "Description",
-            "description": "Optional item description shown on the certificate or internal reports."
+            "label": "Description"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_material_log/setup_material_log.json"
         },
@@ -4709,12 +4539,12 @@
           "fieldname": "qty",
           "label": "Qty",
           "raw": {
+            "default": "1",
+            "description": "Quantity consumed.",
             "fieldname": "qty",
             "fieldtype": "Float",
-            "label": "Qty",
-            "default": 1,
             "in_list_view": 1,
-            "description": "Quantity consumed."
+            "label": "Qty"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_material_log/setup_material_log.json"
         },
@@ -4722,11 +4552,11 @@
           "fieldname": "uom",
           "label": "UOM",
           "raw": {
+            "description": "Unit of Measure for the quantity (e.g., pcs, set, cm).",
             "fieldname": "uom",
             "fieldtype": "Link",
             "label": "UOM",
-            "options": "UOM",
-            "description": "Unit of Measure for the quantity (e.g., pcs, set, cm)."
+            "options": "UOM"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_material_log/setup_material_log.json"
         },
@@ -4734,10 +4564,11 @@
           "fieldname": "rate",
           "label": "Rate",
           "raw": {
+            "description": "Unit cost used for extended amount calculation.",
             "fieldname": "rate",
             "fieldtype": "Currency",
-            "label": "Rate",
-            "description": "Unit cost used for extended amount calculation."
+            "in_list_view": 1,
+            "label": "Rate"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_material_log/setup_material_log.json"
         },
@@ -4745,11 +4576,12 @@
           "fieldname": "amount",
           "label": "Amount",
           "raw": {
+            "description": "Extended line amount (qty \u00d7 rate). Kept read-only; computed server-side and mirrored client-side.",
             "fieldname": "amount",
             "fieldtype": "Currency",
+            "in_list_view": 1,
             "label": "Amount",
-            "read_only": 1,
-            "description": "Extended line amount (qty \u00d7 rate). Kept read-only; computed server-side and mirrored client-side."
+            "read_only": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_material_log/setup_material_log.json"
         }
@@ -4764,15 +4596,15 @@
           "fieldname": "template_name",
           "label": "Template Name",
           "raw": {
+            "description": "Internal identifier for this template (kept unique and set only once).",
             "fieldname": "template_name",
             "fieldtype": "Data",
-            "label": "Template Name",
-            "unique": 1,
+            "hidden": 1,
             "in_list_view": 1,
             "in_standard_filter": 1,
+            "label": "Template Name",
             "set_only_once": 1,
-            "hidden": 1,
-            "description": "Internal identifier for this template (kept unique and set only once)."
+            "unique": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
         },
@@ -4780,12 +4612,12 @@
           "fieldname": "clarinet_model",
           "label": "Instrument Model",
           "raw": {
+            "description": "Model this template is designed for (used for pad maps and model-specific defaults).",
             "fieldname": "clarinet_model",
             "fieldtype": "Link",
-            "label": "Instrument Model",
-            "options": "Instrument Model",
             "in_standard_filter": 1,
-            "description": "Model this template is designed for (used for pad maps and model-specific defaults)."
+            "label": "Instrument Model",
+            "options": "Instrument Model"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
         },
@@ -4793,11 +4625,11 @@
           "fieldname": "pad_map",
           "label": "Pad Map",
           "raw": {
+            "description": "Associated pad map record for reference while performing the setup.",
             "fieldname": "pad_map",
             "fieldtype": "Link",
             "label": "Pad Map",
-            "options": "Clarinet Pad Map",
-            "description": "Associated pad map record for reference while performing the setup."
+            "options": "Clarinet Pad Map"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
         },
@@ -4805,11 +4637,11 @@
           "fieldname": "default_operations",
           "label": "Default Operations",
           "raw": {
+            "description": "Operations to pre-populate into Clarinet Initial Setup \u2192 Operations Performed. Each row describes a standard operation you routinely perform.",
             "fieldname": "default_operations",
             "fieldtype": "Table",
             "label": "Default Operations",
-            "options": "Clarinet Setup Operation",
-            "description": "Operations to pre-populate into Clarinet Initial Setup \u2192 Operations Performed. Each row describes a standard operation you routinely perform."
+            "options": "Clarinet Setup Operation"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
         },
@@ -4817,11 +4649,11 @@
           "fieldname": "checklist_items",
           "label": "Checklist Items",
           "raw": {
+            "description": "Checklist rows to pre-populate into Clarinet Initial Setup \u2192 Checklist (e.g., safety check, leak test).",
             "fieldname": "checklist_items",
             "fieldtype": "Table",
             "label": "Checklist Items",
-            "options": "Setup Checklist Item",
-            "description": "Checklist rows to pre-populate into Clarinet Initial Setup \u2192 Checklist (e.g., safety check, leak test)."
+            "options": "Setup Checklist Item"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
         },
@@ -4829,11 +4661,11 @@
           "fieldname": "template_tasks",
           "label": "Template Tasks",
           "raw": {
+            "description": "Task blueprints that generate real Clarinet Setup Tasks (with offsets/durations) when applied on a Clarinet Initial Setup.",
             "fieldname": "template_tasks",
             "fieldtype": "Table",
             "label": "Template Tasks",
-            "options": "Clarinet Template Task",
-            "description": "Task blueprints that generate real Clarinet Setup Tasks (with offsets/durations) when applied on a Clarinet Initial Setup."
+            "options": "Clarinet Template Task"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
         }
@@ -5611,44 +5443,6 @@
         }
       ]
     },
-    "Intake Checklist Item": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/intake_checklist_item/intake_checklist_item.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "check_item",
-          "label": "Checklist Item",
-          "raw": {
-            "fieldname": "check_item",
-            "fieldtype": "Data",
-            "label": "Checklist Item",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/intake_checklist_item/intake_checklist_item.json"
-        },
-        {
-          "fieldname": "checked",
-          "label": "Checked",
-          "raw": {
-            "fieldname": "checked",
-            "fieldtype": "Check",
-            "label": "Checked"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/intake_checklist_item/intake_checklist_item.json"
-        },
-        {
-          "fieldname": "comments",
-          "label": "Comments",
-          "raw": {
-            "fieldname": "comments",
-            "fieldtype": "Small Text",
-            "label": "Comments"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/intake_checklist_item/intake_checklist_item.json"
-        }
-      ]
-    },
     "Loaner Instrument": {
       "paths": [
         "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/loaner_instrument/loaner_instrument.json"
@@ -5853,579 +5647,6 @@
         }
       ]
     },
-    "Impedance Peak": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_peak/impedance_peak.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "frequency",
-          "label": "Frequency (Hz)",
-          "raw": {
-            "fieldname": "frequency",
-            "label": "Frequency (Hz)",
-            "fieldtype": "Float"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_peak/impedance_peak.json"
-        },
-        {
-          "fieldname": "impedance",
-          "label": "Impedance",
-          "raw": {
-            "fieldname": "impedance",
-            "label": "Impedance",
-            "fieldtype": "Float"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_peak/impedance_peak.json"
-        },
-        {
-          "fieldname": "q_factor",
-          "label": "Q Factor",
-          "raw": {
-            "fieldname": "q_factor",
-            "label": "Q Factor",
-            "fieldtype": "Float"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_peak/impedance_peak.json"
-        }
-      ]
-    },
-    "Impedance Snapshot": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "label": "Instrument",
-            "fieldtype": "Link",
-            "options": "Instrument Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json"
-        },
-        {
-          "fieldname": "player",
-          "label": "Player",
-          "raw": {
-            "fieldname": "player",
-            "label": "Player",
-            "fieldtype": "Link",
-            "options": "Player Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json"
-        },
-        {
-          "fieldname": "repair_order",
-          "label": "Repair Order",
-          "raw": {
-            "fieldname": "repair_order",
-            "label": "Repair Order",
-            "fieldtype": "Link",
-            "options": "Repair Request"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json"
-        },
-        {
-          "fieldname": "session_type",
-          "label": "Session Type",
-          "raw": {
-            "fieldname": "session_type",
-            "label": "Session Type",
-            "fieldtype": "Select",
-            "options": "Pre-Repair\nPost-Repair\nStandalone"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json"
-        },
-        {
-          "fieldname": "json_data",
-          "label": "Raw JSON",
-          "raw": {
-            "fieldname": "json_data",
-            "label": "Raw JSON",
-            "fieldtype": "Long Text"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json"
-        },
-        {
-          "fieldname": "plot_attachment",
-          "label": "Plot",
-          "raw": {
-            "fieldname": "plot_attachment",
-            "label": "Plot",
-            "fieldtype": "Attach Image"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json"
-        },
-        {
-          "fieldname": "peaks",
-          "label": "Peaks",
-          "raw": {
-            "fieldname": "peaks",
-            "label": "Peaks",
-            "fieldtype": "Table",
-            "options": "Impedance Peak"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/impedance_snapshot/impedance_snapshot.json"
-        }
-      ]
-    },
-    "Instrument Wellness Score": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "label": "Instrument",
-            "fieldtype": "Link",
-            "options": "Instrument Profile",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-        },
-        {
-          "fieldname": "evaluation_date",
-          "label": "Evaluation Date",
-          "raw": {
-            "fieldname": "evaluation_date",
-            "label": "Evaluation Date",
-            "fieldtype": "Date",
-            "default": "Today",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-        },
-        {
-          "fieldname": "intonation_score",
-          "label": "Intonation Score",
-          "raw": {
-            "fieldname": "intonation_score",
-            "label": "Intonation Score",
-            "fieldtype": "Float",
-            "precision": 2,
-            "description": "Scored 0-100"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-        },
-        {
-          "fieldname": "impedance_score",
-          "label": "Impedance Score",
-          "raw": {
-            "fieldname": "impedance_score",
-            "label": "Impedance Score",
-            "fieldtype": "Float",
-            "precision": 2,
-            "description": "Scored 0-100"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-        },
-        {
-          "fieldname": "leak_score",
-          "label": "Leak Score",
-          "raw": {
-            "fieldname": "leak_score",
-            "label": "Leak Score",
-            "fieldtype": "Float",
-            "precision": 2,
-            "description": "Scored 0-100"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-        },
-        {
-          "fieldname": "tone_score",
-          "label": "Tone Fitness Score",
-          "raw": {
-            "fieldname": "tone_score",
-            "label": "Tone Fitness Score",
-            "fieldtype": "Float",
-            "precision": 2,
-            "description": "Scored 0-100"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-        },
-        {
-          "fieldname": "overall_score",
-          "label": "Overall Wellness Score",
-          "raw": {
-            "fieldname": "overall_score",
-            "label": "Overall Wellness Score",
-            "fieldtype": "Float",
-            "precision": 2,
-            "description": "Weighted average 0-100"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-        },
-        {
-          "fieldname": "notes",
-          "label": "Notes",
-          "raw": {
-            "fieldname": "notes",
-            "label": "Notes",
-            "fieldtype": "Text",
-            "description": "Optional remarks"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/instrument_wellness_score/instrument_wellness_score.json"
-        }
-      ]
-    },
-    "Intonation Note": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_note/intonation_note.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "note_name",
-          "label": "Note",
-          "raw": {
-            "fieldname": "note_name",
-            "label": "Note",
-            "fieldtype": "Data"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_note/intonation_note.json"
-        },
-        {
-          "fieldname": "cents_offset",
-          "label": "Cents Offset",
-          "raw": {
-            "fieldname": "cents_offset",
-            "label": "Cents Offset",
-            "fieldtype": "Float"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_note/intonation_note.json"
-        },
-        {
-          "fieldname": "time_logged",
-          "label": "Time",
-          "raw": {
-            "fieldname": "time_logged",
-            "label": "Time",
-            "fieldtype": "Datetime"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_note/intonation_note.json"
-        }
-      ]
-    },
-    "Intonation Session": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "customer",
-          "label": "Customer",
-          "raw": {
-            "fieldname": "customer",
-            "fieldtype": "Link",
-            "in_list_view": 1,
-            "label": "Customer",
-            "options": "Customer",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        },
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "fieldtype": "Link",
-            "label": "Instrument",
-            "options": "Instrument Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        },
-        {
-          "fieldname": "player",
-          "label": "Player",
-          "raw": {
-            "fieldname": "player",
-            "fieldtype": "Link",
-            "label": "Player",
-            "options": "Player Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        },
-        {
-          "fieldname": "repair_order",
-          "label": "Repair Order",
-          "raw": {
-            "fieldname": "repair_order",
-            "fieldtype": "Link",
-            "label": "Repair Order",
-            "options": "Repair Request"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        },
-        {
-          "fieldname": "session_type",
-          "label": "Session Type",
-          "raw": {
-            "fieldname": "session_type",
-            "fieldtype": "Select",
-            "label": "Session Type",
-            "options": "Pre-Repair\nPost-Repair\nStandalone"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        },
-        {
-          "fieldname": "json_data",
-          "label": "Raw JSON",
-          "raw": {
-            "fieldname": "json_data",
-            "fieldtype": "Long Text",
-            "label": "Raw JSON"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        },
-        {
-          "fieldname": "plot_attachment",
-          "label": "Plot",
-          "raw": {
-            "fieldname": "plot_attachment",
-            "fieldtype": "Attach Image",
-            "label": "Plot"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        },
-        {
-          "fieldname": "notes",
-          "label": "Notes",
-          "raw": {
-            "fieldname": "notes",
-            "fieldtype": "Table",
-            "label": "Notes",
-            "options": "Intonation Note"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        },
-        {
-          "fieldname": "code",
-          "label": "Code",
-          "raw": {
-            "fieldname": "code",
-            "fieldtype": "Code",
-            "label": "Code"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/intonation_session/intonation_session.json"
-        }
-      ]
-    },
-    "Lab Intonation Session": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/lab_intonation_session/lab_intonation_session.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "fieldtype": "Link",
-            "label": "Instrument",
-            "options": "Instrument"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/lab_intonation_session/lab_intonation_session.json"
-        },
-        {
-          "fieldname": "session_type",
-          "label": "Session Type",
-          "raw": {
-            "fieldname": "session_type",
-            "fieldtype": "Select",
-            "label": "Session Type",
-            "options": "Tone\nImpedance\nFull Sweep"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/lab_intonation_session/lab_intonation_session.json"
-        },
-        {
-          "fieldname": "note_data",
-          "label": "Note Data",
-          "raw": {
-            "fieldname": "note_data",
-            "fieldtype": "Table",
-            "label": "Note Data",
-            "options": "Intonation Note"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/lab_intonation_session/lab_intonation_session.json"
-        },
-        {
-          "fieldname": "avg_impedance",
-          "label": "Average Impedance",
-          "raw": {
-            "fieldname": "avg_impedance",
-            "fieldtype": "Float",
-            "label": "Average Impedance"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/lab_intonation_session/lab_intonation_session.json"
-        },
-        {
-          "fieldname": "spectrogram_json",
-          "label": "Spectrogram Data",
-          "raw": {
-            "fieldname": "spectrogram_json",
-            "fieldtype": "Code",
-            "label": "Spectrogram Data",
-            "options": "JSON"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/lab_intonation_session/lab_intonation_session.json"
-        }
-      ]
-    },
-    "Leak Reading": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_reading/leak_reading.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "tone_hole",
-          "label": "Tone Hole",
-          "raw": {
-            "fieldname": "tone_hole",
-            "label": "Tone Hole",
-            "fieldtype": "Data"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_reading/leak_reading.json"
-        },
-        {
-          "fieldname": "leak_score",
-          "label": "Leak Score",
-          "raw": {
-            "fieldname": "leak_score",
-            "label": "Leak Score",
-            "fieldtype": "Float"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_reading/leak_reading.json"
-        },
-        {
-          "fieldname": "time_logged",
-          "label": "Time",
-          "raw": {
-            "fieldname": "time_logged",
-            "label": "Time",
-            "fieldtype": "Datetime"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_reading/leak_reading.json"
-        }
-      ]
-    },
-    "Leak Test": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "customer",
-          "label": "Customer",
-          "raw": {
-            "fieldname": "customer",
-            "label": "Customer",
-            "fieldtype": "Link",
-            "options": "Customer",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        },
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "label": "Instrument",
-            "fieldtype": "Link",
-            "options": "Instrument Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        },
-        {
-          "fieldname": "player",
-          "label": "Player",
-          "raw": {
-            "fieldname": "player",
-            "label": "Player",
-            "fieldtype": "Link",
-            "options": "Player Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        },
-        {
-          "fieldname": "repair_order",
-          "label": "Repair Order",
-          "raw": {
-            "fieldname": "repair_order",
-            "label": "Repair Order",
-            "fieldtype": "Link",
-            "options": "Repair Request"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        },
-        {
-          "fieldname": "session_type",
-          "label": "Session Type",
-          "raw": {
-            "fieldname": "session_type",
-            "label": "Session Type",
-            "fieldtype": "Select",
-            "options": "Pre-Repair\nPost-Repair\nStandalone",
-            "description": "Timing of this leak test relative to the repair process."
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        },
-        {
-          "fieldname": "json_data",
-          "label": "Raw JSON",
-          "raw": {
-            "fieldname": "json_data",
-            "label": "Raw JSON",
-            "fieldtype": "Long Text",
-            "description": "Raw test result data for analytics and scientific review."
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        },
-        {
-          "fieldname": "plot_attachment",
-          "label": "Plot",
-          "raw": {
-            "fieldname": "plot_attachment",
-            "label": "Plot",
-            "fieldtype": "Attach Image",
-            "description": "Attach a plot or image of the leak measurement results."
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        },
-        {
-          "fieldname": "readings",
-          "label": "Readings",
-          "raw": {
-            "fieldname": "readings",
-            "label": "Readings",
-            "fieldtype": "Table",
-            "options": "Leak Reading"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        },
-        {
-          "fieldname": "workflow_state",
-          "label": "Workflow State",
-          "raw": {
-            "fieldname": "workflow_state",
-            "label": "Workflow State",
-            "fieldtype": "Select",
-            "options": "Draft\nAwaiting Review\nApproved\nArchived",
-            "default": "Draft",
-            "read_only": 1,
-            "in_list_view": 1,
-            "description": "Test status: controls lab and QA review workflow."
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/leak_test/leak_test.json"
-        }
-      ]
-    },
     "Measurement Entry": {
       "paths": [
         "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/measurement_entry/measurement_entry.json"
@@ -6557,701 +5778,6 @@
         }
       ]
     },
-    "Reed Match Result": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "label": "Instrument",
-            "fieldtype": "Link",
-            "options": "Instrument Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json"
-        },
-        {
-          "fieldname": "player",
-          "label": "Player",
-          "raw": {
-            "fieldname": "player",
-            "label": "Player",
-            "fieldtype": "Link",
-            "options": "Player Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json"
-        },
-        {
-          "fieldname": "repair_order",
-          "label": "Repair Order",
-          "raw": {
-            "fieldname": "repair_order",
-            "label": "Repair Order",
-            "fieldtype": "Link",
-            "options": "Repair Request"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json"
-        },
-        {
-          "fieldname": "session_type",
-          "label": "Session Type",
-          "raw": {
-            "fieldname": "session_type",
-            "label": "Session Type",
-            "fieldtype": "Select",
-            "options": "Pre-Repair\nPost-Repair\nStandalone"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json"
-        },
-        {
-          "fieldname": "json_data",
-          "label": "Raw JSON",
-          "raw": {
-            "fieldname": "json_data",
-            "label": "Raw JSON",
-            "fieldtype": "Long Text"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json"
-        },
-        {
-          "fieldname": "plot_attachment",
-          "label": "Plot",
-          "raw": {
-            "fieldname": "plot_attachment",
-            "label": "Plot",
-            "fieldtype": "Attach Image"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json"
-        },
-        {
-          "fieldname": "recommended_reeds",
-          "label": "Recommended Reeds",
-          "raw": {
-            "fieldname": "recommended_reeds",
-            "label": "Recommended Reeds",
-            "fieldtype": "Data"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/reed_match_result/reed_match_result.json"
-        }
-      ]
-    },
-    "Tone Analyzer": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "session_information_section",
-          "label": "Session Information",
-          "raw": {
-            "fieldname": "session_information_section",
-            "fieldtype": "Section Break",
-            "label": "Session Information"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "fieldtype": "Link",
-            "label": "Instrument",
-            "options": "Clarinet Intake",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "player",
-          "label": "Player",
-          "raw": {
-            "fieldname": "player",
-            "fieldtype": "Link",
-            "label": "Player",
-            "options": "User"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "session_datetime",
-          "label": "Session Time",
-          "raw": {
-            "fieldname": "session_datetime",
-            "fieldtype": "Datetime",
-            "label": "Session Time",
-            "default": "Now"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "reference_pitch",
-          "label": "Reference Pitch (A4)",
-          "raw": {
-            "fieldname": "reference_pitch",
-            "fieldtype": "Select",
-            "label": "Reference Pitch (A4)",
-            "options": "440 Hz\n441 Hz\n442 Hz\n432 Hz",
-            "default": "440 Hz"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "audio_blob",
-          "label": "Upload Audio Recording (for Batch Analysis)",
-          "raw": {
-            "fieldname": "audio_blob",
-            "fieldtype": "Attach",
-            "label": "Upload Audio Recording (for Batch Analysis)"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "live_analyzer_section",
-          "label": "Live Analyzer",
-          "raw": {
-            "fieldname": "live_analyzer_section",
-            "fieldtype": "Section Break",
-            "label": "Live Analyzer"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "analyzer_html",
-          "label": "Analyzer Tool",
-          "raw": {
-            "fieldname": "analyzer_html",
-            "fieldtype": "HTML",
-            "label": "Analyzer Tool"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "analysis_results_section",
-          "label": "Batch Analysis Results",
-          "raw": {
-            "fieldname": "analysis_results_section",
-            "fieldtype": "Section Break",
-            "label": "Batch Analysis Results",
-            "depends_on": "eval:doc.status==='Analyzed'"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "avg_cent_dev",
-          "label": "Avg. Cent Deviation",
-          "raw": {
-            "fieldname": "avg_cent_dev",
-            "fieldtype": "Float",
-            "label": "Avg. Cent Deviation",
-            "precision": "2",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "pitch_stability",
-          "label": "Pitch Stability (Cents STD)",
-          "raw": {
-            "fieldname": "pitch_stability",
-            "fieldtype": "Float",
-            "label": "Pitch Stability (Cents STD)",
-            "precision": "2",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "column_break_1",
-          "label": null,
-          "raw": {
-            "fieldname": "column_break_1",
-            "fieldtype": "Column Break"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "spectral_cent",
-          "label": "Spectral Centroid (Hz)",
-          "raw": {
-            "fieldname": "spectral_cent",
-            "fieldtype": "Float",
-            "label": "Spectral Centroid (Hz)",
-            "precision": "2",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "spectrogram_section",
-          "label": "Spectrogram",
-          "raw": {
-            "fieldname": "spectrogram_section",
-            "fieldtype": "Section Break",
-            "label": "Spectrogram",
-            "depends_on": "eval:doc.status==='Analyzed'"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "spectrogram_image",
-          "label": "Spectrogram Image",
-          "raw": {
-            "fieldname": "spectrogram_image",
-            "fieldtype": "Attach Image",
-            "label": "Spectrogram Image",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "harmonics_chart_html",
-          "label": "Harmonics Chart",
-          "raw": {
-            "fieldname": "harmonics_chart_html",
-            "fieldtype": "HTML",
-            "label": "Harmonics Chart"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "technician_review_section",
-          "label": "Technician Review",
-          "raw": {
-            "fieldname": "technician_review_section",
-            "fieldtype": "Section Break",
-            "label": "Technician Review"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "status",
-          "label": "Status",
-          "raw": {
-            "fieldname": "status",
-            "fieldtype": "Select",
-            "label": "Status",
-            "options": "Draft\nAnalyzed\nReviewed",
-            "default": "Draft",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "baseline",
-          "label": "Use this analysis as a baseline for this instrument model",
-          "raw": {
-            "fieldname": "baseline",
-            "fieldtype": "Check",
-            "label": "Use this analysis as a baseline for this instrument model"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "notes",
-          "label": "Technician Notes",
-          "raw": {
-            "fieldname": "notes",
-            "fieldtype": "Text Editor",
-            "label": "Technician Notes"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "column_break_2",
-          "label": null,
-          "raw": {
-            "fieldname": "column_break_2",
-            "fieldtype": "Column Break"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "harmonics_json",
-          "label": "Harmonics Data",
-          "raw": {
-            "fieldname": "harmonics_json",
-            "fieldtype": "Long Text",
-            "hidden": 1,
-            "label": "Harmonics Data"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "help_section",
-          "label": "Help",
-          "raw": {
-            "fieldname": "help_section",
-            "fieldtype": "Section Break",
-            "label": "Help"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        },
-        {
-          "fieldname": "help_html",
-          "label": "Interpreting the Results",
-          "raw": {
-            "fieldname": "help_html",
-            "fieldtype": "HTML",
-            "label": "Interpreting the Results"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_analyzer/tone_analyzer.json"
-        }
-      ]
-    },
-    "Tone Fitness": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "label": "Instrument",
-            "fieldtype": "Link",
-            "options": "Instrument Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json"
-        },
-        {
-          "fieldname": "player",
-          "label": "Player",
-          "raw": {
-            "fieldname": "player",
-            "label": "Player",
-            "fieldtype": "Link",
-            "options": "Player Profile"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json"
-        },
-        {
-          "fieldname": "repair_order",
-          "label": "Repair Order",
-          "raw": {
-            "fieldname": "repair_order",
-            "label": "Repair Order",
-            "fieldtype": "Link",
-            "options": "Repair Request"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json"
-        },
-        {
-          "fieldname": "session_type",
-          "label": "Session Type",
-          "raw": {
-            "fieldname": "session_type",
-            "label": "Session Type",
-            "fieldtype": "Select",
-            "options": "Pre-Repair\nPost-Repair\nStandalone"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json"
-        },
-        {
-          "fieldname": "json_data",
-          "label": "Raw JSON",
-          "raw": {
-            "fieldname": "json_data",
-            "label": "Raw JSON",
-            "fieldtype": "Long Text"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json"
-        },
-        {
-          "fieldname": "plot_attachment",
-          "label": "Plot",
-          "raw": {
-            "fieldname": "plot_attachment",
-            "label": "Plot",
-            "fieldtype": "Attach Image"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json"
-        },
-        {
-          "fieldname": "entries",
-          "label": "Entries",
-          "raw": {
-            "fieldname": "entries",
-            "label": "Entries",
-            "fieldtype": "Table",
-            "options": "Tone Fitness Entry"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness/tone_fitness.json"
-        }
-      ]
-    },
-    "Tone Fitness Entry": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness_entry/tone_fitness_entry.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "reading_time",
-          "label": "Reading Time",
-          "raw": {
-            "fieldname": "reading_time",
-            "label": "Reading Time",
-            "fieldtype": "Datetime"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness_entry/tone_fitness_entry.json"
-        },
-        {
-          "fieldname": "centroid",
-          "label": "Centroid",
-          "raw": {
-            "fieldname": "centroid",
-            "label": "Centroid",
-            "fieldtype": "Float"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness_entry/tone_fitness_entry.json"
-        },
-        {
-          "fieldname": "spread",
-          "label": "Spread",
-          "raw": {
-            "fieldname": "spread",
-            "label": "Spread",
-            "fieldtype": "Float"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_fitness_entry/tone_fitness_entry.json"
-        }
-      ]
-    },
-    "Tone Intonation Analyzer": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "sb_info",
-          "label": "Session Information",
-          "raw": {
-            "fieldname": "sb_info",
-            "fieldtype": "Section Break",
-            "label": "Session Information"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "instrument",
-          "label": "Instrument",
-          "raw": {
-            "fieldname": "instrument",
-            "fieldtype": "Link",
-            "in_list_view": 1,
-            "label": "Instrument",
-            "options": "Clarinet Intake",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "player",
-          "label": "Player",
-          "raw": {
-            "fieldname": "player",
-            "fieldtype": "Link",
-            "label": "Player",
-            "options": "User"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "session_datetime",
-          "label": "Session Time",
-          "raw": {
-            "default": "Now",
-            "fieldname": "session_datetime",
-            "fieldtype": "Datetime",
-            "label": "Session Time"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "reference_pitch",
-          "label": "Reference Pitch",
-          "raw": {
-            "default": "A=440",
-            "fieldname": "reference_pitch",
-            "fieldtype": "Select",
-            "label": "Reference Pitch",
-            "options": "A=440\nA=441\nA=442"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "audio_blob",
-          "label": "Raw Audio",
-          "raw": {
-            "fieldname": "audio_blob",
-            "fieldtype": "Attach",
-            "label": "Raw Audio"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "sb_analysis",
-          "label": "Acoustic Analysis Results",
-          "raw": {
-            "fieldname": "sb_analysis",
-            "fieldtype": "Section Break",
-            "label": "Acoustic Analysis Results"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "avg_cent_dev",
-          "label": "Avg Cent Deviation",
-          "raw": {
-            "fieldname": "avg_cent_dev",
-            "fieldtype": "Float",
-            "label": "Avg Cent Deviation",
-            "precision": "2",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "pitch_stability",
-          "label": "Stability (cents)",
-          "raw": {
-            "fieldname": "pitch_stability",
-            "fieldtype": "Float",
-            "label": "Stability (cents)",
-            "precision": "2",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "spectral_cent",
-          "label": "Spectral Centroid (Hz)",
-          "raw": {
-            "fieldname": "spectral_cent",
-            "fieldtype": "Float",
-            "label": "Spectral Centroid (Hz)",
-            "precision": "2",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "spectrogram_image",
-          "label": "Spectrogram",
-          "raw": {
-            "fieldname": "spectrogram_image",
-            "fieldtype": "Attach Image",
-            "label": "Spectrogram",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "harmonics_html",
-          "label": "Harmonic Energy",
-          "raw": {
-            "fieldname": "harmonics_html",
-            "fieldtype": "HTML",
-            "label": "Harmonic Energy"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "harmonics_json",
-          "label": "Harmonic Energy (JSON)",
-          "raw": {
-            "fieldname": "harmonics_json",
-            "fieldtype": "Long Text",
-            "hidden": 1,
-            "label": "Harmonic Energy (JSON)"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "sb_technician",
-          "label": "Technician Review",
-          "raw": {
-            "fieldname": "sb_technician",
-            "fieldtype": "Section Break",
-            "label": "Technician Review"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "help_panel",
-          "label": "Interpreting the Results",
-          "raw": {
-            "fieldname": "help_panel",
-            "fieldtype": "HTML",
-            "label": "Interpreting the Results",
-            "options": "<div><h4>What to Look For:</h4><ul><li><strong>Avg Cent Deviation:</strong> Ideal is close to 0. A consistent positive (sharp) or negative (flat) value may indicate a systemic issue.</li><li><strong>Stability (cents):</strong> Lower is better. High values (&gt;15-20 cents) suggest difficulty holding a steady pitch.</li><li><strong>Spectral Centroid:</strong> A measure of 'brightness'. Compare this value against a trusted baseline recording.</li><li><strong>Harmonic Energy:</strong> A rich, full tone typically has strong energy in the first few harmonics (H1-H4) relative to the higher ones.</li></ul></div>"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "sb_technician",
-          "label": "Technician Review",
-          "raw": {
-            "fieldname": "sb_technician",
-            "fieldtype": "Section Break",
-            "label": "Technician Review"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "baseline",
-          "label": "Save as Baseline",
-          "raw": {
-            "default": "0",
-            "fieldname": "baseline",
-            "fieldtype": "Check",
-            "label": "Save as Baseline"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "status",
-          "label": "Status",
-          "raw": {
-            "default": "Draft",
-            "fieldname": "status",
-            "fieldtype": "Select",
-            "label": "Status",
-            "options": "Draft\nAnalyzed\nReviewed"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "notes",
-          "label": "Technician Notes",
-          "raw": {
-            "fieldname": "notes",
-            "fieldtype": "Text Editor",
-            "label": "Technician Notes"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "amended_from",
-          "label": "Amended From",
-          "raw": {
-            "fieldname": "amended_from",
-            "fieldtype": "Link",
-            "label": "Amended From",
-            "no_copy": 1,
-            "options": "Tone Intonation Analyzer",
-            "print_hide": 1,
-            "read_only": 1,
-            "search_index": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        }
-      ]
-    },
     "Player Equipment Preference": {
       "paths": [
         "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
@@ -7262,8 +5788,9 @@
           "label": "Mouthpiece",
           "raw": {
             "fieldname": "mouthpiece",
-            "label": "Mouthpiece",
-            "fieldtype": "Data"
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Mouthpiece"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
         },
@@ -7272,8 +5799,8 @@
           "label": "Ligature",
           "raw": {
             "fieldname": "ligature",
-            "label": "Ligature",
-            "fieldtype": "Data"
+            "fieldtype": "Data",
+            "label": "Ligature"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
         },
@@ -7282,8 +5809,8 @@
           "label": "Reed Brand",
           "raw": {
             "fieldname": "reed_brand",
-            "label": "Reed Brand",
-            "fieldtype": "Data"
+            "fieldtype": "Data",
+            "label": "Reed Brand"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
         },
@@ -7292,8 +5819,9 @@
           "label": "Reed Model",
           "raw": {
             "fieldname": "reed_model",
-            "label": "Reed Model",
-            "fieldtype": "Data"
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Reed Model"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
         },
@@ -7302,8 +5830,9 @@
           "label": "Reed Strength",
           "raw": {
             "fieldname": "reed_strength",
-            "label": "Reed Strength",
-            "fieldtype": "Data"
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Reed Strength"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
         },
@@ -7312,8 +5841,9 @@
           "label": "Barrel",
           "raw": {
             "fieldname": "barrel",
-            "label": "Barrel",
-            "fieldtype": "Data"
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Barrel"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
         },
@@ -7322,8 +5852,9 @@
           "label": "Instrument",
           "raw": {
             "fieldname": "instrument",
-            "label": "Instrument",
             "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Instrument",
             "options": "Instrument Profile"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
@@ -7333,8 +5864,8 @@
           "label": "Comments",
           "raw": {
             "fieldname": "comments",
-            "label": "Comments",
-            "fieldtype": "Small Text"
+            "fieldtype": "Small Text",
+            "label": "Comments"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
         }
@@ -7628,650 +6159,6 @@
             "options": "Draft\nActive\nArchived"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/player_profile/player_profile.json"
-        }
-      ]
-    },
-    "Clarinet Bore Segment": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_bore_segment/clarinet_bore_segment.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "x_mm",
-          "label": "X from Barrel Top (mm)",
-          "raw": {
-            "fieldname": "x_mm",
-            "fieldtype": "Float",
-            "label": "X from Barrel Top (mm)",
-            "in_list_view": 1,
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_bore_segment/clarinet_bore_segment.json"
-        },
-        {
-          "fieldname": "bore_mm",
-          "label": "Bore Diameter (mm)",
-          "raw": {
-            "fieldname": "bore_mm",
-            "fieldtype": "Float",
-            "label": "Bore Diameter (mm)",
-            "in_list_view": 1,
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_bore_segment/clarinet_bore_segment.json"
-        },
-        {
-          "fieldname": "notes",
-          "label": "Notes",
-          "raw": {
-            "fieldname": "notes",
-            "fieldtype": "Data",
-            "label": "Notes"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_bore_segment/clarinet_bore_segment.json"
-        }
-      ]
-    },
-    "Clarinet Design": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "prototype",
-          "label": "Prototype",
-          "raw": {
-            "fieldname": "prototype",
-            "fieldtype": "Link",
-            "label": "Prototype",
-            "options": "Prototype",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "title",
-          "label": "Title",
-          "raw": {
-            "fieldname": "title",
-            "fieldtype": "Data",
-            "label": "Title",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "clarinet_type",
-          "label": "Clarinet Type",
-          "raw": {
-            "fieldname": "clarinet_type",
-            "fieldtype": "Select",
-            "label": "Clarinet Type",
-            "options": "B\u266d\nA\nE\u266d\nC\nBass (Low E\u266d)\nBass (Low C)",
-            "default": "B\u266d",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "overall_length_mm",
-          "label": "Overall Length (mm)",
-          "raw": {
-            "fieldname": "overall_length_mm",
-            "fieldtype": "Float",
-            "label": "Overall Length (mm)",
-            "default": 600
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "barrel_length_mm",
-          "label": "Barrel Length (mm)",
-          "raw": {
-            "fieldname": "barrel_length_mm",
-            "fieldtype": "Float",
-            "label": "Barrel Length (mm)",
-            "default": 66
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "upper_joint_length_mm",
-          "label": "Upper Joint Length (mm)",
-          "raw": {
-            "fieldname": "upper_joint_length_mm",
-            "fieldtype": "Float",
-            "label": "Upper Joint Length (mm)",
-            "default": 230
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "tenon_gap_mm",
-          "label": "Tenon Gap Between Joints (mm)",
-          "raw": {
-            "fieldname": "tenon_gap_mm",
-            "fieldtype": "Float",
-            "label": "Tenon Gap Between Joints (mm)",
-            "default": 2.0
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "lower_joint_length_mm",
-          "label": "Lower Joint Length (mm)",
-          "raw": {
-            "fieldname": "lower_joint_length_mm",
-            "fieldtype": "Float",
-            "label": "Lower Joint Length (mm)",
-            "default": 250
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "bell_length_mm",
-          "label": "Bell Length (mm)",
-          "raw": {
-            "fieldname": "bell_length_mm",
-            "fieldtype": "Float",
-            "label": "Bell Length (mm)",
-            "default": 110
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "wall_thickness_mm",
-          "label": "Wall Thickness (mm)",
-          "raw": {
-            "fieldname": "wall_thickness_mm",
-            "fieldtype": "Float",
-            "label": "Wall Thickness (mm)",
-            "default": 2.5
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "grid_mm",
-          "label": "Grid Interval (mm)",
-          "raw": {
-            "fieldname": "grid_mm",
-            "fieldtype": "Float",
-            "label": "Grid Interval (mm)",
-            "default": 5.0
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "section_break_geom",
-          "label": "Geometry",
-          "raw": {
-            "fieldname": "section_break_geom",
-            "fieldtype": "Section Break",
-            "label": "Geometry"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "bore_segments",
-          "label": "Bore Segments (samples along axis)",
-          "raw": {
-            "fieldname": "bore_segments",
-            "fieldtype": "Table",
-            "label": "Bore Segments (samples along axis)",
-            "options": "Clarinet Bore Segment"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        },
-        {
-          "fieldname": "tone_holes",
-          "label": "Tone Holes",
-          "raw": {
-            "fieldname": "tone_holes",
-            "fieldtype": "Table",
-            "label": "Tone Holes",
-            "options": "Clarinet Tone Hole"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_design/clarinet_design.json"
-        }
-      ]
-    },
-    "Clarinet Tone Hole": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "name_label",
-          "label": "Name/Key",
-          "raw": {
-            "fieldname": "name_label",
-            "fieldtype": "Data",
-            "label": "Name/Key",
-            "in_list_view": 1,
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "note_label",
-          "label": "Intended Note (label)",
-          "raw": {
-            "fieldname": "note_label",
-            "fieldtype": "Data",
-            "label": "Intended Note (label)",
-            "in_list_view": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "joint",
-          "label": "Joint",
-          "raw": {
-            "fieldname": "joint",
-            "fieldtype": "Select",
-            "label": "Joint",
-            "options": "Barrel\nUpper\nLower\nBell",
-            "in_list_view": 1,
-            "default": "Upper"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "x_mm",
-          "label": "X from Barrel Top (mm)",
-          "raw": {
-            "fieldname": "x_mm",
-            "fieldtype": "Float",
-            "label": "X from Barrel Top (mm)",
-            "in_list_view": 1,
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "diameter_mm",
-          "label": "Hole Diameter (mm)",
-          "raw": {
-            "fieldname": "diameter_mm",
-            "fieldtype": "Float",
-            "label": "Hole Diameter (mm)",
-            "in_list_view": 1,
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "chimney_mm",
-          "label": "Chimney Height (mm)",
-          "raw": {
-            "fieldname": "chimney_mm",
-            "fieldtype": "Float",
-            "label": "Chimney Height (mm)",
-            "in_list_view": 1,
-            "default": 4.0
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "undercut_pct",
-          "label": "Undercut (%)",
-          "raw": {
-            "fieldname": "undercut_pct",
-            "fieldtype": "Float",
-            "label": "Undercut (%)",
-            "default": 0
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "azimuth_deg",
-          "label": "Azimuth (\u00b0 around tube, 0=top)",
-          "raw": {
-            "fieldname": "azimuth_deg",
-            "fieldtype": "Float",
-            "label": "Azimuth (\u00b0 around tube, 0=top)",
-            "default": 0
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "y_offset_mm",
-          "label": "Y Offset for Drawing (mm)",
-          "raw": {
-            "fieldname": "y_offset_mm",
-            "fieldtype": "Float",
-            "label": "Y Offset for Drawing (mm)",
-            "default": 0
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "ringed",
-          "label": "Ringed",
-          "raw": {
-            "fieldname": "ringed",
-            "fieldtype": "Check",
-            "label": "Ringed"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "is_open_key",
-          "label": "Open-Key?",
-          "raw": {
-            "fieldname": "is_open_key",
-            "fieldtype": "Check",
-            "label": "Open-Key?"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        },
-        {
-          "fieldname": "notes",
-          "label": "Notes",
-          "raw": {
-            "fieldname": "notes",
-            "fieldtype": "Small Text",
-            "label": "Notes"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/clarinet_tone_hole/clarinet_tone_hole.json"
-        }
-      ]
-    },
-    "Prototype": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "naming_series",
-          "label": "Naming Series",
-          "raw": {
-            "fieldname": "naming_series",
-            "fieldtype": "Select",
-            "label": "Naming Series",
-            "options": "PRT-.YYYY.-",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "title",
-          "label": "Title",
-          "raw": {
-            "fieldname": "title",
-            "fieldtype": "Data",
-            "label": "Title",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "status",
-          "label": "Status",
-          "raw": {
-            "fieldname": "status",
-            "fieldtype": "Select",
-            "label": "Status",
-            "options": "Draft\nIn Design\nReady for Build\nIn Test\nApproved\nArchived",
-            "default": "Draft"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "section_design",
-          "label": "Design",
-          "raw": {
-            "fieldname": "section_design",
-            "fieldtype": "Section Break",
-            "label": "Design"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "design_owner",
-          "label": "Design Owner",
-          "raw": {
-            "fieldname": "design_owner",
-            "fieldtype": "Link",
-            "label": "Design Owner",
-            "options": "User"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "design_notes",
-          "label": "Design Notes",
-          "raw": {
-            "fieldname": "design_notes",
-            "fieldtype": "Small Text",
-            "label": "Design Notes"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "parameters",
-          "label": "Parameters",
-          "raw": {
-            "fieldname": "parameters",
-            "fieldtype": "Table",
-            "label": "Parameters",
-            "options": "Prototype Parameter"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "section_links",
-          "label": "ERP Links",
-          "raw": {
-            "fieldname": "section_links",
-            "fieldtype": "Section Break",
-            "label": "ERP Links"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "company",
-          "label": "Company",
-          "raw": {
-            "fieldname": "company",
-            "fieldtype": "Link",
-            "label": "Company",
-            "options": "Company",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "item",
-          "label": "Prototype Item",
-          "raw": {
-            "fieldname": "item",
-            "fieldtype": "Link",
-            "label": "Prototype Item",
-            "options": "Item",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "bom",
-          "label": "Prototype BOM",
-          "raw": {
-            "fieldname": "bom",
-            "fieldtype": "Link",
-            "label": "Prototype BOM",
-            "options": "BOM",
-            "read_only": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "routing",
-          "label": "Routing",
-          "raw": {
-            "fieldname": "routing",
-            "fieldtype": "Link",
-            "label": "Routing",
-            "options": "Routing"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "target_qty",
-          "label": "Target Build Qty",
-          "raw": {
-            "fieldname": "target_qty",
-            "fieldtype": "Float",
-            "label": "Target Build Qty",
-            "default": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "uom",
-          "label": "UOM",
-          "raw": {
-            "fieldname": "uom",
-            "fieldtype": "Link",
-            "label": "UOM",
-            "options": "UOM",
-            "default": "Nos"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "section_ops",
-          "label": "Operations",
-          "raw": {
-            "fieldname": "section_ops",
-            "fieldtype": "Section Break",
-            "label": "Operations"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "warehouse",
-          "label": "Default Warehouse",
-          "raw": {
-            "fieldname": "warehouse",
-            "fieldtype": "Link",
-            "label": "Default Warehouse",
-            "options": "Warehouse"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "wip_warehouse",
-          "label": "WIP Warehouse",
-          "raw": {
-            "fieldname": "wip_warehouse",
-            "fieldtype": "Link",
-            "label": "WIP Warehouse",
-            "options": "Warehouse"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "fg_warehouse",
-          "label": "Finished Goods Warehouse",
-          "raw": {
-            "fieldname": "fg_warehouse",
-            "fieldtype": "Link",
-            "label": "Finished Goods Warehouse",
-            "options": "Warehouse"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "buttons_section",
-          "label": "Actions",
-          "raw": {
-            "fieldname": "buttons_section",
-            "fieldtype": "Section Break",
-            "label": "Actions"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "open_designer",
-          "label": "Open Designer",
-          "raw": {
-            "fieldname": "open_designer",
-            "fieldtype": "Button",
-            "label": "Open Designer"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "make_item_bom",
-          "label": "Create Item & BOM",
-          "raw": {
-            "fieldname": "make_item_bom",
-            "fieldtype": "Button",
-            "label": "Create Item & BOM"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        },
-        {
-          "fieldname": "make_work_order",
-          "label": "Create Work Order",
-          "raw": {
-            "fieldname": "make_work_order",
-            "fieldtype": "Button",
-            "label": "Create Work Order"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype/prototype.json"
-        }
-      ]
-    },
-    "Prototype Parameter": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype_parameter/prototype_parameter.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "param_name",
-          "label": "Parameter",
-          "raw": {
-            "fieldname": "param_name",
-            "fieldtype": "Data",
-            "label": "Parameter",
-            "reqd": 1,
-            "in_list_view": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype_parameter/prototype_parameter.json"
-        },
-        {
-          "fieldname": "param_value",
-          "label": "Value",
-          "raw": {
-            "fieldname": "param_value",
-            "fieldtype": "Data",
-            "label": "Value",
-            "in_list_view": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype_parameter/prototype_parameter.json"
-        },
-        {
-          "fieldname": "unit",
-          "label": "Unit",
-          "raw": {
-            "fieldname": "unit",
-            "fieldtype": "Data",
-            "label": "Unit",
-            "in_list_view": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype_parameter/prototype_parameter.json"
-        },
-        {
-          "fieldname": "notes",
-          "label": "Notes",
-          "raw": {
-            "fieldname": "notes",
-            "fieldtype": "Small Text",
-            "label": "Notes"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/prototyping/doctype/prototype_parameter/prototype_parameter.json"
         }
       ]
     },
@@ -8678,8 +6565,8 @@
           "label": "Instrument",
           "raw": {
             "fieldname": "instrument",
-            "label": "Instrument",
             "fieldtype": "Link",
+            "label": "Instrument",
             "options": "Instrument Profile"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
@@ -8689,8 +6576,8 @@
           "label": "Client",
           "raw": {
             "fieldname": "client",
-            "label": "Client",
             "fieldtype": "Link",
+            "label": "Client",
             "options": "Customer"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
@@ -8700,8 +6587,9 @@
           "label": "Customer",
           "raw": {
             "fieldname": "customer",
-            "label": "Customer",
             "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Customer",
             "options": "Customer",
             "reqd": 1
           },
@@ -8712,8 +6600,8 @@
           "label": "Instrument Category",
           "raw": {
             "fieldname": "instrument_category",
-            "label": "Instrument Category",
             "fieldtype": "Link",
+            "label": "Instrument Category",
             "options": "Instrument Category"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
@@ -8723,8 +6611,8 @@
           "label": "Date Reported",
           "raw": {
             "fieldname": "date_reported",
-            "label": "Date Reported",
-            "fieldtype": "Date"
+            "fieldtype": "Date",
+            "label": "Date Reported"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
         },
@@ -8733,8 +6621,8 @@
           "label": "Promise Date",
           "raw": {
             "fieldname": "promise_date",
-            "label": "Promise Date",
-            "fieldtype": "Date"
+            "fieldtype": "Date",
+            "label": "Promise Date"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
         },
@@ -8743,8 +6631,9 @@
           "label": "Issue Description",
           "raw": {
             "fieldname": "issue_description",
-            "label": "Issue Description",
             "fieldtype": "Text",
+            "in_list_view": 1,
+            "label": "Issue Description",
             "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
@@ -8754,8 +6643,8 @@
           "label": "Technician Assigned",
           "raw": {
             "fieldname": "technician_assigned",
-            "label": "Technician Assigned",
             "fieldtype": "Link",
+            "label": "Technician Assigned",
             "options": "User"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
@@ -8764,11 +6653,11 @@
           "fieldname": "priority_level",
           "label": "Priority",
           "raw": {
+            "default": "Medium",
             "fieldname": "priority_level",
-            "label": "Priority",
             "fieldtype": "Select",
-            "options": "\nLow\nMedium\nHigh",
-            "default": "Medium"
+            "label": "Priority",
+            "options": "\nLow\nMedium\nHigh"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
         },
@@ -8776,11 +6665,11 @@
           "fieldname": "status",
           "label": "Status",
           "raw": {
+            "default": "Open",
             "fieldname": "status",
-            "label": "Status",
             "fieldtype": "Select",
-            "options": "Open\nIn Progress\nResolved\nClosed\nCompleted\nCancelled",
-            "default": "Open"
+            "label": "Status",
+            "options": "Open\nIn Progress\nResolved\nClosed\nCompleted\nCancelled"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
         },
@@ -8789,9 +6678,9 @@
           "label": "Repair Notes",
           "raw": {
             "fieldname": "repair_notes",
-            "label": "Repair Notes",
             "fieldtype": "Table",
-            "options": "Repair Note"
+            "label": "Repair Notes",
+            "options": "Repair Task Log"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
         },
@@ -8800,8 +6689,8 @@
           "label": "QA Checklist",
           "raw": {
             "fieldname": "qa_checklist",
-            "label": "QA Checklist",
             "fieldtype": "Table",
+            "label": "QA Checklist",
             "options": "Qa Checklist Item"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
@@ -8811,8 +6700,8 @@
           "label": "Repair Description",
           "raw": {
             "fieldname": "description",
-            "label": "Repair Description",
-            "fieldtype": "Text"
+            "fieldtype": "Text",
+            "label": "Repair Description"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
         },
@@ -8821,8 +6710,8 @@
           "label": "Estimated Completion",
           "raw": {
             "fieldname": "estimated_completion",
-            "label": "Estimated Completion",
-            "fieldtype": "Date"
+            "fieldtype": "Date",
+            "label": "Estimated Completion"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
         },
@@ -8831,48 +6720,25 @@
           "label": "Total Cost",
           "raw": {
             "fieldname": "total_cost",
-            "label": "Total Cost",
-            "fieldtype": "Currency"
+            "fieldtype": "Currency",
+            "label": "Total Cost"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
-        }
-      ]
-    },
-    "Repair Order Settings": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order_settings/repair_order_settings.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "naming_series",
-          "label": "Naming Series",
-          "raw": {
-            "fieldname": "naming_series",
-            "label": "Naming Series",
-            "fieldtype": "Data"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order_settings/repair_order_settings.json"
         },
         {
-          "fieldname": "default_workflow_states",
-          "label": "Default Workflow States",
+          "fieldname": "amended_from",
+          "label": "Amended From",
           "raw": {
-            "fieldname": "default_workflow_states",
-            "label": "Default Workflow States",
-            "fieldtype": "Table",
-            "options": "Workflow State Mapping"
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "label": "Amended From",
+            "no_copy": 1,
+            "options": "Repair Order",
+            "print_hide": 1,
+            "read_only": 1,
+            "search_index": 1
           },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order_settings/repair_order_settings.json"
-        },
-        {
-          "fieldname": "sla_days",
-          "label": "SLA Days",
-          "raw": {
-            "fieldname": "sla_days",
-            "label": "SLA Days",
-            "fieldtype": "Int"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order_settings/repair_order_settings.json"
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_order/repair_order.json"
         }
       ]
     },
@@ -8896,8 +6762,9 @@
           "label": "Customer",
           "raw": {
             "fieldname": "customer",
-            "label": "Customer",
             "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Customer",
             "options": "Customer",
             "reqd": 1
           },
@@ -8908,8 +6775,8 @@
           "label": "Instrument Category",
           "raw": {
             "fieldname": "instrument_category",
-            "label": "Instrument Category",
             "fieldtype": "Link",
+            "label": "Instrument Category",
             "options": "Instrument Category"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
@@ -8919,8 +6786,8 @@
           "label": "Date Reported",
           "raw": {
             "fieldname": "date_reported",
-            "label": "Date Reported",
-            "fieldtype": "Date"
+            "fieldtype": "Date",
+            "label": "Date Reported"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
         },
@@ -8929,8 +6796,8 @@
           "label": "Promise Date",
           "raw": {
             "fieldname": "promise_date",
-            "label": "Promise Date",
-            "fieldtype": "Date"
+            "fieldtype": "Date",
+            "label": "Promise Date"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
         },
@@ -8948,8 +6815,9 @@
           "label": "Issue Description",
           "raw": {
             "fieldname": "issue_description",
-            "label": "Issue Description",
             "fieldtype": "Text",
+            "in_list_view": 1,
+            "label": "Issue Description",
             "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
@@ -8959,8 +6827,8 @@
           "label": "Technician Assigned",
           "raw": {
             "fieldname": "technician_assigned",
-            "label": "Technician Assigned",
             "fieldtype": "Link",
+            "label": "Technician Assigned",
             "options": "User"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
@@ -8969,11 +6837,11 @@
           "fieldname": "priority_level",
           "label": "Priority",
           "raw": {
+            "default": "Medium",
             "fieldname": "priority_level",
-            "label": "Priority",
             "fieldtype": "Select",
-            "options": "\nLow\nMedium\nHigh",
-            "default": "Medium"
+            "label": "Priority",
+            "options": "\nLow\nMedium\nHigh"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
         },
@@ -8991,11 +6859,11 @@
           "fieldname": "status",
           "label": "Status",
           "raw": {
+            "default": "Open",
             "fieldname": "status",
-            "label": "Status",
             "fieldtype": "Select",
-            "options": "\nOpen\nIn Progress\nResolved\nClosed",
-            "default": "Open"
+            "label": "Status",
+            "options": "\nOpen\nIn Progress\nResolved\nClosed"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
         },
@@ -9014,9 +6882,9 @@
           "label": "Repair Notes",
           "raw": {
             "fieldname": "repair_notes",
-            "label": "Repair Notes",
             "fieldtype": "Table",
-            "options": "Repair Note"
+            "label": "Repair Notes",
+            "options": "Repair Task Log"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
         },
@@ -9035,9 +6903,24 @@
           "label": "QA Checklist",
           "raw": {
             "fieldname": "qa_checklist",
-            "label": "QA Checklist",
             "fieldtype": "Table",
+            "label": "QA Checklist",
             "options": "Qa Checklist Item"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
+        },
+        {
+          "fieldname": "amended_from",
+          "label": "Amended From",
+          "raw": {
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "label": "Amended From",
+            "no_copy": 1,
+            "options": "Repair Request",
+            "print_hide": 1,
+            "read_only": 1,
+            "search_index": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_request/repair_request.json"
         }
@@ -9053,8 +6936,9 @@
           "label": "Task Type",
           "raw": {
             "fieldname": "task_type",
-            "label": "Task Type",
             "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Task Type",
             "options": "Service Task",
             "reqd": 1
           },
@@ -9065,8 +6949,8 @@
           "label": "Description",
           "raw": {
             "fieldname": "description",
-            "label": "Description",
-            "fieldtype": "Text"
+            "fieldtype": "Text",
+            "label": "Description"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
         },
@@ -9075,8 +6959,8 @@
           "label": "Detailed Notes",
           "raw": {
             "fieldname": "long_description",
-            "label": "Detailed Notes",
-            "fieldtype": "Text Editor"
+            "fieldtype": "Text Editor",
+            "label": "Detailed Notes"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
         },
@@ -9085,8 +6969,8 @@
           "label": "Technician",
           "raw": {
             "fieldname": "technician",
-            "label": "Technician",
             "fieldtype": "Link",
+            "label": "Technician",
             "options": "User"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
@@ -9096,8 +6980,8 @@
           "label": "Estimated Hours",
           "raw": {
             "fieldname": "est_hours",
-            "label": "Estimated Hours",
-            "fieldtype": "Float"
+            "fieldtype": "Float",
+            "label": "Estimated Hours"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
         },
@@ -9106,8 +6990,8 @@
           "label": "Actual Hours",
           "raw": {
             "fieldname": "actual_hours",
-            "label": "Actual Hours",
-            "fieldtype": "Float"
+            "fieldtype": "Float",
+            "label": "Actual Hours"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
         },
@@ -9116,8 +7000,8 @@
           "label": "Parts Cost",
           "raw": {
             "fieldname": "parts_cost",
-            "label": "Parts Cost",
-            "fieldtype": "Currency"
+            "fieldtype": "Currency",
+            "label": "Parts Cost"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
         },
@@ -9125,11 +7009,11 @@
           "fieldname": "status",
           "label": "Status",
           "raw": {
+            "default": "Pending",
             "fieldname": "status",
-            "label": "Status",
             "fieldtype": "Select",
-            "options": "\nPending\nIn Progress\nCompleted",
-            "default": "Pending"
+            "label": "Status",
+            "options": "\nPending\nIn Progress\nCompleted"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
         },
@@ -9138,8 +7022,8 @@
           "label": "Repair Log",
           "raw": {
             "fieldname": "log",
-            "label": "Repair Log",
             "fieldtype": "Link",
+            "label": "Repair Log",
             "options": "Repair Task Log"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
@@ -9149,9 +7033,9 @@
           "label": "Images",
           "raw": {
             "fieldname": "images",
-            "label": "Images",
             "fieldtype": "Table",
-            "options": "Image Log Entry"
+            "label": "Images",
+            "options": "Instrument Photo"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
         },
@@ -9160,8 +7044,8 @@
           "label": "Remarks",
           "raw": {
             "fieldname": "remarks",
-            "label": "Remarks",
-            "fieldtype": "Small Text"
+            "fieldtype": "Small Text",
+            "label": "Remarks"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair/doctype/repair_task/repair_task.json"
         }
@@ -10714,21 +8598,6 @@
   "issues": [
     {
       "type": "intra_doctype_duplicate_label_case_insensitive",
-      "doctype": "Instrument Profile",
-      "label_variant": "logs",
-      "occurrences": [
-        {
-          "label": "Logs",
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json"
-        },
-        {
-          "label": "Logs",
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json"
-        }
-      ]
-    },
-    {
-      "type": "intra_doctype_duplicate_label_case_insensitive",
       "doctype": "Clarinet Initial Setup",
       "label_variant": "setup logs",
       "occurrences": [
@@ -10739,36 +8608,6 @@
         {
           "label": "Setup Logs",
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        }
-      ]
-    },
-    {
-      "type": "intra_doctype_duplicate_fieldname_case_insensitive",
-      "doctype": "Tone Intonation Analyzer",
-      "fieldname_variant": "sb_technician",
-      "occurrences": [
-        {
-          "fieldname": "sb_technician",
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "fieldname": "sb_technician",
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        }
-      ]
-    },
-    {
-      "type": "intra_doctype_duplicate_label_case_insensitive",
-      "doctype": "Tone Intonation Analyzer",
-      "label_variant": "technician review",
-      "occurrences": [
-        {
-          "label": "Technician Review",
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
-        },
-        {
-          "label": "Technician Review",
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/lab/doctype/tone_intonation_analyzer/tone_intonation_analyzer.json"
         }
       ]
     },

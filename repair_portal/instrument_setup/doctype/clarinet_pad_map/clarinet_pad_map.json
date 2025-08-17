@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "prompt",
+ "autoname": "format:PAD-MAP-{clarinet_model}",
  "creation": "2025-07-30 03:20:56.315260",
  "doctype": "DocType",
  "engine": "InnoDB",

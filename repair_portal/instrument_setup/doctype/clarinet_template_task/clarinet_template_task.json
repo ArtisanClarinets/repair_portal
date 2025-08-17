@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "format:CTT-{#####}",
  "creation": "2025-08-15 22:29:57.926047",
  "description": "Child table that defines task templates within a Setup Template. Each row generates a real Clarinet Setup Task with expected schedule and priority when applied to a Clarinet Initial Setup.",
  "doctype": "DocType",
@@ -7,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "sequence",
+  "depends_on",
   "subject",
   "description",
   "default_priority",
@@ -21,6 +23,13 @@
    "in_list_view": 1,
    "label": "Sequence",
    "reqd": 1
+  },
+  {
+   "description": "Template-level predecessors (referencing other template rows by sequence).",
+   "fieldname": "depends_on",
+   "fieldtype": "Table",
+   "label": "Depends On",
+   "options": "Clarinet Template Task Depends On"
   },
   {
    "description": "Task title that will be copied to the generated Clarinet Setup Task.",
@@ -62,10 +71,11 @@
  ],
  "istable": 1,
  "links": [],
- "modified": "2025-08-15 22:45:54.307556",
+ "modified": "2025-08-17 02:30:31.939667",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Template Task",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",

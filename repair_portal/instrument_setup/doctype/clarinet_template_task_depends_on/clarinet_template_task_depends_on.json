@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "autoname": "format:CTTDO-{#####}",
+ "creation": "2025-08-17 02:02:38.217197",
+ "description": "Child table storing template-level task dependencies. Each row references another template task by sequence number that must be completed before the current template task can proceed.",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sequence"
+ ],
+ "fields": [
+  {
+   "description": "The sequence number of the template task that this task depends on.",
+   "fieldname": "sequence",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Depends on Sequence",
+   "reqd": 1
+  },
+  {
+    "description": "Task title that this dependency relates to.",
+    "fieldname": "subject",
+    "fieldtype": "Link",
+    "options": "Clarinet Template Task",
+    "in_list_view": 1,
+    "label": "Parent Task's Subject",
+    "reqd": 1   
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-17 02:35:01.392600",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Template Task Depends On",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

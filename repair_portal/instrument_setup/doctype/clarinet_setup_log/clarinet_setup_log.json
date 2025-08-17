@@ -1,26 +1,108 @@
 {
-	"doctype": "DocType",
-	"name": "Clarinet Setup Log",
-	"module": "Instrument Setup",
-	"is_child_table": 1,
-	"fields": [
-		{ "fieldname": "parent", "label": "Parent", "fieldtype": "Dynamic Link", "options": "parenttype", "hidden": 1 },
-		{ "fieldname": "parenttype", "label": "Parenttype", "fieldtype": "Data", "hidden": 1 },
-		{ "fieldname": "parentfield", "label": "Parentfield", "fieldtype": "Data", "hidden": 1 },
-		{ "fieldname": "customer", "label": "Customer", "fieldtype": "Link", "options": "Customer", "reqd": 1 },
-		{ "fieldname": "initial_setup", "fieldtype": "Link", "label": "Initial Setup", "options": "Clarinet Initial Setup", "reqd": 1 },
-		{ "fieldname": "log_time", "fieldtype": "Datetime", "label": "Log Time", "fetch_from": "frappe.utils.now_datetime"},
-		{ "fieldname": "instrument_profile", "fieldtype": "Link", "label": "Instrument Profile", "options": "Instrument Profile", "reqd": 1 },
-		{ "fieldname": "serial_no", "fieldtype": "Link", "label": "Serial Number", "options": "Serial No", "reqd": 1 },
-		{ "fieldname": "description", "fieldtype": "Text", "label": "Description" },
-		{ "fieldname": "action_by", "fieldtype": "Link", "label": "Action By", "options": "User", "default": "frappe.session.user" },
-		{ "fieldname": "notes", "fieldtype": "Text", "label": "Notes" },
-		{ "fieldname": "attachments", "fieldtype": "Attach", "label": "Attachments" }
-	],
-	"permissions": [
-		{ "role": "QA Inspector", "read": 1, "write": 1, "create": 1 },
-		{ "role": "Technician", "read": 1 },
-		{ "role": "Service Manager", "read": 1, "write": 1, "create": 1 },
-		{ "role": "Customer", "read": 1, "if_owner": 1 }
-	]
+ "actions": [],
+ "autoname": "format:CSL-{YY}{MM}-{#####}",
+ "creation": "2025-08-17 02:02:38.652292",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "initial_setup",
+  "log_time",
+  "instrument_profile",
+  "serial",
+  "description",
+  "action_by",
+  "notes",
+  "attachments"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "initial_setup",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Initial Setup",
+   "options": "Clarinet Initial Setup",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "frappe.utils.now_datetime",
+   "fieldname": "log_time",
+   "fieldtype": "Datetime",
+   "label": "Log Time"
+  },
+  {
+   "fieldname": "instrument_profile",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Instrument Profile",
+   "options": "Instrument Profile",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Description"
+  },
+  {
+   "default": "frappe.session.user",
+   "fieldname": "action_by",
+   "fieldtype": "Link",
+   "label": "Action By",
+   "options": "User"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "attachments",
+   "fieldtype": "Attach",
+   "label": "Attachments"
+  },
+  {
+   "fieldname": "serial",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Serial Number",
+   "options": "Instrument Serial Number",
+   "reqd": 1
+  }
+ ],
+ "links": [],
+ "modified": "2025-08-17 02:36:55.084891",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Setup Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "read": 1,
+   "role": "Technician"
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Service Manager",
+   "write": 1
+  },
+  {
+   "if_owner": 1,
+   "read": 1,
+   "role": "Customer"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
 }

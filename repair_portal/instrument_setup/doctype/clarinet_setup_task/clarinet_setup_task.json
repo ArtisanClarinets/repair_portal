@@ -1,171 +1,213 @@
 {
-  "doctype": "DocType",
-  "name": "Clarinet Setup Task",
-  "module": "Instrument Setup",
-  "engine": "InnoDB",
-  "autoname": "format:CST-{YY}{MM}-{####}",
-  "track_changes": 1,
-  "track_seen": 1,
-  "editable_grid": 0,
-  "is_submittable": 0,
-  "naming_rule": "Expression",
-  "sort_field": "modified",
-  "sort_order": "DESC",
-  "description": "Projects-like task used to track clarinet setup/repair work for a single instrument. Supports scheduling, priority, dependencies, progress roll-up to the parent Clarinet Initial Setup, and Gantt/Kanban list modes.",
-  "field_order": [
-    "clarinet_initial_setup",
-    "subject",
-    "status",
-    "priority",
-    "progress",
-    "exp_start_date",
-    "exp_end_date",
-    "actual_start",
-    "actual_end",
-    "depends_on",
-    "assigned_to",
-    "description",
-    "instrument",
-    "serial_no",
-    "sequence",
-    "parent_task",
-    "is_group",
-    "color"
-  ],
-  "fields": [
-    {
-      "fieldname": "clarinet_initial_setup",
-      "fieldtype": "Link",
-      "options": "Clarinet Initial Setup",
-      "label": "Clarinet Initial Setup",
-      "reqd": 1,
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "description": "Parent clarinet setup record this task belongs to. Used for filtering, progress roll-up, and navigation."
-    },
-    {
-      "fieldname": "subject",
-      "fieldtype": "Data",
-      "label": "Subject",
-      "reqd": 1,
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "description": "Short, action-oriented title for the task (e.g., “Set key heights – upper joint”)."
-    },
-    {
-      "fieldname": "status",
-      "fieldtype": "Select",
-      "label": "Status",
-      "options": "Open\nWorking\nPaused\nPending Review\nCompleted\nCanceled",
-      "default": "Open",
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "description": "Current state of the task within the setup workflow."
-    },
-    {
-      "fieldname": "priority",
-      "fieldtype": "Select",
-      "label": "Priority",
-      "options": "Low\nMedium\nHigh\nUrgent",
-      "default": "Medium",
-      "in_standard_filter": 1,
-      "description": "Priority for scheduling and triage."
-    },
-    {
-      "fieldname": "progress",
-      "fieldtype": "Percent",
-      "label": "Progress",
-      "default": 0,
-      "in_list_view": 1,
-      "description": "Percent complete for this task. Automatically set to 100% when status is Completed; contributes to parent roll-up."
-    },
-    {
-      "fieldname": "exp_start_date",
-      "fieldtype": "Date",
-      "label": "Expected Start",
-      "description": "Planned start date. Enables Gantt view."
-    },
-    {
-      "fieldname": "exp_end_date",
-      "fieldtype": "Date",
-      "label": "Expected End",
-      "description": "Planned end date. Must be on/after Expected Start. Enables Gantt view."
-    },
-    {
-      "fieldname": "actual_start",
-      "fieldtype": "Datetime",
-      "label": "Actual Start",
-      "description": "Timestamp when work actually started (often set when status moves to Working)."
-    },
-    {
-      "fieldname": "actual_end",
-      "fieldtype": "Datetime",
-      "label": "Actual End",
-      "description": "Timestamp when work actually completed (often set when status moves to Completed)."
-    },
-    {
-      "fieldname": "depends_on",
-      "fieldtype": "Table",
-      "label": "Depends On",
-      "options": "Clarinet Task Depends On",
-      "description": "Predecessor tasks that must be Completed before this task can proceed. Each row links to another Clarinet Setup Task."
-    },
-    {
-      "fieldname": "assigned_to",
-      "fieldtype": "Link",
-      "label": "Assigned To",
-      "options": "User",
-      "description": "User primarily responsible for executing the task."
-    },
-    {
-      "fieldname": "description",
-      "fieldtype": "Text Editor",
-      "label": "Description",
-      "description": "Detailed procedure, acceptance criteria, measurements, or notes."
-    },
-    {
-      "fieldname": "instrument",
-      "fieldtype": "Link",
-      "label": "Instrument",
-      "options": "Instrument",
-      "description": "Instrument record for context (auto-filled from parent where possible)."
-    },
-    {
-      "fieldname": "serial_no",
-      "fieldtype": "Link",
-      "label": "Serial No",
-      "options": "Serial No",
-      "description": "Serial number of the instrument being serviced (traceability)."
-    },
-    {
-      "fieldname": "sequence",
-      "fieldtype": "Int",
-      "label": "Sequence",
-      "description": "Ordering hint for task lists and generation from templates (use spaced values like 10, 20, 30 to allow inserts)."
-    },
-    {
-      "fieldname": "parent_task",
-      "fieldtype": "Link",
-      "label": "Parent Task",
-      "options": "Clarinet Setup Task",
-      "description": "Optional parent group task (for hierarchical grouping)."
-    },
-    {
-      "fieldname": "is_group",
-      "fieldtype": "Check",
-      "label": "Is Group",
-      "description": "If enabled, indicates this is a grouping node (usually not directly actionable)."
-    },
-    {
-      "fieldname": "color",
-      "fieldtype": "Color",
-      "label": "Color",
-      "description": "Optional color tag for visual grouping in list and Kanban views."
-    }
-  ],
-  "permissions": [
-    { "role": "Technician", "read": 1, "write": 1, "create": 1, "delete": 1 },
-    { "role": "Service Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1, "amend": 1 },
-    { "role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1, "amend": 1 }
-  ]
+ "actions": [],
+ "autoname": "format:CST-{#####}",
+ "creation": "2025-08-16 02:39:29.764168",
+ "description": "Projects-like task used to track clarinet setup/repair work for a single instrument. Supports scheduling, priority, dependencies, progress roll-up to the parent Clarinet Initial Setup, and Gantt/Kanban list modes.",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "clarinet_initial_setup",
+  "subject",
+  "status",
+  "priority",
+  "progress",
+  "exp_start_date",
+  "exp_end_date",
+  "actual_start",
+  "actual_end",
+  "depends_on",
+  "assigned_to",
+  "description",
+  "instrument",
+  "serial",
+  "sequence",
+  "parent_task",
+  "is_group",
+  "color",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "description": "Parent clarinet setup record this task belongs to. Used for filtering, progress roll-up, and navigation.",
+   "fieldname": "clarinet_initial_setup",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Clarinet Initial Setup",
+   "options": "Clarinet Initial Setup"
+  },
+  {
+   "description": "Short, action-oriented title for the task (e.g., \u201cSet key heights \u2013 upper joint\u201d).",
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Subject",
+   "reqd": 1
+  },
+  {
+   "default": "Open",
+   "description": "Current state of the task within the setup workflow.",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Open\nWorking\nPaused\nPending Review\nCompleted\nCanceled"
+  },
+  {
+   "default": "Medium",
+   "description": "Priority for scheduling and triage.",
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Priority",
+   "options": "Low\nMedium\nHigh\nUrgent"
+  },
+  {
+   "default": "0",
+   "description": "Percent complete for this task. Automatically set to 100% when status is Completed; contributes to parent roll-up.",
+   "fieldname": "progress",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Progress"
+  },
+  {
+   "description": "Planned start date. Enables Gantt view.",
+   "fieldname": "exp_start_date",
+   "fieldtype": "Date",
+   "label": "Expected Start"
+  },
+  {
+   "description": "Planned end date. Must be on/after Expected Start. Enables Gantt view.",
+   "fieldname": "exp_end_date",
+   "fieldtype": "Date",
+   "label": "Expected End"
+  },
+  {
+   "description": "Timestamp when work actually started (often set when status moves to Working).",
+   "fieldname": "actual_start",
+   "fieldtype": "Datetime",
+   "label": "Actual Start"
+  },
+  {
+   "description": "Timestamp when work actually completed (often set when status moves to Completed).",
+   "fieldname": "actual_end",
+   "fieldtype": "Datetime",
+   "label": "Actual End"
+  },
+  {
+   "description": "Predecessor tasks that must be Completed before this task can proceed. Each row links to another Clarinet Setup Task.",
+   "fieldname": "depends_on",
+   "fieldtype": "Table",
+   "label": "Depends On",
+   "options": "Clarinet Task Depends On"
+  },
+  {
+   "description": "User primarily responsible for executing the task.",
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "label": "Assigned To",
+   "options": "User"
+  },
+  {
+   "description": "Detailed procedure, acceptance criteria, measurements, or notes.",
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "description": "Instrument record for context (auto-filled from parent where possible).",
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument"
+  },
+  {
+   "description": "Ordering hint for task lists and generation from templates (use spaced values like 10, 20, 30 to allow inserts).",
+   "fieldname": "sequence",
+   "fieldtype": "Int",
+   "label": "Sequence"
+  },
+  {
+   "description": "Optional parent group task (for hierarchical grouping).",
+   "fieldname": "parent_task",
+   "fieldtype": "Link",
+   "label": "Parent Task",
+   "options": "Clarinet Setup Task"
+  },
+  {
+   "default": "0",
+   "description": "If enabled, indicates this is a grouping node (usually not directly actionable).",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "description": "Optional color tag for visual grouping in list and Kanban views.",
+   "fieldname": "color",
+   "fieldtype": "Color",
+   "label": "Color"
+  },
+  {
+   "description": "Serial number of the instrument being serviced (traceability).",
+   "fieldname": "serial",
+   "fieldtype": "Link",
+   "label": "Serial No",
+   "options": "Instrument Serial Number"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Clarinet Setup Task",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-17 02:34:31.072072",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Setup Task",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Technician",
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Service Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1
 }

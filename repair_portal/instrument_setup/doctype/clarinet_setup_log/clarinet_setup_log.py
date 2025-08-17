@@ -7,4 +7,22 @@ from frappe.model.document import Document
 
 
 class ClarinetSetupLog(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+
+        action_by: DF.Link | None
+        attachments: DF.Attach | None
+        customer: DF.Link
+        description: DF.Text | None
+        initial_setup: DF.Link
+        instrument_profile: DF.Link
+        log_time: DF.Datetime | None
+        notes: DF.Text | None
+        serial: DF.Link
+    # end: auto-generated types
     pass

@@ -1,82 +1,349 @@
 {
-  "doctype": "DocType",
-  "name": "Clarinet Initial Setup",
-  "module": "Instrument Setup",
-  "engine": "InnoDB",
-  "autoname": "format: CSU-{YY}{MM}-{####}",
-  "track_changes": 1,
-  "track_seen": 1,
-  "track_views": 1,
-  "field_order": [
-    "instrument_information_section",
-    "status",
-    "serial_no",
-    "instrument",
-    "instrument_profile",
-    "clarinet_type",
-    "model",
-    "work_photos",
-    "column_break_ezgh",
-    "setup_date",
-    "clarinet_initial_setup_id",
-    "progress",
-    "intake",
-    "inspection",
-    "setup_template",
-    "labor_hours",
-    "technician",
-    "setup_logs",
-    "setup_logs_table",
-    "setup_checklist_section",
-    "checklist",
-    "materials_used",
-    "operations_performed",
-    "technical_tags",
-    "amended_from"
-  ],
-  "fields": [
-    { "fieldname": "instrument_profile", "fieldtype": "Link", "label": "Instrument Profile", "options": "Instrument Profile", "hidden": 1, "read_only": 1 },
-    { "fieldname": "clarinet_initial_setup_id", "fieldtype": "Data", "label": "Setup ID", "hidden": 1, "read_only": 1, "unique": 1 },
-    { "fieldname": "serial_no", "fieldtype": "Link", "label": "Serial No", "options": "Serial No", "fetch_from": "instrument.serial_no", "fetch_if_empty": 1 },
-    { "fieldname": "intake", "fieldtype": "Link", "label": "Intake", "options": "Clarinet Intake" },
-    { "fieldname": "instrument", "fieldtype": "Link", "label": "Instrument", "options": "Instrument", "reqd": 1 },
-    { "fieldname": "clarinet_type", "fieldtype": "Select", "label": "Type of Clarinet", "options": "B♭ Clarinet\nA Clarinet\nE♭ Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther" },
-    { "fieldname": "model", "fieldtype": "Data", "label": "Model", "read_only": 1, "fetch_from": "instrument.model", "fetch_if_empty": 1 },
-    { "fieldname": "inspection", "fieldtype": "Link", "label": "Inspection", "options": "Instrument Inspection", "read_only": 1, "fetch_from": "instrument_profile.linked_inspection", "fetch_if_empty": 1 },
-    { "fieldname": "setup_template", "fieldtype": "Link", "label": "Setup Template", "options": "Setup Template" },
-    { "fieldname": "setup_date", "fieldtype": "Date", "label": "Setup Date" },
-    { "fieldname": "technician", "fieldtype": "Link", "label": "Technician", "options": "User" },
-
-    { "fieldname": "progress", "fieldtype": "Percent", "label": "Progress", "read_only": 1, "in_list_view": 1 },
-
-    { "fieldname": "checklist", "fieldtype": "Table", "label": "Checklist", "options": "Setup Checklist Item" },
-
-    { "fieldname": "materials_used", "fieldtype": "Table", "label": "Materials Used", "options": "Setup Material Log" },
-
-    { "fieldname": "operations_performed", "fieldtype": "Table", "label": "Operations Performed", "options": "Clarinet Setup Operation" },
-
-    { "fieldname": "work_photos", "fieldtype": "Attach Image", "label": "Work Photos" },
-    { "fieldname": "technical_tags", "fieldtype": "Text Editor", "label": "Technical Tags/Notes" },
-    { "fieldname": "labor_hours", "fieldtype": "Float", "label": "Labor Hours" },
-
-    { "fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Open\nPending\nPass\nFail", "in_list_view": 1, "in_standard_filter": 1 },
-
-    { "fieldname": "amended_from", "fieldtype": "Link", "label": "Amended From", "options": "Clarinet Initial Setup", "no_copy": 1, "read_only": 1, "print_hide": 1, "search_index": 1 },
-
-    { "fieldname": "instrument_information_section", "fieldtype": "Section Break", "label": "Instrument Information" },
-    { "fieldname": "column_break_ezgh", "fieldtype": "Column Break" },
-
-    { "fieldname": "setup_logs", "fieldtype": "Section Break", "label": "Setup Logs" },
-    { "fieldname": "setup_logs_table", "fieldtype": "Table", "label": "Setup Logs", "options": "Clarinet Setup Log" },
-
-    { "fieldname": "setup_checklist_section", "fieldtype": "Section Break", "label": "Setup Checklist" }
-  ],
-  "permissions": [
-    { "role": "Technician", "create": 1, "read": 1, "write": 1 },
-    { "role": "Service Manager", "create": 1, "read": 1, "write": 1, "delete": 1, "submit": 1 },
-    { "role": "System Manager", "create": 1, "read": 1, "write": 1, "delete": 1, "submit": 1 },
-    { "role": "Customer", "create": 1, "read": 1, "if_owner": 1 }
-  ],
-  "sort_field": "modified",
-  "sort_order": "DESC"
+ "actions": [],
+ "autoname": "format: CSU-{YY}{MM}-{####}",
+ "creation": "2025-08-17 02:02:38.550890",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "project_info_section",
+  "status",
+  "priority",
+  "setup_type",
+  "column_break_project",
+  "expected_start_date",
+  "expected_end_date",
+  "actual_start_date",
+  "actual_end_date",
+  "instrument_information_section",
+  "serial",
+  "instrument",
+  "instrument_profile",
+  "clarinet_type",
+  "model",
+  "column_break_instrument",
+  "intake",
+  "inspection",
+  "work_photos",
+  "setup_template",
+  "progress",
+  "project_details_section",
+  "technician",
+  "setup_date",
+  "labor_hours",
+  "column_break_details",
+  "estimated_cost",
+  "actual_cost",
+  "estimated_materials_cost",
+  "actual_materials_cost",
+  "setup_content_section",
+  "checklist",
+  "operations_performed",
+  "materials_used",
+  "setup_logs_section",
+  "notes",
+  "technical_tags",
+  "clarinet_initial_setup_id",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "project_info_section",
+   "fieldtype": "Section Break",
+   "label": "Project Information"
+  },
+  {
+   "default": "Open",
+   "description": "Current status of this setup project.",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Open\nIn Progress\nCompleted\nOn Hold\nCancelled\nQA Review\nCustomer Approval"
+  },
+  {
+   "default": "Medium",
+   "description": "Priority level for this setup project.",
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Priority",
+   "options": "Low\nMedium\nHigh\nUrgent"
+  },
+  {
+   "description": "Type of setup work being performed.",
+   "fieldname": "setup_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Setup Type",
+   "options": "Standard Setup\nAdvanced Setup\nRepair & Setup\nMaintenance\nOverhaul\nCustom Setup"
+  },
+  {
+   "fieldname": "column_break_project",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Expected start date for this setup project.",
+   "fieldname": "expected_start_date",
+   "fieldtype": "Date",
+   "label": "Expected Start Date"
+  },
+  {
+   "description": "Expected completion date for this setup project.",
+   "fieldname": "expected_end_date",
+   "fieldtype": "Date",
+   "label": "Expected End Date"
+  },
+  {
+   "description": "Actual date when setup work started.",
+   "fieldname": "actual_start_date",
+   "fieldtype": "Datetime",
+   "label": "Actual Start Date",
+   "read_only": 1
+  },
+  {
+   "description": "Actual date when setup work was completed.",
+   "fieldname": "actual_end_date",
+   "fieldtype": "Datetime",
+   "label": "Actual End Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "instrument_information_section",
+   "fieldtype": "Section Break",
+   "label": "Instrument Information"
+  },
+  {
+   "fetch_from": "instrument.serial_no",
+   "fetch_if_empty": 1,
+   "fieldname": "serial",
+   "fieldtype": "Link",
+   "label": "Serial No",
+   "options": "Instrument Serial Number"
+  },
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instrument_profile",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Instrument Profile",
+   "options": "Instrument Profile",
+   "read_only": 1
+  },
+  {
+   "fieldname": "clarinet_type",
+   "fieldtype": "Select",
+   "label": "Type of Clarinet",
+   "options": "B♭ Clarinet\nA Clarinet\nE♭ Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther"
+  },
+  {
+   "fetch_from": "instrument.model",
+   "fetch_if_empty": 1,
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_instrument",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "intake",
+   "fieldtype": "Link",
+   "label": "Intake",
+   "options": "Clarinet Intake"
+  },
+  {
+   "fetch_from": "instrument_profile.linked_inspection",
+   "fetch_if_empty": 1,
+   "fieldname": "inspection",
+   "fieldtype": "Link",
+   "label": "Inspection",
+   "options": "Instrument Inspection",
+   "read_only": 1
+  },
+  {
+   "fieldname": "work_photos",
+   "fieldtype": "Attach Image",
+   "label": "Work Photos"
+  },
+  {
+   "fieldname": "setup_template",
+   "fieldtype": "Link",
+   "label": "Setup Template",
+   "options": "Setup Template"
+  },
+  {
+   "fieldname": "progress",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Progress",
+   "read_only": 1
+  },
+  {
+   "fieldname": "project_details_section",
+   "fieldtype": "Section Break",
+   "label": "Project Details"
+  },
+  {
+   "fieldname": "technician",
+   "fieldtype": "Link",
+   "label": "Technician",
+   "options": "User"
+  },
+  {
+   "fieldname": "setup_date",
+   "fieldtype": "Date",
+   "label": "Setup Date"
+  },
+  {
+   "fieldname": "labor_hours",
+   "fieldtype": "Float",
+   "label": "Labor Hours",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_details",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Estimated total cost for this setup project.",
+   "fieldname": "estimated_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Cost",
+   "read_only": 1
+  },
+  {
+   "description": "Actual total cost incurred for this setup project.",
+   "fieldname": "actual_cost",
+   "fieldtype": "Currency",
+   "label": "Actual Cost",
+   "read_only": 1
+  },
+  {
+   "description": "Estimated materials cost for this setup project.",
+   "fieldname": "estimated_materials_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Materials Cost",
+   "read_only": 1
+  },
+  {
+   "description": "Actual materials cost incurred for this setup project.",
+   "fieldname": "actual_materials_cost",
+   "fieldtype": "Currency",
+   "label": "Actual Materials Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "setup_content_section",
+   "fieldtype": "Section Break",
+   "label": "Setup Content"
+  },
+  {
+   "fieldname": "checklist",
+   "fieldtype": "Table",
+   "label": "Checklist",
+   "options": "Setup Checklist Item"
+  },
+  {
+   "fieldname": "operations_performed",
+   "fieldtype": "Table",
+   "label": "Operations Performed",
+   "options": "Clarinet Setup Operation"
+  },
+  {
+   "fieldname": "materials_used",
+   "fieldtype": "Table",
+   "label": "Materials Used",
+   "options": "Setup Material Log"
+  },
+  {
+   "fieldname": "setup_logs_section",
+   "fieldtype": "Section Break",
+   "label": "Setup Logs & Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Table",
+   "label": "Setup Logs",
+   "options": "Instrument Interaction Log"
+  },
+  {
+   "fieldname": "technical_tags",
+   "fieldtype": "Text Editor",
+   "label": "Technical Tags/Notes"
+  },
+  {
+   "fieldname": "clarinet_initial_setup_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Setup ID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Clarinet Initial Setup",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-17 02:52:13.511909",
+ "modified_by": "Administrator",
+ "module": "Instrument Setup",
+ "name": "Clarinet Initial Setup",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Technician",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Service Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "if_owner": 1,
+   "read": 1,
+   "role": "Customer"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

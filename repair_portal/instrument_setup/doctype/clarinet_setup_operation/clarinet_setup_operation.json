@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "format:CSO-{#####}",
  "creation": "2025-07-30 03:20:56.186243",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -25,7 +26,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Section",
-   "options": "Mouthpiece\nBarrel\nUpper Joint\nLower Joint\nBell"
+   "options": "All\nMouthpiece\nBarrel\nUpper Joint\nLower Joint\nBell"
   },
   {
    "fieldname": "component_ref",
@@ -49,10 +50,11 @@
  ],
  "istable": 1,
  "links": [],
- "modified": "2025-07-30 20:55:59.165686",
+ "modified": "2025-08-17 02:38:11.662931",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Setup Operation",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",

@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:ISN-{YY}{MM}-{####}",
+ "autoname": "format:{serial}",
  "creation": "2025-08-13 22:25:28.232684",
  "doctype": "DocType",
  "document_type": "Setup",
@@ -171,10 +171,11 @@
    "link_fieldname": "serial_no"
   }
  ],
- "modified": "2025-08-15 22:43:07.930749",
+ "modified": "2025-08-17 02:56:37.959870",
  "modified_by": "Administrator",
  "module": "Instrument Profile",
  "name": "Instrument Serial Number",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

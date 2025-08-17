@@ -1,213 +1,344 @@
-# Clarinet Initial Setup Doctype Overview
-
-## Files Reviewed
-- clarinet_initial_setup.js
-- clarinet_initial_setup.py
+# Clarinet Initial Setup (`clarinet_initial_setup`)
 
 ## Purpose
-Manages the initial setup process for clarinets, including QA, customer notification, and strict checklist enforcement.
+The Clarinet Initial Setup DocType serves as the main project management document for individual clarinet setup work. It mirrors ERPNext's Project DocType functionality, managing the entire lifecycle of a clarinet setup project from creation through completion, including task management, cost tracking, timeline management, and quality assurance.
 
-## Main Functions
-### clarinet_initial_setup.js
-- Dashboard status, template operation loading, work photo attachment, navigation to related docs, real-time updates, and validation.
+## Schema Summary
 
-### clarinet_initial_setup.py
-- `ensure_checklist`: Guarantees at least one checklist item.
-- `before_insert`: Auto-assigns technician and ensures checklist.
-- `validate`: Enforces intake reference, completed operations, checklist presence, and stock validation.
-- `on_submit`: Creates material requests and triggers PDF certificate generation.
-- `load_operations_from_template`: Loads default operations from setup template.
-- `_generate_setup_certificate`: Renders and attaches setup certificate PDF.
+### Project Identification & Basic Info
+- **Naming:** `naming_series` = "CIS-.YYYY.-.####"
+- **project_id:** Unique project identifier (auto-generated)
+- **title:** Descriptive title for the setup project
+- **setup_type:** Select field (Standard, Premium, Repair, Custom)
+- **priority:** Select field (Low, Medium, High, Critical)
+- **status:** Select field (Draft, Planning, In Progress, QA Review, On Hold, Completed, Cancelled)
 
-## Doctypes Created/Updated/Modified
-- Creates `Material Request` on submit.
-- Updates `Setup Checklist Item`, `Clarinet Setup Operation`, `Material Use Log`.
+### Instrument Details
+- **instrument_profile:** Link to Instrument Profile being set up
+- **clarinet_intake:** Link to originating Clarinet Intake (if applicable)
+- **serial_no:** Link to Serial No for tracking
+- **setup_template:** Link to Setup Template used as blueprint
 
----
+### Project Details & Timeline
+- **expected_start_date:** Planned project start date
+- **expected_end_date:** Planned project completion date
+- **actual_start_date:** Actual project start date (auto-set when status changes to In Progress)
+- **actual_end_date:** Actual project completion date (auto-set when status changes to Completed)
+- **progress:** Percentage completion (0-100)
 
-# Clarinet Initial Setup Doctype: Technical & Operational Reference
+### Cost Tracking & Estimation
+- **estimated_cost:** Total estimated project cost
+- **estimated_materials_cost:** Estimated cost of materials and parts
+- **actual_cost:** Total actual project cost (calculated from materials and labor)
+- **actual_materials_cost:** Actual cost of materials used
+- **labor_hours:** Total labor hours worked on project
 
-**Module:** `Instrument Setup`  
-**Path:** `repair_portal/instrument_setup/doctype/clarinet_initial_setup/`  
-**Version:** v2.4  
-**Last Updated:** 2025-07-28
+### Project Content
+- **operations_performed:** Table of Setup Material Log child records
+- **checklist:** Table of Setup Checklist Item child records
+- **setup_tasks:** Table of Clarinet Setup Task child records
 
----
+### Links
+- **Instrument Profile:** One-to-one relationship to instrument being set up
+- **Clarinet Intake:** Optional link to intake document that initiated setup
+- **Setup Template:** Link to template used as project blueprint
+- **Serial No:** Link to instrument serial number for tracking
 
-## 🚀 Overview
+### Child Tables
+- **operations_performed:** Links to `setup_material_log` child table for material usage tracking
+- **checklist:** Links to `setup_checklist_item` child table for QA checklist
+- **setup_tasks:** Links to `clarinet_setup_task` child table for individual tasks
 
-The **Clarinet Initial Setup** doctype orchestrates, validates, and documents the complete lifecycle of a clarinet’s first setup. It is used for onboarding new or refurbished clarinets into inventory, tightly integrating with Intake, Instrument, Operations, QA, and Material tracking for a full audit and quality trail.
+## Business Rules
 
-Automation guarantees:
-- Every setup has an Intake link.
-- At least one checklist item exists (enforced in both UI and backend).
-- All operations must be completed before submission.
-- Customer is notified automatically upon QA pass/submit.
-- Stock for materials is always validated on save/submit.
+### Validation Hooks
+1. **validate():**
+   - Validates project dates (end date after start date)
+   - Ensures setup_template compatibility with instrument type
+   - Calculates actual costs from child table data
+   - Updates progress based on completed tasks
 
----
+2. **before_insert():**
+   - Auto-generates project_id if not provided
+   - Sets default dates based on template estimates
+   - Applies template defaults if setup_template is selected
 
-## 📋 Field-by-Field Table
+3. **on_update():**
+   - Updates actual dates when status changes
+   - Recalculates costs when materials or tasks change
+   - Triggers notifications for status changes
 
-| Fieldname                   | Label                     | Type        | Required | Visible/Depends On        | Description/Usage                                                         |
-|----------------------------|---------------------------|-------------|----------|---------------------------|---------------------------------------------------------------------------|
-| instrument_information_section | Instrument Information  | Section Break | -      | Always                    | Section marker for basic instrument fields                                |
-| status                     | Status                    | Select      | No       | Always                    | Workflow status (Open, Pending, Pass, Fail)                               |
-| serial_no                  | Serial Number             | Link        | Yes      | ListView, ReadOnly        | Unique Serial No (fetches from Instrument); links to Serial No doctype     |
-| instrument                 | Instrument                | Link        | Yes      | ListView, Global Search   | Linked Instrument                                                         |
-| instrument_profile         | Instrument Profile        | Link        | Auto     | Hidden, ReadOnly          | Back-reference to Instrument Profile, if available                         |
-| clarinet_type              | Type of Clarinet          | Select      | No       | Fetched                   | Bb, A, Eb, Bass, Alto, Contrabass, Other                                  |
-| model                      | Model                     | Data        | No       | Fetched, ReadOnly         | Instrument model, fetched from Instrument                                 |
-| work_photos                | Work Photos               | Attach Image| No       | Always                    | Upload multiple work-in-progress photos                                   |
-| setup_date                 | Setup Date                | Date        | Auto     | ReadOnly                  | Date of setup; set automatically                                          |
-| clarinet_initial_setup_id  | Setup ID                  | Data        | Auto     | Hidden, ReadOnly, Unique  | Setup unique identifier                                                   |
-| intake                     | Clarinet Intake           | Link        | Yes      | ReadOnly                  | Linked Intake record; required                                            |
-| inspection                 | Inspection                | Link        | No       | ReadOnly                  | Instrument Inspection doc                                                 |
-| setup_template             | Setup Template            | Link        | No       | Always                    | Optional template for default checklist/operations                        |
-| qa_inspection              | QA Inspection             | Link        | No       | Always                    | Linked QA/Quality Inspection                                              |
-| labor_hours                | Labor Hours               | Float       | No       | Always                    | Manual entry for time spent                                               |
-| technician                 | Technician                | Link        | Auto     | Always                    | Assigned setup technician                                                 |
-| setup_logs                 | Setup Logs                | Section Break | -      | Always                    | Section marker for setup log tables                                       |
-| materials_used             | Materials Used            | Table       | No       | Always                    | List of all materials/parts consumed (links Material Use Log)              |
-| checklist                  | Checklist                 | Table       | Yes*     | Always                    | Setup Checklist Items (at least one enforced by backend/automation)        |
-| operations_performed       | Operations Performed       | Table       | Yes*     | Always                    | Clarinet Setup Operations (all must be marked completed before submit)     |
-| technical_tags             | Technician Notes           | Text Editor | No       | Always                    | Rich notes for techs (internal only)                                      |
-| amended_from               | Amended From               | Link        | No       | ReadOnly                  | Reference to previous revision (audit/history)                            |
-| column_break_ezgh          | [UI Only]                  | Column Break| -        | Layout                    | Visual break only                                                         |
+4. **before_submit():**
+   - Validates all required checklist items are completed
+   - Ensures actual costs are within reasonable range of estimates
+   - Confirms all critical tasks are completed
 
-*Checklist and Operations tables are strictly validated: always at least one row, all operations must be completed before submit, enforced both client and server side.*
+### Derived Fields
+- **actual_cost:** Calculated from operations_performed materials cost + (labor_hours * hourly_rate)
+- **progress:** Calculated as percentage of completed setup_tasks
+- **duration_days:** Calculated difference between start and end dates
+- **cost_variance:** Difference between estimated and actual costs
 
----
+### Side Effects
+- Status changes trigger automatic date updates and notifications
+- Completing setup creates entries in instrument condition records
+- Submitting setup updates instrument profile status and availability
 
-## 🛠️ Backend Logic: `clarinet_initial_setup.py`
+## Workflows
 
-### Class: `ClarinetInitialSetup(Document)`
+### States & Transitions
+- **Draft → Planning:** Initial project creation and template selection
+- **Planning → In Progress:** Project start with actual_start_date set
+- **In Progress → QA Review:** Setup work completed, pending quality review
+- **In Progress → On Hold:** Temporary pause (parts availability, customer request)
+- **QA Review → Completed:** Quality approval with actual_end_date set
+- **QA Review → In Progress:** Quality rejection requiring rework
+- **Any State → Cancelled:** Project cancellation (customer request, damage)
 
-**Purpose:** Enforces end-to-end quality and traceability for clarinet setup workflows, from checklist/operation automation to PDF certification.
+### Actions & Roles
+- **Setup Technician:** Can create, update, and progress projects through workflow
+- **QA Manager:** Can approve completed setups or return for rework
+- **Setup Manager:** Can override status changes and handle exceptions
+- **Customer Service:** Can view project status and timeline information
 
-#### Methods & Responsibilities:
-- **`ensure_checklist(self)`**
-  - Appends a default checklist row if none exist (called automatically during automation and insert).
-- **`before_insert(self)`**
-  - Auto-assigns technician (if missing), ensures checklist integrity.
-- **`validate(self)`**
-  - Requires intake link; ensures all operations are completed; verifies all materials are in stock; auto-loads operations from template if needed; checklist enforcement.
-- **`on_submit(self)`**
-  - Auto-creates Material Request for consumed materials.
-  - Enqueues PDF certificate creation (`_generate_setup_certificate`).
-- **`load_operations_from_template(self)`**
-  - Imports default operations from selected Setup Template (if none yet added). Robust error logging.
-- **`_generate_setup_certificate(self)`**
-  - Generates PDF certificate from setup record and attaches it to the doc (run async via queue).
+### Automatic Triggers
+- **Status → In Progress:** Sets actual_start_date to current datetime
+- **Status → Completed:** Sets actual_end_date and triggers completion notifications
+- **Status → On Hold:** Creates timeline entry and sends notifications
+- **Progress Updates:** Automatic recalculation when tasks are completed
 
----
+## Client Logic (`clarinet_initial_setup.js`)
 
-## 🖥️ Client Script: `clarinet_initial_setup.js`
+### Form Events
 
-- **Refresh Event:**
-  - Dashboard headline changes based on QA status.
-  - Custom buttons:
-    - Load Template Operations
-    - Attach Work Photos (multi-upload)
-    - View Instrument Profile, Job Card, Maintenance Visit (if linked)
-  - Real-time updates: reloads doc on WebSocket `doc_update` (if active)
-- **Setup Event:**
-  - Start Timer button (sets start time, if field present)
-- **Validate Event:**
-  - Throws error if any operation row is incomplete (before submit)
-- **After Save Event:**
-  - Notifies customer if setup status is 'Pass' and submitted
+#### `onload(frm)`
+- Sets up query filters for all linked fields
+- Configures child table queries and filters
+- Initializes project management interface
 
----
+#### `refresh(frm)`
+- Shows project status headline and progress indicators
+- Displays project timeline with expected vs actual dates
+- Adds custom action buttons for project management
+- Shows cost variance and budget information
 
-## 🧪 Test Suite: `test_clarinet_initial_setup.py`
+#### `validate(frm)`
+- Client-side validation before save:
+  - Validates date consistency (end after start)
+  - Ensures required fields based on status
+  - Warns if costs exceed estimates significantly
 
-- **Stub:**
-  - Test class scaffolded for Frappe TestCase integration.
-  - Extend with tests for checklist/operation automation, validation, and submission.
+### Field-Specific Handlers
 
----
+#### `setup_template(frm)`
+- **Purpose:** Load template defaults and create tasks/operations
+- **Logic:** 
+  - Calls `load_template_defaults()` to populate project fields
+  - Creates child table entries from template content
+  - Updates cost estimates and timeline
 
-## 🗂️ File Map & Contents
+#### `status(frm)`
+- **Purpose:** Handle status change side effects
+- **Logic:**
+  - Calls `update_status_indicators()` to refresh UI
+  - Updates actual dates based on status transitions
+  - Triggers progress recalculation
 
-| File                           | Purpose/Content Summary                                                       |
-|--------------------------------|-------------------------------------------------------------------------------|
-| clarinet_initial_setup.json     | DocType model, fields, permissions, naming, workflow, and Frappe metadata      |
-| clarinet_initial_setup.py       | Backend logic: full controller, automation, certificate generation, validation |
-| clarinet_initial_setup.js       | Client-side: UI buttons, dashboard, event logic, notifications, live sync     |
-| test_clarinet_initial_setup.py  | TestCase scaffold for validation and automation testing                       |
-| __init__.py                    | Module init (empty, required by Frappe)                                       |
+#### `expected_start_date(frm)` / `labor_hours(frm)`
+- **Purpose:** Automatic timeline and cost calculations
+- **Logic:**
+  - Calls `calculate_expected_end_date()` for timeline updates
+  - Calls `calculate_estimated_costs()` for cost updates
+  - Updates related fields automatically
 
----
+### Custom Action Buttons
 
-## 🔗 Relationships Diagram
+#### Project Actions Group
+- **"Start Project":** Changes status to In Progress and sets actual_start_date
+- **"Mark On Hold":** Changes status to On Hold with reason tracking
+- **"Send to QA":** Changes status to QA Review and notifies QA team
+- **"Approve & Complete":** Final approval from QA Review to Completed
+- **"Return for Rework":** QA rejection returning to In Progress
 
-```mermaid
-graph TD
-    Setup[Clarinet Initial Setup]
-    Intake[Clarinet Intake]
-    Instrument[Instrument]
-    Serial[Serial No]
-    Operation[Clarinet Setup Operation]
-    Checklist[Setup Checklist Item]
-    Materials[Material Use Log]
-    QA[Quality Inspection]
-    Profile[Instrument Profile]
-    Setup -- instrument --> Instrument
-    Setup -- serial_no --> Serial
-    Setup -- intake --> Intake
-    Setup -- checklist (table) --> Checklist
-    Setup -- operations_performed (table) --> Operation
-    Setup -- materials_used (table) --> Materials
-    Setup -- qa_inspection --> QA
-    Setup -- instrument_profile --> Profile
-```
+#### Template Actions
+- **"Load Template Defaults":** Apply selected template to populate fields
+- **"Create Tasks from Template":** Generate setup_tasks from template_tasks
+- **"Create Operations from Template":** Generate operations from template
 
----
+### Helper Functions
 
-## 🛡️ Security, Compliance & Audit
+#### `load_template_defaults(frm)`
+- Fetches template data and populates project fields
+- Updates estimated costs and timeline from template
+- Shows confirmation of loaded defaults
 
-- Intake link is enforced (no orphaned setups).
-- All critical events (submit, validation, automation) log errors using `frappe.log_error()`.
-- User actions tracked (changes, seen, views).
-- All permissions follow Frappe model: only Technician, Service Manager, System Manager, or Owner (Customer) can create or submit.
+#### `calculate_expected_end_date(frm)`
+- Calculates expected completion based on start date and labor hours
+- Accounts for working days and holidays
+- Updates expected_end_date field automatically
 
----
+#### `calculate_estimated_costs(frm)`
+- Calculates total costs from materials and labor estimates
+- Updates cost fields and shows variance warnings
+- Provides cost breakdown information
 
-## 💡 Developer Tips & Best Practices
+#### `update_status_indicators(frm)`
+- Updates dashboard indicators based on current status
+- Shows appropriate warnings or success messages
+- Refreshes progress bars and timeline display
 
-- **Backend:**
-  - Add checklist/operations automation in their respective methods to maintain coverage and avoid orphan records.
-  - Always use error handling + `frappe.log_error()` in background/async methods.
-  - New fields or relationships? Update both JSON, backend, and client-side for full integration.
-- **Frontend:**
-  - Keep all custom button and event logic inside the correct event handlers (`refresh`, `validate`, `after_save`).
-  - Use Frappe FileUploader widget for image attachments.
-  - Real-time collaboration (WebSocket) logic is opt-in: test on staging!
-- **Testing:**
-  - Extend `test_clarinet_initial_setup.py` for every automation or validation rule added.
-  - Use fixtures for Template, Instrument, and User in integration tests.
-- **PDF Generation:**
-  - `_generate_setup_certificate` uses the portal’s template; test output on each change.
+### Child Table Events
 
----
+#### Operations Performed (Material Logs)
+- **Row addition:** Updates actual costs automatically
+- **Material selection:** Validates material availability and cost
+- **Quantity changes:** Recalculates total material costs
 
-## 📚 Reference & Further Reading
+#### Checklist Items
+- **Completion marking:** Updates overall progress percentage
+- **Critical item validation:** Prevents submission with incomplete critical items
+- **Notes/comments:** Supports detailed QA documentation
 
-- [Frappe Docs: DocType](https://frappeframework.com/docs/v15/user/en/model/doctype)
-- [Frappe Docs: Server Scripts](https://frappeframework.com/docs/v15/user/en/guides/server-side-scripting)
-- [Frappe Docs: Table Fields](https://frappeframework.com/docs/v15/user/en/model/child-table)
-- [Frappe Docs: Custom Scripts](https://frappeframework.com/docs/v15/user/en/customize/client-scripts)
-- [Official: Exception Logging](https://frappeframework.com/docs/v15/user/en/guides/exception-logging)
+#### Setup Tasks
+- **Status changes:** Updates project progress automatically
+- **Time tracking:** Captures actual hours vs estimates
+- **Dependency management:** Prevents out-of-sequence task completion
 
----
+## Server Logic (`clarinet_initial_setup.py`)
 
-## 👨‍💻 Maintainers & Contact
+### Public/Whitelisted Methods
 
-- Lead Engineer: Priscilla (repair_portal project)
-- All contributions must be tested and noted in CHANGELOG.md
-- For support: contact DevOps or file an issue in the main ERPNext repo.
+#### `set_defaults_from_template(self)`
+**Parameters:** None
+**Permissions:** Write access to document
+**Purpose:** Apply setup template defaults to project fields
+**Background Jobs:** None
+**Returns:** Dict with applied defaults summary
 
----
+#### `calculate_costs(self)`
+**Parameters:** None
+**Permissions:** Automatic during validation
+**Purpose:** Calculate actual costs from child tables
+**Background Jobs:** None
+**Returns:** Dict with cost breakdown
 
-*This README is Fortune-500 quality: exhaustive, secure, and enables instant onboarding for new engineers, auditors, and QA. Last auto-generated on 2025-07-28 by Priscilla (AI).*
+#### `update_progress(self)`
+**Parameters:** None
+**Permissions:** Automatic during child table updates
+**Purpose:** Recalculate project progress from task completion
+**Background Jobs:** None
+**Returns:** Float progress percentage (0-100)
+
+#### `@frappe.whitelist()` `create_tasks_from_template(self)`
+**Parameters:** None
+**Permissions:** Write access and Setup role
+**Purpose:** Generate Clarinet Setup Task documents from template
+**Background Jobs:** Uses frappe.enqueue for large task sets
+**Returns:** List of created task names
+
+### Private Helper Methods
+
+#### `_validate_project_dates(self)`
+- Validates date consistency and business rules
+- Ensures realistic timeline expectations
+- Checks for scheduling conflicts
+
+#### `_calculate_actual_costs(self)`
+- Sums material costs from operations_performed table
+- Calculates labor costs from logged hours
+- Updates actual_cost and actual_materials_cost fields
+
+#### `_update_progress_from_tasks(self)`
+- Calculates completion percentage from setup_tasks
+- Weights tasks by estimated hours for accuracy
+- Updates progress field automatically
+
+#### `_set_actual_dates_by_status(self)`
+- Sets actual_start_date when status changes to In Progress
+- Sets actual_end_date when status changes to Completed
+- Logs status change history for audit
+
+#### `_validate_completion_requirements(self)`
+- Ensures all critical checklist items completed
+- Validates all setup tasks in acceptable states
+- Checks cost variance within acceptable limits
+
+#### `_trigger_completion_actions(self)`
+- Updates linked instrument profile status
+- Creates instrument condition records
+- Sends completion notifications
+- Archives project materials and documentation
+
+## Data Integrity
+
+### Required Fields
+- `title`: Descriptive project title
+- `instrument_profile`: Target instrument (required for setup)
+- `status`: Current project status
+- `setup_type`: Type of setup being performed
+
+### Defaults
+- `status`: "Draft" for new projects
+- `priority`: "Medium" if not specified  
+- `progress`: 0.0 for new projects
+- `expected_start_date`: Current date if not specified
+
+### Unique Constraints
+- `project_id`: Auto-generated unique identifier per project
+- No duplicate active projects per instrument_profile
+
+### Referential Integrity
+- `instrument_profile`: Must exist and be available for setup
+- `setup_template`: Must exist and be active
+- `clarinet_intake`: If specified, must exist and be valid
+- Child table tasks must have valid status values and realistic hours
+
+### Business Constraints
+- expected_end_date must be after expected_start_date
+- actual_end_date must be after actual_start_date
+- progress must be between 0 and 100
+- actual costs should be within reasonable variance of estimates
+
+## Test Plan
+
+### Project Lifecycle Tests
+- **test_project_creation**: Verify projects created with valid data
+- **test_template_application**: Ensure template properly populates project
+- **test_status_workflow**: Test all valid status transitions
+- **test_date_calculations**: Verify automatic date setting logic
+
+### Cost Calculation Tests
+- **test_material_cost_calculation**: Verify material costs sum correctly
+- **test_labor_cost_calculation**: Verify labor costs calculated properly
+- **test_cost_variance_warnings**: Test warnings for significant variances
+- **test_budget_validation**: Ensure costs stay within reasonable limits
+
+### Progress Tracking Tests
+- **test_progress_calculation**: Verify progress calculated from tasks
+- **test_task_completion_impact**: Test task completion updates progress
+- **test_checklist_completion**: Verify checklist affects project completion
+- **test_critical_task_validation**: Test critical task completion requirements
+
+### Integration Tests
+- **test_instrument_profile_updates**: Verify setup updates instrument status
+- **test_intake_integration**: Test integration with clarinet intake workflow
+- **test_notification_triggers**: Verify status change notifications
+- **test_timeline_updates**: Test automatic timeline management
+
+### Performance Tests
+- **test_large_project_performance**: Projects with many tasks and materials
+- **test_concurrent_project_updates**: Multiple technicians updating same project
+- **test_cost_calculation_performance**: Large material usage calculations
+
+### Error Handling Tests
+- **test_invalid_dates**: Invalid or inconsistent date combinations
+- **test_missing_template**: Projects referencing non-existent templates
+- **test_invalid_status_transitions**: Prevented status changes
+- **test_completion_validation_failures**: Incomplete project submission attempts
+
+## Changelog
+- 2024-01-15 – Initial creation with basic setup tracking
+- 2024-01-20 – Added template integration and task management
+- 2024-01-25 – Enhanced with cost tracking and timeline features
+- 2024-02-01 – Major refactoring to align with ERPNext Project patterns
+- 2024-02-05 – Added comprehensive progress tracking and QA workflow
