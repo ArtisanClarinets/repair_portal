@@ -1,5 +1,3 @@
-Here’s a complete, production-ready README.md you can drop next to serials.py. It documents purpose, API, return types, edge cases, and includes copy-paste examples for controllers, patches, and tests—aligned to the code we’ve been using across your intake and inspection flows.
-
 Instrument Serial Utilities (serials.py)
 
 Location (recommended):
