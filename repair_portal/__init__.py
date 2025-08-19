@@ -1,5 +1,5 @@
 # Auto-injected test_ignore list to bypass test runner dependency resolution issues
 # Last Updated: 2025-07-13
 
-__version__ = "1.8.3"
+__version__ = "1.22.19"
 
