@@ -32,10 +32,6 @@
       "name": "Customer Consent",
       "fields_count": 6
     },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/customer_consent/customer_consent_form.json": {
-      "name": "Customer Consent Form",
-      "fields_count": 4
-    },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/customer_type/customer_type.json": {
       "name": "Customer Type",
       "fields_count": 6
@@ -106,7 +102,7 @@
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json": {
       "name": "Clarinet Initial Setup",
-      "fields_count": 25
+      "fields_count": 39
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_pad_entry/clarinet_pad_entry.json": {
       "name": "Clarinet Pad Entry",
@@ -118,7 +114,7 @@
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json": {
       "name": "Clarinet Setup Log",
-      "fields_count": 12
+      "fields_count": 9
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_operation/clarinet_setup_operation.json": {
       "name": "Clarinet Setup Operation",
@@ -126,7 +122,7 @@
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json": {
       "name": "Clarinet Setup Task",
-      "fields_count": 18
+      "fields_count": 19
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_task_depends_on/clarinet_task_depends_on.json": {
       "name": "Clarinet Task Depends On",
@@ -134,7 +130,11 @@
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json": {
       "name": "Clarinet Template Task",
-      "fields_count": 6
+      "fields_count": 7
+    },
+    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task_depends_on/clarinet_template_task_depends_on.json": {
+      "name": "Clarinet Template Task Depends On",
+      "fields_count": 2
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_checklist_item/setup_checklist_item.json": {
       "name": "Setup Checklist Item",
@@ -146,7 +146,7 @@
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json": {
       "name": "Setup Template",
-      "fields_count": 6
+      "fields_count": 18
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/brand_mapping_rule/brand_mapping_rule.json": {
       "name": "Brand Mapping Rule",
@@ -822,246 +822,6 @@
             "read_only": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/customer_consent/customer_consent.json"
-        }
-      ]
-    },
-    "Customer Consent Form": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/customer_consent/customer_consent_form.json"
-      ],
-      "fields": [
-        {
-          "fieldname": "customer",
-          "label": "Customer",
-          "raw": {
-            "name": "tjipa56bg0",
-            "creation": "2025-07-26 03:03:36.204596",
-            "modified": "2025-07-26 03:03:36.204596",
-            "modified_by": "Administrator",
-            "owner": "Administrator",
-            "docstatus": 0,
-            "parent": "Customer Consent Form",
-            "parentfield": "fields",
-            "parenttype": "DocType",
-            "idx": 1,
-            "fieldname": "customer",
-            "label": "Customer",
-            "fieldtype": "Link",
-            "options": "Customer",
-            "search_index": 0,
-            "show_dashboard": 0,
-            "hidden": 0,
-            "set_only_once": 0,
-            "allow_in_quick_entry": 0,
-            "print_hide": 0,
-            "report_hide": 0,
-            "reqd": 1,
-            "bold": 0,
-            "in_global_search": 0,
-            "collapsible": 0,
-            "unique": 0,
-            "no_copy": 0,
-            "allow_on_submit": 0,
-            "permlevel": 0,
-            "ignore_user_permissions": 0,
-            "columns": 0,
-            "in_list_view": 0,
-            "fetch_if_empty": 0,
-            "in_filter": 0,
-            "remember_last_selected_value": 0,
-            "ignore_xss_filter": 0,
-            "print_hide_if_no_value": 0,
-            "allow_bulk_edit": 0,
-            "in_standard_filter": 0,
-            "in_preview": 0,
-            "read_only": 0,
-            "length": 0,
-            "translatable": 0,
-            "hide_border": 0,
-            "hide_days": 0,
-            "hide_seconds": 0,
-            "non_negative": 0,
-            "is_virtual": 0,
-            "sort_options": 0,
-            "show_on_timeline": 0,
-            "make_attachment_public": 0,
-            "doctype": "DocField"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/customer_consent/customer_consent_form.json"
-        },
-        {
-          "fieldname": "consent_signed",
-          "label": "Consent Signed",
-          "raw": {
-            "name": "tjimm5t04e",
-            "creation": "2025-07-26 03:03:36.205037",
-            "modified": "2025-07-26 03:03:36.205037",
-            "modified_by": "Administrator",
-            "owner": "Administrator",
-            "docstatus": 0,
-            "parent": "Customer Consent Form",
-            "parentfield": "fields",
-            "parenttype": "DocType",
-            "idx": 2,
-            "fieldname": "consent_signed",
-            "label": "Consent Signed",
-            "fieldtype": "Check",
-            "search_index": 0,
-            "show_dashboard": 0,
-            "hidden": 0,
-            "set_only_once": 0,
-            "allow_in_quick_entry": 0,
-            "print_hide": 0,
-            "report_hide": 0,
-            "reqd": 0,
-            "bold": 0,
-            "in_global_search": 0,
-            "collapsible": 0,
-            "unique": 0,
-            "no_copy": 0,
-            "allow_on_submit": 0,
-            "permlevel": 0,
-            "ignore_user_permissions": 0,
-            "columns": 0,
-            "in_list_view": 0,
-            "fetch_if_empty": 0,
-            "in_filter": 0,
-            "remember_last_selected_value": 0,
-            "ignore_xss_filter": 0,
-            "print_hide_if_no_value": 0,
-            "allow_bulk_edit": 0,
-            "in_standard_filter": 0,
-            "in_preview": 0,
-            "read_only": 0,
-            "length": 0,
-            "translatable": 0,
-            "hide_border": 0,
-            "hide_days": 0,
-            "hide_seconds": 0,
-            "non_negative": 0,
-            "is_virtual": 0,
-            "sort_options": 0,
-            "show_on_timeline": 0,
-            "make_attachment_public": 0,
-            "doctype": "DocField"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/customer_consent/customer_consent_form.json"
-        },
-        {
-          "fieldname": "signature",
-          "label": "Customer Signature",
-          "raw": {
-            "name": "tjivagoqh3",
-            "creation": "2025-07-26 03:03:36.205469",
-            "modified": "2025-07-26 03:03:36.205469",
-            "modified_by": "Administrator",
-            "owner": "Administrator",
-            "docstatus": 0,
-            "parent": "Customer Consent Form",
-            "parentfield": "fields",
-            "parenttype": "DocType",
-            "idx": 3,
-            "fieldname": "signature",
-            "label": "Customer Signature",
-            "fieldtype": "Signature",
-            "search_index": 0,
-            "show_dashboard": 0,
-            "hidden": 0,
-            "set_only_once": 0,
-            "allow_in_quick_entry": 0,
-            "print_hide": 0,
-            "report_hide": 0,
-            "reqd": 0,
-            "bold": 0,
-            "in_global_search": 0,
-            "collapsible": 0,
-            "unique": 0,
-            "no_copy": 0,
-            "allow_on_submit": 0,
-            "permlevel": 0,
-            "ignore_user_permissions": 0,
-            "columns": 0,
-            "in_list_view": 0,
-            "fetch_if_empty": 0,
-            "in_filter": 0,
-            "remember_last_selected_value": 0,
-            "ignore_xss_filter": 0,
-            "print_hide_if_no_value": 0,
-            "allow_bulk_edit": 0,
-            "in_standard_filter": 0,
-            "in_preview": 0,
-            "read_only": 0,
-            "length": 0,
-            "translatable": 0,
-            "hide_border": 0,
-            "hide_days": 0,
-            "hide_seconds": 0,
-            "non_negative": 0,
-            "is_virtual": 0,
-            "sort_options": 0,
-            "show_on_timeline": 0,
-            "make_attachment_public": 0,
-            "doctype": "DocField"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/customer_consent/customer_consent_form.json"
-        },
-        {
-          "fieldname": "authorization_notes",
-          "label": "Authorization Notes",
-          "raw": {
-            "name": "tji957fdcp",
-            "creation": "2025-07-26 03:03:36.205898",
-            "modified": "2025-07-26 03:03:36.205898",
-            "modified_by": "Administrator",
-            "owner": "Administrator",
-            "docstatus": 0,
-            "parent": "Customer Consent Form",
-            "parentfield": "fields",
-            "parenttype": "DocType",
-            "idx": 4,
-            "fieldname": "authorization_notes",
-            "label": "Authorization Notes",
-            "fieldtype": "Small Text",
-            "search_index": 0,
-            "show_dashboard": 0,
-            "hidden": 0,
-            "set_only_once": 0,
-            "allow_in_quick_entry": 0,
-            "print_hide": 0,
-            "report_hide": 0,
-            "reqd": 0,
-            "bold": 0,
-            "in_global_search": 0,
-            "collapsible": 0,
-            "unique": 0,
-            "no_copy": 0,
-            "allow_on_submit": 0,
-            "permlevel": 0,
-            "ignore_user_permissions": 0,
-            "columns": 0,
-            "in_list_view": 0,
-            "fetch_if_empty": 0,
-            "in_filter": 0,
-            "remember_last_selected_value": 0,
-            "ignore_xss_filter": 0,
-            "print_hide_if_no_value": 0,
-            "allow_bulk_edit": 0,
-            "in_standard_filter": 0,
-            "in_preview": 0,
-            "read_only": 0,
-            "length": 0,
-            "translatable": 0,
-            "hide_border": 0,
-            "hide_days": 0,
-            "hide_seconds": 0,
-            "non_negative": 0,
-            "is_virtual": 0,
-            "sort_options": 0,
-            "show_on_timeline": 0,
-            "make_attachment_public": 0,
-            "doctype": "DocField"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/customer_consent/customer_consent_form.json"
         }
       ]
     },
@@ -3508,52 +3268,134 @@
       ],
       "fields": [
         {
-          "fieldname": "instrument_profile",
-          "label": "Instrument Profile",
+          "fieldname": "project_info_section",
+          "label": "Project Information",
           "raw": {
-            "fieldname": "instrument_profile",
-            "fieldtype": "Link",
-            "label": "Instrument Profile",
-            "options": "Instrument Profile",
-            "hidden": 1,
+            "fieldname": "project_info_section",
+            "fieldtype": "Section Break",
+            "label": "Project Information"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "status",
+          "label": "Status",
+          "raw": {
+            "default": "Open",
+            "description": "Current status of this setup project.",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Open\nIn Progress\nCompleted\nOn Hold\nCancelled\nQA Review\nCustomer Approval"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "priority",
+          "label": "Priority",
+          "raw": {
+            "default": "Medium",
+            "description": "Priority level for this setup project.",
+            "fieldname": "priority",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Priority",
+            "options": "Low\nMedium\nHigh\nUrgent"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "setup_type",
+          "label": "Setup Type",
+          "raw": {
+            "description": "Type of setup work being performed.",
+            "fieldname": "setup_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Setup Type",
+            "options": "Standard Setup\nAdvanced Setup\nRepair & Setup\nMaintenance\nOverhaul\nCustom Setup"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "column_break_project",
+          "label": null,
+          "raw": {
+            "fieldname": "column_break_project",
+            "fieldtype": "Column Break"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "expected_start_date",
+          "label": "Expected Start Date",
+          "raw": {
+            "description": "Expected start date for this setup project.",
+            "fieldname": "expected_start_date",
+            "fieldtype": "Date",
+            "label": "Expected Start Date"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "expected_end_date",
+          "label": "Expected End Date",
+          "raw": {
+            "description": "Expected completion date for this setup project.",
+            "fieldname": "expected_end_date",
+            "fieldtype": "Date",
+            "label": "Expected End Date"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "actual_start_date",
+          "label": "Actual Start Date",
+          "raw": {
+            "description": "Actual date when setup work started.",
+            "fieldname": "actual_start_date",
+            "fieldtype": "Datetime",
+            "label": "Actual Start Date",
             "read_only": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
         {
-          "fieldname": "clarinet_initial_setup_id",
-          "label": "Setup ID",
+          "fieldname": "actual_end_date",
+          "label": "Actual End Date",
           "raw": {
-            "fieldname": "clarinet_initial_setup_id",
-            "fieldtype": "Data",
-            "label": "Setup ID",
-            "hidden": 1,
-            "read_only": 1,
-            "unique": 1
+            "description": "Actual date when setup work was completed.",
+            "fieldname": "actual_end_date",
+            "fieldtype": "Datetime",
+            "label": "Actual End Date",
+            "read_only": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
         {
-          "fieldname": "serial_no",
+          "fieldname": "instrument_information_section",
+          "label": "Instrument Information",
+          "raw": {
+            "fieldname": "instrument_information_section",
+            "fieldtype": "Section Break",
+            "label": "Instrument Information"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "serial",
           "label": "Serial No",
           "raw": {
-            "fieldname": "serial_no",
+            "fetch_from": "instrument.serial_no",
+            "fetch_if_empty": 1,
+            "fieldname": "serial",
             "fieldtype": "Link",
             "label": "Serial No",
-            "options": "Serial No",
-            "fetch_from": "instrument.serial_no",
-            "fetch_if_empty": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
-          "fieldname": "intake",
-          "label": "Intake",
-          "raw": {
-            "fieldname": "intake",
-            "fieldtype": "Link",
-            "label": "Intake",
-            "options": "Clarinet Intake"
+            "options": "Instrument Serial Number"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
@@ -3566,6 +3408,19 @@
             "label": "Instrument",
             "options": "Instrument",
             "reqd": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "instrument_profile",
+          "label": "Instrument Profile",
+          "raw": {
+            "fieldname": "instrument_profile",
+            "fieldtype": "Link",
+            "hidden": 1,
+            "label": "Instrument Profile",
+            "options": "Instrument Profile",
+            "read_only": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
@@ -3584,12 +3439,32 @@
           "fieldname": "model",
           "label": "Model",
           "raw": {
+            "fetch_from": "instrument.model",
+            "fetch_if_empty": 1,
             "fieldname": "model",
             "fieldtype": "Data",
             "label": "Model",
-            "read_only": 1,
-            "fetch_from": "instrument.model",
-            "fetch_if_empty": 1
+            "read_only": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "column_break_instrument",
+          "label": null,
+          "raw": {
+            "fieldname": "column_break_instrument",
+            "fieldtype": "Column Break"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "intake",
+          "label": "Intake",
+          "raw": {
+            "fieldname": "intake",
+            "fieldtype": "Link",
+            "label": "Intake",
+            "options": "Clarinet Intake"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
@@ -3597,13 +3472,23 @@
           "fieldname": "inspection",
           "label": "Inspection",
           "raw": {
+            "fetch_from": "instrument_profile.linked_inspection",
+            "fetch_if_empty": 1,
             "fieldname": "inspection",
             "fieldtype": "Link",
             "label": "Inspection",
             "options": "Instrument Inspection",
-            "read_only": 1,
-            "fetch_from": "instrument_profile.linked_inspection",
-            "fetch_if_empty": 1
+            "read_only": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "work_photos",
+          "label": "Work Photos",
+          "raw": {
+            "fieldname": "work_photos",
+            "fieldtype": "Attach Image",
+            "label": "Work Photos"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
@@ -3619,12 +3504,24 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
         {
-          "fieldname": "setup_date",
-          "label": "Setup Date",
+          "fieldname": "progress",
+          "label": "Progress",
           "raw": {
-            "fieldname": "setup_date",
-            "fieldtype": "Date",
-            "label": "Setup Date"
+            "fieldname": "progress",
+            "fieldtype": "Percent",
+            "in_list_view": 1,
+            "label": "Progress",
+            "read_only": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "project_details_section",
+          "label": "Project Details",
+          "raw": {
+            "fieldname": "project_details_section",
+            "fieldtype": "Section Break",
+            "label": "Project Details"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
@@ -3640,14 +3537,90 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
         {
-          "fieldname": "progress",
-          "label": "Progress",
+          "fieldname": "setup_date",
+          "label": "Setup Date",
           "raw": {
-            "fieldname": "progress",
-            "fieldtype": "Percent",
-            "label": "Progress",
-            "read_only": 1,
-            "in_list_view": 1
+            "fieldname": "setup_date",
+            "fieldtype": "Date",
+            "label": "Setup Date"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "labor_hours",
+          "label": "Labor Hours",
+          "raw": {
+            "fieldname": "labor_hours",
+            "fieldtype": "Float",
+            "label": "Labor Hours",
+            "precision": "2"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "column_break_details",
+          "label": null,
+          "raw": {
+            "fieldname": "column_break_details",
+            "fieldtype": "Column Break"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "estimated_cost",
+          "label": "Estimated Cost",
+          "raw": {
+            "description": "Estimated total cost for this setup project.",
+            "fieldname": "estimated_cost",
+            "fieldtype": "Currency",
+            "label": "Estimated Cost",
+            "read_only": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "actual_cost",
+          "label": "Actual Cost",
+          "raw": {
+            "description": "Actual total cost incurred for this setup project.",
+            "fieldname": "actual_cost",
+            "fieldtype": "Currency",
+            "label": "Actual Cost",
+            "read_only": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "estimated_materials_cost",
+          "label": "Estimated Materials Cost",
+          "raw": {
+            "description": "Estimated materials cost for this setup project.",
+            "fieldname": "estimated_materials_cost",
+            "fieldtype": "Currency",
+            "label": "Estimated Materials Cost",
+            "read_only": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "actual_materials_cost",
+          "label": "Actual Materials Cost",
+          "raw": {
+            "description": "Actual materials cost incurred for this setup project.",
+            "fieldname": "actual_materials_cost",
+            "fieldtype": "Currency",
+            "label": "Actual Materials Cost",
+            "read_only": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "setup_content_section",
+          "label": "Setup Content",
+          "raw": {
+            "fieldname": "setup_content_section",
+            "fieldtype": "Section Break",
+            "label": "Setup Content"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
@@ -3663,17 +3636,6 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
         {
-          "fieldname": "materials_used",
-          "label": "Materials Used",
-          "raw": {
-            "fieldname": "materials_used",
-            "fieldtype": "Table",
-            "label": "Materials Used",
-            "options": "Setup Material Log"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
           "fieldname": "operations_performed",
           "label": "Operations Performed",
           "raw": {
@@ -3685,12 +3647,34 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
         {
-          "fieldname": "work_photos",
-          "label": "Work Photos",
+          "fieldname": "materials_used",
+          "label": "Materials Used",
           "raw": {
-            "fieldname": "work_photos",
-            "fieldtype": "Attach Image",
-            "label": "Work Photos"
+            "fieldname": "materials_used",
+            "fieldtype": "Table",
+            "label": "Materials Used",
+            "options": "Setup Material Log"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "setup_logs_section",
+          "label": "Setup Logs & Notes",
+          "raw": {
+            "fieldname": "setup_logs_section",
+            "fieldtype": "Section Break",
+            "label": "Setup Logs & Notes"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+        },
+        {
+          "fieldname": "notes",
+          "label": "Setup Logs",
+          "raw": {
+            "fieldname": "notes",
+            "fieldtype": "Table",
+            "label": "Setup Logs",
+            "options": "Instrument Interaction Log"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
@@ -3705,25 +3689,15 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
         {
-          "fieldname": "labor_hours",
-          "label": "Labor Hours",
+          "fieldname": "clarinet_initial_setup_id",
+          "label": "Setup ID",
           "raw": {
-            "fieldname": "labor_hours",
-            "fieldtype": "Float",
-            "label": "Labor Hours"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
-          "fieldname": "status",
-          "label": "Status",
-          "raw": {
-            "fieldname": "status",
-            "fieldtype": "Select",
-            "label": "Status",
-            "options": "Open\nPending\nPass\nFail",
-            "in_list_view": 1,
-            "in_standard_filter": 1
+            "fieldname": "clarinet_initial_setup_id",
+            "fieldtype": "Data",
+            "hidden": 1,
+            "label": "Setup ID",
+            "read_only": 1,
+            "unique": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         },
@@ -3734,61 +3708,11 @@
             "fieldname": "amended_from",
             "fieldtype": "Link",
             "label": "Amended From",
-            "options": "Clarinet Initial Setup",
             "no_copy": 1,
-            "read_only": 1,
+            "options": "Clarinet Initial Setup",
             "print_hide": 1,
+            "read_only": 1,
             "search_index": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
-          "fieldname": "instrument_information_section",
-          "label": "Instrument Information",
-          "raw": {
-            "fieldname": "instrument_information_section",
-            "fieldtype": "Section Break",
-            "label": "Instrument Information"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
-          "fieldname": "column_break_ezgh",
-          "label": null,
-          "raw": {
-            "fieldname": "column_break_ezgh",
-            "fieldtype": "Column Break"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
-          "fieldname": "setup_logs",
-          "label": "Setup Logs",
-          "raw": {
-            "fieldname": "setup_logs",
-            "fieldtype": "Section Break",
-            "label": "Setup Logs"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
-          "fieldname": "setup_logs_table",
-          "label": "Setup Logs",
-          "raw": {
-            "fieldname": "setup_logs_table",
-            "fieldtype": "Table",
-            "label": "Setup Logs",
-            "options": "Clarinet Setup Log"
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
-          "fieldname": "setup_checklist_section",
-          "label": "Setup Checklist",
-          "raw": {
-            "fieldname": "setup_checklist_section",
-            "fieldtype": "Section Break",
-            "label": "Setup Checklist"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
         }
@@ -3933,46 +3857,13 @@
       ],
       "fields": [
         {
-          "fieldname": "parent",
-          "label": "Parent",
-          "raw": {
-            "fieldname": "parent",
-            "label": "Parent",
-            "fieldtype": "Dynamic Link",
-            "options": "parenttype",
-            "hidden": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
-        },
-        {
-          "fieldname": "parenttype",
-          "label": "Parenttype",
-          "raw": {
-            "fieldname": "parenttype",
-            "label": "Parenttype",
-            "fieldtype": "Data",
-            "hidden": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
-        },
-        {
-          "fieldname": "parentfield",
-          "label": "Parentfield",
-          "raw": {
-            "fieldname": "parentfield",
-            "label": "Parentfield",
-            "fieldtype": "Data",
-            "hidden": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
-        },
-        {
           "fieldname": "customer",
           "label": "Customer",
           "raw": {
             "fieldname": "customer",
-            "label": "Customer",
             "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Customer",
             "options": "Customer",
             "reqd": 1
           },
@@ -3984,6 +3875,7 @@
           "raw": {
             "fieldname": "initial_setup",
             "fieldtype": "Link",
+            "in_list_view": 1,
             "label": "Initial Setup",
             "options": "Clarinet Initial Setup",
             "reqd": 1
@@ -3994,10 +3886,10 @@
           "fieldname": "log_time",
           "label": "Log Time",
           "raw": {
+            "fetch_from": "frappe.utils.now_datetime",
             "fieldname": "log_time",
             "fieldtype": "Datetime",
-            "label": "Log Time",
-            "fetch_from": "frappe.utils.now_datetime"
+            "label": "Log Time"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
         },
@@ -4007,20 +3899,9 @@
           "raw": {
             "fieldname": "instrument_profile",
             "fieldtype": "Link",
+            "in_list_view": 1,
             "label": "Instrument Profile",
             "options": "Instrument Profile",
-            "reqd": 1
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
-        },
-        {
-          "fieldname": "serial_no",
-          "label": "Serial Number",
-          "raw": {
-            "fieldname": "serial_no",
-            "fieldtype": "Link",
-            "label": "Serial Number",
-            "options": "Serial No",
             "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
@@ -4039,11 +3920,11 @@
           "fieldname": "action_by",
           "label": "Action By",
           "raw": {
+            "default": "frappe.session.user",
             "fieldname": "action_by",
             "fieldtype": "Link",
             "label": "Action By",
-            "options": "User",
-            "default": "frappe.session.user"
+            "options": "User"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
         },
@@ -4064,6 +3945,19 @@
             "fieldname": "attachments",
             "fieldtype": "Attach",
             "label": "Attachments"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
+        },
+        {
+          "fieldname": "serial",
+          "label": "Serial Number",
+          "raw": {
+            "fieldname": "serial",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Serial Number",
+            "options": "Instrument Serial Number",
+            "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
         }
@@ -4096,7 +3990,7 @@
             "in_list_view": 1,
             "in_standard_filter": 1,
             "label": "Section",
-            "options": "Mouthpiece\nBarrel\nUpper Joint\nLower Joint\nBell"
+            "options": "All\nMouthpiece\nBarrel\nUpper Joint\nLower Joint\nBell"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_operation/clarinet_setup_operation.json"
         },
@@ -4145,14 +4039,13 @@
           "fieldname": "clarinet_initial_setup",
           "label": "Clarinet Initial Setup",
           "raw": {
+            "description": "Parent clarinet setup record this task belongs to. Used for filtering, progress roll-up, and navigation.",
             "fieldname": "clarinet_initial_setup",
             "fieldtype": "Link",
-            "options": "Clarinet Initial Setup",
-            "label": "Clarinet Initial Setup",
-            "reqd": 1,
             "in_list_view": 1,
             "in_standard_filter": 1,
-            "description": "Parent clarinet setup record this task belongs to. Used for filtering, progress roll-up, and navigation."
+            "label": "Clarinet Initial Setup",
+            "options": "Clarinet Initial Setup"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4160,13 +4053,13 @@
           "fieldname": "subject",
           "label": "Subject",
           "raw": {
+            "description": "Short, action-oriented title for the task (e.g., \u201cSet key heights \u2013 upper joint\u201d).",
             "fieldname": "subject",
             "fieldtype": "Data",
-            "label": "Subject",
-            "reqd": 1,
             "in_list_view": 1,
             "in_standard_filter": 1,
-            "description": "Short, action-oriented title for the task (e.g., \u201cSet key heights \u2013 upper joint\u201d)."
+            "label": "Subject",
+            "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4174,14 +4067,14 @@
           "fieldname": "status",
           "label": "Status",
           "raw": {
+            "default": "Open",
+            "description": "Current state of the task within the setup workflow.",
             "fieldname": "status",
             "fieldtype": "Select",
-            "label": "Status",
-            "options": "Open\nWorking\nPaused\nPending Review\nCompleted\nCanceled",
-            "default": "Open",
             "in_list_view": 1,
             "in_standard_filter": 1,
-            "description": "Current state of the task within the setup workflow."
+            "label": "Status",
+            "options": "Open\nWorking\nPaused\nPending Review\nCompleted\nCanceled"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4189,13 +4082,13 @@
           "fieldname": "priority",
           "label": "Priority",
           "raw": {
+            "default": "Medium",
+            "description": "Priority for scheduling and triage.",
             "fieldname": "priority",
             "fieldtype": "Select",
-            "label": "Priority",
-            "options": "Low\nMedium\nHigh\nUrgent",
-            "default": "Medium",
             "in_standard_filter": 1,
-            "description": "Priority for scheduling and triage."
+            "label": "Priority",
+            "options": "Low\nMedium\nHigh\nUrgent"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4203,12 +4096,12 @@
           "fieldname": "progress",
           "label": "Progress",
           "raw": {
+            "default": "0",
+            "description": "Percent complete for this task. Automatically set to 100% when status is Completed; contributes to parent roll-up.",
             "fieldname": "progress",
             "fieldtype": "Percent",
-            "label": "Progress",
-            "default": 0,
             "in_list_view": 1,
-            "description": "Percent complete for this task. Automatically set to 100% when status is Completed; contributes to parent roll-up."
+            "label": "Progress"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4216,10 +4109,10 @@
           "fieldname": "exp_start_date",
           "label": "Expected Start",
           "raw": {
+            "description": "Planned start date. Enables Gantt view.",
             "fieldname": "exp_start_date",
             "fieldtype": "Date",
-            "label": "Expected Start",
-            "description": "Planned start date. Enables Gantt view."
+            "label": "Expected Start"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4227,10 +4120,10 @@
           "fieldname": "exp_end_date",
           "label": "Expected End",
           "raw": {
+            "description": "Planned end date. Must be on/after Expected Start. Enables Gantt view.",
             "fieldname": "exp_end_date",
             "fieldtype": "Date",
-            "label": "Expected End",
-            "description": "Planned end date. Must be on/after Expected Start. Enables Gantt view."
+            "label": "Expected End"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4238,10 +4131,10 @@
           "fieldname": "actual_start",
           "label": "Actual Start",
           "raw": {
+            "description": "Timestamp when work actually started (often set when status moves to Working).",
             "fieldname": "actual_start",
             "fieldtype": "Datetime",
-            "label": "Actual Start",
-            "description": "Timestamp when work actually started (often set when status moves to Working)."
+            "label": "Actual Start"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4249,10 +4142,10 @@
           "fieldname": "actual_end",
           "label": "Actual End",
           "raw": {
+            "description": "Timestamp when work actually completed (often set when status moves to Completed).",
             "fieldname": "actual_end",
             "fieldtype": "Datetime",
-            "label": "Actual End",
-            "description": "Timestamp when work actually completed (often set when status moves to Completed)."
+            "label": "Actual End"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4260,11 +4153,11 @@
           "fieldname": "depends_on",
           "label": "Depends On",
           "raw": {
+            "description": "Predecessor tasks that must be Completed before this task can proceed. Each row links to another Clarinet Setup Task.",
             "fieldname": "depends_on",
             "fieldtype": "Table",
             "label": "Depends On",
-            "options": "Clarinet Task Depends On",
-            "description": "Predecessor tasks that must be Completed before this task can proceed. Each row links to another Clarinet Setup Task."
+            "options": "Clarinet Task Depends On"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4272,11 +4165,11 @@
           "fieldname": "assigned_to",
           "label": "Assigned To",
           "raw": {
+            "description": "User primarily responsible for executing the task.",
             "fieldname": "assigned_to",
             "fieldtype": "Link",
             "label": "Assigned To",
-            "options": "User",
-            "description": "User primarily responsible for executing the task."
+            "options": "User"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4284,10 +4177,10 @@
           "fieldname": "description",
           "label": "Description",
           "raw": {
+            "description": "Detailed procedure, acceptance criteria, measurements, or notes.",
             "fieldname": "description",
             "fieldtype": "Text Editor",
-            "label": "Description",
-            "description": "Detailed procedure, acceptance criteria, measurements, or notes."
+            "label": "Description"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4295,23 +4188,11 @@
           "fieldname": "instrument",
           "label": "Instrument",
           "raw": {
+            "description": "Instrument record for context (auto-filled from parent where possible).",
             "fieldname": "instrument",
             "fieldtype": "Link",
             "label": "Instrument",
-            "options": "Instrument",
-            "description": "Instrument record for context (auto-filled from parent where possible)."
-          },
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
-        },
-        {
-          "fieldname": "serial_no",
-          "label": "Serial No",
-          "raw": {
-            "fieldname": "serial_no",
-            "fieldtype": "Link",
-            "label": "Serial No",
-            "options": "Serial No",
-            "description": "Serial number of the instrument being serviced (traceability)."
+            "options": "Instrument"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4319,10 +4200,10 @@
           "fieldname": "sequence",
           "label": "Sequence",
           "raw": {
+            "description": "Ordering hint for task lists and generation from templates (use spaced values like 10, 20, 30 to allow inserts).",
             "fieldname": "sequence",
             "fieldtype": "Int",
-            "label": "Sequence",
-            "description": "Ordering hint for task lists and generation from templates (use spaced values like 10, 20, 30 to allow inserts)."
+            "label": "Sequence"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4330,11 +4211,11 @@
           "fieldname": "parent_task",
           "label": "Parent Task",
           "raw": {
+            "description": "Optional parent group task (for hierarchical grouping).",
             "fieldname": "parent_task",
             "fieldtype": "Link",
             "label": "Parent Task",
-            "options": "Clarinet Setup Task",
-            "description": "Optional parent group task (for hierarchical grouping)."
+            "options": "Clarinet Setup Task"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4342,10 +4223,11 @@
           "fieldname": "is_group",
           "label": "Is Group",
           "raw": {
+            "default": "0",
+            "description": "If enabled, indicates this is a grouping node (usually not directly actionable).",
             "fieldname": "is_group",
             "fieldtype": "Check",
-            "label": "Is Group",
-            "description": "If enabled, indicates this is a grouping node (usually not directly actionable)."
+            "label": "Is Group"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         },
@@ -4353,10 +4235,37 @@
           "fieldname": "color",
           "label": "Color",
           "raw": {
+            "description": "Optional color tag for visual grouping in list and Kanban views.",
             "fieldname": "color",
             "fieldtype": "Color",
-            "label": "Color",
-            "description": "Optional color tag for visual grouping in list and Kanban views."
+            "label": "Color"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
+        },
+        {
+          "fieldname": "serial",
+          "label": "Serial No",
+          "raw": {
+            "description": "Serial number of the instrument being serviced (traceability).",
+            "fieldname": "serial",
+            "fieldtype": "Link",
+            "label": "Serial No",
+            "options": "Instrument Serial Number"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
+        },
+        {
+          "fieldname": "amended_from",
+          "label": "Amended From",
+          "raw": {
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "label": "Amended From",
+            "no_copy": 1,
+            "options": "Clarinet Setup Task",
+            "print_hide": 1,
+            "read_only": 1,
+            "search_index": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
         }
@@ -4371,13 +4280,13 @@
           "fieldname": "task",
           "label": "Task",
           "raw": {
+            "description": "The prerequisite Clarinet Setup Task that this task depends on.",
             "fieldname": "task",
             "fieldtype": "Link",
-            "options": "Clarinet Setup Task",
-            "label": "Task",
-            "reqd": 1,
             "in_list_view": 1,
-            "description": "The prerequisite Clarinet Setup Task that this task depends on."
+            "label": "Task",
+            "options": "Clarinet Setup Task",
+            "reqd": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_task_depends_on/clarinet_task_depends_on.json"
         }
@@ -4398,6 +4307,18 @@
             "in_list_view": 1,
             "label": "Sequence",
             "reqd": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
+        },
+        {
+          "fieldname": "depends_on",
+          "label": "Depends On",
+          "raw": {
+            "description": "Template-level predecessors (referencing other template rows by sequence).",
+            "fieldname": "depends_on",
+            "fieldtype": "Table",
+            "label": "Depends On",
+            "options": "Clarinet Template Task Depends On"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
         },
@@ -4462,6 +4383,40 @@
             "label": "Expected Duration (days)"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
+        }
+      ]
+    },
+    "Clarinet Template Task Depends On": {
+      "paths": [
+        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task_depends_on/clarinet_template_task_depends_on.json"
+      ],
+      "fields": [
+        {
+          "fieldname": "sequence",
+          "label": "Depends on Sequence",
+          "raw": {
+            "description": "The sequence number of the template task that this task depends on.",
+            "fieldname": "sequence",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Depends on Sequence",
+            "reqd": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task_depends_on/clarinet_template_task_depends_on.json"
+        },
+        {
+          "fieldname": "subject",
+          "label": "Parent Task's Subject",
+          "raw": {
+            "description": "Task title that this dependency relates to.",
+            "fieldname": "subject",
+            "fieldtype": "Link",
+            "options": "Clarinet Template Task",
+            "in_list_view": 1,
+            "label": "Parent Task's Subject",
+            "reqd": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_template_task_depends_on/clarinet_template_task_depends_on.json"
         }
       ]
     },
@@ -4593,17 +4548,26 @@
       ],
       "fields": [
         {
+          "fieldname": "basic_info_section",
+          "label": "Basic Information",
+          "raw": {
+            "fieldname": "basic_info_section",
+            "fieldtype": "Section Break",
+            "label": "Basic Information"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
           "fieldname": "template_name",
           "label": "Template Name",
           "raw": {
             "description": "Internal identifier for this template (kept unique and set only once).",
             "fieldname": "template_name",
             "fieldtype": "Data",
-            "hidden": 1,
             "in_list_view": 1,
             "in_standard_filter": 1,
             "label": "Template Name",
-            "set_only_once": 1,
+            "reqd": 1,
             "unique": 1
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
@@ -4617,7 +4581,58 @@
             "fieldtype": "Link",
             "in_standard_filter": 1,
             "label": "Instrument Model",
-            "options": "Instrument Model"
+            "options": "Instrument Model",
+            "reqd": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "setup_type",
+          "label": "Setup Type",
+          "raw": {
+            "description": "Type of setup work this template is designed for.",
+            "fieldname": "setup_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Setup Type",
+            "options": "Standard Setup\nAdvanced Setup\nRepair & Setup\nMaintenance\nOverhaul\nCustom Setup",
+            "reqd": 1
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "column_break_basic",
+          "label": null,
+          "raw": {
+            "fieldname": "column_break_basic",
+            "fieldtype": "Column Break"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "is_active",
+          "label": "Is Active",
+          "raw": {
+            "default": "1",
+            "description": "Whether this template is active and available for use.",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Is Active"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "priority",
+          "label": "Default Priority",
+          "raw": {
+            "default": "Medium",
+            "description": "Default priority level for setups created from this template.",
+            "fieldname": "priority",
+            "fieldtype": "Select",
+            "label": "Default Priority",
+            "options": "Low\nMedium\nHigh\nUrgent"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
         },
@@ -4630,6 +4645,81 @@
             "fieldtype": "Link",
             "label": "Pad Map",
             "options": "Clarinet Pad Map"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "estimates_section",
+          "label": "Estimates & Defaults",
+          "raw": {
+            "fieldname": "estimates_section",
+            "fieldtype": "Section Break",
+            "label": "Estimates & Defaults"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "estimated_hours",
+          "label": "Estimated Hours",
+          "raw": {
+            "description": "Estimated labor hours required for this setup type.",
+            "fieldname": "estimated_hours",
+            "fieldtype": "Float",
+            "label": "Estimated Hours",
+            "precision": "2"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "estimated_cost",
+          "label": "Estimated Total Cost",
+          "raw": {
+            "description": "Estimated total cost including labor and materials.",
+            "fieldname": "estimated_cost",
+            "fieldtype": "Currency",
+            "label": "Estimated Total Cost"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "column_break_estimates",
+          "label": null,
+          "raw": {
+            "fieldname": "column_break_estimates",
+            "fieldtype": "Column Break"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "estimated_materials_cost",
+          "label": "Estimated Materials Cost",
+          "raw": {
+            "description": "Estimated materials cost for this setup type.",
+            "fieldname": "estimated_materials_cost",
+            "fieldtype": "Currency",
+            "label": "Estimated Materials Cost"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "default_technician",
+          "label": "Default Technician",
+          "raw": {
+            "description": "Default technician for setups using this template.",
+            "fieldname": "default_technician",
+            "fieldtype": "Link",
+            "label": "Default Technician",
+            "options": "User"
+          },
+          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+        },
+        {
+          "fieldname": "template_content_section",
+          "label": "Template Content",
+          "raw": {
+            "fieldname": "template_content_section",
+            "fieldtype": "Section Break",
+            "label": "Template Content"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
         },
@@ -8578,7 +8668,7 @@
             "fieldname": "calibrated_by",
             "fieldtype": "Link",
             "label": "Calibrated By",
-            "options": "Employee"
+            "options": "Technician"
           },
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/tools/doctype/tool_calibration_log/tool_calibration_log.json"
         },
@@ -8596,21 +8686,6 @@
     }
   },
   "issues": [
-    {
-      "type": "intra_doctype_duplicate_label_case_insensitive",
-      "doctype": "Clarinet Initial Setup",
-      "label_variant": "setup logs",
-      "occurrences": [
-        {
-          "label": "Setup Logs",
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        },
-        {
-          "label": "Setup Logs",
-          "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
-        }
-      ]
-    },
     {
       "type": "intra_doctype_duplicate_label_case_insensitive",
       "doctype": "Repair Request",
