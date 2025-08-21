@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Pad Count Log",
+  "module": "Inventory",
+  "istable": 1,
+  "custom": 0,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "fields": [
+    { "fieldname": "action", "label": "Action", "fieldtype": "Data", "in_list_view": 1 },
+    { "fieldname": "value", "label": "Value", "fieldtype": "Data", "in_list_view": 1 },
+    { "fieldname": "by_user", "label": "By", "fieldtype": "Link", "options": "User" },
+    { "fieldname": "at", "label": "At", "fieldtype": "Datetime", "in_list_view": 1 }
+  ],
+  "permissions": [
+    { "role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1 },
+    { "role": "Inventory User", "read": 1, "write": 1, "create": 1 },
+    { "role": "Inventory Manager", "read": 1, "write": 1, "create": 1 }
+  ]
+}

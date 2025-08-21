@@ -1,0 +1,282 @@
+{
+  "doctype": "DocType",
+  "name": "Pad Count Intake",
+  "module": "Inventory",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "track_changes": 1,
+  "track_seen": 1,
+  "allow_import": 0,
+  "is_submittable": 0,
+  "autoname": "PAD-.#####",
+  "title_field": "title",
+  "fields": [
+    {
+      "fieldname": "title",
+      "label": "Title",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "default": "Clarinet Pad Intake",
+      "description": "Friendly name for this intake. Use something meaningful like 'Bb Clarinet Pads – Bench 2 – 2025‑08‑20'."
+    },
+    {
+      "fieldname": "photo",
+      "label": "Photo",
+      "fieldtype": "Attach Image",
+      "reqd": 1,
+      "description": "Upload a top‑down photo of the pads on a matte dark background. Keep the ArUco marker flat in the same plane. Shortest image side ≥ 2000 px. Avoid glare and blur."
+    },
+    {
+      "fieldname": "processed_preview",
+      "label": "Processed Preview",
+      "fieldtype": "Attach Image",
+      "read_only": 1,
+      "description": "Auto‑generated overlay showing detected pads. Review the green circles to confirm the count before approval."
+    },
+    {
+      "fieldname": "detections_meta",
+      "label": "Detections Meta",
+      "fieldtype": "Attach",
+      "read_only": 1,
+      "description": "JSON file with detection details (x, y, r, confidence, method, quality metrics). Useful for audit and troubleshooting."
+    },
+
+    {
+      "fieldname": "item",
+      "label": "Item",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "ERPNext Item to update (must be a Stock Item). Example: 'Clarinet Pad – 10 mm'."
+    },
+    {
+      "fieldname": "warehouse",
+      "label": "Warehouse",
+      "fieldtype": "Link",
+      "options": "Warehouse",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Warehouse where stock will be adjusted. The Company is inferred automatically from this warehouse."
+    },
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "options": "Company",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Company owning the selected Warehouse. Filled automatically."
+    },
+    {
+      "fieldname": "uom",
+      "label": "UOM",
+      "fieldtype": "Link",
+      "options": "UOM",
+      "default": "Nos",
+      "description": "Unit of Measure for the inventory update, typically 'Nos' or 'Each'."
+    },
+
+    {
+      "fieldname": "detected_count",
+      "label": "Detected Count",
+      "fieldtype": "Int",
+      "read_only": 1,
+      "description": "Auto count from image processing. Always verify against the Processed Preview before approving."
+    },
+    {
+      "fieldname": "approved_count",
+      "label": "Approved Count",
+      "fieldtype": "Int",
+      "reqd": 1,
+      "description": "Human‑verified final count. This drives the inventory delta by default. Edit if the preview missed or over‑counted any pads."
+    },
+    {
+      "fieldname": "inventory_action",
+      "label": "Inventory Action",
+      "fieldtype": "Select",
+      "options": "Increase\nDecrease\nNo Change",
+      "default": "Increase",
+      "reqd": 1,
+      "description": "Choose how stock should be adjusted: Increase (Material Receipt), Decrease (Material Issue), or No Change (for review only)."
+    },
+    {
+      "fieldname": "inventory_delta",
+      "label": "Inventory Delta",
+      "fieldtype": "Int",
+      "default": 0,
+      "description": "Quantity to post to stock. Defaults to Approved Count. You may override for partial postings or adjustments."
+    },
+    {
+      "fieldname": "review_status",
+      "label": "Review Status",
+      "fieldtype": "Select",
+      "options": "Pending Review\nApproved\nNeeds Fix",
+      "default": "Pending Review",
+      "description": "Workflow state: Pending Review → Approved (ready to post) or Needs Fix (retake photo, adjust settings, or reprocess)."
+    },
+    {
+      "fieldname": "flags_quality_ok",
+      "label": "Quality OK",
+      "fieldtype": "Check",
+      "read_only": 1,
+      "description": "Auto quality gate. Unchecked means blur/lighting/perspective are sub‑optimal—consider retaking the photo."
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text",
+      "description": "Free‑form notes for this intake (e.g., photo conditions, pad sizes mix, any anomalies)."
+    },
+
+    {
+      "fieldname": "processing_params_section",
+      "label": "Processing Params",
+      "fieldtype": "Section Break",
+      "description": "Advanced: tweak only if counts are off. For most cases, leave defaults or use Auto Pixel Radius from mm below."
+    },
+    {
+      "fieldname": "min_radius",
+      "label": "Min Radius (px)",
+      "fieldtype": "Int",
+      "default": 10,
+      "description": "Minimum pad radius in pixels. If using Auto Pixel Radius from mm, this updates automatically after processing."
+    },
+    {
+      "fieldname": "max_radius",
+      "label": "Max Radius (px)",
+      "fieldtype": "Int",
+      "default": 60,
+      "description": "Maximum pad radius in pixels. If using Auto Pixel Radius from mm, this updates automatically after processing."
+    },
+    {
+      "fieldname": "dp",
+      "label": "Hough dp",
+      "fieldtype": "Float",
+      "default": 1.2,
+      "description": "Hough Circles inverse ratio of accumulator to image resolution. 1.2–2.0 is typical; lower can improve sensitivity."
+    },
+    {
+      "fieldname": "param1",
+      "label": "param1 (Canny)",
+      "fieldtype": "Int",
+      "default": 100,
+      "description": "Canny high threshold for Hough pre‑processing. Raise to reduce noise; lower to detect faint edges."
+    },
+    {
+      "fieldname": "param2",
+      "label": "param2 (Accumulator)",
+      "fieldtype": "Int",
+      "default": 30,
+      "description": "Hough accumulator threshold. Higher = fewer detections (more strict). Lower if pads are missed."
+    },
+    {
+      "fieldname": "blur",
+      "label": "Gaussian Blur (odd)",
+      "fieldtype": "Int",
+      "default": 7,
+      "description": "Smoothing kernel size (odd number). Use 5–9 to reduce noise; too high may erase edges."
+    },
+
+    {
+      "fieldname": "no_ml_section",
+      "label": "No‑ML Calibration",
+      "fieldtype": "Section Break",
+      "description": "Use the printable ArUco marker to auto‑set pad size from real‑world millimeters and de‑skew the image."
+    },
+    {
+      "fieldname": "use_aruco",
+      "label": "Use ArUco Marker",
+      "fieldtype": "Check",
+      "default": 1,
+      "description": "Enable to use the printed ArUco marker for scale and perspective correction. Keep the marker flat in the photo."
+    },
+    {
+      "fieldname": "aruco_dict",
+      "label": "ArUco Dictionary",
+      "fieldtype": "Select",
+      "options": "DICT_4X4_50\nDICT_4X4_100\nDICT_5X5_50\nDICT_5X5_100\nDICT_6X6_50\nDICT_6X_100\nDICT_APRILTAG_36h11",
+      "default": "DICT_4X4_50",
+      "depends_on": "eval:doc.use_aruco==1",
+      "description": "Dictionary used to generate/recognize the marker. Use the same value as printed in your Shooting Kit PDF."
+    },
+    {
+      "fieldname": "aruco_marker_length_mm",
+      "label": "Marker Side Length (mm)",
+      "fieldtype": "Float",
+      "default": 50,
+      "depends_on": "eval:doc.use_aruco==1",
+      "description": "Physical side length of the printed marker in millimeters (e.g., 50). This ensures millimeter‑accurate pixel scaling."
+    },
+    {
+      "fieldname": "pad_diameter_mm",
+      "label": "Pad Diameter (mm)",
+      "fieldtype": "Float",
+      "default": 10,
+      "depends_on": "eval:doc.use_aruco==1",
+      "description": "Typical pad diameter in millimeters (e.g., 9–12 for clarinet). Used to auto‑compute pixel radius bounds."
+    },
+    {
+      "fieldname": "auto_radius_from_mm",
+      "label": "Auto Pixel Radius From mm",
+      "fieldtype": "Check",
+      "default": 1,
+      "depends_on": "eval:doc.use_aruco==1",
+      "description": "When enabled, min/max pixel radius is derived from the pad diameter and the detected marker scale."
+    },
+
+    {
+      "fieldname": "history_section",
+      "label": "History",
+      "fieldtype": "Section Break",
+      "description": "System‑generated log of processing and inventory actions for audit."
+    },
+    {
+      "fieldname": "count_logs",
+      "label": "Count Logs",
+      "fieldtype": "Table",
+      "options": "Pad Count Log",
+      "description": "Event log: processing runs, approvals, and inventory postings with user and timestamp."
+    },
+    {
+      "fieldname": "actions_sb",
+      "label": "Actions",
+      "fieldtype": "Section Break",
+      "description": "Use the top toolbar buttons: Download/Generate Shooting Kit (PDF), Process Image, Approve Count, and Update Inventory."
+    },
+    {
+      "fieldname": "processed_at",
+      "label": "Processed At",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "description": "Timestamp when the most recent image processing completed."
+    },
+    {
+      "fieldname": "approved_at",
+      "label": "Approved At",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "description": "Timestamp when the Approved Count was last set."
+    },
+    {
+      "fieldname": "stock_entry",
+      "label": "Stock Entry",
+      "fieldtype": "Link",
+      "options": "Stock Entry",
+      "read_only": 1,
+      "description": "Link to the Stock Entry created by Update Inventory. Click to open the voucher."
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    { "role": "Inventory User", "read": 1, "write": 1, "create": 1 },
+    { "role": "Inventory Manager", "read": 1, "write": 1, "create": 1 }
+  ]
+}
