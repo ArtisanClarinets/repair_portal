@@ -11,9 +11,9 @@ from frappe.model.document import Document
 
 
 class ConsentLog(Document):
-    def validate(self):
-        """Ensure that date and type are provided."""
-        if not self.date_given:
-            frappe.throw("Date Given is required.")
-        if not self.consent_type:
-            frappe.throw("Consent Type is required.")
+	def validate(self):
+		"""Ensure that date and type are provided."""
+		if not self.date_given:
+			frappe.throw("Date Given is required.")
+		if not self.consent_type:
+			frappe.throw("Consent Type is required.")

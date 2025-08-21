@@ -10,12 +10,15 @@ from frappe.model.document import Document
 
 
 class ClarinetIntakeSettings(Document):
-    """Settings DocType controller for Intake automation."""
-    # No JSON validation needed—table is self-validating.
-    pass
+	"""Settings DocType controller for Intake automation."""
+
+	# No JSON validation needed—table is self-validating.
+	pass
+
 
 # Utility to fetch all settings as a dict for business logic
 
+
 def get_intake_settings():
-    """Returns Clarinet Intake Settings as a dict."""
-    return frappe.get_single("Clarinet Intake Settings").as_dict()
+	"""Returns Clarinet Intake Settings as a dict."""
+	return frappe.get_single("Clarinet Intake Settings").as_dict()

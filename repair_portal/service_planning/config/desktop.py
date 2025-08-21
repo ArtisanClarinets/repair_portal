@@ -7,13 +7,13 @@ from frappe import _
 
 
 def get_data():
-    return [
-        {
-            "module_name": "Service Planning",
-            "type": "module",
-            "label": _("Service Planning"),
-            "icon": "octicon octicon-calendar",
-            "color": "orange",
-            "description": "Scheduling and management of clarinet service jobs",
-        }
-    ]
+	return [
+		{
+			"module_name": "Service Planning",
+			"type": "module",
+			"label": _("Service Planning"),
+			"icon": "octicon octicon-calendar",
+			"color": "orange",
+			"description": "Scheduling and management of clarinet service jobs",
+		}
+	]

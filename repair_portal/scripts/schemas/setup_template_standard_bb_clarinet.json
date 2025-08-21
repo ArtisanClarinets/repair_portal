@@ -1,5 +1,6 @@
 {
   "doctype": "Setup Template",
+  "name": "SETUP-Standard B♭ Clarinet",
   "template_name": "SETUP-Standard B♭ Clarinet",
   "clarinet_model": "Standard B♭ Clarinet",
   "pad_map": "PAD-MAP-Standard B♭ Clarinet",

@@ -7,10 +7,10 @@ from frappe.model.document import Document
 
 
 class RepairEstimate(Document):
-    def validate(self):
-        total = 0
-        for item in self.line_items:
-            if item.hours and item.rate:
-                item.amount = item.hours * item.rate
-                total += item.amount
-        self.total_cost = total
+	def validate(self):
+		total = 0
+		for item in self.line_items:
+			if item.hours and item.rate:
+				item.amount = item.hours * item.rate
+				total += item.amount
+		self.total_cost = total

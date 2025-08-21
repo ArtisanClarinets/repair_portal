@@ -7,8 +7,8 @@ import frappe
 
 
 def execute(filters=None):
-    data = frappe.db.sql(
-        """
+	data = frappe.db.sql(
+		"""
         SELECT u.upgrade_description, COUNT(*) AS total
         FROM `tabCustomer Upgrade Request` r
         JOIN `tabUpgrade Option` u ON u.parent = r.name
@@ -16,12 +16,12 @@ def execute(filters=None):
         ORDER BY total DESC
         LIMIT 10
     """,
-        as_dict=True,
-    )
+		as_dict=True,
+	)
 
-    columns = [
-        {"fieldname": "upgrade_description", "label": "Upgrade", "fieldtype": "Data", "width": 300},
-        {"fieldname": "total", "label": "Total Requested", "fieldtype": "Int", "width": 120},
-    ]
+	columns = [
+		{"fieldname": "upgrade_description", "label": "Upgrade", "fieldtype": "Data", "width": 300},
+		{"fieldname": "total", "label": "Total Requested", "fieldtype": "Int", "width": 120},
+	]
 
-    return columns, data
+	return columns, data

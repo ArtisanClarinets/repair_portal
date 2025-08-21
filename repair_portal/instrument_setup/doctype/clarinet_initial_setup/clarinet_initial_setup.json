@@ -72,13 +72,14 @@
    "options": "Low\nMedium\nHigh\nUrgent"
   },
   {
+   "default": "Standard Setup",
    "description": "Type of setup work being performed.",
    "fieldname": "setup_type",
    "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Setup Type",
-   "options": "Standard Setup\nAdvanced Setup\nRepair & Setup\nMaintenance\nOverhaul\nCustom Setup"
+   "options": "Standard Setup\nAdvanced Setup\nRepair & Setup\nCustom Setup"
   },
   {
    "fieldname": "column_break_project",
@@ -142,7 +143,7 @@
    "fieldname": "clarinet_type",
    "fieldtype": "Select",
    "label": "Type of Clarinet",
-   "options": "B♭ Clarinet\nA Clarinet\nE♭ Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther"
+   "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther"
   },
   {
    "fetch_from": "instrument.model",
@@ -303,7 +304,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-17 02:52:13.511909",
+ "modified": "2025-08-21 03:25:56.197948",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Initial Setup",

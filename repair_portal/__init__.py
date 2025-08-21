@@ -2,4 +2,3 @@
 # Last Updated: 2025-08-18
 
 __version__ = "1.22.19"
-

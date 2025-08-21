@@ -5,17 +5,17 @@
 # Purpose: Test stubs for Import Mapping Setting and get_fields_for_doctype API.
 # Dependencies: pytest, frappe
 
-import frappe
-import pytest
 
 def test_unique_constraint():
-    # TODO: Write test to ensure duplicate mapping_name + target_doctype throws error.
-    pass
+	# TODO: Write test to ensure duplicate mapping_name + target_doctype throws error.
+	pass
+
 
 def test_get_fields_for_doctype_valid():
-    # TODO: Write test to check valid doctype returns expected fields.
-    pass
+	# TODO: Write test to check valid doctype returns expected fields.
+	pass
+
 
 def test_get_fields_for_doctype_invalid():
-    # TODO: Write test to check invalid doctype throws error.
-    pass
+	# TODO: Write test to check invalid doctype throws error.
+	pass

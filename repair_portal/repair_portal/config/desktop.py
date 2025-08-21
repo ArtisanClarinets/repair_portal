@@ -7,13 +7,13 @@ from frappe import _
 
 
 def get_data():
-    return [
-        {
-            "module_name": "Repair Portal",
-            "type": "module",
-            "label": _("Repair Portal"),
-            "icon": "octicon octicon-tools",
-            "color": "blue",
-            "description": "Main navigation module for Clarinet Repair Portal",
-        }
-    ]
+	return [
+		{
+			"module_name": "Repair Portal",
+			"type": "module",
+			"label": _("Repair Portal"),
+			"icon": "octicon octicon-tools",
+			"color": "blue",
+			"description": "Main navigation module for Clarinet Repair Portal",
+		}
+	]

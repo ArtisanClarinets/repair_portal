@@ -551,7 +551,6 @@ frappe.pages["lab-console"].on_page_load = function (wrapper) {
 			frappe.show_alert({ message: __("Saved. Analysis started."), indicator: "green" });
 			pollStatus(resp.test);
 		} catch (e) {
-			console.error(e);
 			UI.err.text(e && e.message ? e.message : "Save failed").show();
 		}
 	}

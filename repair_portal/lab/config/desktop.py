@@ -7,13 +7,13 @@ from frappe import _
 
 
 def get_data():
-    return [
-        {
-            "module_name": "Lab",
-            "label": _("Lab"),
-            "color": "orange",
-            "icon": "octicon octicon-graph",
-            "type": "module",
-            "description": "Audio analysis tools for instruments",
-        }
-    ]
+	return [
+		{
+			"module_name": "Lab",
+			"label": _("Lab"),
+			"color": "orange",
+			"icon": "octicon octicon-graph",
+			"type": "module",
+			"description": "Audio analysis tools for instruments",
+		}
+	]

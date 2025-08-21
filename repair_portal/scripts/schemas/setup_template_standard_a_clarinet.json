@@ -1,5 +1,6 @@
 {
   "doctype": "Setup Template",
+  "name": "SETUP-Standard A Clarinet",
   "template_name": "SETUP-Standard A Clarinet",
   "clarinet_model": "Standard A Clarinet",
   "pad_map": "PAD-MAP-Standard A Clarinet",

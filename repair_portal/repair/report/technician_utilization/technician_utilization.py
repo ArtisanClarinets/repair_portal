@@ -7,16 +7,16 @@ import frappe
 
 
 def execute(filters=None):
-    conditions = []
-    if filters.get("from_date"):
-        conditions.append(f"creation >= '{filters['from_date']}'")
-    if filters.get("to_date"):
-        conditions.append(f"creation <= '{filters['to_date']}'")
+	conditions = []
+	if filters.get("from_date"):
+		conditions.append(f"creation >= '{filters['from_date']}'")
+	if filters.get("to_date"):
+		conditions.append(f"creation <= '{filters['to_date']}'")
 
-    where_clause = f'WHERE {" AND ".join(conditions)}' if conditions else ""
+	where_clause = f'WHERE {" AND ".join(conditions)}' if conditions else ""
 
-    data = frappe.db.sql(
-        f"""
+	data = frappe.db.sql(
+		f"""
         SELECT
             technician,
             SUM(actual_hours) AS total_hours,
@@ -25,13 +25,13 @@ def execute(filters=None):
         {where_clause}
         GROUP BY technician
     """,
-        as_dict=True,
-    )
+		as_dict=True,
+	)
 
-    columns = [
-        {"label": "Technician", "fieldname": "technician", "fieldtype": "Link", "options": "User"},
-        {"label": "Total Hours", "fieldname": "total_hours", "fieldtype": "Float"},
-        {"label": "Tasks Completed", "fieldname": "task_count", "fieldtype": "Int"},
-    ]
+	columns = [
+		{"label": "Technician", "fieldname": "technician", "fieldtype": "Link", "options": "User"},
+		{"label": "Total Hours", "fieldname": "total_hours", "fieldtype": "Float"},
+		{"label": "Tasks Completed", "fieldname": "task_count", "fieldtype": "Int"},
+	]
 
-    return columns, data
+	return columns, data

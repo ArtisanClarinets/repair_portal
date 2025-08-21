@@ -8,12 +8,12 @@
 
 from __future__ import annotations
 
-import frappe
 from frappe.model.document import Document
 
 
 class ConsentFieldValue(Document):
-    """
-    Stores field label, type, and entered value for each filled consent.
-    """
-    pass
+	"""
+	Stores field label, type, and entered value for each filled consent.
+	"""
+
+	pass

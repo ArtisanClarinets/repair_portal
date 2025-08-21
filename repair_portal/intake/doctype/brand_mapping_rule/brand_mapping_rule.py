@@ -10,28 +10,26 @@ from frappe.model.document import Document
 
 
 class BrandMappingRule(Document):
-    """
-    Controller for managing brand mapping rules.
-    This document defines how external brand names (from_brand) map to standardized brand names (to_brand).
-    """
+	"""
+	Controller for managing brand mapping rules.
+	This document defines how external brand names (from_brand) map to standardized brand names (to_brand).
+	"""
 
-    def validate(self):
-        """Ensure brand mapping rules are valid."""
-        if not self.from_brand:
-            frappe.throw("From Brand is required")
+	def validate(self):
+		"""Ensure brand mapping rules are valid."""
+		if not self.from_brand:
+			frappe.throw("From Brand is required")
 
-        if not self.to_brand:
-            frappe.throw("To Brand is required")
+		if not self.to_brand:
+			frappe.throw("To Brand is required")
 
-        # Prevent duplicate or conflicting rules
-        self.validate_unique_mapping()
+		# Prevent duplicate or conflicting rules
+		self.validate_unique_mapping()
 
-    def validate_unique_mapping(self):
-        """Ensure that the (from_brand, to_brand) mapping is unique."""
-        if frappe.db.exists(
-            "Brand Mapping Rule",
-            {"from_brand": self.from_brand, "to_brand": self.to_brand, "name": ["!=", self.name]},
-        ):
-            frappe.throw(
-                f"A mapping from '{self.from_brand}' to '{self.to_brand}' already exists."
-            )
+	def validate_unique_mapping(self):
+		"""Ensure that the (from_brand, to_brand) mapping is unique."""
+		if frappe.db.exists(
+			"Brand Mapping Rule",
+			{"from_brand": self.from_brand, "to_brand": self.to_brand, "name": ["!=", self.name]},
+		):
+			frappe.throw(f"A mapping from '{self.from_brand}' to '{self.to_brand}' already exists.")

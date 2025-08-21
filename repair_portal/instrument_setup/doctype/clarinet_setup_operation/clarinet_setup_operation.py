@@ -7,21 +7,32 @@ from frappe.model.document import Document
 
 
 class ClarinetSetupOperation(Document):
-    # begin: auto-generated types
-    # This code is auto-generated. Do not modify anything in this block.
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
 
-    from typing import TYPE_CHECKING
+	from typing import TYPE_CHECKING
 
-    if TYPE_CHECKING:
-        from frappe.types import DF
+	if TYPE_CHECKING:
+		from frappe.types import DF
 
-        completed: DF.Check
-        component_ref: DF.Data | None
-        details: DF.Text | None
-        operation_type: DF.Literal["Tone Hole Reaming", "Tone Hole Repair", "Chimney Leak", "Tenon Fitting", "Key Height Adjustment", "Spring Tension Adjustment", "Pad Leveling", "Cork Replacement", "Setup", "Other"]
-        parent: DF.Data
-        parentfield: DF.Data
-        parenttype: DF.Data
-        section: DF.Literal["All", "Mouthpiece", "Barrel", "Upper Joint", "Lower Joint", "Bell"]
-    # end: auto-generated types
-    pass
+		completed: DF.Check
+		component_ref: DF.Data | None
+		details: DF.Text | None
+		operation_type: DF.Literal[
+			"Tone Hole Reaming",
+			"Tone Hole Repair",
+			"Chimney Leak",
+			"Tenon Fitting",
+			"Key Height Adjustment",
+			"Spring Tension Adjustment",
+			"Pad Leveling",
+			"Cork Replacement",
+			"Setup",
+			"Other",
+		]
+		parent: DF.Data
+		parentfield: DF.Data
+		parenttype: DF.Data
+		section: DF.Literal["All", "Mouthpiece", "Barrel", "Upper Joint", "Lower Joint", "Bell"]
+	# end: auto-generated types
+	pass

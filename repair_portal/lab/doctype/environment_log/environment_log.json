@@ -1,46 +1,46 @@
 {
-    "doctype": "DocType",
-    "name": "Environment Log",
-    "module": "Lab",
-    "istable": 1,
-    "custom": 0,
-    "label": "Environment Log",
-    "fields": [
-        {
-            "fieldname": "log_datetime",
-            "label": "Date / Time",
-            "fieldtype": "Datetime",
-            "reqd": 1
-        },
-        {
-            "fieldname": "humidity",
-            "label": "RH (%)",
-            "fieldtype": "Float",
-            "reqd": 1
-        },
-        {
-            "fieldname": "temperature",
-            "label": "Temp (\u00b0C)",
-            "fieldtype": "Float"
-        },
-        {
-            "fieldname": "notes",
-            "label": "Notes",
-            "fieldtype": "Data"
-        }
-    ],
-    "engine": "InnoDB",
-    "permissions": [
-        {
-            "role": "System Manager",
-            "read": 1,
-            "write": 1,
-            "create": 1,
-            "delete": 1,
-            "submit": 0,
-            "cancel": 0,
-            "amend": 0
-        }
-    ],
-    "is_child_table": 1
+  "doctype": "DocType",
+  "name": "Environment Log",
+  "module": "Lab",
+  "istable": 1,
+  "custom": 0,
+  "label": "Environment Log",
+  "fields": [
+    {
+      "fieldname": "log_datetime",
+      "label": "Date / Time",
+      "fieldtype": "Datetime",
+      "reqd": 1
+    },
+    {
+      "fieldname": "humidity",
+      "label": "RH (%)",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "temperature",
+      "label": "Temp (\u00b0C)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Data"
+    }
+  ],
+  "engine": "InnoDB",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    }
+  ],
+  "is_child_table": 1
 }

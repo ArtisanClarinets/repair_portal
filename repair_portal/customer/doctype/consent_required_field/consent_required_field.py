@@ -5,9 +5,10 @@
 # Purpose: Child table for required fields in Consent Template
 # Dependencies: None
 
-import frappe
 from frappe.model.document import Document
 
+
 class ConsentRequiredField(Document):
-    """Child table for listing dynamic required fields in Consent Templates."""
-    pass
+	"""Child table for listing dynamic required fields in Consent Templates."""
+
+	pass

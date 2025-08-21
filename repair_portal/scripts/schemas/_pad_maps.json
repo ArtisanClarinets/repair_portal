@@ -1,9 +1,9 @@
 [
-  { "doctype": "Clarinet Pad Map", "name": "PADMP-Standard B♭ Clarinet-0001", "instrument_category": "B♭", "clarinet_model": "Standard B♭ Clarinet" },
-  { "doctype": "Clarinet Pad Map", "name": "PADMP-Standard A Clarinet-0002", "instrument_category": "A", "clarinet_model": "Standard A Clarinet" },
-  { "doctype": "Clarinet Pad Map", "name": "PADMP-Standard E♭ Clarinet-0003", "instrument_category": "E♭", "clarinet_model": "Standard E♭ Clarinet" },
-  { "doctype": "Clarinet Pad Map", "name": "PADMP-Standard C Clarinet-0004", "instrument_category": "C", "clarinet_model": "Standard C Clarinet" },
-  { "doctype": "Clarinet Pad Map", "name": "PADMP-Standard D Clarinet-0005", "instrument_category": "D", "clarinet_model": "Standard D Clarinet" },
-  { "doctype": "Clarinet Pad Map", "name": "PADMP-Standard Bass — Low E♭-0006", "instrument_category": "Bass — Low E♭", "clarinet_model": "Standard Bass Clarinet — Low E♭" },
-  { "doctype": "Clarinet Pad Map", "name": "PADMP-Standard Bass — Low C-0007", "instrument_category": "Bass — Low C", "clarinet_model": "Standard Bass Clarinet — Low C" }
+  { "doctype": "Clarinet Pad Map", "name": "PAD-MAP-Standard B♭ Clarinet-0001", "instrument_category": "B♭", "clarinet_model": "Standard B♭ Clarinet" },
+  { "doctype": "Clarinet Pad Map", "name": "PAD-MAP-Standard A Clarinet-0002", "instrument_category": "A", "clarinet_model": "Standard A Clarinet" },
+  { "doctype": "Clarinet Pad Map", "name": "PAD-MAP-Standard E♭ Clarinet-0003", "instrument_category": "E♭", "clarinet_model": "Standard E♭ Clarinet" },
+  { "doctype": "Clarinet Pad Map", "name": "PAD-MAP-Standard C Clarinet-0004", "instrument_category": "C", "clarinet_model": "Standard C Clarinet" },
+  { "doctype": "Clarinet Pad Map", "name": "PAD-MAP-Standard D Clarinet-0005", "instrument_category": "D", "clarinet_model": "Standard D Clarinet" },
+  { "doctype": "Clarinet Pad Map", "name": "PAD-MAP-Standard Bass — Low E♭-0006", "instrument_category": "Bass — Low E♭", "clarinet_model": "Standard Bass Clarinet — Low E♭" },
+  { "doctype": "Clarinet Pad Map", "name": "PAD-MAP-Standard Bass — Low C-0007", "instrument_category": "Bass — Low C", "clarinet_model": "Standard Bass Clarinet — Low C" }
 ]

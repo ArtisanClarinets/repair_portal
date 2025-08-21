@@ -15,21 +15,25 @@
 	},
 	"dependencies": {
 		"@vue/compiler-sfc": "^3.5.17",
+		"ajv": "0.4.1",
 		"autoprefixer": "^10.4.21",
+		"avj": "^0.0.0",
 		"eslint": "^9.30.1",
-		"frappe-ui": "^0.1.177",
+		"frappe-ui": "^0.1.189",
 		"meyda": "^5.6.3",
 		"plotly.js-dist": "^3.0.1",
 		"postcss": "^8.5.6",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"ruff": "^1.5.4",
+		"schema-utils": "^4.3.2",
 		"tailwindcss": "^4.1.11",
 		"tone": "15.1.22",
 		"vite": "^7.0.5",
 		"vue": "^3.5.17",
 		"vue-router": "^4.5.1",
-		"webpack": "^5.100.2"
+		"webpack": "^5.100.2",
+		"vue-template-compiler": "^2.7.16"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.22.0",
@@ -41,8 +45,7 @@
 		"frappe-charts": "^1.6.2",
 		"less": "^4.3.0",
 		"stylus": "^0.64.0",
-		"terser-webpack-plugin": "^5.3.14",
-		"vue-template-compiler": "^0.1.0"
+		"terser-webpack-plugin": "^5.3.14"
 	},
 	"version": "1.22.19"
 }

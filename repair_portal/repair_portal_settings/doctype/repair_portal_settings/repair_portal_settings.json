@@ -5,20 +5,26 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "repair_portal_settings"
+  "repair_portal_settings",
+  "standard_hourly_rate"
  ],
  "fields": [
   {
    "fieldname": "repair_portal_settings",
    "fieldtype": "Heading",
    "label": "Repair Portal Settings"
+  },
+  {
+   "fieldname": "standard_hourly_rate",
+   "fieldtype": "Currency",
+   "label": "Standard Hourly Rate"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-07-29 02:03:21.016446",
+ "modified": "2025-08-21 03:23:31.578446",
  "modified_by": "Administrator",
  "module": "Repair Portal Settings",
  "name": "Repair Portal Settings",

@@ -9,4 +9,4 @@ from frappe.model.document import Document
 
 
 class VisualInspection(Document):
-    pass
+	pass

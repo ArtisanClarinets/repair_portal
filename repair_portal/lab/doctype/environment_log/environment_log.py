@@ -9,4 +9,4 @@ from frappe.model.document import Document
 
 
 class EnvironmentLog(Document):
-    pass
+	pass

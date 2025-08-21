@@ -1,9 +1,10 @@
 {
   "doctype": "Setup Template",
   "name": "SETUP-Standard E♭ Clarinet",
-  "template_name": "Standard E♭ Clarinet",
+  "template_name": "SETUP-Standard E♭ Clarinet",
   "clarinet_model": "Standard E♭ Clarinet",
   "pad_map": "PAD-MAP-Standard E♭ Clarinet",
+  "setup_type": "Standard Setup",
   "default_operations": [
     {
       "doctype": "Clarinet Setup Operation",
