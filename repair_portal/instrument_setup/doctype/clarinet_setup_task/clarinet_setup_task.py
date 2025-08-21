@@ -37,17 +37,17 @@ class ClarinetSetupTask(Document):
 		instrument: DF.Link | None
 		is_group: DF.Check
 		parent_task: DF.Link | None
-		priority: DF.Literal[Low, Medium, High, Urgent]
+		priority: DF.Literal["Low", "Medium", "High", "Urgent"]
 		progress: DF.Percent
 		sequence: DF.Int
 		serial: DF.Link | None
-		status: DF.Literal[Open, Working, Paused, "Pending Review", Completed, Canceled]
+		status: DF.Literal["Open", "Working", "Paused", "Pending Review", "Completed", "Canceled"]
 		subject: DF.Data
 
 	# end: auto-generated types
 	def validate(self):
 		# Sanity: date ranges
-		if self.exp_start_date and self.exp_end_date and self.exp_end_date < self.exp_start_date:
+		if self.exp_start_date and self.exp_end_date and self.exp_end_date < self.exp_start_date: # type: ignore
 			frappe.throw(_("Expected End cannot be earlier than Expected Start."))
 
 		# Dependency gating: cannot start/complete if predecessors not Completed

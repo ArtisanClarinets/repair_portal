@@ -115,9 +115,9 @@ def _insert_or_update(row: dict[str, Any]) -> bool:
 		if frappe.db.exists("Item Group", name):
 			ig = frappe.get_doc("Item Group", name)
 			# Update mutable fields
-			ig.item_group_name = data["item_group_name"]
-			ig.parent_item_group = data["parent_item_group"]
-			ig.is_group = data["is_group"]
+			ig.item_group_name = data["item_group_name"] # type: ignore
+			ig.parent_item_group = data["parent_item_group"] # type: ignore
+			ig.is_group = data["is_group"] # type: ignore
 			ig.save(ignore_permissions=True)
 			print(f"  ↻ updated: {name}")
 		else:

@@ -28,6 +28,8 @@ _active_category_cache: str | None = None
 
 class Instrument(Document):
 	"""Instrument Document Model with optimized validation and naming."""
+	from typing import TYPE_CHECKING
+
 
 	def validate(self):
 		"""
@@ -150,7 +152,7 @@ class Instrument(Document):
 		try:
 			if self.serial_no:  # type: ignore
 				if (not self.instrument_id) or (
-					self.instrument_id and not str(self.instrument_id).endswith(str(self.serial_no))
+					self.instrument_id and not str(self.instrument_id).endswith(str(self.serial_no))  # type: ignore
 				):  # type: ignore
 					next_seq = make_autoname("INST-.####")
 					self.instrument_id = f"{next_seq}-{self.serial_no}"  # type: ignore

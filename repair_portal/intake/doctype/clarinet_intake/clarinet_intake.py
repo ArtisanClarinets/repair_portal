@@ -22,10 +22,10 @@ from repair_portal.intake.doctype.clarinet_intake_settings.clarinet_intake_setti
 
 # Serial utilities (single source of truth) – support either module path
 try:
-	from repair_portal.repair_portal.utils.serials import (
+	from repair_portal.utils.serials import (
 		attach_to_instrument as link_isn_to_instrument,
 	)
-	from repair_portal.repair_portal.utils.serials import (  # preferred
+	from repair_portal.utils.serials import (  # preferred
 		ensure_instrument_serial,
 		find_by_serial,
 	)
@@ -51,21 +51,21 @@ class ClarinetIntake(Document):
 		try:
 			# --- 1. ITEM CREATION (ERPNext) --- #
 			# (unchanged) Only for New Inventory
-			item_name = self.item_name or self.model or "Instrument"
-			item_code = self.item_code or self.serial_no
+			item_name = self.item_name or self.model or "Instrument" # type: ignore
+			item_code = self.item_code or self.serial_no # type: ignore
 			item = None
-			if self.intake_type == "New Inventory":
+			if self.intake_type == "New Inventory": # type: ignore
 				if item_code and not frappe.db.exists("Item", {"item_code": item_code}):
 					item = frappe.new_doc("Item")
-					item.item_code = item_code
-					item.item_name = item_name
-					item.item_group = settings.get("default_item_group") or "Clarinets"
-					item.stock_uom = settings.get("stock_uom") or "Nos"
-					item.description = (
-						f"{self.model or ''} {self.body_material or ''} {self.key_plating or ''}".strip()
+					item.item_code = item_code # type: ignore
+					item.item_name = item_name # type: ignore
+					item.item_group = settings.get("default_item_group") or "Clarinets" # type: ignore
+					item.stock_uom = settings.get("stock_uom") or "Nos" # type: ignore
+					item.description = ( # type: ignore
+						f"{self.model or ''} {self.body_material or ''} {self.key_plating or ''}".strip() # type: ignore
 					)
-					item.is_stock_item = 1
-					item.disabled = 0
+					item.is_stock_item = 1 # type: ignore
+					item.disabled = 0 # type: ignore
 					item.save(ignore_permissions=True)
 				else:
 					item = frappe.get_doc("Item", item_code) if item_code else None
@@ -73,7 +73,7 @@ class ClarinetIntake(Document):
 			# --- 2. INSTRUMENT SERIAL NUMBER (Custom Doctype) --- #
 			# REPLACEMENT for ERPNext "Serial No" logic. We NEVER create ERPNext Serial Nos here.
 			isn_name: str | None = None
-			serial_no_input = (self.serial_no or "").strip()
+			serial_no_input = (self.serial_no or "").strip() # type: ignore
 
 			if serial_no_input:
 				# Try to find an existing ISN (normalized)
@@ -103,29 +103,29 @@ class ClarinetIntake(Document):
 					serial_field_type = _get_instrument_serial_field_type()
 
 					if serial_field_type == "Link" and isn_name:
-						instrument.serial_no = isn_name
+						instrument.serial_no = isn_name # type: ignore
 					else:
 						# Fallback for legacy Data field or when ISN missing
-						instrument.serial_no = serial_no_input
+						instrument.serial_no = serial_no_input # type: ignore
 
-					instrument.instrument_type = self.clarinet_type or "B♭ Clarinet"
-					instrument.brand = self.manufacturer
-					instrument.model = self.model
-					instrument.body_material = self.body_material
-					instrument.keywork_plating = self.key_plating
-					instrument.pitch_standard = self.pitch_standard
-					instrument.customer = self.customer if self.intake_type != "New Inventory" else None
-					instrument.current_status = "Active"
+					instrument.instrument_type = self.clarinet_type or "B♭ Clarinet" # type: ignore
+					instrument.brand = self.manufacturer # type: ignore
+					instrument.model = self.model # type: ignore
+					instrument.body_material = self.body_material # type: ignore
+					instrument.keywork_plating = self.key_plating # type: ignore
+					instrument.pitch_standard = self.pitch_standard # type: ignore
+					instrument.customer = self.customer if self.intake_type != "New Inventory" else None # type: ignore
+					instrument.current_status = "Active" # type: ignore
 
 					# Instrument Category handling (unchanged)
 					if self.instrument_category and frappe.db.exists(
 						"Instrument Category", self.instrument_category
 					):
-						instrument.instrument_category = self.instrument_category
+						instrument.instrument_category = self.instrument_category # type: ignore
 					else:
 						default_cat = frappe.db.get_value("Instrument Category", {"is_active": 1}, "name")
 						if default_cat:
-							instrument.instrument_category = default_cat
+							instrument.instrument_category = default_cat # type: ignore
 
 					instrument.insert(ignore_permissions=True)
 
@@ -136,7 +136,7 @@ class ClarinetIntake(Document):
 				if isn_name:
 					try:
 						link_isn_to_instrument(
-							isn_name=isn_name, instrument=instrument.name, link_on_instrument=True
+							isn_name=isn_name, instrument=instrument.name, link_on_instrument=True # type: ignore
 						)
 					except Exception:
 						frappe.log_error(
@@ -147,31 +147,31 @@ class ClarinetIntake(Document):
 			# --- 4. Instrument Inspection (all types) --- #
 			if not frappe.db.exists("Instrument Inspection", {"intake_record_id": self.name}):
 				inspection = frappe.new_doc("Instrument Inspection")
-				inspection.intake_record_id = self.name
-				inspection.customer = self.customer
+				inspection.intake_record_id = self.name # type: ignore
+				inspection.customer = self.customer # type: ignore
 
 				# Compute correct value for serial_no based on the field's target
 				insp_serial_value, insp_requires_bypass = self._compute_inspection_serial_value(
 					serial_no_input, isn_name
 				)
-				inspection.serial_no = insp_serial_value
+				inspection.serial_no = insp_serial_value # type: ignore
 
-				inspection.instrument = self.instrument
-				inspection.brand = self.manufacturer
-				inspection.manufacturer = self.manufacturer
-				inspection.model = self.model
-				inspection.clarinet_type = self.clarinet_type
-				inspection.body_material = self.body_material
-				inspection.key_plating = self.key_plating
-				inspection.inspection_date = self.intake_date or nowdate()
-				inspection.status = "Pending"
+				inspection.instrument = self.instrument # type: ignore
+				inspection.brand = self.manufacturer # type: ignore
+				inspection.manufacturer = self.manufacturer # type: ignore
+				inspection.model = self.model # type: ignore
+				inspection.clarinet_type = self.clarinet_type # type: ignore
+				inspection.body_material = self.body_material # type: ignore
+				inspection.key_plating = self.key_plating # type: ignore
+				inspection.inspection_date = self.intake_date or nowdate() # type: ignore
+				inspection.status = "Pending" # type: ignore
 
 				# Robust inspected_by fallback (unchanged)
 				inspected_by_meta = frappe.get_meta("Instrument Inspection").get_field("inspected_by")
 				inspected_by_options = (inspected_by_meta.options or "User") if inspected_by_meta else "User"
 				inspected_by_value = None
-				if self.employee and frappe.db.exists(inspected_by_options, self.employee):
-					inspected_by_value = self.employee
+				if self.employee and frappe.db.exists(inspected_by_options, self.employee): # type: ignore
+					inspected_by_value = self.employee # type: ignore
 				if not inspected_by_value and frappe.session.user:
 					if inspected_by_options == "Employee":
 						emp = frappe.db.get_value("Employee", {"user_id": frappe.session.user}, "name")
@@ -189,14 +189,14 @@ class ClarinetIntake(Document):
 					frappe.throw(
 						_(
 							f"Cannot create Instrument Inspection: No valid Employee/User found for 'inspected_by'. "
-							f"Tried employee: {self.employee or ''}, session_user: {frappe.session.user}, inspected_by: {getattr(self, 'inspected_by', None)}. "
+							f"Tried employee: {self.employee or ''}, session_user: {frappe.session.user}, inspected_by: {getattr(self, 'inspected_by', None)}. " # type: ignore
 							f"Please ensure at least one exists as a {inspected_by_options} record."
 						)
 					)
-				inspection.inspected_by = inspected_by_value
-				allowed_inspection_types = ["New Inventory", "Repair", "Maintenance", "QA", "Other"]
-				inspection.inspection_type = (
-					self.intake_type if self.intake_type in allowed_inspection_types else "Other"
+				inspection.inspected_by = inspected_by_value # type: ignore
+				allowed_inspection_types = ["New Inventory", "Repair", "Maintenance", "QA", "Other"] # type: ignore
+				inspection.inspection_type = ( # type: ignore
+					self.intake_type if self.intake_type in allowed_inspection_types else "Other" # type: ignore
 				)
 
 				# Insert; if schema is legacy (Link→Serial No) and no ERP serial exists, bypass mandatory (documented)
@@ -226,16 +226,16 @@ class ClarinetIntake(Document):
 
 			# --- 5. Clarinet Initial Setup (new inventory only) --- #
 			if (
-				self.intake_type == "New Inventory"
+				self.intake_type == "New Inventory" # type: ignore
 				and settings.get("auto_create_initial_setup", 1)
 				and self.instrument
 				and not frappe.db.exists("Clarinet Initial Setup", {"instrument": self.instrument})
 			):
 				setup = frappe.new_doc("Clarinet Initial Setup")
-				setup.instrument = self.instrument
-				setup.intake = self.name
-				setup.setup_date = self.intake_date or nowdate()
-				setup.status = "Open"
+				setup.instrument = self.instrument # type: ignore
+				setup.intake = self.name # type: ignore
+				setup.setup_date = self.intake_date or nowdate() # type: ignore
+				setup.status = "Open" # type: ignore
 				setup.insert(ignore_permissions=True)
 				frappe.msgprint(_(f"Clarinet Initial Setup <b>{setup.name}</b> created."))
 
@@ -295,17 +295,17 @@ class ClarinetIntake(Document):
 
 		if field_type == "Link" and isn_name:
 			name = frappe.db.get_value("Instrument", {"serial_no": isn_name}, "name")
-			return frappe.get_doc("Instrument", name) if name else None
+			return frappe.get_doc("Instrument", name) if name else None # type: ignore
 
 		# Legacy Data field or no ISN yet — search by plain serial
 		name = frappe.db.get_value("Instrument", {"serial_no": serial_no_input}, "name")
-		return frappe.get_doc("Instrument", name) if name else None
+		return frappe.get_doc("Instrument", name) if name else None # type: ignore
 
 	def autoname(self) -> None:
 		if not self.intake_record_id:
 			settings = get_intake_settings()
 			pattern = settings.get("intake_naming_series") or "INTAKE-.{YYYY}.-.#####"
-			self.intake_record_id = naming.make_autoname(pattern, doc=self)
+			self.intake_record_id = naming.make_autoname(pattern, doc=self) # type: ignore
 		self.name = self.intake_record_id
 
 	def validate(self) -> None:
@@ -314,7 +314,7 @@ class ClarinetIntake(Document):
 
 	def _enforce_dynamic_mandatory_fields(self) -> None:
 		missing = [
-			self.meta.get_label(f) for f in MANDATORY_BY_TYPE.get(self.intake_type, set()) if not self.get(f)
+			self.meta.get_label(f) for f in MANDATORY_BY_TYPE.get(self.intake_type, set()) if not self.get(f) # type: ignore
 		]
 		if missing:
 			frappe.throw(_(f"Required fields are missing: {', '.join(missing)}"), title=_("Validation Error"))
@@ -324,8 +324,8 @@ class ClarinetIntake(Document):
 		If user typed a serial and we already have an Instrument matching it, sync read-only info
 		for convenience. Compatible with both Link and Data serial fields.
 		"""
-		if self.serial_no and not self.instrument:
-			serial_no_input = self.serial_no.strip()
+		if self.serial_no and not self.instrument: # type: ignore
+			serial_no_input = self.serial_no.strip() # type: ignore
 			isn = find_by_serial(serial_no_input)
 			instr_doc = None
 
@@ -335,13 +335,13 @@ class ClarinetIntake(Document):
 				if field_type == "Link":
 					instr_name = frappe.db.get_value("Instrument", {"serial_no": isn["name"]}, "name")
 					if instr_name:
-						instr_doc = frappe.get_doc("Instrument", instr_name)
+						instr_doc = frappe.get_doc("Instrument", instr_name) # type: ignore
 
 			if not instr_doc:
 				# Legacy Data fall-back
 				instr_name = frappe.db.get_value("Instrument", {"serial_no": serial_no_input}, "name")
 				if instr_name:
-					instr_doc = frappe.get_doc("Instrument", instr_name)
+					instr_doc = frappe.get_doc("Instrument", instr_name) # type: ignore
 
 			if instr_doc:
 				self.instrument = instr_doc.name
@@ -373,8 +373,8 @@ def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | No
 				data = frappe.db.get_value(
 					"Instrument",
 					instr_name,
-					[
-						"name",
+					[ # type: ignore
+						"name", 
 						"brand",
 						"model",
 						"clarinet_type",
@@ -386,14 +386,14 @@ def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | No
 					as_dict=True,
 				)
 				if data:
-					data["manufacturer"] = data.pop("brand", None)
-				return data
+					data["manufacturer"] = data.pop("brand", None) # type: ignore
+				return data # type: ignore
 
 	# Legacy Data fallback
 	data = frappe.db.get_value(
 		"Instrument",
 		{"serial_no": serial_no},
-		[
+		[ # type: ignore
 			"name",
 			"brand",
 			"model",
@@ -406,15 +406,15 @@ def get_instrument_by_serial(serial_no: str) -> dict[str, str | int | None] | No
 		as_dict=True,
 	)
 	if data:
-		data["manufacturer"] = data.pop("brand", None)
-	return data
+		data["manufacturer"] = data.pop("brand", None) # type: ignore
+	return data # type: ignore
 
 
 @frappe.whitelist(allow_guest=False)
 def get_instrument_inspection_name(intake_record_id: str) -> str | None:
 	if not intake_record_id:
 		return None
-	return frappe.db.get_value("Instrument Inspection", {"intake_record_id": intake_record_id}, "name")
+	return frappe.db.get_value("Instrument Inspection", {"intake_record_id": intake_record_id}, "name") # type: ignore
 
 
 # -----------------------

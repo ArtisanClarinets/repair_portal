@@ -29,14 +29,14 @@ def migrate_all_clarinet_inspections():
 		customer_name = getattr(intake, "customer_name", None)
 
 		ir = frappe.new_doc("Inspection Report")
-		ir.inspection_date = ci.inspection_date
-		ir.instrument_id = instrument_id or ""
-		ir.customer_name = customer_name or ""
-		ir.inspection_type = "Clarinet Intake"
-		ir.status = unify_status(ci.status)
-		ir.preliminary_estimate = ci.preliminary_estimate
-		ir.clarinet_intake_ref = ci.intake
-		ir.legacy_clarinet_inspection_id = ci.name
+		ir.inspection_date = ci.inspection_date # type: ignore
+		ir.instrument_id = instrument_id or "" # type: ignore
+		ir.customer_name = customer_name or "" # type: ignore
+		ir.inspection_type = "Clarinet Intake" # type: ignore
+		ir.status = unify_status(ci.status) # type: ignore
+		ir.preliminary_estimate = ci.preliminary_estimate # type: ignore
+		ir.clarinet_intake_ref = ci.intake # type: ignore
+		ir.legacy_clarinet_inspection_id = ci.name # type: ignore
 		# Copy findings if available (manual mapping may be needed for sub-tables)
 		# Add more here if needed
 		ir.insert(ignore_permissions=True)

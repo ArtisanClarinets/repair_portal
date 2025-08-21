@@ -15,5 +15,5 @@ def get_context(context):
 		default_supplier = frappe.db.get_value("Supplier", {"owner": user}, "name")
 		if default_supplier:
 			context.supplier = default_supplier
-	context.date = frappe.utils.nowdate()
+	context.date = frappe.utils.nowdate() # type: ignore
 	return context

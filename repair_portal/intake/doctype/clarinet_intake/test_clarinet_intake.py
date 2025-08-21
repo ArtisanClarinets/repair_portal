@@ -14,8 +14,8 @@ class TestClarinetIntake(FrappeTestCase):
 		).insert(ignore_permissions=True)
 
 	def tearDown(self):
-		frappe.db.delete("Instrument Inspection", {"serial_no": self.serial_no.serial_no})
-		frappe.delete_doc("Serial No", self.serial_no.name, force=1)
+		frappe.db.delete("Instrument Inspection", {"serial_no": self.serial_no.serial_no}) # type: ignore
+		frappe.delete_doc("Serial No", self.serial_no.name, force=1) # type: ignore
 		frappe.db.commit()
 
 	# --------------------------------------------------------------------- #
@@ -27,7 +27,7 @@ class TestClarinetIntake(FrappeTestCase):
 			doctype="Clarinet Intake",
 			intake_type="New Inventory",
 			intake_status="Pending",
-			serial_no=self.serial_no.serial_no,
+			serial_no=self.serial_no.serial_no, # type: ignore
 			manufacturer="Buffet",
 			model="R13",
 		)
@@ -42,21 +42,21 @@ class TestClarinetIntake(FrappeTestCase):
 		intake = self._make_intake()
 		inspection = frappe.get_value(
 			"Instrument Inspection",
-			{"clarinet_intake": intake.name, "serial_no": self.serial_no.serial_no},
+			{"clarinet_intake": intake.name, "serial_no": self.serial_no.serial_no}, # type: ignore
 			["name", "inspection_type"],
 		)
 		self.assertIsNotNone(inspection)
-		self.assertEqual(inspection[1], "Initial Inspection")
+		self.assertEqual(inspection[1], "Initial Inspection") # type: ignore
 
 	def test_no_duplicate_instrument_inspection(self):
 		intake = self._make_intake()
-		intake.manufacturer = "Yamaha"
+		intake.manufacturer = "Yamaha" # type: ignore
 		intake.save(ignore_permissions=True)
 		inspections = frappe.get_all(
 			"Instrument Inspection",
 			filters={
 				"clarinet_intake": intake.name,
-				"serial_no": self.serial_no.serial_no,
+				"serial_no": self.serial_no.serial_no, # type: ignore
 			},
 		)
 		self.assertEqual(len(inspections), 1)

@@ -117,11 +117,11 @@ def save_impedance_snapshot(instrument=None, raw_data="{}", recording_base64=Non
 
 		# Create snapshot doc
 		snapshot = frappe.new_doc("Impedance Snapshot")
-		snapshot.instrument = instrument
-		snapshot.raw_data = raw_data or "{}"
+		snapshot.instrument = instrument # type: ignore
+		snapshot.raw_data = raw_data or "{}" # type: ignore
 		if file_doc:
-			snapshot.file = file_doc.file_url
-		snapshot.owner = user
+			snapshot.file = file_doc.file_url # type: ignore
+		snapshot.owner = user # type: ignore
 		snapshot.insert(ignore_permissions=True)
 		frappe.db.commit()
 
@@ -164,10 +164,10 @@ def save_intonation_session(instrument=None, recording_base64=None, filename=Non
 			)
 
 		session = frappe.new_doc("Intonation Session")
-		session.instrument = instrument
+		session.instrument = instrument # type: ignore
 		if file_doc:
-			session.file = file_doc.file_url
-		session.owner = user
+			session.file = file_doc.file_url # type: ignore
+		session.owner = user # type: ignore
 		session.insert(ignore_permissions=True)
 		frappe.db.commit()
 
@@ -207,9 +207,9 @@ def save_tone_fitness(instrument=None, recording_base64=None, filename=None):
 		bandwidth = float(np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr)))
 
 		doc = frappe.new_doc("Tone Fitness")
-		doc.instrument = instrument
-		doc.json_data = frappe.as_json({"centroid": centroid, "spread": bandwidth})
-		doc.entries = [{"reading_time": now_datetime(), "centroid": centroid, "spread": bandwidth}]
+		doc.instrument = instrument # type: ignore
+		doc.json_data = frappe.as_json({"centroid": centroid, "spread": bandwidth}) # type: ignore
+		doc.entries = [{"reading_time": now_datetime(), "centroid": centroid, "spread": bandwidth}] # type: ignore
 		doc.insert(ignore_permissions=True)
 
 		if filename:
@@ -237,9 +237,9 @@ def save_leak_test(instrument=None, recording_base64=None, filename=None):
 
 	try:
 		doc = frappe.new_doc("Leak Test")
-		doc.instrument = instrument
-		doc.json_data = frappe.as_json({"algorithm": "mock", "holes": 3})
-		doc.readings = [
+		doc.instrument = instrument # type: ignore
+		doc.json_data = frappe.as_json({"algorithm": "mock", "holes": 3}) # type: ignore
+		doc.readings = [ # type: ignore
 			{
 				"tone_hole": f"Hole {i+1}",
 				"leak_score": round(0.1 * (i + 1), 2),

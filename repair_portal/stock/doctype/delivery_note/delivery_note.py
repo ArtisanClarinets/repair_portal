@@ -8,7 +8,7 @@ from frappe.model.document import Document
 
 class DeliveryNote(Document):
 	def validate(self):
-		for item in self.items:
+		for item in self.items: # type: ignore
 			if item.serial_no:
 				# PATCH: Ensure serial_no exists in ERPNext Serial No
 				if not frappe.db.exists("Serial No", item.serial_no):

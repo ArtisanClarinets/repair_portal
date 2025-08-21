@@ -36,7 +36,7 @@ class InstrumentProfile(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		from repair_portal.instrument_profile.doctype.external_work_logs.external_work_logs import (
+		from repair_portal.instrument_profile.doctype.external_work_logs.external_work_logs import ( # type: ignore
 			ExternalWorkLogs,
 		)
 		from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
@@ -74,7 +74,7 @@ class InstrumentProfile(Document):
 		intake_date: DF.Date | None
 		interaction_logs: DF.Table[InstrumentInteractionLog]
 		key_plating: DF.Data | None
-		key_system: DF.Literal[Boehm, Albert, Oehler, Other]
+		key_system: DF.Literal["Boehm", "Albert", "Oehler", "Other"]
 		linked_inspection: DF.Link | None
 		material_usage: DF.Table[MaterialUseLog]
 		model: DF.Data | None
@@ -93,7 +93,7 @@ class InstrumentProfile(Document):
 		warranty_logs: DF.Table[WarrantyModificationLog]
 		warranty_start_date: DF.Date | None
 		wood_type: DF.Data | None
-		workflow_state: DF.Literal[Open, "In Progress", Delivered, Archived]
+		workflow_state: DF.Literal["Open", "In Progress", "Delivered", "Archived"]
 	# end: auto-generated types
 	"""
     Instrument Profile acts as a "materialized view" of Instrument identity data.
@@ -105,8 +105,8 @@ class InstrumentProfile(Document):
 		if getattr(frappe.flags, "in_profile_sync", False):
 			return
 
-		if frappe.session.user != "Administrator" and not frappe.has_role("System Manager"):
-			dirty = [f for f in self.get_dirty_fields() if f in READ_ONLY_FIELDS]
+		if frappe.session.user != "Administrator" and not frappe.has_role("System Manager"): # type: ignore
+			dirty = [f for f in self.get_dirty_fields() if f in READ_ONLY_FIELDS] # type: ignore
 			if dirty:
 				frappe.throw(
 					_("These fields are managed automatically and cannot be edited: {0}").format(
@@ -120,7 +120,7 @@ class InstrumentProfile(Document):
 			return
 		try:
 			frappe.flags.in_profile_sync = True
-			sync_profile(self.name)
+			sync_profile(self.name) # type: ignore
 		except Exception:
 			frappe.log_error(frappe.get_traceback(), f"InstrumentProfile: sync failed ({self.name})")
 		finally:
@@ -131,7 +131,7 @@ class InstrumentProfile(Document):
 			return
 		try:
 			frappe.flags.in_profile_sync = True
-			sync_profile(self.name)
+			sync_profile(self.name) # type: ignore
 		except Exception:
 			frappe.log_error(frappe.get_traceback(), f"InstrumentProfile: initial sync failed ({self.name})")
 		finally:

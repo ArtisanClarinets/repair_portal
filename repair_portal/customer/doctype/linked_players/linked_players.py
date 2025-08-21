@@ -66,30 +66,30 @@ class LinkedPlayers(Document):
 		"""Confirm both linked doctypes exist and are active."""
 		missing: list[str] = []
 		# Person
-		if not frappe.db.exists("Person", self.person):
-			missing.append(f"Person: {self.person}")
+		if not frappe.db.exists("Person", self.person): # type: ignore
+			missing.append(f"Person: {self.person}") # type: ignore
 		# Player Profile
-		if not frappe.db.exists("Player Profile", self.player_profile):
-			missing.append(f"Player Profile: {self.player_profile}")
+		if not frappe.db.exists("Player Profile", self.player_profile): # type: ignore
+			missing.append(f"Player Profile: {self.player_profile}") # type: ignore
 
 		if missing:
 			raise frappe.ValidationError(f"Linked document(s) not found or inactive: {', '.join(missing)}")
 
 	def _validate_unique_per_parent(self) -> None:
 		"""Prevent duplicate Player Profile links in the same parent document."""
-		if not self.parentfield:
+		if not self.parentfield: # type: ignore
 			return  # Safety-net for orphaned rows
 		duplicates = [
-			d for d in self.get_siblings() if d.player_profile == self.player_profile and d.name != self.name
+			d for d in self.get_siblings() if d.player_profile == self.player_profile and d.name != self.name # type: ignore
 		]
 		if duplicates:
 			raise frappe.ValidationError("This Player Profile is already linked to the current Customer.")
 
 	def _enforce_single_primary(self) -> None:
 		"""Ensure only one row per parent is flagged as primary."""
-		if not self.is_primary:
+		if not self.is_primary: # type: ignore
 			return
-		primaries: list[Document] = [d for d in self.get_siblings() if d.is_primary and d.name != self.name]
+		primaries: list[Document] = [d for d in self.get_siblings() if d.is_primary and d.name != self.name] # type: ignore
 		if primaries:
 			raise frappe.ValidationError("Only one Player Profile may be marked as Primary per Customer.")
 

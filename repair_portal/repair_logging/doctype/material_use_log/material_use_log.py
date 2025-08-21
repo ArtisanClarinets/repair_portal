@@ -4,7 +4,7 @@
 # Version: v1.2
 # Purpose: Enforces validation and decrements stock when material is used.
 # ---------------------------------------------------------------------------
-
+from __future__ import annotations
 import frappe
 from frappe import _
 from frappe.model.document import Document
@@ -35,8 +35,8 @@ class MaterialUseLog(Document):
 		if self.qty <= 0:
 			frappe.throw(_("Quantity must be greater than zero."))
 
-		if not frappe.db.exists("Item", self.item_code):
-			frappe.throw(_("Item {0} does not exist.").format(self.item_code))
+		if not frappe.db.exists("Item", self.item_code): # type: ignore
+			frappe.throw(_("Item {0} does not exist.").format(self.item_code)) # type: ignore
 
 	def on_submit(self):
 		# Create a Stock Entry to deduct material
@@ -46,9 +46,9 @@ class MaterialUseLog(Document):
 				"stock_entry_type": "Material Issue",
 				"items": [
 					{
-						"item_code": self.item_code,
+						"item_code": self.item_code, # type: ignore
 						"qty": self.qty,
-						"uom": self.uom,
+						"uom": self.uom, # type: ignore
 						"s_warehouse": self.source_warehouse,
 					}
 				],

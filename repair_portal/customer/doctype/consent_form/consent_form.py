@@ -20,15 +20,15 @@ class ConsentForm(Document):
 
 	def validate(self):
 		# Validate required fields are filled
-		template = frappe.get_doc("Consent Template", self.consent_template)
-		required_fields = {f.field_label for f in template.required_fields}
-		provided_fields = {f.field_label for f in self.consent_field_values}
+		template = frappe.get_doc("Consent Template", self.consent_template) # type: ignore
+		required_fields = {f.field_label for f in template.required_fields} # type: ignore
+		provided_fields = {f.field_label for f in self.consent_field_values} # type: ignore
 		missing = required_fields - provided_fields
 		if missing:
 			frappe.throw(f"Missing required field(s): {', '.join(missing)}")
 
 	def before_save(self):
-		if self.status == "Signed":
+		if self.status == "Signed": # type: ignore
 			# Render the final agreement
 			self.rendered_content = self.render_agreement()
 			self.signed_on = now_datetime()
@@ -40,17 +40,17 @@ class ConsentForm(Document):
 		Returns:
 		    str: The rendered agreement with placeholders replaced by field values.
 		"""
-		template = frappe.get_doc("Consent Template", self.consent_template)
-		content = template.content
+		template = frappe.get_doc("Consent Template", self.consent_template) # type: ignore
+		content = template.content # type: ignore
 
 		# --- 1. Auto-fill: Company Info ---
 		try:
 			# Try to use Frappe standard Company Doc
 			company = frappe.get_doc(
-				"Company", frappe.db.get_single_value("Global Defaults", "default_company")
+				"Company", frappe.db.get_single_value("Global Defaults", "default_company") # type: ignore
 			)
 			company_info = {
-				"[Your Company Name]": company.company_name,
+				"[Your Company Name]": company.company_name, # type: ignore
 				"[Your Company Address]": getattr(company, "address", "") or "",
 				"[Your Company Phone Number]": getattr(company, "phone", "") or "",
 				"[Your Company Email / Website]": getattr(company, "email", "") or "",
@@ -79,14 +79,14 @@ class ConsentForm(Document):
 		content = content.replace("[Date]", _date.strftime("%Y-%m-%d"))
 
 		# --- 3. Fill dynamic fields ---
-		for field in self.consent_field_values:
+		for field in self.consent_field_values: # type: ignore
 			content = content.replace(f"[{field.field_label}]", field.field_value or "___________")
 
 		# --- 4. Signature ---
 		content = content.replace(
 			"[Signature]",
 			"<b>Signed:</b> ____________"
-			if not self.signature
-			else f"<b>Signed:</b> <img src='{self.signature}' style='height:40px;'>",
+			if not self.signature # type: ignore
+			else f"<b>Signed:</b> <img src='{self.signature}' style='height:40px;'>", # type: ignore
 		)
 		return content

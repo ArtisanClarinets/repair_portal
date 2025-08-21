@@ -16,8 +16,8 @@ from frappe import _
 # -------- Normalization (single source of truth if available) --------
 try:
 	# layout A (common in your tree)
-	from repair_portal.instrument_profile.doctype.instrument_serial_number.instrument_serial_number import (  # type: ignore
-		normalize_serial as _controller_normalize_serial,
+	from repair_portal.instrument_profile.doctype.instrument_serial_number.instrument_serial_number import (  
+		normalize_serial as _controller_normalize_serial,  # type: ignore
 	)
 
 	_HAVE_CONTROLLER_NORMALIZE = True
@@ -95,7 +95,7 @@ def ensure_instrument_serial(
 	if isn_name:
 		if update_if_exists:
 			_update_existing_isn(
-				isn_name,
+				isn_name, # type: ignore
 				instrument=instrument,
 				scan_code=scan_code,
 				status=status,
@@ -103,8 +103,8 @@ def ensure_instrument_serial(
 				verification_status=verification_status,
 			)
 			if link_on_instrument and instrument:
-				_try_link_isn_on_instrument(instrument, isn_name)
-		return isn_name
+				_try_link_isn_on_instrument(instrument, isn_name) # type: ignore
+		return isn_name # type: ignore
 
 	# Create new ISN
 	doc = frappe.get_doc(
@@ -122,10 +122,9 @@ def ensure_instrument_serial(
 	isn_name = doc.name
 
 	if link_on_instrument and instrument:
-		_try_link_isn_on_instrument(instrument, isn_name)
+		_try_link_isn_on_instrument(instrument, isn_name) # type: ignore
 
-	return isn_name
-
+	return isn_name # type: ignore
 
 def attach_to_instrument(*, isn_name: str, instrument: str, link_on_instrument: bool = True) -> str:
 	"""
@@ -157,7 +156,7 @@ def find_by_serial(serial_input: str) -> dict[str, Any] | None:
 	name = frappe.db.get_value("Instrument Serial Number", {"normalized_serial": norm}, "name")
 	if not name:
 		return None
-	return frappe.db.get_value("Instrument Serial Number", name, "*", as_dict=True)
+	return frappe.db.get_value("Instrument Serial Number", name, "*", as_dict=True) # type: ignore
 
 
 def find_by_scan_code(scan_code: str) -> dict[str, Any] | None:
@@ -167,7 +166,7 @@ def find_by_scan_code(scan_code: str) -> dict[str, Any] | None:
 	name = frappe.db.get_value("Instrument Serial Number", {"scan_code": scan_code}, "name")
 	if not name:
 		return None
-	return frappe.db.get_value("Instrument Serial Number", name, "*", as_dict=True)
+	return frappe.db.get_value("Instrument Serial Number", name, "*", as_dict=True)  # type: ignore
 
 
 def ensure_from_document(
@@ -243,9 +242,9 @@ def merge_serials(
 
 	if mark_duplicate_of:
 		dup = frappe.get_doc("Instrument Serial Number", duplicate)
-		dup.duplicate_of = primary
-		if getattr(dup, "status", None) and dup.status != "Deprecated":
-			dup.status = "Deprecated"
+		dup.duplicate_of = primary # type: ignore
+		if getattr(dup, "status", None) and dup.status != "Deprecated": # type: ignore
+			dup.status = "Deprecated" # type: ignore
 		dup.save(ignore_permissions=True)
 
 	if _instrument_has_field(relink_instrument_field):
@@ -312,21 +311,20 @@ def _update_existing_isn(
 	changed = False
 
 	if instrument and not getattr(doc, "instrument", None):
-		doc.instrument = instrument
+		doc.instrument = instrument # type: ignore
 		changed = True
 
 	if scan_code and not getattr(doc, "scan_code", None):
-		doc.scan_code = scan_code
+		doc.scan_code = scan_code # type: ignore
 		changed = True
 	if serial_source and not getattr(doc, "serial_source", None):
-		doc.serial_source = serial_source
+		doc.serial_source = serial_source # type: ignore
 		changed = True
 	if status and getattr(doc, "status", None) != status:
-		doc.status = status
+		doc.status = status # type: ignore
 		changed = True
 	if verification_status and not getattr(doc, "verification_status", None):
-		doc.verification_status = verification_status
-		changed = True
+		doc.verification_status = verification_status # type: ignore
 
 	if changed:
 		doc.save(ignore_permissions=True)

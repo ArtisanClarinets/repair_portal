@@ -107,7 +107,7 @@ class DocInfo(Resource):
 		self.autoname: str = (data.get("autoname") or "").strip()
 
 		self.fieldnames: list[str] = [
-			f.get("fieldname").strip() for f in self.fields if isinstance(f, dict) and f.get("fieldname")
+			f.get("fieldname").strip() for f in self.fields if isinstance(f, dict) and f.get("fieldname") # type: ignore
 		]
 		self.fieldname_set: set[str] = set(self.fieldnames)
 

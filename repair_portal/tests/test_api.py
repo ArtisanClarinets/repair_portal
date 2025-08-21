@@ -49,21 +49,21 @@ class TestCustomerAPI(unittest.TestCase):
 	# ------------------------------------------------------------------
 	def test_get_customer_authorized(self):
 		frappe.set_user("Client Manager")  # has read rights
-		doc = frappe.get_doc("Customer", self.customer.name)
+		doc = frappe.get_doc("Customer", self.customer.name) # type: ignore
 		self.assertEqual(doc.name, self.customer.name)
 
 	def test_get_customer_unauthorized(self):
 		frappe.set_user("Guest")
 		with self.assertRaises(PermissionError):
-			frappe.get_doc("Customer", self.customer.name).check_permissions()
+			frappe.get_doc("Customer", self.customer.name).check_permissions() # type: ignore
 
 	# ------------------------------------------------------------------
 	# WRITE TESTS
 	# ------------------------------------------------------------------
 	def test_update_customer_authorized(self):
 		frappe.set_user("Front Desk")  # write rights
-		doc = frappe.get_doc("Customer", self.customer.name)
-		doc.notes = "Updated by Front Desk"
+		doc = frappe.get_doc("Customer", self.customer.name) # type: ignore
+		doc.notes = "Updated by Front Desk" # type: ignore
 		doc.save()
 		self.assertEqual(
 			frappe.db.get_value("Customer", self.customer.name, "notes"),
@@ -72,7 +72,7 @@ class TestCustomerAPI(unittest.TestCase):
 
 	def test_update_customer_unauthorized(self):
 		frappe.set_user("Guest")
-		doc = frappe.get_doc("Customer", self.customer.name)
-		doc.notes = "Attempted hack"
+		doc = frappe.get_doc("Customer", self.customer.name) # type: ignore
+		doc.notes = "Attempted hack" # type: ignore
 		with self.assertRaises(PermissionError):
 			doc.save()

@@ -64,7 +64,7 @@ def _attach_png(fig_or_bytes, filename: str, attach_to_doctype: str, attach_to_n
 		}
 	)
 	filedoc.insert(ignore_permissions=True)
-	return filedoc.file_name
+	return filedoc.file_name # type: ignore
 
 
 def _note_grid(freq: float, a4: float) -> tuple[int, float]:
@@ -91,19 +91,19 @@ def _group_register(note_name: str) -> str:
 def run_analysis(session: str, test: str) -> None:
 	"""Background entry point. Mutates the child row inside Lab Session."""
 	sess = frappe.get_doc("Lab Session", session)
-	row = next((t for t in sess.tests if t.name == test), None)
+	row = next((t for t in sess.tests if t.name == test), None) # type: ignore
 	if not row:
 		frappe.throw(_("Lab Test not found"))
 
-	row.status = "Analyzing"
-	row.analysis_started = frappe.utils.now_datetime()
+	row.status = "Analyzing" # type: ignore
+	row.analysis_started = frappe.utils.now_datetime() # type: ignore
 	sess.save(ignore_permissions=True)
 
 	# dispatch
-	ttype = row.test_type
-	raw = _parse(row.raw_json) or {}
-	cfg = _parse(row.config_json) or {}
-	a4 = float(sess.reference_pitch or 440)
+	ttype = row.test_type # type: ignore
+	raw = _parse(row.raw_json) or {} # type: ignore
+	cfg = _parse(row.config_json) or {} # type: ignore
+	a4 = float(sess.reference_pitch or 440) # type: ignore
 
 	plots: list[str] = []
 	metrics: dict[str, Any] = {}
@@ -130,16 +130,16 @@ def run_analysis(session: str, test: str) -> None:
 
 	# commit results to child row
 	row.metrics_json = _json(metrics)
-	row.features_json = row.features_json or ""  # reserved
+	row.features_json = row.features_json or ""  # type: ignore # reserved
 	# rewrite points table
-	row.points = []
+	row.points = [] # type: ignore
 	for p in points:
-		row.append("points", p)
+		row.append("points", p) # type: ignore
 	# merge plots (include any client snapshots)
-	existing_plots = _parse(row.plots_json) or []
-	row.plots_json = _json(list(dict.fromkeys(existing_plots + plots)))
-	row.status = "Complete"
-	row.analysis_completed = frappe.utils.now_datetime()
+	existing_plots = _parse(row.plots_json) or [] # type: ignore
+	row.plots_json = _json(list(dict.fromkeys(existing_plots + plots))) # type: ignore
+	row.status = "Complete" # type: ignore
+	row.analysis_completed = frappe.utils.now_datetime() # type: ignore
 	sess.save(ignore_permissions=True)
 
 	# Update session rollups and Instrument Wellness Summary
@@ -460,19 +460,19 @@ def _update_instrument_wellness(sess_doc):
 		return
 	name = frappe.db.get_value("Instrument Wellness Summary", {"instrument": inst}, "name")
 	if name:
-		iws = frappe.get_doc("Instrument Wellness Summary", name)
+		iws = frappe.get_doc("Instrument Wellness Summary", name) # type: ignore
 	else:
 		iws = frappe.get_doc({"doctype": "Instrument Wellness Summary", "instrument": inst})
-	iws.last_session = sess_doc.name
-	iws.intonation_score = sess_doc.intonation_score
-	iws.resonance_score = sess_doc.resonance_score
-	iws.leak_score = sess_doc.leak_score
-	iws.tone_score = sess_doc.tone_score
-	iws.overall_score = sess_doc.overall_score
+	iws.last_session = sess_doc.name # type: ignore
+	iws.intonation_score = sess_doc.intonation_score # type: ignore
+	iws.resonance_score = sess_doc.resonance_score # type: ignore
+	iws.leak_score = sess_doc.leak_score # type: ignore
+	iws.tone_score = sess_doc.tone_score # type: ignore
+	iws.overall_score = sess_doc.overall_score # type: ignore
 
 	# append trend datapoint
-	trend = _parse(iws.trend_json) or []
-	trend.append({"ts": frappe.utils.now(), "session": sess_doc.name, "overall": iws.overall_score})
+	trend = _parse(iws.trend_json) or [] # type: ignore
+	trend.append({"ts": frappe.utils.now(), "session": sess_doc.name, "overall": iws.overall_score}) # type: ignore
 	# keep last 50
-	iws.trend_json = _json(trend[-50:])
+	iws.trend_json = _json(trend[-50:]) # type: ignore
 	iws.save(ignore_permissions=True)

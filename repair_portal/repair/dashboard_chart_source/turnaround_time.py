@@ -17,7 +17,7 @@ def get_data():
 	for order in closed_orders:
 		intake = frappe.db.get_value("Clarinet Intake", order.intake, "received_date")
 		if intake:
-			delta = (getdate(order.modified) - getdate(intake)).days
+			delta = (getdate(order.modified) - getdate(intake)).days # type: ignore
 			total_days += delta
 			count += 1
 

@@ -116,12 +116,12 @@ def _ensure_keys(d: frappe._dict, keys: Sequence[str]) -> None:
 
 def _get_instrument_doc(instrument: str) -> frappe._dict:
 	fields = _selectable_instrument_fields()
-	d = frappe.db.get_value("Instrument", instrument, fields, as_dict=True)
+	d = frappe.db.get_value("Instrument", instrument, fields, as_dict=True) # type: ignore
 	if not d:
 		frappe.throw(_("Instrument {0} not found").format(instrument))
 	# Ensure downstream keys exist even if not selected
 	_ensure_keys(
-		d,
+		d, # type: ignore
 		[
 			"customer",
 			"serial_no",
@@ -135,7 +135,7 @@ def _get_instrument_doc(instrument: str) -> frappe._dict:
 			"purchase_receipt",
 		],
 	)
-	return d
+	return d # type: ignore
 
 
 # ---------------------------
@@ -153,15 +153,15 @@ def _get_isn(instrument: frappe._dict) -> frappe._dict | None:
 		isn_name = isn_find_by_serial(serial_input=serial_raw, instrument=instrument.name)  # type: ignore
 
 	if not isn_name and ensure_serial_document:
-		isn_name = ensure_serial_document(serial_input=serial_raw, instrument=instrument.name)
+		isn_name = ensure_serial_document(serial_input=serial_raw, instrument=instrument.name) # type: ignore
 
 	if not isn_name:
 		return None
 
-	return frappe.db.get_value(
+	return frappe.db.get_value( # type: ignore
 		"Instrument Serial Number",
 		isn_name,
-		[
+		[ # type: ignore
 			"name",
 			"serial",
 			"normalized_serial",
@@ -177,10 +177,10 @@ def _get_isn(instrument: frappe._dict) -> frappe._dict | None:
 def _get_owner_details(customer: str | None) -> frappe._dict | None:
 	if not customer:
 		return None
-	return frappe.db.get_value(
+	return frappe.db.get_value( # type: ignore
 		"Customer",
 		customer,
-		[
+		[ # type: ignore
 			"name",
 			"customer_name",
 			"customer_group",
@@ -207,11 +207,11 @@ def _safe_set_scalar(profile_name: str, field: str, value) -> None:
 def _ensure_profile(instrument: str) -> str:
 	existing = frappe.db.get_value("Instrument Profile", {"instrument": instrument}, "name")
 	if existing:
-		return existing
+		return existing # type: ignore
 	doc = frappe.get_doc({"doctype": "Instrument Profile", "instrument": instrument})
 	# Insert without permissions so background jobs work
 	doc.insert(ignore_permissions=True)
-	return doc.name
+	return doc.name # type: ignore
 
 
 def _headline(brand: str | None, model: str | None, serial_no: str | None) -> str:
@@ -233,40 +233,40 @@ def sync_profile(profile_name: str) -> dict[str, str]:
 	try:
 		frappe.flags.in_profile_sync = True  # controller guard
 		profile = frappe.get_doc("Instrument Profile", profile_name)
-		instrument = _get_instrument_doc(profile.instrument)
+		instrument = _get_instrument_doc(profile.instrument) # type: ignore
 		owner = _get_owner_details(instrument.customer)
 		isn = _get_isn(instrument)
 
 		# scalar fields on Profile (must exist on the DocType)
-		_safe_set_scalar(profile.name, "serial_no", instrument.serial_no)
-		_safe_set_scalar(profile.name, "brand", instrument.brand)
-		_safe_set_scalar(profile.name, "model", instrument.model)
+		_safe_set_scalar(profile.name, "serial_no", instrument.serial_no) # type: ignore
+		_safe_set_scalar(profile.name, "brand", instrument.brand) # type: ignore
+		_safe_set_scalar(profile.name, "model", instrument.model) # type: ignore
 
 		# Prefer instrument_type, fallback to clarinet_type if present
 		inst_cat = instrument.instrument_type or instrument.clarinet_type
-		_safe_set_scalar(profile.name, "instrument_category", inst_cat)
+		_safe_set_scalar(profile.name, "instrument_category", inst_cat) # type: ignore
 
-		_safe_set_scalar(profile.name, "customer", instrument.customer)
-		_safe_set_scalar(profile.name, "owner_name", owner.customer_name if owner else None)
+		_safe_set_scalar(profile.name, "customer", instrument.customer) # type: ignore
+		_safe_set_scalar(profile.name, "owner_name", owner.customer_name if owner else None) # type: ignore
 
 		# Optional commercial fields (may not exist on your Instrument)
-		_safe_set_scalar(profile.name, "purchase_date", instrument.purchase_date)
-		_safe_set_scalar(profile.name, "purchase_order", instrument.purchase_order)
-		_safe_set_scalar(profile.name, "purchase_receipt", instrument.purchase_receipt)
+		_safe_set_scalar(profile.name, "purchase_date", instrument.purchase_date) # type: ignore
+		_safe_set_scalar(profile.name, "purchase_order", instrument.purchase_order) # type: ignore
+		_safe_set_scalar(profile.name, "purchase_receipt", instrument.purchase_receipt) # type: ignore
 
-		_safe_set_scalar(profile.name, "status", instrument.current_status or "Unknown")
+		_safe_set_scalar(profile.name, "status", instrument.current_status or "Unknown") # type: ignore
 
 		if isn:
-			_safe_set_scalar(profile.name, "warranty_start_date", isn.warranty_start_date)
-			_safe_set_scalar(profile.name, "warranty_end_date", isn.warranty_end_date)
+			_safe_set_scalar(profile.name, "warranty_start_date", isn.warranty_start_date) # type: ignore
+			_safe_set_scalar(profile.name, "warranty_end_date", isn.warranty_end_date) # type: ignore
 
 		_safe_set_scalar(
-			profile.name,
+			profile.name, # type: ignore
 			"headline",
 			_headline(instrument.brand, instrument.model, instrument.serial_no),
 		)
 
-		return {"profile": profile.name, "instrument": instrument.name}
+		return {"profile": profile.name, "instrument": instrument.name} # type: ignore
 	finally:
 		frappe.flags.in_profile_sync = False
 
@@ -425,5 +425,5 @@ def get_snapshot(instrument: str | None = None, profile: str | None = None) -> d
 		frappe.throw(_("Provide instrument or profile"))
 	if not profile and instrument:
 		profile = _ensure_profile(instrument)
-	res = sync_profile(profile)  # sync scalars
+	res = sync_profile(profile)  # sync scalars  # type: ignore
 	return _aggregate_snapshot(res["instrument"], res["profile"])

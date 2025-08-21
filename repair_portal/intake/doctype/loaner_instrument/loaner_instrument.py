@@ -12,7 +12,7 @@ from frappe.utils.pdf import get_pdf
 
 class LoanerInstrument(Document):
 	def after_insert(self):
-		if self.issued_to and not self.returned:
+		if self.issued_to and not self.returned: # type: ignore
 			self.generate_loaner_agreement()
 
 	def generate_loaner_agreement(self):
@@ -29,7 +29,7 @@ class LoanerInstrument(Document):
 		"""
 		try:
 			# Prepare context for Jinja2 template
-			context = {"doc": self, "customer": frappe.get_doc("Customer", self.issued_to)}
+			context = {"doc": self, "customer": frappe.get_doc("Customer", self.issued_to)} # type: ignore
 			html = render_template("repair_portal/intake/templates/loaner_agreement_template.html", context)
 			pdf = get_pdf(html)
 			filename = f"LoanerAgreement_{self.name}.pdf"

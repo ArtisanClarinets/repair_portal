@@ -2,14 +2,14 @@
 # Updated: 2025-06-16
 # Version: 1.0
 # Purpose: Main estimate document for planning service labor + parts
-
+from __future__ import annotations
 from frappe.model.document import Document
 
 
 class RepairEstimate(Document):
 	def validate(self):
 		total = 0
-		for item in self.line_items:
+		for item in self.line_items: # type: ignore
 			if item.hours and item.rate:
 				item.amount = item.hours * item.rate
 				total += item.amount

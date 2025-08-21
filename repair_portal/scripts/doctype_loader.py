@@ -124,7 +124,7 @@ def _insert_new(payload: dict[str, Any]) -> str:
 	"""Insert a new doc from payload; returns new name."""
 	d = frappe.get_doc(payload)
 	d.insert(ignore_permissions=True)
-	return d.name
+	return d.name # type: ignore
 
 
 def _apply_one(doc: dict[str, Any]) -> bool:

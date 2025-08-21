@@ -53,7 +53,7 @@ class ClarinetInitialSetup(Document):
 			"Bass Clarinet",
 			"Alto Clarinet",
 			"Contrabass Clarinet",
-			Other,
+			"Other",
 		]
 		estimated_cost: DF.Currency
 		estimated_materials_cost: DF.Currency
@@ -68,14 +68,14 @@ class ClarinetInitialSetup(Document):
 		model: DF.Data | None
 		notes: DF.Table[InstrumentInteractionLog]
 		operations_performed: DF.Table[ClarinetSetupOperation]
-		priority: DF.Literal[Low, Medium, High, Urgent]
+		priority: DF.Literal["Low", "Medium", "High", "Urgent"]
 		progress: DF.Percent
 		serial: DF.Link | None
 		setup_date: DF.Date | None
 		setup_template: DF.Link | None
-		setup_type: DF.Literal["Standard Setup", "Advanced Setup", Repair & Setup, "Custom Setup"]
+		setup_type: DF.Literal["Standard Setup", "Advanced Setup", "Repair & Setup", "Custom Setup"]
 		status: DF.Literal[
-			Open, "In Progress", Completed, "On Hold", Cancelled, "QA Review", "Customer Approval"
+			"Open", "In Progress", "Completed", "On Hold", "Cancelled", "QA Review", "Customer Approval"
 		]
 		technical_tags: DF.TextEditor | None
 		technician: DF.Link | None
@@ -125,23 +125,23 @@ class ClarinetInitialSetup(Document):
 
 			# Set project details from template
 			if not self.setup_type:
-				self.setup_type = template.setup_type
+				self.setup_type = template.setup_type # type: ignore
 			if not self.priority:
-				self.priority = template.priority
-			if not self.technician and template.default_technician:
-				self.technician = template.default_technician
+				self.priority = template.priority # type: ignore
+			if not self.technician and template.default_technician: # type: ignore
+				self.technician = template.default_technician # type: ignore
 			if not self.estimated_cost:
-				self.estimated_cost = template.estimated_cost
+				self.estimated_cost = template.estimated_cost # type: ignore
 			if not self.estimated_materials_cost:
-				self.estimated_materials_cost = template.estimated_materials_cost
+				self.estimated_materials_cost = template.estimated_materials_cost # type: ignore
 			if not self.labor_hours:
-				self.labor_hours = template.estimated_hours
+				self.labor_hours = template.estimated_hours # type: ignore
 
 		# Set default technician if not set
 		if not self.technician:
 			tech = frappe.db.get_value("User", {"role_profile_name": "Technician"}, "name")
 			if tech:
-				self.technician = tech
+				self.technician = tech # type: ignore
 
 	def set_project_dates(self):
 		"""Set project timeline dates."""
@@ -160,11 +160,11 @@ class ClarinetInitialSetup(Document):
 	def validate_project_dates(self):
 		"""Validate project timeline consistency."""
 		if self.expected_start_date and self.expected_end_date:
-			if self.expected_end_date < self.expected_start_date:
+			if self.expected_end_date < self.expected_start_date: # type: ignore
 				frappe.throw(_("Expected End Date cannot be before Expected Start Date."))
 
 		if self.actual_start_date and self.actual_end_date:
-			if self.actual_end_date < self.actual_start_date:
+			if self.actual_end_date < self.actual_start_date: # type: ignore
 				frappe.throw(_("Actual End Date cannot be before Actual Start Date."))
 
 	def update_actual_dates(self):
@@ -185,8 +185,8 @@ class ClarinetInitialSetup(Document):
 		# Calculate labor cost if hourly rate is available
 		if self.labor_hours:
 			hourly_rate = frappe.db.get_single_value("Repair Portal Settings", "standard_hourly_rate") or 75
-			labor_cost = self.labor_hours * hourly_rate
-			self.actual_cost = labor_cost + materials_total
+			labor_cost = self.labor_hours * hourly_rate # type: ignore
+			self.actual_cost = labor_cost + materials_total # type: ignore
 
 	# -----------------
 	# Preserved Utilities
@@ -201,17 +201,17 @@ class ClarinetInitialSetup(Document):
 		if not self.setup_template:
 			frappe.throw(_("Select a Setup Template first."))
 
-		template = frappe.get_doc("Setup Template", self.setup_template)
+		template = frappe.get_doc("Setup Template", self.setup_template) # type: ignore
 
 		# Apply template defaults if not already set
-		if not self.setup_type and template.setup_type:
-			self.setup_type = template.setup_type
-		if not self.priority and template.priority:
-			self.priority = template.priority
-		if not self.estimated_cost and template.estimated_cost:
-			self.estimated_cost = template.estimated_cost
-		if not self.estimated_materials_cost and template.estimated_materials_cost:
-			self.estimated_materials_cost = template.estimated_materials_cost
+		if not self.setup_type and template.setup_type: # type: ignore
+			self.setup_type = template.setup_type # type: ignore
+		if not self.priority and template.priority: # type: ignore
+			self.priority = template.priority # type: ignore
+		if not self.estimated_cost and template.estimated_cost: # type: ignore
+			self.estimated_cost = template.estimated_cost # type: ignore
+		if not self.estimated_materials_cost and template.estimated_materials_cost: # type: ignore
+			self.estimated_materials_cost = template.estimated_materials_cost # type: ignore
 
 		# Load default operations
 		default_ops = list(template.get("default_operations") or [])
@@ -258,7 +258,7 @@ class ClarinetInitialSetup(Document):
 		if not self.setup_template:
 			frappe.throw(_("Select a Setup Template first."))
 
-		template = frappe.get_doc("Setup Template", self.setup_template)
+		template = frappe.get_doc("Setup Template", self.setup_template) # type: ignore
 		rows = sorted(list(template.get("template_tasks") or []), key=lambda r: r.sequence or 0)
 		if not rows:
 			frappe.msgprint(_("No Template Tasks found on the selected Setup Template."))
@@ -292,7 +292,7 @@ class ClarinetInitialSetup(Document):
 			created.append(doc.name)
 
 		# Update project progress
-		update_parent_progress(self.name)
+		update_parent_progress(self.name) # type: ignore
 		frappe.msgprint(_("Created {0} task(s) from template.").format(len(created)))
 		return {"created": created, "count": len(created)}
 
@@ -313,7 +313,7 @@ class ClarinetInitialSetup(Document):
 			if frappe.db.exists("Print Format", print_format)
 			else None
 		)
-		if not pf or pf.doc_type != self.doctype:
+		if not pf or pf.doc_type != self.doctype: # type: ignore
 			frappe.throw(
 				_(
 					"Print Format '{0}' is missing or not linked to {1}. Reload the print format files."
@@ -333,8 +333,8 @@ class ClarinetInitialSetup(Document):
 		# Return a download handle (client button can open this)
 		if return_file_url:
 			out = {
-				"file_url": (filedoc.file_url if filedoc else None),
-				"file_name": (filedoc.file_name if filedoc else None),
+				"file_url": (filedoc.file_url if filedoc else None), # type: ignore
+				"file_name": (filedoc.file_name if filedoc else None), # type: ignore
 			}
 			# If not attached, stream via File doctype (ephemeral) is not available; we require attach=1 for URL.
 			if not out["file_url"]:
@@ -350,7 +350,7 @@ class ClarinetInitialSetup(Document):
 						"attached_to_name": self.name,
 					}
 				).insert(ignore_permissions=True)
-				out = {"file_url": filedoc.file_url, "file_name": filedoc.file_name}
+				out = {"file_url": filedoc.file_url, "file_name": filedoc.file_name} # type: ignore
 			return out
 
 		# Nothing to return; just signal success

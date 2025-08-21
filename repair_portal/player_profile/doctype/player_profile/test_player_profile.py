@@ -25,10 +25,10 @@ class TestPlayerProfile(unittest.TestCase):
 
 	def test_crud(self):
 		# Fetch and update
-		p = frappe.get_doc("Player Profile", self.profile.name)
-		p.preferred_reed_brand = "Vandoren"
+		p = frappe.get_doc("Player Profile", self.profile.name) # type: ignore
+		p.preferred_reed_brand = "Vandoren" # type: ignore
 		p.save()
-		self.assertEqual(frappe.get_doc("Player Profile", p.name).preferred_reed_brand, "Vandoren")
+		self.assertEqual(frappe.get_doc("Player Profile", p.name).preferred_reed_brand, "Vandoren") # type: ignore
 
 	def test_lifetime_value_calculation(self):
 		# Simulate a Sales Invoice link and check CLV update
@@ -42,8 +42,8 @@ class TestPlayerProfile(unittest.TestCase):
 			}
 		)
 		invoice.insert()
-		self.profile._calc_lifetime_value()
-		self.assertGreaterEqual(self.profile.customer_lifetime_value, 1000)
+		self.profile._calc_lifetime_value() # type: ignore
+		self.assertGreaterEqual(self.profile.customer_lifetime_value, 1000) # type: ignore
 
 	def tearDown(self):
 		frappe.delete_doc("Player Profile", self.profile.name, ignore_permissions=True)

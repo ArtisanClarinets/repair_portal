@@ -15,7 +15,7 @@ def get_instrument_profile(serial_no):
 	profile = frappe.db.get_value(
 		"Instrument Profile",
 		{"serial_no": serial_no},
-		["name", "instrument_type", "status"],
+		["name", "instrument_type", "status"], # type: ignore
 		as_dict=True,
 	)
 	if not profile:

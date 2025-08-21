@@ -51,7 +51,7 @@ def queue_intake_status_email(intake_name: str, event: str = "state_change") -> 
 
 	try:
 		frappe.sendmail(
-			recipients=[intake.customer_email],
+			recipients=[intake.customer_email], # type: ignore
 			subject=subject,
 			message=html_body,
 			reference_doctype=intake.doctype,
@@ -61,7 +61,7 @@ def queue_intake_status_email(intake_name: str, event: str = "state_change") -> 
 			"Customer email sent for Intake %s (event=%s) to %s",
 			intake_name,
 			event,
-			intake.customer_email,
+			intake.customer_email, # type: ignore
 		)
 	except Exception:
 		frappe.log_error(
@@ -86,7 +86,7 @@ def _build_subject(event: str, intake) -> str:
 
 def _build_message(event: str, intake) -> str:
 	"""Compose a minimal, brand-consistent HTML email body."""
-	base_url = frappe.utils.get_url()
+	base_url = frappe.utils.get_url() # type: ignore
 	intake_url = f"{base_url}/app/clarinet-intake/{intake.name}"
 
 	lines = [

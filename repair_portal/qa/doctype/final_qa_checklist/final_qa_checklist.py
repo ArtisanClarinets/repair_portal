@@ -4,7 +4,7 @@
 # Version: v1.3
 # Purpose: Validates QA checklist completion, updates Instrument Profile status, and logs errors on submit.
 # ---------------------------------------------------------------------------
-
+from __future__ import annotations
 import frappe
 from frappe import _
 from frappe.model.document import Document
@@ -12,7 +12,7 @@ from frappe.model.document import Document
 
 class FinalQaChecklist(Document):
 	def validate(self):
-		incomplete = [i.description for i in self.items if not i.is_checked]
+		incomplete = [i.description for i in self.items if not i.is_checked] # type: ignore
 		if incomplete:
 			frappe.throw(
 				_("Cannot submit. The following items are incomplete:\n{0}").format("\n".join(incomplete))
@@ -20,13 +20,13 @@ class FinalQaChecklist(Document):
 
 	def on_submit(self):
 		try:
-			if self.instrument_profile:
-				frappe.db.set_value("Instrument Profile", self.instrument_profile, "status", "QA Complete")
+			if self.instrument_profile: # type: ignore
+				frappe.db.set_value("Instrument Profile", self.instrument_profile, "status", "QA Complete") # type: ignore
 				# Optional: update workflow_state if field exists
 				if frappe.db.has_column("Instrument Profile", "workflow_state"):
 					frappe.db.set_value(
 						"Instrument Profile",
-						self.instrument_profile,
+						self.instrument_profile, # type: ignore
 						"workflow_state",
 						"QA Complete",
 					)

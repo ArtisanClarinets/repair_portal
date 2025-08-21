@@ -42,9 +42,9 @@ class InstrumentSerialNumber(Document):
 		photo: DF.AttachImage | None
 		scan_code: DF.Data | None
 		serial: DF.Data
-		serial_source: DF.Literal[Stamped, Engraved, Etched, Label / Sticker, Handwritten, Unknown]
-		status: DF.Literal[Active, Deprecated, Replaced, Error]
-		verification_status: DF.Literal[Unverified, "Verified by Technician", "Customer Reported", Disputed]
+		serial_source: DF.Literal["Stamped", "Engraved", "Etched", "Label / Sticker", "Handwritten", "Unknown"]
+		status: DF.Literal["Active", "Deprecated", "Replaced", "Error"]
+		verification_status: DF.Literal["Unverified", "Verified by Technician", "Customer Reported", "Disputed"]
 		verified_by: DF.Link | None
 		verified_on: DF.Datetime | None
 	# end: auto-generated types

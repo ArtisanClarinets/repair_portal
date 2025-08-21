@@ -20,7 +20,7 @@ class TestRepairOrder(unittest.TestCase):
 		)
 		doc.insert(ignore_permissions=True)
 		self.assertTrue(doc.name)
-		self.assertEqual(doc.customer, "Test Customer")
-		self.assertEqual(doc.issue_description, "Example problem")
+		self.assertEqual(doc.customer, "Test Customer") # type: ignore
+		self.assertEqual(doc.issue_description, "Example problem") # type: ignore
 		# Clean up
 		frappe.delete_doc("Repair Order", doc.name)

@@ -9,4 +9,4 @@ def get_logged_in_user() -> str:
 	user = frappe.session.user
 	if not user or user == "Guest":
 		frappe.throw("Not logged in", frappe.PermissionError)
-	return user
+	return user # type: ignore

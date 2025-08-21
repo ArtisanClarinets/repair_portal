@@ -40,7 +40,7 @@ class EnterpriseErrorHandler:
 	"""
 
 	@staticmethod
-	def handle_api_error(error: Exception, context: dict[str, Any] = None) -> dict[str, Any]:
+	def handle_api_error(error: Exception, context: dict[str, Any] = None) -> dict[str, Any]: # type: ignore
 		"""
 		Centralized API error handling with proper logging and user feedback.
 
@@ -68,7 +68,7 @@ class EnterpriseErrorHandler:
 			"message": str(error),
 			"traceback": traceback.format_exc(),
 			"user": frappe.session.user,
-			"timestamp": frappe.utils.now(),
+			"timestamp": frappe.utils.now(), # type: ignore
 			"context": context,
 			"request_data": EnterpriseErrorHandler._get_sanitized_request_data(),
 			"system_info": EnterpriseErrorHandler._get_system_info(),
@@ -136,7 +136,7 @@ class EnterpriseErrorHandler:
 		"""
 		try:
 			# Get error statistics for last 30 days
-			from_date = frappe.utils.add_days(frappe.utils.today(), -30)
+			from_date = frappe.utils.add_days(frappe.utils.today(), -30) # type: ignore
 
 			error_stats = frappe.db.sql(
 				"""
@@ -155,14 +155,14 @@ class EnterpriseErrorHandler:
 			)
 
 			# Calculate error trends
-			total_errors = len(error_stats)
-			critical_errors = len([e for e in error_stats if e.get("error_severity") == "Critical"])
+			total_errors = len(error_stats) # type: ignore
+			critical_errors = len([e for e in error_stats if e.get("error_severity") == "Critical"]) # type: ignore
 
 			# Get top error categories
 			category_counts = {}
 			for stat in error_stats:
-				category = stat.get("error_category", "Unknown")
-				category_counts[category] = category_counts.get(category, 0) + stat.get("error_count", 0)
+				category = stat.get("error_category", "Unknown") # type: ignore
+				category_counts[category] = category_counts.get(category, 0) + stat.get("error_count", 0) # type: ignore
 
 			top_categories = sorted(category_counts.items(), key=lambda x: x[1], reverse=True)[:5]
 
@@ -179,7 +179,7 @@ class EnterpriseErrorHandler:
 				"resolution_rate": round(resolution_rate, 2),
 				"top_categories": top_categories,
 				"error_trends": error_stats,
-				"last_updated": frappe.utils.now(),
+				"last_updated": frappe.utils.now(), # type: ignore
 			}
 
 		except Exception as e:

@@ -15,7 +15,7 @@ def upsert_quality_procedure(proc):
 	# Always set both name and quality_procedure_name for ERPNext v15!
 	name = proc["name"]
 	doc = frappe.db.exists("Quality Procedure", {"quality_procedure_name": name})
-	doc = frappe.get_doc("Quality Procedure", doc) if doc else frappe.new_doc("Quality Procedure")
+	doc = frappe.get_doc("Quality Procedure", doc) if doc else frappe.new_doc("Quality Procedure") # type: ignore
 	doc.update(
 		{
 			"quality_procedure_name": name,
@@ -23,7 +23,7 @@ def upsert_quality_procedure(proc):
 			"default_operation": proc.get("default_operation"),
 		}
 	)
-	doc.title = proc.get("title", name)  # use title if available
+	doc.title = proc.get("title", name)  # use title if available  # type: ignore
 	doc.save()
 	return name
 

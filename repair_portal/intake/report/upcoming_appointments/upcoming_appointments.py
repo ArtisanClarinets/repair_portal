@@ -33,7 +33,7 @@ def execute(filters=None):
 	data = frappe.get_all(
 		"Appointment",
 		fields=["appointment_date", "customer", "serial_no", "reason", "confirmed"],
-		filters={"appointment_date": [">=", frappe.utils.now()]},
+		filters={"appointment_date": [">=", frappe.utils.now()]}, # type: ignore
 		order_by="appointment_date asc",
 	)
 

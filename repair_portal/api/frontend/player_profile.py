@@ -37,38 +37,38 @@ def get():
 	profile_name = frappe.db.get_value("Player Profile", {"primary_email": email})
 	if not profile_name:
 		frappe.throw(_("No player profile linked to this user."), frappe.PermissionError)
-	doc = frappe.get_doc("Player Profile", profile_name)
+	doc = frappe.get_doc("Player Profile", profile_name) # type: ignore
 
 	def safe_table(doc, fieldname):
 		value = getattr(doc, fieldname, [])
 		return [row.as_dict() for row in (value or [])]
 
-	out = {
+	out = { 
 		"player_profile_id": doc.name,
-		"player_name": doc.player_name,
-		"preferred_name": doc.preferred_name,
-		"primary_email": doc.primary_email,
-		"primary_phone": doc.primary_phone,
-		"mailing_address": doc.mailing_address,
-		"profile_creation_date": doc.profile_creation_date,
-		"profile_status": doc.profile_status,
-		"player_level": doc.player_level,
-		"primary_playing_styles": _listify(doc.primary_playing_styles),
-		"affiliation": doc.affiliation,
-		"primary_teacher": doc.primary_teacher,
-		"key_height_preference": doc.key_height_preference,
-		"spring_tension_preference": doc.spring_tension_preference,
-		"preferred_pad_type": doc.preferred_pad_type,
-		"g_sharp_a_connection": doc.g_sharp_a_connection,
-		"intonation_notes": doc.intonation_notes,
+		"player_name": doc.player_name, # type: ignore
+		"preferred_name": doc.preferred_name, # type: ignore
+		"primary_email": doc.primary_email, # type: ignore
+		"primary_phone": doc.primary_phone, # type: ignore
+		"mailing_address": doc.mailing_address, # type: ignore
+		"profile_creation_date": doc.profile_creation_date, # type: ignore
+		"profile_status": doc.profile_status, # type: ignore
+		"player_level": doc.player_level, # type: ignore
+		"primary_playing_styles": _listify(doc.primary_playing_styles), # type: ignore
+		"affiliation": doc.affiliation, # type: ignore
+		"primary_teacher": doc.primary_teacher, # type: ignore
+		"key_height_preference": doc.key_height_preference, # type: ignore
+		"spring_tension_preference": doc.spring_tension_preference, # type: ignore
+		"preferred_pad_type": doc.preferred_pad_type, # type: ignore
+		"g_sharp_a_connection": doc.g_sharp_a_connection, # type: ignore
+		"intonation_notes": doc.intonation_notes, # type: ignore
 		"instruments_owned": safe_table(doc, "instruments_owned"),
 		"equipment_preferences": safe_table(doc, "equipment_preferences"),
-		"last_visit_date": doc.last_visit_date,
+		"last_visit_date": doc.last_visit_date, # type: ignore
 		"customer_lifetime_value": flt(getattr(doc, "customer_lifetime_value", 0)),
-		"communication_preference": doc.communication_preference,
+		"communication_preference": doc.communication_preference, # type: ignore
 		"newsletter_subscription": _as_bool(getattr(doc, "newsletter_subscription", 0)),
-		"targeted_marketing_optin": _listify(doc.targeted_marketing_optin),
-		"referral_source": doc.referral_source,
+		"targeted_marketing_optin": _listify(doc.targeted_marketing_optin), # type: ignore
+		"referral_source": doc.referral_source, # type: ignore
 		"is_staff": is_staff,
 	}
 	return out
@@ -83,7 +83,7 @@ def save():
 	profile_name = frappe.db.get_value("Player Profile", {"primary_email": email})
 	if not profile_name:
 		frappe.throw(_("No player profile linked to this user."), frappe.PermissionError)
-	doc = frappe.get_doc("Player Profile", profile_name)
+	doc = frappe.get_doc("Player Profile", profile_name) # type: ignore
 	data = frappe.local.form_dict or json.loads(frappe.request.data or "{}")
 	# Handle all editable fields
 	for field in [
@@ -115,19 +115,19 @@ def save():
 	if "primary_playing_styles" in data:
 		val = data["primary_playing_styles"]
 		if isinstance(val, list):
-			doc.primary_playing_styles = ", ".join(val)
+			doc.primary_playing_styles = ", ".join(val) # type: ignore
 		else:
-			doc.primary_playing_styles = str(val)
+			doc.primary_playing_styles = str(val) # type: ignore
 	if "targeted_marketing_optin" in data:
 		val = data["targeted_marketing_optin"]
 		if isinstance(val, list):
-			doc.targeted_marketing_optin = ", ".join(val)
+			doc.targeted_marketing_optin = ", ".join(val) # type: ignore
 		else:
-			doc.targeted_marketing_optin = str(val)
+			doc.targeted_marketing_optin = str(val) # type: ignore
 
 	# Booleans (newsletter_subscription)
 	if "newsletter_subscription" in data:
-		doc.newsletter_subscription = int(bool(data["newsletter_subscription"]))
+		doc.newsletter_subscription = int(bool(data["newsletter_subscription"])) # type: ignore
 
 	# Child tables
 	for table_field, table_doctype in [

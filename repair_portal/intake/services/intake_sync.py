@@ -30,6 +30,6 @@ def upsert_customer(data: dict) -> str:
 		contact.insert(ignore_permissions=True)
 
 	# Address
-	_upsert_address(customer.name, data)
+	_upsert_address(customer.name, data) # type: ignore
 
-	return customer.name
+	return customer.name # type: ignore

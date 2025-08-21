@@ -82,7 +82,7 @@ def execute(filters: dict | None = None) -> tuple[list[dict], list[dict]]:
 	data = frappe.db.sql(query, params, as_dict=True)
 
 	columns = _get_columns()
-	return columns, data
+	return columns, data # type: ignore
 
 
 # --------------------------------------------------------------------------- #

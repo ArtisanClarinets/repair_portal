@@ -36,12 +36,12 @@ def get(instrument_id=None):
 	]
 
 	if is_staff:
-		return frappe.db.get_value("Instrument", instrument_id, fields, as_dict=True)
+		return frappe.db.get_value("Instrument", instrument_id, fields, as_dict=True) # type: ignore
 
 	email = frappe.db.get_value("User", user, "email")
 	customer = frappe.db.get_value("Customer", {"email_id": email})
-	doc = frappe.db.get_value("Instrument", instrument_id, fields, as_dict=True)
-	if not customer or not doc or doc.get("customer") != customer:
+	doc = frappe.db.get_value("Instrument", instrument_id, fields, as_dict=True) # type: ignore
+	if not customer or not doc or doc.get("customer") != customer: # type: ignore
 		frappe.throw(_("Not permitted"), frappe.PermissionError)
 	return doc
 
@@ -86,7 +86,7 @@ def get_profile(instrument=None, profile=None):
 	else:
 		_sync_now(profile=profile)
 
-	return frappe.get_doc("Instrument Profile", profile).as_dict()
+	return frappe.get_doc("Instrument Profile", profile).as_dict() # type: ignore
 
 
 @frappe.whitelist(allow_guest=False)

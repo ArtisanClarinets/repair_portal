@@ -77,12 +77,12 @@ class PlayerProfile(Document):
 		mailing_address: DF.SmallText | None
 		newsletter_subscription: DF.Check
 		player_level: DF.Literal[
-			"Student (Beginner)",
-			"Student (Advanced)",
+			"Student (Beginner)", # type: ignore
+			"Student (Advanced)", # type: ignore
 			"Amateur/Hobbyist",
 			"University Student",
-			"Professional (Orchestral)",
-			"Professional (Jazz/Commercial)",
+			"Professional (Orchestral)", # type: ignore
+			"Professional (Jazz/Commercial)", # type: ignore
 			"Educator",
 			"Collector",
 		]  # type: ignore
@@ -149,7 +149,7 @@ class PlayerProfile(Document):
 				frappe.db.set_value("Email Group Member", {"email": self.primary_email}, "unsubscribed", 1)
 			# Notify parent/client user if available
 			customer = frappe.db.get_value(
-				"Customer", {"email_id": self.primary_email}, ["linked_user"], as_dict=True
+				"Customer", {"email_id": self.primary_email}, ["linked_user"], as_dict=True # type: ignore
 			)  # type: ignore
 			if customer and customer.linked_user:  # type: ignore
 				parent_email = frappe.db.get_value("User", customer.linked_user, "email")  # type: ignore

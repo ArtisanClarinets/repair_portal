@@ -9,5 +9,5 @@ from frappe.model.document import Document
 
 class LoanerReturnCheck(Document):
 	def validate(self):
-		if self.damage_found and not self.condition_notes:
+		if self.damage_found and not self.condition_notes: # type: ignore
 			frappe.throw("Please include condition notes when damage is flagged.")

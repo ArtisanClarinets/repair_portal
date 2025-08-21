@@ -54,12 +54,12 @@ def handle_activation(doc: Document):
 			{
 				"doctype": "Player Profile",
 				"customer": doc.name,
-				"player_name": frappe.db.get_value("Customer", doc.customer, "customer_name"),
+				"player_name": frappe.db.get_value("Customer", doc.customer, "customer_name"), # type: ignore
 			}
 		).insert(ignore_permissions=True)
 		doc.add_comment("Workflow", "Auto-created first Player Profile.")
 
-	email = frappe.db.get_value("Customer", doc.customer, "email_id")
+	email = frappe.db.get_value("Customer", doc.customer, "email_id") # type: ignore
 	if email:
 		try:
 			frappe.enqueue(
@@ -137,7 +137,7 @@ def _validate_activation_requirements(doc: Document):
 	"""
 	Ensures that the customer has a name and email before activation.
 	"""
-	cust = frappe.get_doc("Customer", doc.customer)
+	cust = frappe.get_doc("Customer", doc.customer) # type: ignore
 	missing = [
 		label
 		for field, label in [("customer_name", "Customer Name"), ("email_id", "Email")]

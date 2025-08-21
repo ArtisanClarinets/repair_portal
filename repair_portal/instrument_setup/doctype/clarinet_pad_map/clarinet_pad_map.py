@@ -376,7 +376,7 @@ def populate_standard_pad_names(docname: str | None = None, doc_json: Any | None
 	# Saved document path
 	if docname:
 		doc = frappe.get_doc("Clarinet Pad Map", docname)  # raises DoesNotExist if wrong
-		_populate_and_enforce(doc)
+		_populate_and_enforce(doc) # type: ignore
 		doc.save()
 		return True
 
@@ -392,7 +392,7 @@ def populate_standard_pad_names(docname: str | None = None, doc_json: Any | None
 			frappe.throw("doc_json must be a dict or JSON string.")
 
 		# Rehydrate as a Document but DO NOT save
-		temp_doc = frappe.get_doc(doc_json)
+		temp_doc = frappe.get_doc(doc_json) # type: ignore
 		_populate_and_enforce(temp_doc)
 
 		# Return rows so client can patch the UI without reload/save

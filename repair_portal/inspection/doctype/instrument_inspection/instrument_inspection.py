@@ -17,11 +17,11 @@ from frappe.model.document import Document
 # ---- ISN utilities (single source of truth) ----
 # Support either app path to avoid import-order issues.
 try:
-	from repair_portal.repair_portal.utils.serials import (  # preferred
+	from repair_portal.utils.serials import (  # preferred 
 		ensure_instrument_serial,
 	)
-	from repair_portal.repair_portal.utils.serials import (
-		find_by_serial as isn_find_by_serial,
+	from repair_portal.utils.serials import (
+		find_by_serial as isn_find_by_serial, 
 	)
 except Exception:
 	from repair_portal.utils.serials import (  # fallback
@@ -64,30 +64,30 @@ class InstrumentInspection(Document):
 		amended_from: DF.Link | None
 		audio_video_demos: DF.Literal["Instrument Media"]
 		body_material: DF.Data | None
-		bore_condition: DF.Literal[Clean, "Debris Present", "Irregularities Visible"]
+		bore_condition: DF.Literal["Clean", "Debris Present", "Irregularities Visible"]
 		bore_measurement: DF.Float
 		bore_notes: DF.SmallText | None
 		bore_style: DF.Data | None
 		clarinet_intake: DF.Link | None
 		condition: DF.Table[VisualInspection]
 		current_location: DF.Data | None
-		current_status: DF.Literal["For Sale", "In Workshop", "With Customer", Sold, Archived]
+		current_status: DF.Literal["For Sale", "In Workshop", "With Customer", "Sold", "Archived"]
 		customer: DF.Link | None
 		hygrometer_photo: DF.AttachImage | None
 		inspected_by: DF.Link
 		inspection_date: DF.Date | None
-		inspection_type: DF.Literal["New Inventory", Repair, Maintenance, QA, Other]
+		inspection_type: DF.Literal["New Inventory", "Repair", "Maintenance", "QA", "Other"]
 		instrument_delivered: DF.Check
 		intake_record_id: DF.Link | None
-		key: DF.Literal["B\u266d", A, "E\u266d", C, D]
+		key: DF.Literal["B♭", "A", "E♭", "C", "D"]
 		key_plating: DF.Data | None
-		key_system: DF.Literal[Boehm, Albert, Oehler, Other]
+		key_system: DF.Literal["Boehm", "Albert", "Oehler", "Other"]
 		manufacturer: DF.Data | None
 		marketing_photos: DF.Table[InstrumentPhoto]
 		model: DF.Data | None
 		notes: DF.Text | None
 		number_of_keys_rings: DF.Data | None
-		overall_condition: DF.Literal[Excellent, Good, Fair, Poor]
+		overall_condition: DF.Literal["Excellent", "Good", "Fair", "Poor"]
 		pad_type_current: DF.Data | None
 		pitch_standard: DF.Data | None
 		preliminary_estimate: DF.Currency
@@ -105,7 +105,7 @@ class InstrumentInspection(Document):
 		unboxing_rh: DF.Float
 		unboxing_temperature: DF.Float
 		unboxing_time: DF.Datetime | None
-		wood_type: DF.Literal[Grenadilla, Mopane, Cocobolo, Synthetic, Other]
+		wood_type: DF.Literal["Grenadilla", "Mopane", "Cocobolo", "Synthetic", "Other"]
 	# end: auto-generated types
 
 	# ----------------------
@@ -181,7 +181,7 @@ class InstrumentInspection(Document):
 
 			profile_name = frappe.db.get_value("Instrument Profile", {"instrument": target_instrument})
 			if profile_name:
-				profile = frappe.get_doc("Instrument Profile", profile_name)
+				profile = frappe.get_doc("Instrument Profile", profile_name) # type: ignore
 				for k, v in data.items():
 					if v not in (None, "", []):
 						profile.set(k, v)
@@ -271,17 +271,17 @@ class InstrumentInspection(Document):
 
 		# key: store musical key (B♭, A, etc.) from Instrument.clarinet_type if available
 		if not self.key and getattr(instr_doc, "clarinet_type", None):
-			self.key = instr_doc.clarinet_type
+			self.key = instr_doc.clarinet_type # type: ignore
 
 		# wood_type from Instrument.body_material if available
 		if not self.wood_type and getattr(instr_doc, "body_material", None):
-			self.wood_type = instr_doc.body_material
+			self.wood_type = instr_doc.body_material # type: ignore
 
 		# Also backfill manufacturer & model for convenience
 		if not self.manufacturer and getattr(instr_doc, "brand", None):
-			self.manufacturer = instr_doc.brand
+			self.manufacturer = instr_doc.brand # type: ignore
 		if not self.model and getattr(instr_doc, "model", None):
-			self.model = instr_doc.model
+			self.model = instr_doc.model # type: ignore
 
 	# -- Resolution core --
 
@@ -298,15 +298,15 @@ class InstrumentInspection(Document):
 		# Case 1: treat input as ISN docname
 		if frappe.db.exists("Instrument Serial Number", token):
 			isn = frappe.get_value("Instrument Serial Number", token, ["instrument"], as_dict=True)
-			if isn and isn.get("instrument") and frappe.db.exists("Instrument", isn["instrument"]):
-				doc = frappe.get_doc("Instrument", isn["instrument"])
+			if isn and isn.get("instrument") and frappe.db.exists("Instrument", isn["instrument"]): # type: ignore
+				doc = frappe.get_doc("Instrument", isn["instrument"]) # type: ignore
 				return doc.name, doc
 
 		# Case 2: legacy ERPNext Serial No docname (Instrument.serial_no might have stored it historically)
 		if frappe.db.exists("Serial No", token):
 			instr_name = frappe.db.get_value("Instrument", {"serial_no": token}, "name")
 			if instr_name:
-				return instr_name, frappe.get_doc("Instrument", instr_name)
+				return instr_name, frappe.get_doc("Instrument", instr_name) # type: ignore
 
 		# Case 3: raw→ISN (normalized), then Instrument
 		isn_row = isn_find_by_serial(token)
@@ -317,13 +317,13 @@ class InstrumentInspection(Document):
 		# Case 3b: raw→Instrument (legacy Data field)
 		instr_name = frappe.db.get_value("Instrument", {"serial_no": token}, "name")
 		if instr_name:
-			return instr_name, frappe.get_doc("Instrument", instr_name)
+			return instr_name, frappe.get_doc("Instrument", instr_name) # type: ignore
 
 		# Case 3c: raw→ISN name stored into Instrument.serial_no (when Instrument.serial_no is a Link)
 		if isn_row and isn_row.get("name"):
 			instr_name = frappe.db.get_value("Instrument", {"serial_no": isn_row["name"]}, "name")
 			if instr_name:
-				return instr_name, frappe.get_doc("Instrument", instr_name)
+				return instr_name, frappe.get_doc("Instrument", instr_name) # type: ignore
 
 		return None, None
 

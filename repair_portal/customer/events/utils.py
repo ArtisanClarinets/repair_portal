@@ -27,7 +27,7 @@ def create_customer(doc, method=None):
 		customer = frappe.db.get_value(
 			"Customer",
 			{"email_id": email},
-			["name", "customer_name"],
+			["name", "customer_name"], # type: ignore
 			as_dict=True,
 		)
 
@@ -38,7 +38,7 @@ def create_customer(doc, method=None):
 				"linked_user": doc.name,
 				"client_name": doc.full_name or doc.first_name or "Unnamed",
 				"email": email,
-				"customer": customer.name if customer else None,
+				"customer": customer.name if customer else None, # type: ignore
 			}
 		)
 

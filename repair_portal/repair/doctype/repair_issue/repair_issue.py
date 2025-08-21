@@ -3,17 +3,18 @@
 # Version: 1.1
 # Purpose: Server-side logic for Repair Issue doctype
 
+from __future__ import annotations
 import frappe
 from frappe.model.document import Document
-
+from typing import TYPE_CHECKING
 
 class RepairIssue(Document):
 	def autoname(self):
-		if self.customer:
-			self.name = f"{self.customer}-{frappe.utils.nowdate()}"
+		if self.customer: # type: ignore
+			self.name = f"{self.customer}-{frappe.utils.nowdate()}" # type: ignore
 
 	def validate(self):
-		if not self.customer:
+		if not self.customer: # type: ignore
 			frappe.throw("Customer is required")
 
 	def on_submit(self):

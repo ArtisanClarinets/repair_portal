@@ -21,14 +21,14 @@ def get_customer(client_id: str) -> dict:
 
 		return {
 			"name": doc.name,
-			"customer_name": doc.customer_name,
-			"contact_email": doc.contact_email,
-			"contact_phone": doc.contact_phone,
-			"default_address": doc.default_address,
-			"billing_address": doc.billing_address,
-			"shipping_address": doc.shipping_address,
-			"created": doc.creation,
-			"modified": doc.modified,
+			"customer_name": doc.customer_name, # type: ignore
+			"contact_email": doc.contact_email, # type: ignore
+			"contact_phone": doc.contact_phone, # type: ignore
+			"default_address": doc.default_address, # type: ignore
+			"billing_address": doc.billing_address, # type: ignore
+			"shipping_address": doc.shipping_address, # type: ignore
+			"created": doc.creation, # type: ignore
+			"modified": doc.modified, # type: ignore
 		}
 
 	except PermissionError:

@@ -23,7 +23,7 @@ class CustomerConsent(Document):
 		import hashlib
 		import time
 
-		key = f"{self.customer}-{self.consent_template}-{self.signed_on or time.time()}"
+		key = f"{self.customer}-{self.consent_template}-{self.signed_on or time.time()}" # type: ignore
 		self.name = hashlib.sha1(key.encode()).hexdigest()[:20]
 
 	def validate(self):
@@ -32,14 +32,14 @@ class CustomerConsent(Document):
 		Attach signature image if present.
 		"""
 		try:
-			template = frappe.get_doc("Consent Template", self.consent_template)
-			content = template.content
-			field_map = {v.field_label: v.field_value for v in self.field_values}
+			template = frappe.get_doc("Consent Template", self.consent_template) # type: ignore
+			content = template.content # type: ignore
+			field_map = {v.field_label: v.field_value for v in self.field_values} # type: ignore
 			for key, val in field_map.items():
 				content = content.replace(f"[{key}]", frappe.safe_decode(val or ""))
-			if self.signature:
-				content += f'<br><b>Signature:</b><br><img src="{self.signature}" height="90">'
-			content += f"<br><b>Signed On:</b> {self.signed_on}"
+			if self.signature: # type: ignore
+				content += f'<br><b>Signature:</b><br><img src="{self.signature}" height="90">' # type: ignore
+			content += f"<br><b>Signed On:</b> {self.signed_on}" # type: ignore
 			self.rendered_content = content
 		except Exception as e:
 			frappe.log_error(f"Consent form rendering error: {e}", "CustomerConsent")

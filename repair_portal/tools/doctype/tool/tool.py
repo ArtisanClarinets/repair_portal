@@ -2,7 +2,7 @@
 # Date Updated: 2025-07-17
 # Version: v1.2
 # Purpose: Tracks tool metadata, serviceability, calibration lifecycle, and ERPNext Asset sync. Automated calibration notifications.
-
+from __future__ import annotations
 import frappe
 from frappe.model.document import Document
 from frappe.utils import add_days, nowdate
@@ -10,7 +10,7 @@ from frappe.utils import add_days, nowdate
 
 class Tool(Document):
 	def validate(self):
-		if self.requires_calibration and not self.next_due:
+		if self.requires_calibration and not self.next_due: # type: ignore
 			frappe.throw("Please set 'Next Calibration Due' for tools requiring calibration.")
 
 	def on_submit(self):
@@ -18,7 +18,7 @@ class Tool(Document):
 		On submit, auto-create ERPNext Asset if not linked (optional).
 		"""
 		try:
-			if not self.asset:
+			if not self.asset: # type: ignore
 				# Optionally auto-create asset (uncomment if desired)
 				pass
 		except Exception:
@@ -45,9 +45,9 @@ def send_calibration_due_notifications(days_ahead=7):
 			doc = frappe.get_doc("Tool", t.name)
 			recipients = [doc.owner]
 			# Optionally add Service Manager(s) or custom logic
-			subject = f"Calibration Due Soon: {doc.tool_name}"
+			subject = f"Calibration Due Soon: {doc.tool_name}" # type: ignore
 			message = (
-				f"Tool <b>{doc.tool_name}</b> requires calibration by <b>{doc.next_due}</b>.\n"
+				f"Tool <b>{doc.tool_name}</b> requires calibration by <b>{doc.next_due}</b>.\n" # type: ignore
 				"Please schedule or record calibration in the system."
 			)
 			try:

@@ -8,7 +8,7 @@ from frappe.model.document import Document
 
 class StockEntry(Document):
 	def on_submit(self):
-		for item in self.items:
+		for item in self.items: # type: ignore
 			if item.get("qc_required"):
 				# PATCH: Ensure serial_no exists in ERPNext Serial No
 				if not frappe.db.exists("Serial No", item.serial_no):
@@ -19,11 +19,11 @@ class StockEntry(Document):
 				)
 				if not exists:
 					doc = frappe.new_doc("Inspection Report")
-					doc.instrument_id = item.item_code
-					doc.serial_no = item.serial_no
-					doc.stock_entry = self.name
-					doc.status = "Scheduled"
-					doc.inspection_type = "Clarinet QA"
-					doc.customer_name = getattr(self, "customer", "")
+					doc.instrument_id = item.item_code # type: ignore
+					doc.serial_no = item.serial_no # type: ignore
+					doc.stock_entry = self.name # type: ignore
+					doc.status = "Scheduled" # type: ignore
+					doc.inspection_type = "Clarinet QA" # type: ignore
+					doc.customer_name = getattr(self, "customer", "") # type: ignore
 					doc.save(ignore_permissions=True)
 					frappe.msgprint(f"Inspection Report auto-created for Serial: {item.serial_no}")

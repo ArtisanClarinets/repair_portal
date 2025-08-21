@@ -70,7 +70,7 @@ class TestInstrumentInspection(FrappeTestCase):
 			).insert()
 
 		doc = frappe.new_doc("Serial No")
-		doc.serial_no = serial
+		doc.serial_no = serial # type: ignore
 		if commit:
 			doc.insert(ignore_permissions=True)
 		return doc
@@ -96,7 +96,7 @@ class TestInstrumentInspection(FrappeTestCase):
 			).insert()
 
 		customer = frappe.new_doc("Customer")
-		customer.customer_name = name
+		customer.customer_name = name # type: ignore
 		if commit:
 			customer.insert(ignore_permissions=True)
 		return customer
@@ -117,7 +117,7 @@ class TestInstrumentInspection(FrappeTestCase):
 			**kwargs,  # Override defaults with provided arguments
 		}
 		doc = frappe.get_doc(data)
-		return doc
+		return doc # type: ignore
 
 	# --- Test Cases ---
 
@@ -223,12 +223,12 @@ class TestInstrumentInspection(FrappeTestCase):
 		self.assertEqual(inspection.docstatus, 1)  # Submitted
 
 		# Verification
-		profile = frappe.get_doc("Instrument Profile", {"instrument": new_serial_no})
+		profile = frappe.get_doc("Instrument Profile", {"instrument": new_serial_no}) # type: ignore
 		self.assertIsNotNone(profile)
-		self.assertEqual(profile.instrument, new_serial_no)
-		self.assertEqual(profile.body_material, "Grenadilla Wood")
-		self.assertEqual(profile.key_plating, "Silver")
-		self.assertEqual(profile.current_status, "For Sale")
+		self.assertEqual(profile.instrument, new_serial_no) # type: ignore
+		self.assertEqual(profile.body_material, "Grenadilla Wood") # type: ignore
+		self.assertEqual(profile.key_plating, "Silver") # type: ignore
+		self.assertEqual(profile.current_status, "For Sale") # type: ignore
 
 	def test_on_submit_updates_existing_instrument_profile(self):
 		"""Verify that submitting an inspection updates an existing Instrument Profile."""
@@ -289,10 +289,10 @@ class TestInstrumentInspection(FrappeTestCase):
 		inspection.submit()
 
 		# Verification
-		updated_profile = frappe.get_doc("Instrument Profile", initial_profile.name)
-		self.assertEqual(updated_profile.body_material, "Updated Grenadilla")
-		self.assertEqual(updated_profile.key_plating, "Silver")
-		self.assertEqual(updated_profile.current_status, "For Sale")
+		updated_profile = frappe.get_doc("Instrument Profile", initial_profile.name) # type: ignore
+		self.assertEqual(updated_profile.body_material, "Updated Grenadilla") # type: ignore
+		self.assertEqual(updated_profile.key_plating, "Silver") # type: ignore
+		self.assertEqual(updated_profile.current_status, "For Sale") # type: ignore
 		self.assertEqual(
 			frappe.db.count("Instrument Profile", {"instrument": existing_serial_no}), 1
 		)  # Ensure no new profile was made
@@ -333,10 +333,10 @@ class TestInstrumentInspection(FrappeTestCase):
 		inspection.insert()
 
 		# Fetch the document from the DB to verify
-		saved_doc = frappe.get_doc("Instrument Inspection", inspection.name)
-		self.assertEqual(len(saved_doc.visual_inspection), 1)
-		self.assertEqual(saved_doc.visual_inspection[0].area, "Upper Joint")
-		self.assertEqual(saved_doc.visual_inspection[0].recommendation, "Buff and polish.")
+		saved_doc = frappe.get_doc("Instrument Inspection", inspection.name) # type: ignore
+		self.assertEqual(len(saved_doc.visual_inspection), 1) # type: ignore
+		self.assertEqual(saved_doc.visual_inspection[0].area, "Upper Joint") # type: ignore
+		self.assertEqual(saved_doc.visual_inspection[0].recommendation, "Buff and polish.") # type: ignore
 
 
 if __name__ == "__main__":

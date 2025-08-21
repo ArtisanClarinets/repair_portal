@@ -19,7 +19,7 @@ def check_sla_breaches():
 
 	for ro in overdue:
 		doc = frappe.get_doc("Repair Order", ro.name)
-		doc.sla_breached = 1
+		doc.sla_breached = 1 # type: ignore
 		doc.save()
 		frappe.sendmail(
 			recipients=["service@artisanclarinets.com"],

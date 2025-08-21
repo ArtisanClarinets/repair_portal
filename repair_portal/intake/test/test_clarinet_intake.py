@@ -17,4 +17,4 @@ class TestClarinetIntake(FrappeTestCase):
 		intake.submit()
 		setup_name = frappe.db.get_value("Clarinet Initial Setup", {"intake": intake.name})
 		self.assertTrue(setup_name)
-		self.assertEqual(intake.linked_initial_setup, setup_name)
+		self.assertEqual(intake.linked_initial_setup, setup_name) # type: ignore

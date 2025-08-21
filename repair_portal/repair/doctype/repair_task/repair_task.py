@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 	repair_order: DF.Link
 	assigned_to: DF.Link
-	status: DF.Select
+	status: DF.Select |  # type: ignore
 	completed_on: DF.Datetime | None
 # end: auto-generated types
 

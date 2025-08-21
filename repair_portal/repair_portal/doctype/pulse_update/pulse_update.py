@@ -52,4 +52,4 @@ def create_update(
 		docname=repair_request,
 	)
 
-	return doc.name
+	return doc.name # type: ignore

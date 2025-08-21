@@ -4,20 +4,6 @@
 # Purpose: Unified controller logic for Repair Order (merging Repair Request). Now Fortune-500 compliant: robust error logging, docstrings, and future-proof automation hooks.
 # Dependencies: Instrument Profile, Repair Note, Qa Checklist Item, Customer, User
 
-# begin: auto-generated types
-# This code is auto-generated. Do not touch it – Frappe will overwrite.
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-	from frappe.types import DF  # DF = “DocField” helper
-
-	customer: DF.Link
-	issue_description: DF.SmallText
-	instrument_profile: DF.Link | None
-	is_warranty: DF.Check
-	total_parts_cost: DF.Currency
-	total_labor_hours: DF.Float
-# end: auto-generated types
 
 import frappe
 from frappe import _
@@ -71,9 +57,9 @@ class RepairOrder(Document):
 		Logs errors for audit.
 		"""
 		try:
-			if hasattr(self, "instrument_profile") and self.instrument_profile:
-				ip = frappe.get_doc("Instrument Profile", self.instrument_profile)
-				if hasattr(ip, "warranty_active") and ip.warranty_active:
+			if hasattr(self, "instrument_profile") and self.instrument_profile: # type: ignore
+				ip = frappe.get_doc("Instrument Profile", self.instrument_profile) # type: ignore
+				if hasattr(ip, "warranty_active") and ip.warranty_active: # type: ignore
 					self.is_warranty = 1
 					self.append(
 						"comments",

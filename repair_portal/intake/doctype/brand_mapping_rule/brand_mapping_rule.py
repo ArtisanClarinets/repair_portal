@@ -17,10 +17,10 @@ class BrandMappingRule(Document):
 
 	def validate(self):
 		"""Ensure brand mapping rules are valid."""
-		if not self.from_brand:
+		if not self.from_brand: # type: ignore
 			frappe.throw("From Brand is required")
 
-		if not self.to_brand:
+		if not self.to_brand: # type: ignore
 			frappe.throw("To Brand is required")
 
 		# Prevent duplicate or conflicting rules
@@ -30,6 +30,6 @@ class BrandMappingRule(Document):
 		"""Ensure that the (from_brand, to_brand) mapping is unique."""
 		if frappe.db.exists(
 			"Brand Mapping Rule",
-			{"from_brand": self.from_brand, "to_brand": self.to_brand, "name": ["!=", self.name]},
+			{"from_brand": self.from_brand, "to_brand": self.to_brand, "name": ["!=", self.name]}, # type: ignore
 		):
-			frappe.throw(f"A mapping from '{self.from_brand}' to '{self.to_brand}' already exists.")
+			frappe.throw(f"A mapping from '{self.from_brand}' to '{self.to_brand}' already exists.") # type: ignore

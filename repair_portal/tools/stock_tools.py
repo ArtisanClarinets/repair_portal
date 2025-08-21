@@ -48,7 +48,7 @@ def verify_ready_for_sale(serial_no: str) -> dict:
 
 	# Check stock exists in any Bin
 	qty = frappe.db.get_value("Bin", {"item_code": ip.model}, "actual_qty") or 0
-	if qty <= 0:
+	if qty <= 0:  # type: ignore
 		return {"success": False, "reason": "No available stock for this instrument."}
 
 	return {"success": True, "reason": "Instrument is Ready for Sale."}

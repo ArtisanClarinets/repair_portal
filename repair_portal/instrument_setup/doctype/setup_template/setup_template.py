@@ -40,13 +40,13 @@ class SetupTemplate(Document):
 		estimated_materials_cost: DF.Currency
 		is_active: DF.Check
 		pad_map: DF.Link | None
-		priority: DF.Literal[Low, Medium, High, Urgent]
+		priority: DF.Literal[Low, Medium, High, Urgent] # type: ignore
 		setup_type: DF.Literal[
 			"Standard Setup",
 			"Advanced Setup",
-			Repair & Setup,
-			Maintenance,
-			Overhaul,
+			"Repair & Setup",
+			"Maintenance",
+			"Overhaul",
 			"Custom Setup",
 		]
 		template_name: DF.Data
@@ -72,7 +72,7 @@ class SetupTemplate(Document):
 		if not self.pad_map and self.clarinet_model:
 			existing = frappe.db.exists("Clarinet Pad Map", {"clarinet_model": self.clarinet_model})
 			if existing:
-				self.pad_map = existing
+				self.pad_map = existing # type: ignore
 				frappe.msgprint(_("Found existing Pad Map: {0}").format(existing))
 			else:
 				pad_map = frappe.get_doc(
@@ -106,9 +106,9 @@ class SetupTemplate(Document):
 		if not self.estimated_cost and self.estimated_hours:
 			# Assume a standard hourly rate for estimation (this could be configurable)
 			hourly_rate = frappe.db.get_single_value("Repair Portal Settings", "standard_hourly_rate") or 75
-			labor_cost = self.estimated_hours * hourly_rate
+			labor_cost = self.estimated_hours * hourly_rate # type: ignore
 			materials_cost = self.estimated_materials_cost or 0
-			self.estimated_cost = labor_cost + materials_cost
+			self.estimated_cost = labor_cost + materials_cost # type: ignore
 
 	@frappe.whitelist()
 	def get_template_summary(self):

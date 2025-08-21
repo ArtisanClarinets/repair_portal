@@ -52,11 +52,11 @@ def execute(filters=None):
 
 	chart = {
 		"data": {
-			"labels": [row["task_type"] for row in data],
+			"labels": [row["task_type"] for row in data], # type: ignore
 			"datasets": [
 				{
 					"name": "Task Count",
-					"values": [row["task_count"] for row in data],
+					"values": [row["task_count"] for row in data], # type: ignore
 				}
 			],
 		},

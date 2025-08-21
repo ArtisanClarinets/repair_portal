@@ -4,7 +4,7 @@
 # Version: v1.0
 # Purpose: Child table for documenting tone hole visual inspection results.
 # Dependencies: frappe
-
+from __future__ import annotations
 import frappe
 from frappe import _
 from frappe.model.document import Document
@@ -13,11 +13,11 @@ from frappe.model.document import Document
 class ToneHoleInspectionRecord(Document):
 	def validate(self):
 		"""Ensure each tone hole record is fully documented."""
-		if not self.tone_hole_number:
+		if not self.tone_hole_number: # type: ignore
 			frappe.throw(_("Tone Hole Number is required."))
 
-		if not self.visual_status:
+		if not self.visual_status: # type: ignore
 			frappe.throw(_("Visual Status (Clean, Damaged, etc.) is required."))
 
-		if not self.photo:
+		if not self.photo: # type: ignore
 			frappe.throw(_("Photo attachment is required for each tone hole inspection."))
