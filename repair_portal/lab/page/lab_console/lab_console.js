@@ -1,16 +1,14 @@
 /** biome-ignore-all lint */
 /* global frappe */
 
-frappe.provide("repair_portal.lab");
-
-frappe.pages["lab-console"].on_page_load = function (wrapper) {
+frappe.pages["lab-console"].on_page_load = (wrapper) => {
 	const $ = window.jQuery; // ensure alias exists before first use
 
-	const page = frappe.ui.make_app_page({
-		parent: wrapper,
-		title: __("Lab Console"),
-		single_column: true
-	});
+const page = frappe.ui.make_app_page({
+	parent: wrapper,
+	title: __("Lab Console"),
+	single_column: true
+});
 
 	// ---------- UI ----------
 	const ui = `

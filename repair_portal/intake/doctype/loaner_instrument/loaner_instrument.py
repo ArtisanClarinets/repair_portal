@@ -11,30 +11,36 @@ from frappe.utils.pdf import get_pdf
 
 
 class LoanerInstrument(Document):
-	def after_insert(self):
-		if self.issued_to and not self.returned: # type: ignore
-			self.generate_loaner_agreement()
+    def after_insert(self):
+        if self.issued_to and not self.returned:  # type: ignore
+            self.generate_loaner_agreement()
 
-	def generate_loaner_agreement(self):
-		"""
-		Generate, attach, and notify for the loaner agreement PDF.
+    def generate_loaner_agreement(self):
+        """
+        Generate, attach, and notify for the loaner agreement PDF.
 
-		Args:
-		    self: LoanerInstrument Doc instance
+        Args:
+            self: LoanerInstrument Doc instance
 
-		Returns:
-		    None. Attaches PDF and notifies user.
+        Returns:
+            None. Attaches PDF and notifies user.
 
-		On failure, logs error for audit.
-		"""
-		try:
-			# Prepare context for Jinja2 template
-			context = {"doc": self, "customer": frappe.get_doc("Customer", self.issued_to)} # type: ignore
-			html = render_template("repair_portal/intake/templates/loaner_agreement_template.html", context)
-			pdf = get_pdf(html)
-			filename = f"LoanerAgreement_{self.name}.pdf"
-			save_file(filename, pdf, self.doctype, self.name, is_private=1)
-			frappe.msgprint("Loaner agreement PDF generated and attached.")
-		except Exception:
-			frappe.log_error(frappe.get_traceback(), "LoanerInstrument: generate_loaner_agreement failed")
-			frappe.msgprint("There was an error generating the loaner agreement PDF. Please contact support.")
+        On failure, logs error for audit.
+        """
+        try:
+            # Prepare context for Jinja2 template
+            context = {'doc': self, 'customer': frappe.get_doc('Customer', self.issued_to)}  # type: ignore
+            html = render_template(
+                'repair_portal/intake/templates/loaner_agreement_template.html', context
+            )
+            pdf = get_pdf(html)
+            filename = f'LoanerAgreement_{self.name}.pdf'
+            save_file(filename, pdf, self.doctype, self.name, is_private=1)
+            frappe.msgprint('Loaner agreement PDF generated and attached.')
+        except Exception:
+            frappe.log_error(
+                frappe.get_traceback(), 'LoanerInstrument: generate_loaner_agreement failed'
+            )
+            frappe.msgprint(
+                'There was an error generating the loaner agreement PDF. Please contact support.'
+            )

@@ -12,8 +12,8 @@ from frappe.model.document import Document
 
 
 class ConsentFieldValue(Document):
-	"""
-	Stores field label, type, and entered value for each filled consent.
-	"""
+    """
+    Stores field label, type, and entered value for each filled consent.
+    """
 
-	pass
+    pass

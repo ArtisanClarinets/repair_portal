@@ -9,6 +9,6 @@ from frappe.model.document import Document
 
 
 class ConsentRequiredField(Document):
-	"""Child table for listing dynamic required fields in Consent Templates."""
+    """Child table for listing dynamic required fields in Consent Templates."""
 
-	pass
+    pass

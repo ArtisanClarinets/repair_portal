@@ -7,25 +7,25 @@ import frappe
 
 
 def execute(filters=None):
-	data = frappe.db.sql(
-		"""
+    data = frappe.db.sql(
+        """
         SELECT customer, status, COUNT(*) as count
         FROM `tabCustomer Upgrade Request`
         GROUP BY customer, status
     """,
-		as_dict=True,
-	)
+        as_dict=True,
+    )
 
-	columns = [
-		{
-			"fieldname": "customer",
-			"label": "Customer",
-			"fieldtype": "Link",
-			"options": "Customer",
-			"width": 200,
-		},
-		{"fieldname": "status", "label": "Status", "fieldtype": "Data", "width": 100},
-		{"fieldname": "count", "label": "Requests", "fieldtype": "Int", "width": 120},
-	]
+    columns = [
+        {
+            'fieldname': 'customer',
+            'label': 'Customer',
+            'fieldtype': 'Link',
+            'options': 'Customer',
+            'width': 200,
+        },
+        {'fieldname': 'status', 'label': 'Status', 'fieldtype': 'Data', 'width': 100},
+        {'fieldname': 'count', 'label': 'Requests', 'fieldtype': 'Int', 'width': 120},
+    ]
 
-	return columns, data
+    return columns, data

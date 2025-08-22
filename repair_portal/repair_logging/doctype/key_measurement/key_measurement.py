@@ -7,4 +7,4 @@ from frappe.model.document import Document
 
 
 class KeyMeasurement(Document):
-	pass
+    pass

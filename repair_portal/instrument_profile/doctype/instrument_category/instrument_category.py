@@ -9,20 +9,20 @@ from frappe.model.document import Document
 
 
 class InstrumentCategory(Document):
-	# begin: auto-generated types
-	# This code is auto-generated. Do not modify anything in this block.
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
 
-	from typing import TYPE_CHECKING
+    from typing import TYPE_CHECKING
 
-	if TYPE_CHECKING:
-		from frappe.types import DF
+    if TYPE_CHECKING:
+        from frappe.types import DF
 
-		description: DF.SmallText | None
-		is_active: DF.Check
-		title: DF.Data
-	# end: auto-generated types
-	"""
+        description: DF.SmallText | None
+        is_active: DF.Check
+        title: DF.Data
+    # end: auto-generated types
+    """
     Minimal DocType controller for Instrument Category.
     No custom business logic yet.
     """
-	pass
+    pass

@@ -6,4 +6,4 @@ from frappe.tests.utils import FrappeTestCase
 
 
 class TestInstrumentProfile(FrappeTestCase):
-	pass
+    pass

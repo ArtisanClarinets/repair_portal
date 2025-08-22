@@ -1,0 +1,20 @@
+{
+  "content": null,
+  "creation": "2025-08-21 20:54:16.276229",
+  "docstatus": 0,
+  "doctype": "Page",
+  "icon": "",
+  "idx": 0,
+  "modified": "2025-08-21 20:54:16.276229",
+  "modified_by": "Administrator",
+  "module": "Lab",
+  "name": "lab-console",
+  "owner": "Administrator",
+  "page_name": "lab-console",
+  "roles": [],
+  "script": null,
+  "standard": "Yes",
+  "style": null,
+  "system_page": 0,
+  "title": "lab-console"
+}

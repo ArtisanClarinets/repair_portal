@@ -19,17 +19,17 @@ from frappe.model.document import Document
 
 
 class RepairTaskLog(Document):
-	"""
-	Repair Task Log: Child table to track repair log entries.
-	Sets logged_by to current user if not set. Logs unauthorized attempts to spoof logged_by.
-	"""
+    """
+    Repair Task Log: Child table to track repair log entries.
+    Sets logged_by to current user if not set. Logs unauthorized attempts to spoof logged_by.
+    """
 
-	def validate(self):
-		if not getattr(self, "logged_by", None):
-			self.logged_by = frappe.session.user
-		elif self.logged_by != frappe.session.user:
-			# Audit: log unauthorized modification attempt
-			frappe.log_error(
-				f"User {frappe.session.user} tried to set logged_by to {self.logged_by}",
-				"RepairTaskLog: Unauthorized logged_by attempt",
-			)
+    def validate(self):
+        if not getattr(self, 'logged_by', None):
+            self.logged_by = frappe.session.user
+        elif self.logged_by != frappe.session.user:
+            # Audit: log unauthorized modification attempt
+            frappe.log_error(
+                f'User {frappe.session.user} tried to set logged_by to {self.logged_by}',
+                'RepairTaskLog: Unauthorized logged_by attempt',
+            )

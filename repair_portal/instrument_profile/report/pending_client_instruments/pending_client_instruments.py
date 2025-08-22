@@ -17,20 +17,20 @@ Row = list[Any]
 
 
 def execute(filters: dict[str, Any] | None = None) -> tuple[list[str], list[Row]]:
-	"""Entry point for Frappe Query Reports.
+    """Entry point for Frappe Query Reports.
 
-	Args:
-	    filters: Runtime filter values supplied by the report UI.
+    Args:
+        filters: Runtime filter values supplied by the report UI.
 
-	Returns:
-	    A tuple containing an *empty* columns list (because columns are fully
-	    described in the accompanying JSON/SQL) and a list of rows.
-	"""
+    Returns:
+        A tuple containing an *empty* columns list (because columns are fully
+        described in the accompanying JSON/SQL) and a list of rows.
+    """
 
-	filters = filters or {}
+    filters = filters or {}
 
-	raw_data = frappe.db.sql(
-		"""
+    raw_data = frappe.db.sql(
+        """
         SELECT
             cip.name            AS `Instrument ID`,
             cip.client_name     AS `Client`,
@@ -45,11 +45,11 @@ def execute(filters: dict[str, Any] | None = None) -> tuple[list[str], list[Row]
           AND (%(created_to)s   = '' OR cip.creation <= %(created_to)s)
         ORDER BY cip.creation DESC
         """,
-		filters,
-		as_list=True,
-	)
+        filters,
+        as_list=True,
+    )
 
-	# Explicitly cast to satisfy static type checkers (Pylance/mypy)
-	data: list[Row] = cast(list[Row], raw_data)
+    # Explicitly cast to satisfy static type checkers (Pylance/mypy)
+    data: list[Row] = cast(list[Row], raw_data)
 
-	return [], data
+    return [], data

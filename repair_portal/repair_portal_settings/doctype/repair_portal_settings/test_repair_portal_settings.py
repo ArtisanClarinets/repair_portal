@@ -6,4 +6,4 @@ from frappe.tests.utils import FrappeTestCase
 
 
 class TestRepairPortalSettings(FrappeTestCase):
-	pass
+    pass

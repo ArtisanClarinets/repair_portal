@@ -7,18 +7,18 @@ import frappe
 
 
 def execute(filters=None):
-	data = frappe.db.get_all(
-		"Instrument Profile",
-		fields=["customer", "issue_description"],
-		filters={"customer": filters.get("customer")} if filters else {},
-	)
-	columns = [
-		{"label": "Customer", "fieldname": "customer", "fieldtype": "Data", "width": 120},
-		{
-			"label": "Issue Description",
-			"fieldname": "issue_description",
-			"fieldtype": "Data",
-			"width": 200,
-		},
-	]
-	return columns, data
+    data = frappe.db.get_all(
+        'Instrument Profile',
+        fields=['customer', 'issue_description'],
+        filters={'customer': filters.get('customer')} if filters else {},
+    )
+    columns = [
+        {'label': 'Customer', 'fieldname': 'customer', 'fieldtype': 'Data', 'width': 120},
+        {
+            'label': 'Issue Description',
+            'fieldname': 'issue_description',
+            'fieldtype': 'Data',
+            'width': 200,
+        },
+    ]
+    return columns, data

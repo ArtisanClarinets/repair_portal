@@ -11,4 +11,4 @@ from frappe.model.document import Document
 
 
 class RelatedInstrumentInteraction(Document):
-	pass
+    pass

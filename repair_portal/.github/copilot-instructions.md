@@ -578,7 +578,7 @@ sys.exit(1 if errors else 0)
 
 ### Appendix A — Domain note: Clarinet Intake automation
 
-* When **Clarinet Intake** is created: programmatically create **Serial No**, **Initial Intake Inspection**, and **Clarinet Initial Setup**.
+* When **Clarinet Intake** is created: programmatically create **Instrument Serial No**, **Instrument Inspection**, and **Clarinet Initial Setup**.
 * Controllers must validate required fields, ensure naming conventions, link targets exist, and write audit logs.
 * Tests must assert each created doc exists with the expected workflow state.
 
@@ -599,1374 +599,1131 @@ Copilot should treat it as the single source of truth for headers, DocType docum
 ### Appendix C — App File Structure
 
       /home/frappe/frappe-bench/apps/repair_portal
-         ├── biome.json
-         ├── controller_review.md
-         ├── cypress.config.js
-         ├── documentation
-         │   ├── DASHBOARD_CHARTS.md
-         │   ├── DOCTYPE.md
-         │   ├── REPORT.md
-         │   ├── WORKFLOW.md
-         │   └── WORKSPACE.md
-         ├── eslint.config.js
-         ├── license.txt
-         ├── modules.txt
-         ├── package.json
-         ├── package-lock.json
-         ├── pyproject.toml
-         ├── README.md
-         ├── repair_portal
-         │   ├── api
-         │   │   ├── clarinet_utils.py
-         │   │   ├── client_portal.py
-         │   │   ├── customer.py
-         │   │   ├── frontend
-         │   │   │   ├── customer_profile.py
-         │   │   │   ├── __init__.py
-         │   │   │   ├── instrument_profile.py
-         │   │   │   └── player_profile.py
-         │   │   ├── __init__.py
-         │   │   ├── intake_dashboard.py
-         │   │   ├── lab_capture.py
-         │   │   └── technician_dashboard.py
-         │   ├── api.py
-         │   ├── config
-         │   │   ├── desktop.py
-         │   │   └── __init__.py
-         │   ├── customer
-         │   │   ├── CHANGELOG.md
-         │   │   ├── dashboard
-         │   │   │   └── customer_dashboard
-         │   │   │       ├── customer_dashboard.json
-         │   │   │       └── customer_dashboard.py
-         │   │   ├── doctype
-         │   │   │   ├── consent_field_value
-         │   │   │   │   ├── consent_field_value.js
-         │   │   │   │   ├── consent_field_value.json
-         │   │   │   │   ├── consent_field_value.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── consent_form
-         │   │   │   │   ├── consent_form.js
-         │   │   │   │   ├── consent_form.json
-         │   │   │   │   ├── consent_form.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── consent_log
-         │   │   │   │   ├── consent_log.json
-         │   │   │   │   ├── consent_log.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── consent_log_entry
-         │   │   │   │   ├── consent_log_entry.json
-         │   │   │   │   ├── consent_log_entry.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── consent_required_field
-         │   │   │   │   ├── consent_required_field.js
-         │   │   │   │   ├── consent_required_field.json
-         │   │   │   │   ├── consent_required_field.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── consent_template
-         │   │   │   │   ├── consent_template.js
-         │   │   │   │   ├── consent_template.json
-         │   │   │   │   ├── consent_template.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_consent_template.py
-         │   │   │   ├── customer_consent
-         │   │   │   │   ├── customer_consent_form.json
-         │   │   │   │   ├── customer_consent_form.py
-         │   │   │   │   ├── customer_consent.js
-         │   │   │   │   ├── customer_consent.json
-         │   │   │   │   ├── customer_consent.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── customer_type
-         │   │   │   │   ├── customer_type.json
-         │   │   │   │   ├── customer_type.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── __init__.py
-         │   │   │   ├── instruments_owned
-         │   │   │   │   ├── instruments_owned.json
-         │   │   │   │   ├── instruments_owned.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── linked_players
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── linked_players.js
-         │   │   │   │   ├── linked_players.json
-         │   │   │   │   ├── linked_players.py
-         │   │   │   │   └── __pycache__
-         │   │   │   └── __pycache__
-         │   │   ├── events
-         │   │   │   └── utils.py
-         │   │   ├── __init__.py
-         │   │   ├── module_health.md
-         │   │   ├── notification
-         │   │   │   └── draft_customer
-         │   │   │       └── draft_customer.json
-         │   │   ├── page
-         │   │   │   ├── client_portal
-         │   │   │   │   ├── client_portal.js
-         │   │   │   │   ├── client_portal.json
-         │   │   │   │   └── __init__.py
-         │   │   │   └── __init__.py
-         │   │   ├── __pycache__
-         │   │   ├── technical_debt.md
-         │   │   ├── workflow
-         │   │   │   └── client_profile_workflow
-         │   │   │       └── client_profile_workflow.json
-         │   │   ├── workflow_action_master
-         │   │   │   ├── workflow_action_master
-         │   │   │   │   └── workflow_action_master.json
-         │   │   │   └── workflow_action_master.py
-         │   │   └── workflow_state
-         │   │       ├── active
-         │   │       │   └── active.json
-         │   │       ├── archived
-         │   │       │   └── archived.json
-         │   │       ├── deleted
-         │   │       │   └── deleted.json
-         │   │       ├── draft
-         │   │       │   └── draft.json
-         │   │       └── workflow_state.py
-         │   ├── docs
-         │   │   ├── customer_autocreate_setup.md
-         │   │   ├── Frappe-v15-file-guide.json
-         │   │   ├── JS_API.MD
-         │   │   ├── new_instrument_intake.md
-         │   │   └── PYTHON_API.md
-         │   ├── enhancements
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── dashboard_chart
-         │   │   │   └── upgrade_requests_over_time
-         │   │   │       └── upgrade_requests_over_time.json
-         │   │   ├── doctype
-         │   │   │   ├── customer_upgrade_request
-         │   │   │   │   ├── customer_upgrade_request.json
-         │   │   │   │   ├── customer_upgrade_request.py
-         │   │   │   │   └── __pycache__
-         │   │   │   └── upgrade_option
-         │   │   │       ├── __pycache__
-         │   │   │       ├── upgrade_option.json
-         │   │   │       └── upgrade_option.py
-         │   │   ├── __init__.py
-         │   │   ├── __pycache__
-         │   │   └── report
-         │   │       ├── top_upgrade_requests
-         │   │       │   ├── top_upgrade_requests.json
-         │   │       │   └── top_upgrade_requests.py
-         │   │       └── upgrade_conversion_rates
-         │   │           ├── upgrade_conversion_rates.json
-         │   │           └── upgrade_conversion_rates.py
-         │   ├── hooks.py
-         │   ├── __init__.py
-         │   ├── inspection
-         │   │   ├── config
-         │   │   │   ├── desktop.py
-         │   │   │   ├── docs.py
-         │   │   │   └── __init__.py
-         │   │   ├── doctype
-         │   │   │   ├── __init__.py
-         │   │   │   ├── instrument_inspection
-         │   │   │   │   ├── current_instrument_inspection
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_inspection.js
-         │   │   │   │   ├── instrument_inspection.json
-         │   │   │   │   ├── instrument_inspection.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── README.md
-         │   │   │   │   └── test_instrument_inspection.py
-         │   │   │   └── __pycache__
-         │   │   ├── __init__.py
-         │   │   ├── migrate_clarinet_inspection_to_report.py
-         │   │   ├── modules.txt
-         │   │   ├── page
-         │   │   │   ├── __init__.py
-         │   │   │   └── technician_dashboard
-         │   │   │       ├── __init__.py
-         │   │   │       ├── technician_dashboard.js
-         │   │   │       └── technician_dashboard.json
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   └── workflow
-         │   │       └── inspection_report_workflow.json
-         │   ├── install.py
-         │   ├── instrument_profile
-         │   │   ├── config
-         │   │   │   ├── desktop.py
-         │   │   │   └── __init__.py
-         │   │   ├── cron
-         │   │   │   └── warranty_expiry_check.py
-         │   │   ├── dashboard_chart
-         │   │   │   ├── instrument_status_distribution
-         │   │   │   │   └── instrument_status_distribution.json
-         │   │   │   └── warranty_distribution
-         │   │   │       └── warranty_distribution.json
-         │   │   ├── doctype
-         │   │   │   ├── client_instrument_profile
-         │   │   │   │   ├── client_instrument_profile.json
-         │   │   │   │   ├── client_instrument_profile.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── customer_external_work_log
-         │   │   │   │   ├── customer_external_work_log.js
-         │   │   │   │   ├── customer_external_work_log.json
-         │   │   │   │   ├── customer_external_work_log.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_customer_external_work_log.py
-         │   │   │   ├── external_work_logs
-         │   │   │   │   ├── external_work_logs.json
-         │   │   │   │   ├── external_work_logs.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── __init__.py
-         │   │   │   ├── instrument
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument.js
-         │   │   │   │   ├── instrument.json
-         │   │   │   │   ├── instrument.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── README.md
-         │   │   │   │   └── test_instrument.py
-         │   │   │   ├── instrument_accessory
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_accessory.json
-         │   │   │   │   ├── instrument_accessory.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── README.md
-         │   │   │   ├── instrument_category
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_category.js
-         │   │   │   │   ├── instrument_category.json
-         │   │   │   │   ├── instrument_category.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_instrument_category.py
-         │   │   │   ├── instrument_condition_record
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_condition_record.json
-         │   │   │   │   ├── instrument_condition_record.py
-         │   │   │   │   ├── instrument_condition_record_workflow.json
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_instrument_condition_record.py
-         │   │   │   ├── instrument_media
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_media.json
-         │   │   │   │   ├── instrument_media.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── README.md
-         │   │   │   ├── instrument_model
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_model.js
-         │   │   │   │   ├── instrument_model.json
-         │   │   │   │   ├── instrument_model.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_instrument_model.py
-         │   │   │   ├── instrument_photo
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_photo.json
-         │   │   │   │   ├── instrument_photo.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── README.md
-         │   │   │   ├── instrument_profile
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_profile.js
-         │   │   │   │   ├── instrument_profile.json
-         │   │   │   │   ├── instrument_profile_list.js
-         │   │   │   │   ├── instrument_profile.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── README.md
-         │   │   │   │   └── test_instrument_profile.py
-         │   │   │   ├── instrument_serial_number
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_serial_number.js
-         │   │   │   │   ├── instrument_serial_number.json
-         │   │   │   │   ├── instrument_serial_number.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_instrument_serial_number.py
-         │   │   │   └── __pycache__
-         │   │   ├── events
-         │   │   │   ├── __init__.py
-         │   │   │   └── utils.py
-         │   │   ├── __init__.py
-         │   │   ├── module_def
-         │   │   │   └── instrument_profile.json
-         │   │   ├── notification
-         │   │   │   ├── instrument_status_change
-         │   │   │   │   └── instrument_status_change.json
-         │   │   │   ├── missing_customer
-         │   │   │   │   └── missing_customer.json
-         │   │   │   └── missing_player_profile
-         │   │   │       └── missing_player_profile.json
-         │   │   ├── print_format
-         │   │   │   ├── instrument_profile_qr
-         │   │   │   │   └── instrument_profile_qr.json
-         │   │   │   ├── instrument_summary
-         │   │   │   │   └── instrument_summary.json
-         │   │   │   └── instrument_tag
-         │   │   │       └── instrument_tag.json
-         │   │   ├── __pycache__
-         │   │   ├── report
-         │   │   │   ├── instrument_inventory_report
-         │   │   │   │   ├── instrument_inventory_report.json
-         │   │   │   │   └── instrument_inventory_report.py
-         │   │   │   ├── instrument_profile_report
-         │   │   │   │   ├── instrument_profile_report.json
-         │   │   │   │   └── instrument_profile_report.py
-         │   │   │   ├── instrument_service_history
-         │   │   │   │   ├── instrument_service_history.json
-         │   │   │   │   └── instrument_service_history.py
-         │   │   │   ├── pending_client_instruments
-         │   │   │   │   ├── pending_client_instruments.json
-         │   │   │   │   └── pending_client_instruments.py
-         │   │   │   └── warranty_status_report
-         │   │   │       ├── warranty_status_report.json
-         │   │   │       └── warranty_status_report.py
-         │   │   ├── services
-         │   │   │   ├── profile_sync.py
-         │   │   │   └── __pycache__
-         │   │   ├── web_form
-         │   │   │   ├── client_instrument_profile
-         │   │   │   │   └── client_instrument_profile.json
-         │   │   │   ├── __init__.py
-         │   │   │   ├── instrument_intake_batch
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_intake_batch.js
-         │   │   │   │   ├── instrument_intake_batch.json
-         │   │   │   │   └── instrument_intake_batch.py
-         │   │   │   └── instrument_registration
-         │   │   │       ├── __init__.py
-         │   │   │       ├── instrument_registration.js
-         │   │   │       ├── instrument_registration.json
-         │   │   │       └── instrument_registration.py
-         │   │   ├── workflow
-         │   │   │   └── instrument_profile_workflow
-         │   │   │       └── instrument_profile_workflow.json
-         │   │   └── workflow_state
-         │   │       ├── archived
-         │   │       │   └── archived.json
-         │   │       ├── closed
-         │   │       │   └── closed.json
-         │   │       ├── delivered
-         │   │       │   └── delivered.json
-         │   │       ├── draft
-         │   │       │   └── draft.json
-         │   │       ├── in_progress
-         │   │       │   └── in_progress.json
-         │   │       ├── open
-         │   │       │   └── open.json
-         │   │       ├── ready_for_use
-         │   │       │   └── ready_for_use.json
-         │   │       ├── resolved
-         │   │       │   └── resolved.json
-         │   │       ├── waiting_on_client
-         │   │       │   └── waiting_on_client.json
-         │   │       └── waiting_on_player
-         │   │           └── waiting_on_player.json
-         │   ├── instrument_setup
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── dashboard
-         │   │   │   └── repairs_dashboard.json
-         │   │   ├── dashboard_chart
-         │   │   │   ├── common_inspection_findings
-         │   │   │   │   └── common_inspection_findings.json
-         │   │   │   └── repairs_by_status
-         │   │   │       └── repairs_by_status.json
-         │   │   ├── data
-         │   │   │   ├── clarinet_pad_map_bundled.json
-         │   │   │   ├── clarinet_setup_operation_bundled.json
-         │   │   │   ├── instrument_model_bundled.json
-         │   │   │   ├── setup_checklist_item_bundled.json
-         │   │   │   └── setup_template_bundled.json
-         │   │   ├── doctype
-         │   │   │   ├── clarinet_initial_setup
-         │   │   │   │   ├── clarinet_initial_setup.js
-         │   │   │   │   ├── clarinet_initial_setup.json
-         │   │   │   │   ├── clarinet_initial_setup.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── README.md
-         │   │   │   │   └── test_clarinet_initial_setup.py
-         │   │   │   ├── clarinet_pad_entry
-         │   │   │   │   ├── clarinet_pad_entry.json
-         │   │   │   │   ├── clarinet_pad_entry.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── clarinet_pad_map
-         │   │   │   │   ├── clarinet_pad_map.js
-         │   │   │   │   ├── clarinet_pad_map.json
-         │   │   │   │   ├── clarinet_pad_map.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── README.md
-         │   │   │   │   └── test_clarinet_pad_map.py
-         │   │   │   ├── clarinet_setup_log
-         │   │   │   │   ├── clarinet_setup_log.json
-         │   │   │   │   ├── clarinet_setup_log.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── clarinet_setup_operation
-         │   │   │   │   ├── clarinet_setup_operation.json
-         │   │   │   │   ├── clarinet_setup_operation.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── clarinet_setup_task
-         │   │   │   │   ├── clarinet_setup_task.js
-         │   │   │   │   ├── clarinet_setup_task.json
-         │   │   │   │   ├── clarinet_setup_task_list.js
-         │   │   │   │   ├── clarinet_setup_task.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_clarinet_setup_task.py
-         │   │   │   ├── clarinet_task_depends_on
-         │   │   │   │   ├── clarinet_task_depends_on.js
-         │   │   │   │   ├── clarinet_task_depends_on.json
-         │   │   │   │   ├── clarinet_task_depends_on.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_clarinet_task_depends_on.py
-         │   │   │   ├── clarinet_template_task
-         │   │   │   │   ├── clarinet_template_task.js
-         │   │   │   │   ├── clarinet_template_task.json
-         │   │   │   │   ├── clarinet_template_task.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_clarinet_template_task.py
-         │   │   │   ├── __init__.py
-         │   │   │   ├── __pycache__
-         │   │   │   ├── setup_checklist_item
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── setup_checklist_item.json
-         │   │   │   │   └── setup_checklist_item.py
-         │   │   │   ├── setup_material_log
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── setup_material_log.js
-         │   │   │   │   ├── setup_material_log.json
-         │   │   │   │   ├── setup_material_log.py
-         │   │   │   │   └── test_setup_material_log.py
-         │   │   │   └── setup_template
-         │   │   │       ├── __init__.py
-         │   │   │       ├── __pycache__
-         │   │   │       ├── README.md
-         │   │   │       ├── setup_template.js
-         │   │   │       ├── setup_template.json
-         │   │   │       ├── setup_template.py
-         │   │   │       └── test_setup_template.py
-         │   │   ├── hooks
-         │   │   │   ├── after_install
-         │   │   │   │   ├── create_a_clarinet_standard_template.py
-         │   │   │   │   ├── create_bb_clarinet_standard_template.py
-         │   │   │   │   └── create_eb_clarinet_standard_template.py
-         │   │   │   ├── load_templates.py
-         │   │   │   └── templates
-         │   │   │       ├── brand_bundled.json
-         │   │   │       ├── create_a_clarinet_standard_template.json
-         │   │   │       ├── create_bb_clarinet_standard_template.json
-         │   │   │       └── instrument_model_import.json
-         │   │   ├── __init__.py
-         │   │   ├── print_format
-         │   │   │   ├── clarinet_setup_certificate
-         │   │   │   │   ├── clarinet_setup_certificate.html
-         │   │   │   │   ├── clarinet_setup_certificate.json
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── README.md
-         │   │   │   └── __init__.py
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   ├── report
-         │   │   │   ├── parts_consumption
-         │   │   │   │   ├── parts_consumption.json
-         │   │   │   │   └── parts_consumption.py
-         │   │   │   ├── technician_performance
-         │   │   │   │   ├── technician_performance.json
-         │   │   │   │   └── technician_performance.py
-         │   │   │   └── turnaround_time_analysis
-         │   │   │       ├── turnaround_time_analysis.json
-         │   │   │       └── turnaround_time_analysis.sql
-         │   │   ├── test
-         │   │   │   ├── __init__.py
-         │   │   │   ├── __pycache__
-         │   │   │   ├── test_automation_and_kpi.py
-         │   │   │   ├── test_clarinet_initial_setup.py
-         │   │   │   └── test_clarinet_initial_setup_refactored.py
-         │   │   └── web_form
-         │   │       └── repair_status
-         │   │           └── repair_status.json
-         │   ├── intake
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── dashboard_chart
-         │   │   │   ├── appointments_by_week
-         │   │   │   │   ├── appointments_by_week.json
-         │   │   │   │   └── avg_intake_to_repair_time.json
-         │   │   │   ├── intakes_due_soon
-         │   │   │   │   └── intakes_due_soon.json
-         │   │   │   ├── loaners_checked_out
-         │   │   │   │   └── loaners_checked_out.json
-         │   │   │   └── overdue_intakes
-         │   │   │       └── overdue_intakes.json
-         │   │   ├── doctype
-         │   │   │   ├── brand_mapping_rule
-         │   │   │   │   ├── brand_mapping_rule.json
-         │   │   │   │   ├── brand_mapping_rule.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── clarinet_intake
-         │   │   │   │   ├── clarinet_intake.js
-         │   │   │   │   ├── clarinet_intake.json
-         │   │   │   │   ├── clarinet_intake.py
-         │   │   │   │   ├── clarinet_intake_timeline.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── README.md
-         │   │   │   │   └── test_clarinet_intake.py
-         │   │   │   ├── clarinet_intake_settings
-         │   │   │   │   ├── clarinet_intake_settings.json
-         │   │   │   │   ├── clarinet_intake_settings.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── README.md
-         │   │   │   ├── __init__.py
-         │   │   │   ├── intake_accessory_item
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── intake_accessory_item.json
-         │   │   │   │   ├── intake_accessory_item.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── intake_checklist_item
-         │   │   │   │   ├── intake_checklist_item.json
-         │   │   │   │   ├── intake_checklist_item.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── loaner_instrument
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── loaner_instrument.json
-         │   │   │   │   ├── loaner_instrument.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── loaner_return_check
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── loaner_return_check.json
-         │   │   │   │   ├── loaner_return_check.py
-         │   │   │   │   └── __pycache__
-         │   │   │   └── __pycache__
-         │   │   ├── hooks
-         │   │   │   ├── load_templates.py
-         │   │   │   ├── __pycache__
-         │   │   │   └── templates
-         │   │   ├── __init__.py
-         │   │   ├── print_format
-         │   │   │   └── intake_receipt.json
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   ├── report
-         │   │   │   ├── clarinet_intake_by_type
-         │   │   │   │   ├── clarinet_intake_by_type.json
-         │   │   │   │   └── __init__.py
-         │   │   │   ├── deposit_balance_aging
-         │   │   │   │   ├── deposit_balance_aging.json
-         │   │   │   │   └── deposit_balance_aging.py
-         │   │   │   ├── followup_compliance
-         │   │   │   │   ├── followup_compliance.json
-         │   │   │   │   └── followup_compliance.py
-         │   │   │   ├── __init__.py
-         │   │   │   ├── intake_by_day
-         │   │   │   │   ├── intake_by_day.json
-         │   │   │   │   └── intake_by_day.py
-         │   │   │   ├── loaner_return_flags
-         │   │   │   │   ├── loaner_return_flags.json
-         │   │   │   │   └── loaner_return_flags.py
-         │   │   │   ├── loaners_outstanding
-         │   │   │   │   ├── loaners_outstanding.json
-         │   │   │   │   └── loaners_outstanding.py
-         │   │   │   ├── loaner_turnover
-         │   │   │   │   ├── loaner_turnover.json
-         │   │   │   │   └── loaner_turnover.py
-         │   │   │   └── upcoming_appointments
-         │   │   │       ├── upcoming_appointments.json
-         │   │   │       └── upcoming_appointments.py
-         │   │   ├── services
-         │   │   │   └── intake_sync.py
-         │   │   ├── templates
-         │   │   │   └── loaner_agreement_template.html
-         │   │   ├── test
-         │   │   │   ├── __pycache__
-         │   │   │   └── test_clarinet_intake.py
-         │   │   ├── utils
-         │   │   │   └── emailer.py
-         │   │   ├── web_form
-         │   │   │   └── clarinet_intake_request
-         │   │   │       └── clarinet_intake_request.json
-         │   │   ├── workflow
-         │   │   │   ├── intake_workflow
-         │   │   │   │   └── intake_workflow.json
-         │   │   │   └── loaner_return_check_workflow
-         │   │   │       └── loaner_return_check_workflow.json
-         │   │   ├── workflow_action_master
-         │   │   │   ├── begin_inspection
-         │   │   │   │   └── begin_inspection.json
-         │   │   │   ├── customer_approval
-         │   │   │   │   └── customer_approval.json
-         │   │   │   ├── customer_rejection
-         │   │   │   │   └── customer_rejection.json
-         │   │   │   ├── logged_received
-         │   │   │   │   └── logged_received.json
-         │   │   │   ├── proceed_to_setup
-         │   │   │   │   └── proceed_to_setup.json
-         │   │   │   ├── repair_complete
-         │   │   │   │   └── repair_complete.json
-         │   │   │   ├── send_estimate_approval
-         │   │   │   │   └── send_estimate_approval.json
-         │   │   │   └── setup_complete
-         │   │   │       └── setup_complete.json
-         │   │   └── workflow_state
-         │   │       ├── awaiting_customer_approval
-         │   │       │   └── awaiting_customer_approval.json
-         │   │       ├── awaiting_payment
-         │   │       │   └── awaiting_payment.json
-         │   │       ├── cancelled
-         │   │       │   └── cancelled.json
-         │   │       ├── complete
-         │   │       │   └── complete.json
-         │   │       ├── customer_rejection
-         │   │       │   └── customer_rejection.json
-         │   │       ├── draft
-         │   │       │   └── draft.json
-         │   │       ├── escalated
-         │   │       │   └── escalated.json
-         │   │       ├── flagged
-         │   │       │   └── flagged.json
-         │   │       ├── hold
-         │   │       │   └── hold.json
-         │   │       ├── in_progress
-         │   │       │   └── in_progress.json
-         │   │       ├── inspection
-         │   │       │   └── inspection.json
-         │   │       ├── in_transit
-         │   │       │   └── in_transit.json
-         │   │       ├── new
-         │   │       │   └── new.json
-         │   │       ├── pending
-         │   │       │   └── pending.json
-         │   │       ├── qc
-         │   │       │   └── qc.json
-         │   │       ├── received
-         │   │       │   └── received.json
-         │   │       ├── repair
-         │   │       │   └── repair.json
-         │   │       ├── returned_to_customer
-         │   │       │   └── returned_to_customer.json
-         │   │       └── setup
-         │   │           └── setup.json
-         │   ├── lab
-         │   │   ├── api.py
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── doctype
-         │   │   │   ├── environment_log
-         │   │   │   │   ├── environment_log.json
-         │   │   │   │   ├── environment_log.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── impedance_peak
-         │   │   │   │   ├── impedance_peak.json
-         │   │   │   │   ├── impedance_peak.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── impedance_snapshot
-         │   │   │   │   ├── impedance_snapshot.json
-         │   │   │   │   ├── impedance_snapshot.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── __init__.py
-         │   │   │   ├── instrument_wellness_score
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_wellness_score.json
-         │   │   │   │   ├── instrument_wellness_score.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── intonation_note
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── intonation_note.json
-         │   │   │   │   ├── intonation_note.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── intonation_session
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── intonation_session.js
-         │   │   │   │   ├── intonation_session.json
-         │   │   │   │   ├── intonation_session.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_intonation_session.py
-         │   │   │   ├── lab_intonation_session
-         │   │   │   │   ├── lab_intonation_session.json
-         │   │   │   │   ├── lab_intonation_session.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── leak_reading
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── leak_reading.json
-         │   │   │   │   ├── leak_reading.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── leak_test
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── leak_test.json
-         │   │   │   │   ├── leak_test.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── measurement_entry
-         │   │   │   │   ├── measurement_entry.json
-         │   │   │   │   ├── measurement_entry.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── measurement_session
-         │   │   │   │   ├── measurement_session.json
-         │   │   │   │   ├── measurement_session.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── __pycache__
-         │   │   │   ├── reed_match_result
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── reed_match_result.json
-         │   │   │   │   └── reed_match_result.py
-         │   │   │   ├── tone_analyzer
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── tone_analyzer.js
-         │   │   │   │   ├── tone_analyzer.json
-         │   │   │   │   └── tone_analyzer.py
-         │   │   │   ├── tone_fitness
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── tone_fitness.json
-         │   │   │   │   └── tone_fitness.py
-         │   │   │   ├── tone_fitness_entry
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── tone_fitness_entry.json
-         │   │   │   │   └── tone_fitness_entry.py
-         │   │   │   └── tone_intonation_analyzer
-         │   │   │       ├── __init__.py
-         │   │   │       ├── __pycache__
-         │   │   │       ├── test_tone_intonation_analyzer.py
-         │   │   │       ├── tone_intonation_analyzer.js
-         │   │   │       ├── tone_intonation_analyzer.json
-         │   │   │       └── tone_intonation_analyzer.py
-         │   │   ├── __init__.py
-         │   │   ├── page
-         │   │   │   ├── desk_tuner
-         │   │   │   │   ├── desk_tuner.js
-         │   │   │   │   ├── desk_tuner.json
-         │   │   │   │   └── __init__.py
-         │   │   │   ├── impedance_recorder
-         │   │   │   │   ├── impedance_recorder.html
-         │   │   │   │   ├── impedance_recorder.js
-         │   │   │   │   ├── impedance_recorder.json
-         │   │   │   │   ├── impedance_recorder.py
-         │   │   │   │   └── __init__.py
-         │   │   │   ├── __init__.py
-         │   │   │   ├── intonation_recorder
-         │   │   │   │   ├── intonation_recorder.html
-         │   │   │   │   ├── intonation_recorder.js
-         │   │   │   │   ├── intonation_recorder.json
-         │   │   │   │   └── intonation_recorder.py
-         │   │   │   ├── lab_dashboard
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── lab_dashboard.js
-         │   │   │   │   └── lab_dashboard.json
-         │   │   │   ├── lab_intonation_tool
-         │   │   │   │   ├── lab_intonation_tool.js
-         │   │   │   │   └── lab_intonation_tool.json
-         │   │   │   ├── leak_test_recorder
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── leak_test_recorder.html
-         │   │   │   │   ├── leak_test_recorder.js
-         │   │   │   │   ├── leak_test_recorder.json
-         │   │   │   │   └── leak_test_recorder.py
-         │   │   │   ├── recording_analyzer
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── recording_analyzer.html
-         │   │   │   │   ├── recording_analyzer.js
-         │   │   │   │   ├── recording_analyzer.json
-         │   │   │   │   └── recording_analyzer.py
-         │   │   │   ├── tone_analyzer
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── tone_analyzer.js
-         │   │   │   │   └── tone_analyzer.json
-         │   │   │   ├── tone_fitness_recorder
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── tone_fitness_recorder.html
-         │   │   │   │   ├── tone_fitness_recorder.js
-         │   │   │   │   ├── tone_fitness_recorder.json
-         │   │   │   │   └── tone_fitness_recorder.py
-         │   │   │   └── tone_intonation_analyzer
-         │   │   │       ├── __init__.py
-         │   │   │       ├── tone_intonation_analyzer.js
-         │   │   │       └── tone_intonation_analyzer.json
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   └── tasks.py
-         │   ├── logger.py
-         │   ├── logs
-         │   ├── modules.txt
-         │   ├── ONBOARDING.md
-         │   ├── package.json
-         │   ├── patches.txt
-         │   ├── player_profile
-         │   │   ├── doctype
-         │   │   │   ├── __init__.py
-         │   │   │   ├── player_equipment_preference
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── player_equipment_preference.json
-         │   │   │   │   ├── player_equipment_preference.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── player_profile
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── player_profile.js
-         │   │   │   │   ├── player_profile.json
-         │   │   │   │   ├── player_profile.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── README.md
-         │   │   │   │   └── test_player_profile.py
-         │   │   │   └── __pycache__
-         │   │   ├── __init__.py
-         │   │   ├── notification
-         │   │   │   └── player_not_linked
-         │   │   │       └── player_not_linked.json
-         │   │   ├── portal
-         │   │   │   └── player_profile.py
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   ├── templates
-         │   │   │   └── player_profile.html
-         │   │   ├── workflow
-         │   │   │   ├── player_profile_setup
-         │   │   │   │   └── player_profile_setup.json.bak-2025-07-27
-         │   │   │   └── player_profile_workflow
-         │   │   │       └── player_profile_workflow.json
-         │   │   └── workflow_state
-         │   │       ├── active
-         │   │       │   └── active.json
-         │   │       ├── archived
-         │   │       │   └── archived.json
-         │   │       └── linked_to_client
-         │   │           └── linked_to_client.json
-         │   ├── projects
-         │   ├── prototyping
-         │   │   ├── clarinet_api.py
-         │   │   ├── doctype
-         │   │   │   ├── clarinet_bore_segment
-         │   │   │   │   ├── clarinet_bore_segment.json
-         │   │   │   │   ├── clarinet_bore_segment.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── clarinet_design
-         │   │   │   │   ├── clarinet_design.json
-         │   │   │   │   ├── clarinet_design.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── clarinet_tone_hole
-         │   │   │   │   ├── clarinet_tone_hole.json
-         │   │   │   │   ├── clarinet_tone_hole.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── __init__.py
-         │   │   │   ├── prototype
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── prototype.js
-         │   │   │   │   ├── prototype.json
-         │   │   │   │   ├── prototype.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── prototype_parameter
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── prototype_parameter.json
-         │   │   │   │   ├── prototype_parameter.py
-         │   │   │   │   └── __pycache__
-         │   │   │   └── __pycache__
-         │   │   ├── __init__.py
-         │   │   ├── page
-         │   │   │   ├── clarinet_editor
-         │   │   │   │   ├── clarinet_editor.js
-         │   │   │   │   ├── clarinet_editor.json
-         │   │   │   │   └── __init__.py
-         │   │   │   ├── __init__.py
-         │   │   │   └── prototype_designer
-         │   │   │       ├── __init__.py
-         │   │   │       ├── prototype_designer.js
-         │   │   │       └── prototype_designer.json
-         │   │   └── __pycache__
-         │   ├── public
-         │   │   ├── css
-         │   │   │   ├── clarinet_editor.css
-         │   │   │   └── prototyping.css
-         │   │   ├── dist
-         │   │   │   └── js
-         │   │   │       ├── import_mapping_setting_autofill.bundle.ZSVWI27X.js
-         │   │   │       ├── import_mapping_setting_autofill.bundle.ZSVWI27X.js.map
-         │   │   │       ├── index.bundle.ND6C7NTH.js
-         │   │   │       ├── index.bundle.ND6C7NTH.js.map
-         │   │   │       ├── technician_dashboard.bundle.UOGFV2DC.js
-         │   │   │       └── technician_dashboard.bundle.UOGFV2DC.js.map
-         │   │   ├── frontend
-         │   │   ├── images
-         │   │   │   └── svg_pad_maps
-         │   │   │       └── clarinet_upper_joint.svg
-         │   │   ├── js
-         │   │   │   ├── import_mapping_setting_autofill.bundle.js
-         │   │   │   ├── import_mapping_setting_autofill.js
-         │   │   │   ├── lab_console.js
-         │   │   │   ├── note_autocorrect.js
-         │   │   │   ├── technician_dashboard
-         │   │   │   │   ├── App.vue
-         │   │   │   │   ├── index.bundle.js
-         │   │   │   │   └── technician_dashboard.bundle.js
-         │   │   │   └── tone_processor.js
-         │   │   └── node_modules -> /home/frappe/frappe-bench/apps/repair_portal/node_modules
-         │   ├── __pycache__
-         │   ├── qa
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── dashboard_chart
-         │   │   │   ├── average_dp_trend.json
-         │   │   │   ├── pass_rate_trend.json
-         │   │   │   ├── qa_failures_by_tech.json
-         │   │   │   ├── README.md
-         │   │   │   └── re_service_rate_trend.json
-         │   │   ├── data
-         │   │   │   └── clarinet_qc.json
-         │   │   ├── doctype
-         │   │   │   ├── final_qa_checklist
-         │   │   │   │   ├── final_qa_checklist.json
-         │   │   │   │   ├── final_qa_checklist.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── README.md
-         │   │   │   └── final_qa_checklist_item
-         │   │   │       ├── final_qa_checklist_item.json
-         │   │   │       ├── final_qa_checklist_item.py
-         │   │   │       ├── __init__.py
-         │   │   │       └── __pycache__
-         │   │   ├── __init__.py
-         │   │   ├── notification
-         │   │   │   ├── critical_fail_notification
-         │   │   │   │   └── critical_fail_notification.json
-         │   │   │   ├── followup_due_notification
-         │   │   │   │   └── followup_due_notification.json
-         │   │   │   ├── ncr_overdue_notification
-         │   │   │   │   └── ncr_overdue_notification.json
-         │   │   │   └── README.md
-         │   │   ├── print_format
-         │   │   │   ├── __init__.py
-         │   │   │   ├── qc_certificate
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── qc_certificate.json
-         │   │   │   ├── quality_inspection
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── quality_inspection.json
-         │   │   │   └── README.md
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   ├── report
-         │   │   │   ├── inspection_kpi_report
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── inspection_kpi_report.json
-         │   │   │   │   ├── inspection_kpi_report.py
-         │   │   │   │   └── README.md
-         │   │   │   └── qa_failure_rate
-         │   │   │       ├── qa_failure_rate.json
-         │   │   │       └── qa_failure_rate.py
-         │   │   └── setup
-         │   │       └── __init__.py
-         │   ├── README.md
-         │   ├── repair
-         │   │   ├── dashboard_chart
-         │   │   │   ├── repair_kpis
-         │   │   │   │   └── repair_kpis.json
-         │   │   │   └── repairs_by_status
-         │   │   │       └── repairs_by_status.json
-         │   │   ├── dashboard_chart_source
-         │   │   │   └── turnaround_time.py
-         │   │   ├── doctype
-         │   │   │   ├── default_operations
-         │   │   │   │   ├── default_operations.js
-         │   │   │   │   ├── default_operations.json
-         │   │   │   │   ├── default_operations.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   └── test_default_operations.py
-         │   │   │   ├── __init__.py
-         │   │   │   ├── operation_template
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── operation_template.json
-         │   │   │   │   ├── operation_template.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── pulse_update
-         │   │   │   │   ├── pulse_update.json
-         │   │   │   │   ├── pulse_update.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── __pycache__
-         │   │   │   ├── repair_feedback
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── repair_feedback.json
-         │   │   │   │   └── repair_feedback.py
-         │   │   │   ├── repair_issue
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── repair_issue.json
-         │   │   │   │   └── repair_issue.py
-         │   │   │   ├── repair_order
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── README.md
-         │   │   │   │   ├── repair_order.js
-         │   │   │   │   ├── repair_order.json
-         │   │   │   │   └── repair_order.py
-         │   │   │   ├── repair_order_settings
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── repair_order_settings.json
-         │   │   │   │   └── repair_order_settings.py
-         │   │   │   ├── repair_request
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── repair_request.json
-         │   │   │   │   └── repair_request.py
-         │   │   │   └── repair_task
-         │   │   │       ├── __init__.py
-         │   │   │       ├── __pycache__
-         │   │   │       ├── repair_task.json
-         │   │   │       └── repair_task.py
-         │   │   ├── email
-         │   │   │   └── feedback_request.html
-         │   │   ├── __init__.py
-         │   │   ├── notification
-         │   │   │   └── material_reorder_warning
-         │   │   │       └── material_reorder_warning.json
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   ├── report
-         │   │   │   ├── repair_issue_report
-         │   │   │   │   ├── repair_issue_report.json
-         │   │   │   │   └── repair_issue_report.py
-         │   │   │   ├── repair_revenue_vs_cost
-         │   │   │   │   ├── repair_revenue_vs_cost.json
-         │   │   │   │   └── repair_revenue_vs_cost.py
-         │   │   │   └── technician_utilization
-         │   │   │       ├── technician_utilization.json
-         │   │   │       └── technician_utilization.py
-         │   │   ├── scheduler.py
-         │   │   ├── tests
-         │   │   │   ├── __pycache__
-         │   │   │   └── test_repair_order.py
-         │   │   └── web_form
-         │   │       └── repair_request
-         │   │           └── repair_request.json
-         │   ├── repair_logging
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── custom
-         │   │   │   ├── customer_interaction_timeline.js
-         │   │   │   ├── __init__.py
-         │   │   │   └── item_interaction_timeline.js
-         │   │   ├── dashboard_chart
-         │   │   │   └── repair_tasks_by_day
-         │   │   │       └── repair_tasks_by_day.json
-         │   │   ├── doctype
-         │   │   │   ├── barcode_scan_entry
-         │   │   │   │   ├── barcode_scan_entry.json
-         │   │   │   │   ├── barcode_scan_entry.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── diagnostic_metrics
-         │   │   │   │   ├── diagnostic_metrics.json
-         │   │   │   │   ├── diagnostic_metrics.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── __init__.py
-         │   │   │   ├── instrument_interaction_log
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── instrument_interaction_log.json
-         │   │   │   │   ├── instrument_interaction_log.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── key_measurement
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── key_measurement.json
-         │   │   │   │   ├── key_measurement.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── material_use_log
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── material_use_log.json
-         │   │   │   │   ├── material_use_log.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── pad_condition
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── pad_condition.json
-         │   │   │   │   ├── pad_condition.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── __pycache__
-         │   │   │   ├── related_instrument_interaction
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── related_instrument_interaction.json
-         │   │   │   │   └── related_instrument_interaction.py
-         │   │   │   ├── repair_parts_used
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── repair_parts_used.json
-         │   │   │   │   └── repair_parts_used.py
-         │   │   │   ├── repair_task_log
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── repair_task_log.json
-         │   │   │   │   └── repair_task_log.py
-         │   │   │   ├── tenon_measurement
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── tenon_measurement.json
-         │   │   │   │   └── tenon_measurement.py
-         │   │   │   ├── tone_hole_inspection_record
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── tone_hole_inspection_record.js
-         │   │   │   │   ├── tone_hole_inspection_record.json
-         │   │   │   │   └── tone_hole_inspection_record.py
-         │   │   │   ├── tool_usage_log
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── tool_usage_log.json
-         │   │   │   │   └── tool_usage_log.py
-         │   │   │   ├── visual_inspection
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── visual_inspection.json
-         │   │   │   │   └── visual_inspection.py
-         │   │   │   └── warranty_modification_log
-         │   │   │       ├── __pycache__
-         │   │   │       ├── warranty_modification_log.json
-         │   │   │       └── warranty_modification_log.py
-         │   │   ├── __init__.py
-         │   │   ├── module_def
-         │   │   │   └── repair_portal.json
-         │   │   ├── number_card
-         │   │   │   ├── closed_service_logs
-         │   │   │   │   └── closed_service_logs.json
-         │   │   │   ├── in_progress_service_logs
-         │   │   │   │   └── in_progress_service_logs.json
-         │   │   │   └── open_service_logs
-         │   │   │       └── open_service_logs.json
-         │   │   ├── print_format
-         │   │   │   └── instrument_tracker_log
-         │   │   │       └── instrument_tracker_log.json
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   ├── report
-         │   │   │   └── repair_tasks_by_type
-         │   │   │       ├── repair_tasks_by_type.json
-         │   │   │       └── repair_tasks_by_type.py
-         │   │   ├── workflow
-         │   │   │   ├── repair_task_workflow
-         │   │   │   │   └── repair_task_workflow.json
-         │   │   │   └── service_log_workflow
-         │   │   │       └── service_log_workflow.json
-         │   │   └── workflow_state
-         │   │       ├── closed
-         │   │       │   └── closed.json
-         │   │       ├── draft
-         │   │       │   └── draft.json
-         │   │       ├── in_progress
-         │   │       │   └── in_progress.json
-         │   │       ├── open
-         │   │       │   └── open.json
-         │   │       ├── resolved
-         │   │       │   └── resolved.json
-         │   │       └── submitted
-         │   │           └── submitted.json
-         │   ├── repair_portal
-         │   │   ├── api
-         │   │   │   └── api.py
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── doctype
-         │   │   │   ├── pulse_update
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── pulse_update.py
-         │   │   │   ├── qa_checklist_item
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── qa_checklist_item.json
-         │   │   │   │   └── qa_checklist_item.py
-         │   │   │   └── technician
-         │   │   │       ├── __pycache__
-         │   │   │       ├── technician.js
-         │   │   │       ├── technician.json
-         │   │   │       └── technician.py
-         │   │   ├── __init__.py
-         │   │   ├── page
-         │   │   │   ├── ops_console
-         │   │   │   │   └── ops_console.js
-         │   │   │   └── repair_portal
-         │   │   ├── __pycache__
-         │   │   ├── report
-         │   │   │   └── technician_task_summary
-         │   │   │       ├── technician_task_summary.json
-         │   │   │       └── technician_task_summary.py
-         │   │   └── tests
-         │   │       ├── __pycache__
-         │   │       └── test_import_mapping_setting.py
-         │   ├── repair_portal_settings
-         │   │   ├── doctype
-         │   │   │   ├── import_mapping_setting
-         │   │   │   │   ├── import_mapping_setting.js
-         │   │   │   │   └── __init__.py
-         │   │   │   ├── __init__.py
-         │   │   │   ├── __pycache__
-         │   │   │   └── repair_portal_settings
-         │   │   │       ├── __init__.py
-         │   │   │       ├── __pycache__
-         │   │   │       ├── repair_portal_settings.js
-         │   │   │       ├── repair_portal_settings.json
-         │   │   │       ├── repair_portal_settings.py
-         │   │   │       └── test_repair_portal_settings.py
-         │   │   ├── __init__.py
-         │   │   └── __pycache__
-         │   ├── scripts
-         │   │   ├── doctype_loader.py
-         │   │   ├── hooks
-         │   │   │   ├── clarinet_qc.py
-         │   │   │   ├── __init__.py
-         │   │   │   ├── __pycache__
-         │   │   │   └── reload_all_doctypes.py
-         │   │   ├── __init__.py
-         │   │   ├── item_group_loader.py
-         │   │   ├── json_loader.py
-         │   │   ├── naming_audit.py
-         │   │   ├── pre_migrate_check.py
-         │   │   ├── __pycache__
-         │   │   ├── reload_all_jsons.py
-         │   │   ├── schemas
-         │   │   │   ├── brand_bundled.json
-         │   │   │   ├── departments.json
-         │   │   │   ├── holiday_list_fed_2025.json
-         │   │   │   ├── instrument_category_input.json
-         │   │   │   ├── instrument_model_import.json
-         │   │   │   ├── item_groups.json
-         │   │   │   ├── other_holidays_2025.json
-         │   │   │   ├── pad_maps.json
-         │   │   │   ├── project_templates.json
-         │   │   │   ├── project_types copy.json
-         │   │   │   ├── server_scripts.json
-         │   │   │   ├── setup_template_standard_a_clarinet.json
-         │   │   │   ├── setup_template_standard_bb_clarinet.json
-         │   │   │   ├── setup_template_standard_eb_clarinet.json
-         │   │   │   ├── tasks.json
-         │   │   │   └── task_types.json
-         │   │   └── shopify
-         │   ├── service_planning
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── dashboard_chart
-         │   │   │   └── scheduled_service_tasks_by_day
-         │   │   │       └── scheduled_service_tasks_by_day.json
-         │   │   ├── doctype
-         │   │   │   ├── estimate_line_item
-         │   │   │   │   ├── estimate_line_item.json
-         │   │   │   │   ├── estimate_line_item.py
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   └── __pycache__
-         │   │   │   ├── repair_estimate
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── repair_estimate.json
-         │   │   │   │   └── repair_estimate.py
-         │   │   │   ├── service_plan
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── service_plan.json
-         │   │   │   │   └── service_plan.py
-         │   │   │   ├── service_task
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── service_task.json
-         │   │   │   │   └── service_task.py
-         │   │   │   └── tasks
-         │   │   │       ├── __pycache__
-         │   │   │       ├── tasks.json
-         │   │   │       └── tasks.py
-         │   │   ├── __init__.py
-         │   │   ├── __pycache__
-         │   │   ├── report
-         │   │   │   └── repair_bay_utilization
-         │   │   │       ├── repair_bay_utilization.json
-         │   │   │       └── repair_bay_utilization.py
-         │   │   └── workflow_state
-         │   │       ├── completed.json
-         │   │       ├── in_progress.json
-         │   │       └── scheduled.json
-         │   ├── setup
-         │   │   ├── item_group
-         │   │   └── patches
-         │   │       └── utils
-         │   │           └── user_utilities.py
-         │   ├── stock
-         │   │   └── doctype
-         │   │       ├── delivery_note
-         │   │       │   └── delivery_note.py
-         │   │       └── stock_entry
-         │   │           └── stock_entry.py
-         │   ├── templates
-         │   │   ├── clarinet_initial_setup_certificate.html
-         │   │   ├── __init__.py
-         │   │   └── pages
-         │   │       ├── __init__.py
-         │   │       └── repair_pulse.html
-         │   ├── __test__.py
-         │   ├── tests
-         │   │   ├── __pycache__
-         │   │   └── test_api.py
-         │   ├── tools
-         │   │   ├── config
-         │   │   │   └── desktop.py
-         │   │   ├── dashboard_chart
-         │   │   │   └── overdue_tools_by_type
-         │   │   │       └── overdue_tools_by_type.json
-         │   │   ├── doctype
-         │   │   │   ├── tool
-         │   │   │   │   ├── __init__.py
-         │   │   │   │   ├── __pycache__
-         │   │   │   │   ├── tool.json
-         │   │   │   │   └── tool.py
-         │   │   │   └── tool_calibration_log
-         │   │   │       ├── __pycache__
-         │   │   │       ├── tool_calibration_log.json
-         │   │   │       └── tool_calibration_log.py
-         │   │   ├── __init__.py
-         │   │   ├── __pycache__
-         │   │   ├── README.md
-         │   │   ├── report
-         │   │   │   └── overdue_tool_calibrations
-         │   │   │       ├── overdue_tool_calibrations.json
-         │   │   │       └── overdue_tool_calibrations.py
-         │   │   ├── stock_tools.py
-         │   │   ├── workflow
-         │   │   │   └── tool_lifecycle
-         │   │   │       └── tool_lifecycle.json
-         │   │   ├── workflow_state
-         │   │   │   ├── available
-         │   │   │   │   └── available.json
-         │   │   │   ├── out_for_calibration
-         │   │   │   │   └── out_for_calibration.json
-         │   │   │   └── retired
-         │   │   │       └── retired.json
-         │   │   └── workspace
-         │   │       └── tools
-         │   │           └── tools.json
-         │   ├── trade_shows
-         │   │   ├── __init__.py
-         │   │   └── __pycache__
-         │   ├── utils
-         │   │   ├── api_security.py
-         │   │   ├── database_optimizer.py
-         │   │   ├── error_handler.py
-         │   │   ├── __pycache__
-         │   │   ├── SERIALS.md
-         │   │   └── serials.py
-         │   ├── www
-         │   │   ├── frontend.html
-         │   │   ├── pad_map.py
-         │   │   └── repair_pulse.py
-         │   └── yarn.lock
-         ├── REPORT
-         │   ├── inventory.md
-         │   └── static_findings.md
-         ├── ruff.toml
-         ├── setup.py
-         ├── uv.lock
-         └── yarn.lock
-
-         554 directories, 815 files
+        ├── AGENTS.md
+        ├── biome.json
+        ├── CHANGELOG.md
+        ├── controller_review.md
+        ├── cypress.config.js
+        ├── documentation
+        │   ├── DASHBOARD_CHARTS.md
+        │   ├── DOCTYPE.md
+        │   ├── REPORT.md
+        │   ├── WORKFLOW.md
+        │   └── WORKSPACE.md
+        ├── eslint.config.js
+        ├── license.txt
+        ├── modules.txt
+        ├── package.json
+        ├── pyproject.toml
+        ├── README.md
+        ├── repair_portal
+        │   ├── api
+        │   │   ├── clarinet_utils.py
+        │   │   ├── client_portal.py
+        │   │   ├── customer.py
+        │   │   ├── frontend
+        │   │   │   ├── customer_profile.py
+        │   │   │   ├── __init__.py
+        │   │   │   ├── instrument_profile.py
+        │   │   │   └── player_profile.py
+        │   │   ├── __init__.py
+        │   │   ├── intake_dashboard.py
+        │   │   └── technician_dashboard.py
+        │   ├── config
+        │   │   ├── desktop.py
+        │   │   └── __init__.py
+        │   ├── customer
+        │   │   ├── CHANGELOG.md
+        │   │   ├── dashboard
+        │   │   │   └── customer_dashboard
+        │   │   │       ├── customer_dashboard.json
+        │   │   │       └── customer_dashboard.py
+        │   │   ├── doctype
+        │   │   │   ├── consent_field_value
+        │   │   │   │   ├── consent_field_value.js
+        │   │   │   │   ├── consent_field_value.json
+        │   │   │   │   ├── consent_field_value.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── consent_form
+        │   │   │   │   ├── consent_form.js
+        │   │   │   │   ├── consent_form.json
+        │   │   │   │   ├── consent_form.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── consent_log
+        │   │   │   │   ├── consent_log.json
+        │   │   │   │   └── consent_log.py
+        │   │   │   ├── consent_log_entry
+        │   │   │   │   ├── consent_log_entry.json
+        │   │   │   │   └── consent_log_entry.py
+        │   │   │   ├── consent_required_field
+        │   │   │   │   ├── consent_required_field.js
+        │   │   │   │   ├── consent_required_field.json
+        │   │   │   │   ├── consent_required_field.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── consent_template
+        │   │   │   │   ├── consent_template.js
+        │   │   │   │   ├── consent_template.json
+        │   │   │   │   ├── consent_template.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   └── test_consent_template.py
+        │   │   │   ├── customer_consent
+        │   │   │   │   ├── customer_consent_form.py
+        │   │   │   │   ├── customer_consent.js
+        │   │   │   │   ├── customer_consent.json
+        │   │   │   │   ├── customer_consent.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── customer_type
+        │   │   │   │   ├── customer_type.json
+        │   │   │   │   ├── customer_type.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── __init__.py
+        │   │   │   ├── instruments_owned
+        │   │   │   │   ├── instruments_owned.json
+        │   │   │   │   └── instruments_owned.py
+        │   │   │   ├── linked_players
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── linked_players.js
+        │   │   │   │   ├── linked_players.json
+        │   │   │   │   └── linked_players.py
+        │   │   │   └── __pycache__
+        │   │   ├── events
+        │   │   │   └── utils.py
+        │   │   ├── __init__.py
+        │   │   ├── module_health.md
+        │   │   ├── notification
+        │   │   │   └── draft_customer
+        │   │   │       └── draft_customer.json
+        │   │   ├── __pycache__
+        │   │   ├── technical_debt.md
+        │   │   ├── workflow
+        │   │   │   └── client_profile_workflow
+        │   │   │       └── client_profile_workflow.json
+        │   │   ├── workflow_action_master
+        │   │   │   ├── workflow_action_master
+        │   │   │   │   └── workflow_action_master.json
+        │   │   │   └── workflow_action_master.py
+        │   │   └── workflow_state
+        │   │       ├── active
+        │   │       │   └── active.json
+        │   │       ├── archived
+        │   │       │   └── archived.json
+        │   │       ├── deleted
+        │   │       │   └── deleted.json
+        │   │       ├── draft
+        │   │       │   └── draft.json
+        │   │       └── workflow_state.py
+        │   ├── docs
+        │   │   ├── customer_autocreate_setup.md
+        │   │   ├── Frappe-v15-file-guide.json
+        │   │   ├── JS_API.MD
+        │   │   ├── new_instrument_intake.md
+        │   │   ├── PYTHON_API.md
+        │   │   └── READMEs.md
+        │   ├── doctype_audit.py
+        │   ├── enhancements
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── dashboard_chart
+        │   │   │   └── upgrade_requests_over_time
+        │   │   │       └── upgrade_requests_over_time.json
+        │   │   ├── doctype
+        │   │   │   ├── customer_upgrade_request
+        │   │   │   │   ├── customer_upgrade_request.json
+        │   │   │   │   └── customer_upgrade_request.py
+        │   │   │   └── upgrade_option
+        │   │   │       ├── upgrade_option.json
+        │   │   │       └── upgrade_option.py
+        │   │   ├── __init__.py
+        │   │   └── report
+        │   │       ├── top_upgrade_requests
+        │   │       │   ├── top_upgrade_requests.json
+        │   │       │   └── top_upgrade_requests.py
+        │   │       └── upgrade_conversion_rates
+        │   │           ├── upgrade_conversion_rates.json
+        │   │           └── upgrade_conversion_rates.py
+        │   ├── hooks.py
+        │   ├── __init__.py
+        │   ├── inspection
+        │   │   ├── config
+        │   │   │   ├── desktop.py
+        │   │   │   ├── docs.py
+        │   │   │   └── __init__.py
+        │   │   ├── doctype
+        │   │   │   ├── __init__.py
+        │   │   │   ├── instrument_inspection
+        │   │   │   │   ├── current_instrument_inspection
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_inspection.js
+        │   │   │   │   ├── instrument_inspection.json
+        │   │   │   │   ├── instrument_inspection.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_instrument_inspection.py
+        │   │   │   └── __pycache__
+        │   │   ├── __init__.py
+        │   │   ├── migrate_clarinet_inspection_to_report.py
+        │   │   ├── modules.txt
+        │   │   ├── page
+        │   │   │   ├── __init__.py
+        │   │   │   └── technician_dashboard
+        │   │   │       ├── __init__.py
+        │   │   │       ├── technician_dashboard.js
+        │   │   │       └── technician_dashboard.json
+        │   │   ├── __pycache__
+        │   │   ├── README.md
+        │   │   └── workflow
+        │   │       └── inspection_report_workflow.json
+        │   ├── install.py
+        │   ├── instrument_profile
+        │   │   ├── config
+        │   │   │   ├── desktop.py
+        │   │   │   └── __init__.py
+        │   │   ├── cron
+        │   │   │   └── warranty_expiry_check.py
+        │   │   ├── dashboard_chart
+        │   │   │   ├── instrument_status_distribution
+        │   │   │   │   └── instrument_status_distribution.json
+        │   │   │   └── warranty_distribution
+        │   │   │       └── warranty_distribution.json
+        │   │   ├── doctype
+        │   │   │   ├── client_instrument_profile
+        │   │   │   │   ├── client_instrument_profile.js
+        │   │   │   │   ├── client_instrument_profile.json
+        │   │   │   │   ├── client_instrument_profile.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   └── test_client_instrument_profile.py
+        │   │   │   ├── customer_external_work_log
+        │   │   │   │   ├── customer_external_work_log.js
+        │   │   │   │   ├── customer_external_work_log.json
+        │   │   │   │   ├── customer_external_work_log.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   └── test_customer_external_work_log.py
+        │   │   │   ├── __init__.py
+        │   │   │   ├── instrument
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument.js
+        │   │   │   │   ├── instrument.json
+        │   │   │   │   ├── instrument.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── instrument_accessory
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_accessory.json
+        │   │   │   │   ├── instrument_accessory.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── instrument_category
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_category.js
+        │   │   │   │   ├── instrument_category.json
+        │   │   │   │   ├── instrument_category.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   └── test_instrument_category.py
+        │   │   │   ├── instrument_condition_record
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_condition_record.json
+        │   │   │   │   ├── instrument_condition_record.py
+        │   │   │   │   ├── instrument_condition_record_workflow.json
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   └── test_instrument_condition_record.py
+        │   │   │   ├── instrument_model
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_model.js
+        │   │   │   │   ├── instrument_model.json
+        │   │   │   │   ├── instrument_model.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   └── test_instrument_model.py
+        │   │   │   ├── instrument_photo
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_photo.json
+        │   │   │   │   ├── instrument_photo.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── instrument_profile
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_profile.js
+        │   │   │   │   ├── instrument_profile.json
+        │   │   │   │   ├── instrument_profile_list.js
+        │   │   │   │   ├── instrument_profile.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_instrument_profile.py
+        │   │   │   ├── instrument_serial_number
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_serial_number.js
+        │   │   │   │   ├── instrument_serial_number.json
+        │   │   │   │   ├── instrument_serial_number.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   └── test_instrument_serial_number.py
+        │   │   │   └── __pycache__
+        │   │   ├── events
+        │   │   │   ├── __init__.py
+        │   │   │   └── utils.py
+        │   │   ├── __init__.py
+        │   │   ├── module_def
+        │   │   │   └── instrument_profile.json
+        │   │   ├── notification
+        │   │   │   ├── instrument_status_change
+        │   │   │   │   └── instrument_status_change.json
+        │   │   │   ├── missing_customer
+        │   │   │   │   └── missing_customer.json
+        │   │   │   └── missing_player_profile
+        │   │   │       └── missing_player_profile.json
+        │   │   ├── print_format
+        │   │   │   ├── instrument_profile_qr
+        │   │   │   │   └── instrument_profile_qr.json
+        │   │   │   ├── instrument_summary
+        │   │   │   │   └── instrument_summary.json
+        │   │   │   └── instrument_tag
+        │   │   │       └── instrument_tag.json
+        │   │   ├── __pycache__
+        │   │   ├── report
+        │   │   │   ├── instrument_inventory_report
+        │   │   │   │   ├── instrument_inventory_report.json
+        │   │   │   │   └── instrument_inventory_report.py
+        │   │   │   ├── instrument_profile_report
+        │   │   │   │   ├── instrument_profile_report.json
+        │   │   │   │   └── instrument_profile_report.py
+        │   │   │   ├── instrument_service_history
+        │   │   │   │   ├── instrument_service_history.json
+        │   │   │   │   └── instrument_service_history.py
+        │   │   │   ├── pending_client_instruments
+        │   │   │   │   ├── pending_client_instruments.json
+        │   │   │   │   └── pending_client_instruments.py
+        │   │   │   └── warranty_status_report
+        │   │   │       ├── warranty_status_report.json
+        │   │   │       └── warranty_status_report.py
+        │   │   ├── services
+        │   │   │   └── profile_sync.py
+        │   │   ├── web_form
+        │   │   │   ├── client_instrument_profile
+        │   │   │   │   └── client_instrument_profile.json
+        │   │   │   ├── __init__.py
+        │   │   │   ├── instrument_intake_batch
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_intake_batch.js
+        │   │   │   │   ├── instrument_intake_batch.json
+        │   │   │   │   └── instrument_intake_batch.py
+        │   │   │   └── instrument_registration
+        │   │   │       ├── __init__.py
+        │   │   │       ├── instrument_registration.js
+        │   │   │       ├── instrument_registration.json
+        │   │   │       └── instrument_registration.py
+        │   │   ├── workflow
+        │   │   │   └── instrument_profile_workflow
+        │   │   │       └── instrument_profile_workflow.json
+        │   │   └── workflow_state
+        │   │       ├── archived
+        │   │       │   └── archived.json
+        │   │       ├── closed
+        │   │       │   └── closed.json
+        │   │       ├── delivered
+        │   │       │   └── delivered.json
+        │   │       ├── draft
+        │   │       │   └── draft.json
+        │   │       ├── in_progress
+        │   │       │   └── in_progress.json
+        │   │       ├── open
+        │   │       │   └── open.json
+        │   │       ├── ready_for_use
+        │   │       │   └── ready_for_use.json
+        │   │       ├── resolved
+        │   │       │   └── resolved.json
+        │   │       ├── waiting_on_client
+        │   │       │   └── waiting_on_client.json
+        │   │       └── waiting_on_player
+        │   │           └── waiting_on_player.json
+        │   ├── instrument_setup
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── dashboard
+        │   │   │   └── repairs_dashboard.json
+        │   │   ├── dashboard_chart
+        │   │   │   ├── common_inspection_findings
+        │   │   │   │   └── common_inspection_findings.json
+        │   │   │   └── repairs_by_status
+        │   │   │       └── repairs_by_status.json
+        │   │   ├── data
+        │   │   │   ├── clarinet_pad_map_bundled.json
+        │   │   │   ├── clarinet_setup_operation_bundled.json
+        │   │   │   ├── instrument_model_bundled.json
+        │   │   │   ├── setup_checklist_item_bundled.json
+        │   │   │   └── setup_template_bundled.json
+        │   │   ├── doctype
+        │   │   │   ├── clarinet_initial_setup
+        │   │   │   │   ├── clarinet_initial_setup.js
+        │   │   │   │   ├── clarinet_initial_setup.json
+        │   │   │   │   ├── clarinet_initial_setup.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   ├── README.md.backup
+        │   │   │   │   └── test_clarinet_initial_setup.py
+        │   │   │   ├── clarinet_pad_entry
+        │   │   │   │   ├── clarinet_pad_entry.json
+        │   │   │   │   ├── clarinet_pad_entry.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── clarinet_pad_map
+        │   │   │   │   ├── clarinet_pad_map.js
+        │   │   │   │   ├── clarinet_pad_map.json
+        │   │   │   │   ├── clarinet_pad_map.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_clarinet_pad_map.py
+        │   │   │   ├── clarinet_setup_log
+        │   │   │   │   ├── clarinet_setup_log.js
+        │   │   │   │   ├── clarinet_setup_log.json
+        │   │   │   │   ├── clarinet_setup_log.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_clarinet_setup_log.py
+        │   │   │   ├── clarinet_setup_operation
+        │   │   │   │   ├── clarinet_setup_operation.json
+        │   │   │   │   ├── clarinet_setup_operation.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── clarinet_setup_task
+        │   │   │   │   ├── clarinet_setup_task.js
+        │   │   │   │   ├── clarinet_setup_task.json
+        │   │   │   │   ├── clarinet_setup_task_list.js
+        │   │   │   │   ├── clarinet_setup_task.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_clarinet_setup_task.py
+        │   │   │   ├── clarinet_task_depends_on
+        │   │   │   │   ├── clarinet_task_depends_on.js
+        │   │   │   │   ├── clarinet_task_depends_on.json
+        │   │   │   │   ├── clarinet_task_depends_on.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_clarinet_task_depends_on.py
+        │   │   │   ├── clarinet_template_task
+        │   │   │   │   ├── clarinet_template_task.js
+        │   │   │   │   ├── clarinet_template_task.json
+        │   │   │   │   ├── clarinet_template_task.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_clarinet_template_task.py
+        │   │   │   ├── clarinet_template_task_depends_on
+        │   │   │   │   ├── clarinet_template_task_depends_on.json
+        │   │   │   │   ├── clarinet_template_task_depends_on.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── __init__.py
+        │   │   │   ├── __pycache__
+        │   │   │   ├── setup_checklist_item
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── README.md
+        │   │   │   │   ├── setup_checklist_item.json
+        │   │   │   │   └── setup_checklist_item.py
+        │   │   │   ├── setup_material_log
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   ├── setup_material_log.js
+        │   │   │   │   ├── setup_material_log.json
+        │   │   │   │   ├── setup_material_log.py
+        │   │   │   │   └── test_setup_material_log.py
+        │   │   │   └── setup_template
+        │   │   │       ├── __init__.py
+        │   │   │       ├── __pycache__
+        │   │   │       ├── README.md
+        │   │   │       ├── setup_template.js
+        │   │   │       ├── setup_template.json
+        │   │   │       ├── setup_template.py
+        │   │   │       └── test_setup_template.py
+        │   │   ├── hooks
+        │   │   │   ├── after_install
+        │   │   │   │   ├── create_a_clarinet_standard_template.py
+        │   │   │   │   ├── create_bb_clarinet_standard_template.py
+        │   │   │   │   └── create_eb_clarinet_standard_template.py
+        │   │   │   ├── load_templates.py
+        │   │   │   └── templates
+        │   │   │       ├── brand_bundled.json
+        │   │   │       ├── create_a_clarinet_standard_template.json
+        │   │   │       ├── create_bb_clarinet_standard_template.json
+        │   │   │       └── instrument_model_import.json
+        │   │   ├── __init__.py
+        │   │   ├── print_format
+        │   │   │   ├── clarinet_setup_certificate
+        │   │   │   │   ├── clarinet_setup_certificate.html
+        │   │   │   │   ├── clarinet_setup_certificate.json
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── README.md
+        │   │   │   └── __init__.py
+        │   │   ├── __pycache__
+        │   │   ├── README.md
+        │   │   ├── report
+        │   │   │   ├── parts_consumption
+        │   │   │   │   ├── parts_consumption.json
+        │   │   │   │   └── parts_consumption.py
+        │   │   │   ├── technician_performance
+        │   │   │   │   ├── technician_performance.json
+        │   │   │   │   └── technician_performance.py
+        │   │   │   └── turnaround_time_analysis
+        │   │   │       ├── turnaround_time_analysis.json
+        │   │   │       └── turnaround_time_analysis.sql
+        │   │   └── web_form
+        │   │       └── repair_status
+        │   │           └── repair_status.json
+        │   ├── intake
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── dashboard_chart
+        │   │   │   ├── appointments_by_week
+        │   │   │   │   ├── appointments_by_week.json
+        │   │   │   │   └── avg_intake_to_repair_time.json
+        │   │   │   ├── intakes_due_soon
+        │   │   │   │   └── intakes_due_soon.json
+        │   │   │   ├── loaners_checked_out
+        │   │   │   │   └── loaners_checked_out.json
+        │   │   │   └── overdue_intakes
+        │   │   │       └── overdue_intakes.json
+        │   │   ├── doctype
+        │   │   │   ├── brand_mapping_rule
+        │   │   │   │   ├── brand_mapping_rule.json
+        │   │   │   │   ├── brand_mapping_rule.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── clarinet_intake
+        │   │   │   │   ├── clarinet_intake.js
+        │   │   │   │   ├── clarinet_intake.json
+        │   │   │   │   ├── clarinet_intake.py
+        │   │   │   │   ├── clarinet_intake_timeline.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_clarinet_intake.py
+        │   │   │   ├── clarinet_intake_settings
+        │   │   │   │   ├── clarinet_intake_settings.json
+        │   │   │   │   ├── clarinet_intake_settings.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── __init__.py
+        │   │   │   ├── intake_accessory_item
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── intake_accessory_item.json
+        │   │   │   │   ├── intake_accessory_item.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── loaner_instrument
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── loaner_instrument.json
+        │   │   │   │   ├── loaner_instrument.py
+        │   │   │   │   └── README.md
+        │   │   │   ├── loaner_return_check
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── loaner_return_check.json
+        │   │   │   │   ├── loaner_return_check.py
+        │   │   │   │   └── README.md
+        │   │   │   └── __pycache__
+        │   │   ├── hooks
+        │   │   │   └── load_templates.py
+        │   │   ├── __init__.py
+        │   │   ├── print_format
+        │   │   │   └── intake_receipt.json
+        │   │   ├── __pycache__
+        │   │   ├── README.md
+        │   │   ├── report
+        │   │   │   ├── clarinet_intake_by_type
+        │   │   │   │   ├── clarinet_intake_by_type.json
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── deposit_balance_aging
+        │   │   │   │   ├── deposit_balance_aging.json
+        │   │   │   │   └── deposit_balance_aging.py
+        │   │   │   ├── followup_compliance
+        │   │   │   │   ├── followup_compliance.json
+        │   │   │   │   └── followup_compliance.py
+        │   │   │   ├── __init__.py
+        │   │   │   ├── intake_by_day
+        │   │   │   │   ├── intake_by_day.json
+        │   │   │   │   └── intake_by_day.py
+        │   │   │   ├── loaner_return_flags
+        │   │   │   │   ├── loaner_return_flags.json
+        │   │   │   │   └── loaner_return_flags.py
+        │   │   │   ├── loaners_outstanding
+        │   │   │   │   ├── loaners_outstanding.json
+        │   │   │   │   └── loaners_outstanding.py
+        │   │   │   ├── loaner_turnover
+        │   │   │   │   ├── loaner_turnover.json
+        │   │   │   │   └── loaner_turnover.py
+        │   │   │   └── upcoming_appointments
+        │   │   │       ├── upcoming_appointments.json
+        │   │   │       └── upcoming_appointments.py
+        │   │   ├── services
+        │   │   │   └── intake_sync.py
+        │   │   ├── templates
+        │   │   │   └── loaner_agreement_template.html
+        │   │   ├── test
+        │   │   │   ├── __pycache__
+        │   │   │   └── test_clarinet_intake.py
+        │   │   ├── utils
+        │   │   │   └── emailer.py
+        │   │   ├── web_form
+        │   │   │   └── clarinet_intake_request
+        │   │   │       └── clarinet_intake_request.json
+        │   │   ├── workflow
+        │   │   │   ├── intake_workflow
+        │   │   │   │   └── intake_workflow.json
+        │   │   │   └── loaner_return_check_workflow
+        │   │   │       └── loaner_return_check_workflow.json
+        │   │   ├── workflow_action_master
+        │   │   │   ├── begin_inspection
+        │   │   │   │   └── begin_inspection.json
+        │   │   │   ├── customer_approval
+        │   │   │   │   └── customer_approval.json
+        │   │   │   ├── customer_rejection
+        │   │   │   │   └── customer_rejection.json
+        │   │   │   ├── logged_received
+        │   │   │   │   └── logged_received.json
+        │   │   │   ├── proceed_to_setup
+        │   │   │   │   └── proceed_to_setup.json
+        │   │   │   ├── repair_complete
+        │   │   │   │   └── repair_complete.json
+        │   │   │   ├── send_estimate_approval
+        │   │   │   │   └── send_estimate_approval.json
+        │   │   │   └── setup_complete
+        │   │   │       └── setup_complete.json
+        │   │   └── workflow_state
+        │   │       ├── awaiting_customer_approval
+        │   │       │   └── awaiting_customer_approval.json
+        │   │       ├── awaiting_payment
+        │   │       │   └── awaiting_payment.json
+        │   │       ├── cancelled
+        │   │       │   └── cancelled.json
+        │   │       ├── complete
+        │   │       │   └── complete.json
+        │   │       ├── customer_rejection
+        │   │       │   └── customer_rejection.json
+        │   │       ├── draft
+        │   │       │   └── draft.json
+        │   │       ├── escalated
+        │   │       │   └── escalated.json
+        │   │       ├── flagged
+        │   │       │   └── flagged.json
+        │   │       ├── hold
+        │   │       │   └── hold.json
+        │   │       ├── in_progress
+        │   │       │   └── in_progress.json
+        │   │       ├── inspection
+        │   │       │   └── inspection.json
+        │   │       ├── in_transit
+        │   │       │   └── in_transit.json
+        │   │       ├── new
+        │   │       │   └── new.json
+        │   │       ├── pending
+        │   │       │   └── pending.json
+        │   │       ├── qc
+        │   │       │   └── qc.json
+        │   │       ├── received
+        │   │       │   └── received.json
+        │   │       ├── repair
+        │   │       │   └── repair.json
+        │   │       ├── returned_to_customer
+        │   │       │   └── returned_to_customer.json
+        │   │       └── setup
+        │   │           └── setup.json
+        │   ├── inventory
+        │   │   ├── doctype
+        │   │   │   ├── __init__.py
+        │   │   │   ├── pad_count_intake
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── pad_count_intake_api.py
+        │   │   │   │   ├── pad_count_intake.js
+        │   │   │   │   ├── pad_count_intake.json
+        │   │   │   │   └── pad_count_intake.py
+        │   │   │   └── pad_count_log
+        │   │   │       ├── __init__.py
+        │   │   │       ├── pad_count_log.json
+        │   │   │       └── pad_count_log.py
+        │   │   └── __init__.py
+        │   ├── lab
+        │   │   ├── api.py
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── doctype
+        │   │   │   ├── environment_log
+        │   │   │   │   ├── environment_log.json
+        │   │   │   │   ├── environment_log.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── __init__.py
+        │   │   │   ├── measurement_entry
+        │   │   │   │   ├── measurement_entry.json
+        │   │   │   │   └── measurement_entry.py
+        │   │   │   └── measurement_session
+        │   │   │       ├── measurement_session.json
+        │   │   │       └── measurement_session.py
+        │   │   ├── __init__.py
+        │   │   ├── page
+        │   │   │   ├── desk_tuner
+        │   │   │   │   ├── desk_tuner.js
+        │   │   │   │   ├── desk_tuner.json
+        │   │   │   │   └── __init__.py
+        │   │   │   └── __init__.py
+        │   │   ├── README.md
+        │   │   └── tasks.py
+        │   ├── logger.py
+        │   ├── logs
+        │   ├── modules.txt
+        │   ├── ONBOARDING.md
+        │   ├── package.json
+        │   ├── patches.txt
+        │   ├── player_profile
+        │   │   ├── doctype
+        │   │   │   ├── __init__.py
+        │   │   │   ├── player_equipment_preference
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── player_equipment_preference.json
+        │   │   │   │   └── player_equipment_preference.py
+        │   │   │   ├── player_profile
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── player_profile.js
+        │   │   │   │   ├── player_profile.json
+        │   │   │   │   ├── player_profile.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   └── test_player_profile.py
+        │   │   │   └── __pycache__
+        │   │   ├── __init__.py
+        │   │   ├── notification
+        │   │   │   └── player_not_linked
+        │   │   │       └── player_not_linked.json
+        │   │   ├── __pycache__
+        │   │   ├── README.md
+        │   │   ├── workflow
+        │   │   │   ├── player_profile_setup
+        │   │   │   │   └── player_profile_setup.json.bak-2025-07-27
+        │   │   │   └── player_profile_workflow
+        │   │   │       └── player_profile_workflow.json
+        │   │   └── workflow_state
+        │   │       ├── active
+        │   │       │   └── active.json
+        │   │       ├── archived
+        │   │       │   └── archived.json
+        │   │       └── linked_to_client
+        │   │           └── linked_to_client.json
+        │   ├── public
+        │   │   ├── dist
+        │   │   │   └── js
+        │   │   │       ├── import_mapping_setting_autofill.bundle.ZSVWI27X.js
+        │   │   │       ├── import_mapping_setting_autofill.bundle.ZSVWI27X.js.map
+        │   │   │       ├── index.bundle.HYIR2LPH.js
+        │   │   │       ├── index.bundle.HYIR2LPH.js.map
+        │   │   │       ├── technician_dashboard.bundle.JE6PNWXY.js
+        │   │   │       └── technician_dashboard.bundle.JE6PNWXY.js.map
+        │   │   ├── images
+        │   │   │   └── svg_pad_maps
+        │   │   │       └── clarinet_upper_joint.svg
+        │   │   ├── js
+        │   │   │   ├── import_mapping_setting_autofill.bundle.js
+        │   │   │   ├── import_mapping_setting_autofill.js
+        │   │   │   ├── lab_console.js
+        │   │   │   ├── note_autocorrect.js
+        │   │   │   ├── technician_dashboard
+        │   │   │   │   ├── App.vue
+        │   │   │   │   ├── index.bundle.js
+        │   │   │   │   └── technician_dashboard.bundle.js
+        │   │   │   └── tone_processor.js
+        │   │   └── node_modules -> /home/frappe/frappe-bench/apps/repair_portal/node_modules
+        │   ├── __pycache__
+        │   ├── qa
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── dashboard_chart
+        │   │   │   ├── average_dp_trend.json
+        │   │   │   ├── pass_rate_trend.json
+        │   │   │   ├── qa_failures_by_tech.json
+        │   │   │   ├── README.md
+        │   │   │   └── re_service_rate_trend.json
+        │   │   ├── data
+        │   │   │   └── clarinet_qc.json
+        │   │   ├── doctype
+        │   │   │   ├── final_qa_checklist
+        │   │   │   │   ├── final_qa_checklist.json
+        │   │   │   │   ├── final_qa_checklist.py
+        │   │   │   │   └── README.md
+        │   │   │   └── final_qa_checklist_item
+        │   │   │       ├── final_qa_checklist_item.json
+        │   │   │       ├── final_qa_checklist_item.py
+        │   │   │       └── __init__.py
+        │   │   ├── __init__.py
+        │   │   ├── notification
+        │   │   │   ├── critical_fail_notification
+        │   │   │   │   └── critical_fail_notification.json
+        │   │   │   ├── followup_due_notification
+        │   │   │   │   └── followup_due_notification.json
+        │   │   │   ├── ncr_overdue_notification
+        │   │   │   │   └── ncr_overdue_notification.json
+        │   │   │   └── README.md
+        │   │   ├── print_format
+        │   │   │   ├── __init__.py
+        │   │   │   ├── qc_certificate
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── qc_certificate.json
+        │   │   │   ├── quality_inspection
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── quality_inspection.json
+        │   │   │   └── README.md
+        │   │   ├── README.md
+        │   │   └── setup
+        │   │       └── __init__.py
+        │   ├── README.md
+        │   ├── READMEs.md
+        │   ├── repair
+        │   │   ├── dashboard_chart
+        │   │   │   ├── repair_kpis
+        │   │   │   │   └── repair_kpis.json
+        │   │   │   └── repairs_by_status
+        │   │   │       └── repairs_by_status.json
+        │   │   ├── dashboard_chart_source
+        │   │   │   └── turnaround_time.py
+        │   │   ├── doctype
+        │   │   │   ├── default_operations
+        │   │   │   │   ├── default_operations.js
+        │   │   │   │   ├── default_operations.json
+        │   │   │   │   ├── default_operations.py
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   └── test_default_operations.py
+        │   │   │   ├── __init__.py
+        │   │   │   ├── operation_template
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── operation_template.json
+        │   │   │   │   └── operation_template.py
+        │   │   │   ├── pulse_update
+        │   │   │   │   ├── pulse_update.json
+        │   │   │   │   └── pulse_update.py
+        │   │   │   ├── __pycache__
+        │   │   │   ├── repair_feedback
+        │   │   │   │   ├── repair_feedback.json
+        │   │   │   │   └── repair_feedback.py
+        │   │   │   ├── repair_issue
+        │   │   │   │   ├── repair_issue.json
+        │   │   │   │   └── repair_issue.py
+        │   │   │   ├── repair_order
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── README.md
+        │   │   │   │   ├── repair_order.js
+        │   │   │   │   ├── repair_order.json
+        │   │   │   │   ├── repair_order.py
+        │   │   │   │   └── test_repair_order.py
+        │   │   │   ├── repair_request
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── __pycache__
+        │   │   │   │   ├── repair_request.js
+        │   │   │   │   ├── repair_request.json
+        │   │   │   │   ├── repair_request.py
+        │   │   │   │   └── test_repair_request.py
+        │   │   │   └── repair_task
+        │   │   │       ├── __init__.py
+        │   │   │       ├── repair_task.json
+        │   │   │       └── repair_task.py
+        │   │   ├── email
+        │   │   │   └── feedback_request.html
+        │   │   ├── __init__.py
+        │   │   ├── notification
+        │   │   │   └── material_reorder_warning
+        │   │   │       └── material_reorder_warning.json
+        │   │   ├── __pycache__
+        │   │   ├── README.md
+        │   │   ├── report
+        │   │   │   ├── repair_issue_report
+        │   │   │   │   ├── repair_issue_report.json
+        │   │   │   │   └── repair_issue_report.py
+        │   │   │   ├── repair_revenue_vs_cost
+        │   │   │   │   ├── repair_revenue_vs_cost.json
+        │   │   │   │   └── repair_revenue_vs_cost.py
+        │   │   │   └── technician_utilization
+        │   │   │       ├── technician_utilization.json
+        │   │   │       └── technician_utilization.py
+        │   │   ├── scheduler.py
+        │   │   ├── tests
+        │   │   │   ├── __pycache__
+        │   │   │   └── test_repair_order.py
+        │   │   └── web_form
+        │   │       └── repair_request
+        │   │           └── repair_request.json
+        │   ├── repair_logging
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── custom
+        │   │   │   ├── customer_interaction_timeline.js
+        │   │   │   ├── __init__.py
+        │   │   │   └── item_interaction_timeline.js
+        │   │   ├── dashboard_chart
+        │   │   │   └── repair_tasks_by_day
+        │   │   │       └── repair_tasks_by_day.json
+        │   │   ├── doctype
+        │   │   │   ├── barcode_scan_entry
+        │   │   │   │   ├── barcode_scan_entry.json
+        │   │   │   │   ├── barcode_scan_entry.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── diagnostic_metrics
+        │   │   │   │   ├── diagnostic_metrics.json
+        │   │   │   │   ├── diagnostic_metrics.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── __init__.py
+        │   │   │   ├── instrument_interaction_log
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── instrument_interaction_log.json
+        │   │   │   │   └── instrument_interaction_log.py
+        │   │   │   ├── key_measurement
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── key_measurement.json
+        │   │   │   │   └── key_measurement.py
+        │   │   │   ├── material_use_log
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── material_use_log.json
+        │   │   │   │   └── material_use_log.py
+        │   │   │   ├── pad_condition
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── pad_condition.json
+        │   │   │   │   └── pad_condition.py
+        │   │   │   ├── related_instrument_interaction
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── related_instrument_interaction.json
+        │   │   │   │   └── related_instrument_interaction.py
+        │   │   │   ├── repair_parts_used
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── repair_parts_used.json
+        │   │   │   │   └── repair_parts_used.py
+        │   │   │   ├── repair_task_log
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── repair_task_log.json
+        │   │   │   │   └── repair_task_log.py
+        │   │   │   ├── tenon_measurement
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── tenon_measurement.json
+        │   │   │   │   └── tenon_measurement.py
+        │   │   │   ├── tone_hole_inspection_record
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── tone_hole_inspection_record.js
+        │   │   │   │   ├── tone_hole_inspection_record.json
+        │   │   │   │   └── tone_hole_inspection_record.py
+        │   │   │   ├── tool_usage_log
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── tool_usage_log.json
+        │   │   │   │   └── tool_usage_log.py
+        │   │   │   ├── visual_inspection
+        │   │   │   │   ├── visual_inspection.json
+        │   │   │   │   └── visual_inspection.py
+        │   │   │   └── warranty_modification_log
+        │   │   │       ├── warranty_modification_log.json
+        │   │   │       └── warranty_modification_log.py
+        │   │   ├── __init__.py
+        │   │   ├── module_def
+        │   │   │   └── repair_portal.json
+        │   │   ├── number_card
+        │   │   │   ├── closed_service_logs
+        │   │   │   │   └── closed_service_logs.json
+        │   │   │   ├── in_progress_service_logs
+        │   │   │   │   └── in_progress_service_logs.json
+        │   │   │   └── open_service_logs
+        │   │   │       └── open_service_logs.json
+        │   │   ├── print_format
+        │   │   │   └── instrument_tracker_log
+        │   │   │       └── instrument_tracker_log.json
+        │   │   ├── README.md
+        │   │   ├── report
+        │   │   │   └── repair_tasks_by_type
+        │   │   │       ├── repair_tasks_by_type.json
+        │   │   │       └── repair_tasks_by_type.py
+        │   │   ├── workflow
+        │   │   │   ├── repair_task_workflow
+        │   │   │   │   └── repair_task_workflow.json
+        │   │   │   └── service_log_workflow
+        │   │   │       └── service_log_workflow.json
+        │   │   └── workflow_state
+        │   │       ├── closed
+        │   │       │   └── closed.json
+        │   │       ├── draft
+        │   │       │   └── draft.json
+        │   │       ├── in_progress
+        │   │       │   └── in_progress.json
+        │   │       ├── open
+        │   │       │   └── open.json
+        │   │       ├── resolved
+        │   │       │   └── resolved.json
+        │   │       └── submitted
+        │   │           └── submitted.json
+        │   ├── repair_portal
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── doctype
+        │   │   │   ├── pulse_update
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   └── pulse_update.py
+        │   │   │   ├── qa_checklist_item
+        │   │   │   │   ├── qa_checklist_item.json
+        │   │   │   │   └── qa_checklist_item.py
+        │   │   │   └── technician
+        │   │   │       ├── technician.js
+        │   │   │       ├── technician.json
+        │   │   │       └── technician.py
+        │   │   ├── __init__.py
+        │   │   ├── __pycache__
+        │   │   ├── report
+        │   │   │   └── technician_task_summary
+        │   │   │       ├── technician_task_summary.json
+        │   │   │       └── technician_task_summary.py
+        │   │   ├── tests
+        │   │   │   ├── __pycache__
+        │   │   │   └── test_import_mapping_setting.py
+        │   │   └── workspace
+        │   │       └── repair_portal
+        │   │           └── repair_portal.json
+        │   ├── repair_portal_settings
+        │   │   ├── doctype
+        │   │   │   ├── import_mapping_setting
+        │   │   │   │   ├── import_mapping_setting.js
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── __init__.py
+        │   │   │   ├── __pycache__
+        │   │   │   └── repair_portal_settings
+        │   │   │       ├── __init__.py
+        │   │   │       ├── __pycache__
+        │   │   │       ├── repair_portal_settings.js
+        │   │   │       ├── repair_portal_settings.json
+        │   │   │       ├── repair_portal_settings.py
+        │   │   │       └── test_repair_portal_settings.py
+        │   │   ├── __init__.py
+        │   │   └── __pycache__
+        │   ├── scripts
+        │   │   ├── audit_doctypes.py
+        │   │   ├── doctype_loader.py
+        │   │   ├── hooks
+        │   │   │   ├── clarinet_qc.py
+        │   │   │   ├── __init__.py
+        │   │   │   └── reload_all_doctypes.py
+        │   │   ├── __init__.py
+        │   │   ├── item_group_loader.py
+        │   │   ├── json_loader.py
+        │   │   ├── naming_audit.py
+        │   │   ├── pre_migrate_check.py
+        │   │   ├── reload_all_jsons.py
+        │   │   ├── schema_guard.py
+        │   │   └── schemas
+        │   │       ├── brand_bundled.json
+        │   │       ├── _departments.json
+        │   │       ├── _holiday_list_fed_2025.json
+        │   │       ├── _instrument_category_input.json
+        │   │       ├── _instrument_model_import.json
+        │   │       ├── __item_groups.json
+        │   │       ├── _pad_maps.json
+        │   │       ├── setup_template_standard_a_clarinet.json
+        │   │       ├── setup_template_standard_bb_clarinet.json
+        │   │       └── setup_template_standard_eb_clarinet.json
+        │   ├── service_planning
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── dashboard_chart
+        │   │   │   └── scheduled_service_tasks_by_day
+        │   │   │       └── scheduled_service_tasks_by_day.json
+        │   │   ├── doctype
+        │   │   │   ├── estimate_line_item
+        │   │   │   │   ├── estimate_line_item.json
+        │   │   │   │   ├── estimate_line_item.py
+        │   │   │   │   └── __init__.py
+        │   │   │   ├── repair_estimate
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── repair_estimate.json
+        │   │   │   │   └── repair_estimate.py
+        │   │   │   ├── service_plan
+        │   │   │   │   ├── service_plan.json
+        │   │   │   │   └── service_plan.py
+        │   │   │   ├── service_task
+        │   │   │   │   ├── service_task.json
+        │   │   │   │   └── service_task.py
+        │   │   │   └── tasks
+        │   │   │       ├── tasks.json
+        │   │   │       └── tasks.py
+        │   │   ├── __init__.py
+        │   │   ├── report
+        │   │   │   └── repair_bay_utilization
+        │   │   │       ├── repair_bay_utilization.json
+        │   │   │       └── repair_bay_utilization.py
+        │   │   └── workflow_state
+        │   │       ├── completed.json
+        │   │       ├── in_progress.json
+        │   │       └── scheduled.json
+        │   ├── setup
+        │   │   └── patches
+        │   │       └── utils
+        │   │           └── user_utilities.py
+        │   ├── stock
+        │   │   └── doctype
+        │   │       ├── delivery_note
+        │   │       │   └── delivery_note.py
+        │   │       └── stock_entry
+        │   │           └── stock_entry.py
+        │   ├── templates
+        │   │   ├── clarinet_initial_setup_certificate.html
+        │   │   ├── __init__.py
+        │   │   └── pages
+        │   │       ├── __init__.py
+        │   │       └── repair_pulse.html
+        │   ├── __test__.py
+        │   ├── tests
+        │   │   ├── __pycache__
+        │   │   └── test_api.py
+        │   ├── tools
+        │   │   ├── config
+        │   │   │   └── desktop.py
+        │   │   ├── dashboard_chart
+        │   │   │   └── overdue_tools_by_type
+        │   │   │       └── overdue_tools_by_type.json
+        │   │   ├── doctype
+        │   │   │   ├── tool
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── tool.json
+        │   │   │   │   └── tool.py
+        │   │   │   └── tool_calibration_log
+        │   │   │       ├── tool_calibration_log.json
+        │   │   │       └── tool_calibration_log.py
+        │   │   ├── __init__.py
+        │   │   ├── README.md
+        │   │   ├── report
+        │   │   │   └── overdue_tool_calibrations
+        │   │   │       ├── overdue_tool_calibrations.json
+        │   │   │       └── overdue_tool_calibrations.py
+        │   │   ├── stock_tools.py
+        │   │   ├── workflow
+        │   │   │   └── tool_lifecycle
+        │   │   │       └── tool_lifecycle.json
+        │   │   ├── workflow_state
+        │   │   │   ├── available
+        │   │   │   │   └── available.json
+        │   │   │   ├── out_for_calibration
+        │   │   │   │   └── out_for_calibration.json
+        │   │   │   └── retired
+        │   │   │       └── retired.json
+        │   │   └── workspace
+        │   │       └── tools
+        │   │           └── tools.json
+        │   ├── trade_shows
+        │   │   └── __init__.py
+        │   ├── utils
+        │   │   ├── api_security.py
+        │   │   ├── database_optimizer.py
+        │   │   ├── error_handler.py
+        │   │   ├── __pycache__
+        │   │   ├── SERIALS.md
+        │   │   └── serials.py
+        │   ├── www
+        │   │   ├── frontend.html
+        │   │   ├── pad_map.py
+        │   │   └── repair_pulse.py
+        │   └── yarn.lock
+        ├── REPORT
+        │   ├── inventory.md
+        │   └── static_findings.md
+        ├── ruff.toml
+        ├── setup.py
+        └── yarn.lock
+        414 directories, 713 files

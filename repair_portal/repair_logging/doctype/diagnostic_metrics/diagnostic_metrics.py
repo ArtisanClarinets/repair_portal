@@ -9,4 +9,4 @@ from frappe.model.document import Document
 
 
 class DiagnosticMetrics(Document):
-	pass
+    pass

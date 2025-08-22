@@ -25,94 +25,104 @@ from frappe.utils import getdate, nowdate
 
 
 class LinkedPlayers(Document):
-	"""Child-doctype controller class."""
+    """Child-doctype controller class."""
 
-	# ---------------------------------------------------------------------
-	# Standard Frappe Lifecycle Hooks
-	# ---------------------------------------------------------------------
+    # ---------------------------------------------------------------------
+    # Standard Frappe Lifecycle Hooks
+    # ---------------------------------------------------------------------
 
-	def validate(self) -> None:  # noqa: D401
-		"""Validate every save.
+    def validate(self) -> None:  # noqa: D401
+        """Validate every save.
 
-		Ensures:
-		    1. Both linked records exist and are not disabled.
-		    2. The same *Player Profile* is not linked twice under one parent.
-		    3. Only **one** row per parent can have ``is_primary = 1``.
-		    4. ``date_linked`` is always a proper date (defaults to today).
+        Ensures:
+            1. Both linked records exist and are not disabled.
+            2. The same *Player Profile* is not linked twice under one parent.
+            3. Only **one** row per parent can have ``is_primary = 1``.
+            4. ``date_linked`` is always a proper date (defaults to today).
 
-		Raises:
-		    frappe.ValidationError: On any rule violation.
-		"""
-		try:
-			self._validate_links_exist()
-			self._validate_unique_per_parent()
-			self._enforce_single_primary()
-			self._normalize_dates()
-		except frappe.ValidationError:
-			# Already a user-facing message
-			raise
-		except Exception as exc:  # pragma: no cover
-			# Log unexpected errors for ops while shielding end users
-			frappe.log_error(frappe.get_traceback(), f"[LinkedPlayers.validate] {repr(exc)}")
-			raise frappe.ValidationError(
-				"Unexpected error while validating Linked Player. Please contact support."
-			)
+        Raises:
+            frappe.ValidationError: On any rule violation.
+        """
+        try:
+            self._validate_links_exist()
+            self._validate_unique_per_parent()
+            self._enforce_single_primary()
+            self._normalize_dates()
+        except frappe.ValidationError:
+            # Already a user-facing message
+            raise
+        except Exception as exc:  # pragma: no cover
+            # Log unexpected errors for ops while shielding end users
+            frappe.log_error(frappe.get_traceback(), f'[LinkedPlayers.validate] {repr(exc)}')
+            raise frappe.ValidationError(
+                'Unexpected error while validating Linked Player. Please contact support.'
+            )
 
-	# ------------------------------------------------------------------
-	# Internal Helpers (Private)
-	# ------------------------------------------------------------------
+    # ------------------------------------------------------------------
+    # Internal Helpers (Private)
+    # ------------------------------------------------------------------
 
-	def _validate_links_exist(self) -> None:
-		"""Confirm both linked doctypes exist and are active."""
-		missing: list[str] = []
-		# Person
-		if not frappe.db.exists("Person", self.person): # type: ignore
-			missing.append(f"Person: {self.person}") # type: ignore
-		# Player Profile
-		if not frappe.db.exists("Player Profile", self.player_profile): # type: ignore
-			missing.append(f"Player Profile: {self.player_profile}") # type: ignore
+    def _validate_links_exist(self) -> None:
+        """Confirm both linked doctypes exist and are active."""
+        missing: list[str] = []
+        # Person
+        if not frappe.db.exists('Person', self.person):  # type: ignore
+            missing.append(f'Person: {self.person}')  # type: ignore
+        # Player Profile
+        if not frappe.db.exists('Player Profile', self.player_profile):  # type: ignore
+            missing.append(f'Player Profile: {self.player_profile}')  # type: ignore
 
-		if missing:
-			raise frappe.ValidationError(f"Linked document(s) not found or inactive: {', '.join(missing)}")
+        if missing:
+            raise frappe.ValidationError(
+                f"Linked document(s) not found or inactive: {', '.join(missing)}"
+            )
 
-	def _validate_unique_per_parent(self) -> None:
-		"""Prevent duplicate Player Profile links in the same parent document."""
-		if not self.parentfield: # type: ignore
-			return  # Safety-net for orphaned rows
-		duplicates = [
-			d for d in self.get_siblings() if d.player_profile == self.player_profile and d.name != self.name # type: ignore
-		]
-		if duplicates:
-			raise frappe.ValidationError("This Player Profile is already linked to the current Customer.")
+    def _validate_unique_per_parent(self) -> None:
+        """Prevent duplicate Player Profile links in the same parent document."""
+        if not self.parentfield:  # type: ignore
+            return  # Safety-net for orphaned rows
+        duplicates = [
+            d
+            for d in self.get_siblings()
+            if d.player_profile == self.player_profile and d.name != self.name  # type: ignore
+        ]
+        if duplicates:
+            raise frappe.ValidationError(
+                'This Player Profile is already linked to the current Customer.'
+            )
 
-	def _enforce_single_primary(self) -> None:
-		"""Ensure only one row per parent is flagged as primary."""
-		if not self.is_primary: # type: ignore
-			return
-		primaries: list[Document] = [d for d in self.get_siblings() if d.is_primary and d.name != self.name] # type: ignore
-		if primaries:
-			raise frappe.ValidationError("Only one Player Profile may be marked as Primary per Customer.")
+    def _enforce_single_primary(self) -> None:
+        """Ensure only one row per parent is flagged as primary."""
+        if not self.is_primary:  # type: ignore
+            return
+        primaries: list[Document] = [
+            d for d in self.get_siblings() if d.is_primary and d.name != self.name
+        ]  # type: ignore
+        if primaries:
+            raise frappe.ValidationError(
+                'Only one Player Profile may be marked as Primary per Customer.'
+            )
 
-	def _normalize_dates(self) -> None:
-		"""Guarantee ``date_linked`` is set and sane."""
-		if not self.date_linked:
-			self.date_linked = nowdate()
-		else:
-			# Cast to date to avoid string formats making it through
-			self.date_linked = getdate(self.date_linked)
+    def _normalize_dates(self) -> None:
+        """Guarantee ``date_linked`` is set and sane."""
+        if not self.date_linked:
+            self.date_linked = nowdate()
+        else:
+            # Cast to date to avoid string formats making it through
+            self.date_linked = getdate(self.date_linked)
 
-	# ------------------------------------------------------------------
-	# Public Utility Methods (Optional)
-	# ------------------------------------------------------------------
+    # ------------------------------------------------------------------
+    # Public Utility Methods (Optional)
+    # ------------------------------------------------------------------
 
-	def as_dict_safe(self) -> dict:  # pragma: no cover
-		"""Return a sanitized dict (excludes private meta fields)."""
-		public_fields: set[str] = {
-			"person",
-			"player_profile",
-			"relationship",
-			"date_linked",
-			"is_primary",
-			"notes",
-		}
-		return {k: v for k, v in self.as_dict().items() if k in public_fields}
+    def as_dict_safe(self) -> dict:  # pragma: no cover
+        """Return a sanitized dict (excludes private meta fields)."""
+        public_fields: set[str] = {
+            'person',
+            'player_profile',
+            'relationship',
+            'date_linked',
+            'is_primary',
+            'notes',
+        }
+        return {k: v for k, v in self.as_dict().items() if k in public_fields}

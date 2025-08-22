@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/correctness/noUnusedVariables */
 /** biome-ignore-all lint/complexity/useArrowFunction */
-frappe.pages["desk-tuner"].on_page_load = function (wrapper) {
+frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
   // jQuery alias must come BEFORE any use of $ to avoid TDZ issues
   const $ = window.jQuery;
 
@@ -527,7 +527,7 @@ frappe.pages["desk-tuner"].on_page_load = function (wrapper) {
       logMax = Math.log10(fmax);
     for (let i = 0; i < bins; i++) {
       const t = i / (bins - 1);
-      out[i] = Math.pow(10, logMin + t * (logMax - logMin));
+      out[i] = 10 ** (logMin + t * (logMax - logMin));
     }
     return out;
   }
@@ -979,7 +979,7 @@ frappe.pages["desk-tuner"].on_page_load = function (wrapper) {
       }
 
       // odd/even ratio & slope
-      const lin = (dB) => Math.pow(10, dB / 20);
+      const lin = (dB) => 10 ** (dB / 20);
       const odd = [0, 2, 4, 6, 8]
         .map((i) => lin(amps[i] || -120))
         .filter(Boolean);
@@ -1199,7 +1199,7 @@ frappe.pages["desk-tuner"].on_page_load = function (wrapper) {
       const a4 = Number(this.settings.a4 || 440);
       const midiFloat = 69 + 12 * Math.log2(freq / a4);
       const midiNearest = Math.round(midiFloat);
-      const targetFreqConcert = a4 * Math.pow(2, (midiNearest - 69) / 12);
+      const targetFreqConcert = a4 * 2 ** ((midiNearest - 69) / 12);
       const cents = 1200 * Math.log2(freq / targetFreqConcert);
 
       const transpose = TRANSPOSE_SEMITONES[this.settings.instrument] || 0;
@@ -1410,7 +1410,7 @@ frappe.pages["desk-tuner"].on_page_load = function (wrapper) {
       const a4 = Number(this.settings.a4 || 440);
       const midiFloat = 69 + 12 * Math.log2(freq / a4);
       const midiNearest = Math.round(midiFloat);
-      const targetFreqConcert = a4 * Math.pow(2, (midiNearest - 69) / 12);
+      const targetFreqConcert = a4 * 2 ** ((midiNearest - 69) / 12);
       return 1200 * Math.log2(freq / targetFreqConcert);
     },
 
@@ -1635,7 +1635,7 @@ frappe.pages["desk-tuner"].on_page_load = function (wrapper) {
   document.addEventListener("mousedown", unlock, { once: true });
 
   // Cleanup when leaving
-  page.wrapper.on("page-leave", function () {
+  page.wrapper.on("page-leave", () => {
     Tuner.cleanup();
   });
 

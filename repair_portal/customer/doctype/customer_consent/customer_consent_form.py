@@ -12,4 +12,4 @@ from frappe.model.document import Document
 
 
 class CustomerConsentForm(Document):
-	pass
+    pass

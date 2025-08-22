@@ -10,6 +10,6 @@ from frappe.model.document import Document
 
 
 class InstrumentsOwned(Document):
-	def validate(self):
-		if not self.customer: # type: ignore
-			frappe.throw("Customer link is required for Instruments Owned entry.")
+    def validate(self):
+        if not self.customer:  # type: ignore
+            frappe.throw('Customer link is required for Instruments Owned entry.')

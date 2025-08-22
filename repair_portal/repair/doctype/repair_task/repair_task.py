@@ -9,12 +9,12 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-	from frappe.types import DF
+    from frappe.types import DF
 
-	repair_order: DF.Link
-	assigned_to: DF.Link
-	status: DF.Select # type: ignore
-	completed_on: DF.Datetime | None
+    repair_order: DF.Link
+    assigned_to: DF.Link
+    status: DF.Select  # type: ignore
+    completed_on: DF.Datetime | None
 # end: auto-generated types
 
 import frappe
@@ -23,44 +23,44 @@ from frappe.utils import now_datetime
 
 
 class RepairTask(Document):
-	# begin: auto-generated types
-	# This code is auto-generated. Do not modify anything in this block.
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
 
-	from typing import TYPE_CHECKING
+    from typing import TYPE_CHECKING
 
-	if TYPE_CHECKING:
-		from frappe.types import DF
+    if TYPE_CHECKING:
+        from frappe.types import DF
 
-		from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import (
-			InstrumentPhoto,
-		)
+        from repair_portal.instrument_profile.doctype.instrument_photo.instrument_photo import (
+            InstrumentPhoto,
+        )
 
-		actual_hours: DF.Float
-		description: DF.Text | None
-		est_hours: DF.Float
-		images: DF.Table[InstrumentPhoto]
-		log: DF.Link | None
-		long_description: DF.TextEditor | None
-		parent: DF.Data
-		parentfield: DF.Data
-		parenttype: DF.Data
-		parts_cost: DF.Currency
-		remarks: DF.SmallText | None
-		status: DF.Literal["", "Pending", "In Progress", "Completed"]
-		task_type: DF.Link
-		technician: DF.Link | None
+        actual_hours: DF.Float
+        description: DF.Text | None
+        est_hours: DF.Float
+        images: DF.Table[InstrumentPhoto]
+        log: DF.Link | None
+        long_description: DF.TextEditor | None
+        parent: DF.Data
+        parentfield: DF.Data
+        parenttype: DF.Data
+        parts_cost: DF.Currency
+        remarks: DF.SmallText | None
+        status: DF.Literal['', 'Pending', 'In Progress', 'Completed']
+        task_type: DF.Link
+        technician: DF.Link | None
 
-	# end: auto-generated types
-	def validate(self):
-		if not self.repair_order:  # type: ignore
-			frappe.throw("Repair Order reference is required.")
+    # end: auto-generated types
+    def validate(self):
+        if not self.repair_order:  # type: ignore
+            frappe.throw('Repair Order reference is required.')
 
-		if not frappe.db.exists("Repair Order", self.repair_order):  # type: ignore
-			frappe.throw(f"Repair Order '{self.repair_order}' not found.")  # type: ignore
+        if not frappe.db.exists('Repair Order', self.repair_order):  # type: ignore
+            frappe.throw(f"Repair Order '{self.repair_order}' not found.")  # type: ignore
 
-		if not self.assigned_to:  # type: ignore
-			frappe.throw("Assigned To is required.")  # type: ignore
+        if not self.assigned_to:  # type: ignore
+            frappe.throw('Assigned To is required.')  # type: ignore
 
-	def before_save(self):
-		if self.status == "Completed" and not self.completed_on:  # type: ignore
-			self.completed_on = now_datetime()
+    def before_save(self):
+        if self.status == 'Completed' and not self.completed_on:  # type: ignore
+            self.completed_on = now_datetime()

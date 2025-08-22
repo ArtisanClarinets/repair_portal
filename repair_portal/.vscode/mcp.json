@@ -34,8 +34,8 @@
 			],
 			"env": {
 				"FRAPPE_URL": "https://erp.artisanclarinets.com",
-				"FRAPPE_API_KEY": "13e129ae42ee1f9",
-				"FRAPPE_API_SECRET": "8e13779978d4ebf"
+				"FRAPPE_API_KEY": "af02116fcd5e508",
+				"FRAPPE_API_SECRET": "73a7279a5b06eb6"
 			},
 			"type": "stdio"
 		},

@@ -5,13 +5,13 @@
 
 
 def get_data():
-	return [
-		{
-			"module_name": "Instrument Profile",
-			"label": "Instrument Profile",
-			"color": "blue",
-			"icon": "octicon octicon-device-camera",
-			"type": "module",
-			"description": "Instrument profiles for clients and inventory.",
-		}
-	]
+    return [
+        {
+            'module_name': 'Instrument Profile',
+            'label': 'Instrument Profile',
+            'color': 'blue',
+            'icon': 'octicon octicon-device-camera',
+            'type': 'module',
+            'description': 'Instrument profiles for clients and inventory.',
+        }
+    ]

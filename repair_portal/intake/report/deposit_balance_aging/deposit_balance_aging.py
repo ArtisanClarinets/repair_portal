@@ -7,22 +7,22 @@ import frappe
 
 
 def execute(filters=None):
-	data = frappe.db.sql(
-		"""
+    data = frappe.db.sql(
+        """
         SELECT customer, SUM(deposit_amount - used_amount) AS balance
         FROM `tabClarinet Intake`
         GROUP BY customer
     """,
-		as_dict=True,
-	)
-	columns = [
-		{
-			"label": "Customer",
-			"fieldname": "customer",
-			"fieldtype": "Link",
-			"options": "Customer",
-			"width": 180,
-		},
-		{"label": "Balance", "fieldname": "balance", "fieldtype": "Currency", "width": 120},
-	]
-	return columns, data
+        as_dict=True,
+    )
+    columns = [
+        {
+            'label': 'Customer',
+            'fieldname': 'customer',
+            'fieldtype': 'Link',
+            'options': 'Customer',
+            'width': 180,
+        },
+        {'label': 'Balance', 'fieldname': 'balance', 'fieldtype': 'Currency', 'width': 120},
+    ]
+    return columns, data

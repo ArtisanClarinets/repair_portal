@@ -8,16 +8,16 @@ from frappe.model.document import Document
 
 
 class WorkflowState(Document):
-	# begin: auto-generated types
-	from typing import TYPE_CHECKING
+    # begin: auto-generated types
+    from typing import TYPE_CHECKING
 
-	if TYPE_CHECKING:
-		from frappe.types import DF
+    if TYPE_CHECKING:
+        from frappe.types import DF
 
-		name: "DF.Data"
-		style: "DF.Data"
-		doc_status: "DF.Int"
-		icon: "DF.Data"  # Optional
-		module: "DF.Link"
-	# end: auto-generated types
-	pass
+        name: 'DF.Data'
+        style: 'DF.Data'
+        doc_status: 'DF.Int'
+        icon: 'DF.Data'  # Optional
+        module: 'DF.Link'
+    # end: auto-generated types
+    pass

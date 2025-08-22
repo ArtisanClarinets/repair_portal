@@ -9,6 +9,6 @@ from frappe.model.document import Document
 
 
 class InstrumentAccessory(Document):
-	"""Child table for tracking accessories on an instrument profile."""
+    """Child table for tracking accessories on an instrument profile."""
 
-	pass
+    pass

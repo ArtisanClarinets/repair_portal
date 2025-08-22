@@ -7,13 +7,13 @@ from frappe import _
 
 
 def get_data():
-	return [
-		{
-			"module_name": "Tools",
-			"type": "module",
-			"label": _("Tools"),
-			"icon": "octicon octicon-terminal",
-			"color": "darkgrey",
-			"description": "Developer and technician tools for diagnostics and utilities",
-		}
-	]
+    return [
+        {
+            'module_name': 'Tools',
+            'type': 'module',
+            'label': _('Tools'),
+            'icon': 'octicon octicon-terminal',
+            'color': 'darkgrey',
+            'description': 'Developer and technician tools for diagnostics and utilities',
+        }
+    ]

@@ -7,17 +7,17 @@ import frappe
 
 
 def execute(filters=None):
-	data = frappe.db.sql(
-		"""
+    data = frappe.db.sql(
+        """
         SELECT DATE(intake_date) AS date, COUNT(*) AS count
         FROM `tabClarinet Intake`
         GROUP BY DATE(intake_date)
         ORDER BY date DESC
     """,
-		as_dict=True,
-	)
-	columns = [
-		{"label": "Date", "fieldname": "date", "fieldtype": "Date", "width": 120},
-		{"label": "Intake Count", "fieldname": "count", "fieldtype": "Int", "width": 100},
-	]
-	return columns, data
+        as_dict=True,
+    )
+    columns = [
+        {'label': 'Date', 'fieldname': 'date', 'fieldtype': 'Date', 'width': 120},
+        {'label': 'Intake Count', 'fieldname': 'count', 'fieldtype': 'Int', 'width': 100},
+    ]
+    return columns, data

@@ -12,51 +12,51 @@ from repair_portal.utils import api_security, database_optimizer, error_handler
 
 @frappe.whitelist(allow_guest=False)
 def get_customer_profile():
-	"""
-	Returns current logged-in user's basic profile info.
+    """
+    Returns current logged-in user's basic profile info.
 
-	Returns:
-	    dict: { "full_name": ..., "email": ..., "phone": ..., "address": ... }
-	"""
-	try:
-		user = api_security.get_logged_in_user()
-		profile = frappe.get_doc("User", user)
-		return {
-			"full_name": profile.full_name or profile.first_name or user, # type: ignore
-			"email": profile.email or profile.name, # type: ignore
-			"phone": getattr(profile, "phone", "") or "",
-			"address": getattr(profile, "address", "") or "",
-		}
-	except Exception as e:
-		error_handler.log_and_raise(e, "Failed to fetch customer profile.") # type: ignore
+    Returns:
+        dict: { "full_name": ..., "email": ..., "phone": ..., "address": ... }
+    """
+    try:
+        user = api_security.get_logged_in_user()
+        profile = frappe.get_doc('User', user)
+        return {
+            'full_name': profile.full_name or profile.first_name or user,  # type: ignore
+            'email': profile.email or profile.name,  # type: ignore
+            'phone': getattr(profile, 'phone', '') or '',
+            'address': getattr(profile, 'address', '') or '',
+        }
+    except Exception as e:
+        error_handler.log_and_raise(e, 'Failed to fetch customer profile.')  # type: ignore
 
 
 @frappe.whitelist(allow_guest=False)
 def update_customer_profile(full_name, email, phone=None, address=None):
-	"""
-	Updates current user's basic profile info.
+    """
+    Updates current user's basic profile info.
 
-	Args:
-	    full_name (str): New full name
-	    email (str): New email
-	    phone (str, optional): New phone
-	    address (str, optional): New address
+    Args:
+        full_name (str): New full name
+        email (str): New email
+        phone (str, optional): New phone
+        address (str, optional): New address
 
-	Returns:
-	    dict: Confirmation
-	"""
-	try:
-		user = api_security.get_logged_in_user()
-		profile = frappe.get_doc("User", user)
-		# Basic field updates
-		profile.full_name = full_name # type: ignore
-		profile.email = email # type: ignore
-		if phone is not None:
-			profile.phone = phone # type: ignore
-		if address is not None:
-			profile.address = address # type: ignore
-		profile.save(ignore_permissions=True)
-		database_optimizer.touch_user(user)  # stub, does nothing for now # type: ignore
-		return {"status": "success"}
-	except Exception as e:
-		error_handler.log_and_raise(e, "Failed to update customer profile.") # type: ignore
+    Returns:
+        dict: Confirmation
+    """
+    try:
+        user = api_security.get_logged_in_user()
+        profile = frappe.get_doc('User', user)
+        # Basic field updates
+        profile.full_name = full_name  # type: ignore
+        profile.email = email  # type: ignore
+        if phone is not None:
+            profile.phone = phone  # type: ignore
+        if address is not None:
+            profile.address = address  # type: ignore
+        profile.save(ignore_permissions=True)
+        database_optimizer.touch_user(user)  # stub, does nothing for now # type: ignore
+        return {'status': 'success'}
+    except Exception as e:
+        error_handler.log_and_raise(e, 'Failed to update customer profile.')  # type: ignore
