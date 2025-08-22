@@ -69,7 +69,7 @@ class InstrumentSerialNumber(Document):
         if self.instrument:
             try:
                 util_attach_isn(
-                    isn_name=self.name, instrument=self.instrument, link_on_instrument=True
+                    isn_name=self.name, instrument=self.instrument, link_on_instrument=True # type: ignore
                 )  # type: ignore
             except Exception:
                 # Non-fatal: log for admin review
@@ -83,7 +83,7 @@ class InstrumentSerialNumber(Document):
         if self.instrument:
             try:
                 util_attach_isn(
-                    isn_name=self.name, instrument=self.instrument, link_on_instrument=True
+                    isn_name=self.name, instrument=self.instrument, link_on_instrument=True # type: ignore
                 )  # type: ignore
             except Exception:
                 frappe.log_error(

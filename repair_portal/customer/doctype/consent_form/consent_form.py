@@ -89,7 +89,7 @@ class ConsentForm(Document):
             (
                 '<b>Signed:</b> ____________'
                 if not self.signature  # type: ignore
-                else f"<b>Signed:</b> <img src='{self.signature}' style='height:40px;'>"
+                else f"<b>Signed:</b> <img src='{self.signature}' style='height:40px;'>" # type: ignore
             ),  # type: ignore
         )
         return content

@@ -83,7 +83,7 @@ class LinkedPlayers(Document):
             return  # Safety-net for orphaned rows
         duplicates = [
             d
-            for d in self.get_siblings()
+            for d in self.get_siblings() # type: ignore
             if d.player_profile == self.player_profile and d.name != self.name  # type: ignore
         ]
         if duplicates:
@@ -96,7 +96,7 @@ class LinkedPlayers(Document):
         if not self.is_primary:  # type: ignore
             return
         primaries: list[Document] = [
-            d for d in self.get_siblings() if d.is_primary and d.name != self.name
+            d for d in self.get_siblings() if d.is_primary and d.name != self.name # type: ignore
         ]  # type: ignore
         if primaries:
             raise frappe.ValidationError(

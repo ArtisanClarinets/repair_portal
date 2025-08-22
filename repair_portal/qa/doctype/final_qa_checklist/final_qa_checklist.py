@@ -24,7 +24,7 @@ class FinalQaChecklist(Document):
         try:
             if self.instrument_profile:  # type: ignore
                 frappe.db.set_value(
-                    'Instrument Profile', self.instrument_profile, 'status', 'QA Complete'
+                    'Instrument Profile', self.instrument_profile, 'status', 'QA Complete' # type: ignore
                 )  # type: ignore
                 # Optional: update workflow_state if field exists
                 if frappe.db.has_column('Instrument Profile', 'workflow_state'):

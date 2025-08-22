@@ -162,7 +162,7 @@ class EnterpriseErrorHandler:
             category_counts = {}
             for stat in error_stats:
                 category = stat.get('error_category', 'Unknown')  # type: ignore
-                category_counts[category] = category_counts.get(category, 0) + stat.get(
+                category_counts[category] = category_counts.get(category, 0) + stat.get( # type: ignore
                     'error_count', 0
                 )  # type: ignore
 
