@@ -13,6 +13,8 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
   // - In-app FFT (radix-2) w/ Hann window + LOG-FREQUENCY spectrum
   // - Real-time console: Spectrum/Spectrogram/Harmonics/Cents/Autocorr/Waveform
   // - Metrics: mean/std/drift/vibrato/odd-even/attack/jitter/shimmer/hiss
+  // - NEW: Temperament overlays (Just, 1/4-comma Meantone) on needle & timeline
+  // - NEW: Reference tone generator + Hold Trainer (±cents for N seconds)
   // ---------------------------------------------------------------------------
 
   const page = frappe.ui.make_app_page({
@@ -48,6 +50,10 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 	.tick-label.right{left:100%}
 	.needle{position:absolute;bottom:0;left:50%;width:4px;height:100%;background:var(--red-500);border-radius:4px 4px 0 0;transform-origin:bottom center;transform:translateX(-50%) rotate(0deg);transition:transform .12s ease-out,background-color .2s ease}
 	.in-tune .needle{background:var(--green-500)}
+	/* temperament overlay ticks over meter */
+	.temp-marks{position:absolute;left:0;right:0;bottom:0;height:100%;pointer-events:none}
+	.temp-mark{position:absolute;bottom:0;transform:translateX(-50%);width:2px;background:var(--purple-500);height:48%}
+	.temp-label{position:absolute;bottom:52px;transform:translateX(-50%);font-size:.7rem;color:var(--purple-600)}
 	#strobe-canvas{width:100%;height:120px;display:none;border-radius:8px;border:1px solid var(--border-color);margin-top:10px}
 	.level-bar{height:10px;border-radius:999px;background:var(--bg-color);border:1px solid var(--border-color);overflow:hidden}
 	.level-fill{height:100%;width:0%;background:var(--blue-500);transition:width .1s linear}
@@ -78,6 +84,14 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 	details.help-panel summary{cursor:pointer;font-weight:600}
 	ul.compact{margin:6px 0 0 18px;padding:0}
 	ul.compact li{margin:4px 0}
+
+  /* trainer */
+  .trainer-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  @media (max-width:520px){.trainer-row{grid-template-columns:1fr}}
+  .progress{height:10px;border-radius:999px;background:var(--bg-color);border:1px solid var(--border-color);overflow:hidden}
+  .progress .bar{height:100%;width:0%;}
+  .bar.ok{background:var(--green-500)}
+  .bar.bad{background:var(--red-400)}
 </style>
 
 <div class="tuner-wrapper">
@@ -95,6 +109,8 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 						<div class="tick side l-25"></div>
 						<div class="tick side r-25"></div>
 					</div>
+          <!-- temperament overlay marks -->
+          <div id="temp-marks" class="temp-marks" aria-hidden="true"></div>
 					<div class="needle" id="needle"></div>
 					<div class="tick-label left">−50¢</div>
 					<div class="tick-label mid">0</div>
@@ -222,6 +238,86 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 				</div>
 			</div>
 
+      <!-- Temperament controls -->
+      <div class="controls-row">
+        <div class="field">
+          <div class="form-inline">
+            <label for="temperament-mode">${__("Temperament")}</label>
+            <select id="temperament-mode" class="form-control">
+              <option value="off">${__("Off (Equal Temperament)")}</option>
+              <option value="just">${__("Just Intonation (generic offsets)")}</option>
+              <option value="meantone_qc">${__("Meantone (1/4-comma)")}</option>
+            </select>
+          </div>
+          <span class="helper">${__("Shows guideline ticks at typical pure interval offsets (relative to Equal Temperament).")}</span>
+        </div>
+        <div class="field">
+          <div class="form-inline">
+            <label>${__("Show On")}</label>
+            <label><input type="checkbox" id="temp-on-needle" checked> ${__("Needle")}</label>
+            <label><input type="checkbox" id="temp-on-timeline" checked> ${__("Timeline")}</label>
+          </div>
+          <span class="helper">${__("These are reference guides, not absolute rules. Use your ear & context.")}</span>
+        </div>
+      </div>
+
+      <!-- Reference tone -->
+      <div class="section" aria-labelledby="ref-title" style="margin-top:10px;">
+        <h5 id="ref-title">${__("Reference Tone & Trainer")}</h5>
+        <div class="controls-row">
+          <div class="field">
+            <div class="form-inline">
+              <label for="ref-source">${__("Target")}</label>
+              <select id="ref-source" class="form-control">
+                <option value="detected">${__("Detected Note")}</option>
+                <option value="manual">${__("Manual Note")}</option>
+              </select>
+              <select id="ref-note" class="form-control" style="display:none;"></select>
+            </div>
+            <span class="helper">${__("Reference tone is emitted at CONCERT pitch. For written instruments, adjust mentally or switch Display.")}</span>
+          </div>
+          <div class="field">
+            <div class="form-inline">
+              <label for="ref-wave">${__("Wave")}</label>
+              <select id="ref-wave" class="form-control">
+                <option value="sine">Sine</option>
+                <option value="triangle">Triangle</option>
+                <option value="sawtooth">Saw</option>
+                <option value="square">Square</option>
+              </select>
+              <label for="ref-vol">${__("Volume")}</label>
+              <input id="ref-vol" type="range" min="0" max="1" step="0.01" value="0.2">
+              <button id="btn-tone" class="btn btn-default">
+                <i class="fa fa-play" style="margin-right:6px;"></i>${__("Play Tone")}
+              </button>
+            </div>
+            <span class="helper">${__("Use a comfortable volume. Avoid feedback by lowering your mic monitor level.")}</span>
+          </div>
+        </div>
+
+        <!-- Trainer -->
+        <div class="trainer-row">
+          <div class="field">
+            <div class="form-inline">
+              <label for="trainer-hold">${__("Hold Goal (s)")}</label>
+              <input id="trainer-hold" type="number" class="form-control" style="width:90px" min="1" max="60" step="1" value="5">
+              <label for="trainer-tol">${__("Tolerance (¢)")}</label>
+              <input id="trainer-tol" type="number" class="form-control" style="width:90px" min="1" max="25" step="1" value="5">
+              <button id="btn-trainer" class="btn btn-primary">
+                <i class="fa fa-flag-checkered" style="margin-right:6px;"></i>${__("Start Trainer")}
+              </button>
+            </div>
+            <span class="helper">${__("Stay within ± tolerance until the bar completes. Great for Throat A practice.")}</span>
+          </div>
+          <div class="field">
+            <div class="progress" aria-label="${__("Hold progress")}">
+              <div id="trainer-bar" class="bar bad"></div>
+            </div>
+            <div class="small" id="trainer-status" style="margin-top:6px;">—</div>
+          </div>
+        </div>
+      </div>
+
 			<div class="controls-row" style="margin-top:6px;">
 				<button id="btn-toggle" class="btn btn-primary">
 					<i class="fa fa-microphone" style="margin-right: 6px;"></i>${__("Start Tuner")}
@@ -333,6 +429,22 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     fftSelect: byId("fft-select"),
     dynRange: byId("dyn-range"),
     needleWrap: byId("needle-wrap"),
+    tempMarks: byId("temp-marks"),
+    // temperament controls
+    temperamentMode: byId("temperament-mode"),
+    tempOnNeedle: byId("temp-on-needle"),
+    tempOnTimeline: byId("temp-on-timeline"),
+    // reference tone + trainer
+    refSource: byId("ref-source"),
+    refNote: byId("ref-note"),
+    refWave: byId("ref-wave"),
+    refVol: byId("ref-vol"),
+    btnTone: byId("btn-tone"),
+    trainerHold: byId("trainer-hold"),
+    trainerTol: byId("trainer-tol"),
+    btnTrainer: byId("btn-trainer"),
+    trainerBar: byId("trainer-bar"),
+    trainerStatus: byId("trainer-status"),
     // analytics canvases
     cWave: byId("c-wave"),
     cSpectrum: byId("c-spectrum"),
@@ -361,31 +473,11 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
   };
 
   // --- Constants --------------------------------------------------------------
-  const NOTE_STR = [
-    "C",
-    "C♯",
-    "D",
-    "D♯",
-    "E",
-    "F",
-    "F♯",
-    "G",
-    "G♯",
-    "A",
-    "A♯",
-    "B",
-  ];
-  const TRANSPOSE_SEMITONES = {
-    concert: 0,
-    bb: +2,
-    a: +3,
-    eb: -3,
-    bb_bass: +14,
-  };
-  const SETTINGS_KEY = "desk_tuner_settings_v3";
+  const NOTE_STR = ["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
+  const TRANSPOSE_SEMITONES = { concert: 0, bb: +2, a: +3, eb: -3, bb_bass: +14 };
+  const SETTINGS_KEY = "desk_tuner_settings_v4";
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-  const mean = (arr) =>
-    arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
+  const mean = (arr) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);
   const std = (arr) => {
     if (!arr.length) return 0;
     const m = mean(arr);
@@ -394,19 +486,19 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
   const polyfit1 = (xs, ys) => {
     const n = Math.min(xs.length, ys.length);
     if (n < 2) return 0;
-    let sx = 0,
-      sy = 0,
-      sxx = 0,
-      sxy = 0;
-    for (let i = 0; i < n; i++) {
-      sx += xs[i];
-      sy += ys[i];
-      sxx += xs[i] * xs[i];
-      sxy += xs[i] * ys[i];
-    }
+    let sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (let i = 0; i < n; i++) { sx += xs[i]; sy += ys[i]; sxx += xs[i] * xs[i]; sxy += xs[i] * ys[i]; }
     const denom = n * sxx - sx * sx || 1e-9;
     return (n * sxy - sx * sy) / denom;
   };
+
+  // In-tune & note-latch hysteresis
+  let _inTuneState = false;
+  const IN_TUNE_ENTER = 4.0;
+  const IN_TUNE_EXIT  = 6.5;
+  let _latchedMidi = null;
+  const NOTE_LATCH_ENTER = 20; // cents
+  const NOTE_LATCH_EXIT  = 35; // cents
 
   // --- Settings ---------------------------------------------------------------
   const loadSettings = () => {
@@ -422,35 +514,35 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
         deviceId: s.deviceId || "",
         fftSize: Number(s.fftSize) || 4096,
         dynRange: clamp(Number(s.dynRange) || 80, 40, 120),
+        temperamentMode: s.temperamentMode || "off",
+        tempOnNeedle: s.tempOnNeedle !== undefined ? !!s.tempOnNeedle : true,
+        tempOnTimeline: s.tempOnTimeline !== undefined ? !!s.tempOnTimeline : true,
+        refWave: s.refWave || "sine",
+        refVol: Number(s.refVol) >= 0 ? Number(s.refVol) : 0.2,
+        refSource: s.refSource || "detected",
+        refManualMidi: Number.isFinite(Number(s.refManualMidi)) ? Number(s.refManualMidi) : 69,
+        trainerHold: Number(s.trainerHold) || 5,
+        trainerTol: Number(s.trainerTol) || 5,
       };
     } catch {
       return {
-        a4: 440,
-        instrument: "concert",
-        displayMode: "concert",
-        viewMode: "needle",
-        gate: 0.01,
-        smoothing: 0.4,
-        deviceId: "",
-        fftSize: 4096,
-        dynRange: 80,
+        a4: 440, instrument: "concert", displayMode: "concert", viewMode: "needle",
+        gate: 0.01, smoothing: 0.4, deviceId: "", fftSize: 4096, dynRange: 80,
+        temperamentMode: "off", tempOnNeedle: true, tempOnTimeline: true,
+        refWave: "sine", refVol: 0.2, refSource: "detected", refManualMidi: 69,
+        trainerHold: 5, trainerTol: 5,
       };
     }
   };
-  const saveSettings = (s) =>
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+  const saveSettings = (s) => localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
 
   // --- FFT (Radix-2, in-place) -----------------------------------------------
   function bitReverseIndices(n) {
     const rev = new Uint32Array(n);
     const bits = Math.log2(n) | 0;
     for (let i = 0; i < n; i++) {
-      let x = i,
-        y = 0;
-      for (let b = 0; b < bits; b++) {
-        y = (y << 1) | (x & 1);
-        x >>= 1;
-      }
+      let x = i, y = 0;
+      for (let b = 0; b < bits; b++) { y = (y << 1) | (x & 1); x >>= 1; }
       rev[i] = y >>> 0;
     }
     return rev;
@@ -461,32 +553,18 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     if (!fftInPlace._revCache.has(n)) fftInPlace._revCache.set(n, rev);
     for (let i = 0; i < n; i++) {
       const j = rev[i];
-      if (j > i) {
-        const tr = re[i];
-        re[i] = re[j];
-        re[j] = tr;
-        const ti = im[i];
-        im[i] = im[j];
-        im[j] = ti;
-      }
+      if (j > i) { const tr = re[i]; re[i] = re[j]; re[j] = tr; const ti = im[i]; im[i] = im[j]; im[j] = ti; }
     }
     for (let len = 2; len <= n; len <<= 1) {
-      const half = len >> 1;
-      const ang = (-2 * Math.PI) / len;
+      const half = len >> 1; const ang = (-2 * Math.PI) / len;
       for (let i = 0; i < n; i += len) {
         for (let j = 0; j < half; j++) {
-          const k = i + j,
-            m = k + half;
-          const wr = Math.cos(ang * j),
-            wi = Math.sin(ang * j);
-          const xr = wr * re[m] - wi * im[m];
-          const xi = wr * im[m] + wi * re[m];
-          const ur = re[k],
-            ui = im[k];
-          re[m] = ur - xr;
-          im[m] = ui - xi;
-          re[k] = ur + xr;
-          im[k] = ui + xi;
+          const k = i + j, m = k + half;
+          const wr = Math.cos(ang * j), wi = Math.sin(ang * j);
+          const xr = wr * re[m] - wi * im[m]; const xi = wr * im[m] + wi * re[m];
+          const ur = re[k], ui = im[k];
+          re[m] = ur - xr; im[m] = ui - xi;
+          re[k] = ur + xr; im[k] = ui + xi;
         }
       }
     }
@@ -496,24 +574,18 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
   function hannWindow(N) {
     const w = new Float32Array(N);
     const f = (2 * Math.PI) / (N - 1);
-    for (let n = 0; n < N; n++) {
-      w[n] = 0.5 * (1 - Math.cos(f * n));
-    }
+    for (let n = 0; n < N; n++) w[n] = 0.5 * (1 - Math.cos(f * n));
     return w;
   }
 
   // --- DSP Helpers ------------------------------------------------------------
-  function dbAmp(x) {
-    return 20 * Math.log10(x + 1e-12);
-  }
+  function dbAmp(x) { return 20 * Math.log10(x + 1e-12); }
   function ampFromFFT(re, im, N, i) {
-    // single-sided amplitude spectrum scaling
     const mag = Math.hypot(re[i], im[i]);
     const scale = i === 0 || i === N / 2 ? 1 / N : 2 / N;
     return mag * scale;
   }
   function interp1(x, x0, dx, arr) {
-    // arr indexed by i: value at x = x0 + i*dx, linear interpolation
     const t = (x - x0) / dx;
     const i = Math.floor(t);
     const frac = t - i;
@@ -523,13 +595,66 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
   }
   function buildLogAxis(fmin, fmax, bins) {
     const out = new Float32Array(bins);
-    const logMin = Math.log10(fmin),
-      logMax = Math.log10(fmax);
-    for (let i = 0; i < bins; i++) {
-      const t = i / (bins - 1);
-      out[i] = 10 ** (logMin + t * (logMax - logMin));
-    }
+    const logMin = Math.log10(fmin), logMax = Math.log10(fmax);
+    for (let i = 0; i < bins; i++) { const t = i / (bins - 1); out[i] = 10 ** (logMin + t * (logMax - logMin)); }
     return out;
+  }
+  function quadInterpPeak(dbArr, idx) {
+    const y1 = dbArr[idx - 1] ?? dbArr[idx];
+    const y2 = dbArr[idx];
+    const y3 = dbArr[idx + 1] ?? dbArr[idx];
+    const denom = (y1 - 2 * y2 + y3);
+    if (Math.abs(denom) < 1e-6) return { binFrac: idx, peakDb: y2 };
+    const delta = 0.5 * (y1 - y3) / denom;
+    const peakDb = y2 - 0.25 * (y1 - y3) * delta;
+    return { binFrac: idx + delta, peakDb };
+  }
+
+  // --- Temperament overlays ---------------------------------------------------
+  function temperamentOffsets(mode) {
+    // Generic offsets (cents) relative to Equal Temperament for common pure intervals
+    // Positive = sharper than ET; Negative = flatter than ET
+    if (mode === "just") {
+      return [
+        { c: +1.96,  lab: "P5 +1.96" }, { c: -1.96, lab: "P4 −1.96" },
+        { c: +3.91,  lab: "M2 +3.91" }, { c: -3.91, lab: "m7 −3.91" },
+        { c: +11.73, lab: "m2 +11.73" },{ c: -11.73,lab: "M7 −11.73" },
+        { c: -13.69, lab: "M3 −13.69" },{ c: +13.69,lab: "m6 +13.69" },
+        { c: +15.64, lab: "m3 +15.64" },{ c: -15.64,lab: "M6 −15.64" },
+      ];
+    }
+    if (mode === "meantone_qc") {
+      // Quarter-comma meantone (archetypal approximations)
+      return [
+        { c: -3.42,  lab: "P5 −3.42" },
+        { c: -13.69, lab: "M3 −13.69" }, { c: +16.99, lab: "m3 +16.99" },
+        { c: -16.99, lab: "M6 −16.99" }, { c: +13.69, lab: "m6 +13.69" },
+        { c: +3.91,  lab: "M2 +3.91" },  { c: -3.91,  lab: "m7 −3.91" },
+      ];
+    }
+    return [];
+  }
+  function clearTemperamentMarks() { UI.tempMarks.innerHTML = ""; }
+  function renderTemperamentMarks() {
+    clearTemperamentMarks();
+    if (!Tuner.settings.tempOnNeedle) return;
+    const mode = Tuner.settings.temperamentMode;
+    if (mode === "off") return;
+    const offs = temperamentOffsets(mode);
+    // meter scale: -50¢ .. +50¢ across full width
+    offs.forEach(({ c, lab }) => {
+      if (c < -50 || c > 50) return;
+      const leftPct = ((c + 50) / 100) * 100;
+      const mark = document.createElement("div");
+      mark.className = "temp-mark";
+      mark.style.left = `${leftPct}%`;
+      // label
+      const lbl = document.createElement("div");
+      lbl.className = "temp-label";
+      lbl.textContent = lab.replace(/ /g, "\u00A0");
+      mark.appendChild(lbl);
+      UI.tempMarks.appendChild(mark);
+    });
   }
 
   // --- Tuner Core -------------------------------------------------------------
@@ -555,10 +680,12 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 
     // spectra
     hann: null,
+    reFFT: null,
+    imFFT: null,
     spec: {
       linAmp: null, // Float32 N/2+1 amplitudes
-      db: null, // Float32 N/2+1 dB
-      logDb: null, // Float32 M
+      db: null,     // Float32 N/2+1 dB
+      logDb: null,  // Float32 M
       logFreqs: null,
       binHz: 0,
       M: 256, // log bins for display
@@ -579,6 +706,15 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     // canvases
     ctx: {},
 
+    // Reference tone
+    tone: { osc: null, gain: null, playing: false, beepOsc: null, beepGain: null },
+
+    // Trainer
+    trainer: { active: false, holdGoal: 5, tol: 5, accum: 0, best: 0, lastOk: false, lastTs: 0 },
+
+    // UI helpers
+    lastTargetMidi: 69,
+
     async init() {
       if (this.initialised) return;
 
@@ -593,8 +729,20 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       UI.fftSelect.value = String(this.settings.fftSize);
       UI.dynRange.value = String(this.settings.dynRange);
       UI.a4Label.textContent = String(this.settings.a4);
-      UI.modeLabel.textContent =
-        this.settings.displayMode === "concert" ? __("Concert") : __("Written");
+      UI.modeLabel.textContent = this.settings.displayMode === "concert" ? __("Concert") : __("Written");
+
+      UI.temperamentMode.value = this.settings.temperamentMode || "off";
+      UI.tempOnNeedle.checked = !!this.settings.tempOnNeedle;
+      UI.tempOnTimeline.checked = !!this.settings.tempOnTimeline;
+
+      UI.refWave.value = this.settings.refWave;
+      UI.refVol.value = String(this.settings.refVol);
+      UI.refSource.value = this.settings.refSource;
+      this.populateNotePicker(UI.refNote);
+      this.setRefNoteDropdown(this.settings.refManualMidi);
+
+      UI.trainerHold.value = String(this.settings.trainerHold);
+      UI.trainerTol.value = String(this.settings.trainerTol);
 
       this.ac = new (window.AudioContext || window.webkitAudioContext)();
       this.strobeCtx = UI.strobe.getContext("2d", { alpha: false });
@@ -610,6 +758,7 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       this.initialised = true;
       this.resizeAllCanvases();
       window.addEventListener("resize", () => this.resizeAllCanvases());
+      renderTemperamentMarks();
     },
 
     async start() {
@@ -619,9 +768,7 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 
         const constraints = {
           audio: {
-            deviceId: this.settings.deviceId
-              ? { exact: this.settings.deviceId }
-              : undefined,
+            deviceId: this.settings.deviceId ? { exact: this.settings.deviceId } : undefined,
             channelCount: 1,
             echoCancellation: false,
             noiseSuppression: false,
@@ -670,6 +817,9 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       if (this.ac && this.ac.state !== "closed") {
         this.ac.suspend().catch(() => {});
       }
+      // Stop tone/trainer if active
+      this.stopTone();
+      this.trainerStop();
 
       UI.btnToggle.classList.add("btn-primary");
       UI.btnToggle.classList.remove("btn-danger");
@@ -680,6 +830,8 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     onFftSizeChanged() {
       const N = this.analyser?.fftSize || this.settings.fftSize || 4096;
       this.hann = hannWindow(N);
+      this.reFFT = new Float32Array(N);
+      this.imFFT = new Float32Array(N);
       this.spec.linAmp = new Float32Array(N / 2 + 1);
       this.spec.db = new Float32Array(N / 2 + 1);
       this.spec.binHz = (this.ac?.sampleRate || 48000) / N;
@@ -700,12 +852,8 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
         if (d.deviceId === currentId) opt.selected = true;
         UI.deviceSelect.appendChild(opt);
       }
-      const input =
-        this.deviceList.find((d) => d.deviceId === currentId) ||
-        this.deviceList[0];
-      if (input) {
-        UI.deviceInfo.textContent = `${__("Using")}: ${input.label || __("Microphone")}`;
-      }
+      const input = this.deviceList.find((d) => d.deviceId === currentId) || this.deviceList[0];
+      if (input) UI.deviceInfo.textContent = `${__("Using")}: ${input.label || __("Microphone")}`;
     },
 
     async switchDevice(deviceId) {
@@ -736,23 +884,16 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       this.computeSpectrum(this.data);
 
       const now = performance.now() / 1000; // seconds
-      let freq = 0,
-        conf = 0,
-        cents = NaN;
+      let freq = 0, conf = 0, cents = NaN;
 
       if (rms < gate) {
         this.renderNoSignal();
       } else {
-        const res = this.yinPitchOptimized(this.data, this.ac.sampleRate, {
-          threshold: 0.1,
-          minF: 60,
-          maxF: 1800,
-        });
+        const res = this.yinPitchOptimized(this.data, this.ac.sampleRate, { threshold: 0.1, minF: 60, maxF: 1800 });
         if (res && res.freq > 0) {
           this.emaAlpha = Number(this.settings.smoothing || 0.4);
           if (!this.emaFreq) this.emaFreq = res.freq;
-          this.emaFreq =
-            this.emaAlpha * res.freq + (1 - this.emaAlpha) * this.emaFreq;
+          this.emaFreq = this.emaAlpha * res.freq + (1 - this.emaAlpha) * this.emaFreq;
           freq = this.emaFreq;
           conf = res.probability;
           cents = this.centsFromFreq(freq);
@@ -767,30 +908,30 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 
       // analytics rendering (Hann+FFT driven for spectrum/gram/harm)
       this.drawWaveform(this.data);
-      this.drawSpectrum(); // uses this.spec.logDb
-      this.drawSpectrogram(); // uses this.spec.logDb
-      this.drawHarmonics(freq); // uses this.spec.db
+      this.drawSpectrum();
+      this.drawSpectrogram();
+      this.drawHarmonics(freq);
       this.drawCentsTimeline();
       this.drawAutocorr();
 
       // compute & show metrics
       this.updateMetrics();
 
+      // Trainer update
+      this.trainerTick(now, cents, rms, gate);
+
       this.rAF = requestAnimationFrame((t) => this.loop(t));
     },
 
     // --------------------- Spectrum Pipeline ---------------------------------
-
     computeSpectrum(timeBuf) {
       const N = timeBuf.length;
       if (!this.hann || this.hann.length !== N) this.hann = hannWindow(N);
-      const re = new Float32Array(N);
-      const im = new Float32Array(N);
-      // Apply Hann
+      const re = this.reFFT, im = this.imFFT;
+      re.fill(0); im.fill(0);
       for (let i = 0; i < N; i++) re[i] = timeBuf[i] * this.hann[i];
       fftInPlace(re, im);
 
-      // Single-sided amplitudes & dB
       const n2 = N / 2;
       for (let i = 0; i <= n2; i++) {
         const amp = ampFromFFT(re, im, N, i);
@@ -798,39 +939,26 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
         this.spec.db[i] = dbAmp(amp);
       }
 
-      // Log-frequency resampling
       const binHz = this.spec.binHz;
-      const f0 = 0; // bin 0 is DC
       const arr = this.spec.db;
       const M = this.spec.M;
       for (let j = 0; j < M; j++) {
         const f = this.spec.logFreqs[j];
-        const val = f < binHz ? arr[1] : interp1(f, f0, binHz, arr);
+        const val = f < binHz ? arr[1] : interp1(f, 0, binHz, arr);
         this.spec.logDb[j] = val;
       }
     },
 
     // --------------------- Rendering & Analytics -----------------------------
-
     resizeCanvas(c) {
       const dpr = Math.max(1, window.devicePixelRatio || 1);
       const w = c.clientWidth * dpr;
       const h = c.clientHeight * dpr;
-      if (c.width !== w || c.height !== h) {
-        c.width = w;
-        c.height = h;
-      }
+      if (c.width !== w || c.height !== h) { c.width = w; c.height = h; }
       return { w, h, dpr };
     },
     resizeAllCanvases() {
-      [
-        this.ctx.wave,
-        this.ctx.spectrum,
-        this.ctx.gram,
-        this.ctx.harm,
-        this.ctx.cents,
-        this.ctx.ac,
-      ].forEach((ctx) => {
+      [this.ctx.wave, this.ctx.spectrum, this.ctx.gram, this.ctx.harm, this.ctx.cents, this.ctx.ac].forEach((ctx) => {
         if (!ctx) return;
         const c = ctx.canvas;
         const d = this.resizeCanvas(c);
@@ -839,44 +967,36 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     },
 
     drawWaveform(buf) {
-      const ctx = this.ctx.wave;
-      if (!ctx) return;
+      const ctx = this.ctx.wave; if (!ctx) return;
       const { w, h } = this.resizeCanvas(ctx.canvas);
       ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = "#4b88ff";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#4b88ff"; ctx.lineWidth = 2;
       ctx.beginPath();
       for (let i = 0; i < buf.length; i++) {
         const x = (i / (buf.length - 1)) * w;
         const y = h * 0.5 - buf[i] * (h * 0.45);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
       ctx.stroke();
       UI.infoWave.textContent = `${__("Samples")}: ${buf.length} · ${__("Fs")}: ${this.ac?.sampleRate || 0} Hz`;
     },
 
     drawSpectrum() {
-      const ctx = this.ctx.spectrum;
-      if (!ctx) return;
+      const ctx = this.ctx.spectrum; if (!ctx) return;
       const { w, h } = this.resizeCanvas(ctx.canvas);
       ctx.clearRect(0, 0, w, h);
 
       const dyn = Number(this.settings.dynRange || 80);
-      const minDb = -dyn,
-        maxDb = 0;
+      const minDb = -dyn, maxDb = 0;
 
-      // axes mapping: x = log-freq bins evenly spaced; y = dB
-      ctx.strokeStyle = "#00b894";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#00b894"; ctx.lineWidth = 2;
       ctx.beginPath();
       const M = this.spec.M;
       for (let i = 0; i < M; i++) {
         const x = (i / (M - 1)) * w;
         const v = clamp((this.spec.logDb[i] - minDb) / (maxDb - minDb), 0, 1);
         const y = h - v * h;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
       ctx.stroke();
 
@@ -885,8 +1005,7 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     },
 
     drawSpectrogram() {
-      const ctx = this.ctx.gram;
-      if (!ctx) return;
+      const ctx = this.ctx.gram; if (!ctx) return;
       const c = ctx.canvas;
       const { w, h } = this.resizeCanvas(c);
 
@@ -895,151 +1014,120 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       ctx.putImageData(img, 0, 0);
 
       const dyn = Number(this.settings.dynRange || 80);
-      const minDb = -dyn,
-        maxDb = 0;
-      // paint rightmost column using log-frequency mapping
-      const column = ctx.createImageData(1, h);
+      const minDb = -dyn, maxDb = 0;
 
+      const column = ctx.createImageData(1, h);
       for (let y = 0; y < h; y++) {
-        // map y (top=high freq) -> log bin index
         const t = 1 - y / (h - 1);
         const j = clamp(Math.round(t * (this.spec.M - 1)), 0, this.spec.M - 1);
         const val = clamp((this.spec.logDb[j] - minDb) / (maxDb - minDb), 0, 1);
 
-        // simple 'viridis-ish'
-        const r = Math.floor(
-          255 * Math.min(1, Math.max(0, -1.5 * val * val + 2.5 * val - 0.2)),
-        );
-        const g = Math.floor(
-          255 * Math.min(1, Math.max(0, -1.5 * val * val + 2.8 * val - 0.1)),
-        );
+        const r = Math.floor(255 * Math.min(1, Math.max(0, -1.5 * val * val + 2.5 * val - 0.2)));
+        const g = Math.floor(255 * Math.min(1, Math.max(0, -1.5 * val * val + 2.8 * val - 0.1)));
         const b = Math.floor(255 * Math.min(1, Math.max(0, 2.0 * val * val)));
         const idx = y * 4;
-        column.data[idx] = r;
-        column.data[idx + 1] = g;
-        column.data[idx + 2] = b;
-        column.data[idx + 3] = 255;
+        column.data[idx] = r; column.data[idx + 1] = g; column.data[idx + 2] = b; column.data[idx + 3] = 255;
       }
       ctx.putImageData(column, w - 1, 0);
       UI.infoGram.textContent = `${__("Dyn")}: ${dyn} dB · ${__("Axis")}: ${__("Log Freq")}`;
     },
 
     drawHarmonics(f0) {
-      const ctx = this.ctx.harm;
-      if (!ctx) return;
+      const ctx = this.ctx.harm; if (!ctx) return;
       const { w, h } = this.resizeCanvas(ctx.canvas);
       ctx.clearRect(0, 0, w, h);
-      if (!(f0 > 0)) {
-        UI.infoHarm.textContent = "—";
-        return;
-      }
+      if (!(f0 > 0)) { UI.infoHarm.textContent = "—"; return; }
 
       const N = this.analyser?.fftSize || 4096;
       const binHz = this.spec.binHz || (this.ac.sampleRate || 48000) / N;
       const db = this.spec.db || [];
       const amps = [];
-      const searchWin = 2; // +/- bins
+      const searchWin = 2;
 
-      function pickPeakDbNear(freq) {
+      const pickPeakDbNear = (freq) => {
         const center = freq / binHz;
-        let best = -1e9;
-        const lo = Math.max(0, Math.floor(center - searchWin));
-        const hi = Math.min(db.length - 1, Math.ceil(center + searchWin));
-        for (let i = lo; i <= hi; i++) if (db[i] > best) best = db[i];
-        return best;
-      }
+        const lo = Math.max(1, Math.floor(center - searchWin));
+        const hi = Math.min(db.length - 2, Math.ceil(center + searchWin));
+        let bestIdx = Math.round(center), bestVal = -1e9;
+        for (let i = lo; i <= hi; i++) if (db[i] > bestVal) { bestVal = db[i]; bestIdx = i; }
+        return quadInterpPeak(db, bestIdx).peakDb;
+      };
 
       for (let k = 1; k <= 10; k++) {
         const f = k * f0;
-        if (f > this.ac.sampleRate / 2) {
-          amps.push(-120);
-          continue;
-        }
-        const val = pickPeakDbNear(f);
-        amps.push(val);
+        if (f > this.ac.sampleRate / 2) { amps.push(-120); continue; }
+        amps.push(pickPeakDbNear(f));
       }
 
-      // draw bars
-      const pad = 8;
-      const cols = 10;
-      const bw = (w - pad * 2) / cols;
+      const pad = 8, cols = 10, bw = (w - pad * 2) / cols;
       for (let i = 0; i < cols; i++) {
         const dbVal = amps[i] || -120;
         const dyn = Number(this.settings.dynRange || 80);
         const v = clamp((dbVal - -dyn) / (0 - -dyn), 0, 1);
         const bh = v * (h - pad * 2);
-        const x = pad + i * bw + 2;
-        const y = h - pad - bh;
+        const x = pad + i * bw + 2, y = h - pad - bh;
         ctx.fillStyle = i % 2 === 0 ? "#6c5ce7" : "#0984e3";
         ctx.fillRect(x, y, Math.max(2, bw - 4), Math.max(1, bh));
-        ctx.fillStyle = "#666";
-        ctx.font = "10px sans-serif";
-        ctx.textAlign = "center";
+        ctx.fillStyle = "#666"; ctx.font = "10px sans-serif"; ctx.textAlign = "center";
         ctx.fillText(`H${i + 1}`, x + (bw - 4) / 2, h - 2);
       }
 
-      // odd/even ratio & slope
       const lin = (dB) => 10 ** (dB / 20);
-      const odd = [0, 2, 4, 6, 8]
-        .map((i) => lin(amps[i] || -120))
-        .filter(Boolean);
-      const even = [1, 3, 5, 7, 9]
-        .map((i) => lin(amps[i] || -120))
-        .filter(Boolean);
-      const oddEvenDb =
-        10 * Math.log10((mean(odd) || 1e-12) / (mean(even) || 1e-12) + 1e-12);
+      const odd = [0, 2, 4, 6, 8].map((i) => lin(amps[i] || -120)).filter(Boolean);
+      const even = [1, 3, 5, 7, 9].map((i) => lin(amps[i] || -120)).filter(Boolean);
+      const oddEvenDb = 10 * Math.log10((mean(odd) || 1e-12) / (mean(even) || 1e-12) + 1e-12);
 
       const ks = [...Array(10).keys()].map((i) => i + 1);
-      const slope = polyfit1(
-        ks.map((k) => Math.log2(Math.max(1, k))),
-        amps.map((a) => a || -120),
-      );
+      const slope = polyfit1(ks.map((k) => Math.log2(Math.max(1, k))), amps.map((a) => a || -120));
 
       UI.infoHarm.textContent = `${__("Odd/Even")}: ${oddEvenDb.toFixed(2)} dB · ${__("Slope")}: ${slope.toFixed(2)} dB/oct`;
       UI.m.oddEven.textContent = oddEvenDb.toFixed(2);
 
-      // history
       this.hist.harmonics.push(amps.slice(0, 10));
       this.trimHist();
     },
 
     drawCentsTimeline() {
-      const ctx = this.ctx.cents;
-      if (!ctx) return;
+      const ctx = this.ctx.cents; if (!ctx) return;
       const { w, h } = this.resizeCanvas(ctx.canvas);
       ctx.clearRect(0, 0, w, h);
-      const cents = this.hist.cents
-        .slice(-400)
-        .filter((v) => Number.isFinite(v));
-      if (!cents.length) {
-        UI.infoCents.textContent = "—";
-        return;
-      }
+      const cents = this.hist.cents.slice(-400).filter((v) => Number.isFinite(v));
+      if (!cents.length) { UI.infoCents.textContent = "—"; return; }
 
       const mid = 0;
-      const minV = Math.min(mid, ...cents);
-      const maxV = Math.max(mid, ...cents);
+      const minV = Math.min(mid, ...cents, -50);
+      const maxV = Math.max(mid, ...cents, +50);
       const pad = 6;
+
+      // temperament overlay lines (optional)
+      if (this.settings.tempOnTimeline && this.settings.temperamentMode !== "off") {
+        const offs = temperamentOffsets(this.settings.temperamentMode);
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = "#7e57c2";
+        ctx.lineWidth = 1;
+        offs.forEach(({ c, lab }) => {
+          if (c < minV - 2 || c > maxV + 2) return;
+          const y = pad + (1 - (c - minV) / (maxV - minV || 1e-9)) * (h - pad * 2);
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+          ctx.fillStyle = "#7e57c2"; ctx.font = "10px sans-serif";
+          ctx.fillText(lab, 4, Math.max(10, y - 2));
+        });
+        ctx.restore();
+      }
 
       // zero line
       const y0 = pad + (1 - (0 - minV) / (maxV - minV || 1e-9)) * (h - pad * 2);
-      ctx.strokeStyle = "#ddd";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, y0);
-      ctx.lineTo(w, y0);
-      ctx.stroke();
+      ctx.strokeStyle = "#ddd"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(w, y0); ctx.stroke();
 
       // path
-      ctx.strokeStyle = "#4b88ff";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#4b88ff"; ctx.lineWidth = 2;
       ctx.beginPath();
       for (let i = 0; i < cents.length; i++) {
         const x = (i / (cents.length - 1)) * w;
-        const y =
-          pad + (1 - (cents[i] - minV) / (maxV - minV || 1e-9)) * (h - pad * 2);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        const y = pad + (1 - (cents[i] - minV) / (maxV - minV || 1e-9)) * (h - pad * 2);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
       ctx.stroke();
 
@@ -1055,70 +1143,46 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     },
 
     drawAutocorr() {
-      const ctx = this.ctx.ac;
-      if (!ctx) return;
+      const ctx = this.ctx.ac; if (!ctx) return;
       const { w, h } = this.resizeCanvas(ctx.canvas);
       ctx.clearRect(0, 0, w, h);
 
       const N = Math.min(this.hist.cents.length, 800);
-      if (N < 60) {
-        UI.infoAC.textContent = "—";
-        return;
-      }
-      const cents = this.hist.cents
-        .slice(-N)
-        .map((v) => (Number.isFinite(v) ? v : 0));
+      if (N < 60) { UI.infoAC.textContent = "—"; return; }
+      const cents = this.hist.cents.slice(-N).map((v) => (Number.isFinite(v) ? v : 0));
 
-      // autocorrelation
-      const ac = (function autocorr(x, maxLag) {
-        const n = x.length;
-        const m = mean(x);
+      const ac = ((x, maxLag) => {
+        const n = x.length; const m = mean(x);
         const v = Math.sqrt(mean(x.map((y) => (y - m) * (y - m))) + 1e-12);
         const out = new Float32Array(maxLag + 1);
         for (let lag = 0; lag <= maxLag; lag++) {
-          let s = 0,
-            c = 0;
-          for (let i = 0; i < n - lag; i++) {
-            s += (x[i] - m) * (x[i + lag] - m);
-            c++;
-          }
+          let s = 0, c = 0;
+          for (let i = 0; i < n - lag; i++) { s += (x[i] - m) * (x[i + lag] - m); c++; }
           out[lag] = c ? s / (c * v * v + 1e-12) : 0;
         }
         return out;
       })(cents, Math.min(200, Math.floor(N * 0.8)));
 
-      ctx.strokeStyle = "#e17055";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#e17055"; ctx.lineWidth = 2;
       ctx.beginPath();
       for (let i = 0; i < ac.length; i++) {
         const x = (i / (ac.length - 1)) * w;
         const y = h - (ac[i] * 0.5 + 0.5) * h;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
       ctx.stroke();
 
-      // vibrato estimate: peak in 4–8 Hz band
       const times = this.hist.time.slice(-N);
       const dt = (times[times.length - 1] - times[0]) / (N - 1 + 1e-9);
       const fs = 1 / Math.max(0.02, dt);
 
       const band = [4, 8]; // Hz
       const idxLo = Math.floor((band[0] / fs) * ac.length);
-      const idxHi = Math.min(
-        ac.length - 1,
-        Math.floor((band[1] / fs) * ac.length),
-      );
-      let peakIdx = idxLo,
-        peakVal = -1e9;
-      for (let i = idxLo; i <= idxHi; i++) {
-        if (ac[i] > peakVal) {
-          peakVal = ac[i];
-          peakIdx = i;
-        }
-      }
+      const idxHi = Math.min(ac.length - 1, Math.floor((band[1] / fs) * ac.length));
+      let peakIdx = idxLo, peakVal = -1e9;
+      for (let i = idxLo; i <= idxHi; i++) { if (ac[i] > peakVal) { peakVal = ac[i]; peakIdx = i; } }
       const vibRate = (peakIdx / ac.length) * fs;
-      const depth = 2 * std(cents); // rough proxy
+      const depth = 2 * std(cents);
 
       UI.m.vibRate.textContent = isFinite(vibRate) ? vibRate.toFixed(2) : "—";
       UI.m.vibDepth.textContent = isFinite(depth) ? depth.toFixed(1) : "—";
@@ -1126,8 +1190,7 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     },
 
     updateMetrics() {
-      const N = this.hist.time.length;
-      if (N < 10) return;
+      const N = this.hist.time.length; if (N < 10) return;
 
       // attack: 90% of max RMS
       const rms = this.hist.rms.slice(-300);
@@ -1138,21 +1201,15 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
         let idx = rms.findIndex((v) => v >= thr);
         if (idx < 0) idx = 0;
         const attackMs = (times[idx] - times[0]) * 1000;
-        UI.m.attack.textContent = isFinite(attackMs)
-          ? attackMs.toFixed(0)
-          : "—";
+        UI.m.attack.textContent = isFinite(attackMs) ? attackMs.toFixed(0) : "—";
       }
 
       // jitter (%)
       const f = this.hist.freq.slice(-200).filter((x) => x > 0);
       if (f.length > 8) {
         const periods = f.map((x) => 1 / x);
-        let diffs = 0,
-          count = 0;
-        for (let i = 1; i < periods.length; i++) {
-          diffs += Math.abs(periods[i] - periods[i - 1]);
-          count++;
-        }
+        let diffs = 0, count = 0;
+        for (let i = 1; i < periods.length; i++) { diffs += Math.abs(periods[i] - periods[i - 1]); count++; }
         const jitter = (diffs / (count * (mean(periods) + 1e-9))) * 100;
         UI.m.jitter.textContent = isFinite(jitter) ? jitter.toFixed(2) : "—";
       }
@@ -1160,12 +1217,8 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       // shimmer (%)
       const env = this.hist.rms.slice(-200);
       if (env.length > 8) {
-        let diffs = 0,
-          count = 0;
-        for (let i = 1; i < env.length; i++) {
-          diffs += Math.abs(env[i] - env[i - 1]);
-          count++;
-        }
+        let diffs = 0, count = 0;
+        for (let i = 1; i < env.length; i++) { diffs += Math.abs(env[i] - env[i - 1]); count++; }
         const shimmer = (diffs / (count * (mean(env) + 1e-9))) * 100;
         UI.m.shimmer.textContent = isFinite(shimmer) ? shimmer.toFixed(2) : "—";
       }
@@ -1173,20 +1226,11 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       // hiss index using our spectrum (HF energy ratio)
       const linAmp = this.spec.linAmp;
       if (linAmp && linAmp.length) {
-        const nyq = (this.ac?.sampleRate || 48000) / 2;
-        const startBin = Math.max(1, Math.floor(4000 / this.spec.binHz));
-        let hf = 0,
-          lf = 0,
-          hc = 0,
-          lc = 0;
+        const startBin = Math.max(1, Math.floor(4000 / (this.spec.binHz || 1)));
+        let hf = 0, lf = 0, hc = 0, lc = 0;
         for (let i = 1; i < linAmp.length; i++) {
-          if (i >= startBin) {
-            hf += linAmp[i];
-            hc++;
-          } else {
-            lf += linAmp[i];
-            lc++;
-          }
+          if (i >= startBin) { hf += linAmp[i]; hc++; }
+          else { lf += linAmp[i]; lc++; }
         }
         const hidx = clamp(hf / hc / (hf / hc + lf / lc + 1e-9), 0, 1);
         UI.m.hiss.textContent = isFinite(hidx) ? hidx.toFixed(2) : "—";
@@ -1194,7 +1238,6 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     },
 
     // ------------------------ Core tuner visuals -----------------------------
-
     renderPitch(freq, confidence = 0, ts = 0) {
       const a4 = Number(this.settings.a4 || 440);
       const midiFloat = 69 + 12 * Math.log2(freq / a4);
@@ -1202,22 +1245,37 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       const targetFreqConcert = a4 * 2 ** ((midiNearest - 69) / 12);
       const cents = 1200 * Math.log2(freq / targetFreqConcert);
 
+      // Hysteresis for in-tune class
+      if (!_inTuneState && Math.abs(cents) <= IN_TUNE_ENTER) {
+        _inTuneState = true; UI.root.classList.add("in-tune");
+      } else if (_inTuneState && Math.abs(cents) >= IN_TUNE_EXIT) {
+        _inTuneState = false; UI.root.classList.remove("in-tune");
+      }
+
+      // Note latch to reduce flopping
+      const candidateMidi = midiNearest;
+      if (_latchedMidi == null) _latchedMidi = candidateMidi;
+      const diffToLatched = 1200 * Math.log2(freq / (a4 * 2 ** ((_latchedMidi - 69) / 12)));
+      if (Math.abs(diffToLatched) > NOTE_LATCH_EXIT) _latchedMidi = candidateMidi;
+      else if (Math.abs(diffToLatched) < NOTE_LATCH_ENTER) _latchedMidi = candidateMidi;
+
+      // Display MIDI (written vs concert)
       const transpose = TRANSPOSE_SEMITONES[this.settings.instrument] || 0;
       const displayMode = this.settings.displayMode || "concert";
-      const displayMidi =
-        displayMode === "written" ? midiNearest + transpose : midiNearest;
+      const displayMidi = displayMode === "written" ? _latchedMidi + transpose : _latchedMidi;
+
+      // Save last target (for ref tone/trainer)
+      this.lastTargetMidi = _latchedMidi;
 
       const { note, octave } = this.midiToNote(displayMidi);
       UI.noteName.textContent = `${note}${octave}`;
-      UI.noteMeta.innerHTML = `${freq.toFixed(2)} Hz · ${cents >= 0 ? "+" : ""}${isFinite(cents) ? cents.toFixed(1) : "—"} ${__("cents")} · ${__("Conf")}: ${(confidence * 100).toFixed(0)}%`;
+      const centsTxt = isFinite(cents) ? (cents >= 0 ? `+${cents.toFixed(1)}` : `${cents.toFixed(1)}`) : "—";
+      UI.noteMeta.textContent = `${freq.toFixed(2)} Hz · ${centsTxt} ${__("cents")} · ${__("Conf")}: ${(confidence * 100).toFixed(0)}%`;
       UI.a4Label.textContent = String(a4);
-      UI.modeLabel.textContent =
-        displayMode === "concert" ? __("Concert") : __("Written");
+      UI.modeLabel.textContent = displayMode === "concert" ? __("Concert") : __("Written");
 
       const rotation = clamp((cents / 50) * 45, -45, 45);
       UI.needle.style.transform = `translateX(-50%) rotate(${rotation}deg)`;
-      if (Math.abs(cents) < 5) UI.root.classList.add("in-tune");
-      else UI.root.classList.remove("in-tune");
 
       const view = this.settings.viewMode || "needle";
       const wantStrobe = view === "strobe" || view === "both";
@@ -1229,19 +1287,9 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       UI.status.textContent = `${__("Sample Rate")}: ${this.ac.sampleRate} Hz · ${__("FFT")}: ${this.analyser.fftSize}`;
     },
 
-    renderNoSignal() {
-      UI.status.textContent = __("Listening… (play a sustained note)");
-      UI.root.classList.remove("in-tune");
-      this.setNeedleNeutral();
-    },
-    renderUnstable() {
-      UI.status.textContent = __("Analyzing… (unstable pitch)");
-      UI.root.classList.remove("in-tune");
-      this.setNeedleNeutral();
-    },
-    setNeedleNeutral() {
-      UI.needle.style.transform = "translateX(-50%) rotate(0deg)";
-    },
+    renderNoSignal() { UI.status.textContent = __("Listening… (play a sustained note)"); UI.root.classList.remove("in-tune"); this.setNeedleNeutral(); },
+    renderUnstable() { UI.status.textContent = __("Analyzing… (unstable pitch)"); UI.root.classList.remove("in-tune"); this.setNeedleNeutral(); },
+    setNeedleNeutral() { UI.needle.style.transform = "translateX(-50%) rotate(0deg)"; },
     resetDisplay() {
       UI.noteName.textContent = "--";
       UI.noteMeta.textContent = `A4 = ${this.settings.a4} Hz · ${this.settings.displayMode === "concert" ? __("Concert") : __("Written")}`;
@@ -1258,17 +1306,10 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 
     // --- Strobe --------------------------------------------------------------
     drawStrobe(cents, ts) {
-      const ctx = this.strobeCtx;
-      if (!ctx) return;
+      const ctx = this.strobeCtx; if (!ctx) return;
       const dpr = Math.max(1, window.devicePixelRatio || 1);
-      const w = (UI.strobe.width = Math.max(
-        2,
-        Math.floor(UI.strobe.clientWidth * dpr),
-      ));
-      const h = (UI.strobe.height = Math.max(
-        2,
-        Math.floor(UI.strobe.clientHeight * dpr),
-      ));
+      const w = (UI.strobe.width = Math.max(2, Math.floor(UI.strobe.clientWidth * dpr)));
+      const h = (UI.strobe.height = Math.max(2, Math.floor(UI.strobe.clientHeight * dpr)));
 
       const now = ts || performance.now();
       const dt = this.lastFrameTs ? (now - this.lastFrameTs) / 1000 : 0;
@@ -1280,10 +1321,7 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       const stripeW = Math.max(12 * dpr, Math.min(40 * dpr, w / 20));
       const offset = ((this.strobePhase % stripeW) + stripeW) % stripeW;
 
-      ctx.fillStyle =
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--bg-dark",
-        ) || "#111";
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--bg-dark") || "#111";
       ctx.fillRect(0, 0, w, h);
 
       for (let x = -stripeW + offset; x < w + stripeW; x += stripeW) {
@@ -1300,14 +1338,8 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     clearStrobe() {
       if (!this.strobeCtx) return;
       const dpr = Math.max(1, window.devicePixelRatio || 1);
-      const w = (UI.strobe.width = Math.max(
-        2,
-        Math.floor(UI.strobe.clientWidth * dpr),
-      ));
-      const h = (UI.strobe.height = Math.max(
-        2,
-        Math.floor(UI.strobe.clientHeight * dpr),
-      ));
+      const w = (UI.strobe.width = Math.max(2, Math.floor(UI.strobe.clientWidth * dpr)));
+      const h = (UI.strobe.height = Math.max(2, Math.floor(UI.strobe.clientHeight * dpr)));
       this.strobeCtx.clearRect(0, 0, w, h);
     },
 
@@ -1328,12 +1360,11 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 
       // Difference function d[tau]
       const d = new Float32Array(maxTau + 1);
-      const limit = N; // compute up to N - tau
+      const limit = N;
       for (let tau = minTau; tau <= maxTau; tau++) {
         let sum = 0;
         const L = limit - tau;
         let i = 0;
-        // loop unrolling by 4
         for (; i + 3 < L; i += 4) {
           const d0 = buf[i] - buf[i + tau];
           const d1 = buf[i + 1] - buf[i + tau + 1];
@@ -1341,14 +1372,11 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
           const d3 = buf[i + 3] - buf[i + tau + 3];
           sum += d0 * d0 + d1 * d1 + d2 * d2 + d3 * d3;
         }
-        for (; i < L; i++) {
-          const di = buf[i] - buf[i + tau];
-          sum += di * di;
-        }
+        for (; i < L; i++) { const di = buf[i] - buf[i + tau]; sum += di * di; }
         d[tau] = sum;
       }
 
-      // Cumulative mean normalized difference CMND
+      // Cumulative mean normalized difference
       const cmnd = new Float32Array(maxTau + 1);
       cmnd[0] = 1;
       let runningSum = 0;
@@ -1357,31 +1385,21 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
         cmnd[tau] = (d[tau] * tau) / (runningSum || 1);
       }
 
-      // Absolute threshold
       let tauEstimate = -1;
       for (let tau = minTau; tau <= maxTau; tau++) {
         if (cmnd[tau] < threshold) {
-          // find local minimum
           while (tau + 1 <= maxTau && cmnd[tau + 1] < cmnd[tau]) tau++;
           tauEstimate = tau;
           break;
         }
       }
-      // Fallback to global minimum in range
       if (tauEstimate < 0) {
-        let minVal = 1e9,
-          minIdx = -1;
-        for (let tau = minTau; tau <= maxTau; tau++) {
-          if (cmnd[tau] < minVal) {
-            minVal = cmnd[tau];
-            minIdx = tau;
-          }
-        }
+        let minVal = 1e9, minIdx = -1;
+        for (let tau = minTau; tau <= maxTau; tau++) if (cmnd[tau] < minVal) { minVal = cmnd[tau]; minIdx = tau; }
         tauEstimate = minIdx;
         if (tauEstimate < 0) return null;
       }
 
-      // Parabolic interpolation around tauEstimate
       const t = tauEstimate;
       const x0 = t > 1 ? cmnd[t - 1] : cmnd[t];
       const x1 = cmnd[t];
@@ -1394,7 +1412,6 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       const freq = sampleRate / betterTau;
       const prob = 1 - cmnd[tauEstimate];
       if (freq < minF || freq > maxF || !isFinite(freq)) return null;
-
       return { freq, probability: clamp(prob, 0, 1) };
     },
 
@@ -1415,18 +1432,13 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     },
 
     // --------------------------- Histories -----------------------------------
-
     pushHist(t, f, cents, rms) {
       // derive HF proxy from our spectrum (>4 kHz)
       let hf = 0;
       if (this.spec.linAmp && this.spec.linAmp.length) {
         const startBin = Math.max(1, Math.floor(4000 / (this.spec.binHz || 1)));
-        let s = 0,
-          c = 0;
-        for (let i = startBin; i < this.spec.linAmp.length; i++) {
-          s += this.spec.linAmp[i];
-          c++;
-        }
+        let s = 0, c = 0;
+        for (let i = startBin; i < this.spec.linAmp.length; i++) { s += this.spec.linAmp[i]; c++; }
         hf = c ? s / c : 0;
       }
 
@@ -1440,44 +1452,21 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
     },
     trimHist() {
       const L = this.maxHist;
-      Object.keys(this.hist).forEach((k) => {
-        if (this.hist[k].length > L) this.hist[k] = this.hist[k].slice(-L);
-      });
+      Object.keys(this.hist).forEach((k) => { if (this.hist[k].length > L) this.hist[k] = this.hist[k].slice(-L); });
     },
     resetHist(clearAll) {
-      this.hist.time = [];
-      this.hist.freq = [];
-      this.hist.cents = [];
-      this.hist.rms = [];
-      this.hist.harmonics = [];
-      this.hist.hfRms = [];
+      this.hist.time = []; this.hist.freq = []; this.hist.cents = []; this.hist.rms = [];
+      this.hist.harmonics = []; this.hist.hfRms = [];
       if (clearAll) {
-        [
-          "m-mean",
-          "m-std",
-          "m-drift",
-          "m-vib-rate",
-          "m-vib-depth",
-          "m-odd-even",
-          "m-attack",
-          "m-jitter",
-          "m-shimmer",
-          "m-hiss",
-        ].forEach((id) => {
-          const el = document.getElementById(id);
-          if (el) el.textContent = "—";
-        });
+        ["m-mean","m-std","m-drift","m-vib-rate","m-vib-depth","m-odd-even","m-attack","m-jitter","m-shimmer","m-hiss"]
+          .forEach((id) => { const el = document.getElementById(id); if (el) el.textContent = "—"; });
       }
     },
 
     estimateDrift(times, cents) {
-      const xs = [];
-      const ys = [];
+      const xs = [], ys = [];
       for (let i = Math.max(0, times.length - 200); i < times.length; i++) {
-        if (Number.isFinite(cents[i])) {
-          xs.push(times[i]);
-          ys.push(cents[i]);
-        }
+        if (Number.isFinite(cents[i])) { xs.push(times[i]); ys.push(cents[i]); }
       }
       if (xs.length < 6) return NaN;
       const t0 = xs[0];
@@ -1485,15 +1474,131 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       return polyfit1(xz, ys);
     },
 
-    // ---------------------------- Error & Cleanup ----------------------------
+    // ----------------------- Reference tone & Trainer ------------------------
+    populateNotePicker(selectEl) {
+      // C2 (midi 36) .. C7 (midi 96) – practical clarinet-ish range
+      selectEl.innerHTML = "";
+      for (let midi = 36; midi <= 96; midi++) {
+        const { note, octave } = this.midiToNote(midi);
+        const opt = document.createElement("option");
+        opt.value = String(midi);
+        opt.textContent = `${note}${octave} (MIDI ${midi})`;
+        selectEl.appendChild(opt);
+      }
+    },
+    setRefNoteDropdown(midi) {
+      const val = clamp(Math.round(midi), 36, 96);
+      UI.refNote.value = String(val);
+      this.settings.refManualMidi = val;
+      saveSettings(this.settings);
+    },
+    midiToFreqConcert(midi) {
+      const a4 = Number(this.settings.a4 || 440);
+      return a4 * Math.pow(2, (midi - 69) / 12);
+    },
+    getReferenceTargetFreq() {
+      if (this.settings.refSource === "manual") {
+        const midi = clamp(Number(this.settings.refManualMidi) || 69, 36, 96);
+        return this.midiToFreqConcert(midi);
+      }
+      // detected
+      return this.midiToFreqConcert(this.lastTargetMidi || 69);
+    },
+    ensureToneNodes() {
+      if (!this.tone.gain) {
+        this.tone.gain = this.ac.createGain();
+        this.tone.gain.gain.value = clamp(Number(this.settings.refVol), 0, 1);
+        this.tone.gain.connect(this.ac.destination);
+      }
+    },
+    startTone() {
+      this.ensureToneNodes();
+      if (this.tone.playing) return;
+      const freq = this.getReferenceTargetFreq();
+      const osc = this.ac.createOscillator();
+      osc.type = this.settings.refWave || "sine";
+      osc.frequency.value = freq;
+      osc.connect(this.tone.gain);
+      osc.start();
+      this.tone.osc = osc;
+      this.tone.playing = true;
+      UI.btnTone.innerHTML = `<i class="fa fa-stop" style="margin-right:6px;"></i>${__("Stop Tone")}`;
+    },
+    stopTone() {
+      if (this.tone.osc) { try { this.tone.osc.stop(); } catch {} this.tone.osc.disconnect(); }
+      this.tone.osc = null; this.tone.playing = false;
+      UI.btnTone.innerHTML = `<i class="fa fa-play" style="margin-right:6px;"></i>${__("Play Tone")}`;
+    },
+    retuneToneIfPlaying() {
+      if (!this.tone.playing || !this.tone.osc) return;
+      try { this.tone.osc.frequency.setTargetAtTime(this.getReferenceTargetFreq(), this.ac.currentTime, 0.01); } catch {}
+    },
+    trainerStart() {
+      this.trainer.active = true;
+      this.trainer.holdGoal = clamp(Number(this.settings.trainerHold) || 5, 1, 60);
+      this.trainer.tol = clamp(Number(this.settings.trainerTol) || 5, 1, 25);
+      this.trainer.accum = 0; this.trainer.lastOk = false; this.trainer.lastTs = 0;
+      UI.trainerBar.style.width = "0%";
+      UI.trainerBar.classList.remove("ok"); UI.trainerBar.classList.add("bad");
+      UI.trainerStatus.textContent = __("Trainer running… stay within tolerance.");
+      UI.btnTrainer.classList.remove("btn-primary"); UI.btnTrainer.classList.add("btn-danger");
+      UI.btnTrainer.innerHTML = `<i class="fa fa-stop" style="margin-right:6px;"></i>${__("Stop Trainer")}`;
+    },
+    trainerStop(success = false) {
+      if (!this.trainer.active) return;
+      this.trainer.active = false;
+      if (success) {
+        UI.trainerStatus.textContent = __("Success! Goal reached.");
+      } else {
+        UI.trainerStatus.textContent = __("Trainer stopped.");
+      }
+      UI.btnTrainer.classList.add("btn-primary"); UI.btnTrainer.classList.remove("btn-danger");
+      UI.btnTrainer.innerHTML = `<i class="fa fa-flag-checkered" style="margin-right:6px;"></i>${__("Start Trainer")}`;
+    },
+    trainerBeep() {
+      // brief success beep
+      try {
+        if (!this.tone.beepGain) {
+          this.tone.beepGain = this.ac.createGain();
+          this.tone.beepGain.connect(this.ac.destination);
+        }
+        const osc = this.ac.createOscillator();
+        osc.type = "sine"; osc.frequency.value = 880;
+        this.tone.beepGain.gain.setValueAtTime(0.0, this.ac.currentTime);
+        this.tone.beepGain.gain.linearRampToValueAtTime(0.15, this.ac.currentTime + 0.01);
+        this.tone.beepGain.gain.linearRampToValueAtTime(0.0, this.ac.currentTime + 0.2);
+        osc.connect(this.tone.beepGain);
+        osc.start();
+        osc.stop(this.ac.currentTime + 0.25);
+      } catch {}
+    },
+    trainerTick(nowSec, cents, rms, gate) {
+      if (!this.trainer.active) return;
+      const ok = Number.isFinite(cents) && Math.abs(cents) <= this.trainer.tol && rms >= gate;
+      if (this.trainer.lastTs === 0) this.trainer.lastTs = nowSec;
+      const dt = Math.max(0, nowSec - this.trainer.lastTs);
+      this.trainer.lastTs = nowSec;
 
+      if (ok) { this.trainer.accum += dt; UI.trainerBar.classList.add("ok"); UI.trainerBar.classList.remove("bad"); }
+      else { this.trainer.accum = 0; UI.trainerBar.classList.add("bad"); UI.trainerBar.classList.remove("ok"); }
+
+      const pct = clamp((this.trainer.accum / this.trainer.holdGoal) * 100, 0, 100);
+      UI.trainerBar.style.width = `${pct}%`;
+      UI.trainerStatus.textContent = ok
+        ? `${__("Good! Hold")} ${this.trainer.holdGoal.toFixed(0)}s ${__("within")} ±${this.trainer.tol}¢ · ${__("Progress")}: ${pct.toFixed(0)}%`
+        : `${__("Outside tolerance")} (±${this.trainer.tol}¢)`;
+
+      if (this.trainer.accum >= this.trainer.holdGoal) {
+        this.trainerBeep();
+        this.trainerStop(true);
+      }
+    },
+
+    // ---------------------------- Error & Cleanup ----------------------------
     showError(err) {
       console.error("[Desk Tuner]", err);
       UI.errorBox.style.display = "block";
-      UI.errorBox.textContent =
-        err && err.message
-          ? err.message
-          : __("Microphone error. Check permissions and input device.");
+      UI.errorBox.textContent = err && err.message ? err.message : __("Microphone error. Check permissions and input device.");
     },
 
     async cleanup() {
@@ -1505,34 +1610,24 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
   };
 
   // --- Events ----------------------------------------------------------------
-  UI.btnToggle.addEventListener("click", async () => {
-    if (!Tuner.running) await Tuner.start();
-    else Tuner.stop();
-  });
+  UI.btnToggle.addEventListener("click", async () => { if (!Tuner.running) await Tuner.start(); else Tuner.stop(); });
   UI.btnReset.addEventListener("click", () => {
     Tuner.settings = {
-      a4: 440,
-      instrument: "concert",
-      displayMode: "concert",
-      viewMode: "needle",
-      gate: 0.01,
-      smoothing: 0.4,
-      deviceId: "",
-      fftSize: 4096,
-      dynRange: 80,
+      a4: 440, instrument: "concert", displayMode: "concert", viewMode: "needle",
+      gate: 0.01, smoothing: 0.4, deviceId: "", fftSize: 4096, dynRange: 80,
+      temperamentMode: "off", tempOnNeedle: true, tempOnTimeline: true,
+      refWave: "sine", refVol: 0.2, refSource: "detected", refManualMidi: 69,
+      trainerHold: 5, trainerTol: 5,
     };
     saveSettings(Tuner.settings);
-    UI.a4Input.value = "440";
-    UI.a4Range.value = "440";
-    UI.a4Label.textContent = "440";
-    UI.instrumentSelect.value = "concert";
-    UI.displayMode.value = "concert";
-    UI.viewMode.value = "needle";
-    UI.gateSelect.value = "0.01";
-    UI.smoothingSelect.value = "0.4";
-    UI.fftSelect.value = "4096";
-    UI.dynRange.value = "80";
+    UI.a4Input.value = "440"; UI.a4Range.value = "440"; UI.a4Label.textContent = "440";
+    UI.instrumentSelect.value = "concert"; UI.displayMode.value = "concert"; UI.viewMode.value = "needle";
+    UI.gateSelect.value = "0.01"; UI.smoothingSelect.value = "0.4"; UI.fftSelect.value = "4096"; UI.dynRange.value = "80";
     UI.modeLabel.textContent = __("Concert");
+    UI.temperamentMode.value = "off"; UI.tempOnNeedle.checked = true; UI.tempOnTimeline.checked = true;
+    UI.refWave.value = "sine"; UI.refVol.value = "0.2"; UI.refSource.value = "detected"; Tuner.setRefNoteDropdown(69);
+    UI.trainerHold.value = "5"; UI.trainerTol.value = "5";
+    renderTemperamentMarks();
     Tuner.resetDisplay();
     if (Tuner.analyser) {
       Tuner.analyser.fftSize = 4096;
@@ -1544,56 +1639,33 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
 
   UI.a4Range.addEventListener("input", (e) => {
     const v = clamp(Number(e.target.value || 440), 430, 446);
-    UI.a4Input.value = String(v);
-    UI.a4Label.textContent = String(v);
-    Tuner.settings.a4 = v;
-    saveSettings(Tuner.settings);
+    UI.a4Input.value = String(v); UI.a4Label.textContent = String(v);
+    Tuner.settings.a4 = v; saveSettings(Tuner.settings);
+    Tuner.retuneToneIfPlaying();
   });
   UI.a4Input.addEventListener("change", (e) => {
     const v = clamp(Number(e.target.value || 440), 430, 446);
-    UI.a4Range.value = String(v);
-    UI.a4Label.textContent = String(v);
-    Tuner.settings.a4 = v;
-    saveSettings(Tuner.settings);
+    UI.a4Range.value = String(v); UI.a4Label.textContent = String(v);
+    Tuner.settings.a4 = v; saveSettings(Tuner.settings);
+    Tuner.retuneToneIfPlaying();
   });
-  UI.instrumentSelect.addEventListener("change", (e) => {
-    Tuner.settings.instrument = e.target.value;
-    saveSettings(Tuner.settings);
-  });
+  UI.instrumentSelect.addEventListener("change", (e) => { Tuner.settings.instrument = e.target.value; saveSettings(Tuner.settings); });
   UI.displayMode.addEventListener("change", (e) => {
     Tuner.settings.displayMode = e.target.value;
-    UI.modeLabel.textContent =
-      e.target.value === "concert" ? __("Concert") : __("Written");
+    UI.modeLabel.textContent = e.target.value === "concert" ? __("Concert") : __("Written");
     saveSettings(Tuner.settings);
   });
   UI.viewMode.addEventListener("change", (e) => {
-    Tuner.settings.viewMode = e.target.value;
-    saveSettings(Tuner.settings);
-    if (e.target.value === "strobe") {
-      UI.needleWrap.style.display = "none";
-      UI.strobe.style.display = "block";
-    } else if (e.target.value === "needle") {
-      UI.needleWrap.style.display = "block";
-      UI.strobe.style.display = "none";
-    } else {
-      UI.needleWrap.style.display = "block";
-      UI.strobe.style.display = "block";
-    }
+    Tuner.settings.viewMode = e.target.value; saveSettings(Tuner.settings);
+    if (e.target.value === "strobe") { UI.needleWrap.style.display = "none"; UI.strobe.style.display = "block"; }
+    else if (e.target.value === "needle") { UI.needleWrap.style.display = "block"; UI.strobe.style.display = "none"; }
+    else { UI.needleWrap.style.display = "block"; UI.strobe.style.display = "block"; }
   });
-  UI.gateSelect.addEventListener("change", (e) => {
-    Tuner.settings.gate = Number(e.target.value || 0.01);
-    saveSettings(Tuner.settings);
-  });
-  UI.smoothingSelect.addEventListener("change", (e) => {
-    Tuner.settings.smoothing = Number(e.target.value || 0.4);
-    saveSettings(Tuner.settings);
-  });
-  UI.deviceSelect.addEventListener("change", async (e) => {
-    await Tuner.switchDevice(e.target.value);
-  });
+  UI.gateSelect.addEventListener("change", (e) => { Tuner.settings.gate = Number(e.target.value || 0.01); saveSettings(Tuner.settings); });
+  UI.smoothingSelect.addEventListener("change", (e) => { Tuner.settings.smoothing = Number(e.target.value || 0.4); saveSettings(Tuner.settings); });
+  UI.deviceSelect.addEventListener("change", async (e) => { await Tuner.switchDevice(e.target.value); });
   UI.fftSelect.addEventListener("change", (e) => {
-    Tuner.settings.fftSize = Number(e.target.value || 4096);
-    saveSettings(Tuner.settings);
+    Tuner.settings.fftSize = Number(e.target.value || 4096); saveSettings(Tuner.settings);
     if (Tuner.analyser) {
       Tuner.analyser.fftSize = Tuner.settings.fftSize;
       Tuner.data = new Float32Array(Tuner.analyser.fftSize);
@@ -1601,43 +1673,56 @@ frappe.pages["desk-tuner"].on_page_load = (wrapper) => {
       Tuner.onFftSizeChanged();
     }
   });
-  UI.dynRange.addEventListener("change", (e) => {
-    Tuner.settings.dynRange = clamp(Number(e.target.value || 80), 40, 120);
-    saveSettings(Tuner.settings);
+  UI.dynRange.addEventListener("change", (e) => { Tuner.settings.dynRange = clamp(Number(e.target.value || 80), 40, 120); saveSettings(Tuner.settings); });
+
+  // Temperament events
+  UI.temperamentMode.addEventListener("change", (e) => {
+    Tuner.settings.temperamentMode = e.target.value; saveSettings(Tuner.settings); renderTemperamentMarks();
   });
+  UI.tempOnNeedle.addEventListener("change", (e) => {
+    Tuner.settings.tempOnNeedle = !!e.target.checked; saveSettings(Tuner.settings); renderTemperamentMarks();
+  });
+  UI.tempOnTimeline.addEventListener("change", (e) => {
+    Tuner.settings.tempOnTimeline = !!e.target.checked; saveSettings(Tuner.settings);
+  });
+
+  // Reference tone events
+  UI.refWave.addEventListener("change", (e) => { Tuner.settings.refWave = e.target.value; saveSettings(Tuner.settings); if (Tuner.tone.osc) Tuner.tone.osc.type = e.target.value; });
+  UI.refVol.addEventListener("input", (e) => { const v = clamp(Number(e.target.value || 0.2), 0, 1); Tuner.settings.refVol = v; saveSettings(Tuner.settings); if (Tuner.tone.gain) Tuner.tone.gain.gain.value = v; });
+  UI.refSource.addEventListener("change", (e) => {
+    Tuner.settings.refSource = e.target.value; saveSettings(Tuner.settings);
+    UI.refNote.style.display = e.target.value === "manual" ? "" : "none";
+    if (Tuner.tone.playing) Tuner.retuneToneIfPlaying();
+  });
+  UI.refNote.addEventListener("change", (e) => { Tuner.setRefNoteDropdown(Number(e.target.value)); if (Tuner.tone.playing) Tuner.retuneToneIfPlaying(); });
+  UI.btnTone.addEventListener("click", () => { if (Tuner.tone.playing) Tuner.stopTone(); else Tuner.startTone(); });
+
+  // Trainer events
+  UI.trainerHold.addEventListener("change", (e) => { Tuner.settings.trainerHold = clamp(Number(e.target.value || 5), 1, 60); saveSettings(Tuner.settings); });
+  UI.trainerTol.addEventListener("change", (e) => { Tuner.settings.trainerTol = clamp(Number(e.target.value || 5), 1, 25); saveSettings(Tuner.settings); });
+  UI.btnTrainer.addEventListener("click", () => { if (!Tuner.trainer.active) Tuner.trainerStart(); else Tuner.trainerStop(false); });
 
   // Keep device list fresh
   if (navigator.mediaDevices?.addEventListener) {
-    navigator.mediaDevices.addEventListener("devicechange", () => {
-      if (Tuner.initialised) Tuner.refreshDevices().catch(() => {});
-    });
+    navigator.mediaDevices.addEventListener("devicechange", () => { if (Tuner.initialised) Tuner.refreshDevices().catch(() => {}); });
   }
 
   // Save battery on hide
   document.addEventListener("visibilitychange", async () => {
     try {
       if (!Tuner.ac) return;
-      if (document.hidden) await Tuner.ac.suspend();
-      else if (Tuner.running && Tuner.ac.state !== "running")
-        await Tuner.ac.resume();
+      if (document.hidden) { await Tuner.ac.suspend(); if (Tuner.tone.playing) Tuner.stopTone(); }
+      else if (Tuner.running && Tuner.ac.state !== "running") await Tuner.ac.resume();
     } catch {}
   });
 
   // Unlock AudioContext on first gesture (iOS)
-  const unlock = async () => {
-    try {
-      if (Tuner.ac && Tuner.ac.state !== "running") await Tuner.ac.resume();
-    } catch {}
-    document.removeEventListener("touchend", unlock);
-    document.removeEventListener("mousedown", unlock);
-  };
+  const unlock = async () => { try { if (Tuner.ac && Tuner.ac.state !== "running") await Tuner.ac.resume(); } catch {} document.removeEventListener("touchend", unlock); document.removeEventListener("mousedown", unlock); };
   document.addEventListener("touchend", unlock, { once: true });
   document.addEventListener("mousedown", unlock, { once: true });
 
   // Cleanup when leaving
-  page.wrapper.on("page-leave", () => {
-    Tuner.cleanup();
-  });
+  page.wrapper.on("page-leave", () => { Tuner.cleanup(); });
 
   // Init (no mic yet)
   Tuner.init();
