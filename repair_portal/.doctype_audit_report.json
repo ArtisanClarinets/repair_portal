@@ -1,7 +1,7 @@
 {
   "meta": {
     "root": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal",
-    "files_found": 83
+    "files_found": 82
   },
   "files": {
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/consent_field_value/consent_field_value.json": {
@@ -79,10 +79,6 @@
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_condition_record/instrument_condition_record.json": {
       "name": "Instrument Condition Record",
       "fields_count": 6
-    },
-    "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_condition_record/instrument_condition_record_workflow.json": {
-      "name": "Instrument Condition Workflow",
-      "fields_count": 0
     },
     "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_model/instrument_model.json": {
       "name": "Instrument Model",
@@ -2346,12 +2342,6 @@
           "path": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_condition_record/instrument_condition_record.json"
         }
       ]
-    },
-    "Instrument Condition Workflow": {
-      "paths": [
-        "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/instrument_profile/doctype/instrument_condition_record/instrument_condition_record_workflow.json"
-      ],
-      "fields": []
     },
     "Instrument Model": {
       "paths": [

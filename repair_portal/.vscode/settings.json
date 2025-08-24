@@ -14,11 +14,8 @@
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.autoImportCompletions": true,
     "chat.mcp.serverSampling": {
-        "repair_portal/.vscode/mcp.json: desktop-commander": {
-            "allowedModels": [
-                "copilot/gpt-4.1",
-                "copilot/gpt-5-mini"
-            ]
+        "repair_portal/.vscode/mcp.json: frappe": {
+            "allowedModels": []
         }
     }
 }

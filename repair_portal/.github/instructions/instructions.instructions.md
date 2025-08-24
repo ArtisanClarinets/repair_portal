@@ -1,3 +1,6 @@
+---
+applyTo: '**'
+---
 # COPILOT_INSTRUCTIONS.md
 
 *Fortune-500 engineering guide for `repair_portal` (Frappe/ERPNext v15)*

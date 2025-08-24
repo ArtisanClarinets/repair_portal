@@ -153,7 +153,7 @@ class PlayerProfile(Document):
             customer = frappe.db.get_value(
                 'Customer',
                 {'email_id': self.primary_email},
-                ['linked_user'],
+                ['linked_user'], #type: ignore
                 as_dict=True,  # type: ignore
             )  # type: ignore
             if customer and customer.linked_user:  # type: ignore
