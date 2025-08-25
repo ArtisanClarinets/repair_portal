@@ -1,0 +1,412 @@
+{
+ "actions": [],
+ "autoname": "RQ-.YYYY.-.#####",
+ "creation": "2025-08-25 17:39:23.015412",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_cscn",
+  "status",
+  "column_break_ozzx",
+  "title",
+  "section_break_xcnl",
+  "customer_name",
+  "customer_primary_contact",
+  "contact_email",
+  "contact_phone",
+  "currency",
+  "column_break_tnve",
+  "quotation_date",
+  "valid_till",
+  "company",
+  "conversion_rate",
+  "section_instrument",
+  "instrument_type",
+  "brand",
+  "model",
+  "serial_no",
+  "bore_diameter_mm",
+  "column_break_1",
+  "condition_notes",
+  "setup_notes",
+  "section_items",
+  "items",
+  "cb1",
+  "terms",
+  "section_totals",
+  "total_labor",
+  "total_parts",
+  "subtotal",
+  "discount_type",
+  "discount_percent",
+  "discount_amount",
+  "tax_rate",
+  "tax_amount",
+  "grand_total",
+  "rounded_total",
+  "owner_signature",
+  "acceptance_status_section",
+  "customer_accepted",
+  "accepted_on",
+  "column_break_ifus",
+  "accepted_by",
+  "acceptance_source",
+  "column_break_xedf",
+  "repair_order",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Clarinet Repair Quotation",
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "quotation_date",
+   "fieldtype": "Date",
+   "label": "Quotation Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "valid_till",
+   "fieldtype": "Date",
+   "label": "Valid Till"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSubmitted\nCancelled\nExpired\nLost\nAccepted",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer_primary_contact.email_id",
+   "fetch_if_empty": 1,
+   "fieldname": "contact_email",
+   "fieldtype": "Data",
+   "label": "Contact Email"
+  },
+  {
+   "fetch_from": "customer_primary_contact.phone",
+   "fetch_if_empty": 1,
+   "fieldname": "contact_phone",
+   "fieldtype": "Data",
+   "label": "Contact Phone"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer_name.default_currency",
+   "fetch_if_empty": 1,
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Conversion Rate"
+  },
+  {
+   "fieldname": "section_instrument",
+   "fieldtype": "Section Break",
+   "label": "Instrument"
+  },
+  {
+   "fieldname": "instrument_type",
+   "fieldtype": "Select",
+   "label": "Instrument Type",
+   "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nC Clarinet\nBass Clarinet"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Data",
+   "label": "Brand"
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Data",
+   "label": "Serial No."
+  },
+  {
+   "fieldname": "bore_diameter_mm",
+   "fieldtype": "Float",
+   "label": "Bore \u00d8 (mm)",
+   "precision": "2"
+  },
+  {
+   "fieldname": "condition_notes",
+   "fieldtype": "Small Text",
+   "label": "Condition Notes"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "setup_notes",
+   "fieldtype": "Small Text",
+   "label": "Setup Notes"
+  },
+  {
+   "fieldname": "section_items",
+   "fieldtype": "Section Break",
+   "label": "Quoted Work"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Repair Quotation Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "terms",
+   "fieldtype": "Text Editor",
+   "label": "Terms"
+  },
+  {
+   "fieldname": "section_totals",
+   "fieldtype": "Section Break",
+   "label": "Totals"
+  },
+  {
+   "fieldname": "total_labor",
+   "fieldtype": "Currency",
+   "label": "Total Labor",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_parts",
+   "fieldtype": "Currency",
+   "label": "Total Parts",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "subtotal",
+   "fieldtype": "Currency",
+   "label": "Subtotal",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "default": "Amount",
+   "fieldname": "discount_type",
+   "fieldtype": "Select",
+   "label": "Discount Type",
+   "options": "Percentage\nAmount"
+  },
+  {
+   "fieldname": "discount_percent",
+   "fieldtype": "Float",
+   "label": "Discount (%)"
+  },
+  {
+   "fieldname": "discount_amount",
+   "fieldtype": "Currency",
+   "label": "Discount Amount",
+   "options": "currency"
+  },
+  {
+   "fieldname": "tax_rate",
+   "fieldtype": "Float",
+   "label": "Tax Rate (%)"
+  },
+  {
+   "fieldname": "tax_amount",
+   "fieldtype": "Currency",
+   "label": "Tax Amount",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Grand Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rounded_total",
+   "fieldtype": "Currency",
+   "label": "Rounded Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "owner_signature",
+   "fieldtype": "Link",
+   "label": "Prepared By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "customer_accepted",
+   "fieldtype": "Check",
+   "label": "Customer Accepted",
+   "read_only": 1
+  },
+  {
+   "fieldname": "accepted_on",
+   "fieldtype": "Datetime",
+   "label": "Accepted On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "accepted_by",
+   "fieldtype": "Link",
+   "label": "Accepted By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "acceptance_source",
+   "fieldtype": "Select",
+   "label": "Acceptance Source",
+   "options": "Desk\nPortal\nAPI",
+   "read_only": 1
+  },
+  {
+   "fieldname": "repair_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Repair Order",
+   "options": "Repair Order",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer_name.customer_primary_contact",
+   "fetch_if_empty": 1,
+   "fieldname": "customer_primary_contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Repair Quotation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_ozzx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_xcnl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_tnve",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ifus",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_xedf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_cscn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "acceptance_status_section",
+   "fieldtype": "Section Break",
+   "label": "Acceptance Status"
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-25 18:19:53.868887",
+ "modified_by": "Administrator",
+ "module": "Repair",
+ "name": "Repair Quotation",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Sales User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title",
+ "track_changes": 1,
+ "track_seen": 1
+}

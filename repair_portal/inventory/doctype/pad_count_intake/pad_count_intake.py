@@ -134,8 +134,8 @@ def generate_shooting_kit(name: str, marker_mm: float | None = None, aruco_dict:
         notes = 'Shooting Checklist:\n- ' + '\n- '.join(checklist)
         doc.notes = (doc.notes + '\n\n' + notes) if doc.notes else notes  # type: ignore
 
-        doc._append_log(
-            'generate_shooting_kit', f'pdf={pdf_file.file_url}, img={jpg_file.file_url}'
+        doc._append_log( # type: ignore
+            'generate_shooting_kit', f'pdf={pdf_file.file_url}, img={jpg_file.file_url}' # type: ignore
         )  # type: ignore
         doc.save()
         frappe.db.commit()
@@ -144,8 +144,8 @@ def generate_shooting_kit(name: str, marker_mm: float | None = None, aruco_dict:
         frappe.throw(_('Failed to attach files to the document.'))
 
     return {
-        'photo': doc.photo,
-        'pdf_url': pdf_file.file_url,
+        'photo': doc.photo, # type: ignore
+        'pdf_url': pdf_file.file_url, # type: ignore
         'message': _('Shooting kit generated and attached.'),
     }  # type: ignore
 
@@ -231,8 +231,8 @@ def process_image(name: str):
 
     return {
         'detected_count': detected_count,
-        'processed_preview': doc.processed_preview,
-        'detections_meta': doc.detections_meta,
+        'processed_preview': doc.processed_preview, # type: ignore
+        'detections_meta': doc.detections_meta, # type: ignore
     }  # type: ignore
 
 
@@ -277,7 +277,7 @@ def update_inventory(name: str):
         frappe.throw(_('Unable to determine Company for the selected Warehouse.'))
 
     purpose = (
-        'Material Receipt' if doc.inventory_action == 'Increase' and delta > 0 else 'Material Issue'
+        'Material Receipt' if doc.inventory_action == 'Increase' and delta > 0 else 'Material Issue' # type: ignore
     )  # type: ignore
     qty = abs(delta)
 
@@ -517,7 +517,7 @@ def _detect_template(gray, params) -> List[Detection]:
         cy = y + size // 2
         dets.append(
             Detection(
-                x=int(cx), y=int(cy), r=int(r), conf=float(min(1.0, res[y, x])), method='template'
+                x=int(cx), y=int(cy), r=int(r), conf=float(min(1.0, res[y, x])), method='template' # type: ignore
             )
         )  # type: ignore
         used[max(0, y - 5) : y + 6, max(0, x - 5) : x + 6] = 1

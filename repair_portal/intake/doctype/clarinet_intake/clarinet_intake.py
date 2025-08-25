@@ -114,8 +114,8 @@ class ClarinetIntake(Document):
                     instrument.body_material = self.body_material  # type: ignore
                     instrument.keywork_plating = self.key_plating  # type: ignore
                     instrument.pitch_standard = self.pitch_standard  # type: ignore
-                    instrument.customer = (
-                        self.customer if self.intake_type != 'New Inventory' else None
+                    instrument.customer = ( # type: ignore
+                        self.customer if self.intake_type != 'New Inventory' else None # type: ignore
                     )  # type: ignore
                     instrument.current_status = 'Active'  # type: ignore
 
@@ -141,7 +141,7 @@ class ClarinetIntake(Document):
                     try:
                         link_isn_to_instrument(
                             isn_name=isn_name,
-                            instrument=instrument.name,
+                            instrument=instrument.name, # type: ignore
                             link_on_instrument=True,  # type: ignore
                         )
                     except Exception:
@@ -327,7 +327,7 @@ class ClarinetIntake(Document):
     def _enforce_dynamic_mandatory_fields(self) -> None:
         missing = [
             self.meta.get_label(f)
-            for f in MANDATORY_BY_TYPE.get(self.intake_type, set())
+            for f in MANDATORY_BY_TYPE.get(self.intake_type, set()) # type: ignore
             if not self.get(f)  # type: ignore
         ]
         if missing:

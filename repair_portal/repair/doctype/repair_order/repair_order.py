@@ -7,6 +7,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import cint
 
+
 ALLOWED_STATUS = [
     "Draft",
     "Intake",
@@ -19,7 +20,6 @@ ALLOWED_STATUS = [
     "Delivered",
     "Cancelled",
 ]
-
 class RepairOrder(Document):
     from typing import TYPE_CHECKING
 
@@ -36,18 +36,18 @@ class RepairOrder(Document):
         # Optional: prevent Delivery when open tasks exist (extend later)
 
     def _validate_status(self):
-        if self.status not in ALLOWED_STATUS:
-            frappe.throw(_("Invalid status: {0}").format(frappe.bold(self.status)))
+        if self.status not in ALLOWED_STATUS: # type: ignore
+            frappe.throw(_("Invalid status: {0}").format(frappe.bold(self.status))) # type: ignore
 
     def _normalize_links(self):
         """When a first-class link is present, ensure it appears in Related Documents too."""
         linkmap = {
-            "Clarinet Intake": self.clarinet_intake,
-            "Instrument Inspection": self.instrument_inspection,
-            "Service Plan": self.service_plan,
-            "Repair Estimate": self.repair_estimate,
-            "Final QA Checklist": self.final_qa_checklist,
-            "Measurement Session": self.measurement_session,
+            "Clarinet Intake": self.clarinet_intake, # type: ignore
+            "Instrument Inspection": self.instrument_inspection, # type: ignore
+            "Service Plan": self.service_plan, # type: ignore
+            "Repair Estimate": self.repair_estimate, # type: ignore
+            "Final QA Checklist": self.final_qa_checklist, # type: ignore
+            "Measurement Session": self.measurement_session, # type: ignore
         }
         for dt, name in linkmap.items():
             if name:
@@ -88,7 +88,7 @@ class RepairOrder(Document):
             frappe.throw(_("doctype is required"))
         opts = {
             "repair_order": self.name,
-            "customer": self.customer,
-            "instrument_profile": self.instrument_profile,
+            "customer": self.customer, # type: ignore
+            "instrument_profile": self.instrument_profile, # type: ignore
         }
         return {"doctype": doctype, "route_options": opts}
