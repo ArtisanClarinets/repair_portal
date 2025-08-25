@@ -4,6 +4,9 @@
 # purpose: App configuration hooks,
 # notes: Added doctype_js for Clarinet Intake mode-specific scripts
 
+# doc_events to link child docs -> Repair Order
+from repair_portal.repair import utils as _repair_utils  # noqa: F401
+
 export_python_type_annotations = True
 app_name = 'repair_portal'
 app_title = 'Repair Portal'
@@ -67,6 +70,41 @@ doc_events = {
         'after_insert': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
         'on_trash': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
     },
+    # End Optional handlers
+
+    # Begin Repair Order Doc Events
+    "Clarinet Intake": {
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+    },
+    "Instrument Inspection": {
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+    },
+    "Service Plan": {
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+    },
+    "Repair Estimate": {
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+    },
+    "Final QA Checklist": {
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+    },
+    "Measurement Session": {
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+    },
+    "Diagnostic Metrics": {
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+    },
+    "Repair Task": {
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+    },
 }
 
 
@@ -75,3 +113,8 @@ app_include_css = ['/assets/repair_portal/css/clarinet_editor.css']
 # website_route_rules = [
 #     {'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},
 # ]
+
+# --- [BEGIN Repair Portal (Repair workflow) additions] ---
+
+
+

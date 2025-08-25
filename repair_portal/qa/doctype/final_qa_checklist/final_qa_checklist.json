@@ -14,10 +14,10 @@
       "reqd": 1
     },
     {
-      "fieldname": "related_repair",
+      "fieldname": "log_entry",
       "fieldtype": "Link",
       "label": "Repair Reference",
-      "options": "Repair Log"
+      "options": "Repair Task Log"
     },
     {
       "fieldname": "checklist_items",

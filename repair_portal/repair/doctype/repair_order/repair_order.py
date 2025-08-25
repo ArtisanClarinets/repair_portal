@@ -1,89 +1,94 @@
-# repair_portal/repair/doctype/repair_order/repair_order.py
-# Last Updated: 2025-07-21
-# Version: v2.2
-# Purpose: Unified controller logic for Repair Order (merging Repair Request). Now Fortune-500 compliant: robust error logging, docstrings, and future-proof automation hooks.
-# Dependencies: Instrument Profile, Repair Note, Qa Checklist Item, Customer, User
+ # Copyright (c) 2025
+# Repair Order: central hub linking all repair workflow artifacts.
 
-
+from __future__ import annotations
 import frappe
 from frappe import _
 from frappe.model.document import Document
+from frappe.utils import cint
 
+ALLOWED_STATUS = [
+    "Draft",
+    "Intake",
+    "Diagnostics",
+    "Structural",
+    "Pads & Sealing",
+    "Setup",
+    "QA",
+    "Ready for Pickup",
+    "Delivered",
+    "Cancelled",
+]
 
 class RepairOrder(Document):
-    # begin: auto-generated types
-    # This code is auto-generated. Do not modify anything in this block.
-
     from typing import TYPE_CHECKING
 
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        from repair_portal.repair_logging.doctype.repair_task_log.repair_task_log import (
-            RepairTaskLog,
-        )
-        from repair_portal.repair_portal.doctype.qa_checklist_item.qa_checklist_item import (
-            QaChecklistItem,
-        )
-
-        amended_from: DF.Link | None
-        client: DF.Link | None
-        customer: DF.Link
-        date_reported: DF.Date | None
-        description: DF.Text | None
-        estimated_completion: DF.Date | None
-        instrument: DF.Link | None
-        instrument_category: DF.Link | None
-        issue_description: DF.Text
-        priority_level: DF.Literal['', 'Low', 'Medium', 'High']
-        promise_date: DF.Date | None
-        qa_checklist: DF.Table[QaChecklistItem]
-        repair_notes: DF.Table[RepairTaskLog]
-        status: DF.Literal['Open', 'In Progress', 'Resolved', 'Closed', 'Completed', 'Cancelled']
-        technician_assigned: DF.Link | None
-        total_cost: DF.Currency
 
     # end: auto-generated types
+
     def validate(self):
-        """Ensures all required fields are present before save/submit."""
-        if not self.customer:
-            frappe.throw(_('Customer is required.'))
-        if not self.issue_description:
-            frappe.throw(_('Issue Description is required.'))
+        self._validate_status()
+        self._dedupe_related()
+        self._normalize_links()
+        # Optional: prevent Delivery when open tasks exist (extend later)
 
-    def before_save(self):
-        """
-        Handles warranty logic and sets repair as warranty if applicable.
-        Logs errors for audit.
-        """
-        try:
-            if hasattr(self, 'instrument_profile') and self.instrument_profile:  # type: ignore
-                ip = frappe.get_doc('Instrument Profile', self.instrument_profile)  # type: ignore
-                if hasattr(ip, 'warranty_active') and ip.warranty_active:  # type: ignore
-                    self.is_warranty = 1
-                    self.append(
-                        'comments',
-                        {
-                            'comment': _(
-                                'This repair is under WARRANTY – do not bill labor unless approved.'
-                            )
-                        },
-                    )
-                    self.total_parts_cost = 0
-                    self.total_labor_hours = 0
-                else:
-                    self.is_warranty = 0
-        except Exception:
-            frappe.log_error(
-                frappe.get_traceback(), 'RepairOrder: before_save warranty logic failed'
-            )
+    def _validate_status(self):
+        if self.status not in ALLOWED_STATUS:
+            frappe.throw(_("Invalid status: {0}").format(frappe.bold(self.status)))
 
-    def on_submit(self):
+    def _normalize_links(self):
+        """When a first-class link is present, ensure it appears in Related Documents too."""
+        linkmap = {
+            "Clarinet Intake": self.clarinet_intake,
+            "Instrument Inspection": self.instrument_inspection,
+            "Service Plan": self.service_plan,
+            "Repair Estimate": self.repair_estimate,
+            "Final QA Checklist": self.final_qa_checklist,
+            "Measurement Session": self.measurement_session,
+        }
+        for dt, name in linkmap.items():
+            if name:
+                self._ensure_related(dt, name, desc="Stage link")
+
+    def _ensure_related(self, doctype: str, name: str, desc: str = ""):
+        if not self.related_documents:
+            self.related_documents = []
+        exists = any(
+            (row.doctype_name == doctype and row.document_name == name)
+            for row in self.related_documents
+        )
+        if not exists:
+            self.append("related_documents", {
+                "doctype_name": doctype,
+                "document_name": name,
+                "description": desc,
+            })
+
+    def _dedupe_related(self):
+        seen = set()
+        deduped = []
+        for row in self.related_documents or []:
+            key = (row.doctype_name, row.document_name)
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append(row)
+        self.related_documents = deduped
+
+    @frappe.whitelist()
+    def create_child(self, doctype: str) -> dict:
         """
-        Called when Repair Order is submitted. Can be extended for automation (labor log, workflow, notifications).
+        Helper to start a child doc with route_options pre-filled (client uses frappe.new_doc).
+        Returns a dict of route_options for convenience.
         """
-        try:
-            # Example: add labor log, update workflow_state, etc.
-            frappe.msgprint(_('Repair Order submitted.'))
-        except Exception:
-            frappe.log_error(frappe.get_traceback(), 'RepairOrder: on_submit failed')
+        if not doctype:
+            frappe.throw(_("doctype is required"))
+        opts = {
+            "repair_order": self.name,
+            "customer": self.customer,
+            "instrument_profile": self.instrument_profile,
+        }
+        return {"doctype": doctype, "route_options": opts}

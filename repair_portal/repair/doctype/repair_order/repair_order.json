@@ -1,161 +1,147 @@
 {
- "actions": [],
- "creation": "2025-08-15 22:29:47.036527",
- "doctype": "DocType",
- "engine": "InnoDB",
- "field_order": [
-  "instrument",
-  "client",
-  "customer",
-  "instrument_category",
-  "date_reported",
-  "promise_date",
-  "issue_description",
-  "technician_assigned",
-  "priority_level",
-  "status",
-  "repair_notes",
-  "qa_checklist",
-  "description",
-  "estimated_completion",
-  "total_cost",
-  "amended_from"
- ],
- "fields": [
-  {
-   "fieldname": "instrument",
-   "fieldtype": "Link",
-   "label": "Instrument",
-   "options": "Instrument Profile"
-  },
-  {
-   "fieldname": "client",
-   "fieldtype": "Link",
-   "label": "Client",
-   "options": "Customer"
-  },
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
-  },
-  {
-   "fieldname": "instrument_category",
-   "fieldtype": "Link",
-   "label": "Instrument Category",
-   "options": "Instrument Category"
-  },
-  {
-   "fieldname": "date_reported",
-   "fieldtype": "Date",
-   "label": "Date Reported"
-  },
-  {
-   "fieldname": "promise_date",
-   "fieldtype": "Date",
-   "label": "Promise Date"
-  },
-  {
-   "fieldname": "issue_description",
-   "fieldtype": "Text",
-   "in_list_view": 1,
-   "label": "Issue Description",
-   "reqd": 1
-  },
-  {
-   "fieldname": "technician_assigned",
-   "fieldtype": "Link",
-   "label": "Technician Assigned",
-   "options": "User"
-  },
-  {
-   "default": "Medium",
-   "fieldname": "priority_level",
-   "fieldtype": "Select",
-   "label": "Priority",
-   "options": "\nLow\nMedium\nHigh"
-  },
-  {
-   "default": "Open",
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "Open\nIn Progress\nResolved\nClosed\nCompleted\nCancelled"
-  },
-  {
-   "fieldname": "repair_notes",
-   "fieldtype": "Table",
-   "label": "Repair Notes",
-   "options": "Repair Task Log"
-  },
-  {
-   "fieldname": "qa_checklist",
-   "fieldtype": "Table",
-   "label": "QA Checklist",
-   "options": "Qa Checklist Item"
-  },
-  {
-   "fieldname": "description",
-   "fieldtype": "Text",
-   "label": "Repair Description"
-  },
-  {
-   "fieldname": "estimated_completion",
-   "fieldtype": "Date",
-   "label": "Estimated Completion"
-  },
-  {
-   "fieldname": "total_cost",
-   "fieldtype": "Currency",
-   "label": "Total Cost"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Repair Order",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  }
- ],
- "is_submittable": 1,
- "links": [],
- "modified": "2025-08-15 22:58:39.447769",
- "modified_by": "Administrator",
- "module": "Repair",
- "name": "Repair Order",
- "owner": "Administrator",
- "permissions": [
-  {
-   "cancel": 1,
-   "create": 1,
-   "delete": 1,
-   "read": 1,
-   "role": "Technician",
-   "submit": 1,
-   "write": 1
-  },
-  {
-   "cancel": 1,
-   "create": 1,
-   "delete": 1,
-   "read": 1,
-   "role": "System Manager",
-   "submit": 1,
-   "write": 1
-  },
-  {
-   "read": 1,
-   "role": "Customer"
-  }
- ],
- "row_format": "Dynamic",
- "sort_field": "modified",
- "sort_order": "DESC",
- "states": []
+  "doctype": "DocType",
+  "name": "Repair Order",
+  "module": "Repair",
+  "custom": 0,
+  "is_submittable": 0,
+  "track_changes": 1,
+  "track_seen": 1,
+  "allow_rename": 0,
+  "editable_grid": 0,
+  "engine": "InnoDB",
+  "autoname": "format:RO-{YYYY}-{#####}",
+  "field_order": [
+    "section_primary",
+    "naming_series",
+    "status",
+    "customer",
+    "instrument_profile",
+    "technician",
+    "target_delivery",
+    "section_links",
+    "clarinet_intake",
+    "instrument_inspection",
+    "service_plan",
+    "repair_estimate",
+    "final_qa_checklist",
+    "measurement_session",
+    "section_related",
+    "related_documents"
+  ],
+  "fields": [
+    {
+      "fieldname": "section_primary",
+      "label": "Primary",
+      "fieldtype": "Section Break",
+      "collapsible": 0
+    },
+    {
+      "fieldname": "naming_series",
+      "label": "Naming Series",
+      "fieldtype": "Select",
+      "options": "RO-{YYYY}-{#####}",
+      "default": "RO-{YYYY}-{#####}"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Draft\nIntake\nDiagnostics\nStructural\nPads & Sealing\nSetup\nQA\nReady for Pickup\nDelivered\nCancelled",
+      "default": "Draft",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "instrument_profile",
+      "label": "Instrument Profile",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "technician",
+      "label": "Assigned Technician",
+      "fieldtype": "Link",
+      "options": "User"
+    },
+    {
+      "fieldname": "target_delivery",
+      "label": "Target Delivery",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "section_links",
+      "label": "Linked Stages",
+      "fieldtype": "Section Break",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "clarinet_intake",
+      "label": "Clarinet Intake",
+      "fieldtype": "Link",
+      "options": "Clarinet Intake"
+    },
+    {
+      "fieldname": "instrument_inspection",
+      "label": "Instrument Inspection",
+      "fieldtype": "Link",
+      "options": "Instrument Inspection"
+    },
+    {
+      "fieldname": "service_plan",
+      "label": "Service Plan",
+      "fieldtype": "Link",
+      "options": "Service Plan"
+    },
+    {
+      "fieldname": "repair_estimate",
+      "label": "Repair Estimate",
+      "fieldtype": "Link",
+      "options": "Repair Estimate"
+    },
+    {
+      "fieldname": "final_qa_checklist",
+      "label": "Final QA Checklist",
+      "fieldtype": "Link",
+      "options": "Final QA Checklist"
+    },
+    {
+      "fieldname": "measurement_session",
+      "label": "Measurement Session",
+      "fieldtype": "Link",
+      "options": "Measurement Session"
+    },
+    {
+      "fieldname": "section_related",
+      "label": "Related",
+      "fieldtype": "Section Break",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "related_documents",
+      "label": "Related Documents",
+      "fieldtype": "Table",
+      "options": "Repair Related Document"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1,
+      "read": 1,
+      "write": 1,
+      "delete": 1,
+      "export": 1,
+      "print": 1
+    }
+  ]
 }
