@@ -1,0 +1,60 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "creation": "2025-09-14 15:44:55.918334",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": ["enabled"],
+  "fields": [
+    {
+      "default": "0",
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled"
+    },
+    {
+      "fieldname": "variable_name",
+      "label": "Variable Name (Jinja; snake_case)",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "source_doctype",
+      "label": "Source DocType",
+      "fieldtype": "Link",
+      "options": "DocType"
+    },
+    {
+      "fieldname": "form_link_field",
+      "label": "Form Link Field (on Consent Form)",
+      "fieldtype": "Data",
+      "description": "e.g., 'customer' — must be a field on Consent Form that links to Source DocType"
+    },
+    {
+      "fieldname": "source_fieldname",
+      "label": "Source Fieldname (on Source DocType)",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "default_value",
+      "label": "Default Value (fallback)",
+      "fieldtype": "Data"
+    }
+  ],
+  "grid_page_length": 50,
+  "index_web_pages_for_search": 1,
+  "istable": 1,
+  "links": [],
+  "modified": "2025-09-14 15:45:40.386442",
+  "modified_by": "Administrator",
+  "module": "Customer",
+  "name": "Consent Autofill Mapping",
+  "owner": "Administrator",
+  "permissions": [],
+  "row_format": "Dynamic",
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
+}

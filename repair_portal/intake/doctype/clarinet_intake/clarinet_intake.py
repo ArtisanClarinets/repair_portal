@@ -19,6 +19,7 @@ from frappe.utils import nowdate
 from repair_portal.intake.doctype.clarinet_intake_settings.clarinet_intake_settings import (
     get_intake_settings,
 )
+from repair_portal.intake.doctype.clarinet_intake.clarinet_intake_timeline import add_timeline_entries
 
 # Serial utilities (single source of truth) – support either module path
 try:
@@ -250,6 +251,9 @@ class ClarinetIntake(Document):
                 setup.status = 'Open'  # type: ignore
                 setup.insert(ignore_permissions=True)
                 frappe.msgprint(_(f'Clarinet Initial Setup <b>{setup.name}</b> created.'))
+
+            # --- LOG TIMELINE ENTRIES for all auto-created records --- #
+            add_timeline_entries(self, "after_insert")
 
         except Exception:
             frappe.log_error(title='ClarinetIntake.after_insert', message=frappe.get_traceback())

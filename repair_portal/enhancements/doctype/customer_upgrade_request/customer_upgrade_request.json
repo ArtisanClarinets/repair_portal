@@ -1,35 +1,91 @@
 {
-	"doctype": "DocType",
-	"name": "Customer Upgrade Request",
-	"module": "Enhancements",
-	"custom": 0,
-	"fields": [
-		{
-			"fieldname": "customer",
-			"fieldtype": "Link",
-			"label": "Customer",
-			"options": "Customer"
-		},
-		{
-			"fieldname": "item_code",
-			"fieldtype": "Link",
-			"label": "Instrument",
-			"options": "Item"
-		},
-		{
-			"fieldname": "requested_upgrades",
-			"fieldtype": "Table",
-			"label": "Requested Upgrades",
-			"options": "Upgrade Option"
-		},
-		{ "fieldname": "notes", "fieldtype": "Small Text", "label": "Notes" }
-	],
-	"permissions": [
-		{"role": "Technician", "read": 1, "write": 1, "create": 1},
-		{"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-		{"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-	],
-	"istable": 0,
-	"track_changes": 1
+ "actions": [],
+ "creation": "2025-09-07 15:29:19.439144",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "serial",
+  "requested_upgrades",
+  "notes",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "requested_upgrades",
+   "fieldtype": "Table",
+   "label": "Requested Upgrades",
+   "options": "Upgrade Option"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "serial",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Customer Upgrade Request",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-09-07 15:45:05.639492",
+ "modified_by": "Administrator",
+ "module": "Enhancements",
+ "name": "Customer Upgrade Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Technician",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Service Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "if_owner": 1,
+   "read": 1,
+   "role": "Customer"
+  }
+ ],
+ "queue_in_background": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
 }

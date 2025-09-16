@@ -23,7 +23,8 @@
   "instrument_category",
   "current_status",
   "attachments",
-  "notes"
+  "notes",
+  "accessory_id"
  ],
  "fields": [
   {
@@ -127,12 +128,18 @@
   {
    "fieldname": "column_break_wmgr",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "accessory_id",
+   "fieldtype": "Table",
+   "label": "Accessories & Included Parts",
+   "options": "Instrument Accessory"
   }
  ],
  "grid_page_length": 50,
  "image_field": "attachments",
  "links": [],
- "modified": "2025-07-29 18:01:23.933455",
+ "modified": "2025-09-14 15:04:46.861579",
  "modified_by": "Administrator",
  "module": "Instrument Profile",
  "name": "Instrument",

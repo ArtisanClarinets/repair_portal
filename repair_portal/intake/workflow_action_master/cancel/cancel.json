@@ -1,0 +1,10 @@
+{
+    "doctype": "Workflow Action Master",
+    "name": "Cancel",
+    "module": "Intake",
+    "action": "Cancel",
+    "to_state": "Cancelled",
+    "options": [],
+    "style": "Primary",
+    "description": "Cancel the intake process."
+}

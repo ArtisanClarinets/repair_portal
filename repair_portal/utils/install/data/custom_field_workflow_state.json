@@ -1,0 +1,11 @@
+[
+  {"doctype": "Custom Field", "dt": "Clarinet Intake", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+  {"doctype": "Custom Field", "dt": "Instrument Profile", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+  {"doctype": "Custom Field", "dt": "Player Profile", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+  {"doctype": "Custom Field", "dt": "Repair Task", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+  {"doctype": "Custom Field", "dt": "Service Log", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+  {"doctype": "Custom Field", "dt": "Loaner Return Check", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+  {"doctype": "Custom Field", "dt": "Inspection Report", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+  {"doctype": "Custom Field", "dt": "Tool", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1},
+  {"doctype": "Custom Field", "dt": "Customer", "fieldname": "workflow_state", "label": "Workflow State", "fieldtype": "Link", "options": "Workflow State", "read_only": 1, "in_list_view": 1}
+]

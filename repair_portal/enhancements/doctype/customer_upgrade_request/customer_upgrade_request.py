@@ -3,6 +3,21 @@ from frappe.model.document import Document
 
 
 class CustomerUpgradeRequest(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.enhancements.doctype.upgrade_option.upgrade_option import UpgradeOption
+
+        amended_from: DF.Link | None
+        customer: DF.Link | None
+        notes: DF.SmallText | None
+        requested_upgrades: DF.Table[UpgradeOption]
+        serial: DF.Link | None
+    # end: auto-generated types
     def on_submit(self):
         if not self.serial_no:  # type: ignore
             return

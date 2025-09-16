@@ -2,50 +2,80 @@
   "doctype": "DocType",
   "name": "Consent Form",
   "module": "Customer",
+  "custom": 0,
+  "istable": 0,
+  "is_tree": 0,
+  "editable_grid": 0,
+  "track_changes": 1,
+  "track_seen": 1,
+  "track_views": 1,
+  "is_submittable": 1,
+  "allow_copy": 0,
+  "allow_rename": 0,
+  "hide_toolbar": 0,
+  "engine": "InnoDB",
   "fields": [
     {
       "fieldname": "customer",
-      "fieldtype": "Link",
       "label": "Customer",
+      "fieldtype": "Link",
       "options": "Customer",
-      "reqd": 1
+      "reqd": 1,
+      "in_list_view": 1
     },
     {
       "fieldname": "consent_template",
-      "fieldtype": "Link",
       "label": "Consent Template",
+      "fieldtype": "Link",
       "options": "Consent Template",
-      "reqd": 1
+      "reqd": 1,
+      "in_list_view": 1
     },
     {
       "fieldname": "consent_field_values",
-      "fieldtype": "Table",
       "label": "Field Values",
-      "options": "Consent Field Value"
+      "fieldtype": "Table",
+      "options": "Consent Field Value",
+      "in_list_view": 0
     },
     {
       "fieldname": "signature",
+      "label": "Signature",
       "fieldtype": "Signature",
-      "label": "Customer Signature",
-      "reqd": 1
+      "reqd": 0
     },
     {
       "fieldname": "signed_on",
+      "label": "Signed On",
       "fieldtype": "Datetime",
-      "label": "Signed On"
-    },
-    {
-      "fieldname": "status",
-      "fieldtype": "Select",
-      "label": "Status",
-      "options": "Draft\nSigned\nCancelled",
-      "default": "Draft"
+      "read_only": 1
     },
     {
       "fieldname": "rendered_content",
+      "label": "Rendered Content",
       "fieldtype": "Text Editor",
-      "label": "Rendered Agreement (Read Only)",
       "read_only": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Draft\nSigned\nCancelled",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "workflow_state",
+      "label": "Workflow State",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "log_entries",
+      "label": "Log Entries",
+      "fieldtype": "Table",
+      "options": "Consent Log Entry",
+      "read_only": 0
     }
   ],
   "permissions": [
@@ -54,7 +84,18 @@
       "read": 1,
       "write": 1,
       "create": 1,
+      "submit": 1,
+      "cancel": 1,
       "delete": 1
+    },
+    {
+      "role": "Sales User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "cancel": 0,
+      "delete": 0
     }
   ]
 }

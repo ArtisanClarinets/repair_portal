@@ -3,7 +3,7 @@
     "workflow_state_name": "Awaiting Payment",
     "color": "#f0ad4e",
     "style": "Warning",
-    "icon": "fa fa-money",
+    "icon": "gift",
     "description": "The instrument is awaiting payment from the customer before proceeding to the next stage.",
     "doc_status": 1,
     "name": "Awaiting Payment",

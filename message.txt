@@ -1,0 +1,38 @@
+"fix(consent): correct singleton flag on Consent Settings + harden installer; add autofill defaults & linked-source apply
+
+WHY
+- Migrate failures traced to Consent Settings DocType JSON using "single" instead of the required "issingle". With the wrong flag, the singleton row is never created and `frappe.get_single("Consent Settings")` raises DoesNotExistError during hooks.
+- Intermittent workflow link errors addressed by making the installer robust across sites that link transition actions to either "Workflow Action" or legacy "Workflow Action Master".
+
+WHAT
+1) Consent Settings (DocType JSON)
+   - Set **"issingle": 1** (correct singleton flag) to ensure a row exists and `get_single` works predictably.
+   - Schema hygiene retained; no other breaking changes.
+
+2) Installer: repair_portal/utils/install/install_consent_artifacts.py (v1.4.1)
+   - Detect the transition **action link target** from metadata (`Workflow Transition.action.options`) and upsert actions into the correct doctype (supports both **Workflow Action** and **Workflow Action Master**). Uses actual inserted names in transitions to avoid link mismatches.
+   - Upsert **Workflow States** using the correct field **doc_status** (0/1/2) and styles; keeps optional mirrors (`workflow_state_name`, `state`) in sync when present.
+   - **Merge** workflow states/transitions/roles (no child-table clearing): preserves customizations; updates only managed entries.
+   - Normalize role containers for **allow_edit** (states) and **allowed** (transitions) to handle child rows, dicts, lists of strings, or newline-separated strings—prevents `.get()` on `str` crashes.
+   - Ensure **Consent Settings** singleton exists before use; idempotent creation if missing.
+   - Seed **autofill defaults** in Consent Settings (`customer_name`, `customer_email`, `customer_phone`) without overwriting existing rows; enable `enable_auto_fill` when present.
+   - Invoke **apply_linked_sources()** if available to create/update link custom fields on Consent Form.
+   - Meta guards + logging; idempotent and data-safe.
+
+3) Consent Autofill Mapping
+   - Adds default mappings (Customer → name/email/phone) only when absent.
+   - Leaves user data and existing mappings untouched.
+
+4) Consent Linked Source
+   - Calls `Consent Settings.apply_linked_sources()` when present to apply linked source fields to Consent Form without manual steps.
+
+RESULT
+- `bench migrate` now succeeds; singleton exists; workflow + actions + states are consistent across v15 variants.
+- No data loss; preserves existing workflow customizations.
+
+QA (quick)
+- `bench --site erp.artisanclarinets.com execute repair_portal.utils.install.install_consent_artifacts:install_or_update_consent_artifacts`
+- Verify workflow: 4 states (Draft/Pending Signature/Signed/Cancelled), 3 transitions (Request Signature → Pending, Submit(Requires Signature) → Signed w/ condition, Cancel → Cancelled).
+- Verify Consent Settings singleton exists and includes autofill mappings; linked sources applied when method present.
+
+Refs: consent autofill mapping, consent linked source, consent settings singleton, installer hardening."

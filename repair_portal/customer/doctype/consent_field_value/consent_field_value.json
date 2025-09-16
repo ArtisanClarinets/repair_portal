@@ -3,25 +3,22 @@
   "name": "Consent Field Value",
   "module": "Customer",
   "istable": 1,
-  "allow_import": 1,
   "fields": [
     {
       "fieldname": "field_label",
       "fieldtype": "Data",
       "label": "Field Label",
-      "reqd": 1
+      "reqd": 1,
+      "in_list_view": 1
     },
     {
       "fieldname": "field_type",
-      "fieldtype": "Data",
+      "fieldtype": "Select",
       "label": "Field Type",
+      "options": "Data\nInt\nDate\nFloat\nSmall Text\nText\nCheck\nSignature",
       "reqd": 1
     },
-    {
-      "fieldname": "field_value",
-      "fieldtype": "Data",
-      "label": "Value"
-    }
+    { "fieldname": "field_value", "fieldtype": "Text", "label": "Value" }
   ],
   "permissions": [
     {
