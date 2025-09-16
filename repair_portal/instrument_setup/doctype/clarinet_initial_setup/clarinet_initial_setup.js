@@ -1,13 +1,15 @@
 // File: repair_portal/repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.js
+// Last Updated: 2025-09-16
+// Purpose: Auto-apply Setup Template on selection, keep buttons after refresh, and streamline project actions.
 
 frappe.ui.form.on('Clarinet Initial Setup', {
-  refresh(frm) {
+  refresh: async function (frm) {
     set_headline(frm);
     show_progress(frm);
     show_project_timeline(frm);
 
     if (frm.doc.docstatus === 0) {
-      add_draft_buttons(frm);
+      add_draft_buttons(frm);      // always re-add; no "added once" guard
     }
 
     add_nav_buttons(frm);
@@ -15,10 +17,10 @@ frappe.ui.form.on('Clarinet Initial Setup', {
     add_project_actions(frm);
   },
 
-  setup_template(frm) {
-    if (frm.doc.setup_template && !frm.is_new()) {
-      load_template_defaults(frm);
-    }
+  // Auto-apply the template the moment it’s chosen (even on new/unsaved docs).
+  setup_template: async function (frm) {
+    if (!frm.doc.setup_template) return;
+    await apply_setup_template(frm);
   },
 
   status(frm) {
@@ -35,65 +37,54 @@ frappe.ui.form.on('Clarinet Initial Setup', {
   }
 });
 
-// ---------- Project Management Functions ----------
+// ---------- Template application ----------
 
-function load_template_defaults(frm) {
-  if (frm.doc.setup_template) {
-    frappe.db.get_doc('Setup Template', frm.doc.setup_template).then(template => {
-      // Set defaults from template if not already set
-      if (!frm.doc.setup_type && template.setup_type) {
-        frm.set_value('setup_type', template.setup_type);
-      }
-      if (!frm.doc.priority && template.priority) {
-        frm.set_value('priority', template.priority);
-      }
-      if (!frm.doc.estimated_cost && template.estimated_cost) {
-        frm.set_value('estimated_cost', template.estimated_cost);
-      }
-      if (!frm.doc.estimated_materials_cost && template.estimated_materials_cost) {
-        frm.set_value('estimated_materials_cost', template.estimated_materials_cost);
-      }
-      if (!frm.doc.labor_hours && template.estimated_hours) {
-        frm.set_value('labor_hours', template.estimated_hours);
-      }
-      
-      frappe.show_alert({
-        message: __('Template defaults loaded. Use buttons to load operations and create tasks.'),
-        indicator: 'blue'
-      });
+async function apply_setup_template(frm) {
+  try {
+    frappe.dom.freeze(__('Applying setup template...'));
+
+    // 1) Pull the template doc and push its defaults onto the form
+    const tpl = await frappe.db.get_doc('Setup Template', frm.doc.setup_template);
+    // Always set to the template’s values (explicit template selection is an override)
+    await frm.set_value({
+      setup_type: tpl.setup_type || frm.doc.setup_type,
+      priority: tpl.priority || frm.doc.priority,
+      technician: tpl.default_technician || frm.doc.technician,
+      labor_hours: tpl.estimated_hours || frm.doc.labor_hours,
+      estimated_materials_cost: tpl.estimated_materials_cost || frm.doc.estimated_materials_cost,
+      estimated_cost: tpl.estimated_cost || frm.doc.estimated_cost
     });
+
+    // Ensure we have a baseline date for task scheduling
+    if (!frm.doc.expected_start_date) {
+      await frm.set_value('expected_start_date', frappe.datetime.get_today());
+    }
+
+    // 2) We need a real docname for server-side generators → save transparently if needed
+    await ensure_saved(frm);
+
+    // 3) Load operations & checklist from template (server appends and saves)
+    await frappe.call({ doc: frm.doc, method: 'load_operations_from_template' });
+
+    // 4) Create tasks from template (uses minutes now, server-side)
+    await frappe.call({ doc: frm.doc, method: 'create_tasks_from_template' });
+
+    await frm.reload_doc();
+
+    frappe.show_alert({ message: __('Template applied: fields, operations, and tasks created.'), indicator: 'green' });
+  } catch (e) {
+    console.error(e);
+    frappe.msgprint({
+      title: __('Template Apply Failed'),
+      message: __(e.message || 'Could not apply the setup template. Check server logs.'),
+      indicator: 'red'
+    });
+  } finally {
+    frappe.dom.unfreeze();
   }
 }
 
-function calculate_expected_end_date(frm) {
-  if (frm.doc.expected_start_date && frm.doc.labor_hours && !frm.doc.expected_end_date) {
-    // Assume 8 hours per day
-    const days_needed = Math.max(1, Math.ceil(frm.doc.labor_hours / 8));
-    const end_date = frappe.datetime.add_days(frm.doc.expected_start_date, days_needed);
-    frm.set_value('expected_end_date', end_date);
-  }
-}
-
-function calculate_estimated_costs(frm) {
-  if (frm.doc.labor_hours && !frm.doc.estimated_cost) {
-    // Get standard hourly rate (you may want to make this configurable)
-    const hourly_rate = 75; // This could come from settings
-    const labor_cost = frm.doc.labor_hours * hourly_rate;
-    const materials_cost = frm.doc.estimated_materials_cost || 0;
-    frm.set_value('estimated_cost', labor_cost + materials_cost);
-  }
-}
-
-function update_status_indicators(frm) {
-  // Update actual dates based on status
-  if (frm.doc.status === 'In Progress' && !frm.doc.actual_start_date) {
-    frm.set_value('actual_start_date', frappe.datetime.now_datetime());
-  } else if (['Completed', 'QA Review'].includes(frm.doc.status) && !frm.doc.actual_end_date) {
-    frm.set_value('actual_end_date', frappe.datetime.now_datetime());
-  }
-}
-
-// ---------- helpers ----------
+// ---------- Existing helpers (unchanged UI behaviour) ----------
 
 function set_headline(frm) {
   if (frm.doc.status === 'Completed') {
@@ -119,69 +110,55 @@ function show_progress(frm) {
 function show_project_timeline(frm) {
   if (frm.doc.expected_start_date || frm.doc.expected_end_date) {
     let timeline_html = '<div class="row"><div class="col-sm-6">';
-    
     if (frm.doc.expected_start_date) {
       timeline_html += `<p><strong>${__('Expected Start')}:</strong> ${frappe.datetime.str_to_user(frm.doc.expected_start_date)}</p>`;
     }
     if (frm.doc.expected_end_date) {
       timeline_html += `<p><strong>${__('Expected End')}:</strong> ${frappe.datetime.str_to_user(frm.doc.expected_end_date)}</p>`;
     }
-    
     timeline_html += '</div><div class="col-sm-6">';
-    
     if (frm.doc.actual_start_date) {
       timeline_html += `<p><strong>${__('Actual Start')}:</strong> ${frappe.datetime.str_to_user(frm.doc.actual_start_date)}</p>`;
     }
     if (frm.doc.actual_end_date) {
       timeline_html += `<p><strong>${__('Actual End')}:</strong> ${frappe.datetime.str_to_user(frm.doc.actual_end_date)}</p>`;
     }
-    
     timeline_html += '</div></div>';
     frm.dashboard.add_section(timeline_html, __('Project Timeline'));
   }
 }
 
-function add_project_actions(frm) {
-  if (frm.is_new() || frm.doc.docstatus !== 0) return;
-  
-  // Quick status change actions
-  if (frm.doc.status !== 'In Progress') {
-    frm.add_custom_button(__('Start Project'), () => {
-      frm.set_value('status', 'In Progress');
-      frm.save();
-    }, __('Project Actions'));
-  }
-  
-  if (frm.doc.status === 'In Progress') {
-    frm.add_custom_button(__('Mark On Hold'), () => {
-      frm.set_value('status', 'On Hold');
-      frm.save();
-    }, __('Project Actions'));
-    
-    frm.add_custom_button(__('Send to QA'), () => {
-      frm.set_value('status', 'QA Review');
-      frm.save();
-    }, __('Project Actions'));
-  }
-  
-  if (frm.doc.status === 'QA Review') {
-    frm.add_custom_button(__('Approve & Complete'), () => {
-      frm.set_value('status', 'Completed');
-      frm.save();
-    }, __('Project Actions'));
-    
-    frm.add_custom_button(__('Return for Rework'), () => {
-      frm.set_value('status', 'In Progress');
-      frm.save();
-    }, __('Project Actions'));
+function calculate_expected_end_date(frm) {
+  if (frm.doc.expected_start_date && frm.doc.labor_hours && !frm.doc.expected_end_date) {
+    const days_needed = Math.max(1, Math.ceil(frm.doc.labor_hours / 8)); // same heuristic used before
+    const end_date = frappe.datetime.add_days(frm.doc.expected_start_date, days_needed);
+    frm.set_value('expected_end_date', end_date);
   }
 }
 
-function add_draft_buttons(frm) {
-  if (frm.__clarinet_buttons_added) return;
+function calculate_estimated_costs(frm) {
+  if (frm.doc.labor_hours && !frm.doc.estimated_cost) {
+    const hourly_rate = 75; // could be pulled from settings
+    const labor_cost = frm.doc.labor_hours * hourly_rate;
+    const materials_cost = frm.doc.estimated_materials_cost || 0;
+    frm.set_value('estimated_cost', labor_cost + materials_cost);
+  }
+}
 
+function update_status_indicators(frm) {
+  if (frm.doc.status === 'In Progress' && !frm.doc.actual_start_date) {
+    frm.set_value('actual_start_date', frappe.datetime.now_datetime());
+  } else if (['Completed', 'QA Review'].includes(frm.doc.status) && !frm.doc.actual_end_date) {
+    frm.set_value('actual_end_date', frappe.datetime.now_datetime());
+  }
+}
+
+// ---------- Buttons ----------
+
+function add_draft_buttons(frm) {
+  // No "added once" guard — custom buttons disappear on refresh, so re-add every time.
   frm.add_custom_button(__('Load Operations from Template'), async () => {
-    if (!ensure_saved(frm)) return;
+    await ensure_saved(frm);
     if (!frm.doc.setup_template) {
       frappe.msgprint({ message: __('Please select a Setup Template first.'), indicator: 'red' });
       return;
@@ -199,7 +176,7 @@ function add_draft_buttons(frm) {
   });
 
   frm.add_custom_button(__('Create Tasks from Template'), async () => {
-    if (!ensure_saved(frm)) return;
+    await ensure_saved(frm);
     if (!frm.doc.setup_template) {
       frappe.msgprint({ message: __('Please select a Setup Template first.'), indicator: 'red' });
       return;
@@ -215,25 +192,23 @@ function add_draft_buttons(frm) {
       frappe.dom.unfreeze();
     }
   });
-
-  frm.__clarinet_buttons_added = true;
 }
 
 function add_nav_buttons(frm) {
   frm.add_custom_button(__('View Tasks'), () => {
-    if (!ensure_saved(frm)) return;
+    if (!frm.doc.name) return;
     frappe.route_options = { 'clarinet_initial_setup': frm.doc.name };
     frappe.set_route('List', 'Clarinet Setup Task');
   }, __('Navigate'));
 
   frm.add_custom_button(__('Open Gantt'), () => {
-    if (!ensure_saved(frm)) return;
+    if (!frm.doc.name) return;
     frappe.route_options = { 'clarinet_initial_setup': frm.doc.name };
     frappe.set_route('List', 'Clarinet Setup Task', 'Gantt');
   }, __('Navigate'));
 }
 
-// NEW: “Generate Certificate (PDF)” button
+// “Generate Certificate (PDF)”
 function add_certificate_button(frm) {
   if (frm.is_new()) return;
   if (frm.__clarinet_cert_button_added) return;
@@ -244,16 +219,10 @@ function add_certificate_button(frm) {
       const r = await frappe.call({
         doc: frm.doc,
         method: 'generate_certificate',
-        args: {
-          print_format: 'Clarinet Setup Certificate',
-          attach: 1,
-          return_file_url: 1
-        }
+        args: { print_format: 'Clarinet Setup Certificate', attach: 1, return_file_url: 1 }
       });
-
       const url = r && r.message && r.message.file_url;
       if (url) {
-        // Open the private file (user must be logged in)
         window.open(url, '_blank');
         frappe.show_alert({ message: __('Certificate generated.'), indicator: 'green' });
       } else {
@@ -269,10 +238,10 @@ function add_certificate_button(frm) {
   frm.__clarinet_cert_button_added = true;
 }
 
-function ensure_saved(frm) {
-  if (frm.is_new()) {
-    frappe.msgprint({ message: __('Please save this document first.'), indicator: 'orange' });
-    return false;
+// Save helper (auto-saves silently if needed)
+async function ensure_saved(frm) {
+  if (frm.is_new() || frm.is_dirty()) {
+    await frm.save();
   }
   return true;
 }

@@ -13,7 +13,7 @@
   "description",
   "default_priority",
   "exp_start_offset_days",
-  "exp_duration_days"
+  "exp_duration_mins"
  ],
  "fields": [
   {
@@ -64,14 +64,14 @@
   {
    "default": "1",
    "description": "Planned duration in days for the generated task (at least 1).",
-   "fieldname": "exp_duration_days",
+   "fieldname": "exp_duration_mins",
    "fieldtype": "Int",
-   "label": "Expected Duration (days)"
+   "label": "Expected Duration (mins)"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2025-08-17 02:30:31.939667",
+ "modified": "2025-09-16 00:49:06.816355",
  "modified_by": "Administrator",
  "module": "Instrument Setup",
  "name": "Clarinet Template Task",

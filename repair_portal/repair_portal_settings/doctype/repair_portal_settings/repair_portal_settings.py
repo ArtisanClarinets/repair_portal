@@ -14,6 +14,7 @@ class RepairPortalSettings(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
+        hours_per_day: DF.Data | None
         standard_hourly_rate: DF.Currency
     # end: auto-generated types
     pass

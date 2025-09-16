@@ -555,7 +555,7 @@
       "description": "Open work order; scope, due date, client notes.",
       "default_priority": "Medium",
       "exp_start_offset_days": 0,
-      "exp_duration_days": 1
+      "exp_duration_mins": 10
     },
     {
       "doctype": "Clarinet Template Task",
@@ -564,7 +564,7 @@
       "description": "Immediate risk screen; structural/keywork issues.",
       "default_priority": "High",
       "exp_start_offset_days": 0,
-      "exp_duration_days": 1
+      "exp_duration_mins": 15
     },
     {
       "doctype": "Clarinet Template Task",
@@ -573,7 +573,7 @@
       "description": "Inventory accessories; serials; high-res photos.",
       "default_priority": "Medium",
       "exp_start_offset_days": 0,
-      "exp_duration_days": 1
+      "exp_duration_mins": 25
     },
     {
       "doctype": "Clarinet Template Task",
@@ -582,7 +582,7 @@
       "description": "Back-pressure, pitch standard (A=440/441), articulation.",
       "default_priority": "Medium",
       "exp_start_offset_days": 0,
-      "exp_duration_days": 1
+      "exp_duration_mins": 15
     },
     {
       "doctype": "Clarinet Template Task",
@@ -591,7 +591,7 @@
       "description": "Confirm pads, corks, felts, adhesives availability.",
       "default_priority": "Medium",
       "exp_start_offset_days": 0,
-      "exp_duration_days": 1
+      "exp_duration_mins": 10
     },
 
     {
@@ -601,7 +601,7 @@
       "description": "Stabilize temperature/RH; start environmental logger.",
       "default_priority": "High",
       "exp_start_offset_days": 0,
-      "exp_duration_days": 1
+      "exp_duration_mins": 10
     },
     {
       "doctype": "Clarinet Template Task",
@@ -610,7 +610,7 @@
       "description": "Acclimatization window prior to diagnostics.",
       "default_priority": "Medium",
       "exp_start_offset_days": 0,
-      "exp_duration_days": 1
+      "exp_duration_mins": 1
     },
     {
       "doctype": "Clarinet Template Task",
@@ -619,7 +619,7 @@
       "description": "Assess moisture/condition; note risks.",
       "default_priority": "Medium",
       "exp_start_offset_days": 1,
-      "exp_duration_days": 1
+      "exp_duration_mins": 10
     },
 
     {
@@ -629,7 +629,7 @@
       "description": "Dry-fit feel, lateral play, pull-out force baseline.",
       "default_priority": "High",
       "exp_start_offset_days": 1,
-      "exp_duration_days": 1
+      "exp_duration_mins": 15
     },
     {
       "doctype": "Clarinet Template Task",
@@ -638,7 +638,7 @@
       "description": "Borescope; map tone-hole flatness/finish; note variances.",
       "default_priority": "High",
       "exp_start_offset_days": 1,
-      "exp_duration_days": 1
+      "exp_duration_mins": 45
     },
     {
       "doctype": "Clarinet Template Task",
@@ -647,7 +647,7 @@
       "description": "Check endplay/sideplay; bent keys/rods; fasteners.",
       "default_priority": "Medium",
       "exp_start_offset_days": 1,
-      "exp_duration_days": 1
+      "exp_duration_mins": 30
     },
     {
       "doctype": "Clarinet Template Task",
@@ -656,7 +656,7 @@
       "description": "Per-key pad type/condition; spring material/condition.",
       "default_priority": "Medium",
       "exp_start_offset_days": 1,
-      "exp_duration_days": 1
+      "exp_duration_mins": 30
     },
     {
       "doctype": "Clarinet Template Task",
@@ -665,7 +665,7 @@
       "description": "Method + reading; locate/record leaks.",
       "default_priority": "High",
       "exp_start_offset_days": 1,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     },
     {
       "doctype": "Clarinet Template Task",
@@ -674,7 +674,7 @@
       "description": "Reference pitch set; sketch initial pitch tendencies.",
       "default_priority": "Medium",
       "exp_start_offset_days": 1,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     },
     {
       "doctype": "Clarinet Template Task",
@@ -683,7 +683,7 @@
       "description": "Finalize parts list/risks; client approval before invasive work.",
       "default_priority": "High",
       "exp_start_offset_days": 2,
-      "exp_duration_days": 1
+      "exp_duration_mins": 25
     },
 
     {
@@ -693,7 +693,7 @@
       "description": "Systematic teardown; clean; tray/label sub-assemblies.",
       "default_priority": "High",
       "exp_start_offset_days": 3,
-      "exp_duration_days": 1
+      "exp_duration_mins": 60
     },
     {
       "doctype": "Clarinet Template Task",
@@ -702,7 +702,7 @@
       "description": "Straighten keys/rods; swedge/re-tube; set end/sideplay.",
       "default_priority": "High",
       "exp_start_offset_days": 3,
-      "exp_duration_days": 1
+      "exp_duration_mins": 60
     },
     {
       "doctype": "Clarinet Template Task",
@@ -711,7 +711,7 @@
       "description": "Correct tone-hole surfaces while preserving geometry.",
       "default_priority": "High",
       "exp_start_offset_days": 4,
-      "exp_duration_days": 1
+      "exp_duration_mins": 40
     },
     {
       "doctype": "Clarinet Template Task",
@@ -720,7 +720,7 @@
       "description": "Install premium corks; sand to spec; log diameters.",
       "default_priority": "High",
       "exp_start_offset_days": 4,
-      "exp_duration_days": 1
+      "exp_duration_mins": 45
     },
     {
       "doctype": "Clarinet Template Task",
@@ -729,7 +729,7 @@
       "description": "Select/install pads; float/seat; verify seal.",
       "default_priority": "High",
       "exp_start_offset_days": 5,
-      "exp_duration_days": 2
+      "exp_duration_mins": 90
     },
     {
       "doctype": "Clarinet Template Task",
@@ -738,7 +738,7 @@
       "description": "Adjust spring tensions to A-clarinet gram-force targets; synchronize linkages.",
       "default_priority": "High",
       "exp_start_offset_days": 6,
-      "exp_duration_days": 1
+      "exp_duration_mins": 60
     },
     {
       "doctype": "Clarinet Template Task",
@@ -747,7 +747,7 @@
       "description": "Set venting per A-clarinet spec; trim stops.",
       "default_priority": "High",
       "exp_start_offset_days": 6,
-      "exp_duration_days": 1
+      "exp_duration_mins": 45
     },
     {
       "doctype": "Clarinet Template Task",
@@ -756,7 +756,7 @@
       "description": "Comprehensive leak test after mechanics/pads/regulation.",
       "default_priority": "High",
       "exp_start_offset_days": 7,
-      "exp_duration_days": 1
+      "exp_duration_mins": 30
     },
 
     {
@@ -766,7 +766,7 @@
       "description": "Measure cent deviation across full range; capture environment & setup.",
       "default_priority": "High",
       "exp_start_offset_days": 8,
-      "exp_duration_days": 1
+      "exp_duration_mins": 45
     },
     {
       "doctype": "Clarinet Template Task",
@@ -775,7 +775,7 @@
       "description": "Iterative key-height/pad/undercut micro-adjust to targets.",
       "default_priority": "High",
       "exp_start_offset_days": 9,
-      "exp_duration_days": 2
+      "exp_duration_mins": 60
     },
     {
       "doctype": "Clarinet Template Task",
@@ -784,7 +784,7 @@
       "description": "Attacks pp–ff; register transitions; throat/altissimo stability.",
       "default_priority": "High",
       "exp_start_offset_days": 10,
-      "exp_duration_days": 1
+      "exp_duration_mins": 45
     },
     {
       "doctype": "Clarinet Template Task",
@@ -793,7 +793,7 @@
       "description": "Converge and lock final regulation and acoustic targets.",
       "default_priority": "High",
       "exp_start_offset_days": 11,
-      "exp_duration_days": 1
+      "exp_duration_mins": 45
     },
 
     {
@@ -803,7 +803,7 @@
       "description": "Final documented airtightness to shop standard.",
       "default_priority": "High",
       "exp_start_offset_days": 12,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     },
     {
       "doctype": "Clarinet Template Task",
@@ -812,7 +812,7 @@
       "description": "Cycle keys (e.g., 50x); verify rebound, silence, regulation stability.",
       "default_priority": "High",
       "exp_start_offset_days": 12,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     },
     {
       "doctype": "Clarinet Template Task",
@@ -821,7 +821,7 @@
       "description": "Holistic musical test; final technician sign-off.",
       "default_priority": "High",
       "exp_start_offset_days": 13,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     },
     {
       "doctype": "Clarinet Template Task",
@@ -830,7 +830,7 @@
       "description": "Photos; measurements; pitch map; care guide; warranty.",
       "default_priority": "Medium",
       "exp_start_offset_days": 13,
-      "exp_duration_days": 1
+      "exp_duration_mins": 30
     },
     {
       "doctype": "Clarinet Template Task",
@@ -839,7 +839,7 @@
       "description": "Generate and attach certificate; QA manager sign-off.",
       "default_priority": "High",
       "exp_start_offset_days": 13,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     },
 
     {
@@ -849,7 +849,7 @@
       "description": "Demonstrate results; review measured outcomes and characteristics.",
       "default_priority": "Medium",
       "exp_start_offset_days": 14,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     },
     {
       "doctype": "Clarinet Template Task",
@@ -858,7 +858,7 @@
       "description": "Provide care + break-in guidance for pads and humidity control.",
       "default_priority": "Medium",
       "exp_start_offset_days": 14,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     },
     {
       "doctype": "Clarinet Template Task",
@@ -867,7 +867,7 @@
       "description": "Schedule post-break-in check; set reminders.",
       "default_priority": "Medium",
       "exp_start_offset_days": 14,
-      "exp_duration_days": 1
+      "exp_duration_mins": 10
     },
 
     {
@@ -877,7 +877,7 @@
       "description": "Verify calibration status (spring gauge, feelers, manometer, calipers).",
       "default_priority": "High",
       "exp_start_offset_days": 0,
-      "exp_duration_days": 1
+      "exp_duration_mins": 10
     },
     {
       "doctype": "Clarinet Template Task",
@@ -886,7 +886,7 @@
       "description": "Record lot/batch numbers for corks, pads, adhesives, oils; link to work order.",
       "default_priority": "Medium",
       "exp_start_offset_days": 5,
-      "exp_duration_days": 1
+      "exp_duration_mins": 15
     },
     {
       "doctype": "Clarinet Template Task",
@@ -895,7 +895,7 @@
       "description": "Random post-delivery QA sampling; document findings and corrective actions.",
       "default_priority": "Low",
       "exp_start_offset_days": 21,
-      "exp_duration_days": 1
+      "exp_duration_mins": 20
     }
   ],
   "clarinet_task_depends_on": [

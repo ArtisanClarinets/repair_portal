@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "repair_portal_settings",
-  "standard_hourly_rate"
+  "standard_hourly_rate",
+  "hours_per_day"
  ],
  "fields": [
   {
@@ -18,13 +19,19 @@
    "fieldname": "standard_hourly_rate",
    "fieldtype": "Currency",
    "label": "Standard Hourly Rate"
+  },
+  {
+   "default": "8",
+   "fieldname": "hours_per_day",
+   "fieldtype": "Data",
+   "label": "Hours per Day"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-08-21 03:23:31.578446",
+ "modified": "2025-09-16 01:09:28.133574",
  "modified_by": "Administrator",
  "module": "Repair Portal Settings",
  "name": "Repair Portal Settings",
