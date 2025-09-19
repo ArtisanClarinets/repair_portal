@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Loaner Instrument",
   "module": "Intake",
+  "engine": "InnoDB",
   "custom": 0,
   "fields": [
     {"fieldname": "loaner_serial", "fieldtype": "Data", "label": "Loaner Serial Number", "reqd": 1},

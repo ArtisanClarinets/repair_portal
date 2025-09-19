@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Tool",
   "module": "Tools",
+  "engine": "InnoDB",
   "custom": 0,
   "fields": [
     {"fieldname": "tool_name", "fieldtype": "Data", "label": "Tool Name", "reqd": 1},

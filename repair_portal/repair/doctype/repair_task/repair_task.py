@@ -3,23 +3,12 @@
 # Version: 1.1
 # Purpose: Repair Task server logic including validation of assignment and completion timestamp.
 # Notes: Ensures parent Repair Order exists.
-
-# begin: auto-generated types
-# This code is auto-generated. Do not touch it – Frappe will overwrite.
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from frappe.types import DF
-
-    repair_order: DF.Link
-    assigned_to: DF.Link
-    status: DF.Select  # type: ignore
-    completed_on: DF.Datetime | None
-# end: auto-generated types
+from __future__ import annotations
 
 import frappe
 from frappe.model.document import Document
 from frappe.utils import now_datetime
+
 
 
 class RepairTask(Document):
@@ -51,16 +40,29 @@ class RepairTask(Document):
         technician: DF.Link | None
 
     # end: auto-generated types
-    def validate(self):
-        if not self.repair_order:  # type: ignore
-            frappe.throw('Repair Order reference is required.')
+    def start(self):
+        if self.status == "Running":
+            frappe.throw("Task is already running.")
+        self.status = "Running"
+        self.started_at = now_datetime()
+        self.save(ignore_permissions=True)
 
-        if not frappe.db.exists('Repair Order', self.repair_order):  # type: ignore
-            frappe.throw(f"Repair Order '{self.repair_order}' not found.")  # type: ignore
+    def stop(self):
+        if self.status != "Running":
+            frappe.throw("Task is not running.")
+        self.status = "Open"
+        self.save(ignore_permissions=True)
 
-        if not self.assigned_to:  # type: ignore
-            frappe.throw('Assigned To is required.')  # type: ignore
+    def complete(self):
+        self.status = "Completed"
+        self.completed_at = now_datetime()
+        self.save(ignore_permissions=True)
 
-    def before_save(self):
-        if self.status == 'Completed' and not self.completed_on:  # type: ignore
-            self.completed_on = now_datetime()
+
+@frappe.whitelist()
+def post_task_time(task_name: str, minutes: int) -> str:
+    """Update task minutes only (no Timesheet creation)."""
+    task = frappe.get_doc("Repair Task", task_name)
+    task.actual_minutes = int(task.actual_minutes or 0) + int(minutes or 0)
+    task.save(ignore_permissions=True)
+    return task.name

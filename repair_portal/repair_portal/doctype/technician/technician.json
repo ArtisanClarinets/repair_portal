@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Technician",
   "module": "Repair Portal",
+  "engine": "InnoDB",
   "fields": [
     { "fieldname": "first_name", "label": "First Name", "fieldtype": "Data", "reqd": 1 },
     { "fieldname": "last_name", "label": "Last Name", "fieldtype": "Data", "reqd": 1 },

@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Consent Field Value",
   "module": "Customer",
+  "engine": "InnoDB",
   "istable": 1,
   "fields": [
     {

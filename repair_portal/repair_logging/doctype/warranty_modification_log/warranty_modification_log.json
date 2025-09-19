@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Warranty Modification Log",
   "module": "Repair Logging",
+  "engine": "InnoDB",
   "custom": 0,
   "istable": 1,
   "track_changes": 1,

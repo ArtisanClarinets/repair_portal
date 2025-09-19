@@ -1,97 +1,26 @@
 {
- "actions": [],
- "creation": "2025-08-15 22:29:47.137820",
- "doctype": "DocType",
- "editable_grid": 1,
- "engine": "InnoDB",
- "field_order": [
-  "task_type",
-  "description",
-  "long_description",
-  "technician",
-  "est_hours",
-  "actual_hours",
-  "parts_cost",
-  "status",
-  "log",
-  "images",
-  "remarks"
- ],
- "fields": [
-  {
-   "fieldname": "task_type",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Task Type",
-   "options": "Service Task",
-   "reqd": 1
-  },
-  {
-   "fieldname": "description",
-   "fieldtype": "Text",
-   "label": "Description"
-  },
-  {
-   "fieldname": "long_description",
-   "fieldtype": "Text Editor",
-   "label": "Detailed Notes"
-  },
-  {
-   "fieldname": "technician",
-   "fieldtype": "Link",
-   "label": "Technician",
-   "options": "User"
-  },
-  {
-   "fieldname": "est_hours",
-   "fieldtype": "Float",
-   "label": "Estimated Hours"
-  },
-  {
-   "fieldname": "actual_hours",
-   "fieldtype": "Float",
-   "label": "Actual Hours"
-  },
-  {
-   "fieldname": "parts_cost",
-   "fieldtype": "Currency",
-   "label": "Parts Cost"
-  },
-  {
-   "default": "Pending",
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "\nPending\nIn Progress\nCompleted"
-  },
-  {
-   "fieldname": "log",
-   "fieldtype": "Link",
-   "label": "Repair Log",
-   "options": "Repair Task Log"
-  },
-  {
-   "fieldname": "images",
-   "fieldtype": "Table",
-   "label": "Images",
-   "options": "Instrument Photo"
-  },
-  {
-   "fieldname": "remarks",
-   "fieldtype": "Small Text",
-   "label": "Remarks"
-  }
- ],
- "istable": 1,
- "links": [],
- "modified": "2025-08-15 23:00:32.572031",
- "modified_by": "Administrator",
- "module": "Repair",
- "name": "Repair Task",
- "owner": "Administrator",
- "permissions": [],
- "row_format": "Dynamic",
- "sort_field": "modified",
- "sort_order": "DESC",
- "states": []
+  "doctype": "DocType",
+  "name": "Repair Task",
+  "module": "Repair",
+  "custom": 0,
+  "istable": 0,
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "autoname": "naming_series:",
+  "fields": [
+    {"fieldname":"naming_series","label":"Naming Series","fieldtype":"Data","default":"RTASK-.YYYY.-","reqd":1,"no_copy":1},
+    {"fieldname":"repair_order","label":"Repair Order","fieldtype":"Link","options":"Repair Order","reqd":1,"in_list_view":1},
+    {"fieldname":"task_type","label":"Task Type","fieldtype":"Link","options":"Activity Type","in_list_view":1},
+    {"fieldname":"status","label":"Status","fieldtype":"Select","options":"Open\nRunning\nCompleted\nOn Hold","default":"Open","in_list_view":1},
+    {"fieldname":"assigned_to","label":"Assigned To","fieldtype":"Link","options":"User","in_list_view":1},
+    {"fieldname":"est_minutes","label":"Estimated Minutes","fieldtype":"Int","default":0},
+    {"fieldname":"actual_minutes","label":"Actual Minutes","fieldtype":"Int","default":0},
+    {"fieldname":"started_at","label":"Started At","fieldtype":"Datetime","read_only":1},
+    {"fieldname":"completed_at","label":"Completed At","fieldtype":"Datetime","read_only":1},
+    {"fieldname":"notes","label":"Notes","fieldtype":"Small Text"}
+  ],
+  "permissions": [
+    {"role":"Repair Manager","read":1,"write":1,"create":1,"delete":1,"print":1,"email":1,"share":1},
+    {"role":"Repair Technician","read":1,"write":1,"create":1,"delete":0,"print":1,"email":1,"share":0}
+  ]
 }

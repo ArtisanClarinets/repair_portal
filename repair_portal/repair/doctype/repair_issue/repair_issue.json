@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Repair Issue",
   "module": "Repair",
+  "engine": "InnoDB",
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,

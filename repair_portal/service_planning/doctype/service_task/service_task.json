@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Service Task",
   "module": "Service Planning",
+  "engine": "InnoDB",
   "custom": 0,
   "fields": [
     { "fieldname": "task_name", "label": "Task Name", "fieldtype": "Data", "reqd": 1 },
@@ -11,7 +12,7 @@
     {
       "fieldname": "workflow_state",
       "label": "Workflow State",
-      "fieldtype": "Link",
+      "fieldtype": "Select",
       "options": "Workflow State",
       "read_only": 1,
       "in_list_view": 1

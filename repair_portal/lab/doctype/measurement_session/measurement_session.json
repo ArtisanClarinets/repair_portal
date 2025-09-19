@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Measurement Session",
   "module": "Lab",
+  "engine": "InnoDB",
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,

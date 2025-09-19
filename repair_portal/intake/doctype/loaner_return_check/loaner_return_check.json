@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Loaner Return Check",
   "module": "Intake",
+  "engine": "InnoDB",
   "custom": 0,
   "fields": [
     {"fieldname": "linked_loaner", "fieldtype": "Link", "label": "Loaner Record", "options": "Loaner Instrument", "reqd": 1},
@@ -12,7 +13,7 @@
     {
       "fieldname": "workflow_state",
       "label": "Workflow State",
-      "fieldtype": "Link",
+      "fieldtype": "Select",
       "options": "Workflow State",
       "read_only": 1,
       "in_list_view": 1

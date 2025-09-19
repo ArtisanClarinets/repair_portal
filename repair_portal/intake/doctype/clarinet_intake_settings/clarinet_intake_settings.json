@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Clarinet Intake Settings",
   "module": "Intake",
+  "engine": "InnoDB",
   "custom": 0,
   "issingle": 1,
   "read_only": 0,

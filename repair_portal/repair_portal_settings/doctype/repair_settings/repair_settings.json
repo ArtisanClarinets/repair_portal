@@ -1,0 +1,62 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Settings",
+  "module": "Repair Portal Settings",
+  "custom": 0,
+  "istable": 0,
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "is_virtual": 0,
+  "quick_entry": 0,
+  "editable_grid": 0,
+  "issingle": 1,
+  "fields": [
+    {
+      "fieldname": "default_company",
+      "label": "Default Company",
+      "fieldtype": "Link",
+      "options": "Company"
+    },
+    {
+      "fieldname": "default_source_warehouse",
+      "label": "Default Source Warehouse",
+      "fieldtype": "Link",
+      "options": "Warehouse"
+    },
+    {
+      "fieldname": "default_labor_item",
+      "label": "Default Labor Item (Service)",
+      "fieldtype": "Link",
+      "options": "Item"
+    },
+    {
+      "fieldname": "default_labor_rate",
+      "label": "Default Labor Rate",
+      "fieldtype": "Currency"
+    },
+    {
+      "fieldname": "default_qa_required",
+      "label": "Default QA Required",
+      "fieldtype": "Check",
+      "default": "1"
+    },
+    {
+      "fieldname": "default_require_invoice_before_delivery",
+      "label": "Default Require Invoice Before Delivery",
+      "fieldtype": "Check",
+      "default": "0"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "print": 1,
+      "email": 1,
+      "share": 1
+    }
+  ]
+}

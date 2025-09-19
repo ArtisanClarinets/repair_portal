@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Pad Count Intake",
   "module": "Inventory",
+  "engine": "InnoDB",
   "custom": 0,
   "istable": 0,
   "editable_grid": 0,

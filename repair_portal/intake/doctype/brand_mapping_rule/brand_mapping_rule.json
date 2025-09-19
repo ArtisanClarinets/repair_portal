@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Brand Mapping Rule",
   "module": "Intake",
+  "engine": "InnoDB",
   "custom": 0,
   "istable": 1,
   "editable_grid": 1,

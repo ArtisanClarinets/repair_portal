@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Repair Estimate",
   "module": "Service Planning",
+  "engine": "InnoDB",
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,

@@ -1,0 +1,114 @@
+{
+  "doctype": "DocType",
+  "name": "SLA Policy",
+  "module": "Repair",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "autoname": "field:policy_name",
+  "field_order": [
+    "policy_name",
+    "enabled",
+    "default_policy",
+    "apply_per_workshop",
+    "breach_grace_minutes",
+    "warn_threshold_pct",
+    "critical_threshold_pct",
+    "rules_section",
+    "rules"
+  ],
+  "fields": [
+    {
+      "fieldname": "policy_name",
+      "label": "Policy Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": "1",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "default_policy",
+      "label": "Default Policy",
+      "fieldtype": "Check",
+      "default": "0",
+      "description": "If set, this will be used when a Repair Order has no explicit SLA Policy."
+    },
+    {
+      "fieldname": "apply_per_workshop",
+      "label": "Apply Per Workshop",
+      "fieldtype": "Check",
+      "default": "0",
+      "description": "When enabled, matching rules will consider the Repair Order's Workshop."
+    },
+    {
+      "fieldname": "breach_grace_minutes",
+      "label": "Breach Grace (Minutes)",
+      "fieldtype": "Int",
+      "default": "0",
+      "description": "Additional minutes allowed after Due time before the SLA is considered breached."
+    },
+    {
+      "fieldname": "warn_threshold_pct",
+      "label": "Warn Threshold (%)",
+      "fieldtype": "Int",
+      "default": "70",
+      "description": "Progress percentage when SLA status turns Yellow."
+    },
+    {
+      "fieldname": "critical_threshold_pct",
+      "label": "Critical Threshold (%)",
+      "fieldtype": "Int",
+      "default": "90",
+      "description": "Progress percentage when SLA status turns Red."
+    },
+    {
+      "fieldname": "rules_section",
+      "label": "Rules",
+      "fieldtype": "Section Break",
+      "collapsible": 0
+    },
+    {
+      "fieldname": "rules",
+      "label": "Rules",
+      "fieldtype": "Table",
+      "options": "SLA Policy Rule",
+      "in_standard_filter": 0
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "print": 1,
+      "export": 1,
+      "email": 1,
+      "share": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "print": 1,
+      "export": 1,
+      "email": 1
+    },
+    {
+      "role": "Repair Technician",
+      "read": 1
+    }
+  ]
+}

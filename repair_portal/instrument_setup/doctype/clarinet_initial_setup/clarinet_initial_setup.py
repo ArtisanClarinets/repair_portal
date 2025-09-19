@@ -309,9 +309,9 @@ class ClarinetInitialSetup(Document):
             }).insert(ignore_permissions=True)
             created.append(doc.name)
 
-        update_parent_progress(self.name)  # type: ignore
-        frappe.msgprint(_('Created {0} task(s) from template.').format(len(created)))
-        return {'created': created, 'count': len(created)}
+    #    update_parent_progress(self.name)  # type: ignore
+    #    frappe.msgprint(_('Created {0} task(s) from template.').format(len(created)))
+    #    return {'created': created, 'count': len(created)}
     # (Reference: your original create-tasks entry point)  # :contentReference[oaicite:7]{index=7}
 
     # -----------------

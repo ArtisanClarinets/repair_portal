@@ -1,0 +1,141 @@
+{
+  "doctype": "Report",
+  "name": "SLA Compliance",
+  "report_name": "SLA Compliance",
+  "ref_doctype": "Repair Order",
+  "module": "Repair",
+  "is_standard": "Yes",
+  "report_type": "Script Report",
+  "prepared_report": 0,
+  "add_total_row": 0,
+  "disabled": 0,
+  "columns": [
+    {
+      "label": "Repair Order",
+      "fieldname": "name",
+      "fieldtype": "Link",
+      "options": "Repair Order",
+      "width": 140
+    },
+    {
+      "label": "Customer",
+      "fieldname": "customer_name",
+      "fieldtype": "Data",
+      "width": 180
+    },
+    {
+      "label": "Service Type",
+      "fieldname": "service_type",
+      "fieldtype": "Data",
+      "width": 140
+    },
+    {
+      "label": "Workshop",
+      "fieldname": "workshop",
+      "fieldtype": "Link",
+      "options": "Workshop",
+      "width": 120
+    },
+    {
+      "label": "SLA Policy",
+      "fieldname": "sla_policy",
+      "fieldtype": "Link",
+      "options": "SLA Policy",
+      "width": 140
+    },
+    {
+      "label": "SLA Start",
+      "fieldname": "sla_start",
+      "fieldtype": "Datetime",
+      "width": 160
+    },
+    {
+      "label": "SLA Due",
+      "fieldname": "sla_due",
+      "fieldtype": "Datetime",
+      "width": 160
+    },
+    {
+      "label": "Progress (%)",
+      "fieldname": "sla_progress_pct",
+      "fieldtype": "Percent",
+      "width": 110
+    },
+    {
+      "label": "SLA Status",
+      "fieldname": "sla_status",
+      "fieldtype": "Data",
+      "width": 110
+    },
+    {
+      "label": "Breached",
+      "fieldname": "sla_breached",
+      "fieldtype": "Check",
+      "width": 90
+    },
+    {
+      "label": "Overdue (min)",
+      "fieldname": "overdue_minutes",
+      "fieldtype": "Int",
+      "width": 120
+    },
+    {
+      "label": "Workflow State",
+      "fieldname": "workflow_state",
+      "fieldtype": "Data",
+      "width": 140
+    },
+    {
+      "label": "Modified",
+      "fieldname": "modified",
+      "fieldtype": "Datetime",
+      "width": 160
+    }
+  ],
+  "filters": [
+    {
+      "fieldname": "from_date",
+      "label": "From Date",
+      "fieldtype": "Date",
+      "mandatory": 0,
+      "wildcard_filter": 0
+    },
+    {
+      "fieldname": "to_date",
+      "label": "To Date",
+      "fieldtype": "Date",
+      "mandatory": 0,
+      "wildcard_filter": 0
+    },
+    {
+      "fieldname": "workshop",
+      "label": "Workshop",
+      "fieldtype": "Link",
+      "options": "Workshop",
+      "mandatory": 0,
+      "wildcard_filter": 0
+    },
+    {
+      "fieldname": "service_type",
+      "label": "Service Type",
+      "fieldtype": "Data",
+      "mandatory": 0,
+      "wildcard_filter": 0
+    },
+    {
+      "fieldname": "breached_only",
+      "label": "Breached Only",
+      "fieldtype": "Check",
+      "default": "0",
+      "mandatory": 0,
+      "wildcard_filter": 0
+    }
+  ],
+  "roles": [
+    { "role": "System Manager" },
+    { "role": "Repair Manager" },
+    { "role": "Repair Technician" }
+  ],
+  "json": "{}",
+  "timeout": 0
+}

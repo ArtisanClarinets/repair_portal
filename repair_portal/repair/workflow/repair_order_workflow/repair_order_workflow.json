@@ -1,0 +1,135 @@
+[
+  {
+    "doctype": "Workflow",
+    "name": "Repair Order Workflow",
+    "module": "Repair",
+    "workflow_name": "Repair Order Workflow",
+    "document_type": "Repair Order",
+    "is_active": 1,
+    "override_status": 1,
+    "send_email_alert": 1,
+    "workflow_state_field": "workflow_state",
+    "states": [
+      {
+        "state": "Draft",
+        "doc_status": 0,
+        "update_value": "Draft",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "In Progress",
+        "doc_status": 1,
+        "update_value": "In Progress",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "QA",
+        "doc_status": 1,
+        "update_value": "QA",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "Ready",
+        "doc_status": 1,
+        "update_value": "Ready",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "Delivered",
+        "doc_status": 1,
+        "update_value": "Delivered",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "Closed",
+        "doc_status": 1,
+        "update_value": "Closed",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "Cancelled",
+        "doc_status": 2,
+        "update_value": "Cancelled",
+        "allow_edit": "System Manager"
+      }
+    ],
+    "transitions": [
+      {
+        "state": "Draft",
+        "action": "Start",
+        "next_state": "In Progress",
+        "allowed": "Repair Technician",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+
+      {
+        "state": "In Progress",
+        "action": "Request QA",
+        "next_state": "QA",
+        "allowed": "Repair Technician",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+      {
+        "state": "In Progress",
+        "action": "Cancel",
+        "next_state": "Cancelled",
+        "allowed": "Repair Manager",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+
+      {
+        "state": "QA",
+        "action": "Approve QA",
+        "next_state": "Ready",
+        "allowed": "Repair Manager",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+      {
+        "state": "QA",
+        "action": "Send Back",
+        "next_state": "In Progress",
+        "allowed": "Repair Manager",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+      {
+        "state": "QA",
+        "action": "Cancel",
+        "next_state": "Cancelled",
+        "allowed": "Repair Manager",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+
+      {
+        "state": "Ready",
+        "action": "Deliver",
+        "next_state": "Delivered",
+        "allowed": "Repair Manager",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+      {
+        "state": "Ready",
+        "action": "Cancel",
+        "next_state": "Cancelled",
+        "allowed": "Repair Manager",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+
+      {
+        "state": "Delivered",
+        "action": "Close",
+        "next_state": "Closed",
+        "allowed": "Repair Manager",
+        "allow_self_approval": 0,
+        "condition": ""
+      }
+    ]
+  }
+]

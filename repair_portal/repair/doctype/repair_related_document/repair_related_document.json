@@ -35,8 +35,7 @@
     {
       "fieldname": "description",
       "label": "Description",
-      "fieldtype": "Small Text",
-      "in_list_view": 0
+      "fieldtype": "Small Text"
     }
   ],
   "permissions": [

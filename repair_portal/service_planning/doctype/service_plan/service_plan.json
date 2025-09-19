@@ -2,6 +2,7 @@
 	"doctype": "DocType",
 	"name": "Service Plan",
 	"module": "Service Planning",
+	"engine": "InnoDB",
 	"custom": 0,
 	"fields": [
 		{ "fieldname": "plan_date", "label": "Plan Date", "fieldtype": "Date" },

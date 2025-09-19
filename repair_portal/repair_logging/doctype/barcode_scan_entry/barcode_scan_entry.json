@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Barcode Scan Entry",
   "module": "Repair Logging",
+  "engine": "InnoDB",
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,

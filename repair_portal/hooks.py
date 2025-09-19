@@ -112,6 +112,9 @@ doc_events = {
         "validate": "repair_portal.repair.utils.on_child_validate",
         "on_update": "repair_portal.repair.utils.on_child_validate",
     },
+     "Stock Entry": {
+    "after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry"
+  }
 }
 
 

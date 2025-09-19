@@ -67,7 +67,7 @@
     {
       "fieldname": "workflow_state",
       "label": "Workflow State",
-      "fieldtype": "Data",
+      "fieldtype": "Select",
       "read_only": 1
     },
     {

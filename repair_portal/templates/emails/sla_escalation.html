@@ -1,0 +1,41 @@
+<!-- Path: repair_portal/templates/emails/sla_escalation.html -->
+<table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,Helvetica,sans-serif; max-width:640px; margin:auto; border:1px solid #eee; border-radius:8px;">
+  <tr>
+    <td style="padding:24px;">
+      <h2 style="margin:0 0 12px 0; font-size:20px; color:#111;">SLA Escalation {{ level_tag }}</h2>
+      <p style="margin:0 0 14px 0; font-size:14px; color:#333;">
+        Repair Order <strong>{{ ro.name }}</strong> is overdue by <strong>{{ overdue_minutes }} minutes</strong> against SLA.
+      </p>
+      <table cellpadding="0" cellspacing="0" style="font-size:13px; color:#333; width:100%; background:#fafafa; border:1px solid #eee; border-radius:6px;">
+        <tr>
+          <td style="padding:10px; width:160px; color:#666;">Customer</td>
+          <td style="padding:10px;">{{ ro.customer_name or ro.customer }}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px; color:#666;">Service Type</td>
+          <td style="padding:10px;">{{ ro.service_type or "-" }}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px; color:#666;">Workshop</td>
+          <td style="padding:10px;">{{ ro.workshop or "-" }}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px; color:#666;">SLA Due</td>
+          <td style="padding:10px;">{{ frappe.format_value(ro.sla_due, {"fieldtype": "Datetime"}) }}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px; color:#666;">Current Status</td>
+          <td style="padding:10px;">{{ ro.sla_status or "None" }}</td>
+        </tr>
+      </table>
+      <p style="margin:16px 0 0 0;">
+        <a href="{{ link }}" style="display:inline-block; padding:10px 14px; background:#0069d9; color:#fff; border-radius:6px; text-decoration:none;">
+          Open Repair Order
+        </a>
+      </p>
+      <p style="margin:20px 0 0 0; font-size:12px; color:#777;">
+        This alert was generated automatically by the Repair Portal SLA engine.
+      </p>
+    </td>
+  </tr>
+</table>
