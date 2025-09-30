@@ -1,14 +1,106 @@
+<!doctype html>
 <html>
-<head><style>body { font-family: Inter; }</style></head>
+<head>
+  <meta charset="utf-8">
+  <title>Loaner Instrument Agreement</title>
+  <style>
+    @page { size: A4; margin: 18mm; }
+    body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 12px; color: #111; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 20px; }
+    h2 { font-size: 16px; color: #333; }
+    .muted { color: #555; }
+    .row { display: flex; flex-direction: row; gap: 24px; }
+    .col { flex: 1; }
+    .box { border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin: 10px 0; }
+    .kv { display: grid; grid-template-columns: 160px 1fr; gap: 6px 12px; }
+    .sig { height: 64px; border: 1px dashed #bbb; display: flex; align-items: center; justify-content: center; margin-top: 6px; }
+    .small { font-size: 11px; }
+    ul { margin: 6px 0 0 18px; }
+    .mt8 { margin-top: 8px; }
+    .mt12 { margin-top: 12px; }
+  </style>
+</head>
 <body>
-  <h2>Loaner Instrument Agreement</h2>
-  <p>This document certifies that {{ customer.customer_name }} has been issued the loaner instrument:</p>
-  <ul>
-    <li><strong>Instrument ID:</strong> {{ doc.name }}</li>
-    <li><strong>Issued On:</strong> {{ doc.issue_date }}</li>
-    <li><strong>Condition:</strong> {{ doc.condition_on_issue }}</li>
-  </ul>
-  <p>The customer agrees to return the instrument in comparable condition or be liable for damage/loss fees.</p>
-  <p><strong>Digital Signature:</strong> ______________________</p>
+  <h1>Loaner Instrument Agreement</h1>
+  <div class="muted small">
+    {{ company_full_name or company or "" }}
+  </div>
+
+  <div class="box">
+    <div class="kv">
+      <div><strong>Agreement #</strong></div><div>{{ doc.name }}</div>
+      <div><strong>Status</strong></div><div>{{ doc.status }}</div>
+      <div><strong>Issue Date</strong></div><div>{{ doc.issue_date }}</div>
+      <div><strong>Due Date</strong></div><div>{{ doc.due_date or "—" }}</div>
+      <div><strong>Intake ID</strong></div><div>{{ intake.name if intake else "—" }}</div>
+      <div><strong>Instrument</strong></div><div>{{ instrument.name if instrument else "—" }}</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col box">
+      <h2>Customer</h2>
+      <div class="kv">
+        <div><strong>Name</strong></div>
+        <div>
+          {% if customer %}{{ customer.customer_name }}{% elif contact %}{{ contact.first_name }} {{ contact.last_name or "" }}{% else %}—{% endif %}
+        </div>
+        <div><strong>Contact</strong></div>
+        <div>
+          {% if contact and contact.email_id %}{{ contact.email_id }}{% else %}—{% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col box">
+      <h2>Instrument Condition</h2>
+      <div><strong>On Issue:</strong> {{ doc.condition_on_issue or "—" }}</div>
+      <div class="mt8"><strong>On Return:</strong> {{ doc.condition_on_return or "—" }}</div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Terms</h2>
+    <ul>
+      <li>The instrument is loaned to the recipient solely for evaluation, practice, or performance purposes.</li>
+      <li>The recipient assumes responsibility for loss, theft, or damage beyond normal wear during the loan period.</li>
+      <li>The instrument must be returned by the due date shown above, unless an extension is agreed in writing.</li>
+      <li>Repairs or adjustments may only be performed by {{ company_full_name or company or "the Company" }} unless otherwise authorized.</li>
+      <li>Fees for late return, cleaning, or repair may be invoiced at actual cost.</li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col box">
+      <h2>Customer Signature</h2>
+      <div class="sig">
+        {% if customer_signature_url %}
+          <img src="{{ customer_signature_url }}" alt="Customer Signature" style="max-height:60px; max-width:100%;">
+        {% else %}
+          <span class="muted small">No signature captured</span>
+        {% endif %}
+      </div>
+      <div class="small mt8">
+        By signing, the customer acknowledges receipt of the instrument and agrees to the terms.
+      </div>
+    </div>
+    <div class="col box">
+      <h2>Company Representative</h2>
+      <div class="sig">
+        {% if company_rep_signature_url %}
+          <img src="{{ company_rep_signature_url }}" alt="Company Rep Signature" style="max-height:60px; max-width:100%;">
+        {% else %}
+          <span class="muted small">No signature captured</span>
+        {% endif %}
+      </div>
+      <div class="small mt8">
+        Authorized by {{ company_full_name or company or "" }}.
+      </div>
+    </div>
+  </div>
+
+  <div class="small muted mt12">
+    Generated on {{ frappe.utils.now_datetime().strftime("%Y-%m-%d %H:%M") if frappe else "" }}.
+  </div>
 </body>
 </html>

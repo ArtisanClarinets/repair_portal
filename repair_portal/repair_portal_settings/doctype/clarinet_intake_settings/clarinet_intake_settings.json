@@ -1,0 +1,154 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Intake Settings",
+  "module": "Repair Portal Settings",
+  "engine": "InnoDB",
+  "issingle": 1,
+  "custom": 0,
+  "read_only": 0,
+  "editable_grid": 0,
+  "track_changes": 1,
+  "track_seen": 0,
+  "track_views": 0,
+  "actions": [],
+  "allow_import": 0,
+  "allow_rename": 0,
+  "allow_copy": 0,
+  "field_order": [
+    "section_defaults",
+    "default_item_group",
+    "default_inspection_warehouse",
+    "buying_price_list",
+    "selling_price_list",
+    "stock_uom",
+    "section_behavior",
+    "require_inspection",
+    "auto_create_initial_setup",
+    "notify_on_stock_issue",
+    "auto_normalize_brand",
+    "section_labels",
+    "inspection_type_inventory",
+    "inspection_type_repair",
+    "supplier_code_prefix",
+    "intake_naming_series",
+    "intake_id_pattern",
+    "brand_mapping_rules"
+  ],
+  "fields": [
+    {
+      "fieldname": "section_defaults",
+      "label": "Defaults",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "default_item_group",
+      "label": "Default Item Group",
+      "fieldtype": "Link",
+      "options": "Item Group",
+      "default": "Clarinets"
+    },
+    {
+      "fieldname": "default_inspection_warehouse",
+      "label": "Default Inspection Warehouse",
+      "fieldtype": "Link",
+      "options": "Warehouse"
+    },
+    {
+      "fieldname": "buying_price_list",
+      "label": "Buying Price List",
+      "fieldtype": "Link",
+      "options": "Price List",
+      "default": "Standard Buying"
+    },
+    {
+      "fieldname": "selling_price_list",
+      "label": "Selling Price List",
+      "fieldtype": "Link",
+      "options": "Price List",
+      "default": "Standard Selling"
+    },
+    {
+      "fieldname": "stock_uom",
+      "label": "Stock UOM",
+      "fieldtype": "Link",
+      "options": "UOM",
+      "default": "Nos"
+    },
+
+    {
+      "fieldname": "section_behavior",
+      "label": "Automation & Behavior",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "require_inspection",
+      "label": "Require Instrument Inspection on Intake",
+      "fieldtype": "Check",
+      "default": "1"
+    },
+    {
+      "fieldname": "auto_create_initial_setup",
+      "label": "Auto-create Clarinet Initial Setup",
+      "fieldtype": "Check",
+      "default": "1"
+    },
+    {
+      "fieldname": "notify_on_stock_issue",
+      "label": "Notify User on Stock Issues",
+      "fieldtype": "Check",
+      "default": "1"
+    },
+    {
+      "fieldname": "auto_normalize_brand",
+      "label": "Auto-normalize Manufacturer via Brand Mapping",
+      "fieldtype": "Check",
+      "default": "0"
+    },
+
+    {
+      "fieldname": "section_labels",
+      "label": "Labels & Mapping",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "inspection_type_inventory",
+      "label": "Inspection Type Name (Inventory)",
+      "fieldtype": "Data",
+      "default": "Initial Inspection"
+    },
+    {
+      "fieldname": "inspection_type_repair",
+      "label": "Inspection Type Name (Repair/Maintenance)",
+      "fieldtype": "Data",
+      "default": "Arrival Inspection"
+    },
+    {
+      "fieldname": "supplier_code_prefix",
+      "label": "Supplier Code Prefix",
+      "fieldtype": "Data",
+      "default": ""
+    },
+    {
+      "fieldname": "intake_naming_series",
+      "label": "Intake Naming Series",
+      "fieldtype": "Data",
+      "default": "INV-.#####"
+    },
+    {
+      "fieldname": "intake_id_pattern",
+      "label": "Intake ID Pattern (make_autoname)",
+      "fieldtype": "Data",
+      "default": "CI-.{YYYY}.-.#####"
+    },
+    {
+      "fieldname": "brand_mapping_rules",
+      "label": "Brand Mapping Rules",
+      "fieldtype": "Table",
+      "options": "Brand Mapping Rule"
+    }
+  ],
+  "permissions": [
+    { "role": "System Manager", "read": 1, "write": 1, "create": 1 },
+    { "role": "Repair Manager", "read": 1, "write": 1 }
+  ]
+}

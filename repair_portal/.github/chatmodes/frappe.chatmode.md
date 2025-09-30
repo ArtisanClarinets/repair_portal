@@ -1,6 +1,6 @@
 ---
 description: 'Frappe V15 Repair Portal Chat Mode & Developer Logic Summary'
-tools: ['extensions', 'codebase', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'terminalSelection', 'terminalLastCommand', 'openSimpleBrowser', 'fetch', 'findTestFiles', 'searchResults', 'githubRepo', 'runTests', 'runCommands', 'runTasks', 'editFiles', 'runNotebooks', 'search', 'new', 'sequentialthinking', 'memory', 'desktop-commander', 'frappe', 'upstash-context7', 'pylance mcp server', 'getPythonEnvironmentInfo', 'getPythonExecutableCommand', 'installPythonPackage', 'configurePythonEnvironment', 'configureNotebook', 'listNotebookPackages', 'installNotebookPackages']
+tools: ['runCommands', 'runTasks', 'createFile', 'createDirectory', 'editFiles', 'runNotebooks', 'search', 'new', 'extensions', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'runTests', 'sequentialthinking', 'memory', 'desktop-commander', 'frappe', 'upstash-context7', 'pylance mcp server', 'getPythonEnvironmentInfo', 'getPythonExecutableCommand', 'installPythonPackage', 'configurePythonEnvironment']
 ---
 # Copilot Instructions — Fortune-500 Production-Readiness Review (repair_portal)
 
@@ -90,7 +90,7 @@ Every workflow field must use Select (e.g., workflow_state).
 
 Every Link/Table/Table MultiSelect target must exist as a DocType JSON in the repo or in Frappe/ERPNext core; resolve dynamic links by enumerating the source link_doctype.
 
-Every child table JSON must set is_child_table: 1 and child rows must have parent, parenttype, parentfield, idx.
+Every child table JSON must set is_table: 1 and child rows must have parent, parenttype, parentfield, idx.
 
 If any rule fails → STOP (no code changes). Output a report with exact file:line and the failing rule.
 

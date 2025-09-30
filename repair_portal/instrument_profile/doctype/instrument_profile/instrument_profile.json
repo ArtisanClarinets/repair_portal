@@ -1,390 +1,424 @@
 {
- "actions": [],
- "autoname": "format:INSTPR-{####}",
- "creation": "2025-08-15 00:00:00",
- "doctype": "DocType",
- "editable_grid": 1,
- "engine": "InnoDB",
- "field_order": [
-  "instrument_details_tab",
-  "workflow_state",
-  "column_break_bigo",
-  "status",
-  "current_location",
-  "section_break_identity",
-  "instrument_profile_id",
-  "instrument",
-  "serial_no",
-  "column_break_right_identity",
-  "customer",
-  "owner_name",
-  "section_break_overview",
-  "headline",
-  "brand",
-  "model",
-  "instrument_category",
-  "cb_general_info",
-  "wood_type",
-  "body_material",
-  "key_plating",
-  "key_system",
-  "number_of_keys_rings",
-  "purchase_section",
-  "purchase_date",
-  "purchase_order",
-  "purchase_receipt",
-  "intake_date",
-  "section_break_warranty",
-  "warranty_start_date",
-  "warranty_end_date",
-  "warranty_expiration",
-  "inspection_section",
-  "initial_condition_notes",
-  "linked_inspection",
-  "condition_logs",
-  "logs_section",
-  "external_work_logs",
-  "warranty_logs",
-  "material_usage",
-  "interaction_logs",
-  "accessory_log",
-  "media_section",
-  "serial_photos",
-  "profile_image",
-  "service_photos",
-  "amended_from"
- ],
- "fields": [
-  {
-   "fieldname": "instrument_details_tab",
-   "fieldtype": "Tab Break",
-   "label": "Overview"
-  },
-  {
-   "fieldname": "workflow_state",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Workflow State",
-   "options": "Open\nIn Progress\nDelivered\nArchived",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_bigo",
-   "fieldtype": "Column Break"
-  },
-  {
-   "description": "Auto-synced from Instrument.current_status",
-   "fieldname": "status",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Status",
-   "read_only": 1
-  },
-  {
-   "fieldname": "current_location",
-   "fieldtype": "Data",
-   "label": "Current Location"
-  },
-  {
-   "fieldname": "section_break_identity",
-   "fieldtype": "Section Break",
-   "label": "Identity"
-  },
-  {
-   "bold": 1,
-   "description": "Automatically generated unique Instrument Profile ID",
-   "fieldname": "instrument_profile_id",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Instrument Profile ID",
-   "read_only": 1,
-   "show_on_timeline": 1,
-   "unique": 1
-  },
-  {
-   "fieldname": "instrument",
-   "fieldtype": "Link",
-   "label": "Instrument",
-   "options": "Instrument",
-   "reqd": 1
-  },
-  {
-   "description": "Raw serial string from Instrument.serial_no",
-   "fieldname": "serial_no",
-   "fieldtype": "Data",
-   "label": "Serial Number",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_right_identity",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "label": "Customer",
-   "options": "Customer",
-   "read_only": 1
-  },
-  {
-   "fieldname": "owner_name",
-   "fieldtype": "Data",
-   "label": "Owner Name",
-   "read_only": 1
-  },
-  {
-   "fieldname": "section_break_overview",
-   "fieldtype": "Section Break",
-   "label": "General Information"
-  },
-  {
-   "description": "Brand Model \u2022 Serial",
-   "fieldname": "headline",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Headline",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "instrument.brand",
-   "fieldname": "brand",
-   "fieldtype": "Data",
-   "label": "Brand",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "instrument.model",
-   "fieldname": "model",
-   "fieldtype": "Data",
-   "label": "Model",
-   "read_only": 1
-  },
-  {
-   "description": "Auto-synced from Instrument.instrument_type or clarinet_type",
-   "fieldname": "instrument_category",
-   "fieldtype": "Data",
-   "label": "Instrument Category",
-   "read_only": 1
-  },
-  {
-   "fieldname": "cb_general_info",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "instrument.body_material",
-   "fieldname": "wood_type",
-   "fieldtype": "Data",
-   "label": "Wood Type",
-   "read_only": 1
-  },
-  {
-   "fieldname": "body_material",
-   "fieldtype": "Data",
-   "label": "Body Material"
-  },
-  {
-   "fetch_from": "instrument.key_plating",
-   "fieldname": "key_plating",
-   "fieldtype": "Data",
-   "label": "Key Plating",
-   "read_only": 1
-  },
-  {
-   "fieldname": "key_system",
-   "fieldtype": "Select",
-   "label": "Key System",
-   "options": "Boehm\nAlbert\nOehler\nOther"
-  },
-  {
-   "fieldname": "number_of_keys_rings",
-   "fieldtype": "Data",
-   "label": "Number of Keys/Rings"
-  },
-  {
-   "fieldname": "purchase_section",
-   "fieldtype": "Section Break",
-   "label": "Purchase"
-  },
-  {
-   "fieldname": "purchase_date",
-   "fieldtype": "Date",
-   "label": "Purchase Date",
-   "read_only": 1
-  },
-  {
-   "fieldname": "purchase_order",
-   "fieldtype": "Link",
-   "label": "Purchase Order",
-   "options": "Purchase Order",
-   "read_only": 1
-  },
-  {
-   "fieldname": "purchase_receipt",
-   "fieldtype": "Link",
-   "label": "Purchase Receipt",
-   "options": "Purchase Receipt",
-   "read_only": 1
-  },
-  {
-   "fieldname": "intake_date",
-   "fieldtype": "Date",
-   "label": "Last Intake Date",
-   "read_only": 1
-  },
-  {
-   "fieldname": "section_break_warranty",
-   "fieldtype": "Section Break",
-   "label": "Warranty"
-  },
-  {
-   "fieldname": "warranty_start_date",
-   "fieldtype": "Date",
-   "label": "Warranty Start Date",
-   "read_only": 1
-  },
-  {
-   "fieldname": "warranty_end_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Warranty End Date",
-   "read_only": 1
-  },
-  {
-   "description": "Kept for backward compatibility; use warranty_end_date",
-   "fieldname": "warranty_expiration",
-   "fieldtype": "Date",
-   "hidden": 1,
-   "label": "Warranty Expiration (Deprecated)",
-   "read_only": 1
-  },
-  {
-   "fieldname": "inspection_section",
-   "fieldtype": "Section Break",
-   "label": "Condition & Inspection"
-  },
-  {
-   "fieldname": "initial_condition_notes",
-   "fieldtype": "Text",
-   "label": "Initial Condition Notes"
-  },
-  {
-   "fieldname": "linked_inspection",
-   "fieldtype": "Link",
-   "label": "Instrument Inspection",
-   "options": "Instrument Inspection",
-   "read_only": 1
-  },
-  {
-   "fieldname": "condition_logs",
-   "fieldtype": "Table",
-   "label": "Condition Logs",
-   "options": "Instrument Condition Record",
-   "read_only": 1
-  },
-  {
-   "fieldname": "logs_section",
-   "fieldtype": "Section Break",
-   "label": "Logs"
-  },
-  {
-   "fieldname": "external_work_logs",
-   "fieldtype": "Table",
-   "label": "External Work Logs",
-   "options": "External Work Logs",
-   "read_only": 1
-  },
-  {
-   "fieldname": "warranty_logs",
-   "fieldtype": "Table",
-   "label": "Warranty Logs",
-   "options": "Warranty Modification Log",
-   "read_only": 1
-  },
-  {
-   "fieldname": "material_usage",
-   "fieldtype": "Table",
-   "label": "Material Usage",
-   "options": "Material Use Log",
-   "read_only": 1
-  },
-  {
-   "fieldname": "interaction_logs",
-   "fieldtype": "Table",
-   "label": "Interaction Logs",
-   "options": "Instrument Interaction Log",
-   "read_only": 1
-  },
-  {
-   "fieldname": "accessory_log",
-   "fieldtype": "Table",
-   "label": "Current Accessories Log",
-   "options": "Instrument Accessory",
-   "read_only": 1
-  },
-  {
-   "fieldname": "media_section",
-   "fieldtype": "Section Break",
-   "label": "Media & Photos"
-  },
-  {
-   "fieldname": "serial_photos",
-   "fieldtype": "Table",
-   "label": "Instrument Photos",
-   "options": "Instrument Photo"
-  },
-  {
-   "fieldname": "profile_image",
-   "fieldtype": "Attach Image",
-   "label": "Profile Image (Hero Shot)"
-  },
-  {
-   "fieldname": "service_photos",
-   "fieldtype": "Table",
-   "label": "Service Photo Log",
-   "options": "Instrument Photo"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Instrument Profile",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  }
- ],
- "image_field": "profile_image",
- "is_submittable": 1,
- "links": [],
- "modified": "2025-08-15 22:33:30.914934",
- "modified_by": "Administrator",
- "module": "Instrument Profile",
- "name": "Instrument Profile",
- "naming_rule": "Expression",
- "owner": "Administrator",
- "permissions": [
-  {
-   "cancel": 1,
-   "create": 1,
-   "read": 1,
-   "role": "Repair Manager",
-   "submit": 1,
-   "write": 1
-  },
-  {
-   "if_owner": 1,
-   "read": 1,
-   "role": "Customer"
-  }
- ],
- "row_format": "Dynamic",
- "search_fields": "serial_no,brand,model,customer",
- "show_name_in_global_search": 1,
- "sort_field": "modified",
- "sort_order": "DESC",
- "states": [],
- "title_field": "headline",
- "track_changes": 1,
- "track_views": 1
+  "actions": [],
+  "autoname": "format:INSTPR-{####}",
+  "creation": "2025-08-15 00:00:00",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+
+  "image_field": "profile_image",
+  "title_field": "headline",
+  "show_name_in_global_search": 1,
+  "search_fields": "serial_no,brand,model,customer",
+
+  "field_order": [
+    "instrument_details_tab",
+
+    "sec_overview",
+    "workflow_state",
+    "status",
+    "column_break_bigo",
+    "current_location",
+
+    "section_break_identity",
+    "instrument_profile_id",
+    "instrument",
+    "serial_no",
+    "column_break_right_identity",
+    "customer",
+    "owner_name",
+
+    "section_break_overview",
+    "headline",
+    "brand",
+    "model",
+    "instrument_category",
+    "cb_general_info",
+    "wood_type",
+    "body_material",
+    "key_plating",
+    "key_system",
+    "number_of_keys_rings",
+
+    "purchase_section",
+    "purchase_date",
+    "purchase_order",
+    "col_purchase_right",
+    "purchase_receipt",
+    "intake_date",
+
+    "section_break_warranty",
+    "warranty_start_date",
+    "warranty_end_date",
+    "warranty_expiration",
+
+    "inspection_section",
+    "initial_condition_notes",
+    "linked_inspection",
+    "col_inspection_right",
+    "condition_logs",
+
+    "logs_section",
+    "external_work_logs",
+    "warranty_logs",
+    "material_usage",
+    "interaction_logs",
+    "accessory_log",
+
+    "media_section",
+    "serial_photos",
+    "profile_image",
+    "service_photos",
+
+    "sec_audit",
+    "amended_from"
+  ],
+
+  "fields": [
+    {
+      "fieldname": "instrument_details_tab",
+      "fieldtype": "Tab Break",
+      "label": "Overview"
+    },
+
+    {
+      "fieldname": "sec_overview",
+      "fieldtype": "Section Break",
+      "label": "Topline",
+      "collapsible": 0
+    },
+    {
+      "fieldname": "workflow_state",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Workflow State",
+      "options": "Open\nIn Progress\nDelivered\nArchived",
+      "read_only": 1
+    },
+    { "fieldname": "column_break_bigo", "fieldtype": "Column Break" },
+    {
+      "description": "Auto-synced from Instrument.current_status",
+      "fieldname": "status",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Status",
+      "read_only": 1
+    },
+    {
+      "fieldname": "current_location",
+      "fieldtype": "Data",
+      "label": "Current Location"
+    },
+
+    {
+      "fieldname": "section_break_identity",
+      "fieldtype": "Section Break",
+      "label": "Identity",
+      "collapsible": 1
+    },
+    {
+      "bold": 1,
+      "description": "Automatically generated unique Instrument Profile ID",
+      "fieldname": "instrument_profile_id",
+      "fieldtype": "Data",
+      "hidden": 1,
+      "label": "Instrument Profile ID",
+      "read_only": 1,
+      "show_on_timeline": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "instrument",
+      "fieldtype": "Link",
+      "label": "Instrument",
+      "options": "Instrument",
+      "reqd": 1
+    },
+    {
+      "description": "Raw serial string from Instrument.serial_no",
+      "fieldname": "serial_no",
+      "fieldtype": "Data",
+      "label": "Serial Number",
+      "read_only": 1
+    },
+    { "fieldname": "column_break_right_identity", "fieldtype": "Column Break" },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "read_only": 1
+    },
+    {
+      "fieldname": "owner_name",
+      "fieldtype": "Data",
+      "label": "Owner Name",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "section_break_overview",
+      "fieldtype": "Section Break",
+      "label": "General Information",
+      "collapsible": 1
+    },
+    {
+      "description": "Brand Model • Serial",
+      "fieldname": "headline",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Headline",
+      "read_only": 1
+    },
+    {
+      "fetch_from": "instrument.brand",
+      "fieldname": "brand",
+      "fieldtype": "Data",
+      "label": "Brand",
+      "read_only": 1
+    },
+    {
+      "fetch_from": "instrument.model",
+      "fieldname": "model",
+      "fieldtype": "Data",
+      "label": "Model",
+      "read_only": 1
+    },
+    {
+      "description": "Auto-synced from Instrument.instrument_type or clarinet_type",
+      "fieldname": "instrument_category",
+      "fieldtype": "Data",
+      "label": "Instrument Category",
+      "read_only": 1
+    },
+    { "fieldname": "cb_general_info", "fieldtype": "Column Break" },
+    {
+      "fetch_from": "instrument.body_material",
+      "fieldname": "wood_type",
+      "fieldtype": "Data",
+      "label": "Wood Type",
+      "read_only": 1
+    },
+    {
+      "fieldname": "body_material",
+      "fieldtype": "Data",
+      "label": "Body Material"
+    },
+    {
+      "fetch_from": "instrument.key_plating",
+      "fieldname": "key_plating",
+      "fieldtype": "Data",
+      "label": "Key Plating",
+      "read_only": 1
+    },
+    {
+      "fieldname": "key_system",
+      "fieldtype": "Select",
+      "label": "Key System",
+      "options": "Boehm\nAlbert\nOehler\nOther"
+    },
+    {
+      "fieldname": "number_of_keys_rings",
+      "fieldtype": "Data",
+      "label": "Number of Keys/Rings"
+    },
+
+    {
+      "fieldname": "purchase_section",
+      "fieldtype": "Section Break",
+      "label": "Purchase",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "purchase_date",
+      "fieldtype": "Date",
+      "label": "Purchase Date",
+      "read_only": 1
+    },
+    {
+      "fieldname": "purchase_order",
+      "fieldtype": "Link",
+      "label": "Purchase Order",
+      "options": "Purchase Order",
+      "read_only": 1
+    },
+    { "fieldname": "col_purchase_right", "fieldtype": "Column Break" },
+    {
+      "fieldname": "purchase_receipt",
+      "fieldtype": "Link",
+      "label": "Purchase Receipt",
+      "options": "Purchase Receipt",
+      "read_only": 1
+    },
+    {
+      "fieldname": "intake_date",
+      "fieldtype": "Date",
+      "label": "Last Intake Date",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "section_break_warranty",
+      "fieldtype": "Section Break",
+      "label": "Warranty",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "warranty_start_date",
+      "fieldtype": "Date",
+      "label": "Warranty Start Date",
+      "read_only": 1
+    },
+    {
+      "fieldname": "warranty_end_date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "label": "Warranty End Date",
+      "read_only": 1
+    },
+    {
+      "description": "Kept for backward compatibility; use warranty_end_date",
+      "fieldname": "warranty_expiration",
+      "fieldtype": "Date",
+      "hidden": 1,
+      "label": "Warranty Expiration (Deprecated)",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "inspection_section",
+      "fieldtype": "Section Break",
+      "label": "Condition & Inspection",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "initial_condition_notes",
+      "fieldtype": "Text",
+      "label": "Initial Condition Notes"
+    },
+    {
+      "fieldname": "linked_inspection",
+      "fieldtype": "Link",
+      "label": "Instrument Inspection",
+      "options": "Instrument Inspection",
+      "read_only": 1
+    },
+    { "fieldname": "col_inspection_right", "fieldtype": "Column Break" },
+    {
+      "fieldname": "condition_logs",
+      "fieldtype": "Table",
+      "label": "Condition Logs",
+      "options": "Instrument Condition Record",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "logs_section",
+      "fieldtype": "Section Break",
+      "label": "Logs",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "external_work_logs",
+      "fieldtype": "Table",
+      "label": "External Work Logs",
+      "options": "External Work Logs",
+      "read_only": 1
+    },
+    {
+      "fieldname": "warranty_logs",
+      "fieldtype": "Table",
+      "label": "Warranty Logs",
+      "options": "Warranty Modification Log",
+      "read_only": 1
+    },
+    {
+      "fieldname": "material_usage",
+      "fieldtype": "Table",
+      "label": "Material Usage",
+      "options": "Material Use Log",
+      "read_only": 1
+    },
+    {
+      "fieldname": "interaction_logs",
+      "fieldtype": "Table",
+      "label": "Interaction Logs",
+      "options": "Instrument Interaction Log",
+      "read_only": 1
+    },
+    {
+      "fieldname": "accessory_log",
+      "fieldtype": "Table",
+      "label": "Current Accessories Log",
+      "options": "Instrument Accessory",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "media_section",
+      "fieldtype": "Section Break",
+      "label": "Media & Photos",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "serial_photos",
+      "fieldtype": "Table",
+      "label": "Instrument Photos",
+      "options": "Instrument Photo"
+    },
+    {
+      "fieldname": "profile_image",
+      "fieldtype": "Attach Image",
+      "label": "Profile Image (Hero Shot)"
+    },
+    {
+      "fieldname": "service_photos",
+      "fieldtype": "Table",
+      "label": "Service Photo Log",
+      "options": "Instrument Photo"
+    },
+
+    {
+      "fieldname": "sec_audit",
+      "fieldtype": "Section Break",
+      "label": "Audit & Reference",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Instrument Profile",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+    }
+  ],
+
+  "is_submittable": 1,
+  "links": [],
+  "modified": "2025-08-15 22:33:30.914934",
+  "modified_by": "Administrator",
+  "module": "Instrument Profile",
+  "name": "Instrument Profile",
+  "naming_rule": "Expression",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "cancel": 1,
+      "create": 1,
+      "read": 1,
+      "role": "Repair Manager",
+      "submit": 1,
+      "write": 1
+    },
+    { "if_owner": 1, "read": 1, "role": "Customer" }
+  ],
+  "row_format": "Dynamic",
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1,
+  "track_views": 1
 }

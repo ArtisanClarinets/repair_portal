@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="CW">
+  <circle cx="32" cy="32" r="30" fill="#5c3b2e"/>
+  <polygon points="40,18 44,16 45,12 46,16 50,18 46,20 45,24 44,20" fill="#e3c28a"/>
+  <text x="20" y="44" font-size="20" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial" fill="#f4efea">CW</text>
+</svg>

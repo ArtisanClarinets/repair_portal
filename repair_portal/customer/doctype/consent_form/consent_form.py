@@ -1,24 +1,21 @@
-# -*- coding: utf-8 -*-
-"""
-File: repair_portal/customer/doctype/consent_form/consent_form.py
-Version: v2.0.0 (2025-09-14)
-
-Consent Form (canonical):
-- Jinja-based rendering from Consent Template.content
-- Auto-fills missing values from "Consent Settings" mappings + template defaults
-- Enforces: draft allowed without signature; signature required before Submit
-- Keeps parity between Template.required_fields and child table values
-- Locks key fields post-submit; keeps status/workflow_state consistent
-"""
+# Path: repair_portal/customer/doctype/consent_form/consent_form.py
+# Date: 2025-09-30
+# Version: 3.0.0
+# Description: Consent Form controller - Jinja rendering, auto-fill, workflow integration, audit logging
+# Dependencies: frappe, frappe.model.document, frappe.utils
 
 from __future__ import annotations
-from typing import Dict, Any, List, Optional
+
+from typing import Any
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils import now_datetime, nowdate
 
-def _get_settings() -> Optional[Document]:
+
+def _get_settings() -> Document | None:
+    """Get Consent Settings singleton safely."""
     if frappe.db.exists("DocType", "Consent Settings"):
         try:
             return frappe.get_single("Consent Settings")
@@ -26,38 +23,134 @@ def _get_settings() -> Optional[Document]:
             return None
     return None
 
+def _log_consent_action(consent_form: Document, action: str, details: str = "") -> None:
+    """Log consent form actions for audit trail."""
+    try:
+        log_entry = consent_form.append("log_entries", {})
+        log_entry.action = action
+        log_entry.timestamp = now_datetime()
+        log_entry.technician = frappe.session.user
+        log_entry.details = details or ""
+        log_entry.reference_doctype = "Consent Form"
+        log_entry.reference_name = consent_form.name
+    except Exception:
+        # Don't fail the main operation if logging fails
+        frappe.log_error(f"Failed to log consent action: {action}")
+
 class ConsentForm(Document):
     # Events ---------------------------------------------------------------
 
     def before_insert(self):
+        """Initialize form before creation."""
         self._ensure_required_fields()
+        self._apply_auto_values()
+        _log_consent_action(self, "Created", f"Created from template: {self.consent_template}")
 
     def validate(self):
+        """Comprehensive validation and data synchronization."""
+        # Validate required fields and permissions
+        self._validate_permissions()
+        self._validate_template_active()
+        
         # Keep child table in sync with template
         self._ensure_required_fields()
+        
         # Apply auto-fill to any blank values
         self._apply_auto_values()
+        
         # Render into HTML every time (Jinja)
         self.rendered_content = self._render_content()  # type: ignore
+        
         # Maintain human-readable status
         self._sync_status()
+        
+        # Validate signature requirements
+        self._validate_signature_requirements()
 
     def before_submit(self):
+        """Pre-submission validation and logging."""
         # Signature must exist at submit time
         if not getattr(self, "signature", None):
-            frappe.throw("Signature is required before submitting the Consent Form.")
+            frappe.throw(_("Signature is required before submitting the Consent Form."))
+        
         # Timestamp and status on submit
         if not getattr(self, "signed_on", None):
             self.signed_on = now_datetime()  # type: ignore
+        
         self.status = "Signed"  # type: ignore
+        
+        _log_consent_action(self, "Submitted", f"Form submitted with signature at {self.signed_on}")
 
     def on_submit(self):
+        """Post-submission actions."""
         # Safety: lock critical fields post-submit (Customer, Template)
         self._lock_when_submitted()
+        
+        # Create linked documents if needed
+        self._create_linked_documents()
+        
+        _log_consent_action(self, "Finalized", "Form finalized and locked")
 
     def on_cancel(self):
+        """Handle cancellation."""
         # Keep status aligned
         self.status = "Cancelled"  # type: ignore
+        
+        _log_consent_action(self, "Cancelled", f"Form cancelled by {frappe.session.user}")
+
+    def after_insert(self):
+        """Post-creation actions."""
+        frappe.db.commit()  # Ensure we have a name
+        
+    # API Methods ----------------------------------------------------------
+
+    @frappe.whitelist()
+    def refresh_from_template(self) -> dict[str, Any]:
+        """Refresh required fields from template (useful if template changed)."""
+        if not frappe.has_permission(self.doctype, "write", self):
+            frappe.throw(_("Insufficient permissions to refresh form"))
+            
+        if self.docstatus != 0:
+            frappe.throw(_("Cannot refresh submitted or cancelled forms"))
+            
+        old_count = len(self.consent_field_values or [])
+        self._ensure_required_fields()
+        new_count = len(self.consent_field_values or [])
+        
+        self.save(ignore_permissions=True)
+        
+        _log_consent_action(self, "Refreshed", f"Refreshed from template, fields: {old_count} -> {new_count}")
+        
+        return {
+            "status": "success",
+            "old_field_count": old_count,
+            "new_field_count": new_count,
+            "message": _("Form refreshed from template")
+        }
+
+    @frappe.whitelist()
+    def preview_render(self) -> str:
+        """Generate preview of rendered content without saving."""
+        return self._render_content()
+
+    @frappe.whitelist()
+    def get_available_variables(self) -> list[str]:
+        """Get list of available template variables."""
+        variables = ["date", "form"]
+        
+        # Add child field variables
+        for row in (self.consent_field_values or []):
+            if row.field_label:
+                variables.append(frappe.scrub(row.field_label))
+        
+        # Add settings variables
+        settings = _get_settings()
+        if settings:
+            for mapping in (settings.mappings or []):
+                if mapping.variable_name and getattr(mapping, "enabled", 0):
+                    variables.append(mapping.variable_name)
+        
+        return sorted(variables)
 
     # Helpers --------------------------------------------------------------
 
@@ -99,7 +192,7 @@ class ConsentForm(Document):
         tmpl = self._get_template()
 
         # 1) Template defaults (by original label)
-        t_defaults: Dict[str, str] = {}
+        t_defaults: dict[str, str] = {}
         for req in (tmpl.required_fields or []):  # type: ignore
             lbl = (req.field_label or "").strip()
             if lbl:
@@ -107,7 +200,7 @@ class ConsentForm(Document):
 
         # 2) Settings-driven fetches (by variable_name)
         settings = _get_settings()
-        var_values: Dict[str, Any] = {}
+        var_values: dict[str, Any] = {}
         if settings and getattr(settings, "enable_auto_fill", 0):
             for m in (settings.mappings or []):
                 if not getattr(m, "enabled", 0):
@@ -140,7 +233,7 @@ class ConsentForm(Document):
             if (row.field_label or "") in t_defaults and t_defaults[row.field_label]:
                 row.field_value = t_defaults[row.field_label]
 
-    def _jinja_context(self) -> Dict[str, Any]:
+    def _jinja_context(self) -> dict[str, Any]:
         """
         Build Jinja context:
         - date (YYYY-MM-DD)
@@ -148,7 +241,7 @@ class ConsentForm(Document):
         - child values as snake_case keys from their labels
         - also include settings-derived variables (by variable_name)
         """
-        ctx: Dict[str, Any] = {
+        ctx: dict[str, Any] = {
             "date": nowdate(),
             "form": self,
         }

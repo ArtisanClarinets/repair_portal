@@ -4,20 +4,138 @@
   "module": "Intake",
   "engine": "InnoDB",
   "custom": 0,
+  "is_submittable": 1,
+  "track_changes": 1,
+  "track_seen": 0,
+  "track_views": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "allow_import": 0,
+  "allow_rename": 0,
+  "allow_copy": 0,
+
+  "workflow_state_field": "status",
+
+  "field_order": [
+    "status",
+    "instrument",
+    "intake",
+    "issued_to",
+    "issued_contact",
+    "issue_date",
+    "due_date",
+    "returned",
+    "section_conditions",
+    "condition_on_issue",
+    "condition_on_return",
+    "section_signatures",
+    "customer_signature",
+    "company_rep_signature",
+    "agreement_pdf"
+  ],
+
   "fields": [
-    {"fieldname": "loaner_serial", "fieldtype": "Data", "label": "Loaner Serial Number", "reqd": 1},
-    {"fieldname": "item_code", "fieldtype": "Link", "label": "Instrument Item Code", "options": "Item"},
-    {"fieldname": "issued_to", "fieldtype": "Link", "label": "Issued To (Customer)", "options": "Customer"},
-    {"fieldname": "issued_date", "fieldtype": "Date", "label": "Issued Date", "reqd": 1},
-    {"fieldname": "expected_return_date", "fieldtype": "Date", "label": "Expected Return Date"},
-    {"fieldname": "returned", "fieldtype": "Check", "label": "Returned"},
-    {"fieldname": "loaner_status", "fieldtype": "Select", "label": "Loaner Status", "options": "Issued\nReturned\nOverdue", "default": "Issued"}
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Draft\nIssued\nReturned",
+      "default": "Draft",
+      "in_list_view": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument",
+      "label": "Instrument",
+      "fieldtype": "Link",
+      "options": "Instrument",
+      "in_list_view": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "intake",
+      "label": "Intake ID",
+      "fieldtype": "Link",
+      "options": "Clarinet Intake",
+      "search_index": 1
+    },
+    {
+      "fieldname": "issued_to",
+      "label": "Issued To (Customer)",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "in_list_view": 1,
+      "reqd": 0,
+      "search_index": 1
+    },
+    {
+      "fieldname": "issued_contact",
+      "label": "Issued To (Contact)",
+      "fieldtype": "Link",
+      "options": "Contact"
+    },
+    {
+      "fieldname": "issue_date",
+      "label": "Issue Date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "due_date",
+      "label": "Due Date",
+      "fieldtype": "Date",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "returned",
+      "label": "Returned",
+      "fieldtype": "Check",
+      "default": "0"
+    },
+
+    { "fieldname": "section_conditions", "fieldtype": "Section Break", "label": "Condition" },
+    {
+      "fieldname": "condition_on_issue",
+      "label": "Condition on Issue",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "condition_on_return",
+      "label": "Condition on Return",
+      "fieldtype": "Small Text",
+      "depends_on": "eval:doc.status=='Returned'"
+    },
+
+    { "fieldname": "section_signatures", "fieldtype": "Section Break", "label": "Signatures & Agreement" },
+    {
+      "fieldname": "customer_signature",
+      "label": "Customer Signature",
+      "fieldtype": "Signature"
+    },
+    {
+      "fieldname": "company_rep_signature",
+      "label": "Company Representative Signature",
+      "fieldtype": "Signature"
+    },
+    {
+      "fieldname": "agreement_pdf",
+      "label": "Agreement PDF",
+      "fieldtype": "Attach",
+      "read_only": 1,
+      "in_list_view": 0
+    }
   ],
+
+  "states": [
+    { "title": "Draft", "color": "Gray" },
+    { "title": "Issued", "color": "Blue" },
+    { "title": "Returned", "color": "Green" }
+  ],
+
   "permissions": [
-    {"role": "Technician", "read": 1, "write": 1, "create": 1},
-    {"role": "Service Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1},
-    {"role": "Customer", "read": 1, "create": 1, "if_owner": 1}
-  ],
-  "workflow_state_field": "loaner_status"
+    { "role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "delete": 1 },
+    { "role": "Repair Manager", "read": 1, "write": 1, "create": 1, "submit": 1 },
+    { "role": "Technician", "read": 1, "write": 1, "create": 1 }
+  ]
 }

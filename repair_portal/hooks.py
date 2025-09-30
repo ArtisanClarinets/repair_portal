@@ -33,13 +33,16 @@ after_install = [
 
 after_migrate = [
     'repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes',
+    
+    
+    # use if update schemas in scripts/hooks/schemas/*
     #   "repair_portal.install.seed_item_groups_after_migrate",
     #   "repair_portal.install.seed_all_from_schemas",
     
     # Ensure Consent Artifacts are installed/updated
-     'repair_portal.utils.install.ensure_workflow_prereqs.ensure_workflow_prereqs',
+    # 'repair_portal.utils.install.ensure_workflow_prereqs.ensure_workflow_prereqs',
 
-    'repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts',
+    # 'repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts',
 ]
 
 
@@ -117,8 +120,6 @@ doc_events = {
   }
 }
 
-
-app_include_css = ['/assets/repair_portal/css/clarinet_editor.css']
 
 # website_route_rules = [
 #     {'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},
