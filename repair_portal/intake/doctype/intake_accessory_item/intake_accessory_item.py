@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Absolute Path: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/intake_accessory_item/intake_accessory_item.py
 # Last Updated: 2025-09-19
 # Version: v1.2.0 (Amount calc, auto-fetch UOM/description/rate)
@@ -14,8 +13,6 @@
 #   - Clarinet Intake Settings (for selling_price_list)
 
 from __future__ import annotations
-
-from typing import Optional
 
 import frappe
 from frappe import _

@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 from __future__ import annotations
 
 import frappe
+
 
 def after_submit_stock_entry(doc, method=None):
     """If a Stock Entry (Material Issue) references an RO in remarks or any item description,
@@ -31,5 +31,7 @@ def after_submit_stock_entry(doc, method=None):
         return
 
     # Mirror into RO.actual_materials
-    from repair_portal.repair_portal.repair.doctype.repair_order.repair_order import _update_actuals_from_se
+    from repair_portal.repair_portal.repair.doctype.repair_order.repair_order import (
+        _update_actuals_from_se,
+    )
     _update_actuals_from_se(ro_name, doc.name)

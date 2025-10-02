@@ -1,11 +1,11 @@
-# ---------------------------------------------------------------------------
-# File: repair_portal/instrument_profile/events/utils.py
-# Date Updated: 2025-07-02
-# Version: v1.0
-# Purpose: Auto-create linked documents when Instrument Profile created.
-# ---------------------------------------------------------------------------
+# Path: repair_portal/instrument_profile/events/utils.py
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: Event handlers for Instrument Profile lifecycle; auto-creates linked Inspection Report with proper error handling
+# Dependencies: frappe
 
 import frappe
+from frappe import _
 
 
 def create_linked_documents(doc, method=None):

@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
 """
 Validates transition references, orphan states, missing masters.
 Run: bench execute repair_portal.utils.workflows.validate:run
 """
 from __future__ import annotations
+
 import json
 from pathlib import Path
-from typing import Dict, Any, List, Tuple
+from typing import Any
+
 import frappe
 
 APP_ROOT = Path("/home/frappe/frappe-bench/apps/repair_portal")
@@ -18,7 +19,7 @@ def _load_json(p: Path):
     except Exception:
         return None
 
-def run() -> Dict[str, Any]:
+def run() -> dict[str, Any]:
     issues = {
         "missing_action_master": [],
         "missing_state_master": [],

@@ -1,7 +1,9 @@
-# Copyright (c) 2025, DT and contributors
-# For license information, please see license.txt
+# Path: repair_portal/instrument_profile/doctype/instrument_model/instrument_model.py
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: Master data for instrument models (Brand + Model + Category + Body Material); validates uniqueness
+# Dependencies: frappe, Brand, Instrument Category
 
-# import frappe
 from frappe.model.document import Document
 
 

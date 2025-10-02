@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 from math import ceil
+
 import frappe
 from frappe import _
 from frappe.model.document import Document
@@ -26,8 +27,8 @@ def _get_setting(field: str, default: float | int) -> float:
     Returns the default for None, empty string, non-numeric strings, or unsupported types
     such as date/datetime to avoid passing them to float().
     """
-    from typing import Any
     from datetime import date, datetime, timedelta
+    from typing import Any
 
     try:
         val: Any = frappe.db.get_single_value('Repair Portal Settings', field)
@@ -35,7 +36,7 @@ def _get_setting(field: str, default: float | int) -> float:
             return float(default)
 
         # Numeric types are accepted directly
-        if isinstance(val, (int, float)):
+        if isinstance(val, int | float):
             return float(val)
 
         # Try numeric strings
@@ -46,7 +47,7 @@ def _get_setting(field: str, default: float | int) -> float:
                 return float(default)
 
         # For dates/datetimes/timedeltas or any other unsupported type, return default
-        if isinstance(val, (date, datetime, timedelta)):
+        if isinstance(val, date | datetime | timedelta):
             return float(default)
 
         # Fallback for unexpected types
@@ -60,10 +61,19 @@ class ClarinetInitialSetup(Document):
     from typing import TYPE_CHECKING
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.instrument_setup.doctype.clarinet_setup_operation.clarinet_setup_operation import ClarinetSetupOperation
-        from repair_portal.instrument_setup.doctype.setup_checklist_item.setup_checklist_item import SetupChecklistItem
-        from repair_portal.instrument_setup.doctype.setup_material_log.setup_material_log import SetupMaterialLog
-        from repair_portal.repair_logging.doctype.instrument_interaction_log.instrument_interaction_log import InstrumentInteractionLog
+
+        from repair_portal.instrument_setup.doctype.clarinet_setup_operation.clarinet_setup_operation import (
+            ClarinetSetupOperation,
+        )
+        from repair_portal.instrument_setup.doctype.setup_checklist_item.setup_checklist_item import (
+            SetupChecklistItem,
+        )
+        from repair_portal.instrument_setup.doctype.setup_material_log.setup_material_log import (
+            SetupMaterialLog,
+        )
+        from repair_portal.repair_logging.doctype.instrument_interaction_log.instrument_interaction_log import (
+            InstrumentInteractionLog,
+        )
 
         actual_cost: DF.Currency
         actual_end_date: DF.Datetime | None
@@ -72,7 +82,7 @@ class ClarinetInitialSetup(Document):
         amended_from: DF.Link | None
         checklist: DF.Table[SetupChecklistItem]
         clarinet_initial_setup_id: DF.Data | None
-        clarinet_type: DF.Literal['B♭ Clarinet','A Clarinet','E♭ Clarinet','Bass Clarinet','Alto Clarinet','Contrabass Clarinet','Other']
+        clarinet_type: DF.Data  # Select field with options: B♭ Clarinet, A Clarinet, etc.
         estimated_cost: DF.Currency
         estimated_materials_cost: DF.Currency
         expected_end_date: DF.Date | None
@@ -86,13 +96,13 @@ class ClarinetInitialSetup(Document):
         model: DF.Data | None
         notes: DF.Table[InstrumentInteractionLog]
         operations_performed: DF.Table[ClarinetSetupOperation]
-        priority: DF.Literal['Low','Medium','High','Urgent']
+        priority: DF.Data  # Select field with options: Low, Medium, High, Urgent
         progress: DF.Percent
         serial: DF.Link | None
         setup_date: DF.Date | None
         setup_template: DF.Link | None
-        setup_type: DF.Literal['Standard Setup','Advanced Setup','Repair & Setup','Custom Setup']
-        status: DF.Literal['Open','In Progress','Completed','On Hold','Cancelled','QA Review','Customer Approval']
+        setup_type: DF.Data  # Select field with options: Standard Setup, Advanced Setup, etc.
+        status: DF.Data  # Select field with options: Open, In Progress, Completed, etc.
         technical_tags: DF.TextEditor | None
         technician: DF.Link | None
         work_photos: DF.AttachImage | None
@@ -172,13 +182,13 @@ class ClarinetInitialSetup(Document):
 
     def validate_project_dates(self):
         """Validate project timeline consistency."""
-        if self.expected_start_date and self.expected_end_date:
-            if self.expected_end_date < self.expected_start_date:  # type: ignore
-                frappe.throw(_('Expected End Date cannot be before Expected Start Date.'))
+        if (self.expected_start_date and self.expected_end_date and 
+            self.expected_end_date < self.expected_start_date):  # type: ignore
+            frappe.throw(_('Expected End Date cannot be before Expected Start Date.'))
 
-        if self.actual_start_date and self.actual_end_date:
-            if self.actual_end_date < self.actual_start_date:  # type: ignore
-                frappe.throw(_('Actual End Date cannot be before Actual Start Date.'))
+        if (self.actual_start_date and self.actual_end_date and 
+            self.actual_end_date < self.actual_start_date):  # type: ignore
+            frappe.throw(_('Actual End Date cannot be before Actual Start Date.'))
 
     def update_actual_dates(self):
         """Update actual dates based on status."""

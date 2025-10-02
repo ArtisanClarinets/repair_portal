@@ -56,7 +56,7 @@
       "fieldname": "workflow_state",
       "fieldtype": "Select",
       "label": "Workflow State",
-      "options": "Workflow State",
+      "options": "Draft\nRecorded\nVerified\nArchived",
       "read_only": 1,
       "in_list_view": 1
     }

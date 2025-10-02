@@ -1,7 +1,8 @@
-# File: repair_portal/instrument_profile/config/desktop.py
-# Created: 2025-06-13
-# Version: 1.0
-# Purpose: Defines Instrument Profile module card for Desk
+# Path: repair_portal/instrument_profile/config/desktop.py
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: Desktop workspace configuration for Instrument Profile module; defines module card appearance and links
+# Dependencies: frappe
 
 
 def get_data():

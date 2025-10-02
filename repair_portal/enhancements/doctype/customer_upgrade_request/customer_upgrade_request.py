@@ -10,6 +10,7 @@ class CustomerUpgradeRequest(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
+
         from repair_portal.enhancements.doctype.upgrade_option.upgrade_option import UpgradeOption
 
         amended_from: DF.Link | None

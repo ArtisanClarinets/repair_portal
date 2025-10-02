@@ -10,7 +10,6 @@ from frappe.model.document import Document
 from frappe.utils import now_datetime
 
 
-
 class RepairTask(Document):
     # begin: auto-generated types
     # This code is auto-generated. Do not modify anything in this block.
@@ -35,7 +34,7 @@ class RepairTask(Document):
         parenttype: DF.Data
         parts_cost: DF.Currency
         remarks: DF.SmallText | None
-        status: DF.Literal['', 'Pending', 'In Progress', 'Completed']
+        status: DF.Literal['', Pending, 'In Progress', Completed]
         task_type: DF.Link
         technician: DF.Link | None
 

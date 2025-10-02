@@ -31,6 +31,7 @@
     "col_overview_right",
     "employee",
     "instrument",
+    "intake_status",
 
     "sec_instrument_identity",
     "instrument_category",
@@ -140,6 +141,16 @@
       "label": "Instrument",
       "options": "Instrument",
       "read_only": 1
+    },
+    {
+      "fieldname": "intake_status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Pending\nReceived\nInspection\nSetup\nRepair\nAwaiting Customer Approval\nAwaiting Payment\nIn Transit\nReturned to Customer\nComplete\nCancelled",
+      "default": "Pending",
+      "read_only": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
     },
 
     {

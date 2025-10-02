@@ -1,11 +1,8 @@
-# File Header Template
-# Relative Path: repair_portal/instrument_profile/doctype/instrument/instrument.py
-# Last Updated: 2025-08-14
-# Version: v1.3
-# Purpose: Optimized Instrument DocType controller to reduce database calls and redundant autoname execution during save.
-#          Adds ISN-aware duplicate checks while remaining backward-compatible with legacy Serial No (ERPNext) and raw strings.
-# Dependencies: frappe.model.naming, Instrument Category Doctype, frappe.log_error,
-#               repair_portal.repair_portal.utils.serials (find_by_serial for ISN resolution)
+# Path: repair_portal/instrument_profile/doctype/instrument/instrument.py
+# Date: 2025-10-02
+# Version: 1.3.0
+# Description: Optimized Instrument DocType controller with ISN-aware duplicate checks, reduced DB calls, and backward-compatible serial number handling
+# Dependencies: frappe, frappe.model.naming, Instrument Category, repair_portal.utils.serials
 
 from __future__ import annotations
 
@@ -34,19 +31,22 @@ class Instrument(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import InstrumentAccessory
+
+        from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
+            InstrumentAccessory,
+        )
 
         accessory_id: DF.Table[InstrumentAccessory]
         attachments: DF.AttachImage | None
         body_material: DF.Data | None
         brand: DF.Link | None
-        clarinet_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "Bass Clarinet", "Alto Clarinet", "Contrabass Clarinet", "Other"]
-        current_status: DF.Literal["Active", "Needs Repair", "Awaiting Parts", "In Service", "Archived"]
+        clarinet_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "Bass Clarinet", "Alto Clarinet", "Contrabass Clarinet", Other]
+        current_status: DF.Literal[Active, "Needs Repair", "Awaiting Parts", "In Service", Archived]
         customer: DF.Link | None
         instrument_category: DF.Link | None
         instrument_id: DF.Data | None
-        instrument_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "Bass Clarinet", "E\u266d Clarinet", "Alto Clarinet", "Contrabass Clarinet", "Other"]
-        key_plating: DF.Literal["Silver", "Nickel", "Gold", "Other"]
+        instrument_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "Bass Clarinet", "E\u266d Clarinet", "Alto Clarinet", "Contrabass Clarinet", Other]
+        key_plating: DF.Literal[Silver, Nickel, Gold, Other]
         keywork_plating: DF.Data | None
         model: DF.Data | None
         notes: DF.SmallText | None

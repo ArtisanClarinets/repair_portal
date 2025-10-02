@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Relative Path: repair_portal/repair/doctype/repair_order/repair_order.py
 # Version: 2.3.0 (2025-09-17)
 # Purpose:
@@ -14,7 +13,6 @@
 # Safe on sites where some optional fields/child tables are absent.
 
 from __future__ import annotations
-from typing import List, Optional
 
 import frappe
 from frappe import _
@@ -39,9 +37,16 @@ class RepairOrder(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.repair.doctype.repair_actual_material.repair_actual_material import RepairActualMaterial
-        from repair_portal.repair.doctype.repair_planned_material.repair_planned_material import RepairPlannedMaterial
-        from repair_portal.repair.doctype.repair_related_document.repair_related_document import RepairRelatedDocument
+
+        from repair_portal.repair.doctype.repair_actual_material.repair_actual_material import (
+            RepairActualMaterial,
+        )
+        from repair_portal.repair.doctype.repair_planned_material.repair_planned_material import (
+            RepairPlannedMaterial,
+        )
+        from repair_portal.repair.doctype.repair_related_document.repair_related_document import (
+            RepairRelatedDocument,
+        )
 
         actual_materials: DF.Table[RepairActualMaterial]
         assigned_technician: DF.Link | None
@@ -55,7 +60,7 @@ class RepairOrder(Document):
         naming_series: DF.Data
         planned_materials: DF.Table[RepairPlannedMaterial]
         posting_date: DF.Date | None
-        priority: DF.Literal["Low", "Medium", "High", "Critical"]
+        priority: DF.Literal[Low, Medium, High, Critical]
         qa_required: DF.Check
         related_documents: DF.Table[RepairRelatedDocument]
         remarks: DF.SmallText | None
@@ -65,7 +70,7 @@ class RepairOrder(Document):
         total_estimated_minutes: DF.Int
         warehouse_source: DF.Link
         warranty_until: DF.Date | None
-        workflow_state: DF.Literal["Draft", "In Progress", "QA", "Ready", "Delivered", "Closed"]
+        workflow_state: DF.Literal[Draft, "In Progress", QA, Ready, Delivered, Closed]
     # end: auto-generated types
     # ---- Lifecycle ---------------------------------------------------------
 
@@ -147,7 +152,7 @@ class RepairOrder(Document):
         if not self.meta.has_field("related_documents"):
             return
 
-        def opt(fieldname: str) -> Optional[str]:
+        def opt(fieldname: str) -> str | None:
             return self.get(fieldname) if self.meta.has_field(fieldname) else None
 
         linkmap = {
@@ -257,7 +262,7 @@ class RepairOrder(Document):
 # ===========================================================================
 
 @frappe.whitelist()
-def create_material_issue_draft(repair_order: str, include_planned: int | bool = 0) -> List[str]:
+def create_material_issue_draft(repair_order: str, include_planned: int | bool = 0) -> list[str]:
     """Create a draft Stock Entry (Material Issue).
     Args:
         repair_order: Repair Order name
@@ -392,14 +397,14 @@ def _mirror_se_items_into_actuals(ro_name: str, se_name: str) -> None:
 
 # ---- Optional: hook target to auto-mirror on submit ------------------------
 
-def _on_submit_stock_entry(doc: Document, method: Optional[str] = None) -> None:
+def _on_submit_stock_entry(doc: Document, method: str | None = None) -> None:
     ro_name = _extract_ro_from_se(doc)
     if not ro_name or not frappe.db.exists("Repair Order", ro_name):
         return
     _mirror_se_items_into_actuals(ro_name, doc.name)
 
 
-def _extract_ro_from_se(se: Document) -> Optional[str]:
+def _extract_ro_from_se(se: Document) -> str | None:
     if se.get("remarks"):
         for token in str(se.remarks).replace(",", " ").split():
             if token.startswith("RO-"):

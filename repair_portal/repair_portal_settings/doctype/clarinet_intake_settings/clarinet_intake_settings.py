@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Absolute Path: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/repair_portal_settings/doctype/clarinet_intake_settings/clarinet_intake_settings.py
 # Last Updated: 2025-09-19
 # Version: v1.2
@@ -24,6 +23,7 @@ class ClarinetIntakeSettings(Document):
 		self._validate_link("buying_price_list", "Price List", fallback="Standard Buying")
 		self._validate_link("selling_price_list", "Price List", fallback="Standard Selling")
 		self._validate_link("stock_uom", "UOM", fallback="Nos")
+		self._validate_consent_template()
 
 		# Ensure at least one naming hint is present
 		if not (self.intake_naming_series or self.intake_id_pattern):
@@ -46,6 +46,18 @@ class ClarinetIntakeSettings(Document):
 					indicator="orange",
 				)
 				setattr(self, fieldname, None)
+
+	def _validate_consent_template(self) -> None:
+		"""Validate consent template if auto-create is enabled."""
+		if self.auto_create_consent_form and self.default_consent_template:  # type: ignore
+			if not frappe.db.exists("Consent Template", self.default_consent_template):  # type: ignore
+				frappe.msgprint(
+					_("Consent Template '{0}' not found. Please select a valid template.").format(
+						self.default_consent_template  # type: ignore
+					),
+					indicator="orange"
+				)
+				self.default_consent_template = None  # type: ignore
 
 
 def get_intake_settings() -> dict:

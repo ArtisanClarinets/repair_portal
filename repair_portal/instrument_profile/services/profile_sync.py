@@ -277,11 +277,28 @@ def sync_profile(profile_name: str) -> dict[str, str]:
 
 @frappe.whitelist()
 def sync_now(profile: str | None = None, instrument: str | None = None) -> dict[str, str]:
-    """Ensure a profile exists and sync scalar snapshot fields."""
+    """Ensure a profile exists and sync scalar snapshot fields.
+    
+    Security: Requires appropriate permissions on Instrument Profile or Instrument.
+    """
+    # Input validation
     if not profile and not instrument:
         frappe.throw(_('Provide either profile or instrument'))
-    if not profile and instrument:
+    
+    # Permission check BEFORE profile creation
+    if profile:
+        if not frappe.has_permission('Instrument Profile', 'write', profile):
+            frappe.throw(_('Insufficient permissions to sync profile'), frappe.PermissionError)
+    elif instrument:
+        if not frappe.has_permission('Instrument', 'read', instrument):
+            frappe.throw(_('Insufficient permissions to read instrument'), frappe.PermissionError)
         profile = _ensure_profile(instrument)
+    
+    # Audit log
+    frappe.logger().info(
+        f"Profile sync triggered: {profile} by {frappe.session.user}"
+    )
+    
     return sync_profile(profile)  # type: ignore[arg-type]
 
 
@@ -424,10 +441,25 @@ def _aggregate_snapshot(instrument_name: str, profile_name: str) -> dict[str, ob
 def get_snapshot(instrument: str | None = None, profile: str | None = None) -> dict[str, object]:
     """
     Public API helper: ensure profile exists + synced, then return the full snapshot.
+    
+    Security: Requires read permission on the profile or instrument to prevent cross-customer data access.
     """
+    # Input validation
     if not instrument and not profile:
         frappe.throw(_('Provide instrument or profile'))
-    if not profile and instrument:
+    
+    # Permission validation BEFORE any operation
+    if profile:
+        if not frappe.has_permission('Instrument Profile', 'read', profile):
+            frappe.throw(_('Insufficient permissions to read profile'), frappe.PermissionError)
+    elif instrument:
+        if not frappe.has_permission('Instrument', 'read', instrument):
+            frappe.throw(_('Insufficient permissions to read instrument'), frappe.PermissionError)
         profile = _ensure_profile(instrument)
+    
+    # Additional check after profile creation (defensive)
+    if not frappe.has_permission('Instrument Profile', 'read', profile):
+        frappe.throw(_('Insufficient permissions to read profile'), frappe.PermissionError)
+    
     res = sync_profile(profile)  # sync scalars  # type: ignore
     return _aggregate_snapshot(res['instrument'], res['profile'])

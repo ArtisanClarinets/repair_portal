@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Relative Path: repair_portal/repair/doctype/repair_actual_material/repair_actual_material.py
 # Version: 1.1.0 (2025-09-17)
 # Purpose:

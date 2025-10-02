@@ -1,7 +1,9 @@
 {
  "actions": [],
+ "allow_rename": 1,
  "autoname": "format:PLAYER-.####.",
  "creation": "2025-07-27 03:28:59.133394",
+ "description": "Fortune-500 production-ready Player Profile for comprehensive musician CRM tracking, preferences, equipment, and service history.",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -12,25 +14,31 @@
   "primary_phone",
   "mailing_address",
   "profile_creation_date",
+  "section_break_musical",
   "player_level",
   "primary_playing_styles",
   "affiliation",
   "primary_teacher",
+  "column_break_musical",
   "equipment_preferences",
   "key_height_preference",
   "spring_tension_preference",
   "preferred_pad_type",
   "g_sharp_a_connection",
+  "section_break_service",
   "intonation_notes",
   "technician_notes",
   "instruments_owned",
   "last_visit_date",
+  "section_break_crm",
   "customer_lifetime_value",
   "communication_preference",
   "newsletter_subscription",
   "targeted_marketing_optin",
   "referral_source",
-  "profile_status"
+  "column_break_status",
+  "profile_status",
+  "workflow_state"
  ],
  "fields": [
   {
@@ -39,157 +47,221 @@
    "fieldtype": "Data",
    "label": "Player Profile ID",
    "read_only": 1,
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1,
+   "description": "Auto-generated unique identifier for this player profile"
   },
   {
    "fieldname": "player_name",
    "fieldtype": "Data",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Full Name",
-   "reqd": 1
+   "reqd": 1,
+   "description": "Full legal name of the player"
   },
   {
    "fieldname": "preferred_name",
    "fieldtype": "Data",
-   "label": "Preferred Name"
+   "label": "Preferred Name",
+   "description": "Name the player prefers to be called"
   },
   {
    "fieldname": "primary_email",
    "fieldtype": "Data",
    "label": "Primary Email",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1,
+   "options": "Email",
+   "description": "Primary email address for communication"
   },
   {
    "fieldname": "primary_phone",
    "fieldtype": "Data",
-   "label": "Primary Phone"
+   "label": "Primary Phone",
+   "options": "Phone",
+   "description": "Primary phone number"
   },
   {
    "fieldname": "mailing_address",
    "fieldtype": "Small Text",
-   "label": "Mailing Address"
+   "label": "Mailing Address",
+   "description": "Complete mailing address for correspondence and shipping"
   },
   {
    "default": "Today",
    "fieldname": "profile_creation_date",
    "fieldtype": "Date",
    "label": "Profile Creation Date",
-   "read_only": 1
+   "read_only": 1,
+   "description": "Date when this profile was first created"
+  },
+  {
+   "fieldname": "section_break_musical",
+   "fieldtype": "Section Break",
+   "label": "Musical Profile"
   },
   {
    "fieldname": "player_level",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Player Level",
    "options": "Student (Beginner)\nStudent (Advanced)\nAmateur/Hobbyist\nUniversity Student\nProfessional (Orchestral)\nProfessional (Jazz/Commercial)\nEducator\nCollector",
-   "reqd": 1
+   "reqd": 1,
+   "description": "Current skill/professional level of the player"
   },
   {
    "default": "0",
    "fieldname": "primary_playing_styles",
-   "fieldtype": "Check",
+   "fieldtype": "Small Text",
    "label": "Primary Playing Style(s)",
-   "options": "Orchestral\nChamber\nSolo\nJazz\nKlezmer\nContemporary\nConcert Band"
+   "description": "Comma-separated list of playing styles: Orchestral, Chamber, Solo, Jazz, Klezmer, Contemporary, Concert Band"
   },
   {
    "fieldname": "affiliation",
    "fieldtype": "Data",
-   "label": "Affiliation / Organization"
+   "label": "Affiliation / Organization",
+   "description": "Current musical organization, orchestra, or educational institution"
   },
   {
    "fieldname": "primary_teacher",
    "fieldtype": "Data",
-   "label": "Primary Teacher / Mentor"
+   "label": "Primary Teacher / Mentor",
+   "description": "Name of primary teacher or mentor"
+  },
+  {
+   "fieldname": "column_break_musical",
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "equipment_preferences",
    "fieldtype": "Table",
    "label": "Equipment Preference(s)",
-   "options": "Player Equipment Preference"
+   "options": "Player Equipment Preference",
+   "description": "Detailed equipment preferences for mouthpiece, ligature, reeds, barrel, etc."
   },
   {
    "fieldname": "key_height_preference",
    "fieldtype": "Select",
    "label": "Key Height Preference",
-   "options": "Low/Close\nStandard\nHigh/Open"
+   "options": "Low/Close\nStandard\nHigh/Open",
+   "description": "Preferred key height setting for clarinet"
   },
   {
    "fieldname": "spring_tension_preference",
    "fieldtype": "Select",
    "label": "Spring Tension Preference",
-   "options": "Light/Fluid\nStandard/Firm\nHeavy/Resistant"
+   "options": "Light/Fluid\nStandard/Firm\nHeavy/Resistant",
+   "description": "Preferred spring tension for key action"
   },
   {
    "fieldname": "preferred_pad_type",
    "fieldtype": "Data",
-   "label": "Preferred Pad Type"
+   "label": "Preferred Pad Type",
+   "description": "Preferred type of clarinet pads (e.g., skin, synthetic, with or without resonators)"
   },
   {
    "fieldname": "g_sharp_a_connection",
    "fieldtype": "Data",
-   "label": "G#/A Key Connection"
+   "label": "G#/A Key Connection",
+   "description": "Preference for G#/A key connection type"
+  },
+  {
+   "fieldname": "section_break_service",
+   "fieldtype": "Section Break",
+   "label": "Service & Technical Notes"
   },
   {
    "fieldname": "intonation_notes",
    "fieldtype": "Small Text",
-   "label": "Tuning & Intonation Notes"
+   "label": "Tuning & Intonation Notes",
+   "description": "Notes about tuning preferences, intonation tendencies, or barrel length preferences"
   },
   {
    "fieldname": "technician_notes",
    "fieldtype": "Small Text",
-   "label": "Technician Notes"
+   "label": "Technician Notes",
+   "description": "Internal notes for technicians about special requirements or observations"
   },
   {
    "fieldname": "instruments_owned",
    "fieldtype": "Table",
    "label": "Instruments Currently Owned",
-   "options": "Instruments Owned"
+   "options": "Instruments Owned",
+   "description": "List of instruments currently owned by this player"
   },
   {
    "fieldname": "last_visit_date",
    "fieldtype": "Date",
-   "label": "Last Visit Date"
+   "label": "Last Visit Date",
+   "description": "Date of most recent visit or service interaction"
+  },
+  {
+   "fieldname": "section_break_crm",
+   "fieldtype": "Section Break",
+   "label": "CRM & Marketing"
   },
   {
    "fieldname": "customer_lifetime_value",
    "fieldtype": "Currency",
    "label": "Customer Lifetime Value",
-   "read_only": 1
+   "read_only": 1,
+   "description": "Total lifetime value from sales invoices linked to this player"
   },
   {
    "fieldname": "communication_preference",
    "fieldtype": "Select",
    "label": "Communication Preference",
-   "options": "Email\nSMS\nPhone Call"
+   "options": "Email\nSMS\nPhone Call",
+   "description": "Preferred method of communication"
   },
   {
    "default": "0",
    "fieldname": "newsletter_subscription",
    "fieldtype": "Check",
-   "label": "Newsletter Subscription"
+   "label": "Newsletter Subscription",
+   "description": "Opt-in for newsletter subscription"
   },
   {
    "default": "0",
    "fieldname": "targeted_marketing_optin",
    "fieldtype": "Check",
    "label": "Targeted Marketing Opt-In",
-   "options": "New Pro-Level Clarinets\nUsed/Consignment Deals\nMouthpiece/Accessory Sales\nRepair Service Promotions\nLocal Events/Clinics"
+   "description": "Opt-in for targeted marketing communications"
   },
   {
    "fieldname": "referral_source",
    "fieldtype": "Data",
-   "label": "Referral Source"
+   "label": "Referral Source",
+   "description": "How this player heard about us (referral, search, social media, etc.)"
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
   },
   {
    "default": "Draft",
    "fieldname": "profile_status",
    "fieldtype": "Select",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Profile Status",
-   "options": "Draft\nActive\nArchived"
+   "options": "Draft\nActive\nArchived",
+   "description": "Current status of this player profile"
+  },
+  {
+   "fieldname": "workflow_state",
+   "fieldtype": "Link",
+   "label": "Workflow State",
+   "options": "Workflow State",
+   "read_only": 1,
+   "hidden": 1,
+   "description": "Internal workflow state tracking"
   }
  ],
+ "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-07-27 03:32:32.608032",
+ "modified": "2025-10-02 03:58:00.000000",
  "modified_by": "Administrator",
  "module": "Player Profile",
  "name": "Player Profile",
@@ -199,28 +271,49 @@
   {
    "create": 1,
    "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
    "read": 1,
+   "report": 1,
    "role": "System Manager",
+   "share": 1,
    "write": 1
   },
   {
+   "email": 1,
+   "export": 1,
+   "print": 1,
    "read": 1,
+   "report": 1,
    "role": "Technician",
    "write": 1
   },
   {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
    "read": 1,
+   "report": 1,
    "role": "Repair Manager",
    "write": 1
   },
   {
+   "email": 1,
+   "print": 1,
    "read": 1,
    "role": "Customer"
   }
  ],
  "row_format": "Dynamic",
+ "search_fields": "player_name,primary_email,player_level",
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "player_name"
+ "title_field": "player_name",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

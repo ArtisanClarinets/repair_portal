@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Absolute Path: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/api.py
 # Last Updated: 2025-09-19
 # Version: v1.0.0 (Dedicated API surface; least-privilege fields; strict permissions)
@@ -20,14 +19,13 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 import frappe
 from frappe import _
 
 # Serial utility (single source of truth for serial normalization / lookup)
 from repair_portal.utils.serials import find_by_serial
-
 
 # ---------------------------------------------------------------------------
 # Internal helpers
@@ -45,7 +43,7 @@ _ALLOWED_INSTRUMENT_FIELDS = [
 ]
 
 
-def _get_instrument_serial_field_type() -> Optional[str]:
+def _get_instrument_serial_field_type() -> str | None:
 	"""
 	Return the fieldtype of Instrument.serial_no ('Link' | 'Data' | None).
 	Kept dynamic to support both legacy and modern schemas.
@@ -58,13 +56,13 @@ def _get_instrument_serial_field_type() -> Optional[str]:
 		return None
 
 
-def _massage_instrument_fields(data: Dict[str, Any]) -> Dict[str, Any]:
+def _massage_instrument_fields(data: dict[str, Any]) -> dict[str, Any]:
 	"""
 	Apply least-privilege filtering and rename keys for the client.
 	- Keep only _ALLOWED_INSTRUMENT_FIELDS.
 	- Rename 'brand' -> 'manufacturer' to match intake UI expectations.
 	"""
-	out: Dict[str, Any] = {k: data.get(k) for k in _ALLOWED_INSTRUMENT_FIELDS if k in data}
+	out: dict[str, Any] = {k: data.get(k) for k in _ALLOWED_INSTRUMENT_FIELDS if k in data}
 	if "brand" in out:
 		out["manufacturer"] = out.pop("brand")
 	return out
@@ -84,7 +82,7 @@ def _ensure_read_permission() -> None:
 # ---------------------------------------------------------------------------
 
 @frappe.whitelist(allow_guest=False)
-def get_instrument_by_serial(serial_no: str) -> Optional[Dict[str, Any]]:
+def get_instrument_by_serial(serial_no: str) -> dict[str, Any] | None:
 	"""
 	Secure, backwards-compatible fetch of Instrument details by a user-entered serial.
 
@@ -128,7 +126,7 @@ def get_instrument_by_serial(serial_no: str) -> Optional[Dict[str, Any]]:
 
 
 @frappe.whitelist(allow_guest=False)
-def get_instrument_inspection_name(intake_record_id: str) -> Optional[str]:
+def get_instrument_inspection_name(intake_record_id: str) -> str | None:
 	"""
 	Return the Instrument Inspection name linked to a given intake, if any.
 	"""

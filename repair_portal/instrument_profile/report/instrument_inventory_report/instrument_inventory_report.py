@@ -1,9 +1,11 @@
-# File: repair_portal/instrument_profile/report/instrument_inventory_report/instrument_inventory_report.py
-# Created: 2025-06-13
-# Version: 1.0
-# Purpose: Script report showing instrument inventory by type, acquisition, and status
+# Path: repair_portal/instrument_profile/report/instrument_inventory_report/instrument_inventory_report.py
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: Script report for instrument inventory with filters by acquisition type, status, and customer; provides comprehensive instrument tracking
+# Dependencies: frappe
 
 import frappe
+from frappe import _
 
 
 def execute(filters=None):

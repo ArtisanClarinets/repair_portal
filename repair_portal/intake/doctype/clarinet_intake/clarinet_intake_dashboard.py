@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Absolute Path: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/clarinet_intake/clarinet_intake_dashboard.py
 # Last Updated: 2025-09-19
 # Version: v1.0.0

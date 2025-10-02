@@ -1,0 +1,226 @@
+Player       Equipment     Preference   Link         Instrument                Profile                       instrument                                                            
+Player       Profile       Table        Player       Equipment                 Preference                    equipment_preferences                                                 
+Player       Profile       Table        Instruments  Owned                     instruments_owned                                                                                   
+Player       Profile       Link         Workflow     State                     workflow_state                                                                                      
+Clarinet     Intake        Settings     Link         Item                      Group                         default_item_group                                                    
+Clarinet     Intake        Settings     Link         Warehouse                 default_inspection_warehouse                                                                        
+Clarinet     Intake        Settings     Link         Price                     List                          buying_price_list                                                     
+Clarinet     Intake        Settings     Link         Price                     List                          selling_price_list                                                    
+Clarinet     Intake        Settings     Link         UOM                       stock_uom                                                                                           
+Clarinet     Intake        Settings     Table        Brand                     Mapping                       Rule                      brand_mapping_rules                         
+Clarinet     Intake        Settings     Link         Consent                   Template                      default_consent_template                                              
+Final        Qa            Checklist    Link         User                      qa_technician                                                                                       
+Final        Qa            Checklist    Link         Repair                    Task                          Log                       log_entry                                   
+Final        Qa            Checklist    Table        Final                     QA                            Checklist                 Item                    checklist_items     
+Repair       Settings      Link         Company      default_company                                                                                                               
+Repair       Settings      Link         Warehouse    default_source_warehouse                                                                                                      
+Repair       Settings      Link         Item         default_labor_item                                                                                                            
+Technician   Link          User         user                                                                                                                                       
+Customer     Upgrade       Request      Link         Customer                  customer                                                                                            
+Customer     Upgrade       Request      Table        Upgrade                   Option                        requested_upgrades                                                    
+Customer     Upgrade       Request      Link         Instrument                serial                                                                                              
+Customer     Upgrade       Request      Link         Customer                  Upgrade                       Request                   amended_from                                
+Estimate     Line          Item         Link         Item                      part_code                                                                                           
+Service      Plan          Link         Instrument   Profile                   instrument                                                                                          
+Service      Plan          Table        Repair       Task                      Log                           tasks                                                                 
+Service      Task          Link         User         assigned_to                                                                                                                   
+Clarinet     Task          Depends      On           Link                      Clarinet                      Setup                     Task                    task                
+Repair       Estimate      Link         Inspection   Report                    inspection_reference                                                                                
+Repair       Estimate      Table        Estimate     Line                      Item                          line_items                                                            
+Clarinet     Intake        Link         User         employee                                                                                                                      
+Clarinet     Intake        Link         Instrument   instrument                                                                                                                    
+Clarinet     Intake        Link         Instrument   Category                  instrument_category                                                                                 
+Clarinet     Intake        Link         Brand        manufacturer                                                                                                                  
+Clarinet     Intake        Link         Customer     customer                                                                                                                      
+Clarinet     Intake        Link         Work         Order                     work_order_number                                                                                   
+Clarinet     Intake        Link         Consent      Form                      consent_form                                                                                        
+Clarinet     Intake        Table        Intake       Accessory                 Item                          accessory_id                                                          
+Clarinet     Intake        Link         Clarinet     Intake                    amended_from                                                                                        
+Clarinet     Template      Task         Table        Clarinet                  Template                      Task                      Depends                 On                  depends_on
+Repair       Actual        Material     Link         Item                      item_code                                                                                           
+Repair       Actual        Material     Link         UOM                       uom                                                                                                 
+Repair       Actual        Material     Link         Stock                     Entry                         stock_entry                                                           
+Intake       Accessory     Item         Link         Item                      item_code                                                                                           
+Intake       Accessory     Item         Link         UOM                       uom                                                                                                 
+Clarinet     Pad           Entry        Link         Clarinet                  Pad                           Entry                     parent_pad                                  
+Loaner       Instrument    Link         Instrument   instrument                                                                                                                    
+Loaner       Instrument    Link         Clarinet     Intake                    intake                                                                                              
+Loaner       Instrument    Link         Customer     issued_to                                                                                                                     
+Loaner       Instrument    Link         Contact      issued_contact                                                                                                                
+Instrument   Inspection    Link         Instrument   Serial                    Number                        serial_no                                                             
+Instrument   Inspection    Link         Clarinet     Intake                    clarinet_intake                                                                                     
+Instrument   Inspection    Link         Clarinet     Intake                    intake_record_id                                                                                    
+Instrument   Inspection    Link         User         inspected_by                                                                                                                  
+Instrument   Inspection    Link         Customer     customer                                                                                                                      
+Instrument   Inspection    Table        Visual       Inspection                condition                                                                                           
+Instrument   Inspection    Table        Tenon        Measurement               tenon_fit_assessment                                                                                
+Instrument   Inspection    Table        Tone         Hole                      Inspection                    Record                    tone_hole_inspection                        
+Instrument   Inspection    Table        Instrument   Photo                     marketing_photos                                                                                    
+Instrument   Inspection    Table        Instrument   Photo                     service_photos                                                                                      
+Instrument   Inspection    Table        Instrument   Accessory                 accessory_log                                                                                       
+Instrument   Inspection    Link         Instrument   Inspection                amended_from                                                                                        
+Clarinet     Setup         Task         Link         Clarinet                  Initial                       Setup                     clarinet_initial_setup                      
+Clarinet     Setup         Task         Table        Clarinet                  Task                          Depends                   On                      depends_on          
+Clarinet     Setup         Task         Link         User                      assigned_to                                                                                         
+Clarinet     Setup         Task         Link         Instrument                instrument                                                                                          
+Clarinet     Setup         Task         Link         Clarinet                  Setup                         Task                      parent_task                                 
+Clarinet     Setup         Task         Link         Instrument                Serial                        Number                    serial                                      
+Clarinet     Setup         Task         Link         Clarinet                  Setup                         Task                      amended_from                                
+SLA          Policy        Rule         Link         Service                   Type                          service_type                                                          
+SLA          Policy        Rule         Link         Workshop                  workshop                                                                                            
+SLA          Policy        Rule         Link         Role                      escalate_to_role_1                                                                                  
+SLA          Policy        Rule         Link         Role                      escalate_to_role_2                                                                                  
+Repair       Issue         Link         Customer     customer                                                                                                                      
+Repair       Feedback      Link         Repair       Order                     repair_order                                                                                        
+Repair       Feedback      Link         Customer     customer                                                                                                                      
+Clarinet     Setup         Log          Link         Customer                  customer                                                                                            
+Clarinet     Setup         Log          Link         Clarinet                  Initial                       Setup                     initial_setup                               
+Clarinet     Setup         Log          Link         Instrument                Profile                       instrument_profile                                                    
+Clarinet     Setup         Log          Link         User                      action_by                                                                                           
+Clarinet     Setup         Log          Link         Instrument                Serial                        Number                    serial                                      
+Repair       Quotation     Link         Company      company                                                                                                                       
+Repair       Quotation     Link         Currency     currency                                                                                                                      
+Repair       Quotation     Table        Repair       Quotation                 Item                          items                                                                 
+Repair       Quotation     Link         User         owner_signature                                                                                                               
+Repair       Quotation     Link         User         accepted_by                                                                                                                   
+Repair       Quotation     Link         Repair       Order                     repair_order                                                                                        
+Repair       Quotation     Link         Customer     customer_name                                                                                                                 
+Repair       Quotation     Link         Contact      customer_primary_contact                                                                                                      
+Repair       Quotation     Link         Repair       Quotation                 amended_from                                                                                        
+Loaner       Return        Check        Link         Loaner                    Instrument                    linked_loaner                                                         
+Repair       Request       Link         Customer     customer                                                                                                                      
+Repair       Request       Link         Instrument   Category                  instrument_category                                                                                 
+Repair       Request       Link         User         technician_assigned                                                                                                           
+Repair       Request       Table        Repair       Task                      Log                           repair_notes                                                          
+Repair       Request       Table        Qa           Checklist                 Item                          qa_checklist                                                          
+Repair       Request       Link         Repair       Request                   amended_from                                                                                        
+Pulse        Update        Link         Repair       Order                     repair_order                                                                                        
+Pulse        Update        Link         User         entered_by                                                                                                                    
+Clarinet     Initial       Setup        Link         Instrument                Serial                        Number                    serial                                      
+Clarinet     Initial       Setup        Link         Instrument                instrument                                                                                          
+Clarinet     Initial       Setup        Link         Instrument                Profile                       instrument_profile                                                    
+Clarinet     Initial       Setup        Link         Clarinet                  Intake                        intake                                                                
+Clarinet     Initial       Setup        Link         Instrument                Inspection                    inspection                                                            
+Clarinet     Initial       Setup        Link         User                      technician                                                                                          
+Clarinet     Initial       Setup        Link         Setup                     Template                      setup_template                                                        
+Clarinet     Initial       Setup        Table        Setup                     Checklist                     Item                      checklist                                   
+Clarinet     Initial       Setup        Table        Clarinet                  Setup                         Operation                 operations_performed                        
+Clarinet     Initial       Setup        Table        Setup                     Material                      Log                       materials_used                              
+Clarinet     Initial       Setup        Table        Instrument                Interaction                   Log                       notes                                       
+Clarinet     Initial       Setup        Link         Clarinet                  Initial                       Setup                     amended_from                                
+Repair       Related       Document     Link         DocType                   doctype_name                                                                                        
+Repair       Related       Document     Dynamic      Link                      doctype_name                  document_name                                                         
+Repair       Task          Link         Repair       Order                     repair_order                                                                                        
+Repair       Task          Link         Activity     Type                      task_type                                                                                           
+Repair       Task          Link         User         assigned_to                                                                                                                   
+Default      Operations    Table        Operation    Template                  operation_template                                                                                  
+Default      Operations    Table        Material     Use                       Log                           material_used                                                         
+Warranty     Modification  Log          Link         Instrument                Profile                       instrument_profile                                                    
+Warranty     Modification  Log          Link         User                      modified_by                                                                                         
+Repair       Quotation     Item         Link         Item                      item_code                                                                                           
+Repair       Quotation     Item         Link         UOM                       uom                                                                                                 
+Repair       Quotation     Item         Link         Employee                  technician                                                                                          
+Repair       Planned       Material     Link         Item                      item_code                                                                                           
+Repair       Planned       Material     Link         UOM                       uom                                                                                                 
+Barcode      Scan          Entry        Link         Item                      linked_item                                                                                         
+SLA          Policy        Table        SLA          Policy                    Rule                          rules                                                                 
+Related      Instrument    Interaction  Link         Instrument                Profile                       related_instrument                                                    
+Instrument   Model         Link         Brand        brand                                                                                                                         
+Instrument   Model         Link         Instrument   Category                  instrument_category                                                                                 
+Repair       Order         Link         Customer     customer                                                                                                                      
+Repair       Order         Link         Instrument   Profile                   instrument_profile                                                                                  
+Repair       Order         Link         Company      company                                                                                                                       
+Repair       Order         Link         User         assigned_technician                                                                                                           
+Repair       Order         Table        Repair       Planned                   Material                      planned_materials                                                     
+Repair       Order         Link         Warehouse    warehouse_source                                                                                                              
+Repair       Order         Table        Repair       Actual                    Material                      actual_materials                                                      
+Repair       Order         Link         Item         labor_item                                                                                                                    
+Repair       Order         Table        Repair       Related                   Document                      related_documents                                                     
+Repair       Order         Link         Clarinet     Intake                    intake                                                                                              
+Setup        Template      Link         Instrument   Model                     clarinet_model                                                                                      
+Setup        Template      Link         Clarinet     Pad                       Map                           pad_map                                                               
+Setup        Template      Link         User         default_technician                                                                                                            
+Setup        Template      Table        Clarinet     Setup                     Operation                     default_operations                                                    
+Setup        Template      Table        Setup        Checklist                 Item                          checklist_items                                                       
+Setup        Template      Table        Clarinet     Template                  Task                          template_tasks                                                        
+Repair       Parts         Used         Link         Item                      item_code                                                                                           
+Repair       Parts         Used         Link         UOM                       uom                                                                                                 
+Repair       Parts         Used         Link         Warehouse                 warehouse                                                                                           
+Repair       Parts         Used         Link         Serial                    No                            serial_no                                                             
+Instrument   Link          Brand        brand                                                                                                                                      
+Instrument   Link          Instrument   Category     instrument_category                                                                                                           
+Instrument   Link          Customer     customer                                                                                                                                   
+Instrument   Table         Instrument   Accessory    accessory_id                                                                                                                  
+Repair       Task          Log          Link         User                      logged_by                                                                                           
+Visual       Inspection    Link         Serial       No                        serial_no                                                                                           
+Visual       Inspection    Link         User         inspected_by                                                                                                                  
+Clarinet     Pad           Map          Link         Instrument                Model                         clarinet_model                                                        
+Clarinet     Pad           Map          Table        Clarinet                  Pad                           Entry                     top_joint_pads                              
+Clarinet     Pad           Map          Table        Clarinet                  Pad                           Entry                     bottom_joint_pads                           
+Clarinet     Pad           Map          Link         Instrument                Category                      instrument_category                                                   
+Tool         Usage         Log          Link         User                      used_by                                                                                             
+Instrument   Serial        Number       Link         Instrument                instrument                                                                                          
+Instrument   Serial        Number       Link         Serial                    No                            erpnext_serial_no                                                     
+Instrument   Serial        Number       Link         Instrument                Serial                        Number                    duplicate_of                                
+Instrument   Serial        Number       Link         User                      verified_by                                                                                         
+Material     Use           Log          Link         Warehouse                 source_warehouse                                                                                    
+Material     Use           Log          Link         DocType                   operation_type                                                                                      
+Material     Use           Log          Dynamic      Link                      operation_type                operation_link                                                        
+Material     Use           Log          Link         Item                      item_name                                                                                           
+Instrument   Interaction   Log          Dynamic      Link                      reference_doctype             reference_name                                                        
+Instrument   Photo         Link         User         uploaded_by                                                                                                                   
+Client       Instrument    Profile      Link         Serial                    No                            serial_no                                                             
+Client       Instrument    Profile      Table        Customer                  External                      Work                      Log                     external_work_logs  
+Client       Instrument    Profile      Table        Instrument                Photo                         condition_images                                                      
+Client       Instrument    Profile      Link         Customer                  ownership_transfer_to                                                                               
+Client       Instrument    Profile      Table        Consent                   Log                           Entry                     consent_log                                 
+Client       Instrument    Profile      Link         Customer                  instrument_owner                                                                                    
+Clarinet     Template      Task         Depends      On                        Link                          Clarinet                  Template                Task                subject
+Instrument   Condition     Record       Link         Instrument                instrument                                                                                          
+Instrument   Condition     Record       Link         User                      recorded_by                                                                                         
+Setup        Material      Log          Link         Item                      item_code                                                                                           
+Setup        Material      Log          Link         UOM                       uom                                                                                                 
+Instrument   Profile       Link         Instrument   instrument                                                                                                                    
+Instrument   Profile       Link         Customer     customer                                                                                                                      
+Instrument   Profile       Link         Purchase     Order                     purchase_order                                                                                      
+Instrument   Profile       Link         Purchase     Receipt                   purchase_receipt                                                                                    
+Instrument   Profile       Link         Instrument   Inspection                linked_inspection                                                                                   
+Instrument   Profile       Table        Instrument   Condition                 Record                        condition_logs                                                        
+Instrument   Profile       Table        Customer     External                  Work                          Log                       external_work_logs                          
+Instrument   Profile       Table        Warranty     Modification              Log                           warranty_logs                                                         
+Instrument   Profile       Table        Material     Use                       Log                           material_usage                                                        
+Instrument   Profile       Table        Instrument   Interaction               Log                           interaction_logs                                                      
+Instrument   Profile       Table        Instrument   Accessory                 accessory_log                                                                                       
+Instrument   Profile       Table        Instrument   Photo                     serial_photos                                                                                       
+Instrument   Profile       Table        Instrument   Photo                     service_photos                                                                                      
+Instrument   Profile       Link         Instrument   Profile                   amended_from                                                                                        
+Customer     External      Work         Log          Link                      Instrument                    instrument                                                            
+Pad          Count         Intake       Link         Item                      item                                                                                                
+Pad          Count         Intake       Link         Warehouse                 warehouse                                                                                           
+Pad          Count         Intake       Link         Company                   company                                                                                             
+Pad          Count         Intake       Link         UOM                       uom                                                                                                 
+Pad          Count         Intake       Table        Pad                       Count                         Log                       count_logs                                  
+Pad          Count         Intake       Link         Stock                     Entry                         stock_entry                                                           
+Pad          Count         Log          Link         User                      by_user                                                                                             
+Tool         Link          Asset        asset                                                                                                                                      
+Linked       Players       Link         Customer     customer                                                                                                                      
+Linked       Players       Link         Player       Profile                   player_profile                                                                                      
+Consent      Form          Link         Customer     customer                                                                                                                      
+Consent      Form          Link         Consent      Template                  consent_template                                                                                    
+Consent      Form          Table        Consent      Field                     Value                         consent_field_values                                                  
+Consent      Form          Table        Consent      Log                       Entry                         log_entries                                                           
+Consent      Linked        Source       Link         DocType                   source_doctype                                                                                      
+Consent      Template      Table        Consent      Required                  Field                         required_fields                                                       
+Consent      Log           Entry        Link         User                      technician                                                                                          
+Consent      Log           Entry        Link         DocType                   reference_doctype                                                                                   
+Consent      Log           Entry        Dynamic      Link                      reference_doctype             reference_name                                                        
+Tool         Calibration   Log          Link         Technician                calibrated_by                                                                                       
+Consent      Autofill      Mapping      Link         DocType                   source_doctype                                                                                      
+Instruments  Owned         Link         Serial       No                        serial_no                                                                                           
+Instruments  Owned         Link         Customer     customer                                                                                                                      
+Instruments  Owned         Link         Instrument   Profile                   instrument_profile                                                                                  
+Consent      Settings      Table        Consent      Autofill                  Mapping                       mappings                                                              
+Consent      Settings      Table        Consent      Linked                    Source                        linked_sources                                                        
+Measurement  Session       Link         Instrument   Profile                   instrument                                                                                          
+Measurement  Session       Link         User         technician                                                                                                                    
+Measurement  Session       Table        Measurement  Entry                     measurements                                                                                        

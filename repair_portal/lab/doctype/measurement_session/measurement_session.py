@@ -3,6 +3,7 @@
 # Version: 1.0
 # Purpose: Server-side logic for Measurement Session doctype
 from __future__ import annotations
+
 import frappe
 from frappe.model.document import Document
 

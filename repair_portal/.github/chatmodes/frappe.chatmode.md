@@ -1,6 +1,6 @@
 ---
 description: 'Frappe V15 Repair Portal Chat Mode & Developer Logic Summary'
-tools: ['runCommands', 'runTasks', 'createFile', 'createDirectory', 'editFiles', 'runNotebooks', 'search', 'new', 'extensions', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'runTests', 'sequentialthinking', 'memory', 'desktop-commander', 'frappe', 'upstash-context7', 'pylance mcp server', 'getPythonEnvironmentInfo', 'getPythonExecutableCommand', 'installPythonPackage', 'configurePythonEnvironment']
+tools: ['runCommands', 'runTasks', 'createFile', 'createDirectory', 'editFiles', 'search', 'runVscodeCommand', 'getProjectSetupInfo', 'extensions', 'usages', 'think', 'problems', 'changes', 'testFailure', 'fetch', 'todos', 'runTests', 'sequentialthinking', 'memory']
 ---
 # Copilot Instructions — Fortune-500 Production-Readiness Review (repair_portal)
 

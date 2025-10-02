@@ -3,10 +3,9 @@
 # Version: 1.0
 # Purpose: Backend logic for storing customer repair feedback
 from __future__ import annotations
+
 import frappe
 from frappe.model.document import Document
-
-from typing import TYPE_CHECKING
 
 
 class RepairFeedback(Document):

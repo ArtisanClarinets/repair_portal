@@ -1,9 +1,8 @@
-"""
-File: instrument_profile/web_form/instrument_intake_batch/instrument_intake_batch.py
-Updated: 2025-07-03
-Version: 1.1
-Purpose: Web form controller for instrument batch intake. Prefills and assists user context for batch creation.
-"""
+# Path: repair_portal/instrument_profile/web_form/instrument_intake_batch/instrument_intake_batch.py
+# Date: 2025-10-02
+# Version: 1.1.0
+# Description: Web form controller for instrument batch intake; prefills defaults and validates user context for batch creation
+# Dependencies: frappe
 
 import frappe
 

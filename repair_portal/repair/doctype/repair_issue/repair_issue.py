@@ -4,9 +4,9 @@
 # Purpose: Server-side logic for Repair Issue doctype
 
 from __future__ import annotations
+
 import frappe
 from frappe.model.document import Document
-from typing import TYPE_CHECKING
 
 
 class RepairIssue(Document):

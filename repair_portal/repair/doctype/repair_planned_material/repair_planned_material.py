@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Relative Path: repair_portal/repair/doctype/repair_planned_material/repair_planned_material.py
 # Version: 1.1.0 (2025-09-17)
 # Purpose:

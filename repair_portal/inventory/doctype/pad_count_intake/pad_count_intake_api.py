@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import io
+
 import frappe
 from frappe import _
 
@@ -21,10 +22,10 @@ except Exception:
     HAS_CV2 = False
 
 try:
-    from reportlab.lib.pagesizes import A4, letter
+    from reportlab.lib.pagesizes import A4
     from reportlab.lib.units import mm
-    from reportlab.pdfgen import canvas
     from reportlab.lib.utils import ImageReader
+    from reportlab.pdfgen import canvas
 
     HAS_REPORTLAB = True
 except Exception:

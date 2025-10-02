@@ -11,7 +11,7 @@ from typing import Any
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import getdate, now_datetime, add_days, format_datetime
+from frappe.utils import add_days, format_datetime, getdate, now_datetime
 
 
 class ConsentLogEntry(Document):
@@ -171,7 +171,7 @@ class ConsentLogEntry(Document):
     def create_audit_entry(self, action: str, details: str | None = None) -> None:
         """Create audit trail entry for consent actions."""
         try:
-            audit_data = {
+            {
                 'doctype': 'Consent Log Entry',
                 'entry_date': getdate(),
                 'method': 'System',

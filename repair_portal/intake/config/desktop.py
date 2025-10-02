@@ -1,7 +1,8 @@
-# Path: intake/config/desktop.py
-# Version: v1.0
-# Updated: 2025-06-11
-# Purpose: Define the Intake module for the Frappe Desk UI
+# Path: repair_portal/intake/config/desktop.py
+# Date: 2025-10-01
+# Version: 1.0.0
+# Description: Define the Intake module for the Frappe Desk UI; provides module icon, label, and description for navigation.
+# Dependencies: frappe
 
 from frappe import _
 

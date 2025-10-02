@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Path: repair_portal/repair/doctype/sla_policy_rule/sla_policy_rule.py
 
 from __future__ import annotations

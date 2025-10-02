@@ -17,9 +17,12 @@ class ClarinetTemplateTask(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.instrument_setup.doctype.clarinet_template_task_depends_on.clarinet_template_task_depends_on import ClarinetTemplateTaskDependsOn
 
-        default_priority: DF.Literal["Low", "Medium", "High", "Urgent"]
+        from repair_portal.instrument_setup.doctype.clarinet_template_task_depends_on.clarinet_template_task_depends_on import (
+            ClarinetTemplateTaskDependsOn,
+        )
+
+        default_priority: DF.Data  # Select field with priority options
         depends_on: DF.Table[ClarinetTemplateTaskDependsOn]
         description: DF.SmallText | None
         exp_duration_mins: DF.Int

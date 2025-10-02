@@ -1,9 +1,8 @@
-# File Header Template
-# Relative Path: repair_portal/instrument_profile/doctype/instrument_category/instrument_category.py
-# Last Updated: 2025-07-19
-# Version: v1.0
-# Purpose: Minimal controller for Instrument Category DocType (used as category master for instruments).
-# Dependencies: None
+# Path: repair_portal/instrument_profile/doctype/instrument_category/instrument_category.py
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: Master data for instrument categories (e.g., Bb Clarinet, Bass Clarinet); validates uniqueness and active status
+# Dependencies: frappe
 
 from frappe.model.document import Document
 

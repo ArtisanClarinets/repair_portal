@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Absolute Path: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/loaner_instrument/loaner_instrument.py
 # Last Updated: 2025-09-19
 # Version: v2.1.0 (on_submit PDF, idempotent attach, guarded transitions)
@@ -13,8 +12,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import frappe
 from frappe import _
 from frappe.model.document import Document
@@ -22,7 +19,6 @@ from frappe.utils import getdate
 from frappe.utils.file_manager import save_file
 from frappe.utils.jinja import render_template
 from frappe.utils.pdf import get_pdf
-
 
 TEMPLATE_PATH = "repair_portal/intake/templates/loaner_agreement_template.html"
 
@@ -134,7 +130,7 @@ class LoanerInstrument(Document):
 		if self.intake and frappe.db.exists("Clarinet Intake", self.intake):
 			intake = frappe.get_doc("Clarinet Intake", self.intake)
 
-		def _sig_url(val: Optional[str]) -> Optional[str]:
+		def _sig_url(val: str | None) -> str | None:
 			if not val:
 				return None
 			# If already a data URL, keep as-is; else convert to absolute URL

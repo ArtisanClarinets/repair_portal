@@ -64,30 +64,30 @@ class InstrumentInspection(Document):
         amended_from: DF.Link | None
         audio_video_demos: DF.Literal['Instrument Media']
         body_material: DF.Data | None
-        bore_condition: DF.Literal['Clean', 'Debris Present', 'Irregularities Visible']
+        bore_condition: DF.Literal[Clean, 'Debris Present', 'Irregularities Visible']
         bore_measurement: DF.Float
         bore_notes: DF.SmallText | None
         bore_style: DF.Data | None
         clarinet_intake: DF.Link | None
         condition: DF.Table[VisualInspection]
         current_location: DF.Data | None
-        current_status: DF.Literal['For Sale', 'In Workshop', 'With Customer', 'Sold', 'Archived']
+        current_status: DF.Literal['For Sale', 'In Workshop', 'With Customer', Sold, Archived]
         customer: DF.Link | None
         hygrometer_photo: DF.AttachImage | None
         inspected_by: DF.Link
         inspection_date: DF.Date | None
-        inspection_type: DF.Literal['New Inventory', 'Repair', 'Maintenance', 'QA', 'Other']
+        inspection_type: DF.Literal['New Inventory', Repair, Maintenance, QA, Other]
         instrument_delivered: DF.Check
         intake_record_id: DF.Link | None
-        key: DF.Literal['B♭', 'A', 'E♭', 'C', 'D']
+        key: DF.Literal['B♭', A, 'E♭', C, D]
         key_plating: DF.Data | None
-        key_system: DF.Literal['Boehm', 'Albert', 'Oehler', 'Other']
+        key_system: DF.Literal[Boehm, Albert, Oehler, Other]
         manufacturer: DF.Data | None
         marketing_photos: DF.Table[InstrumentPhoto]
         model: DF.Data | None
         notes: DF.Text | None
         number_of_keys_rings: DF.Data | None
-        overall_condition: DF.Literal['Excellent', 'Good', 'Fair', 'Poor']
+        overall_condition: DF.Literal[Excellent, Good, Fair, Poor]
         pad_type_current: DF.Data | None
         pitch_standard: DF.Data | None
         preliminary_estimate: DF.Currency
@@ -105,7 +105,7 @@ class InstrumentInspection(Document):
         unboxing_rh: DF.Float
         unboxing_temperature: DF.Float
         unboxing_time: DF.Datetime | None
-        wood_type: DF.Literal['Grenadilla', 'Mopane', 'Cocobolo', 'Synthetic', 'Other']
+        wood_type: DF.Literal[Grenadilla, Mopane, Cocobolo, Synthetic, Other]
     # end: auto-generated types
 
     # ----------------------

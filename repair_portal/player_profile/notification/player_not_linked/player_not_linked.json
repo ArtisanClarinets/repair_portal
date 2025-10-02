@@ -1,11 +1,25 @@
 {
-  "doctype": "Notification",
-  "name": "Player Not Linked",
-  "subject": "Player Profile Not Linked",
-  "document_type": "Player Profile",
-  "channel": "Email",
-  "send_on": "Days After",
-  "message": "This is a placeholder notification.",
-  "event": "Days After",
-  "recipients": []
+ "channel": "Email",
+ "condition": "doc.customer is None and doc.profile_status == 'Active'",
+ "creation": "2025-10-02 14:30:00.000000",
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Player Profile",
+ "enabled": 1,
+ "event": "Days After",
+ "idx": 0,
+ "is_standard": 0,
+ "message": "<p>Player Profile <strong>{{ doc.name }}</strong> ({{ doc.player_name }}) is active but not linked to a Customer record.</p>\n<p><strong>Email:</strong> {{ doc.primary_email }}<br>\n<strong>Player Level:</strong> {{ doc.player_level }}<br>\n<strong>Created:</strong> {{ doc.profile_creation_date }}</p>\n<p>Please review and link to an existing Customer or create a new Customer record.</p>",
+ "modified": "2025-10-02 14:30:00.000000",
+ "modified_by": "Administrator",
+ "name": "Player Not Linked",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "owner"
+  }
+ ],
+ "send_after_event": 7,
+ "send_system_notification": 1,
+ "subject": "Player Profile {{ doc.name }} Not Linked to Customer"
 }

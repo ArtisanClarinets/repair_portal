@@ -1,14 +1,11 @@
-# Copyright (c) 2025, your_company_name and contributors
-# For license information, please see license.txt
 # Path: repair_portal/instrument_profile/doctype/instrument_condition_record/instrument_condition_record.py
-# Date: 2024-06-09
-# Version: 0.1.1
-# Description: Controller for Instrument Condition Record; validates, notifies, updates linked Instrument.
-# Dependencies: frappe, Instrument DocType (must have 'instrument' Link field)
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: Child table for tracking instrument condition snapshots over time; auto-sets recorded_by to current user
+# Dependencies: frappe, Instrument, User
 
 from __future__ import annotations
 
-import frappe
 from frappe.model.document import Document
 
 

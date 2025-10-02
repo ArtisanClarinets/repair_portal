@@ -1,7 +1,8 @@
-# File: instrument_profile/report/instrument_service_history/instrument_service_history.py
-# Updated: 2025-06-14
-# Version: 1.0
-# Purpose: Script Report for Instrument Service History
+# Path: repair_portal/instrument_profile/report/instrument_service_history/instrument_service_history.py
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: Script Report for Instrument Service History - tracks all service events, maintenance logs, and repair activities for instruments with filtering by profile, serial number, and date range.
+# Dependencies: frappe
 
 import frappe
 

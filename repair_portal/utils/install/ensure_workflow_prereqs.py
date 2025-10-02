@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Idempotently ensures all Workflow Actions and Workflow States exist (v15-safe).
 Place: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/utils/install/ensure_workflow_prereqs.py
@@ -6,6 +5,7 @@ Hook:  after_migrate = ["repair_portal.utils.install.ensure_workflow_prereqs.ens
 """
 
 from __future__ import annotations
+
 import frappe
 
 # ---- COMPLETE SET (from your app analysis) ----

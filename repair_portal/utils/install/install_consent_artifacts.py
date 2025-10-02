@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 File: repair_portal/utils/install/install_consent_artifacts.py
 Version: v1.4.2 (2025-09-16)
@@ -17,7 +16,9 @@ Key fixes in v1.4.2:
 """
 
 from __future__ import annotations
-from typing import Any, Dict, List, Optional, Set
+
+from typing import Any
+
 import frappe
 
 WF_NAME = "Consent Form Workflow"
@@ -38,7 +39,7 @@ def _site_log(msg: str) -> None:
         pass
 
 
-def _existing_roles(candidates: List[str]) -> List[str]:
+def _existing_roles(candidates: list[str]) -> list[str]:
     present = [r for r in candidates if frappe.db.exists("Role", r)]
     if not present and frappe.db.exists("Role", "System Manager"):
         present = ["System Manager"]
@@ -86,7 +87,7 @@ def _safe_set(doc: Any, fieldname: str, value: Any) -> bool:
 # Upsert: Workflow Actions
 # ----------------------------
 
-def _upsert_workflow_actions() -> Dict[str, str]:
+def _upsert_workflow_actions() -> dict[str, str]:
     """
     Ensure the required actions exist in whichever DocType the transitions link to.
     Returns a mapping of friendly action label -> actual link name to use.
@@ -108,13 +109,13 @@ def _upsert_workflow_actions() -> Dict[str, str]:
         "title",
         "name",                  # fallback
     ]
-    usable_label_field: Optional[str] = None
+    usable_label_field: str | None = None
     for f in nameish_fields:
         if target_meta.has_field(f):
             usable_label_field = f
             break
 
-    link_names: Dict[str, str] = {}
+    link_names: dict[str, str] = {}
 
     for label in actions_needed:
         # Prefer a direct name match
@@ -123,7 +124,7 @@ def _upsert_workflow_actions() -> Dict[str, str]:
             continue
 
         # Otherwise search by label field to avoid duplicates
-        existing_name: Optional[str] = None
+        existing_name: str | None = None
         if usable_label_field and usable_label_field != "name":
             # Normalize any possible return shape from frappe.db.get_value
             raw = frappe.db.get_value(target_dt, {usable_label_field: label}, "name")
@@ -148,7 +149,7 @@ def _upsert_workflow_actions() -> Dict[str, str]:
             continue
 
         # Create
-        data: Dict[str, Any] = {"doctype": target_dt}
+        data: dict[str, Any] = {"doctype": target_dt}
         if usable_label_field:
             data[usable_label_field] = label
         action_doc = frappe.get_doc(data).insert(ignore_permissions=True)
@@ -203,7 +204,7 @@ def _upsert_workflow_states() -> None:
             if changed:
                 ws.save(ignore_permissions=True)
         else:
-            data: Dict[str, Any] = {
+            data: dict[str, Any] = {
                 "doctype": "Workflow State",
                 "doc_status": doc_status,
                 "style": style,
@@ -231,14 +232,14 @@ def _upsert_workflow_states() -> None:
 # Merge helpers for existing Workflow doc
 # ----------------------------
 
-def _find_state_row(wf: Any, state_name: str) -> Optional[Any]:
+def _find_state_row(wf: Any, state_name: str) -> Any | None:
     for row in (wf.get("states") or []):
         if (row.get("state") or "") == state_name:
             return row
     return None
 
 
-def _normalize_role_names(container_value: Any) -> Set[str]:
+def _normalize_role_names(container_value: Any) -> set[str]:
     """
     Accepts:
       - list of child docs (with .get('role'))
@@ -248,7 +249,7 @@ def _normalize_role_names(container_value: Any) -> Set[str]:
       - None
     Returns a set of role names (strings).
     """
-    roles: Set[str] = set()
+    roles: set[str] = set()
     if container_value is None:
         return roles
 
@@ -263,11 +264,7 @@ def _normalize_role_names(container_value: Any) -> Set[str]:
     # list-like?
     if isinstance(container_value, list):
         for it in container_value:
-            if hasattr(it, "get"):             # child doc
-                val = it.get("role")
-                if isinstance(val, str) and val.strip():
-                    roles.add(val.strip())
-            elif isinstance(it, dict):
+            if hasattr(it, "get") or isinstance(it, dict):             # child doc
                 val = it.get("role")
                 if isinstance(val, str) and val.strip():
                     roles.add(val.strip())
@@ -280,7 +277,7 @@ def _normalize_role_names(container_value: Any) -> Set[str]:
     return roles
 
 
-def _ensure_roles_on_row(row: Any, child_field: str, roles_to_add: List[str]) -> bool:
+def _ensure_roles_on_row(row: Any, child_field: str, roles_to_add: list[str]) -> bool:
     """
     Adds roles to either a child table ('Table' / 'Table MultiSelect') or a MultiSelect-like field.
     Returns True if any role was added.
@@ -320,7 +317,7 @@ def _ensure_roles_on_row(row: Any, child_field: str, roles_to_add: List[str]) ->
     return False
 
 
-def _find_transition_row(wf: Any, state: str, action: str, next_state: str) -> Optional[Any]:
+def _find_transition_row(wf: Any, state: str, action: str, next_state: str) -> Any | None:
     for tr in (wf.get("transitions") or []):
         if tr.get("state") == state and tr.get("action") == action and tr.get("next_state") == next_state:
             return tr
@@ -331,7 +328,7 @@ def _find_transition_row(wf: Any, state: str, action: str, next_state: str) -> O
 # Upsert: Workflow definition (merge, don’t clobber)
 # ----------------------------
 
-def _upsert_workflow(link_actions: Dict[str, str]) -> None:
+def _upsert_workflow(link_actions: dict[str, str]) -> None:
     # Ensure target Document Type exists
     if not frappe.db.exists("DocType", DT_CONSENT_FORM):
         frappe.throw(
@@ -370,7 +367,7 @@ def _upsert_workflow(link_actions: Dict[str, str]) -> None:
     changed |= _safe_set(wf, "override_status", 0)
 
     # --- States (merge/update, no deletes) ---
-    def _ensure_state(state_name: str, doc_status: int, style: str, roles: List[str]) -> None:
+    def _ensure_state(state_name: str, doc_status: int, style: str, roles: list[str]) -> None:
         nonlocal changed
         st = _find_state_row(wf, state_name)
         if not st:
@@ -398,12 +395,12 @@ def _upsert_workflow(link_actions: Dict[str, str]) -> None:
     has_condition_field = meta_tr.has_field("condition")
 
     def _ensure_transition(state: str, action_name: str, next_state: str,
-                           allow_self_approval: int = 1, condition: Optional[str] = None,
-                           roles: Optional[List[str]] = None) -> None:
+                           allow_self_approval: int = 1, condition: str | None = None,
+                           roles: list[str] | None = None) -> None:
         nonlocal changed
         tr = _find_transition_row(wf, state, action_name, next_state)
         if not tr:
-            data: Dict[str, Any] = {
+            data: dict[str, Any] = {
                 "state": state,
                 "action": action_name,
                 "next_state": next_state,
@@ -531,7 +528,7 @@ def _apply_linked_sources_if_available() -> None:
 # Public entry point
 # ----------------------------
 
-def install_or_update_consent_artifacts() -> Dict[str, str]:
+def install_or_update_consent_artifacts() -> dict[str, str]:
     """
     Orchestrates installer in a safe sequence:
     1) Upsert actions and get actual link names.

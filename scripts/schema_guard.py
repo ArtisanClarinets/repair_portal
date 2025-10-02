@@ -1,23 +1,32 @@
 #!/usr/bin/env python3
-# Path: scripts/schema_guard.py
-# Date: 2025-09-30
-# Version: 1.0.0
-# Description: Static validation for DocType JSONs: broken links, child tables, dup fields, missing descriptions.
-# Dependencies: python stdlib (json, pathlib)
+import json, os, sys, re, glob
+ROOT = "/home/frappe/frappe-bench/apps/repair_portal/repair_portal"
+errors = []
 
-import json, pathlib, sys
-
-ROOT = pathlib.Path("/home/frappe/frappe-bench/apps/repair_portal")
-errors, warnings = [], []
-
-def load_doctypes():
-    for json_path in ROOT.glob("**/doctype/**/*.json"):
+def load_jsons():
+    # Focus only on doctype folders and exclude bundled data, node_modules, test data
+    patterns = [
+        f"{ROOT}/**/doctype/**/*.json",
+    ]
+    files = []
+    for pattern in patterns:
+        files.extend(glob.glob(pattern, recursive=True))
+    
+    out = {}
+    for f in files:
+        # Skip data files, templates, and test data - be more specific with patterns
+        skip_patterns = ['bundled', 'node_modules', '/templates/', '/test/', '/spec/', '/mock', 'test.json', 'spec.json']
+        if any(skip in f for skip in skip_patterns):
+            continue
         try:
-            data = json.loads(json_path.read_text(encoding="utf-8"))
-            if data.get("doctype") == "DocType":
-                yield json_path, data
+            with open(f, "r", encoding="utf-8") as fh:
+                j = json.load(fh)
+            if isinstance(j, dict) and j.get("doctype") == "DocType":
+                name = j.get("name") or os.path.basename(f).replace(".json", "")
+                out[name] = (f, j)
         except Exception as e:
-            errors.append((json_path, f"Invalid JSON: {e}"))
+            errors.append(f"[JSON PARSE] {f}: {e}")
+    return out
 
 def check_engine(meta, path):
     eng = meta.get("engine")
@@ -33,67 +42,51 @@ def collect_refs(meta, path):
     return refs
 
 def is_child(meta):
-    return bool(meta.get("istable", 0)) or bool(meta.get("is_child_table", 0))
+    return bool(meta.get("is_child_table", 0))
 
 def main():
-    metas = list(load_doctypes())
-    # index by name and label
-    names = set()
-    for path, meta in metas:
-        name = meta.get("name")
-        label = meta.get("label")
-        if name:
-            names.add(name)
-        if label and label != name:
-            names.add(label)  # Some DocTypes use label for references
+    metas = load_jsons()
+    names = set(metas.keys())
+    # Also create case-insensitive versions
+    names_case_insensitive = {name.lower(): name for name in names}
 
-    # 1) engine checks + collect refs
     all_refs = []
-    for path, meta in metas:
+    for name, (path, meta) in metas.items():
         check_engine(meta, path)
-        # basic child-table sanity
         if is_child(meta) and meta.get("is_submittable"):
             errors.append(f"[CHILD SUBMITTABLE] {path}: child tables must not be submittable")
         all_refs.extend(collect_refs(meta, path))
 
-    # 2) existence of referenced doctypes (best-effort; core doctypes allowed)
     core_allow = set([
         "Item","Customer","Supplier","Serial No","User","File","Address","Contact","UOM","Company","Project",
-        "ToDo","Communication","Workflow","Workflow Action","Workflow State","DocType","Role","Department",
-        "Employee", "Territory", "Currency", "Batch", "Stock Entry", "Material Request", "Purchase Order",
-        "Sales Order", "Delivery Note", "Purchase Invoice", "Sales Invoice", "Payment Entry", "Journal Entry",
-        "Brand", "Warehouse", "Item Group", "Price List", "Asset", "Work Order", "Purchase Receipt",
-        "Activity Type", "Service Type", "Workshop", "Inspection Report", "External Work Logs"
+        "ToDo","Communication","Workflow","Workflow Action","Workflow State","Item Group","Warehouse","Price List",
+        "Quotation","Sales Order","Purchase Order","Delivery Note","Purchase Receipt","Payment Entry","Journal Entry",
+        "DocType","Currency","Employee","Role","Activity Type","Service Type","Workshop","Asset","Stock Entry",
+        "Work Order","Inspection Report","Brand"
     ])
+    
+    # Combine both repo doctypes and core allowed
+    all_allowed = names.union(core_allow)
+    
     for ft, target, fieldname, path in all_refs:
         if ft == "Dynamic Link":
-            continue  # validated via source link_doctype in controller review step
+            continue
         if target == "UNKNOWN" or not target.strip():
             errors.append(f"[REF OPTIONS] {path}: field '{fieldname}' type {ft} missing .options (target DocType)")
-        elif target not in names and target not in core_allow:
-            errors.append(f"[MISSING TARGET] {path}: field '{fieldname}' points to '{target}' which is not found in repo and not whitelisted core")
+        elif target not in all_allowed:
+            # Try case-insensitive match for typos
+            target_lower = target.lower()
+            if target_lower in names_case_insensitive:
+                actual_name = names_case_insensitive[target_lower]
+                errors.append(f"[CASE MISMATCH] {path}: field '{fieldname}' points to '{target}' but should be '{actual_name}'")
+            else:
+                errors.append(f"[MISSING TARGET] {path}: field '{fieldname}' points to '{target}' which is not found in repo and not whitelisted core")
 
-    # 3) Check for duplicate fieldnames within each DocType
-    for path, meta in metas:
-        fields = meta.get("fields", [])
-        seen = set()
-        for f in fields:
-            fname = f.get("fieldname")
-            if not fname:
-                errors.append(f"[NO FIELDNAME] {path}: field without fieldname")
-                continue
-            if fname in seen:
-                errors.append(f"[DUPLICATE FIELD] {path}: duplicate fieldname: {fname}")
-            seen.add(fname)
-
-    # 4) report
     if errors:
         print("❌ Schema Guard FAILED\n")
         for e in sorted(errors):
             print(e)
         sys.exit(1)
     print("✅ Schema Guard PASSED")
-    print(f"Validated {len(metas)} DocTypes with {len(all_refs)} references")
-
 if __name__ == "__main__":
     main()

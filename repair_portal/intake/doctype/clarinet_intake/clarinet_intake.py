@@ -24,11 +24,11 @@ from frappe.model import naming
 from frappe.model.document import Document
 from frappe.utils import nowdate
 
-from repair_portal.repair_portal_settings.doctype.clarinet_intake_settings.clarinet_intake_settings import (
-	get_intake_settings,
-)
 from repair_portal.intake.doctype.clarinet_intake.clarinet_intake_timeline import (
 	add_timeline_entries,
+)
+from repair_portal.repair_portal_settings.doctype.clarinet_intake_settings.clarinet_intake_settings import (
+	get_intake_settings,
 )
 
 # Serial utilities (single source of truth)
@@ -40,6 +40,7 @@ except Exception:  # pragma: no cover - fallback import path
 	from repair_portal.utils.serials import ensure_instrument_serial, find_by_serial  # fallback
 
 from .clarinet_intake_timeline import add_timeline_entries
+
 # Dynamic mandatory fields by intake type
 MANDATORY_BY_TYPE = {
 	"New Inventory": {"item_code", "item_name", "acquisition_cost", "store_asking_price"},
@@ -338,6 +339,10 @@ class ClarinetIntake(Document):
 				setup.insert(ignore_permissions=True)
 				frappe.msgprint(_("Clarinet Initial Setup <b>{0}</b> created.").format(setup.name))
 
+			# --- 6) Consent Form (Repair/Maintenance, if enabled in settings) -------------------
+			if settings.get("auto_create_consent_form") and self._should_create_consent():
+				self._create_consent_form(settings)
+
 			# --- Timeline entries ---------------------------------------------------------------
 			add_timeline_entries(self, "after_insert")
 
@@ -404,6 +409,68 @@ class ClarinetIntake(Document):
 		# Legacy Data field or no ISN yet — search by plain serial
 		name = frappe.db.get_value("Instrument", {"serial_no": serial_no_input}, "name")
 		return frappe.get_doc("Instrument", name) if name else None  # type: ignore
+
+	def _should_create_consent(self) -> bool:
+		"""
+		Determine if consent form should be auto-created based on intake type and settings.
+		"""
+		consent_types = get_intake_settings().get("consent_required_for_intake_types", "Repair and Maintenance")
+		
+		if consent_types == "Repair":
+			return self.intake_type == "Repair"  # type: ignore
+		elif consent_types == "Maintenance":
+			return self.intake_type == "Maintenance"  # type: ignore
+		else:  # "Repair and Maintenance" or default
+			return self.intake_type in ("Repair", "Maintenance")  # type: ignore
+
+	def _create_consent_form(self, settings: dict) -> None:
+		"""
+		Create a Consent Form linked to this intake (idempotent).
+		"""
+		template = settings.get("default_consent_template")
+		if not template:
+			frappe.log_error(
+				title="Clarinet Intake: No Consent Template",
+				message=f"auto_create_consent_form is enabled but default_consent_template not set in settings for intake {self.name}"
+			)
+			return
+
+		# Check if consent form already exists for this intake
+		existing = frappe.db.exists("Consent Form", {"reference_doctype": "Clarinet Intake", "reference_name": self.name})
+		if existing:
+			return  # Already created
+
+		try:
+			consent = frappe.new_doc("Consent Form")
+			consent.consent_template = template  # type: ignore
+			consent.reference_doctype = "Clarinet Intake"  # type: ignore
+			consent.reference_name = self.name  # type: ignore
+			
+			# Link customer if available
+			if self.customer:  # type: ignore
+				consent.customer = self.customer  # type: ignore
+			
+			# Pre-fill common fields (if Consent Form has these)
+			if hasattr(consent, "customer_name") and self.customer_full_name:  # type: ignore
+				consent.customer_name = self.customer_full_name  # type: ignore
+			if hasattr(consent, "customer_email") and self.customer_email:  # type: ignore
+				consent.customer_email = self.customer_email  # type: ignore
+			if hasattr(consent, "customer_phone") and self.customer_phone:  # type: ignore
+				consent.customer_phone = self.customer_phone  # type: ignore
+			
+			consent.insert(ignore_permissions=True)
+			
+			# Link back to intake
+			self.db_set("consent_form", consent.name, update_modified=False)
+			
+			frappe.msgprint(_("Consent Form <b>{0}</b> created and linked.").format(consent.name))
+			
+		except Exception:
+			frappe.log_error(
+				title="Clarinet Intake: Consent Form Creation Failed",
+				message=frappe.get_traceback()
+			)
+			# Non-fatal: log but don't fail the intake creation
 
 
 # ------------------------------------------------------------------------------

@@ -5,6 +5,7 @@
 # Purpose: Validates QA checklist completion, updates Instrument Profile status, and logs errors on submit.
 # ---------------------------------------------------------------------------
 from __future__ import annotations
+
 import frappe
 from frappe import _
 from frappe.model.document import Document

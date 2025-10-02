@@ -322,7 +322,7 @@
       "fieldname": "external_work_logs",
       "fieldtype": "Table",
       "label": "External Work Logs",
-      "options": "External Work Logs",
+      "options": "Customer External Work Log",
       "read_only": 1
     },
     {

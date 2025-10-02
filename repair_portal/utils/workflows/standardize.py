@@ -1,13 +1,14 @@
-# -*- coding: utf-8 -*-
 """
 Workflow standardizer for Frappe v15.
 Run with: bench execute repair_portal.utils.workflows.standardize:apply --kwargs '{}'
 """
 
 from __future__ import annotations
-import json, os
+
+import json
 from pathlib import Path
-from typing import Dict, Any, List, Tuple
+from typing import Any
+
 import frappe
 
 APP_ROOT = Path("/home/frappe/frappe-bench/apps/repair_portal")
@@ -25,7 +26,7 @@ def _load_json(path: Path):
 def _dump_json(path: Path, data: Any):
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
-def _iter_workflow_docs() -> List[Tuple[Path, Dict[str, Any]]]:
+def _iter_workflow_docs() -> list[tuple[Path, dict[str, Any]]]:
     res = []
     for p in CODE_ROOT.rglob("*.json"):
         data = _load_json(p)
@@ -37,7 +38,7 @@ def _iter_workflow_docs() -> List[Tuple[Path, Dict[str, Any]]]:
                 res.append((p, d))
     return res
 
-def _iter_doctype_docs() -> Dict[str, Dict[str, Any]]:
+def _iter_doctype_docs() -> dict[str, dict[str, Any]]:
     out = {}
     for p in CODE_ROOT.rglob("*.json"):
         data = _load_json(p)
@@ -65,7 +66,7 @@ def _ensure_custom_field(dt: str):
     })
     cf.insert(ignore_permissions=True)
 
-def dry_run() -> Dict[str, Any]:
+def dry_run() -> dict[str, Any]:
     """Report only—no changes."""
     wfs = _iter_workflow_docs()
     doctypes = _iter_doctype_docs()
@@ -105,7 +106,7 @@ def dry_run() -> Dict[str, Any]:
         "empty_allow_edit_on_draft": empty_edit,
     }
 
-def apply(fix_allow_edit: bool = True) -> Dict[str, Any]:
+def apply(fix_allow_edit: bool = True) -> dict[str, Any]:
     """Apply standardization:
        - Set workflow_state_field='workflow_state'
        - Ensure Custom Field exists on each target Doctype

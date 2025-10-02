@@ -14,7 +14,6 @@ from __future__ import annotations
 import io
 import json
 from dataclasses import dataclass
-from typing import List, Tuple, Optional
 
 import frappe
 from frappe import _
@@ -29,14 +28,13 @@ try:
     HAS_CV2 = True
 except Exception:
     HAS_CV2 = False
-    from PIL import Image, ImageFilter  # type: ignore
+    from PIL import ImageFilter  # type: ignore
 
 # Optional: ReportLab for PDF
 try:
-    from reportlab.lib.pagesizes import A4, letter
+    from reportlab.lib.pagesizes import A4
     from reportlab.lib.units import mm
     from reportlab.pdfgen import canvas
-    from reportlab.lib.utils import ImageReader
 
     HAS_REPORTLAB = True
 except Exception:
@@ -371,7 +369,7 @@ def detect_pads(img_bytes: bytes, params: dict):
 
     quality_ok, metrics = _quality_checks(img)
 
-    px_per_mm: Optional[float] = None
+    px_per_mm: float | None = None
     warp_img = img
     aruco_info = {}
     if bool(params.get('use_aruco', True)):
@@ -415,7 +413,7 @@ def detect_pads(img_bytes: bytes, params: dict):
     return len(fused), preview_bytes, json.dumps(meta)
 
 
-def _quality_checks(img_bgr) -> Tuple[bool, dict]:
+def _quality_checks(img_bgr) -> tuple[bool, dict]:
     gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
     focus = float(cv2.Laplacian(gray, cv2.CV_64F).var())
     hist = cv2.calcHist([gray], [0], None, [256], [0, 256]).ravel()
@@ -444,7 +442,7 @@ def _preprocess(img_bgr, blur_ks: int):
     return den
 
 
-def _detect_hough(gray, params) -> List[Detection]:
+def _detect_hough(gray, params) -> list[Detection]:
     min_r = int(params['min_radius'])
     max_r = int(params['max_radius'])
     minDist = max(10, int((min_r + max_r) / 2))
@@ -458,20 +456,20 @@ def _detect_hough(gray, params) -> List[Detection]:
         minRadius=min_r,
         maxRadius=max_r,
     )
-    dets: List[Detection] = []
+    dets: list[Detection] = []
     if circles is not None:
         for x, y, r in np.round(circles[0, :]).astype('int'):
             dets.append(Detection(x=int(x), y=int(y), r=int(r), conf=0.85, method='hough'))
     return dets
 
 
-def _detect_contours(gray, params) -> List[Detection]:
+def _detect_contours(gray, params) -> list[Detection]:
     thr = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 35, 2)
     thr = cv2.medianBlur(thr, 5)
     kernel = np.ones((3, 3), np.uint8)
     thr = cv2.morphologyEx(thr, cv2.MORPH_OPEN, kernel, iterations=1)
     cnts, _ = cv2.findContours(thr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    dets: List[Detection] = []
+    dets: list[Detection] = []
     for c in cnts:
         area = cv2.contourArea(c)
         if area < 50:
@@ -493,7 +491,7 @@ def _detect_contours(gray, params) -> List[Detection]:
     return dets
 
 
-def _detect_template(gray, params) -> List[Detection]:
+def _detect_template(gray, params) -> list[Detection]:
     r = max(3, int((int(params['min_radius']) + int(params['max_radius'])) / 2))
     size = r * 2 + 3
     tmpl = np.zeros((size, size), dtype=np.uint8)
@@ -505,9 +503,9 @@ def _detect_template(gray, params) -> List[Detection]:
     res = cv2.matchTemplate(edges, t_edges, cv2.TM_CCOEFF_NORMED)
     thr = 0.5
     ys, xs = np.where(res >= thr)
-    dets: List[Detection] = []
+    dets: list[Detection] = []
     used = np.zeros_like(res, dtype=np.uint8)
-    for y, x in zip(ys.tolist(), xs.tolist()):
+    for y, x in zip(ys.tolist(), xs.tolist(), strict=False):
         if used[y, x]:
             continue
         win = res[max(0, y - 5) : y + 6, max(0, x - 5) : x + 6]
@@ -524,7 +522,7 @@ def _detect_template(gray, params) -> List[Detection]:
     return dets
 
 
-def _nms_merge(dets: List[Detection], iou_thr=0.3) -> List[Detection]:
+def _nms_merge(dets: list[Detection], iou_thr=0.3) -> list[Detection]:
     if not dets:
         return []
     boxes = []
@@ -541,7 +539,7 @@ def _nms_merge(dets: List[Detection], iou_thr=0.3) -> List[Detection]:
     return [dets[i] for i in idxs]
 
 
-def _annotate(img_bgr, dets: List[Detection]):
+def _annotate(img_bgr, dets: list[Detection]):
     out = img_bgr.copy()
     for d in dets:
         cv2.circle(out, (d.x, d.y), d.r, (0, 255, 0), 2)

@@ -18,21 +18,10 @@ class ClarinetSetupOperation(Document):
         completed: DF.Check
         component_ref: DF.Data | None
         details: DF.Text | None
-        operation_type: DF.Literal[
-            'Tone Hole Reaming',
-            'Tone Hole Repair',
-            'Chimney Leak',
-            'Tenon Fitting',
-            'Key Height Adjustment',
-            'Spring Tension Adjustment',
-            'Pad Leveling',
-            'Cork Replacement',
-            'Setup',
-            'Other',
-        ]
+        operation_type: DF.Data  # Select field with operation options
         parent: DF.Data
         parentfield: DF.Data
         parenttype: DF.Data
-        section: DF.Literal['All', 'Mouthpiece', 'Barrel', 'Upper Joint', 'Lower Joint', 'Bell']
+        section: DF.Data  # Select field with section options: All, Mouthpiece, etc.
     # end: auto-generated types
     pass

@@ -32,7 +32,11 @@
     "supplier_code_prefix",
     "intake_naming_series",
     "intake_id_pattern",
-    "brand_mapping_rules"
+    "brand_mapping_rules",
+    "section_consent",
+    "auto_create_consent_form",
+    "default_consent_template",
+    "consent_required_for_intake_types"
   ],
   "fields": [
     {
@@ -145,6 +149,37 @@
       "label": "Brand Mapping Rules",
       "fieldtype": "Table",
       "options": "Brand Mapping Rule"
+    },
+
+    {
+      "fieldname": "section_consent",
+      "label": "Consent Form Automation",
+      "fieldtype": "Section Break",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "auto_create_consent_form",
+      "label": "Auto-create Consent Form on Intake",
+      "fieldtype": "Check",
+      "default": "0",
+      "description": "When enabled, automatically creates a Consent Form for Repair/Maintenance intakes"
+    },
+    {
+      "fieldname": "default_consent_template",
+      "label": "Default Consent Template",
+      "fieldtype": "Link",
+      "options": "Consent Template",
+      "depends_on": "eval:doc.auto_create_consent_form",
+      "description": "Template used for auto-created consent forms"
+    },
+    {
+      "fieldname": "consent_required_for_intake_types",
+      "label": "Require Consent for Intake Types",
+      "fieldtype": "Select",
+      "options": "Repair\nMaintenance\nRepair and Maintenance",
+      "default": "Repair and Maintenance",
+      "depends_on": "eval:doc.auto_create_consent_form",
+      "description": "Which intake types require consent forms"
     }
   ],
   "permissions": [

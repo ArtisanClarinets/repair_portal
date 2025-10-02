@@ -13,8 +13,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Tuple
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import ROUND_HALF_UP, Decimal
+from typing import TYPE_CHECKING, Any
 
 import frappe
 from frappe import _
@@ -40,7 +40,7 @@ def _get_settings_decimal(fieldname: str, default: str) -> Decimal:
     except Exception:
         return Decimal(default)
 
-def _sum_minutes_and_hours(rows) -> Tuple[int, Decimal]:
+def _sum_minutes_and_hours(rows) -> tuple[int, Decimal]:
     """
     Sum minutes from child rows; if a row lacks minutes (<=0), fall back to legacy exp_duration_days.
     Returns (total_minutes_int, hours_decimal_quantized_2dp).
@@ -72,6 +72,7 @@ class SetupTemplate(Document):
     # --------------------- auto-generated types (do not edit) ---------------------
     if TYPE_CHECKING:
         from frappe.types import DF
+
         from repair_portal.instrument_setup.doctype.clarinet_setup_operation.clarinet_setup_operation import (
             ClarinetSetupOperation,
         )
@@ -91,15 +92,8 @@ class SetupTemplate(Document):
         estimated_materials_cost: DF.Currency
         is_active: DF.Check
         pad_map: DF.Link | None
-        priority: DF.Literal["Low", "Medium", "High", "Urgent"]  # type: ignore
-        setup_type: DF.Literal[
-            "Standard Setup",
-            "Advanced Setup",
-            "Repair & Setup",
-            "Maintenance",
-            "Overhaul",
-            "Custom Setup",
-        ]
+        priority: DF.Data  # Select field with priority options
+        setup_type: DF.Data  # Select field with setup type options
         template_name: DF.Data
         template_tasks: DF.Table[ClarinetTemplateTask]
     # ------------------------------------------------------------------------------

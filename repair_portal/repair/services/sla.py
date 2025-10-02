@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Path: repair_portal/repair/services/sla.py
 Version: 1.0.2
@@ -32,10 +31,8 @@ Notes / Requirements:
 
 from __future__ import annotations
 
-from typing import Optional, List
-
 import frappe
-from frappe.utils import add_to_date, now_datetime, flt, get_url_to_form
+from frappe.utils import add_to_date, flt, get_url_to_form, now_datetime
 from frappe.utils.jinja import render_template
 
 # -----------------------------
@@ -227,7 +224,7 @@ def sweep_breaches_and_escalate() -> None:
 # -----------------------------
 # Helpers
 # -----------------------------
-def _get_policy_for_ro(ro) -> Optional[frappe._dict]:
+def _get_policy_for_ro(ro) -> frappe._dict | None:
     """Return explicit policy (if set on RO) or the enabled default policy."""
     # Try cached
     key = ro.get(RO_FIELD_SLA_POLICY) or "__default__"
@@ -272,7 +269,7 @@ def _event_is_stop(event: str) -> bool:
     return (event or "") in STOP_EVENTS
 
 
-def _pick_rule(policy, ro, event: str, for_start: bool) -> Optional[frappe._dict]:
+def _pick_rule(policy, ro, event: str, for_start: bool) -> frappe._dict | None:
     """Select the best matching rule for this RO and event.
 
     Priority:
@@ -423,7 +420,7 @@ def _render_escalation_body(ro, overdue_minutes: int, level_tag: str, link: str)
         )
 
 
-def _minutes_overdue(ro) -> Optional[int]:
+def _minutes_overdue(ro) -> int | None:
     """Return minutes overdue (integer) or None if not yet overdue."""
     due = ro.get(RO_FIELD_SLA_DUE)
     if not due:
@@ -435,7 +432,7 @@ def _minutes_overdue(ro) -> Optional[int]:
     return int(delta.total_seconds() // 60)
 
 
-def _users_with_role(role: str) -> List[str]:
+def _users_with_role(role: str) -> list[str]:
     """Return enabled user IDs having the given Role."""
     rows = frappe.get_all("Has Role", filters={"role": role}, fields=["parent as user"])
     users = [r.user for r in rows] if rows else []

@@ -1,13 +1,12 @@
-# -*- coding: utf-8 -*-
 # Path: repair_portal/repair/report/sla_compliance/sla_compliance.py
 # Script Report: SLA Compliance for Repair Orders
 
 from __future__ import annotations
 
-from typing import List, Tuple, Dict, Any, Optional
+from typing import Any
+
 import frappe
 from frappe.utils import now_datetime
-
 
 RO = "Repair Order"
 
@@ -27,14 +26,14 @@ FIELD_PREFS = {
 }
 
 
-def execute(filters: Optional[Dict[str, Any]] = None) -> Tuple[List[Dict], List[List]]:
+def execute(filters: dict[str, Any] | None = None) -> tuple[list[dict], list[list]]:
     filters = filters or {}
     columns = _get_columns()
     rows = _get_data(filters)
     return columns, rows
 
 
-def _get_columns() -> List[Dict[str, Any]]:
+def _get_columns() -> list[dict[str, Any]]:
     return [
         {"label": "Repair Order", "fieldname": "name", "fieldtype": "Link", "options": RO, "width": 140},
         {"label": "Customer", "fieldname": "customer_name", "fieldtype": "Data", "width": 180},
@@ -52,14 +51,14 @@ def _get_columns() -> List[Dict[str, Any]]:
     ]
 
 
-def _get_data(filters: Dict[str, Any]) -> List[Dict[str, Any]]:
+def _get_data(filters: dict[str, Any]) -> list[dict[str, Any]]:
     meta = frappe.get_meta(RO)
 
     def exists(fieldname: str) -> bool:
         return fieldname == "name" or any(df.fieldname == fieldname for df in meta.fields)
 
     # Resolve which actual field to use for each logical key
-    def pick(logical: str) -> Optional[str]:
+    def pick(logical: str) -> str | None:
         for cand in FIELD_PREFS.get(logical, []):
             if exists(cand):
                 return cand
@@ -67,7 +66,7 @@ def _get_data(filters: Dict[str, Any]) -> List[Dict[str, Any]]:
 
     # Build SELECT fields list safely
     select_fields = ["name"]
-    actual_map: Dict[str, Optional[str]] = {}
+    actual_map: dict[str, str | None] = {}
     for logical in FIELD_PREFS:
         actual = pick(logical)
         actual_map[logical] = actual
@@ -75,7 +74,7 @@ def _get_data(filters: Dict[str, Any]) -> List[Dict[str, Any]]:
             select_fields.append(actual)
 
     # Build filters, only on fields that exist
-    where: Dict[str, Any] = {"docstatus": ["<", 2]}
+    where: dict[str, Any] = {"docstatus": ["<", 2]}
 
     from_date = filters.get("from_date")
     to_date = filters.get("to_date")
@@ -108,7 +107,7 @@ def _get_data(filters: Dict[str, Any]) -> List[Dict[str, Any]]:
 
     # Bulk resolve customer display names (once per unique customer)
     customer_field = actual_map["customer"]
-    customer_map: Dict[str, str] = {}
+    customer_map: dict[str, str] = {}
     if customer_field:
         unique_customers = sorted({r.get(customer_field) for r in ros if r.get(customer_field)})
         if unique_customers:
@@ -123,10 +122,10 @@ def _get_data(filters: Dict[str, Any]) -> List[Dict[str, Any]]:
                     customer_map[cname] = cname
 
     now = now_datetime()
-    out: List[Dict[str, Any]] = []
+    out: list[dict[str, Any]] = []
 
     for r in ros:
-        row: Dict[str, Any] = {"name": r["name"]}
+        row: dict[str, Any] = {"name": r["name"]}
 
         # Map/alias fields into the report schema
         for logical in ["service_type", "workshop", "sla_policy", "sla_start", "sla_due",

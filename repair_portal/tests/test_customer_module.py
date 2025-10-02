@@ -5,6 +5,7 @@
 # Dependencies: frappe.tests.utils.FrappeTestCase, unittest
 
 import unittest
+
 import frappe
 from frappe.tests.utils import FrappeTestCase
 

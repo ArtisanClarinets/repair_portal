@@ -14,6 +14,7 @@
 # and (b) auto-append child docs into Repair Order.related_documents.
 
 from __future__ import annotations
+
 import frappe
 from frappe import _
 from frappe.model.document import Document

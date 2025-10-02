@@ -1,8 +1,11 @@
-# repair_portal/instrument_profile/report/warranty_status_report/warranty_status_report.py
-# Updated: 2025-06-15
-# Version: 1.0
-# Purpose: SQL source for Warranty Status Report
+# Path: repair_portal/instrument_profile/report/warranty_status_report/warranty_status_report.py
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: SQL-based report showing warranty status for all instruments with expiration tracking and active/expired indicators
+# Dependencies: frappe
+
 import frappe
+from frappe import _
 
 
 def execute(filters=None):

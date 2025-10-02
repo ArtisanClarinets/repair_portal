@@ -37,11 +37,11 @@ class ClarinetSetupTask(Document):
         instrument: DF.Link | None
         is_group: DF.Check
         parent_task: DF.Link | None
-        priority: DF.Literal['Low', 'Medium', 'High', 'Urgent']
+        priority: DF.Data  # Select field with priority options
         progress: DF.Percent
         sequence: DF.Int
         serial: DF.Link | None
-        status: DF.Literal['Open', 'Working', 'Paused', 'Pending Review', 'Completed', 'Canceled']
+        status: DF.Data  # Select field with status options
         subject: DF.Data
 
     # end: auto-generated types
@@ -51,17 +51,28 @@ class ClarinetSetupTask(Document):
             frappe.throw(_('Expected End cannot be earlier than Expected Start.'))
 
         # Dependency gating: cannot start/complete if predecessors not Completed
-        if self.status in {'Working', 'Pending Review', 'Completed'}:
-            if self.depends_on:
-                pending = []
-                for dep in self.depends_on:
-                    st = frappe.db.get_value('Clarinet Setup Task', dep.task, 'status')
-                    if st != 'Completed':
-                        pending.append(f'{dep.task} ({st})')
-                if pending:
-                    frappe.throw(
-                        _('This task depends on unfinished tasks: {0}').format(', '.join(pending))
+        if (self.status in {'Working', 'Pending Review', 'Completed'} and 
+            self.depends_on):
+                # Bulk fetch all dependency statuses to avoid N+1 queries
+                dep_tasks = [dep.task for dep in self.depends_on]
+                if dep_tasks:
+                    dep_statuses = frappe.get_all(
+                        'Clarinet Setup Task',
+                        filters={'name': ['in', dep_tasks]},
+                        fields=['name', 'status']
                     )
+                    status_map = {d['name']: d['status'] for d in dep_statuses}
+                    
+                    pending = []
+                    for dep in self.depends_on:
+                        status = status_map.get(dep.task, 'Unknown')
+                        if status != 'Completed':
+                            pending.append(f'{dep.task} ({status})')
+                    
+                    if pending:
+                        frappe.throw(
+                            _('This task depends on unfinished tasks: {0}').format(', '.join(pending))
+                        )
 
         # Auto progress on Completed
         if self.status == 'Completed':

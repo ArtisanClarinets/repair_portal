@@ -2,12 +2,12 @@
 from __future__ import annotations
 
 import frappe
-from frappe.model.document import Document
-from frappe.utils import flt, nowdate, now_datetime
 from frappe import _
+from frappe.model.document import Document
+from frappe.utils import flt, now_datetime, nowdate
 
 # Correct package path (module = Repair)
-from repair_portal.repair.utils import create_repair_order_from_quotation, MappingError
+from repair_portal.repair.utils import MappingError, create_repair_order_from_quotation
 
 
 class RepairQuotation(Document):
@@ -18,9 +18,12 @@ class RepairQuotation(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from repair_portal.repair.doctype.repair_quotation_item.repair_quotation_item import RepairQuotationItem
 
-        acceptance_source: DF.Literal["Desk", "Portal", "API"]
+        from repair_portal.repair.doctype.repair_quotation_item.repair_quotation_item import (
+            RepairQuotationItem,
+        )
+
+        acceptance_source: DF.Literal[Desk, Portal, API]
         accepted_by: DF.Link | None
         accepted_on: DF.Datetime | None
         amended_from: DF.Link | None
@@ -37,7 +40,7 @@ class RepairQuotation(Document):
         customer_primary_contact: DF.Link | None
         discount_amount: DF.Currency
         discount_percent: DF.Float
-        discount_type: DF.Literal["Percentage", "Amount"]
+        discount_type: DF.Literal[Percentage, Amount]
         grand_total: DF.Currency
         instrument_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "C Clarinet", "Bass Clarinet"]
         items: DF.Table[RepairQuotationItem]
@@ -48,7 +51,7 @@ class RepairQuotation(Document):
         rounded_total: DF.Currency
         serial_no: DF.Data | None
         setup_notes: DF.SmallText | None
-        status: DF.Literal["Draft", "Submitted", "Cancelled", "Expired", "Lost", "Accepted"]
+        status: DF.Literal[Draft, Submitted, Cancelled, Expired, Lost, Accepted]
         subtotal: DF.Currency
         tax_amount: DF.Currency
         tax_rate: DF.Float

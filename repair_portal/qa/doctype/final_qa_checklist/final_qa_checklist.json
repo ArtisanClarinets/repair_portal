@@ -24,7 +24,7 @@
       "fieldname": "checklist_items",
       "fieldtype": "Table",
       "label": "Checklist Items",
-      "options": "Final QA Checklist Item"
+      "options": "Final Qa Checklist Item"
     },
     {
       "fieldname": "overall_passed",

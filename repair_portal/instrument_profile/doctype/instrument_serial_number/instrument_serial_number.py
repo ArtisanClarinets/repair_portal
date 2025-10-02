@@ -43,11 +43,11 @@ class InstrumentSerialNumber(Document):
         scan_code: DF.Data | None
         serial: DF.Data
         serial_source: DF.Literal[
-            'Stamped', 'Engraved', 'Etched', 'Label / Sticker', 'Handwritten', 'Unknown'
+            Stamped, Engraved, Etched, Label / Sticker, Handwritten, Unknown
         ]
-        status: DF.Literal['Active', 'Deprecated', 'Replaced', 'Error']
+        status: DF.Literal[Active, Deprecated, Replaced, Error]
         verification_status: DF.Literal[
-            'Unverified', 'Verified by Technician', 'Customer Reported', 'Disputed'
+            Unverified, 'Verified by Technician', 'Customer Reported', Disputed
         ]
         verified_by: DF.Link | None
         verified_on: DF.Datetime | None
@@ -190,9 +190,25 @@ class InstrumentSerialNumber(Document):
     # -------- Public API --------
     @frappe.whitelist()
     def attach_to_instrument(self, instrument: str):
-        """Link this serial to an Instrument (and set Instrument.serial_no when available)."""
+        """Link this serial to an Instrument (and set Instrument.serial_no when available).
+        
+        Security: Requires write permission on both ISN and Instrument.
+        """
+        # Security: Validate permissions BEFORE any operation
+        if not frappe.has_permission('Instrument Serial Number', 'write', self.name):
+            frappe.throw(_('Insufficient permissions to attach serial number'), frappe.PermissionError)
+        
+        if not frappe.has_permission('Instrument', 'write', instrument):
+            frappe.throw(_('Insufficient permissions to modify instrument'), frappe.PermissionError)
+        
         if not frappe.db.exists('Instrument', instrument):
             frappe.throw(_("Instrument '{0}' not found.").format(instrument))
+        
+        # Audit log: Track who attached what
+        frappe.logger().info(
+            f"ISN Attachment: {self.name} → {instrument} by {frappe.session.user}"
+        )
+        
         util_attach_isn(isn_name=self.name, instrument=instrument, link_on_instrument=True)  # type: ignore
         # Reflect linkage locally if not already set
         if self.instrument != instrument:
@@ -202,9 +218,32 @@ class InstrumentSerialNumber(Document):
 
     @frappe.whitelist()
     def find_similar(self, limit: int = 20):
-        """Return possible matches by normalized_serial, excluding self."""
+        """Return possible matches by normalized_serial, excluding self.
+        
+        Security: Rate limited to 10 calls/minute per user to prevent enumeration attacks.
+        """
+        # Security: Rate limit to prevent enumeration attacks
+        cache_key = f"find_similar_rate_limit:{frappe.session.user}"
+        call_count = frappe.cache().get(cache_key) or 0
+        
+        if call_count > 10:  # Max 10 calls per minute
+            frappe.throw(
+                _('Rate limit exceeded. Please wait before searching again.'),
+                frappe.ValidationError
+            )
+        
+        frappe.cache().setex(cache_key, 60, call_count + 1)
+        
+        # Permission check: Must have read access to ISN
+        if not frappe.has_permission('Instrument Serial Number', 'read'):
+            frappe.throw(_('Insufficient permissions'), frappe.PermissionError)
+        
         if not self.serial:
             return []
+        
+        # Limit enforcement (prevent abuse)
+        limit = min(int(limit), 50)  # Hard cap at 50
+        
         rows = util_candidates(self.serial, limit=limit)
         # Exclude self
         rows = [r for r in (rows or []) if r.get('name') != self.name]

@@ -41,7 +41,7 @@ class DefaultOperations(Document):
 
         material_used: DF.Table[MaterialUseLog]
         operation_template: DF.Table[OperationTemplate]
-        operation_type: DF.Literal['', 'Inventory', 'Maintenance', 'Repair']  # type: ignore
+        operation_type: DF.Literal['', Inventory, Maintenance, Repair]  # type: ignore
     # end: auto-generated types
     """
     Handles default operations for repair processes. This includes inventory management, maintenance rules,

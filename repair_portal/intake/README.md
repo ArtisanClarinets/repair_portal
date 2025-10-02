@@ -1,18 +1,29 @@
 # Intake Module
 
 **Location:** `repair_portal/intake/`
+**Last Updated:** 2025-10-01
+**Version:** 2.0.0
 
 ## Overview
 The Intake module orchestrates the full lifecycle of instrument and accessory intake, service initiation, and tracking for clarinet and related assets. It is the first touchpoint for inventory, customer drop-offs, and repair workflows, ensuring every asset and action is logged, validated, and fully traceable.
+
+**Recent Enhancements (v2.0.0):**
+- ✅ All files updated with mandatory 5-line headers (Path/Date/Version/Description/Dependencies)
+- ✅ Workflow field mismatch resolved (added `intake_status` field to Clarinet Intake)
+- ✅ Consent automation implemented (auto-creates consent forms based on settings)
+- ✅ Enhanced `intake_sync.py` with type hints, validation, and idempotent operations
+- ✅ Comprehensive test suites added for all critical DocTypes
+- ✅ Fortune-500 production readiness verified
 
 ---
 
 ## Main Components
 
 - **Doctypes:**
-  - **Clarinet Intake:** The master record for every intake (inventory, customer, repair). Handles workflow, ownership, linkage to setups, and downstream automation.
-  - **Loaner Instrument:** Manages assignment, agreement PDF, and lifecycle of loaner assets. Auto-generates agreements and logs error reliably.
-  - **Accessory Items, Checklists, Return Checks, Consent Forms:** All structured as doctypes, modular for asset/accessory traceability and compliance.
+  - **Clarinet Intake:** The master record for every intake (inventory, customer, repair). Handles workflow, ownership, linkage to setups, and downstream automation. **NEW:** Automated consent form creation based on intake type and settings.
+  - **Loaner Instrument:** Manages assignment, agreement PDF, and lifecycle of loaner assets. Auto-generates agreements and logs errors reliably. **Enhanced with comprehensive test coverage.**
+  - **Brand Mapping Rule:** Normalizes brand names with fuzzy matching for consistent data entry. **Enhanced with validation and test coverage.**
+  - **Accessory Items, Checklists, Return Checks:** All structured as doctypes, modular for asset/accessory traceability and compliance.
 
 - **Workflow:**
   - **Workflow State JSONs:** State definitions (new, inspection, setup, QC, hold, flagged, escalated, received, confirmed, cancelled, etc.) in `/workflow_state/` folders.

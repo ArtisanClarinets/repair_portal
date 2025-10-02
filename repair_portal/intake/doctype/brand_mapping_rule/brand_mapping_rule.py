@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Absolute Path: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/doctype/brand_mapping_rule/brand_mapping_rule.py
 # Last Updated: 2025-09-19
 # Version: v1.2.0 (Normalization + case-insensitive uniqueness + reusable map_brand helper)
@@ -11,7 +10,6 @@
 from __future__ import annotations
 
 import re
-from typing import Dict
 
 import frappe
 from frappe import _
@@ -78,7 +76,7 @@ class BrandMappingRule(Document):
 				)
 
 
-def _load_brand_map() -> Dict[str, str]:
+def _load_brand_map() -> dict[str, str]:
 	"""
 	Load all brand mappings into a dict keyed by normalized from_brand (case-insensitive),
 	values are the stored to_brand strings.
@@ -88,7 +86,7 @@ def _load_brand_map() -> Dict[str, str]:
 		return cache
 
 	rows = frappe.get_all("Brand Mapping Rule", fields=["from_brand", "to_brand"])
-	brand_map: Dict[str, str] = {}
+	brand_map: dict[str, str] = {}
 	for r in rows:
 		f = _normalized_for_compare(r.get("from_brand") or "")
 		t = _collapse_ws(r.get("to_brand") or "")

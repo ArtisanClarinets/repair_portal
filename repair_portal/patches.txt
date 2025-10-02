@@ -4,4 +4,11 @@
 
 [post_model_sync]
 # Patches added in this section will be executed after doctypes are migrated
+# Read docs to understand patches: https://frappeframework.com/docs/v14/user/en/database-migrations
 repair_portal.patches.v15_02_customer_indexes
+repair_portal.patches.v15_03_instrument_profile_indexes
+repair_portal.patches.v15_03_player_profile_indexes
+repair_portal.patches.v15_04_workflow_state_normalization
+repair_portal.patches.v15_05_schema_normalization
+repair_portal.patches.v15_06_data_integrity_validation
+repair_portal.repair_logging.patches.v15_01_add_performance_indexes

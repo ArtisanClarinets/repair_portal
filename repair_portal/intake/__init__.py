@@ -1,4 +1,1 @@
-# File: repair_portal/intake/__init__.py
-# Updated: 2025-06-26
-# Version: 1.0
-# Purpose: Package marker for intake module
+# Path: repair_portal/intake/__init__.py\n# Date: 2025-10-01\n# Version: 1.0.0\n# Description: Package marker for intake module; orchestrates instrument intake workflows, customer drop-offs, and repair initiation.\n# Dependencies: None (package init)

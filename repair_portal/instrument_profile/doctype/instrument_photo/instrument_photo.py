@@ -1,8 +1,7 @@
-# File Header Template
-# Relative Path: repair_portal/instrument_profile/doctype/instrument_photo/instrument_photo.py
-# Last Updated: 2025-07-23
-# Version: v1.0
-# Purpose: Child table to store all photo/image records linked to an instrument's lifecycle (hero/profile, marketing, service, etc.)
+# Path: repair_portal/instrument_profile/doctype/instrument_photo/instrument_photo.py
+# Date: 2025-10-02
+# Version: 1.0.0
+# Description: Child table for instrument photos with categorization; auto-sets timestamp and uploaded_by
 # Dependencies: frappe, User
 
 from frappe.model.document import Document

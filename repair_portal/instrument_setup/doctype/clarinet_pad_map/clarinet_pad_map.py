@@ -346,8 +346,9 @@ class ClarinetPadMap(Document):
                 else:
                     try:
                         row.is_open_key = int(current)
-                    except Exception:
-                        pass
+                    except (ValueError, TypeError):
+                        frappe.log_error(f"Invalid is_open_key value: {current}", "Clarinet Pad Map Data Error")
+                        row.is_open_key = 0  # Safe default
 
         _apply(self.top_joint_pads)
         _apply(self.bottom_joint_pads)
