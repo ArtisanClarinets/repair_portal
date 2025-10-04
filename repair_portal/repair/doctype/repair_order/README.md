@@ -1,173 +1,96 @@
-# Repair Order (`repair_order`)
+## Doctype: Repair Order
 
-## Purpose
+### 1. Overview and Purpose
 
-The **Repair Order** DocType is the central control document for managing the full lifecycle of instrument repair projects—covering intake, diagnostics, repair execution, quality assurance, billing, and analytics. It provides an ERPNext v15–ready, Fortune-500-grade framework for technicians, managers, and customers, with robust automation, data integrity, and audit-grade error logging.
+**Repair Order** is a doctype in the **Repair** module that manages and tracks related business data.
 
----
+**Module:** Repair
+**Type:** Master/Standard Document
 
-## Schema Summary
+This doctype is used to:
+- Store and manage master or reference data
+- Provide configuration or lookup information
+- Support other business processes in the application
 
-### Identification & Basic Info
+### 2. Fields / Schema
 
-* **naming\_series** – Auto-generated ID (`RO-.YYYY.-`) for unique tracking
-* **customer** – Link to the Customer initiating the repair
-* **instrument\_profile** – Link to the Instrument Profile being serviced
-* **company** – Company responsible for the repair
-* **posting\_date** – Date the repair order is created (default: Today)
-* **priority** – Select: Low, Medium (default), High, Critical
-* **assigned\_technician** – User assigned to perform the repair
-* **target\_delivery** – Target completion date
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `naming_series` | Data | **Required**. Default: `RO-.YYYY.-` |
+| `customer` | Link (Customer) | **Required** |
+| `instrument_profile` | Link (Instrument Profile) | Instrument Profile |
+| `company` | Link (Company) | Company |
+| `posting_date` | Date | Default: `Today` |
+| `priority` | Select (Low
+Medium
+High
+Critical) | Default: `Medium` |
+| `assigned_technician` | Link (User) | Assigned Technician |
+| `target_delivery` | Date | Target Delivery |
+| `planned_materials` | Table (Repair Planned Material) | Planned Materials |
+| `warehouse_source` | Link (Warehouse) | **Required** |
+| `actual_materials` | Table (Repair Actual Material) | Actual Materials |
+| `labor_item` | Link (Item) | **Required** |
+| `labor_rate` | Currency | Default: `0` |
+| `total_estimated_minutes` | Int | Read-only |
+| `total_actual_minutes` | Int | Read-only |
+| `qa_required` | Check | Default: `1` |
+| `require_invoice_before_delivery` | Check | Default: `0` |
+| `workflow_state` | Select (Draft
+In Progress
+QA
+Ready
+Delivered
+Closed) | Read-only. Default: `Draft` |
+| `remarks` | Small Text | Remarks |
+| `related_documents` | Table (Repair Related Document) | Related Documents |
+| ... | ... | *3 more fields* |
 
-### Materials (Actual)
+### 3. Business Logic and Automation
 
-* **warehouse\_source** – Source warehouse for parts (required)
-* **actual\_materials** – Child table (`Repair Actual Material`) that mirrors Stock Entry items to track actual materials used.
+#### Backend Logic (Python Controller)
 
-### Labor
+The Python controller (`repair_order.py`) implements the following:
 
-* **labor\_item** – Service Item representing labor (required)
-* **labor\_rate** – Hourly labor rate
-* **total\_estimated\_minutes** – Aggregate of estimated minutes from Repair Task child rows
-* **total\_actual\_minutes** – Aggregate of actual minutes from Repair Task child rows.
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
 
-### Workflow Controls
+**Custom Methods:**
+- `opt()`: Custom business logic method
+- `create_child()`: Custom business logic method
+- `create_material_issue_draft()`: Custom business logic method
+- `refresh_actuals_from_stock_entry()`: Custom business logic method
+- `generate_sales_invoice_from_ro()`: Custom business logic method
 
-* **qa\_required** – Boolean flag to enforce QA (default: 1)
-* **require\_invoice\_before\_delivery** – Boolean flag requiring invoice before delivery
-* **workflow\_state (RO Status)** – Read-only Select with states: Draft, In Progress, QA, Ready, Delivered, Closed
-* **remarks** – Freeform notes.
+#### Frontend Logic (JavaScript)
 
-### Permissions
+The JavaScript file (`repair_order.js`) provides:
 
-* **Repair Manager** – Full CRUD and sharing rights
-* **Repair Technician** – Read/Write but cannot create or delete
-* **Sales User / Accounts User** – Read/Print/Email only.
+- **Custom Buttons**: Adds custom action buttons to the form
 
----
+### 4. Relationships and Dependencies
 
-## Business Rules & Server Logic (`repair_order.py`)
+This doctype has the following relationships:
 
-### Lifecycle & Validation
+- Links to **Customer** doctype via the `customer` field (Customer)
+- Links to **Instrument Profile** doctype via the `instrument_profile` field (Instrument Profile)
+- Links to **Company** doctype via the `company` field (Company)
+- Links to **User** doctype via the `assigned_technician` field (Assigned Technician)
+- Has child table **Repair Planned Material** stored in the `planned_materials` field
+- Links to **Warehouse** doctype via the `warehouse_source` field (Source Warehouse)
+- Has child table **Repair Actual Material** stored in the `actual_materials` field
+- Links to **Item** doctype via the `labor_item` field (Labor Item (Service))
+- Has child table **Repair Related Document** stored in the `related_documents` field
+- Links to **Clarinet Intake** doctype via the `intake` field (Intake)
 
-* **validate()**
+### 5. Critical Files Overview
 
-  * Applies defaults from *Repair Settings* (company, warehouse, labor item/rate, QA flags).
-  * Checks `status` against `ALLOWED_STATUS` list: Draft, Intake, Diagnostics, Structural, Pads & Sealing, Setup, QA, Ready for Pickup, Delivered, Cancelled.
-  * Warns if Customer, Source Warehouse, or Labor Item are missing.
-  * Normalizes first-class links (Clarinet Intake, Instrument Inspection, Service Plan, Repair Estimate, Measurement Session, Instrument Profile) into the Related Documents child table.
-  * Deduplicates Related Documents.
-  * Aggregates estimated/actual minutes from Repair Task child rows to update `total_estimated_minutes` and `total_actual_minutes`.
-
-### Key Methods
-
-* **create\_child(doctype)** – Returns route options to create a linked child document with pre-filled references.
-
-### ERPNext Integrations
-
-* **create\_material\_issue\_draft(repair\_order)** – Creates a draft **Stock Entry** (Material Issue) with RO reference in remarks for auto-linking.
-* **refresh\_actuals\_from\_stock\_entry(repair\_order, stock\_entry)** – Mirrors submitted Stock Entry items into `actual_materials` for at-a-glance visibility; accounting remains in Stock Ledger.
-* **generate\_sales\_invoice\_from\_ro(repair\_order)** – Generates a **Sales Invoice** that:
-
-  * Adds all Actual Materials as parts.
-  * Converts total actual minutes → hours and adds a labor line using `labor_item` and `labor_rate`.
-
-### Hook for Automation
-
-* **\_on\_submit\_stock\_entry(doc, method)** – Optional doc\_event hook to auto-mirror materials when a Stock Entry is submitted.
-
-### Internal Utilities
-
-* `_get_total_minutes_from_tasks_or_aggregate()` – Prefers aggregate field, else sums child tasks.
-* `_extract_ro_from_se()` – Parses Stock Entry remarks and item descriptions to detect RO reference.
-
----
-
-## Client Logic (`repair_order.js`)
-
-### Form Events
-
-* **refresh(frm)** – Adds *Create* shortcuts and ERPNext integration actions only for saved documents.
-
-### Create Shortcuts
-
-Quickly start related documents with RO, Customer, and Instrument Profile pre-filled:
-
-* Clarinet Intake
-* Instrument Inspection
-* Service Plan
-* Repair Estimate
-* Final QA Checklist
-* Measurement Session
-* Repair Task.
-
-### Integration Actions
-
-* **Create Material Issue (Actuals)** – Calls `create_material_issue_draft` to draft a Stock Entry.
-* **Generate Sales Invoice** – Calls `generate_sales_invoice_from_ro` to create a Sales Invoice.
-* **Refresh Actuals from Stock Entry** – Prompts for a submitted Stock Entry, then mirrors its items into `actual_materials`.
-
-All buttons feature user-friendly alerts, freeze messages, and error handling for Fortune-500-grade UX.
+- **`repair_order.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`repair_order.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`repair_order.js`**: Client-side script for form behavior, custom buttons, and UI interactions
+- **`test_repair_order.py`**: Unit tests for validating doctype functionality
+- **`repair_order_list.js`**: Custom list view behavior and interactions
 
 ---
 
-## Dashboard (`repair_order_dashboard.py`)
-
-* Provides a simple dashboard linking all key stage doctypes—Clarinet Intake, Instrument Inspection, Service Plan, Repair Estimate, Final QA Checklist, Measurement Session, and Repair Task—for seamless navigation from a Repair Order.
-
----
-
-## Data Integrity
-
-### Required Fields
-
-* `customer`, `warehouse_source`, `labor_item`, and `naming_series` must be set for key operations.
-
-### Defaults
-
-* Company, warehouse, labor item/rate, QA flags pulled automatically from **Repair Settings** if blank.
-
-### Constraints
-
-* `workflow_state` restricted to allowed states.
-* Minutes fields are automatically aggregated; no manual edits.
-
-### Referential Integrity
-
-* Related documents normalized and deduplicated automatically.
-* Actual Materials child table reflects submitted Stock Entries for consistent inventory tracking.
-
----
-
-## Workflows & Roles
-
-* **Repair Manager** drives the process from intake through delivery.
-* **Technicians** update progress and material usage.
-* **Sales/Accounts** handle invoicing and financial reports.
-* Status transitions and QA gates follow internal policies defined in ERPNext Workflow, with optional hook to auto-mirror Stock Entry data.
-
----
-
-## Test Plan
-
-### Unit & Integration
-
-* **Defaults & Validation:** Ensure defaults load from Repair Settings; invalid statuses are rejected.
-* **Material Mirror:** Test `refresh_actuals_from_stock_entry` and `_on_submit_stock_entry` for accuracy.
-* **Invoice Generation:** Confirm correct parts and labor lines in generated Sales Invoice.
-* **Time Totals:** Verify minutes aggregation and hour conversion.
-
-### Performance
-
-* Stress test with high volumes of Repair Tasks and Actual Materials.
-* Verify responsiveness of client-side actions and dashboard links.
-
----
-
-## Changelog
-
-* **2025-09-16** – v2.0.0: Major refactor with enhanced default settings, robust ERPNext integrations, and comprehensive client UX improvements.
-* **2025-07-17** – Added error logging, customer read permission, and portal visibility.
-* See `/CHANGELOG.md` for the full project history.
-
-
+*Last updated: 2025-10-04*

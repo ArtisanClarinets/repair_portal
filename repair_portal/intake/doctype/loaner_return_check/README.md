@@ -1,64 +1,56 @@
-# Loaner Return Check (`loaner_return_check`)
+## Doctype: Loaner Return Check
 
-## Purpose
-The Loaner Return Check DocType records the inspection of a loaner instrument when it is returned by a customer. It ensures that return condition, photos, and notes are documented and helps enforce accountability for damages.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **DocType Type:** Standard (not Single, not Child)
-- **Key Fields:**
-  - `linked_loaner` (Link → Loaner Instrument, Required): Reference to the issued loaner
-  - `condition_notes` (Text): Notes about condition upon return
-  - `return_photos` (Attach Image): Photos documenting return state
-  - `damage_found` (Check): Whether damage was observed
-  - `return_date` (Date): When instrument was returned
-  - `workflow_state` (Link → Workflow State, Read Only): Tracks workflow stage
+**Loaner Return Check** is a doctype in the **Intake** module that manages and tracks related business data.
 
-## Business Rules
-- Each return check must be linked to an existing Loaner Instrument.
-- If `damage_found` is checked, `condition_notes` must be provided.
-- Photos can be attached to strengthen documentation and accountability.
-- Workflow integration allows for escalation (e.g., Damage Review).
+**Module:** Intake
+**Type:** Master/Standard Document
 
-## Python Controller Logic
-File: `loaner_return_check.py`
+This doctype is used to:
+- Store and manage master or reference data
+- Provide configuration or lookup information
+- Support other business processes in the application
 
-- **Class:** `LoanerReturnCheck(Document)`
-- **Methods:**
-  - `validate()`: Ensures notes are included if damage is flagged.
+### 2. Fields / Schema
 
-### Example Logic
-```python
-if self.damage_found and not self.condition_notes:
-    frappe.throw("Please include condition notes when damage is flagged.")
-```
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `linked_loaner` | Link (Loaner Instrument) | **Required** |
+| `condition_notes` | Text | Condition Notes |
+| `return_photos` | Attach Image | Photos at Return |
+| `damage_found` | Check | Damage Observed |
+| `return_date` | Date | Date of Return |
+| `workflow_state` | Select (Workflow State) | Read-only |
 
-## Client-Side Script
-- None currently.
-- Possible enhancements:
-  - Auto-prompt to attach photos if `damage_found` is checked.
-  - Dashboard status indicator when return check is pending.
+### 3. Business Logic and Automation
 
-## Integration Points
-- **Loaner Instrument**: Linked via `linked_loaner`
-- **Workflow**: Uses `workflow_state` for tracking return process
-- **Customer**: Permissions allow owner-submitted return confirmations
+#### Backend Logic (Python Controller)
 
-## Validation Standards
-- `linked_loaner`: Required
-- `damage_found`: Requires condition notes
-- `return_date`: Recommended to be provided at time of return
+The Python controller (`loaner_return_check.py`) implements the following:
 
-## Usage Examples
-- **Normal Return:**  
-  `linked_loaner: LN-2025-001, damage_found: 0, condition_notes: "No issues observed", return_date: 2025-08-16`
-- **Damaged Return:**  
-  `linked_loaner: LN-2025-002, damage_found: 1, condition_notes: "Crack in lower joint", return_photos: attached`
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
 
-## Changelog
-- **2025-08-16**: Documentation created.
-- **2025-06-12**: Validation logic requiring notes when damage flagged was added.
+#### Frontend Logic (JavaScript)
 
-## Dependencies
-- **Frappe Framework**
-- **Loaner Instrument (linked doctype)**
-- **Workflow State (for workflow tracking)**
+*No JavaScript file found. This doctype uses standard Frappe form behavior.*
+
+#### Workflow
+
+This doctype uses a workflow managed by the `workflow_state` field to control document states and transitions.
+
+### 4. Relationships and Dependencies
+
+This doctype has the following relationships:
+
+- Links to **Loaner Instrument** doctype via the `linked_loaner` field (Loaner Record)
+
+### 5. Critical Files Overview
+
+- **`loaner_return_check.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`loaner_return_check.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+
+---
+
+*Last updated: 2025-10-04*

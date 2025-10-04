@@ -1,83 +1,73 @@
-# Loaner Instrument (`loaner_instrument`)
+## Doctype: Loaner Instrument
 
-## Purpose
-The Loaner Instrument DocType manages instruments temporarily issued to customers while their own instrument is under repair. It tracks issuance, expected return dates, and automatically generates digital loaner agreements.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **DocType Type:** Submittable
-- **Workflow States:** Controlled by `loaner_status`
-  - `Issued` → Default on creation
-  - `Returned` → Marked when instrument is returned
-  - `Overdue` → System or user can flag overdue returns
-- **Key Fields:**
-  - `loaner_serial` (Data, Required): Unique loaner serial number
-  - `item_code` (Link → Item): ERPNext Item reference
-  - `issued_to` (Link → Customer): Customer borrowing the instrument
-  - `issued_date` (Date, Required): Loaner start date
-  - `expected_return_date` (Date): Anticipated return date
-  - `returned` (Check): Boolean toggle when instrument returned
-  - `loaner_status` (Select): Status field (Issued, Returned, Overdue)
+**Loaner Instrument** is a submittable doctype in the **Intake** module. It represents a business entity that goes through a lifecycle with draft, submitted, and cancelled states.
 
-## Business Rules
-- Loaner instruments must have a unique `loaner_serial`.
-- PDF agreements are automatically generated when an instrument is issued.
-- Returned instruments must toggle the `returned` checkbox and set `loaner_status` to Returned.
-- Overdue instruments should be monitored for follow-up actions.
+**Module:** Intake
+**Type:** Submittable Document
 
-## Python Controller Logic
-File: `loaner_instrument.py`
+This doctype is used to:
+- Track business transactions through their lifecycle
+- Maintain audit trails with submission and cancellation workflows
+- Enforce data integrity through workflow states
 
-- **Class:** `LoanerInstrument(Document)`
-- **Hooks:**
-  - `after_insert()`: Automatically generates loaner agreement if instrument is issued.
-- **Methods:**
-  - `generate_loaner_agreement()`: Creates a PDF contract and attaches to the document.
+### 2. Fields / Schema
 
-### Example Logic
-```python
-context = {"doc": self, "customer": frappe.get_doc("Customer", self.issued_to)}
-html = render_template("repair_portal/intake/templates/loaner_agreement_template.html", context)
-pdf = get_pdf(html)
-filename = f"LoanerAgreement_{self.name}.pdf"
-save_file(filename, pdf, self.doctype, self.name, is_private=1)
-```
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `status` | Select (Draft
+Issued
+Returned) | **Required**. Default: `Draft` |
+| `instrument` | Link (Instrument) | Instrument |
+| `intake` | Link (Clarinet Intake) | Intake ID |
+| `issued_to` | Link (Customer) | Issued To (Customer) |
+| `issued_contact` | Link (Contact) | Issued To (Contact) |
+| `issue_date` | Date | **Required** |
+| `due_date` | Date | Due Date |
+| `returned` | Check | Default: `0` |
+| `condition_on_issue` | Small Text | Condition on Issue |
+| `condition_on_return` | Small Text | Condition on Return |
+| `customer_signature` | Signature | Customer Signature |
+| `company_rep_signature` | Signature | Company Representative Signature |
+| `agreement_pdf` | Attach | Read-only |
 
-**Error Handling:**
-- Logs traceback with `frappe.log_error()`.
-- User notified: `"There was an error generating the loaner agreement PDF. Please contact support."`
+### 3. Business Logic and Automation
 
-## Client-Side Script
-- None currently.
-- Potential enhancements:
-  - Dashboard indicator for overdue instruments.
-  - Auto-popup to confirm loaner return.
+#### Backend Logic (Python Controller)
 
-## Integration Points
-- **Customer**: Loaner is linked to a customer record.
-- **Item**: Each loaner references an Item master.
-- **PDF Templates**: Uses Jinja2 loaner agreement template for contract generation.
-- **File Manager**: Stores loaner agreement as a private file.
+The Python controller (`loaner_instrument.py`) implements the following:
 
-## Validation Standards
-- `loaner_serial`: Required, must be unique.
-- `issued_date`: Required.
-- `loaner_status`: Must be one of Issued, Returned, Overdue.
-- PDF generation errors are logged for audit.
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
+- **`on_submit()`**: Executes when the document is submitted
 
-## Usage Examples
-- **New Loaner Issue:**  
-  `loaner_serial: LN-2025-001, issued_to: John Doe, issued_date: 2025-08-16, expected_return_date: 2025-09-01, loaner_status: Issued`  
-  → Auto-generates loaner agreement.
-- **Return Processing:**  
-  Mark `returned = 1`, update `loaner_status = Returned`.
+**Custom Methods:**
+- `set_loaner_status()`: Custom business logic method
 
-## Changelog
-- **2025-08-16**: Documentation created.
-- **2025-07-17**: Added PDF auto-generation with robust error handling.
+#### Frontend Logic (JavaScript)
 
-## Dependencies
-- **Frappe Framework**
-- **ERPNext Item**
-- **Customer**
-- **File Manager** (for PDF storage)
-- **Jinja2 Templates**
+*No JavaScript file found. This doctype uses standard Frappe form behavior.*
+
+#### Workflow
+
+This doctype uses a workflow managed by the `status` field to control document states and transitions.
+
+### 4. Relationships and Dependencies
+
+This doctype has the following relationships:
+
+- Links to **Instrument** doctype via the `instrument` field (Instrument)
+- Links to **Clarinet Intake** doctype via the `intake` field (Intake ID)
+- Links to **Customer** doctype via the `issued_to` field (Issued To (Customer))
+- Links to **Contact** doctype via the `issued_contact` field (Issued To (Contact))
+
+### 5. Critical Files Overview
+
+- **`loaner_instrument.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`loaner_instrument.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`test_loaner_instrument.py`**: Unit tests for validating doctype functionality
+
+---
+
+*Last updated: 2025-10-04*

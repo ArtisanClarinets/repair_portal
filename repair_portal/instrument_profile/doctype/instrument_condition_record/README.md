@@ -1,97 +1,62 @@
-# Instrument Condition Record (`instrument_condition_record`)
+## Doctype: Instrument Condition Record
 
-## Purpose
-Child table for tracking instrument condition over time. Creates a timestamped snapshot of instrument health/state at various lifecycle points (intake, post-service, annual checkup, etc.).
+### 1. Overview and Purpose
 
-## Schema Summary
-- **Type:** Child Table (`istable: 1`, `is_child_table: 1`)
-- **Parent:** `Instrument Profile` (via `condition_logs` field)
-- **Naming:** By `instrument` field
+**Instrument Condition Record** is a child table doctype used to store related records within a parent document.
 
-- **Key Fields:**
-  - `instrument` (Link → Instrument): Instrument being assessed
-  - `condition` (Select): New | Good | Fair | Poor | Needs Repair
-  - `date_of_record` (Date): When assessment was made
-  - `recorded_by` (Link → User): User who recorded condition (auto-set)
-  - `notes` (Text): Detailed condition notes
-  - `workflow_state` (Select): Workflow State (optional)
+**Module:** Instrument Profile
+**Type:** Child Table
 
-## Business Rules
+This doctype is used to:
+- Store line items or related records as part of a parent document
+- Maintain structured data in a tabular format
 
-### Validation (`validate`)
-1. **Required:** `instrument`, `condition`, `date_of_record`
-2. **Auto-set:** `recorded_by` defaults to current user (`__user`)
-3. **Date validation:** `date_of_record` should not be in future (advisory warning)
+### 2. Fields / Schema
 
-### Auto-population
-- `recorded_by` automatically set to current session user
-- `date_of_record` can default to today if not specified
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `instrument` | Link (Instrument) | **Required**, **Unique** |
+| `condition` | Select (
+New
+Good
+Fair
+Poor
+Needs Repair) | **Required** |
+| `date_of_record` | Date | **Required** |
+| `recorded_by` | Link (User) | Read-only. Default: `__user` |
+| `notes` | Text | Notes |
+| `workflow_state` | Select (Draft
+Recorded
+Verified
+Archived) | Read-only |
 
-## Client Logic
-No dedicated `.js` file (child table; validation handled server-side).
+### 3. Business Logic and Automation
 
-## Server Logic (`instrument_condition_record.py`)
-### Validation
-- Enforces required fields
-- Auto-sets `recorded_by` to `frappe.session.user`
-- Validates `date_of_record` is not future-dated
+#### Backend Logic (Python Controller)
 
-### Usage Pattern
-Typically created automatically during:
-- Clarinet Intake (`after_insert`)
-- Post-repair QA
-- Annual maintenance checks
+The Python controller (`instrument_condition_record.py`) implements the following:
 
-## Data Integrity
-- **Required:** `instrument`, `condition`, `date_of_record`
-- **Parent Field:** `condition_logs` on `Instrument Profile`
-- **Referential:** `instrument` must exist; `recorded_by` must be valid User
-- **Default:** `recorded_by` = `__user`
+#### Frontend Logic (JavaScript)
 
-## Usage Example
-```python
-# Add condition record to profile
-profile = frappe.get_doc('Instrument Profile', 'INSTPR-0001')
-profile.append('condition_logs', {
-    'instrument': 'INST-00001',
-    'condition': 'Good',
-    'date_of_record': frappe.utils.today(),
-    'notes': 'Post-setup inspection: all pads sealing well, no mechanical issues'
-})
-profile.save()
-```
+*No JavaScript file found. This doctype uses standard Frappe form behavior.*
 
-## Workflow Integration (Optional)
-- `workflow_state` field allows linking to workflow if needed
-- Typically used for approval workflows on condition reports
-- Not required for basic operation
+#### Workflow
 
-## Permissions
-Permissions inherited from parent `Instrument Profile`. Typical roles:
-| Role              | Create | Read | Write |
-|-------------------|--------|------|-------|
-| Technician        | ✅     | ✅   | ✅    |
-| Repair Manager    | ✅     | ✅   | ✅    |
-| System Manager    | ✅     | ✅   | ✅    |
+This doctype uses a workflow managed by the `workflow_state` field to control document states and transitions.
 
-## Test Plan
-### Scenarios
-1. **Add record with all fields** → Success, `recorded_by` auto-set
-2. **Add record missing instrument** → ValidationError
-3. **Add record missing condition** → ValidationError
-4. **Add record with future date** → Warning
-5. **Add record without date** → Defaults to today
-6. **Multiple records for same instrument** → All saved with timestamps
+### 4. Relationships and Dependencies
 
-### Fixtures
-- Instrument: "INST-00001"
-- Condition: "Good"
-- Date: Today
+This doctype has the following relationships:
 
-### Coverage Expectations
-- **Target:** ≥75%
-- **Critical paths:** Auto-set recorded_by, date validation
+- Links to **Instrument** doctype via the `instrument` field (Instrument)
+- Links to **User** doctype via the `recorded_by` field (Recorded By)
 
-## Changelog
-- **2025-10-02:** Added date validation, auto-set logic, comprehensive documentation
-- **2025-07-03:** Initial version
+### 5. Critical Files Overview
+
+- **`instrument_condition_record.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`instrument_condition_record.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`test_instrument_condition_record.py`**: Unit tests for validating doctype functionality
+
+---
+
+*Last updated: 2025-10-04*

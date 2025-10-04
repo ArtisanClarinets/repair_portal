@@ -1,68 +1,52 @@
-# Intake Accessory Item (`intake_accessory_item`)
+## Doctype: Intake Accessory Item
 
-## Purpose
-The Intake Accessory Item DocType records accessories associated with a clarinet intake, such as cases, reeds, mouthpieces, or cleaning kits. It ensures that all items received with an instrument are documented and tracked.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **DocType Type:** Child Table (linked to Clarinet Intake)
-- **Naming:** Autoname from `accessory`
-- **Key Fields:**
-  - `accessory` (Data, Required): Name or description of accessory
-  - `quantity` (Int, default = 1): Number of items included
-  - `notes` (Small Text): Optional notes or condition comments
+**Intake Accessory Item** is a child table doctype used to store related records within a parent document.
 
-## Business Rules
-- Accessories are tracked alongside clarinet intake records.
-- Each row represents one type of accessory with quantity and notes.
-- Zero quantity is allowed but generates a user-facing warning.
-- Negative quantities are strictly disallowed.
+**Module:** Intake
+**Type:** Child Table
 
-## Python Controller Logic
-File: `intake_accessory_item.py`
+This doctype is used to:
+- Store line items or related records as part of a parent document
+- Maintain structured data in a tabular format
 
-- **Class:** `IntakeAccessoryItem(Document)`
-- **Methods:**
-  - `validate()`: Ensures accessory description is provided and quantity is valid.
+### 2. Fields / Schema
 
-### Example Logic
-```python
-if not self.accessory:
-    frappe.throw("Accessory description cannot be empty.")
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `item_code` | Link (Item) | **Required** |
+| `description` | Small Text | Fetched from: `item_code.description` |
+| `qty` | Float | **Required**. Default: `1` |
+| `uom` | Link (UOM) | Fetched from: `item_code.stock_uom` |
+| `rate` | Currency | Rate |
+| `amount` | Currency | Read-only |
 
-if self.quantity is None:
-    self.quantity = 1
+### 3. Business Logic and Automation
 
-if self.quantity < 0:
-    frappe.throw("Quantity cannot be negative.")
+#### Backend Logic (Python Controller)
 
-if self.quantity == 0:
-    frappe.msgprint("Warning: Quantity is set to zero. Consider updating if this is unintended.")
-```
+The Python controller (`intake_accessory_item.py`) implements the following:
 
-## Client-Side Script
-- None currently.
-- Possible enhancements:
-  - Auto-suggest common accessories (e.g., case, mouthpiece).
-  - Auto-default notes field with condition templates.
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
 
-## Integration Points
-- **Clarinet Intake:** Parent document, accessories are attached as child records.
-- **Inventory Tracking:** Provides context for accessory inclusion during intake.
-- **Customer Communication:** Notes may be included in intake reports.
+#### Frontend Logic (JavaScript)
 
-## Validation Standards
-- `accessory`: Required, must be descriptive.
-- `quantity`: Must be a non-negative integer.
-- `notes`: Optional free-text field.
+*No JavaScript file found. This doctype uses standard Frappe form behavior.*
 
-## Usage Examples
-- `accessory: Case, quantity: 1`
-- `accessory: Reeds, quantity: 10, notes: Vandoren size 3`
-- `accessory: Mouthpiece Cap, quantity: 0 (warns user)`
+### 4. Relationships and Dependencies
 
-## Changelog
-- **2025-08-16**: Initial documentation created.
+This doctype has the following relationships:
 
-## Dependencies
-- **Frappe Framework**
-- **Clarinet Intake (parent doctype)**
+- Links to **Item** doctype via the `item_code` field (Item)
+- Links to **UOM** doctype via the `uom` field (UOM)
+
+### 5. Critical Files Overview
+
+- **`intake_accessory_item.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`intake_accessory_item.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+
+---
+
+*Last updated: 2025-10-04*
