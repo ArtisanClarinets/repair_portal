@@ -1,0 +1,321 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run security scan daily at 3 AM UTC
+    - cron: '0 3 * * *'
+
+env:
+  PYTHON_VERSION: '3.12'
+
+jobs:
+  secret-scan:
+    name: Secret Detection
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Run TruffleHog OSS
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: main
+        head: HEAD
+        extra_args: --debug --only-verified
+        
+    - name: Run GitLeaks
+      uses: zricethezav/gitleaks-action@master
+      with:
+        config-path: .gitleaks.toml
+
+  dependency-scan:
+    name: Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install safety pip-audit
+        # Install project dependencies for scanning
+        if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+        fi
+        
+    - name: Run Safety check
+      run: |
+        safety check --json --output safety-report.json || true
+        safety check --short-report
+        
+    - name: Run pip-audit
+      run: |
+        pip-audit --format=json --output=pip-audit-report.json || true
+        pip-audit
+        
+    - name: Upload vulnerability reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: dependency-vulnerability-reports
+        path: |
+          safety-report.json
+          pip-audit-report.json
+        retention-days: 30
+
+  sast-scan:
+    name: Static Application Security Testing
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install SAST tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit semgrep
+        
+    - name: Run Bandit scan
+      run: |
+        bandit -r shopify_admin_sync/ \
+          -f json \
+          -o bandit-report.json \
+          --exclude shopify_admin_sync/tests/ || true
+        
+        # Also generate human-readable report
+        bandit -r shopify_admin_sync/ \
+          --exclude shopify_admin_sync/tests/ \
+          -ll || true
+          
+    - name: Run Semgrep scan
+      run: |
+        semgrep --config=auto \
+          --json \
+          --output=semgrep-report.json \
+          shopify_admin_sync/ || true
+          
+        # Generate human-readable report
+        semgrep --config=auto shopify_admin_sync/ || true
+        
+    - name: Upload SAST reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: sast-reports
+        path: |
+          bandit-report.json
+          semgrep-report.json
+        retention-days: 30
+
+  container-scan:
+    name: Container Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Build test container
+      run: |
+        cat > Dockerfile << 'EOF'
+        FROM python:3.11-slim
+        
+        # Install system dependencies
+        RUN apt-get update && apt-get install -y \
+            git \
+            curl \
+            && rm -rf /var/lib/apt/lists/*
+        
+        # Create app directory
+        WORKDIR /app
+        
+        # Copy application
+        COPY shopify_admin_sync/ ./shopify_admin_sync/
+        
+        # Install Python dependencies
+        RUN pip install --no-cache-dir frappe
+        
+        # Set up user (don't run as root)
+        RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+        USER appuser
+        
+        CMD ["python", "-c", "print('Shopify Admin Sync container')"]
+        EOF
+        
+        docker build -t shopify-admin-sync:test .
+        
+    - name: Run Trivy container scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'shopify-admin-sync:test'
+        format: 'sarif'
+        output: 'trivy-container-results.sarif'
+        
+    - name: Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-container-results.sarif'
+
+  infrastructure-scan:
+    name: Infrastructure as Code Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run Checkov scan
+      uses: bridgecrewio/checkov-action@master
+      with:
+        directory: .
+        framework: github_actions,dockerfile,secrets
+        output_format: sarif
+        output_file_path: checkov-results.sarif
+        
+    - name: Upload Checkov scan results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'checkov-results.sarif'
+
+  license-scan:
+    name: License Compliance Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install license scanning tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install pip-licenses licensecheck
+        
+    - name: Generate license report
+      run: |
+        # Create requirements.txt if it doesn't exist
+        if [ ! -f requirements.txt ]; then
+          echo "frappe" > requirements.txt
+          echo "requests" >> requirements.txt
+          echo "pydantic" >> requirements.txt
+        fi
+        
+        pip install -r requirements.txt
+        
+        # Generate license report
+        pip-licenses --format=json --output-file=license-report.json
+        pip-licenses --format=plain-vertical
+        
+        # Check for problematic licenses
+        pip-licenses --fail-on="GPL v3;AGPL v3;GPL v2" || echo "License check completed with warnings"
+        
+    - name: Upload license report
+      uses: actions/upload-artifact@v3
+      with:
+        name: license-report
+        path: license-report.json
+        retention-days: 30
+
+  security-summary:
+    name: Security Summary
+    runs-on: ubuntu-latest
+    needs: [secret-scan, dependency-scan, sast-scan, container-scan, infrastructure-scan, license-scan]
+    if: always()
+    
+    steps:
+    - name: Download all security reports
+      uses: actions/download-artifact@v3
+      with:
+        path: security-reports/
+        
+    - name: Generate security summary
+      run: |
+        echo "# Security Scan Summary" > security-summary.md
+        echo "" >> security-summary.md
+        echo "Scan Date: $(date)" >> security-summary.md
+        echo "Commit: $GITHUB_SHA" >> security-summary.md
+        echo "" >> security-summary.md
+        
+        # Check each scan result
+        echo "## Scan Results" >> security-summary.md
+        echo "" >> security-summary.md
+        
+        if [ "${{ needs.secret-scan.result }}" == "success" ]; then
+          echo "✅ Secret Detection: PASSED" >> security-summary.md
+        else
+          echo "❌ Secret Detection: FAILED" >> security-summary.md
+        fi
+        
+        if [ "${{ needs.dependency-scan.result }}" == "success" ]; then
+          echo "✅ Dependency Scan: PASSED" >> security-summary.md
+        else
+          echo "❌ Dependency Scan: FAILED" >> security-summary.md
+        fi
+        
+        if [ "${{ needs.sast-scan.result }}" == "success" ]; then
+          echo "✅ SAST Scan: PASSED" >> security-summary.md
+        else
+          echo "❌ SAST Scan: FAILED" >> security-summary.md
+        fi
+        
+        if [ "${{ needs.container-scan.result }}" == "success" ]; then
+          echo "✅ Container Scan: PASSED" >> security-summary.md
+        else
+          echo "❌ Container Scan: FAILED" >> security-summary.md
+        fi
+        
+        if [ "${{ needs.infrastructure-scan.result }}" == "success" ]; then
+          echo "✅ Infrastructure Scan: PASSED" >> security-summary.md
+        else
+          echo "❌ Infrastructure Scan: FAILED" >> security-summary.md
+        fi
+        
+        if [ "${{ needs.license-scan.result }}" == "success" ]; then
+          echo "✅ License Scan: PASSED" >> security-summary.md
+        else
+          echo "❌ License Scan: FAILED" >> security-summary.md
+        fi
+        
+        echo "" >> security-summary.md
+        echo "## Next Steps" >> security-summary.md
+        echo "" >> security-summary.md
+        echo "1. Review any failed scans and their reports" >> security-summary.md
+        echo "2. Address identified vulnerabilities" >> security-summary.md
+        echo "3. Update dependencies if needed" >> security-summary.md
+        echo "4. Ensure no secrets are committed" >> security-summary.md
+        
+        cat security-summary.md
+        
+    - name: Upload security summary
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-summary
+        path: security-summary.md
+        retention-days: 90

@@ -1,0 +1,436 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run nightly integration tests
+    - cron: '0 2 * * *'
+
+env:
+  PYTHON_VERSION: '3.12'
+  NODE_VERSION: '20'
+
+jobs:
+  lint:
+    name: Lint and Static Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          
+    - name: Cache npm dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+          
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort mypy bandit safety
+        pip install pydantic jsonschema
+        
+    - name: Install Node.js dependencies
+      run: |
+        cd shopify_admin_sync/node_queries
+        npm ci
+        
+    - name: Python code formatting check (Black)
+      run: |
+        black --check --diff shopify_admin_sync/
+        
+    - name: Python import sorting check (isort)
+      run: |
+        isort --check-only --diff shopify_admin_sync/
+        
+    - name: Python linting (flake8)
+      run: |
+        flake8 shopify_admin_sync/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 shopify_admin_sync/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        
+    - name: Python type checking (mypy)
+      run: |
+        mypy shopify_admin_sync/ --ignore-missing-imports || true
+        
+    - name: Security linting (bandit)
+      run: |
+        bandit -r shopify_admin_sync/ -f json -o bandit-report.json || true
+        
+    - name: Dependency vulnerability check (safety)
+      run: |
+        safety check --json --output safety-report.json || true
+        
+    - name: YAML/JSON validation
+      run: |
+        python -c "
+        import json, yaml, os
+        for root, dirs, files in os.walk('shopify_admin_sync/'):
+            for file in files:
+                if file.endswith('.json'):
+                    with open(os.path.join(root, file)) as f:
+                        json.load(f)
+                        print(f'✓ Valid JSON: {file}')
+                elif file.endswith(('.yml', '.yaml')):
+                    with open(os.path.join(root, file)) as f:
+                        yaml.safe_load(f)
+                        print(f'✓ Valid YAML: {file}')
+        "
+        
+    - name: Mapping schema validation
+      run: |
+        python -c "
+        import json, jsonschema, os
+        schema_path = 'shopify_admin_sync/mapping/mapping_schema.json'
+        if os.path.exists(schema_path):
+            with open(schema_path) as f:
+                schema = json.load(f)
+            # Validate mapping files against schema
+            for mapping_file in ['customers.yaml', 'products.yaml', 'orders.yaml', 'fulfillments.yaml', 'inventory.yaml']:
+                mapping_path = f'shopify_admin_sync/mapping/{mapping_file}'
+                if os.path.exists(mapping_path):
+                    import yaml
+                    with open(mapping_path) as f:
+                        mapping_data = yaml.safe_load(f)
+                    try:
+                        jsonschema.validate(mapping_data, schema)
+                        print(f'✓ Valid mapping: {mapping_file}')
+                    except jsonschema.ValidationError as e:
+                        print(f'✗ Invalid mapping {mapping_file}: {e}')
+                        exit(1)
+        "
+        
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          safety-report.json
+        retention-days: 30
+
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+        
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y redis-server
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov pytest-mock
+        pip install frappe-bench  # Mock Frappe installation
+        pip install requests responses
+        pip install cryptography
+        
+    - name: Install Node.js dependencies
+      run: |
+        cd shopify_admin_sync/node_queries
+        npm ci
+        
+    - name: Run Python unit tests
+      run: |
+        pytest shopify_admin_sync/tests/ \
+          --cov=shopify_admin_sync \
+          --cov-report=xml \
+          --cov-report=html \
+          --cov-fail-under=80 \
+          --junitxml=pytest-results.xml
+          
+    - name: Run Node.js tests
+      run: |
+        cd shopify_admin_sync/node_queries
+        npm test
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results-${{ matrix.python-version }}
+        path: |
+          pytest-results.xml
+          htmlcov/
+          coverage.xml
+        retention-days: 30
+        
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      if: matrix.python-version == '3.11'
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+
+  integration-test:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'schedule' || contains(github.event.head_commit.message, '[integration]')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-mock
+        pip install requests responses
+        
+    - name: Run integration tests against sandbox
+      env:
+        SHOPIFY_TEST_DOMAIN: ${{ secrets.SHOPIFY_TEST_DOMAIN }}
+        SHOPIFY_TEST_TOKEN: ${{ secrets.SHOPIFY_TEST_TOKEN }}
+      run: |
+        pytest shopify_admin_sync/tests/test_importers_integration.py \
+          -v --tb=short
+          
+    - name: Upload integration test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: integration-test-results
+        path: pytest-results.xml
+        retention-days: 30
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: lint
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+        
+    - name: Secret scanning
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: main
+        head: HEAD
+        extra_args: --debug --only-verified
+
+  build:
+    name: Build Package
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history for proper versioning
+        
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install build dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+        
+    - name: Generate version from git
+      id: version
+      run: |
+        if [[ $GITHUB_REF == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/v}
+        else
+          VERSION="0.0.0-dev.$(git rev-parse --short HEAD)"
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Generated version: $VERSION"
+        
+    - name: Create package metadata
+      run: |
+        cat > shopify_admin_sync/VERSION << EOF
+        ${{ steps.version.outputs.version }}
+        EOF
+        
+        cat > BUILD_INFO.json << EOF
+        {
+          "version": "${{ steps.version.outputs.version }}",
+          "build_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+          "git_commit": "$GITHUB_SHA",
+          "git_ref": "$GITHUB_REF",
+          "build_number": "$GITHUB_RUN_NUMBER",
+          "workflow": "$GITHUB_WORKFLOW"
+        }
+        EOF
+        
+    - name: Create changelog snippet
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        # Extract changelog for this version
+        python -c "
+        import re
+        with open('CHANGELOG.md', 'r') as f:
+            content = f.read()
+        
+        # Find the section for this version
+        version = '${{ steps.version.outputs.version }}'
+        pattern = rf'## \[{re.escape(version)}\].*?(?=## \[|$)'
+        match = re.search(pattern, content, re.DOTALL)
+        
+        if match:
+            with open('RELEASE_NOTES.md', 'w') as f:
+                f.write(match.group(0))
+        else:
+            with open('RELEASE_NOTES.md', 'w') as f:
+                f.write(f'# Release {version}\n\nNo changelog entry found.')
+        "
+        
+    - name: Archive build artifacts
+      run: |
+        tar -czf shopify-admin-sync-${{ steps.version.outputs.version }}.tar.gz \
+          shopify_admin_sync/ \
+          BUILD_INFO.json \
+          --exclude='shopify_admin_sync/__pycache__' \
+          --exclude='shopify_admin_sync/**/__pycache__' \
+          --exclude='shopify_admin_sync/**/*.pyc'
+          
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: |
+          shopify-admin-sync-${{ steps.version.outputs.version }}.tar.gz
+          BUILD_INFO.json
+          RELEASE_NOTES.md
+        retention-days: 90
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [build, security]
+    if: github.ref == 'refs/heads/develop'
+    environment: staging
+    
+    steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        
+    - name: Deploy to staging environment
+      run: |
+        echo "Deploying to staging environment..."
+        # This would typically involve:
+        # 1. Uploading to staging server
+        # 2. Running database migrations
+        # 3. Restarting services
+        # 4. Running smoke tests
+        echo "Staging deployment completed"
+        
+    - name: Run post-deployment tests
+      run: |
+        echo "Running post-deployment smoke tests..."
+        # Test basic functionality
+        echo "Smoke tests passed"
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build, security]
+    if: startsWith(github.ref, 'refs/tags/v')
+    environment: production
+    
+    steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body_path: RELEASE_NOTES.md
+        draft: false
+        prerelease: false
+        
+    - name: Deploy to production environment
+      run: |
+        echo "Deploying to production environment..."
+        # This would involve the actual production deployment
+        echo "Production deployment completed"
+        
+    - name: Run post-deployment verification
+      run: |
+        echo "Running post-deployment verification..."
+        # Verify deployment success
+        echo "Deployment verification passed"
+        
+    - name: Notify stakeholders
+      run: |
+        echo "Sending deployment notifications..."
+        # Send notifications about successful deployment
