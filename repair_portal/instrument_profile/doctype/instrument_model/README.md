@@ -1,109 +1,54 @@
-# Instrument Model (`instrument_model`)
+## Doctype: Instrument Model
 
-## Purpose
-Master data defining instrument models. Combination of Brand + Model + Category + Body Material creates a unique instrument specification. Used for standardizing model data across the system.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **Naming:** By `model` field
-- **Key Fields:**
-  - `brand` (Link → Brand): Manufacturer brand
-  - `model` (Data): Model name/number
-  - `instrument_category` (Link → Instrument Category): Type classification
-  - `body_material` (Data): Primary body material (e.g., "Grenadilla", "Rosewood")
-  - `instrument_model_id` (Data): Hidden unique ID
+**Instrument Model** is a doctype in the **Instrument Profile** module that manages and tracks related business data.
 
-- **Links:**
-  - `brand` → `Brand` (1:1, required) — manufacturer
-  - `instrument_category` → `Instrument Category` (1:1, required) — type
+**Module:** Instrument Profile
+**Type:** Master/Standard Document
 
-## Business Rules
+This doctype is used to:
+- Store and manage master or reference data
+- Provide configuration or lookup information
+- Support other business processes in the application
 
-### Validation (`validate`)
-1. **Required:** `brand`, `model`, `instrument_category`, `body_material`
-2. **Uniqueness:** Combination of `brand` + `model` should be unique (advisory check)
-3. **Active filters:** Only active brands and categories shown in dropdowns
+### 2. Fields / Schema
 
-### Naming
-- Named by `model` field
-- If duplicate models exist for different brands, append brand name for clarity
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `brand` | Link (Brand) | **Required** |
+| `model` | Data | **Required** |
+| `body_material` | Data | **Required** |
+| `instrument_model_id` | Data | **Unique** |
+| `instrument_category` | Link (Instrument Category) | **Required** |
 
-## Client Logic (`instrument_model.js`)
-- **Set query filters:** Shows only active `Instrument Category` records
-- **Duplicate detection:** On `brand` or `model` change, checks if same brand+model combination exists
-- **Warning:** Shows alert if potential duplicate found (same brand+model)
+### 3. Business Logic and Automation
 
-## Server Logic (`instrument_model.py`)
-Standard Document controller. No custom hooks beyond validation.
+#### Backend Logic (Python Controller)
 
-### Validation
-- Ensures all required fields present
-- Could add brand+model uniqueness constraint (currently advisory client-side)
+The Python controller (`instrument_model.py`) implements the following:
 
-## Data Integrity
-- **Required:** `brand`, `model`, `instrument_category`, `body_material`
-- **Unique:** `instrument_model_id` (hidden)
-- **Naming:** By `model` field
-- **Referential:** Links to Brand and Instrument Category must exist
+#### Frontend Logic (JavaScript)
 
-## Usage Example
-```python
-# Create new model
-model = frappe.get_doc({
-    'doctype': 'Instrument Model',
-    'brand': 'Buffet Crampon',
-    'model': 'R13',
-    'instrument_category': 'Bb Clarinet',
-    'body_material': 'Grenadilla Wood'
-})
-model.insert()
+The JavaScript file (`instrument_model.js`) provides:
 
-# Query models by brand
-models = frappe.get_all(
-    'Instrument Model',
-    filters={'brand': 'Buffet Crampon'},
-    fields=['name', 'model', 'instrument_category']
-)
-```
+- **Form Refresh**: Updates UI elements when the form loads or refreshes
+- **Custom Buttons**: Adds custom action buttons to the form
 
-## Permissions
-| Role              | Create | Read | Write | Delete |
-|-------------------|--------|------|-------|--------|
-| System Manager    | ✅     | ✅   | ✅    | ✅     |
-| Repair Manager    | ✅     | ✅   | ✅    | ❌     |
-| Technician        | ❌     | ✅   | ❌    | ❌     |
+### 4. Relationships and Dependencies
 
-## Test Plan
-### Scenarios
-1. **Create with all required fields** → Success
-2. **Create missing brand** → ValidationError
-3. **Create missing model** → ValidationError
-4. **Create missing category** → ValidationError
-5. **Create duplicate brand+model** → Warning (not blocked)
-6. **Filter by active category** → Only active shown
-7. **Quick entry** → Works via quick_entry flag
+This doctype has the following relationships:
 
-### Fixtures
-- Brand: "Buffet Crampon"
-- Model: "R13 Test"
-- Category: "Bb Clarinet"
-- Body Material: "Grenadilla"
+- Links to **Brand** doctype via the `brand` field (Brand)
+- Links to **Instrument Category** doctype via the `instrument_category` field (Instrument Key)
 
-### Coverage Expectations
-- **Target:** ≥70%
-- **Critical paths:** Required field validation, duplicate detection
+### 5. Critical Files Overview
 
-## Common Models (Seed Data Examples)
-| Brand            | Model      | Category     | Material      |
-|------------------|------------|--------------|---------------|
-| Buffet Crampon   | R13        | Bb Clarinet  | Grenadilla    |
-| Buffet Crampon   | RC         | Bb Clarinet  | Grenadilla    |
-| Selmer           | Privilege  | Bb Clarinet  | Grenadilla    |
-| Yamaha           | YCL-650    | Bb Clarinet  | Grenadilla    |
-| Leblanc          | Opus       | Bb Clarinet  | Grenadilla    |
+- **`instrument_model.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`instrument_model.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`instrument_model.js`**: Client-side script for form behavior, custom buttons, and UI interactions
+- **`test_instrument_model.py`**: Unit tests for validating doctype functionality
 
-## Bundled Data
-Seed data available in: `repair_portal/instrument_setup/data/instrument_model_bundled.json`
+---
 
-## Changelog
-- **2025-10-02:** Added duplicate detection, enhanced form logic, comprehensive README
-- **2025-07-28:** Initial version
+*Last updated: 2025-10-04*

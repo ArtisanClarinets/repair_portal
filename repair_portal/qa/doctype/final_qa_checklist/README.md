@@ -1,33 +1,59 @@
-# Final QA Checklist DocType
+## Doctype: Final Qa Checklist
 
-**Location:** `repair_portal/qa/doctype/final_qa_checklist/`
+### 1. Overview and Purpose
 
-## Overview
-Final QA Checklist enforces world-class quality control and compliance for every instrument or repair completion. Designed for technician, service manager, and customer transparency. Now includes error logging and automated workflow state syncing.
+**Final Qa Checklist** is a doctype in the **QA** module that manages and tracks related business data.
+
+**Module:** QA
+**Type:** Master/Standard Document
+
+This doctype is used to:
+- Store and manage master or reference data
+- Provide configuration or lookup information
+- Support other business processes in the application
+
+### 2. Fields / Schema
+
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `qa_technician` | Link (User) | **Required** |
+| `log_entry` | Link (Repair Task Log) | Repair Reference |
+| `checklist_items` | Table (Final Qa Checklist Item) | Checklist Items |
+| `overall_passed` | Check | Check if all items pass QA and no critical issues remain. |
+| `comments` | Text | Final Comments |
+| `workflow_state` | Select (Pending
+In Progress
+Passed
+Failed
+Archived) | Read-only. QA workflow state; managed automatically. |
+
+### 3. Business Logic and Automation
+
+#### Backend Logic (Python Controller)
+
+The Python controller (`final_qa_checklist.py`) implements the following:
+
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
+- **`on_submit()`**: Executes when the document is submitted
+
+#### Frontend Logic (JavaScript)
+
+*No JavaScript file found. This doctype uses standard Frappe form behavior.*
+
+### 4. Relationships and Dependencies
+
+This doctype has the following relationships:
+
+- Links to **User** doctype via the `qa_technician` field (QA Technician)
+- Links to **Repair Task Log** doctype via the `log_entry` field (Repair Reference)
+- Has child table **Final Qa Checklist Item** stored in the `checklist_items` field
+
+### 5. Critical Files Overview
+
+- **`final_qa_checklist.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`final_qa_checklist.py`**: Python controller implementing business logic, validations, and lifecycle hooks
 
 ---
 
-## Key Features
-- **Validation:** Cannot submit unless all checklist items are checked.
-- **Status Automation:** Updates linked Instrument Profile to "QA Complete" on submit. Also syncs workflow_state if field exists.
-- **Audit Logging:** All submit logic wrapped in try/except with `frappe.log_error()` for compliance and traceability.
-- **Permissions:**
-  - QA Technician: Read, Write, Submit
-  - Service Manager/System Manager: Full
-  - Customer: Read-only (for QA transparency)
-- **Reports & Analytics:**
-  - All QA events are tracked for dashboard and compliance reporting.
-- **Portal Ready:** Safe for customer/portal read; no PII or sensitive data exposed.
-
----
-
-## Extension & Maintenance
-- Add new checklist templates or workflow states as business logic evolves.
-- All logic is PEP 8, v15, and audit-compliant.
-- For new fields or reporting needs, extend via JSON and controller.
-
----
-
-## Change Log
-- 2025-07-17: Error logging, workflow_state automation, and Customer permission added.
-- See `/CHANGELOG.md` for project-wide history.
+*Last updated: 2025-10-04*

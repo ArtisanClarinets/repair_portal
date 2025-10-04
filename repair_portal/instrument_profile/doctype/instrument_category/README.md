@@ -1,95 +1,49 @@
-# Instrument Category (`instrument_category`)
+## Doctype: Instrument Category
 
-## Purpose
-Master data for instrument categories/types. Defines the classification system for instruments (e.g., "Bb Clarinet", "Bass Clarinet", "A Clarinet"). Used across the system for filtering, reporting, and categorization.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **Naming:** By `title` field (unique)
-- **Key Fields:**
-  - `title` (Data): Category name (e.g., "Bb Clarinet")
-  - `description` (Small Text): Detailed description
-  - `is_active` (Check): Active/inactive toggle
+**Instrument Category** is a doctype in the **Instrument Profile** module that manages and tracks related business data.
 
-- **Links:** None (master data)
+**Module:** Instrument Profile
+**Type:** Master/Standard Document
 
-## Business Rules
+This doctype is used to:
+- Store and manage master or reference data
+- Provide configuration or lookup information
+- Support other business processes in the application
 
-### Validation (`validate`)
-1. **Uniqueness:** `title` must be unique across all categories
-2. **Required:** `title` must be present
-3. **Default:** `is_active` defaults to 1 (checked)
+### 2. Fields / Schema
 
-### Active Status
-- **Active categories** appear in dropdown filters
-- **Inactive categories** hidden from new data entry but preserved for existing records
-- Deactivating a category does not break existing instrument links
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `title` | Data | **Required**, **Unique** |
+| `description` | Small Text | Description |
+| `is_active` | Check | Default: `1` |
 
-## Client Logic (`instrument_category.js`)
-- **Active indicator:** Shows green/red headline based on `is_active`
-- **Deactivation warning:** Warns user about potential impact on existing instruments
-- No complex validation needed (simple CRUD)
+### 3. Business Logic and Automation
 
-## Server Logic (`instrument_category.py`)
-Standard Document controller. No custom hooks or whitelisted methods.
+#### Backend Logic (Python Controller)
 
-### Validation
-- Enforces `title` uniqueness via DocType schema
-- No additional server-side validation required
+The Python controller (`instrument_category.py`) implements the following:
 
-## Data Integrity
-- **Unique:** `title` (enforced by autoname)
-- **Required:** `title`
-- **Defaults:** `is_active` = 1
-- **Referential:** Used by `Instrument`, `Instrument Model`, `Instrument Profile`
+#### Frontend Logic (JavaScript)
 
-## Usage Example
-```python
-# Create new category
-category = frappe.get_doc({
-    'doctype': 'Instrument Category',
-    'title': 'Alto Clarinet',
-    'description': 'Alto clarinet in Eb',
-    'is_active': 1
-})
-category.insert()
+The JavaScript file (`instrument_category.js`) provides:
 
-# Deactivate category
-frappe.db.set_value('Instrument Category', 'Alto Clarinet', 'is_active', 0)
-```
+- **Form Refresh**: Updates UI elements when the form loads or refreshes
+- **Custom Buttons**: Adds custom action buttons to the form
 
-## Permissions
-| Role              | Create | Read | Write | Delete |
-|-------------------|--------|------|-------|--------|
-| System Manager    | ✅     | ✅   | ✅    | ✅     |
-| Technician        | ✅     | ✅   | ✅    | ❌     |
-| Repair Manager    | ✅     | ✅   | ✅    | ❌     |
+### 4. Relationships and Dependencies
 
-## Test Plan
-### Scenarios
-1. **Create with unique title** → Success
-2. **Create with duplicate title** → UniqueError
-3. **Create without title** → ValidationError
-4. **Toggle is_active** → Updates correctly
-5. **Deactivate category with linked instruments** → Category deactivated, instruments unaffected
-6. **Filter active categories** → Only active shown
+*This doctype has no explicit relationships with other doctypes through Link or Table fields.*
 
-### Fixtures
-- Title: "Test Category Bb"
-- Description: "Test category for Bb clarinets"
-- is_active: 1
+### 5. Critical Files Overview
 
-### Coverage Expectations
-- **Target:** ≥70%
-- **Critical paths:** Title uniqueness, active/inactive toggle
+- **`instrument_category.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`instrument_category.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`instrument_category.js`**: Client-side script for form behavior, custom buttons, and UI interactions
+- **`test_instrument_category.py`**: Unit tests for validating doctype functionality
 
-## Common Categories (Seed Data)
-- Bb Clarinet
-- A Clarinet
-- Eb Clarinet
-- Bass Clarinet
-- Alto Clarinet
-- Contrabass Clarinet
+---
 
-## Changelog
-- **2025-10-02:** Added active status warning, enhanced form logic, comprehensive README
-- **2025-07-19:** Initial version
+*Last updated: 2025-10-04*

@@ -1,73 +1,75 @@
-# Clarinet Intake Settings (`clarinet_intake_settings`)
+## Doctype: Clarinet Intake Settings
 
-## Purpose
-The Clarinet Intake Settings DocType provides centralized configuration for all Clarinet Intake workflows. It defines default warehouses, item groups, pricing, naming series, and automation behaviors used when instruments are processed.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **DocType Type:** Single (issingle = 1)
-- **Key Sections:**
-  - **Defaults:**
-    - `default_item_group`: Default Item Group for intake-created items (default: "Clarinets")
-    - `default_inspection_warehouse`: Warehouse used for inspections
-    - `buying_price_list`: Price List for procurement (default: "Standard Buying")
-    - `selling_price_list`: Price List for sales (default: "Standard Selling")
-    - `stock_uom`: Default UOM for stock entries (default: "Nos")
-  - **Automation & Behavior:**
-    - `require_inspection`: Enforce creation of inspection on intake (default: enabled)
-    - `auto_create_initial_setup`: Automatically generate Clarinet Initial Setup for new inventory
-    - `notify_on_stock_issue`: Notify users when stock problems occur
-  - **Labels & Mapping:**
-    - `inspection_type_inventory`: Label for inventory inspections (default: "Initial Inspection")
-    - `inspection_type_repair`: Label for repair inspections (default: "Arrival Inspection")
-    - `supplier_code_prefix`: Optional prefix for supplier coding
-    - `intake_naming_series`: Naming series for intake records (default: "INV-.#####")
-    - `brand_mapping_rules`: Child table of **Brand Mapping Rule**
+**Clarinet Intake Settings** is a doctype in the **Repair Portal Settings** module that manages and tracks related business data.
 
-## Business Rules
-- All intake-related automation reads from this configuration.
-- Enforced by controllers in `clarinet_intake.py` and other intake doctypes.
-- Any changes take effect immediately across the system.
+**Module:** Repair Portal Settings
+**Type:** Master/Standard Document
 
-## Python Controller Logic
-File: `clarinet_intake_settings.py`
+This doctype is used to:
+- Store and manage master or reference data
+- Provide configuration or lookup information
+- Support other business processes in the application
 
-- **Class:** `ClarinetIntakeSettings(Document)`
-  - Minimal controller; inherits core Frappe validation.
-- **Utility:**
-  ```python
-  def get_intake_settings():
-      """Returns Clarinet Intake Settings as a dict."""
-      return frappe.get_single("Clarinet Intake Settings").as_dict()
-  ```
-  Used by other doctypes to fetch settings in a single call.
+### 2. Fields / Schema
 
-## Client-Side Script
-- None (settings are managed directly in the form).
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `default_item_group` | Link (Item Group) | Default: `Clarinets` |
+| `default_inspection_warehouse` | Link (Warehouse) | Default Inspection Warehouse |
+| `buying_price_list` | Link (Price List) | Default: `Standard Buying` |
+| `selling_price_list` | Link (Price List) | Default: `Standard Selling` |
+| `stock_uom` | Link (UOM) | Default: `Nos` |
+| `require_inspection` | Check | Default: `1` |
+| `auto_create_initial_setup` | Check | Default: `1` |
+| `notify_on_stock_issue` | Check | Default: `1` |
+| `auto_normalize_brand` | Check | Default: `0` |
+| `inspection_type_inventory` | Data | Default: `Initial Inspection` |
+| `inspection_type_repair` | Data | Default: `Arrival Inspection` |
+| `supplier_code_prefix` | Data | Supplier Code Prefix |
+| `intake_naming_series` | Data | Default: `INV-.#####` |
+| `intake_id_pattern` | Data | Default: `CI-.{YYYY}.-.#####` |
+| `brand_mapping_rules` | Table (Brand Mapping Rule) | Brand Mapping Rules |
+| `auto_create_consent_form` | Check | Default: `0`. When enabled, automatically creates a Consent Form for Repair/Maintenance intakes |
+| `default_consent_template` | Link (Consent Template) | Template used for auto-created consent forms |
+| `consent_required_for_intake_types` | Select (Repair
+Maintenance
+Repair and Maintenance) | Default: `Repair and Maintenance`. Which intake types require consent forms |
 
-## Integration Points
-- **Clarinet Intake**: Uses defaults for warehouse, pricing, and automation.
-- **Instrument Inspection**: Driven by `require_inspection` and inspection type fields.
-- **Clarinet Initial Setup**: Created automatically if `auto_create_initial_setup` is enabled.
-- **Brand Mapping Rule**: Linked table for normalizing brand names.
+### 3. Business Logic and Automation
 
-## Validation Standards
-- `default_item_group` must reference an existing Item Group.
-- `default_inspection_warehouse` must reference a valid Warehouse.
-- Naming series must conform to Frappe format rules.
-- Child table `brand_mapping_rules` enforces uniqueness of brand mappings.
+#### Backend Logic (Python Controller)
 
-## Usage Examples
-- **New Inventory Intake:**  
-  Automatically applies `default_item_group`, sets warehouse to `default_inspection_warehouse`, and creates Initial Setup if enabled.
-- **Repair Intake:**  
-  Inspection is auto-created using the `inspection_type_repair` label.
+The Python controller (`clarinet_intake_settings.py`) implements the following:
 
-## Changelog
-- **2025-08-16**: Documentation created with schema, business rules, and integration details.
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
 
-## Dependencies
-- **Frappe Framework**
-- **Brand Mapping Rule (child table)**
-- **Clarinet Intake** (consumes settings)
-- **Instrument Inspection**
-- **Clarinet Initial Setup**
+**Custom Methods:**
+- `get_intake_settings()`: Custom business logic method
+
+#### Frontend Logic (JavaScript)
+
+*No JavaScript file found. This doctype uses standard Frappe form behavior.*
+
+### 4. Relationships and Dependencies
+
+This doctype has the following relationships:
+
+- Links to **Item Group** doctype via the `default_item_group` field (Default Item Group)
+- Links to **Warehouse** doctype via the `default_inspection_warehouse` field (Default Inspection Warehouse)
+- Links to **Price List** doctype via the `buying_price_list` field (Buying Price List)
+- Links to **Price List** doctype via the `selling_price_list` field (Selling Price List)
+- Links to **UOM** doctype via the `stock_uom` field (Stock UOM)
+- Has child table **Brand Mapping Rule** stored in the `brand_mapping_rules` field
+- Links to **Consent Template** doctype via the `default_consent_template` field (Default Consent Template)
+
+### 5. Critical Files Overview
+
+- **`clarinet_intake_settings.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`clarinet_intake_settings.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+
+---
+
+*Last updated: 2025-10-04*

@@ -1,17 +1,51 @@
-# Instrument Accessory (Child Table)
+## Doctype: Instrument Accessory
 
-## Purpose
-Captures all accessories currently paired or historically associated with an instrument profile:
-- Original case, barrels, bell, mouthpiece
-- Aftermarket or upgraded parts (e.g., custom barrels, bells, ligatures, etc.)
-- Accessory logs are used for sales bundles, service reference, and provenance.
+### 1. Overview and Purpose
 
-## Fields
-- `item` (Data): Accessory type/name (e.g., Case, Barrel, Bell).
-- `desc` (Text): Detailed description (e.g., "BAM Trekking Case", "Fobes Debut 66mm Barrel").
-- `serial_no` (Optional, Data): Serial/ID if present (for tracking unique accessories).
-- `acquired_date` (Date): When added to instrument.
-- `removed_date` (Date): If/when it left the instrument's profile.
-- `current` (Check): If it is currently with the instrument.
+**Instrument Accessory** is a child table doctype used to store related records within a parent document.
 
+**Module:** Instrument Profile
+**Type:** Child Table
 
+This doctype is used to:
+- Store line items or related records as part of a parent document
+- Maintain structured data in a tabular format
+
+### 2. Fields / Schema
+
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `accessory_id` | Data | **Unique**, Read-only |
+| `accessory` | Data | **Required** |
+| `desc` | Text | **Required** |
+| `serial_no` | Data | Serial/ID |
+| `acquired_date` | Date | **Required** |
+| `removed_date` | Date | Removed Date |
+| `current` | Check | Default: `1` |
+
+### 3. Business Logic and Automation
+
+#### Backend Logic (Python Controller)
+
+The Python controller (`instrument_accessory.py`) implements the following:
+
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
+
+#### Frontend Logic (JavaScript)
+
+*No JavaScript file found. This doctype uses standard Frappe form behavior.*
+
+### 4. Relationships and Dependencies
+
+*This doctype has no explicit relationships with other doctypes through Link or Table fields.*
+
+### 5. Critical Files Overview
+
+- **`instrument_accessory.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`instrument_accessory.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`test_instrument_accessory.py`**: Unit tests for validating doctype functionality
+
+---
+
+*Last updated: 2025-10-04*

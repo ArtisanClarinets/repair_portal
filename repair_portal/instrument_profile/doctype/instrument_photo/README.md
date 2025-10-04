@@ -1,22 +1,53 @@
-# Instrument Photo (Child Table)
+## Doctype: Instrument Photo
 
-## Purpose
-This child table stores all photo/image records linked to an instrument's lifecycle:
-- **Hero/Profile Image**
-- **Marketing Photo Gallery**
-- **Service Photo Log**
+### 1. Overview and Purpose
 
-## Fields
-- `photo` (Attach Image): Filepath or uploaded image.
-- `category` (Select): e.g., 'Hero', 'Marketing', 'Service Before', 'Service After', etc.
-- `description` (Data/Text): Context for the image.
-- `timestamp` (Datetime): When photo was taken/added.
-- `uploaded_by` (Link: User): Staff who uploaded.
+**Instrument Photo** is a child table doctype used to store related records within a parent document.
 
-## Usage
-- Photos are attached at inspection, intake, and during repairs or marketing events.
-- Media is referenced in both the Instrument Inspection and Instrument Profile doctypes.
+**Module:** Instrument Profile
+**Type:** Child Table
 
-## Compliance
-- Only users with instrument edit rights can add/delete.
-- Media is retained as part of the instrument’s permanent record for provenance and analytics.
+This doctype is used to:
+- Store line items or related records as part of a parent document
+- Maintain structured data in a tabular format
+
+### 2. Fields / Schema
+
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `photo` | Attach Image | **Required** |
+| `category` | Select (Profile Picture
+Service Before
+Service After
+Damage Documentation
+Repair Documentation
+Other) | **Required** |
+| `description` | Data | Description |
+| `timestamp` | Datetime | Photo Timestamp |
+| `uploaded_by` | Link (User) | **Required** |
+
+### 3. Business Logic and Automation
+
+#### Backend Logic (Python Controller)
+
+The Python controller (`instrument_photo.py`) implements the following:
+
+#### Frontend Logic (JavaScript)
+
+*No JavaScript file found. This doctype uses standard Frappe form behavior.*
+
+### 4. Relationships and Dependencies
+
+This doctype has the following relationships:
+
+- Links to **User** doctype via the `uploaded_by` field (Uploaded By)
+
+### 5. Critical Files Overview
+
+- **`instrument_photo.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`instrument_photo.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`test_instrument_photo.py`**: Unit tests for validating doctype functionality
+
+---
+
+*Last updated: 2025-10-04*

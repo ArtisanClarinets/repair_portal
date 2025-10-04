@@ -1,89 +1,106 @@
-# Clarinet Intake (`clarinet_intake`)
+## Doctype: Clarinet Intake
 
-## Purpose
-The Clarinet Intake DocType records all instrument intake events, whether for new inventory, repair, or maintenance. It acts as the central hub for instrument registration, customer communication, inspection, and workflow initiation.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **Naming:** Auto-assigned via `intake_record_id` (naming series)
-- **DocType Type:** Submittable
-- **Workflow States:** Pending → Received → Inspection → Setup → Repair → Awaiting Approval → Awaiting Payment → In Transit → Repair Complete → Returned
-- **Key Fields:**
-  - Instrument Metadata: `instrument_category`, `manufacturer`, `model`, `serial_no`, `clarinet_type`
-  - Customer Info: `customer`, `customer_full_name`, `customer_phone`, `customer_email`, `customer_type`
-  - Technical Assessments: `wood_body_condition`, `keywork_condition`, `pad_condition`, `spring_condition`, `cork_condition`
-  - Service Request: `service_type_requested`, `estimated_cost`, `deposit_paid`, `customer_approval`, `promised_completion_date`
-  - Acquisition Data: `acquisition_source`, `acquisition_cost`, `store_asking_price`
-  - Attachments: `initial_intake_photos`, `consent_form`
-  - Accessories: Child table `Instrument Accessory`
+**Clarinet Intake** is a submittable doctype in the **Intake** module. It represents a business entity that goes through a lifecycle with draft, submitted, and cancelled states.
 
-## Business Rules
-- Intake type determines required fields:
-  - **New Inventory:** Requires `item_code`, `item_name`, `acquisition_cost`, `store_asking_price`
-  - **Repair / Maintenance:** Requires `customer`, `customers_stated_issue`
-- Each intake auto-generates:
-  - **Instrument Serial Number (custom doctype)**
-  - **Instrument** record if not already existing
-  - **Instrument Inspection** record linked to intake
-  - **Clarinet Initial Setup** (for new inventory, if enabled in settings)
-- Duplicate serials are prevented by using the ISN utility functions.
+**Module:** Intake
+**Type:** Submittable Document
 
-## Python Controller Logic
-File: `clarinet_intake.py`
+This doctype is used to:
+- Track business transactions through their lifecycle
+- Maintain audit trails with submission and cancellation workflows
+- Enforce data integrity through workflow states
 
-- **Class:** `ClarinetIntake(Document)`
-- **Hooks:**
-  - `after_insert()` → orchestrates item, instrument, ISN, inspection, and setup creation.
-  - `autoname()` → generates naming series.
-  - `validate()` → enforces dynamic mandatory fields and auto-syncs instrument data.
-- **Helpers:**
-  - `_compute_inspection_serial_value()` → Handles legacy vs. modern serial link types.
-  - `_find_existing_instrument_by_serial()` → Fetches existing instrument by ISN or raw serial.
-  - `_sync_info_from_existing_instrument()` → Auto-populates instrument/manufacturer/model fields.
-- **Whitelisted Functions:**
-  - `get_instrument_by_serial(serial_no)` → returns Instrument metadata.
-  - `get_instrument_inspection_name(intake_record_id)` → fetches inspection linked to intake.
+### 2. Fields / Schema
 
-## Client-Side Script
-File: `clarinet_intake.js`
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `intake_record_id` | Data | **Unique**, Read-only |
+| `intake_date` | Datetime | Read-only. Default: `now` |
+| `intake_type` | Select (New Inventory
+Repair
+Maintenance) | **Required**. Default: `New Inventory` |
+| `employee` | Link (User) | Read-only |
+| `instrument` | Link (Instrument) | Read-only |
+| `intake_status` | Select (Pending
+Received
+Inspection
+Setup
+Repair
+Awaiting Customer Approval
+Awaiting Payment
+In Transit
+Returned to Customer
+Complete
+Cancelled) | Read-only. Default: `Pending` |
+| `instrument_category` | Link (Instrument Category) | **Required** |
+| `manufacturer` | Link (Brand) | **Required** |
+| `model` | Data | **Required** |
+| `serial_no` | Data | **Required** |
+| `clarinet_type` | Select (B♭ Clarinet
+A Clarinet
+E♭ Clarinet
+Bass Clarinet
+Alto Clarinet
+Contrabass Clarinet
+Other) | **Required** |
+| `year_of_manufacture` | Int | Year of Manufacture |
+| `body_material` | Data | Body Material |
+| `key_plating` | Data | Keywork Plating |
+| `pitch_standard` | Data | Pitch Standard |
+| `bore_type` | Data | Bore Type / Size |
+| `tone_hole_style` | Data | Tone Hole Style |
+| `thumb_rest_type` | Data | Thumb Rest Type |
+| `item_code` | Data | Item Code |
+| `item_name` | Data | Item Name |
+| ... | ... | *25 more fields* |
 
-- **Custom Buttons:**
-  - **Settings** → Directs to Clarinet Intake Settings.
-  - **Instrument Inspection** → Quick link if inspection exists.
-  - **Initial Setup** → Quick link if setup exists for new inventory.
-- **Dynamic Required Fields:**  
-  Toggles mandatory fields based on `intake_type`.
-- **Serial Autofill:**  
-  Auto-fills form data when serial is entered, via `get_instrument_by_serial`.
+### 3. Business Logic and Automation
 
-## Integration Points
-- **ERPNext Item**: Auto-created for new inventory.
-- **Instrument Serial Number**: Centralized tracking.
-- **Instrument**: Linked or created per intake.
-- **Instrument Inspection**: Automatically linked.
-- **Clarinet Initial Setup**: Created for new inventory workflows.
-- **Clarinet Intake Settings**: Provides default values, item groups, and automation toggles.
+#### Backend Logic (Python Controller)
 
-## Validation Standards
-- `intake_type`: Must be valid selection (New Inventory, Repair, Maintenance).
-- Dynamic field validation per intake type.
-- Serial number uniqueness enforced via ISN utilities.
-- Customer information mandatory for repairs and maintenance.
+The Python controller (`clarinet_intake.py`) implements the following:
 
-## Usage Examples
-- **New Inventory:**  
-  Intake logs a new Buffet clarinet with auto-created Item, ISN, Instrument, Inspection, and Initial Setup.
-- **Repair:**  
-  Intake records customer-reported issue, creates inspection, links to existing instrument if serial already known.
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
+- **`after_insert()`**: Executes after a new document is created
 
-## Changelog
-- **2025-08-16**: Documentation updated with schema, logic, and integration details.
-- **2025-08-14**: Controller updated for robust ISN handling and legacy compatibility.
+**Custom Methods:**
+- `on_save()`: Custom business logic method
+- `autoname()`: Custom business logic method
+- `get_instrument_by_serial()`: Custom business logic method
+- `get_instrument_inspection_name()`: Custom business logic method
 
-## Dependencies
-- **Frappe Framework**
-- **ERPNext Item**
-- **Instrument (custom doctype)**
-- **Instrument Serial Number (custom doctype)**
-- **Instrument Inspection**
-- **Clarinet Initial Setup**
-- **Clarinet Intake Settings**
+#### Frontend Logic (JavaScript)
+
+The JavaScript file (`clarinet_intake.js`) provides:
+
+- **Form Refresh**: Updates UI elements when the form loads or refreshes
+- **Custom Buttons**: Adds custom action buttons to the form
+
+### 4. Relationships and Dependencies
+
+This doctype has the following relationships:
+
+- Links to **User** doctype via the `employee` field (Employee / Technician)
+- Links to **Instrument** doctype via the `instrument` field (Instrument)
+- Links to **Instrument Category** doctype via the `instrument_category` field (Instrument Category)
+- Links to **Brand** doctype via the `manufacturer` field (Manufacturer)
+- Links to **Customer** doctype via the `customer` field (Customer ID)
+- Links to **Work Order** doctype via the `work_order_number` field (Work Order Number)
+- Links to **Consent Form** doctype via the `consent_form` field (Consent Form)
+- Has child table **Intake Accessory Item** stored in the `accessory_id` field
+- Links to **Clarinet Intake** doctype via the `amended_from` field (Amended From)
+
+### 5. Critical Files Overview
+
+- **`clarinet_intake.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`clarinet_intake.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`clarinet_intake.js`**: Client-side script for form behavior, custom buttons, and UI interactions
+- **`test_clarinet_intake.py`**: Unit tests for validating doctype functionality
+- **`clarinet_intake_list.js`**: Custom list view behavior and interactions
+
+---
+
+*Last updated: 2025-10-04*

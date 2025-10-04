@@ -1,105 +1,76 @@
-# Client Instrument Profile (`client_instrument_profile`)
+## Doctype: Client Instrument Profile
 
-## Purpose
-Customer-facing instrument profile created through web forms or customer portal. Allows customers to register their instruments with service history, photos, and repair preferences before technician verification.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **Naming:** By `serial_no` field
-- **Key Fields:**
-  - `instrument_owner` (Link → Customer): Owner of the instrument
-  - `serial_no` (Link → Serial No): ERPNext serial number
-  - `instrument_model` (Data): Model name
-  - `instrument_category` (Select): Type (Clarinet, Bass Clarinet, Contrabass Clarinet)
-  - `verification_status` (Select): Pending | Approved | Rejected
-  - `technician_notes` (Text): Technician review notes
-  - `purchase_receipt` (Attach): Purchase documentation
-  - `repair_preferences` (Small Text): Customer preferences for repairs
-  - `ownership_transfer_to` (Link → Customer): Target customer for ownership transfer
-  - `anonymize_for_research` (Check): Allow anonymized data sharing
+**Client Instrument Profile** is a doctype in the **Instrument Profile** module that manages and tracks related business data.
 
-- **Links:**
-  - `instrument_owner` → `Customer` (1:1, required) — instrument owner
-  - `serial_no` → `Serial No` (1:1, required) — ERPNext stock serial
-  - `ownership_transfer_to` → `Customer` (optional) — transfer target
+**Module:** Instrument Profile
+**Type:** Master/Standard Document
 
-- **Child Tables:**
-  - `external_work_logs` → `Customer External Work Log` — prior service history
-  - `condition_images` → `Instrument Photo` — customer-uploaded photos
-  - `consent_log` → `Consent Log Entry` — data use consent records
+This doctype is used to:
+- Store and manage master or reference data
+- Provide configuration or lookup information
+- Support other business processes in the application
 
-## Business Rules
+### 2. Fields / Schema
 
-### Validation (`validate`)
-1. **Required fields:** `instrument_owner`, `instrument_model`, `serial_no` must be present
-2. **Ownership transfer:**
-   - Cannot transfer to same owner
-   - Target customer must exist and be readable by current user
-3. **Verification status:**
-   - `Rejected` status requires `technician_notes`
-   - Only Technician/Repair Manager/System Manager can change verification status
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `instrument_model` | Data | **Required** |
+| `serial_no` | Link (Serial No) | **Required**, **Unique** |
+| `instrument_category` | Select (Clarinet
+Bass Clarinet
+Contrabass Clarinet) | **Required** |
+| `purchase_receipt` | Attach | Purchase Receipt |
+| `external_work_logs` | Table (Customer External Work Log) | Previous Repairs |
+| `condition_images` | Table (Instrument Photo) | Condition Images |
+| `repair_preferences` | Small Text | Client Repair Preferences |
+| `verification_status` | Select (Pending
+Approved
+Rejected) | Default: `Pending` |
+| `technician_notes` | Text | Technician Review Notes |
+| `ownership_transfer_to` | Link (Customer) | Transfer Ownership To |
+| `anonymize_for_research` | Check | Default: `0` |
+| `consent_log` | Table (Consent Log Entry) | Consent Log |
+| `instrument_owner` | Link (Customer) | **Required** |
 
-### Workflow
-**States:** Pending → Approved | Rejected
+### 3. Business Logic and Automation
 
-- **Pending (default):** Awaiting technician review
-- **Approved:** Creates/updates Instrument and Instrument Profile automatically
-- **Rejected:** Requires technician notes; notifies customer
+#### Backend Logic (Python Controller)
 
-### Auto-creation on Approval (`_create_or_update_instrument_profile`)
-When `verification_status` changes to `Approved`:
-1. Check if `Instrument` exists for `serial_no`; if not, create it
-2. Check if `Instrument Profile` exists for that instrument; if not, create it
-3. Link customer as owner
-4. Copy `repair_preferences` to `initial_condition_notes`
+The Python controller (`client_instrument_profile.py`) implements the following:
 
-## Client Logic (`client_instrument_profile.js`)
-- **Verification indicator:** Shows color-coded status (Pending=orange, Approved=green, Rejected=red)
-- **Transfer Ownership button:** (Approved only) Prompts for new customer and sets `ownership_transfer_to`
-- **Auto-clear transfer:** Clears `ownership_transfer_to` if `instrument_owner` changes
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
+- **`before_insert()`**: Runs before a new document is inserted
+- **`on_update()`**: Runs after document updates
+- **`on_trash()`**: Executes before document deletion
 
-## Server Logic (`client_instrument_profile.py`)
-### Public Methods
-None (standard CRUD only; no whitelisted endpoints)
+#### Frontend Logic (JavaScript)
 
-### Hooks
-- `validate`: Enforces required fields, ownership logic, verification permissions
-- `on_update`: Triggers instrument/profile creation on approval
+The JavaScript file (`client_instrument_profile.js`) provides:
 
-## Data Integrity
-- **Unique:** `serial_no` (enforced by autoname)
-- **Required:** `instrument_owner`, `instrument_model`, `serial_no`, `instrument_category`, `verification_status`
-- **Defaults:** `verification_status` = 'Pending', `anonymize_for_research` = 0
-- **Referential:** Must link to existing Customer and Serial No; creates Instrument/Profile on approval
+- **Form Refresh**: Updates UI elements when the form loads or refreshes
+- **Custom Buttons**: Adds custom action buttons to the form
 
-## Permissions
-| Role              | Create | Read | Write | Delete |
-|-------------------|--------|------|-------|--------|
-| Customer          | ✅     | ✅   | ✅    | ❌     |
-| Technician        | ❌     | ✅   | ✅    | ❌     |
-| Repair Manager    | ❌     | ✅   | ✅    | ❌     |
-| System Manager    | ✅     | ✅   | ✅    | ✅     |
+### 4. Relationships and Dependencies
 
-## Test Plan
-### Scenarios
-1. **Create with all required fields** → Success
-2. **Create missing owner** → ValidationError
-3. **Reject without notes** → ValidationError
-4. **Approve as Customer** → PermissionError
-5. **Approve as Technician** → Creates Instrument + Profile
-6. **Transfer ownership to same owner** → ValidationError
-7. **Upload images via `condition_images`** → Stored correctly
-8. **Anonymize toggle** → Saves correctly
+This doctype has the following relationships:
 
-### Fixtures
-- Customer: "Test Owner"
-- Serial No: "TEST123"
-- Instrument Model: "R13"
-- Instrument Category: "Clarinet"
+- Links to **Serial No** doctype via the `serial_no` field (Serial Number)
+- Has child table **Customer External Work Log** stored in the `external_work_logs` field
+- Has child table **Instrument Photo** stored in the `condition_images` field
+- Links to **Customer** doctype via the `ownership_transfer_to` field (Transfer Ownership To)
+- Has child table **Consent Log Entry** stored in the `consent_log` field
+- Links to **Customer** doctype via the `instrument_owner` field (Owner)
 
-### Coverage Expectations
-- **Target:** ≥80%
-- **Critical paths:** Validation, approval workflow, instrument/profile creation
+### 5. Critical Files Overview
 
-## Changelog
-- **2025-10-02:** Added comprehensive validation, auto-creation logic, ownership transfer validation
-- **2025-06-15:** Initial version with basic verification workflow
+- **`client_instrument_profile.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`client_instrument_profile.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`client_instrument_profile.js`**: Client-side script for form behavior, custom buttons, and UI interactions
+- **`test_client_instrument_profile.py`**: Unit tests for validating doctype functionality
+
+---
+
+*Last updated: 2025-10-04*

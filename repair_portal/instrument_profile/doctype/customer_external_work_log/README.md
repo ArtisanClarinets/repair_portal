@@ -1,75 +1,62 @@
-# Customer External Work Log (`customer_external_work_log`)
+## Doctype: Customer External Work Log
 
-## Purpose
-Child table for tracking service history performed by external shops (non-company). Customers report prior repairs, setups, or maintenance to provide complete instrument history.
+### 1. Overview and Purpose
 
-## Schema Summary
-- **Type:** Child Table (`istable: 1`)
-- **Parent:** `Client Instrument Profile` (via `external_work_logs` field)
+**Customer External Work Log** is a child table doctype used to store related records within a parent document.
 
-- **Key Fields:**
-  - `instrument` (Link → Instrument): Instrument serviced
-  - `service_date` (Date): When service was performed
-  - `service_type` (Select): Inspection | Setup | Maintenance | Repair | Other
-  - `service_notes` (Text): Description of work performed
-  - `external_shop_name` (Data): Name of shop that performed work
-  - `receipt_attachment` (Attach): Receipt or proof of service
+**Module:** Instrument Profile
+**Type:** Child Table
 
-## Business Rules
+This doctype is used to:
+- Store line items or related records as part of a parent document
+- Maintain structured data in a tabular format
 
-### Validation
-1. **Required:** `instrument`, `service_date`
-2. **Date logic:** `service_date` should not be in the future (advisory warning only)
-3. **Service type:** Must be one of predefined options
+### 2. Fields / Schema
 
-### Data Entry
-- Typically entered by customers via web form
-- Technicians can add/edit during intake review
-- Supports attachments (receipts, invoices)
+| Field Name | Type | Description |
+|------------|------|-------------|
+| `service_date` | Date | **Required** |
+| `service_type` | Select (Inspection
+Setup
+Maintenance
+Repair
+Other) | Type of Service |
+| `service_notes` | Text | Description / Notes |
+| `external_shop_name` | Data | Performed By (Shop Name) |
+| `receipt_attachment` | Attach | Receipt / Proof of Service |
+| `instrument` | Link (Instrument) | **Required** |
 
-## Client Logic (`customer_external_work_log.js`)
-No form-level handlers required (child table row validation only).
-All validation handled server-side.
+### 3. Business Logic and Automation
 
-## Server Logic (`customer_external_work_log.py`)
-### Validation
-- Ensures `service_date` is present
-- Validates `service_type` against allowed values
-- Warns if `service_date` is future-dated
+#### Backend Logic (Python Controller)
 
-## Data Integrity
-- **Required:** `instrument`, `service_date`
-- **Parent Field:** `external_work_logs` on `Client Instrument Profile`
-- **Referential:** `instrument` must exist in Instrument DocType
+The Python controller (`customer_external_work_log.py`) implements the following:
 
-## Usage Example
-```python
-# Add external work log to client profile
-client_profile = frappe.get_doc('Client Instrument Profile', 'SER123')
-client_profile.append('external_work_logs', {
-    'instrument': 'INST-00001',
-    'service_date': '2024-05-15',
-    'service_type': 'Setup',
-    'service_notes': 'Annual setup and pad replacement',
-    'external_shop_name': 'Local Music Shop',
-    'receipt_attachment': '/files/receipt.pdf'
-})
-client_profile.save()
-```
+**Lifecycle Hooks:**
+- **`validate()`**: Validates document data before saving
+- **`before_insert()`**: Runs before a new document is inserted
+- **`after_insert()`**: Executes after a new document is created
 
-## Test Plan
-### Scenarios
-1. **Add log with required fields** → Success
-2. **Add log missing service_date** → ValidationError
-3. **Add log with future date** → Warning
-4. **Add log with invalid service_type** → ValidationError
-5. **Add log with receipt attachment** → Attachment saved
+#### Frontend Logic (JavaScript)
 
-### Fixtures
-- Instrument: "INST-00001"
-- Service Date: "2024-01-15"
-- Service Type: "Repair"
+The JavaScript file (`customer_external_work_log.js`) provides:
 
-## Changelog
-- **2025-10-02:** Added mandatory headers, enhanced validation, date checks
-- **2025-08-15:** Initial version
+- **Form Refresh**: Updates UI elements when the form loads or refreshes
+- **Custom Buttons**: Adds custom action buttons to the form
+
+### 4. Relationships and Dependencies
+
+This doctype has the following relationships:
+
+- Links to **Instrument** doctype via the `instrument` field (Instrument)
+
+### 5. Critical Files Overview
+
+- **`customer_external_work_log.json`**: DocType schema definition containing all field configurations, permissions, and settings
+- **`customer_external_work_log.py`**: Python controller implementing business logic, validations, and lifecycle hooks
+- **`customer_external_work_log.js`**: Client-side script for form behavior, custom buttons, and UI interactions
+- **`test_customer_external_work_log.py`**: Unit tests for validating doctype functionality
+
+---
+
+*Last updated: 2025-10-04*
