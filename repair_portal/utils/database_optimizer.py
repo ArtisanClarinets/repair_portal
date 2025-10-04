@@ -101,7 +101,7 @@ class DatabaseOptimizer:
 
         if 'System Manager' not in roles and 'Repair Manager' not in roles:
             if 'Technician' in roles:
-                user_filter = 'AND technician = %(user)s'
+                user_filter = 'AND assigned_technician = %(user)s'
                 params['user'] = user
             else:
                 # Customer access - filter by their instruments
@@ -179,7 +179,7 @@ class DatabaseOptimizer:
         Performance Improvements:
         - Redis caching with TTL
         - Reduced database hits for frequent queries
-        - Automatic cache invalidation
+        - Pair with invalidate_customer_cache for manual cache purges
         """
         cache_key = f'customer_instruments:{customer}'
 
