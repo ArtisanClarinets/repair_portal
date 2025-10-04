@@ -348,7 +348,7 @@ If [REVIEW] cannot be produced with real repository outputs, do not propose code
 
 Please ensure you review the modules.txt to find all modules in the app.
 
-Please review any current files, patch as needed, and re-review to ensure proper updating occured.
+Please review any current files, patch as needed, and re-review to ensure proper updating occurred.
 
 Please never assume anything. If you cannot find a doctype or controller please search the entire repair_portal directory to ensure it is not in a different module.
 
