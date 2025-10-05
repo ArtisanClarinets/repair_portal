@@ -1,0 +1,33 @@
+Rank,Epic,Title,Description,Acceptance Criteria,Effort (S/M/L),Dependencies,Target Paths,Test Ideas,Tier
+1,"Customer Experience Revamp","Blueprint-grade customer approvals","Implement portal workflow so customers can review estimates, approve/decline, pay deposits, and view status per blueprint.","- Portal shows repair orders/estimates filtered by owning customer
+- Customer can approve/decline with timestamp + signature stored
+- Deposit payment creates Payment Entry or link to ERPNext
+- Regression: back-office acceptance still works","L","Fix portal API filters first","api/client_portal.py; www/repair_pulse.py; new portal pages", "Integration test: login as customer, approve estimate, verify RO status & payment entry. UI test on portal dashboard.",1
+2,"Security & Compliance","Lock down QA and portal endpoints","Tighten permissions on QA/portal routes, add has_permission checks, and audit whitelisted endpoints for PII exposure.","- Final QA Checklist readable only by QA/Managers
+- /repair_pulse authorizes against linked Customer/Player, not username
+- Client portal endpoints enforce customer ownership and return non-empty data
+- Lab APIs verify Technician/Lab roles with explicit errors","M","Relies on portal filter fixes","qa/doctype/final_qa_checklist; www/repair_pulse.py; api/client_portal.py; lab/api.py","Automated tests hitting endpoints with authorized/unauthorized users; role-based access tests.",1
+3,"Workflow Automation","Automate intake→estimate→repair order","Trigger estimate and repair order creation when intake reaches approved state; auto-link child docs and set SLA timers.","- Approved intake creates Repair Estimate draft prefilled with instrument/customer
+- Acceptance auto-creates Repair Order and links intake/inspection records
+- SLA fields stored & visible on RO; alerts when overdue
+- Hooks are idempotent and covered by tests","L","Needs clarified approval workflow","hooks.py; repair/utils.py; repair/doctype/*; new scheduler or event handlers","Unit tests for hook idempotency; simulate intake approval and assert linked docs; SLA reminder tests.",1
+4,"Data Integrity & Linking","Normalize planning DocTypes","Replace Data fields with Links and enforce naming/uniqueness across Service Plan/Estimate/Repair logging.","- Repair Estimate has Link fields to Customer, Instrument Profile, Intake
+- Service Plan tasks link to templates/operations; validations prevent orphan records
+- Automated migration patch updates existing data safely
+- Unique constraints prevent duplicate logs","M","Requires database patch planning","service_planning/doctype/*; repair_logging/doctype/*; patches","Schema migration test (install on sample DB); regression tests for doc creation.",1
+5,"Operations & Monitoring","Enable scheduler + warranty cron","Wire scheduler_events to run warranty checks, SLA audits, and pulse notifications with logging & admin alerts.","- scheduler_events defined for hourly warranty check
+- Warranty cron respects settings and records metrics/logs
+- SLA audit job posts reminders to technicians/managers
+- Tests cover job registration and dry-run outputs","M","Depends on blueprint automation work","hooks.py; instrument_profile/cron/warranty_expiry_check.py; new jobs","Bench unit test running jobs; verify log output and notifications.",2
+6,"Technician Tooling","Barcode job tags & mobile-friendly task UI","Add print formats with barcodes/QR codes and responsive technician workspace for mobile per blueprint.","- Repair Order print format includes barcode/QR for job ID and instrument
+- Technician dashboard or list has responsive layout tested on mobile width
+- Scanning barcode routes to RO or task form
+- Documentation updated","M","Needs stable workflow automation","repair/print_format/*; inspection/page/technician_dashboard; new assets","Generate print format PDF sample; responsive UI visual regression; barcode scan e2e.",2
+7,"Diagnostics Commercialization","Surface lab & diagnostic insights","Aggregate measurement/tone metrics into reports and customer summaries to deliver differentiating analytics.","- New dashboards/report summarizing tone/leak metrics per instrument
+- Customer portal displays latest diagnostic results with context
+- Data cached/indexed for performance
+- Role-based access enforced","M","Requires portal fixes","lab/api.py; repair_logging/report/*; new report/dashboard","Report unit tests; integration test verifying customer view; performance test on dataset.",3
+8,"Multi-location & Capacity Planning","Support multi-shop scheduling","Extend data model to handle multiple locations, technician capacity, and bay utilization charts.","- Repair Order & Intake capture location/site and validate warehouse alignment
+- Capacity dashboard shows workload per location & technician
+- Scheduler respects location filters
+- Documentation updated","L","Depends on workflow automation","repair/doctype/repair_order.json; inspection/page/*; new reports","Functional test creating orders in different locations; verify dashboards; ensure permissions by location.",3
