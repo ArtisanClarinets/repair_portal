@@ -67,12 +67,12 @@ from frappe.utils import now_datetime
 DOC_CONFIG = {
     "Clarinet Intake": {"customer": "customer", "instrument": "instrument_profile"},
     "Instrument Inspection": {"customer": "customer", "instrument": "instrument_profile"},
-    "Service Plan": {"customer": "customer", "instrument": "instrument_profile"},
+    "Service Plan": {"customer": "customer", "instrument": "instrument"},
     "Repair Estimate": {"customer": "customer", "instrument": "instrument_profile"},
     "Final QA Checklist": {"customer": "customer", "instrument": "instrument_profile"},
-    "Measurement Session": {"customer": "customer", "instrument": "instrument_profile"},
+    "Measurement Session": {"customer": "customer", "instrument": "instrument"},
     "Diagnostic Metrics": {"customer": "customer", "instrument": "instrument_profile"},
-    "Repair Task": {"customer": "customer", "instrument": "instrument_profile"},
+    "Repair Task": {},
 }
 
 def on_child_validate(doc, method=None):
