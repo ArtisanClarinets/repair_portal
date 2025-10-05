@@ -18,11 +18,9 @@
   "modified": "2025-09-19 17:00:00.000000",
   "sort_field": "modified",
   "sort_order": "DESC",
-
   "title_field": "intake_record_id",
   "image_field": "initial_intake_photos",
   "search_fields": "intake_record_id, serial_no, customer, manufacturer, model, item_code",
-
   "field_order": [
     "sec_overview",
     "intake_record_id",
@@ -31,8 +29,9 @@
     "col_overview_right",
     "employee",
     "instrument",
+    "instrument_profile",
     "intake_status",
-
+    "repair_order",
     "sec_instrument_identity",
     "instrument_category",
     "manufacturer",
@@ -47,7 +46,6 @@
     "bore_type",
     "tone_hole_style",
     "thumb_rest_type",
-
     "sec_inventory_pricing",
     "item_code",
     "item_name",
@@ -55,7 +53,6 @@
     "col_inventory_right",
     "acquisition_cost",
     "store_asking_price",
-
     "sec_customer_service",
     "customer",
     "customer_full_name",
@@ -72,7 +69,6 @@
     "customer_approval",
     "promised_completion_date",
     "consent_form",
-
     "instrument_condition_section",
     "wood_body_condition",
     "col_cond_mid",
@@ -81,17 +77,13 @@
     "pad_condition",
     "spring_condition",
     "cork_condition",
-
     "sec_photos",
     "initial_intake_photos",
-
     "sec_accessories",
     "accessory_id",
-
     "sec_audit",
     "amended_from"
   ],
-
   "fields": [
     {
       "fieldname": "sec_overview",
@@ -125,7 +117,10 @@
       "reqd": 1,
       "in_list_view": 1
     },
-    { "fieldname": "col_overview_right", "fieldtype": "Column Break" },
+    {
+      "fieldname": "col_overview_right",
+      "fieldtype": "Column Break"
+    },
     {
       "fieldname": "employee",
       "fieldtype": "Link",
@@ -152,7 +147,6 @@
       "in_list_view": 1,
       "in_standard_filter": 1
     },
-
     {
       "fieldname": "sec_instrument_identity",
       "fieldtype": "Section Break",
@@ -196,7 +190,7 @@
       "fieldname": "clarinet_type",
       "fieldtype": "Select",
       "label": "Type of Clarinet",
-      "options": "B♭ Clarinet\nA Clarinet\nE♭ Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther",
+      "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther",
       "reqd": 1
     },
     {
@@ -204,7 +198,10 @@
       "fieldtype": "Int",
       "label": "Year of Manufacture"
     },
-    { "fieldname": "col_inst_right", "fieldtype": "Column Break" },
+    {
+      "fieldname": "col_inst_right",
+      "fieldtype": "Column Break"
+    },
     {
       "fieldname": "body_material",
       "fieldtype": "Data",
@@ -238,7 +235,6 @@
       "fieldtype": "Data",
       "label": "Thumb Rest Type"
     },
-
     {
       "fieldname": "sec_inventory_pricing",
       "fieldtype": "Section Break",
@@ -267,7 +263,10 @@
       "label": "Acquisition Source",
       "depends_on": "eval:doc.intake_type == 'New Inventory'"
     },
-    { "fieldname": "col_inventory_right", "fieldtype": "Column Break" },
+    {
+      "fieldname": "col_inventory_right",
+      "fieldtype": "Column Break"
+    },
     {
       "fieldname": "acquisition_cost",
       "fieldtype": "Currency",
@@ -280,7 +279,6 @@
       "label": "Store Asking Price",
       "depends_on": "eval:doc.intake_type == 'New Inventory'"
     },
-
     {
       "fieldname": "sec_customer_service",
       "fieldtype": "Section Break",
@@ -324,7 +322,10 @@
       "options": "Professional\nStudent\nUniversity\nCollector",
       "depends_on": "eval:doc.intake_type != 'New Inventory'"
     },
-    { "fieldname": "col_customer_right", "fieldtype": "Column Break" },
+    {
+      "fieldname": "col_customer_right",
+      "fieldtype": "Column Break"
+    },
     {
       "fieldname": "customers_stated_issue",
       "fieldtype": "Small Text",
@@ -379,7 +380,6 @@
       "options": "Consent Form",
       "depends_on": "eval:doc.intake_type != 'Repair'"
     },
-
     {
       "fieldname": "instrument_condition_section",
       "fieldtype": "Section Break",
@@ -392,14 +392,20 @@
       "label": "Wood/Body Condition",
       "options": "Excellent\nAcceptable\nNeeds Attention"
     },
-    { "fieldname": "col_cond_mid", "fieldtype": "Column Break" },
+    {
+      "fieldname": "col_cond_mid",
+      "fieldtype": "Column Break"
+    },
     {
       "fieldname": "keywork_condition",
       "fieldtype": "Select",
       "label": "Keywork Condition",
       "options": "Excellent\nAcceptable\nNeeds Attention"
     },
-    { "fieldname": "col_cond_right", "fieldtype": "Column Break" },
+    {
+      "fieldname": "col_cond_right",
+      "fieldtype": "Column Break"
+    },
     {
       "fieldname": "pad_condition",
       "fieldtype": "Select",
@@ -418,7 +424,6 @@
       "label": "Cork Condition",
       "options": "Excellent\nAcceptable\nNeeds Attention"
     },
-
     {
       "fieldname": "sec_photos",
       "fieldtype": "Section Break",
@@ -430,7 +435,6 @@
       "fieldtype": "Attach",
       "label": "Initial Intake Photos"
     },
-
     {
       "fieldname": "sec_accessories",
       "fieldtype": "Section Break",
@@ -443,7 +447,6 @@
       "label": "Accessories & Included Parts",
       "options": "Intake Accessory Item"
     },
-
     {
       "fieldname": "sec_audit",
       "fieldtype": "Section Break",
@@ -459,9 +462,22 @@
       "print_hide": 1,
       "read_only": 1,
       "search_index": 1
+    },
+    {
+      "fieldname": "instrument_profile",
+      "label": "Instrument Profile",
+      "fieldtype": "Link",
+      "options": "Instrument Profile",
+      "read_only": 0
+    },
+    {
+      "fieldname": "repair_order",
+      "label": "Repair Order",
+      "fieldtype": "Link",
+      "options": "Repair Order",
+      "reqd": 1
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
@@ -478,19 +494,53 @@
       "create": 1,
       "submit": 1
     },
-    { "role": "Technician", "read": 1, "write": 1, "create": 1 }
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
   ],
-
   "states": [
-    { "title": "Pending", "color": "Light Blue" },
-    { "title": "Received", "color": "Blue" },
-    { "title": "Inspection", "color": "Green" },
-    { "title": "Setup", "color": "Green" },
-    { "title": "Repair", "color": "Green" },
-    { "title": "Awaiting Custom Approval", "color": "Orange" },
-    { "title": "Awaiting Payment", "color": "Yellow" },
-    { "title": "In Transit", "color": "Light Blue" },
-    { "title": "Repair Complete", "color": "Orange" },
-    { "title": "Returned to Customer", "color": "Purple" }
+    {
+      "title": "Pending",
+      "color": "Light Blue"
+    },
+    {
+      "title": "Received",
+      "color": "Blue"
+    },
+    {
+      "title": "Inspection",
+      "color": "Green"
+    },
+    {
+      "title": "Setup",
+      "color": "Green"
+    },
+    {
+      "title": "Repair",
+      "color": "Green"
+    },
+    {
+      "title": "Awaiting Custom Approval",
+      "color": "Orange"
+    },
+    {
+      "title": "Awaiting Payment",
+      "color": "Yellow"
+    },
+    {
+      "title": "In Transit",
+      "color": "Light Blue"
+    },
+    {
+      "title": "Repair Complete",
+      "color": "Orange"
+    },
+    {
+      "title": "Returned to Customer",
+      "color": "Purple"
+    }
   ]
 }

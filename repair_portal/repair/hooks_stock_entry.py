@@ -31,7 +31,8 @@ def after_submit_stock_entry(doc, method=None):
         return
 
     # Mirror into RO.actual_materials
-    from repair_portal.repair_portal.repair.doctype.repair_order.repair_order import (
-        _update_actuals_from_se,
+    from repair_portal.repair.doctype.repair_order.repair_order import (
+        refresh_actuals_from_stock_entry,
     )
-    _update_actuals_from_se(ro_name, doc.name)
+
+    refresh_actuals_from_stock_entry(ro_name, doc.name)

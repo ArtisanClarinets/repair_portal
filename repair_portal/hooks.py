@@ -47,16 +47,18 @@ after_migrate = [
 
 
 doc_events = {
-    'Repair Order': {
-        'on_submit': 'repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_submit',
-        'on_cancel': 'repair_portal.repair_order.doctype.repair_order.repair_order.RepairOrder.on_cancel',
+    "Repair Order": {
+        "on_submit": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_submit",
+        "on_cancel": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_cancel",
     },
-    'Clarinet Intake': {
+    "Clarinet Intake": {
         # after_insert will call our new function
-        'after_insert': (
-            'repair_portal.intake.doctype.clarinet_intake'
-            + '.clarinet_intake_timeline.add_timeline_entries'
-        )
+        "after_insert": (
+            "repair_portal.intake.doctype.clarinet_intake"
+            + ".clarinet_intake_timeline.add_timeline_entries"
+        ),
+        "validate": "repair_portal.repair.utils.on_child_validate",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
     },
     'Instrument': {
         'after_insert': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
@@ -82,11 +84,6 @@ doc_events = {
     },
     # End Optional handlers
 
-    # Begin Repair Order Doc Events
-    "Clarinet Intake": {
-        "validate": "repair_portal.repair.utils.on_child_validate",
-        "on_update": "repair_portal.repair.utils.on_child_validate",
-    },
     "Instrument Inspection": {
         "validate": "repair_portal.repair.utils.on_child_validate",
         "on_update": "repair_portal.repair.utils.on_child_validate",
@@ -115,9 +112,9 @@ doc_events = {
         "validate": "repair_portal.repair.utils.on_child_validate",
         "on_update": "repair_portal.repair.utils.on_child_validate",
     },
-     "Stock Entry": {
-    "after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry"
-  }
+    "Stock Entry": {
+        "after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry",
+    },
 }
 
 

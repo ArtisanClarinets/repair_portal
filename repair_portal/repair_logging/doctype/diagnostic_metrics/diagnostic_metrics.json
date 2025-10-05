@@ -22,6 +22,25 @@
   ],
   "fields": [
     {
+      "fieldname": "repair_order",
+      "label": "Repair Order",
+      "fieldtype": "Link",
+      "options": "Repair Order",
+      "reqd": 1
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    },
+    {
+      "fieldname": "instrument_profile",
+      "label": "Instrument Profile",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
+    },
+    {
       "fieldname": "metric",
       "label": "Metric",
       "fieldtype": "Select",

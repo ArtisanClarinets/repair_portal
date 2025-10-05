@@ -10,6 +10,19 @@
   "title_field": "instrument",
   "fields": [
     {
+      "fieldname": "repair_order",
+      "label": "Repair Order",
+      "fieldtype": "Link",
+      "options": "Repair Order",
+      "reqd": 1
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    },
+    {
       "fieldname": "instrument",
       "label": "Instrument",
       "fieldtype": "Link",
