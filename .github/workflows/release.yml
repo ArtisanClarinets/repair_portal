@@ -4,366 +4,174 @@ on:
   push:
     tags:
       - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
 
 env:
-  PYTHON_VERSION: '3.12'
+  PYTHON_VERSION: '3.11'
 
 jobs:
-  validate-release:
-    name: Validate Release
-    runs-on: ubuntu-latest
-    
+  prepare:
+    name: Validate Release Tag
+    runs-on: ubuntu-22.04
     outputs:
-      version: ${{ steps.version.outputs.version }}
-      is_prerelease: ${{ steps.version.outputs.is_prerelease }}
-      
+      version: ${{ steps.meta.outputs.version }}
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        
-    - name: Extract version
-      id: version
-      run: |
-        VERSION=${GITHUB_REF#refs/tags/v}
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-        
-        # Check if this is a prerelease
-        if [[ $VERSION =~ -(alpha|beta|rc) ]]; then
-          echo "is_prerelease=true" >> $GITHUB_OUTPUT
-        else
-          echo "is_prerelease=false" >> $GITHUB_OUTPUT
-        fi
-        
-        echo "Release version: $VERSION"
-        echo "Is prerelease: ${{ steps.version.outputs.is_prerelease }}"
-        
-    - name: Validate changelog
-      run: |
-        if [ ! -f CHANGELOG.md ]; then
-          echo "❌ CHANGELOG.md not found"
-          exit 1
-        fi
-        
-        # Check if version exists in changelog
-        if ! grep -q "## \[${{ steps.version.outputs.version }}\]" CHANGELOG.md; then
-          echo "❌ Version ${{ steps.version.outputs.version }} not found in CHANGELOG.md"
-          exit 1
-        fi
-        
-        echo "✅ Changelog validation passed"
-        
-    - name: Validate version consistency
-      run: |
-        # Check if version in hooks.py matches tag
-        if [ -f shopify_admin_sync/hooks.py ]; then
-          if grep -q "app_version" shopify_admin_sync/hooks.py; then
-            APP_VERSION=$(grep "app_version" shopify_admin_sync/hooks.py | cut -d'"' -f2)
-            if [ "$APP_VERSION" != "${{ steps.version.outputs.version }}" ]; then
-              echo "❌ Version mismatch: hooks.py has $APP_VERSION, tag is ${{ steps.version.outputs.version }}"
-              exit 1
-            fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Validate version metadata
+        id: meta
+        run: |
+          TAG_VERSION=${GITHUB_REF_NAME#v}
+          echo "version=${TAG_VERSION}" >> $GITHUB_OUTPUT
+
+          INIT_VERSION=$(python - <<'PY'
+from pathlib import Path
+import re
+match = re.search(r"__version__\s*=\s*['\"]([^'\"]+)['\"]", Path("repair_portal/__init__.py").read_text())
+print(match.group(1) if match else "")
+PY
+)
+          if [ -z "$INIT_VERSION" ]; then
+            echo "Unable to determine __version__ from repair_portal/__init__.py"
+            exit 1
           fi
-        fi
-        
-        echo "✅ Version consistency check passed"
+          echo "__version__ in repo: $INIT_VERSION"
 
-  create-release-notes:
-    name: Create Release Notes
-    runs-on: ubuntu-latest
-    needs: validate-release
-    
+          if [ "$INIT_VERSION" != "$TAG_VERSION" ]; then
+            echo "Tag version ($TAG_VERSION) does not match repair_portal/__version__ ($INIT_VERSION)"
+            exit 1
+          fi
+
+          if ! grep -q "## \[$TAG_VERSION\]" CHANGELOG.md; then
+            echo "Missing CHANGELOG entry for $TAG_VERSION"
+            exit 1
+          fi
+
+      - name: Run schema guard
+        run: python scripts/schema_guard.py
+
+      - name: Compile sources
+        run: python -m compileall repair_portal
+
+  release-notes:
+    name: Generate Release Notes
+    runs-on: ubuntu-22.04
+    needs: prepare
     outputs:
-      release_notes: ${{ steps.notes.outputs.release_notes }}
-      
+      notes: ${{ steps.notes.outputs.notes_path }}
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Extract release notes
-      id: notes
-      run: |
-        python3 << 'EOF'
-        import re
-        import os
-        
-        version = "${{ needs.validate-release.outputs.version }}"
-        
-        try:
-            with open('CHANGELOG.md', 'r') as f:
-                content = f.read()
-            
-            # Extract the section for this version
-            pattern = rf'## \[{re.escape(version)}\].*?(?=## \[|\Z)'
-            match = re.search(pattern, content, re.DOTALL)
-            
-            if match:
-                release_notes = match.group(0)
-                # Clean up the notes
-                release_notes = re.sub(r'^## \[.*?\].*?\n', '', release_notes)
-                release_notes = release_notes.strip()
-            else:
-                release_notes = f"Release {version}\n\nNo detailed changelog available."
-            
-            # Write to file for upload
-            with open('RELEASE_NOTES.md', 'w') as f:
-                f.write(release_notes)
-                
-            # Also output for use in other steps
-            # GitHub Actions has issues with multiline outputs, so we'll use the file
-            print(f"Release notes written to RELEASE_NOTES.md")
-            
-        except Exception as e:
-            print(f"Error extracting release notes: {e}")
-            with open('RELEASE_NOTES.md', 'w') as f:
-                f.write(f"Release {version}\n\nRelease notes could not be extracted.")
-        EOF
-        
-    - name: Upload release notes
-      uses: actions/upload-artifact@v3
-      with:
-        name: release-notes
-        path: RELEASE_NOTES.md
-        retention-days: 30
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  build-release:
-    name: Build Release Package
-    runs-on: ubuntu-latest
-    needs: validate-release
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-        
-    - name: Install build dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build setuptools wheel
-        
-    - name: Create version file
-      run: |
-        echo "${{ needs.validate-release.outputs.version }}" > shopify_admin_sync/VERSION
-        
-    - name: Generate build metadata
-      run: |
-        cat > BUILD_INFO.json << EOF
-        {
-          "version": "${{ needs.validate-release.outputs.version }}",
-          "build_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-          "git_commit": "$GITHUB_SHA",
-          "git_tag": "$GITHUB_REF",
-          "build_number": "$GITHUB_RUN_NUMBER",
-          "is_prerelease": ${{ needs.validate-release.outputs.is_prerelease }},
-          "workflow": "$GITHUB_WORKFLOW",
-          "runner_os": "$RUNNER_OS"
-        }
-        EOF
-        
-    - name: Create migration summary
-      run: |
-        # Check for migration files in patches directory
-        if [ -d shopify_admin_sync/patches ]; then
-          find shopify_admin_sync/patches -name "*.py" -newer $(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "HEAD~10") > MIGRATIONS.txt 2>/dev/null || echo "No migrations found" > MIGRATIONS.txt
-        else
-          echo "No patches directory found" > MIGRATIONS.txt
-        fi
-        
-    - name: Run pre-build tests
-      run: |
-        # Quick smoke test
-        python -c "import json; print('✅ Python syntax check passed')"
-        
-        # Validate JSON files
-        find shopify_admin_sync -name "*.json" -exec python -m json.tool {} \; > /dev/null
-        echo "✅ JSON validation passed"
-        
-    - name: Create release package
-      run: |
-        # Create the package structure
-        mkdir -p release-package
-        
-        # Copy application files
-        cp -r shopify_admin_sync/ release-package/
-        
-        # Copy metadata
-        cp BUILD_INFO.json release-package/
-        cp MIGRATIONS.txt release-package/
-        
-        # Copy documentation
-        cp README.md release-package/ 2>/dev/null || echo "No README.md found"
-        cp CHANGELOG.md release-package/ 2>/dev/null || echo "No CHANGELOG.md found"
-        
-        # Create installation script
-        cat > release-package/install.sh << 'EOF'
-        #!/bin/bash
-        set -e
-        
-        echo "Installing Shopify Admin Sync v${{ needs.validate-release.outputs.version }}"
-        
-        # Check if bench command exists
-        if ! command -v bench &> /dev/null; then
-            echo "❌ bench command not found. Please install Frappe Bench first."
-            exit 1
-        fi
-        
-        # Check if we're in a bench directory
-        if [ ! -f "sites/apps.txt" ]; then
-            echo "❌ Not in a Frappe Bench directory. Please run from bench root."
-            exit 1
-        fi
-        
-        echo "✅ Environment checks passed"
-        
-        # Install the app
-        if [ -d "apps/shopify_admin_sync" ]; then
-            echo "Updating existing installation..."
-            cp -r shopify_admin_sync/* apps/shopify_admin_sync/
-        else
-            echo "Installing new app..."
-            cp -r shopify_admin_sync apps/
-        fi
-        
-        echo "✅ Files copied successfully"
-        
-        # Run migrations if needed
-        if [ -s MIGRATIONS.txt ] && [ "$(cat MIGRATIONS.txt)" != "No migrations found" ]; then
-            echo "Running migrations..."
-            bench migrate
-        fi
-        
-        echo "✅ Installation completed successfully"
-        echo "Run 'bench install-app shopify_admin_sync' to install on sites"
-        EOF
-        
-        chmod +x release-package/install.sh
-        
-    - name: Create archive
-      run: |
-        cd release-package
-        tar -czf ../shopify-admin-sync-${{ needs.validate-release.outputs.version }}.tar.gz .
-        cd ..
-        
-        # Create checksum
-        sha256sum shopify-admin-sync-${{ needs.validate-release.outputs.version }}.tar.gz > shopify-admin-sync-${{ needs.validate-release.outputs.version }}.sha256
-        
-    - name: Upload release artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: release-package
-        path: |
-          shopify-admin-sync-${{ needs.validate-release.outputs.version }}.tar.gz
-          shopify-admin-sync-${{ needs.validate-release.outputs.version }}.sha256
-          BUILD_INFO.json
-          MIGRATIONS.txt
-        retention-days: 90
+      - name: Extract release notes
+        id: notes
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          python - <<'PY'
+import pathlib
+import re
+import os
+version = os.environ["VERSION"]
+changelog = pathlib.Path("CHANGELOG.md").read_text()
+pattern = re.compile(rf"## \[{re.escape(version)}\](.*?)(?=\n## \[|\Z)", re.DOTALL)
+match = pattern.search(changelog)
+notes = match.group(0) if match else f"## [{version}]\n\nNo detailed changelog available."
+path = pathlib.Path("dist/RELEASE_NOTES.md")
+path.parent.mkdir(parents=True, exist_ok=True)
+path.write_text(notes.strip() + "\n")
+with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as fh:
+    fh.write(f"notes_path={path}\n")
+PY
 
-  create-github-release:
-    name: Create GitHub Release
-    runs-on: ubuntu-latest
-    needs: [validate-release, create-release-notes, build-release]
-    
-    steps:
-    - name: Download release notes
-      uses: actions/download-artifact@v3
-      with:
-        name: release-notes
-        
-    - name: Download release package
-      uses: actions/download-artifact@v3
-      with:
-        name: release-package
-        
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v${{ needs.validate-release.outputs.version }}
-        release_name: Shopify Admin Sync v${{ needs.validate-release.outputs.version }}
-        body_path: RELEASE_NOTES.md
-        draft: false
-        prerelease: ${{ needs.validate-release.outputs.is_prerelease }}
-        
-    - name: Upload Release Archive
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: shopify-admin-sync-${{ needs.validate-release.outputs.version }}.tar.gz
-        asset_name: shopify-admin-sync-${{ needs.validate-release.outputs.version }}.tar.gz
-        asset_content_type: application/gzip
-        
-    - name: Upload Checksum
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: shopify-admin-sync-${{ needs.validate-release.outputs.version }}.sha256
-        asset_name: shopify-admin-sync-${{ needs.validate-release.outputs.version }}.sha256
-        asset_content_type: text/plain
-        
-    - name: Upload Build Info
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: BUILD_INFO.json
-        asset_name: BUILD_INFO.json
-        asset_content_type: application/json
+      - name: Upload release notes artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: dist/RELEASE_NOTES.md
+          retention-days: 30
 
-  notify-release:
-    name: Notify Release
-    runs-on: ubuntu-latest
-    needs: [validate-release, create-github-release]
-    if: always() && needs.create-github-release.result == 'success'
-    
+  package:
+    name: Build Release Artifact
+    runs-on: ubuntu-22.04
+    needs: prepare
     steps:
-    - name: Send Slack notification
-      if: secrets.SLACK_WEBHOOK_URL != ''
-      run: |
-        curl -X POST -H 'Content-type: application/json' \
-          --data '{
-            "text": "🚀 Shopify Admin Sync v${{ needs.validate-release.outputs.version }} has been released!",
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Shopify Admin Sync Release*\n\n• Version: `v${{ needs.validate-release.outputs.version }}`\n• Type: ${{ needs.validate-release.outputs.is_prerelease == 'true' && 'Pre-release' || 'Stable Release' }}\n• Commit: `${{ github.sha }}`"
-                }
-              },
-              {
-                "type": "actions",
-                "elements": [
-                  {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "View Release"
-                    },
-                    "url": "https://github.com/${{ github.repository }}/releases/tag/v${{ needs.validate-release.outputs.version }}"
-                  }
-                ]
-              }
-            ]
-          }' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
-          
-    - name: Send email notification
-      if: secrets.RELEASE_EMAIL_LIST != ''
-      run: |
-        echo "Sending email notifications to release team..."
-        # This would typically use a service like SendGrid, SES, etc.
-        echo "Email notifications sent to: ${{ secrets.RELEASE_EMAIL_LIST }}"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create source archive
+        run: |
+          VERSION=${{ needs.prepare.outputs.version }}
+          mkdir -p dist
+          git archive --format=tar --prefix=repair_portal-${VERSION}/ HEAD | gzip > dist/repair_portal-${VERSION}.tar.gz
+          sha256sum dist/repair_portal-${VERSION}.tar.gz > dist/repair_portal-${VERSION}.tar.gz.sha256
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            dist/repair_portal-${{ needs.prepare.outputs.version }}.tar.gz
+            dist/repair_portal-${{ needs.prepare.outputs.version }}.tar.gz.sha256
+          retention-days: 30
+
+  publish:
+    name: Publish GitHub Release
+    runs-on: ubuntu-22.04
+    needs:
+      - prepare
+      - release-notes
+      - package
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ needs.prepare.outputs.version }}
+          release_name: repair_portal v${{ needs.prepare.outputs.version }}
+          body_path: dist/release-notes/RELEASE_NOTES.md
+          draft: false
+          prerelease: ${{ contains(needs.prepare.outputs.version, '-') }}
+
+      - name: Upload source archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/release-artifacts/repair_portal-${{ needs.prepare.outputs.version }}.tar.gz
+          asset_name: repair_portal-${{ needs.prepare.outputs.version }}.tar.gz
+          asset_content_type: application/gzip
+
+      - name: Upload checksum
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/release-artifacts/repair_portal-${{ needs.prepare.outputs.version }}.tar.gz.sha256
+          asset_name: repair_portal-${{ needs.prepare.outputs.version }}.tar.gz.sha256
+          asset_content_type: text/plain

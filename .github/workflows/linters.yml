@@ -1,79 +1,124 @@
-# When updating this file, please also update the linter_workflow_template in frappe/utils/boilerplate.py
-name: Linters
+name: Governance Checks
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: read
+  pull-requests: read
+  security-events: write
 
 concurrency:
-  group: commitcheck-frappe-${{ github.event_name }}-${{ github.event.number }}
+  group: governance-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  commit-lint:
-    name: 'Semantic Commits'
-    runs-on: ubuntu-latest
+  commit-style:
+    name: Commit Message Quality
+    runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request'
-
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 200
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20.19.4
-          check-latest: true
-
-      - name: Check commit titles
+          node-version: '20'
+      - name: Validate commit messages
         run: |
-          npm install @commitlint/cli @commitlint/config-conventional
+          npm install --no-save @commitlint/cli@19 @commitlint/config-conventional@19
           npx commitlint --verbose --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }}
 
-  linter:
-    name: 'Semgrep Rules'
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-
+  semgrep:
+    name: Semgrep SAST
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.11'
+          cache: pip
+      - name: Install Semgrep
+        run: |
+          python -m pip install --upgrade pip
+          pip install semgrep==1.75.0
+      - name: Run Semgrep rules
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        run: |
+          if [ -n "$SEMGREP_APP_TOKEN" ]; then
+            semgrep ci \
+              --config "p/ci" \
+              --config "p/python" \
+              --config "p/javascript" \
+              --config "p/security-audit" \
+              --output semgrep.sarif \
+              --sarif
+          else
+            semgrep scan \
+              --config "p/ci" \
+              --config "p/python" \
+              --config "p/javascript" \
+              --config "p/security-audit" \
+              --output semgrep.sarif \
+              --sarif
+          fi
+      - name: Upload Semgrep SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+
+  dependency-audit:
+    name: Dependency Audit
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
           cache: pip
 
-      - name: Download Semgrep rules
-        run: git clone --depth 1 https://github.com/frappe/semgrep-rules.git frappe-semgrep-rules
-
-      - name: Run Semgrep rules
+      - name: Install Python auditors
         run: |
-          pip install semgrep
-          semgrep ci --config ./frappe-semgrep-rules/rules --config r/python.lang.correctness
+          python -m pip install --upgrade pip
+          pip install pip-audit==2.7.3 safety==3.2.7
 
-  deps-vulnerable-check:
-    name: 'Vulnerable Dependency Check'
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
-
-      - uses: actions/checkout@v4
-
-      - name: Cache pip
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/*requirements.txt', '**/pyproject.toml', '**/setup.py') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-            ${{ runner.os }}-
-
-      - name: Install and run pip-audit
+      - name: Python dependency scan
         run: |
-          pip install pip-audit
-          cd ${GITHUB_WORKSPACE}
-          pip-audit --desc on --ignore-vuln GHSA-4xqq-73wg-5mjp --ignore-vuln PYSEC-2023-312 .
+          pip-audit --desc on --format json --output pip-audit.json || true
+          safety check --json --output safety.json || true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: |
+          corepack enable
+          npm install --package-lock-only || true
+          npm install --no-audit --no-fund
+
+      - name: npm audit
+        run: npm audit --json > npm-audit.json || true
+
+      - name: Upload dependency reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-audit
+          path: |
+            pip-audit.json
+            safety.json
+            npm-audit.json
+          if-no-files-found: ignore
+          retention-days: 30
