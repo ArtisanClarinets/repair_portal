@@ -1,0 +1,190 @@
+DocType,Role,Read,Write,Create,Submit,Cancel,Amend,Export,Share,Comments
+Barcode Scan Entry,System Manager,1,1,1,0,0,0,0,0,0
+Barcode Scan Entry,Technician,1,0,1,0,0,0,0,0,0
+Brand Mapping Rule,Repair Manager,1,1,1,0,0,0,0,0,0
+Brand Mapping Rule,System Manager,1,1,1,0,0,0,0,0,0
+Clarinet Initial Setup,Customer,1,0,1,0,0,0,0,0,0
+Clarinet Initial Setup,Service Manager,1,1,1,1,0,0,0,0,0
+Clarinet Initial Setup,System Manager,1,1,1,1,0,0,0,0,0
+Clarinet Initial Setup,Technician,1,1,1,0,0,0,0,0,0
+Clarinet Intake,Repair Manager,1,1,1,1,0,0,0,0,0
+Clarinet Intake,System Manager,1,1,1,1,0,0,0,0,0
+Clarinet Intake,Technician,1,1,1,0,0,0,0,0,0
+Clarinet Intake Settings,Repair Manager,1,1,0,0,0,0,0,0,0
+Clarinet Intake Settings,System Manager,1,1,1,0,0,0,0,0,0
+Clarinet Pad Map,System Manager,1,1,1,0,0,0,0,0,0
+Clarinet Setup Log,Customer,1,0,0,0,0,0,0,0,0
+Clarinet Setup Log,Service Manager,1,1,1,0,0,0,0,0,0
+Clarinet Setup Log,Technician,1,0,0,0,0,0,0,0,0
+Clarinet Setup Task,Service Manager,1,1,1,1,1,1,0,0,0
+Clarinet Setup Task,System Manager,1,1,1,1,1,1,0,0,0
+Clarinet Setup Task,Technician,1,1,1,0,0,0,0,0,0
+Client Instrument Profile,Customer,1,1,1,0,0,0,0,0,0
+Client Instrument Profile,Technician,1,1,0,0,0,0,0,0,0
+Consent Field Value,System Manager,1,1,1,0,0,0,0,0,0
+Consent Form,Sales User,1,1,1,1,0,0,0,0,0
+Consent Form,System Manager,1,1,1,1,1,0,0,0,0
+Consent Linked Source,System Manager,1,1,1,0,0,0,0,0,0
+Consent Log Entry,Service Manager,1,1,1,1,0,0,0,0,0
+Consent Log Entry,System Manager,1,1,1,0,0,0,0,0,0
+Consent Log Entry,Technician,1,1,1,0,0,0,0,0,0
+Consent Required Field,System Manager,1,1,1,0,0,0,0,0,0
+Consent Settings,System Manager,1,1,1,0,0,0,0,0,0
+Consent Template,System Manager,1,1,1,0,0,0,0,0,0
+Customer Type,Client Manager,1,1,1,0,0,0,0,0,0
+Customer Type,System Manager,1,1,1,0,0,0,0,0,0
+Customer Upgrade Request,Customer,1,0,1,0,0,0,0,0,0
+Customer Upgrade Request,Service Manager,1,1,1,1,0,0,0,0,0
+Customer Upgrade Request,System Manager,1,1,1,1,0,0,0,0,0
+Customer Upgrade Request,Technician,1,1,1,0,0,0,0,0,0
+Default Operations,System Manager,1,1,1,0,0,0,0,0,0
+Default Operations,Technician,1,0,1,0,0,0,0,0,0
+Diagnostic Metrics,System Manager,1,1,1,0,0,0,0,0,0
+Diagnostic Metrics,Technician,1,0,1,0,0,0,0,0,0
+Environment Log,System Manager,1,1,1,0,0,0,0,0,0
+Estimate Line Item,Repair Manager,1,1,1,0,0,0,0,0,0
+Estimate Line Item,System Manager,1,1,1,0,0,0,0,0,0
+Estimate Line Item,Technician,1,0,1,0,0,0,0,0,0
+Final Qa Checklist,Customer,1,0,0,0,0,0,0,0,0
+Final Qa Checklist,QA Technician,1,1,1,1,0,0,0,0,0
+Final Qa Checklist,Service Manager,1,1,1,1,1,0,0,0,0
+Final Qa Checklist,System Manager,1,1,1,1,1,0,0,0,0
+Final Qa Checklist Item,QA Technician,1,1,1,0,0,0,0,0,0
+Final Qa Checklist Item,Service Manager,1,1,1,0,0,0,0,0,0
+Final Qa Checklist Item,System Manager,1,1,1,0,0,0,0,0,0
+Final Qa Checklist Item,Technician,1,1,1,0,0,0,0,0,0
+Instrument,Client,1,0,0,0,0,0,0,0,0
+Instrument,Repair Manager,1,1,1,0,0,0,0,0,0
+Instrument,System Manager,1,1,1,0,0,0,1,1,0
+Instrument,Technician,1,1,0,0,0,0,0,0,0
+Instrument Accessory,Repair Manager,1,1,1,0,0,0,0,0,0
+Instrument Accessory,System Manager,1,1,1,0,0,0,0,0,0
+Instrument Accessory,Technician,1,1,1,0,0,0,0,0,0
+Instrument Category,System Manager,1,1,1,0,0,0,0,0,0
+Instrument Category,Technician,1,1,1,0,0,0,0,0,0
+Instrument Condition Record,Repair Manager,1,1,1,1,0,0,0,0,0
+Instrument Condition Record,System Manager,1,1,1,0,0,0,0,0,0
+Instrument Condition Record,Technician,1,1,1,0,0,0,0,0,0
+Instrument Inspection,Service Manager,1,1,1,1,0,0,0,0,0
+Instrument Inspection,System Manager,1,1,1,1,1,0,0,0,0
+Instrument Inspection,Technician,1,1,1,1,0,0,0,0,0
+Instrument Interaction Log,Customer,1,0,1,0,0,0,0,0,0
+Instrument Interaction Log,Service Manager,1,1,1,1,0,0,0,0,0
+Instrument Interaction Log,System Manager,1,1,1,1,0,0,0,0,0
+Instrument Interaction Log,Technician,1,1,1,0,0,0,0,0,0
+Instrument Model,System Manager,1,1,1,0,0,0,1,1,0
+Instrument Profile,Customer,1,0,0,0,0,0,0,0,0
+Instrument Profile,Repair Manager,1,1,1,1,1,0,0,0,0
+Instrument Serial Number,Repair Manager,1,1,1,0,0,0,0,0,0
+Instrument Serial Number,Service Manager,1,1,1,0,0,0,0,0,0
+Instrument Serial Number,System Manager,1,1,1,0,0,0,0,0,0
+Instrument Serial Number,Technician,1,1,1,0,0,0,0,0,0
+Instruments Owned,System Manager,1,1,1,0,0,0,0,0,0
+Instruments Owned,Technician,1,1,1,0,0,0,0,0,0
+Intake Accessory Item,Repair Manager,1,1,1,0,0,0,0,0,0
+Intake Accessory Item,System Manager,1,1,1,0,0,0,0,0,0
+Intake Accessory Item,Technician,1,1,1,0,0,0,0,0,0
+Key Measurement,System Manager,1,1,1,0,0,0,0,0,0
+Key Measurement,Technician,1,1,1,0,0,0,0,0,0
+Linked Players,Client Manager,1,1,0,0,0,0,0,0,0
+Linked Players,Customer,1,0,0,0,0,0,0,0,0
+Linked Players,System Manager,1,1,0,0,0,0,0,0,0
+Loaner Instrument,Repair Manager,1,1,1,1,0,0,0,0,0
+Loaner Instrument,System Manager,1,1,1,1,0,0,0,0,0
+Loaner Instrument,Technician,1,1,1,0,0,0,0,0,0
+Loaner Return Check,Customer,1,0,1,0,0,0,0,0,0
+Loaner Return Check,Service Manager,1,1,1,1,0,0,0,0,0
+Loaner Return Check,System Manager,1,1,1,1,0,0,0,0,0
+Loaner Return Check,Technician,1,1,1,0,0,0,0,0,0
+Measurement Entry,System Manager,1,1,1,0,0,0,0,0,0
+Measurement Session,Lab Technician,1,1,1,0,0,0,0,0,0
+Measurement Session,Workshop Manager,1,1,0,0,0,0,0,0,0
+Pad Condition,System Manager,1,1,1,0,0,0,0,0,0
+Pad Count Intake,Inventory Manager,1,1,1,0,0,0,0,0,0
+Pad Count Intake,Inventory User,1,1,1,0,0,0,0,0,0
+Pad Count Intake,System Manager,1,1,1,0,0,0,0,0,0
+Pad Count Log,Inventory Manager,1,1,1,0,0,0,0,0,0
+Pad Count Log,Inventory User,1,1,1,0,0,0,0,0,0
+Pad Count Log,System Manager,1,1,1,0,0,0,0,0,0
+Player Profile,Customer,1,0,0,0,0,0,0,0,0
+Player Profile,Repair Manager,1,1,1,0,0,0,1,0,0
+Player Profile,System Manager,1,1,1,0,0,0,1,1,0
+Player Profile,Technician,1,1,0,0,0,0,1,0,0
+Pulse Update,Customer,1,0,0,0,0,0,0,0,0
+Pulse Update,Repair Manager,1,1,1,0,0,0,0,0,0
+Pulse Update,System Manager,1,1,1,0,0,0,0,0,0
+Pulse Update,Technician,1,1,1,0,0,0,0,0,0
+Qa Checklist Item,QA Technician,1,1,1,0,0,0,0,0,0
+Qa Checklist Item,Service Manager,1,1,1,0,0,0,0,0,0
+Qa Checklist Item,System Manager,1,1,1,0,0,0,0,0,0
+Related Instrument Interaction,System Manager,1,1,1,0,0,0,0,0,0
+Related Instrument Interaction,Technician,1,1,1,0,0,0,0,0,0
+Repair Estimate,Customer,1,0,0,0,0,0,0,0,0
+Repair Estimate,Repair Manager,1,1,1,0,0,0,0,0,0
+Repair Estimate,System Manager,1,1,1,1,1,0,0,0,0
+Repair Estimate,Technician,1,0,1,0,0,0,0,0,0
+Repair Feedback,Customer,1,1,1,0,0,0,0,0,0
+Repair Feedback,System Manager,1,1,1,0,0,0,0,0,0
+Repair Issue,Customer,1,0,1,0,0,0,0,0,0
+Repair Issue,Repair Manager,1,1,1,0,0,0,0,0,0
+Repair Issue,System Manager,1,1,1,1,1,0,0,0,0
+Repair Order,Accounts User,1,0,0,0,0,0,0,0,0
+Repair Order,Repair Manager,1,1,1,0,0,0,0,1,0
+Repair Order,Repair Technician,1,1,0,0,0,0,0,0,0
+Repair Order,Sales User,1,0,0,0,0,0,0,0,0
+Repair Parts Used,System Manager,1,1,0,0,0,0,0,0,0
+Repair Parts Used,Technician,1,1,0,0,0,0,0,0,0
+Repair Portal Settings,System Manager,1,1,1,0,0,0,0,1,0
+Repair Quotation,Sales Manager,1,1,1,1,1,1,0,1,0
+Repair Quotation,Sales User,1,1,1,1,1,0,0,1,0
+Repair Quotation,System Manager,1,1,1,1,1,0,0,1,0
+Repair Quotation Item,System Manager,1,1,1,0,0,0,0,0,0
+Repair Related Document,System Manager,1,1,1,0,0,0,0,0,0
+Repair Request,Customer,1,0,1,0,0,0,0,0,0
+Repair Request,Repair Manager,1,1,1,0,0,0,0,0,0
+Repair Request,System Manager,1,1,1,1,1,0,0,0,0
+Repair Request,Technician,1,1,0,0,0,0,0,0,0
+Repair Settings,System Manager,1,1,1,0,0,0,0,1,0
+Repair Task,Repair Manager,1,1,1,0,0,0,0,1,0
+Repair Task,Repair Technician,1,1,1,0,0,0,0,0,0
+Repair Task Log,System Manager,1,1,1,0,0,0,0,0,0
+Repair Task Log,Technician,1,1,1,0,0,0,0,0,0
+SLA Policy,Repair Manager,1,1,1,0,0,0,1,0,0
+SLA Policy,Repair Technician,1,0,0,0,0,0,0,0,0
+SLA Policy,System Manager,1,1,1,0,0,0,1,1,0
+SLA Policy Rule,Repair Manager,1,1,1,0,0,0,0,0,0
+SLA Policy Rule,System Manager,1,1,1,0,0,0,0,0,0
+Service Plan,Repair Manager,1,1,1,0,0,0,0,0,0
+Service Plan,System Manager,1,1,1,0,0,0,0,0,0
+Service Plan,Technician,1,0,1,0,0,0,0,0,0
+Service Task,Customer,1,0,1,0,0,0,0,0,0
+Service Task,Service Manager,1,1,1,1,0,0,0,0,0
+Service Task,System Manager,1,1,1,1,0,0,0,0,0
+Service Task,Technician,1,1,1,0,0,0,0,0,0
+Setup Template,Service Manager,1,1,1,0,0,0,0,0,0
+Setup Template,System Manager,1,1,1,0,0,0,0,0,0
+Setup Template,Technician,1,1,1,0,0,0,0,0,0
+Tasks,System Manager,1,1,1,0,0,0,0,0,0
+Tasks,Technician,1,1,1,0,0,0,0,0,0
+Technician,Repair Manager,1,1,1,0,0,0,0,0,0
+Technician,System Manager,1,1,1,1,1,1,0,0,0
+Technician,Technician,1,1,0,0,0,0,0,0,0
+Tenon Measurement,System Manager,1,1,1,0,0,0,0,0,0
+Tenon Measurement,Technician,1,1,1,0,0,0,0,0,0
+Tone Hole Inspection Record,System Manager,1,1,1,0,0,0,0,0,0
+Tone Hole Inspection Record,Technician,1,1,1,0,0,0,0,0,0
+Tool,Service Manager,1,1,1,0,0,0,0,0,0
+Tool,System Manager,1,1,1,0,0,0,0,0,0
+Tool,Technician,1,0,0,0,0,0,0,0,0
+Tool Calibration Log,Customer,1,0,1,0,0,0,0,0,0
+Tool Calibration Log,Service Manager,1,1,1,1,0,0,0,0,0
+Tool Calibration Log,System Manager,1,1,1,1,0,0,0,0,0
+Tool Calibration Log,Technician,1,1,1,0,0,0,0,0,0
+Tool Usage Log,Service Manager,1,1,1,1,0,0,0,0,0
+Tool Usage Log,System Manager,1,1,1,1,0,0,0,0,0
+Tool Usage Log,Technician,1,1,1,0,0,0,0,0,0
+Upgrade Option,Service Manager,1,1,1,1,0,0,0,0,0
+Upgrade Option,System Manager,1,1,1,1,0,0,0,0,0
+Upgrade Option,Technician,1,1,1,0,0,0,0,0,0
+Visual Inspection,System Manager,1,1,1,0,0,0,0,0,0
+Warranty Modification Log,System Manager,1,1,1,0,0,0,0,0,0

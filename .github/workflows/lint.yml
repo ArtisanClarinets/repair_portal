@@ -1,35 +1,88 @@
-name: Lint Check
+name: Fast Lint Gates
 
-on: [push, pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
-  lint:
-    runs-on: ubuntu-22.04.5
+  differential-lint:
+    name: Differential Linters
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          node-version: 18
+          fetch-depth: 0
 
-      - name: Install Biome
-        run: npm install -g @biomejs/biome
-
+      - name: Determine changed files
+        id: changed
+        uses: tj-actions/changed-files@v45
+        with:
+          json: true
+          files: |
+            **/*.py
+            **/*.{js,ts,tsx,vue}
+          files_ignore: |
+            node_modules/**
+            docs/**
+            .github/**
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        if: steps.changed.outputs.any_modified == 'true'
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.10
+          python-version: '3.11'
+          cache: pip
 
       - name: Install Ruff
+        if: steps.changed.outputs.any_modified == 'true'
         run: |
           python -m pip install --upgrade pip
-          pip install ruff
-          
-          
+          pip install ruff==0.5.6
 
-      - name: Run Ruff
-        run: ruff .
-        
+      - name: Run Ruff on changed files
+        if: steps.changed.outputs.any_modified == 'true'
+        run: |
+          python - <<'PY'
+          import json, pathlib, subprocess
+
+          changed = json.loads(r"""${{ steps.changed.outputs.all_changed_files }}""")
+          targets = [pathlib.Path(f) for f in changed if f.endswith('.py')]
+          if targets:
+              subprocess.run(['ruff', 'check', *map(str, targets)], check=True)
+              subprocess.run(['ruff', 'format', '--check', *map(str, targets)], check=True)
+          else:
+              print('No Python files changed; skipping Ruff.')
+          PY
+
+      - name: Set up Node
+        if: steps.changed.outputs.any_modified == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Biome
+        if: steps.changed.outputs.any_modified == 'true'
+        run: npm install -g @biomejs/biome@2.0.6
+
+      - name: Run Biome on changed files
+        if: steps.changed.outputs.any_modified == 'true'
+        run: |
+          node <<'NODE'
+          const files = JSON.parse(`${{ steps.changed.outputs.all_changed_files }}`);
+          const targets = files.filter((f) => /\.(js|ts|tsx|vue)$/.test(f));
+          if (targets.length === 0) {
+            console.log('No frontend files changed; skipping Biome.');
+            process.exit(0);
+          }
+          const { spawnSync } = require('child_process');
+          const result = spawnSync('npx', ['@biomejs/biome', 'check', ...targets], { stdio: 'inherit' });
+          process.exit(result.status);
+          NODE
