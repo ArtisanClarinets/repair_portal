@@ -5,6 +5,7 @@
 
 import frappe
 from frappe import _
+from frappe.utils import nowdate
 
 
 @frappe.whitelist(allow_guest=False)
@@ -23,13 +24,13 @@ def get_dashboard_data(technician=None):
     kpis_result = frappe.db.sql(
         """
         SELECT
-            IFNULL(SUM(CASE WHEN status = 'Open' THEN 1 ELSE 0 END), 0) as open_repairs,
-            IFNULL(SUM(CASE WHEN status = 'In Progress' THEN 1 ELSE 0 END), 0) as in_progress_repairs,
-            IFNULL(SUM(CASE WHEN promise_date < CURDATE() AND status NOT IN ('Closed', 'Resolved', 'Cancelled') THEN 1 ELSE 0 END), 0) as overdue_repairs
+            IFNULL(SUM(CASE WHEN workflow_state IN ('Draft', 'In Progress') THEN 1 ELSE 0 END), 0) AS open_repairs,
+            IFNULL(SUM(CASE WHEN workflow_state = 'In Progress' THEN 1 ELSE 0 END), 0) AS in_progress_repairs,
+            IFNULL(SUM(CASE WHEN target_delivery IS NOT NULL AND target_delivery < %(today)s AND workflow_state NOT IN ('Delivered', 'Closed') THEN 1 ELSE 0 END), 0) AS overdue_repairs
         FROM `tabRepair Order`
-        WHERE technician_assigned = %(technician)s
+        WHERE assigned_technician = %(technician)s
         """,
-        {'technician': technician},
+        {'technician': technician, 'today': nowdate()},
         as_dict=True,
     )
     kpis = (
@@ -42,21 +43,38 @@ def get_dashboard_data(technician=None):
     assigned_repairs = frappe.get_list(
         'Repair Order',
         filters={
-            'technician_assigned': technician,
-            'status': ['not in', ['Closed', 'Resolved', 'Cancelled']],
+            'assigned_technician': technician,
+            'workflow_state': ['not in', ['Delivered', 'Closed']],
         },
         fields=[
             'name',
             'customer',
-            'instrument_category',
-            'issue_description',
-            'status',
-            'priority_level',
-            'promise_date',
+            'instrument_profile',
+            'workflow_state',
+            'priority',
+            'target_delivery',
+            'remarks',
         ],
-        order_by='promise_date asc',
+        order_by='target_delivery asc',
         limit=20,
     )
+
+    if assigned_repairs:
+        instrument_names = [row.instrument_profile for row in assigned_repairs if row.instrument_profile]
+        instrument_meta = {
+            doc.name: doc for doc in frappe.get_all(
+                'Instrument Profile',
+                filters={'name': ['in', instrument_names]},
+                fields=['name', 'headline', 'instrument_category', 'serial_no'],
+            )
+        }
+        for row in assigned_repairs:
+            instrument = instrument_meta.get(row.instrument_profile)
+            if instrument:
+                parts = [instrument.headline, instrument.instrument_category, instrument.serial_no]
+                row['instrument_label'] = " • ".join(filter(None, parts)) or instrument.name
+            else:
+                row['instrument_label'] = row.instrument_profile
 
     # 3. Get recent activity feed (last 5 pulse updates for this tech's repairs)
     recent_activity = frappe.db.sql(
@@ -68,7 +86,7 @@ def get_dashboard_data(technician=None):
             pu.timestamp
         FROM `tabPulse Update` pu
         JOIN `tabRepair Order` ro ON pu.repair_order = ro.name
-        WHERE ro.technician_assigned = %(technician)s
+        WHERE ro.assigned_technician = %(technician)s
         ORDER BY pu.timestamp DESC
         LIMIT 5
         """,

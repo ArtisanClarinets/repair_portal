@@ -31,13 +31,47 @@ def get_my_repairs():
         return []
 
     player_names = frappe.get_all('Player Profile', {'customer': client}, pluck='name')
+    if not player_names:
+        return []
+
     instrument_names = frappe.get_all(
         'Instrument Profile', {'player_profile': ['in', player_names]}, pluck='name'
     )
-    return frappe.get_all(
+    if not instrument_names:
+        return []
+
+    instrument_meta = {
+        doc.name: doc for doc in frappe.get_all(
+            'Instrument Profile',
+            filters={'name': ['in', instrument_names]},
+            fields=['name', 'headline', 'instrument_category', 'serial_no'],
+        )
+    }
+
+    repairs = frappe.get_all(
         'Repair Order',
-        filters={'instrument': ['in', instrument_names]},
-        fields=['name', 'status', 'instrument_name', 'modified'],
+        filters={
+            'customer': client,
+            'instrument_profile': ['in', instrument_names],
+        },
+        fields=[
+            'name',
+            'workflow_state',
+            'instrument_profile',
+            'priority',
+            'target_delivery',
+            'modified',
+        ],
         order_by='modified desc',
         limit=10,
     )
+
+    for entry in repairs:
+        instrument = instrument_meta.get(entry.instrument_profile)
+        if instrument:
+            parts = [instrument.headline, instrument.instrument_category, instrument.serial_no]
+            entry["instrument_label"] = " • ".join(filter(None, parts)) or instrument.name
+        else:
+            entry["instrument_label"] = entry.instrument_profile
+
+    return repairs

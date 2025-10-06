@@ -155,19 +155,22 @@ class RepairOrder(Document):
         def opt(fieldname: str) -> str | None:
             return self.get(fieldname) if self.meta.has_field(fieldname) else None
 
-        linkmap = {
+        link_candidates = {
             # Optional stage links only if such fields exist on schema
-            "Clarinet Intake": opt("clarinet_intake"),
-            "Instrument Inspection": opt("instrument_inspection"),
-            "Service Plan": opt("service_plan"),
-            "Repair Estimate": opt("repair_estimate"),
-            "Measurement Session": opt("measurement_session"),
+            "Clarinet Intake": ["clarinet_intake", "intake"],
+            "Instrument Inspection": ["instrument_inspection"],
+            "Service Plan": ["service_plan"],
+            "Repair Estimate": ["repair_estimate"],
+            "Measurement Session": ["measurement_session"],
             # Always attempt to include Instrument Profile (first-class)
-            "Instrument Profile": opt("instrument_profile"),
+            "Instrument Profile": ["instrument_profile"],
         }
-        for dt, name in linkmap.items():
-            if name:
-                self._ensure_related(dt, name, desc="Stage link")
+        for dt, candidates in link_candidates.items():
+            for fieldname in candidates:
+                name = opt(fieldname)
+                if name:
+                    self._ensure_related(dt, name, desc="Stage link")
+                    break
 
     def _ensure_related(self, doctype: str, name: str, desc: str = "") -> None:
         rows = (self.related_documents or []) if self.meta.has_field("related_documents") else []

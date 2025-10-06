@@ -8,6 +8,25 @@
   "sync_on_migrate": 1,
   "fields": [
     {
+      "fieldname": "repair_order",
+      "label": "Repair Order",
+      "fieldtype": "Link",
+      "options": "Repair Order",
+      "reqd": 1
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    },
+    {
+      "fieldname": "instrument_profile",
+      "label": "Instrument Profile",
+      "fieldtype": "Link",
+      "options": "Instrument Profile"
+    },
+    {
       "fieldname": "qa_technician",
       "fieldtype": "Link",
       "label": "QA Technician",
