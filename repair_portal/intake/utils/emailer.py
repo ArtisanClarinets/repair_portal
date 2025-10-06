@@ -29,7 +29,7 @@ _SUBJECTS: dict[str, str] = {
 # --------------------------------------------------------------------------- #
 #  Public API
 # --------------------------------------------------------------------------- #
-def queue_intake_status_email(intake_name: str, event: str = 'state_change') -> None:
+def queue_intake_state_email(intake_name: str, event: str = 'state_change') -> None:
     """Build and send a transactional email to a Clarinet-Intake customer.
 
     Designed for use with ``frappe.enqueue`` so the actual SMTP call runs in a
@@ -118,3 +118,5 @@ def _build_message(event: str, intake) -> str:
     lines.append(_('<p>Thank you for choosing Artisan Clarinets!</p>'))
 
     return '\n'.join(lines)
+queue_intake_status_email = queue_intake_state_email  # Backward compatibility alias
+
