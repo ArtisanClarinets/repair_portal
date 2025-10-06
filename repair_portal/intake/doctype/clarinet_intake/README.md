@@ -2,105 +2,78 @@
 
 ### 1. Overview and Purpose
 
-**Clarinet Intake** is a submittable doctype in the **Intake** module. It represents a business entity that goes through a lifecycle with draft, submitted, and cancelled states.
+**Clarinet Intake** is a submittable DocType in the **Intake** module. It represents the enterprise-grade clarinet intake workflow from arrival through inspection, setup, repair, QA, and delivery, tracking SLA commitments and downstream automation.
 
-**Module:** Intake
+**Module:** Intake  
 **Type:** Submittable Document
 
-This doctype is used to:
-- Track business transactions through their lifecycle
-- Maintain audit trails with submission and cancellation workflows
-- Enforce data integrity through workflow states
+This DocType is used to:
+- Capture clarinet-specific metadata, logistics, and customer expectations at drop-off
+- Trigger automation for serial numbers, instruments, inspections, setups, and consent forms
+- Drive workflow transitions via `workflow_state`, including cancellation and escalation paths
+- Surface SLA telemetry and loaner/accountability status through desk HTML widgets
 
-### 2. Fields / Schema
+### 2. Fields / Schema (Highlights)
 
 | Field Name | Type | Description |
 |------------|------|-------------|
-| `intake_record_id` | Data | **Unique**, Read-only |
-| `intake_date` | Datetime | Read-only. Default: `now` |
-| `intake_type` | Select (New Inventory
-Repair
-Maintenance) | **Required**. Default: `New Inventory` |
-| `employee` | Link (User) | Read-only |
-| `instrument` | Link (Instrument) | Read-only |
-| `intake_status` | Select (Pending
-Received
-Inspection
-Setup
-Repair
-Awaiting Customer Approval
-Awaiting Payment
-In Transit
-Returned to Customer
-Complete
-Cancelled) | Read-only. Default: `Pending` |
-| `instrument_category` | Link (Instrument Category) | **Required** |
-| `manufacturer` | Link (Brand) | **Required** |
-| `model` | Data | **Required** |
-| `serial_no` | Data | **Required** |
-| `clarinet_type` | Select (B♭ Clarinet
-A Clarinet
-E♭ Clarinet
-Bass Clarinet
-Alto Clarinet
-Contrabass Clarinet
-Other) | **Required** |
-| `year_of_manufacture` | Int | Year of Manufacture |
-| `body_material` | Data | Body Material |
-| `key_plating` | Data | Keywork Plating |
-| `pitch_standard` | Data | Pitch Standard |
-| `bore_type` | Data | Bore Type / Size |
-| `tone_hole_style` | Data | Tone Hole Style |
-| `thumb_rest_type` | Data | Thumb Rest Type |
-| `item_code` | Data | Item Code |
-| `item_name` | Data | Item Name |
-| ... | ... | *25 more fields* |
+| `intake_record_id` | Data (Unique, Read-only) | Deterministic naming field used for autoname (`field:intake_record_id`). |
+| `intake_date` | Datetime (Read-only) | Defaults to `now`; stamped at creation for SLA tracking. |
+| `intake_type` | Select | New Inventory / Repair / Maintenance. Drives dynamic mandatory rules. |
+| `employee` | Link (User) | Assigned coordinator/technician; auto-set on creation. |
+| `instrument` | Link (Instrument) | Linked instrument master when available. |
+| `workflow_stage_badge` | HTML (Read-only) | Workflow-state visual badge rendered from `workflow_state` with clarinet-specific labels. |
+| `sla_commitment_panel` | HTML (Read-only) | Inline SLA countdown, overdue banners, and escalation warnings. |
+| `instrument_category` | Link (Instrument Category) | Required taxonomy link. |
+| `manufacturer` | Link (Brand) | Required clarinet brand reference. |
+| `model` | Data | Model information for analytics. |
+| `serial_no` | Data | Required; unique constraint enforced via controller to avoid duplicates. |
+| `clarinet_type` | Select | Clarinet family (B♭, A, E♭, Bass, Alto, Contra, Other). |
+| `customers_stated_issue` | Small Text | Intake issue summary for technicians. |
+| `arrival_transport_notes` | Small Text | Logistics notes (shipping, courier, handoff). |
+| `risk_disclosures` | Small Text | Customer-provided risk disclosures (cracks, humidity). |
+| `promised_completion_date` | Date | SLA anchor. Drives dashboard warnings. |
+| `consent_form` | Link (Consent Form) | Auto-populated when consent automation enabled. |
+| `instrument_condition_section` + condition fields | Section + Data/Select | Clarinet-specific condition scoring. |
+| `initial_intake_photos` | Attach Image | Intake photography bundle. |
+| `transport_photo_bundle` | Attach | Additional photo evidence captured via portal/web form. |
+| `accessory_id` | Table (Intake Accessory Item) | Child table for mouthpieces, barrels, cases, etc. |
+| `amended_from` | Link (Clarinet Intake) | Audit trail for amendments. |
 
 ### 3. Business Logic and Automation
 
 #### Backend Logic (Python Controller)
 
-The Python controller (`clarinet_intake.py`) implements the following:
-
-**Lifecycle Hooks:**
-- **`validate()`**: Validates document data before saving
-- **`after_insert()`**: Executes after a new document is created
-
-**Custom Methods:**
-- `on_save()`: Custom business logic method
-- `autoname()`: Custom business logic method
-- `get_instrument_by_serial()`: Custom business logic method
-- `get_instrument_inspection_name()`: Custom business logic method
+The Python controller (`clarinet_intake.py`) implements:
+- `validate()` for dynamic mandatory checks, duplicate serial prevention, SLA defaults, and accessory integrity
+- `on_submit()` to synchronize consent, inspection, setup, and instrument links
+- `_should_create_consent()` / `_create_consent_form()` to automate customer consent flows
+- Ownership enforcement and serial/instrument lookup methods leveraged by desk APIs
 
 #### Frontend Logic (JavaScript)
 
-The JavaScript file (`clarinet_intake.js`) provides:
-
-- **Form Refresh**: Updates UI elements when the form loads or refreshes
-- **Custom Buttons**: Adds custom action buttons to the form
+`clarinet_intake.js` delivers:
+- Workflow badge + SLA panel rendering tied to `workflow_state`
+- Form refresh hooks that toggle field visibility, add clarinet-specific quick actions, and wire desk shortcuts
+- API calls into `repair_portal.intake.api` for secure instrument lookups and inspection navigation
 
 ### 4. Relationships and Dependencies
 
-This doctype has the following relationships:
-
-- Links to **User** doctype via the `employee` field (Employee / Technician)
-- Links to **Instrument** doctype via the `instrument` field (Instrument)
-- Links to **Instrument Category** doctype via the `instrument_category` field (Instrument Category)
-- Links to **Brand** doctype via the `manufacturer` field (Manufacturer)
-- Links to **Customer** doctype via the `customer` field (Customer ID)
-- Links to **Work Order** doctype via the `work_order_number` field (Work Order Number)
-- Links to **Consent Form** doctype via the `consent_form` field (Consent Form)
-- Has child table **Intake Accessory Item** stored in the `accessory_id` field
-- Links to **Clarinet Intake** doctype via the `amended_from` field (Amended From)
+- Links to **User** (`employee`)
+- Links to **Instrument**, **Instrument Category**, **Brand**, **Customer**, **Work Order**, **Consent Form**
+- Child table **Intake Accessory Item** for accessories on receipt
+- Timeline integration with **Instrument Inspection**, **Clarinet Initial Setup**, and **Repair Order** records
+- Workflow defined in `intake/workflow/intake_workflow/intake_workflow.json` (field `workflow_state`)
 
 ### 5. Critical Files Overview
 
-- **`clarinet_intake.json`**: DocType schema definition containing all field configurations, permissions, and settings
-- **`clarinet_intake.py`**: Python controller implementing business logic, validations, and lifecycle hooks
-- **`clarinet_intake.js`**: Client-side script for form behavior, custom buttons, and UI interactions
-- **`test_clarinet_intake.py`**: Unit tests for validating doctype functionality
-- **`clarinet_intake_list.js`**: Custom list view behavior and interactions
+- `clarinet_intake.json` — DocType schema definition (fields, permissions, dashboard)
+- `clarinet_intake.py` — Controller automation (validation, linking, consent, ownership)
+- `clarinet_intake.js` — Client-side UX (badges, SLA panels, quick actions, API calls)
+- `clarinet_intake_list.js` — List view badges, filters, and bulk workflow actions
+- `clarinet_intake_dashboard.py` & `clarinet_intake_timeline.py` — Desk analytics and heatmap data providers
+- `test_clarinet_intake.py` — Unit tests covering automation and workflow states
 
 ---
 
-*Last updated: 2025-10-04*
+*Last updated: 2025-10-05*
