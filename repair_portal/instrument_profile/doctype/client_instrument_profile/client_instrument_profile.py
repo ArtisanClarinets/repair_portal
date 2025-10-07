@@ -166,10 +166,14 @@ class ClientInstrumentProfile(Document):
             raise ValidationError(_("Insufficient permissions to create Client Instrument Profile"))
         
         # Additional role-based checks
-        user_roles = frappe.get_roles(frappe.session.user)
-        allowed_roles = ["System Manager", "Customer", "Portal User", "Repair Manager"]
-        
-        if not any(role in user_roles for role in allowed_roles):
+        allowed_roles = [
+            "System Manager",
+            "Customer",
+            "Portal User",
+            "Repair Manager",
+        ]
+
+        if not any(frappe.has_role(role=role) for role in allowed_roles):
             raise ValidationError(_("User role not authorized for Client Instrument Profile creation"))
 
     def _validate_and_sanitize_inputs(self):
@@ -297,10 +301,9 @@ class ClientInstrumentProfile(Document):
         
         # Only authorized users can change verification status
         if self.has_value_changed('verification_status'):
-            user_roles = frappe.get_roles(frappe.session.user)
             authorized_roles = ['Technician', 'Repair Manager', 'System Manager']
-            
-            if not any(role in user_roles for role in authorized_roles):
+
+            if not any(frappe.has_role(role=role) for role in authorized_roles):
                 raise ValidationError(_('Only technicians can change verification status'))
             
             # Log verification status changes

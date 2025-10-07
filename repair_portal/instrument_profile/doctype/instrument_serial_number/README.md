@@ -12,6 +12,16 @@ This doctype is used to:
 - Provide configuration or lookup information
 - Support other business processes in the application
 
+### 1.1 ISN Strategy
+
+- **Normalization Rules:** All user-supplied serials are uppercased, whitespace and punctuation are stripped, and repeated separators are collapsed. The canonical form is persisted on `normalized_serial` and is the value used for de-duplication.
+- **Collision Policy:**
+  - Blocking duplicates on the same Instrument is mandatory.
+  - Across Instruments, duplicates are rejected when the Instruments share the same `brand`. Otherwise, a warning is issued and linkage decisions are deferred to technicians.
+  - Unlinked ISNs with the same normalized value are mutually exclusive: the second insert fails until one record links to an Instrument.
+- **Linking Precedence:** Instrument → ISN is authoritative. Controllers always attempt to attach the ISN back to the Instrument on insert/update to avoid drift. Serial utilities in `repair_portal/utils/serials.py` remain the single source of truth for normalization and candidate lookups.
+- **Security Invariants:** Every mutating action requires `write` permission on both ISN and Instrument. Whitelisted helpers apply per-user rate limiting, log structured audit events to `instrument_profile_audit` / `instrument_profile_security`, and raise explicit `frappe.PermissionError` on violations. Enumeration attempts are throttled at 10 lookups per minute per user.
+
 ### 2. Fields / Schema
 
 | Field Name | Type | Description |
