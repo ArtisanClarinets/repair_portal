@@ -8,6 +8,8 @@ from collections.abc import Sequence
 
 import frappe
 from frappe import _
+from frappe.model.document import Document
+from frappe.utils import now_datetime
 
 # ISN helpers (soft import if utils not present)
 try:
@@ -29,6 +31,62 @@ except Exception:  # pragma: no cover
 # ---------------------------
 
 _STD_FIELDS = {'name', 'owner', 'creation', 'modified', 'modified_by', 'docstatus', 'idx'}
+_PROFILE_FIELD_CACHE: set[str] | None = None
+
+
+def _structured_log(
+    channel: str,
+    *,
+    doctype: str,
+    op: str,
+    status: str,
+    docname: str | None,
+    extras: dict | None = None,
+) -> None:
+    payload = {
+        'ts': now_datetime().isoformat(),
+        'user': getattr(frappe.session, 'user', 'Guest'),
+        'doctype': doctype,
+        'docname': docname,
+        'op': op,
+        'status': status,
+        'latency_ms': 0,
+        'extras': extras or {},
+    }
+    frappe.logger(channel).info(payload)
+
+
+def _log_security(
+    op: str,
+    status: str,
+    docname: str | None,
+    extras: dict | None = None,
+    doctype: str = 'Instrument Profile',
+) -> None:
+    _structured_log(
+        'instrument_profile_security',
+        doctype=doctype,
+        op=op,
+        status=status,
+        docname=docname,
+        extras=extras,
+    )
+
+
+def _log_job(
+    op: str,
+    status: str,
+    docname: str | None,
+    extras: dict | None = None,
+) -> None:
+    _structured_log(
+        'instrument_profile_jobs',
+        doctype='Instrument Profile',
+        op=op,
+        status=status,
+        docname=docname,
+        extras=extras,
+    )
 
 
 def _doctype_exists(doctype: str) -> bool:
@@ -202,10 +260,31 @@ def _get_owner_details(customer: str | None) -> frappe._dict | None:
 # ---------------------------
 
 
-def _safe_set_scalar(profile_name: str, field: str, value) -> None:
-    """Set scalar field on Instrument Profile if the field exists (no validate/submit)."""
-    if frappe.get_meta('Instrument Profile').has_field(field):
-        frappe.db.set_value('Instrument Profile', profile_name, field, value, update_modified=False)
+def _profile_fieldnames() -> set[str]:
+    global _PROFILE_FIELD_CACHE
+    if _PROFILE_FIELD_CACHE is None:
+        meta = frappe.get_meta('Instrument Profile')
+        _PROFILE_FIELD_CACHE = {df.fieldname for df in meta.fields}
+    return _PROFILE_FIELD_CACHE
+
+
+def _safe_set_scalars(profile: Document, values: dict[str, object]) -> None:
+    """Batch update scalar fields on Instrument Profile with a single database write."""
+    if not values:
+        return
+
+    valid_fields = _profile_fieldnames()
+    pending: dict[str, object] = {}
+    for field, value in values.items():
+        if field in valid_fields and profile.get(field) != value:
+            pending[field] = value
+
+    if not pending:
+        return
+
+    frappe.db.set_value('Instrument Profile', profile.name, pending, update_modified=False)
+    for field, value in pending.items():
+        profile.set(field, value)
 
 
 def _ensure_profile(instrument: str) -> str:
@@ -241,34 +320,28 @@ def sync_profile(profile_name: str) -> dict[str, str]:
         owner = _get_owner_details(instrument.customer)
         isn = _get_isn(instrument)
 
-        # scalar fields on Profile (must exist on the DocType)
-        _safe_set_scalar(profile.name, 'serial_no', instrument.serial_no)  # type: ignore
-        _safe_set_scalar(profile.name, 'brand', instrument.brand)  # type: ignore
-        _safe_set_scalar(profile.name, 'model', instrument.model)  # type: ignore
-
-        # Prefer instrument_type, fallback to clarinet_type if present
-        inst_cat = instrument.instrument_type or instrument.clarinet_type
-        _safe_set_scalar(profile.name, 'instrument_category', inst_cat)  # type: ignore
-
-        _safe_set_scalar(profile.name, 'customer', instrument.customer)  # type: ignore
-        _safe_set_scalar(profile.name, 'owner_name', owner.customer_name if owner else None)  # type: ignore
-
-        # Optional commercial fields (may not exist on your Instrument)
-        _safe_set_scalar(profile.name, 'purchase_date', instrument.purchase_date)  # type: ignore
-        _safe_set_scalar(profile.name, 'purchase_order', instrument.purchase_order)  # type: ignore
-        _safe_set_scalar(profile.name, 'purchase_receipt', instrument.purchase_receipt)  # type: ignore
-
-        _safe_set_scalar(profile.name, 'status', instrument.current_status or 'Unknown')  # type: ignore
+        updates: dict[str, object] = {
+            'serial_no': instrument.serial_no,
+            'brand': instrument.brand,
+            'model': instrument.model,
+            'instrument_category': instrument.instrument_type or instrument.clarinet_type,
+            'customer': instrument.customer,
+            'owner_name': owner.customer_name if owner else None,
+            'purchase_date': instrument.purchase_date,
+            'purchase_order': instrument.purchase_order,
+            'purchase_receipt': instrument.purchase_receipt,
+            'status': instrument.current_status or 'Unknown',
+            'headline': _headline(instrument.brand, instrument.model, instrument.serial_no),
+        }
 
         if isn:
-            _safe_set_scalar(profile.name, 'warranty_start_date', isn.warranty_start_date)  # type: ignore
-            _safe_set_scalar(profile.name, 'warranty_end_date', isn.warranty_end_date)  # type: ignore
+            updates['warranty_start_date'] = isn.warranty_start_date
+            updates['warranty_end_date'] = isn.warranty_end_date
+        else:
+            updates['warranty_start_date'] = None
+            updates['warranty_end_date'] = None
 
-        _safe_set_scalar(
-            profile.name,  # type: ignore
-            'headline',
-            _headline(instrument.brand, instrument.model, instrument.serial_no),
-        )
+        _safe_set_scalars(profile, updates)
 
         return {'profile': profile.name, 'instrument': instrument.name}  # type: ignore
     finally:
@@ -288,18 +361,41 @@ def sync_now(profile: str | None = None, instrument: str | None = None) -> dict[
     # Permission check BEFORE profile creation
     if profile:
         if not frappe.has_permission('Instrument Profile', 'write', profile):
+            _log_security(
+                op='sync_now',
+                status='denied',
+                docname=profile,
+                extras={'reason': 'no_profile_write_permission'},
+            )
             frappe.throw(_('Insufficient permissions to sync profile'), frappe.PermissionError)
     elif instrument:
         if not frappe.has_permission('Instrument', 'read', instrument):
+            _log_security(
+                op='sync_now',
+                status='denied',
+                docname=instrument,
+                extras={'reason': 'no_instrument_read_permission'},
+                doctype='Instrument',
+            )
             frappe.throw(_('Insufficient permissions to read instrument'), frappe.PermissionError)
         profile = _ensure_profile(instrument)
-    
-    # Audit log
-    frappe.logger().info(
-        f"Profile sync triggered: {profile} by {frappe.session.user}"
+        _log_job(
+            op='sync_now.ensure_profile',
+            status='success',
+            docname=profile,
+            extras={'instrument': instrument},
+        )
+
+    result = sync_profile(profile)  # type: ignore[arg-type]
+
+    _log_job(
+        op='sync_now',
+        status='success',
+        docname=profile,
+        extras={'instrument': result.get('instrument')},
     )
-    
-    return sync_profile(profile)  # type: ignore[arg-type]
+
+    return result
 
 
 def on_linked_doc_change(doc, method=None):

@@ -16,6 +16,7 @@ from datetime import datetime, timedelta
 DEFAULT_BATCH_SIZE = 50
 DEFAULT_EXPIRY_THRESHOLD_DAYS = 30
 DEFAULT_EARLY_WARNING_DAYS = 60
+DEFAULT_RECIPIENT_DAILY_LIMIT = 3
 MAX_RETRIES = 3
 RATE_LIMIT_DELAY = 1  # seconds between batches
 
@@ -70,7 +71,12 @@ def load_warranty_check_config() -> Dict[str, Any]:
             "admin_email_list": getattr(settings, "warranty_admin_email_list", "admin@artisanclarinets.com"),
             "rate_limit_enabled": getattr(settings, "enable_warranty_rate_limiting", True),
             "max_notifications_per_run": getattr(settings, "max_warranty_notifications_per_run", 100),
-            "enable_performance_monitoring": getattr(settings, "enable_warranty_performance_monitoring", True)
+            "enable_performance_monitoring": getattr(settings, "enable_warranty_performance_monitoring", True),
+            "recipient_daily_limit": getattr(
+                settings,
+                "warranty_recipient_daily_limit",
+                DEFAULT_RECIPIENT_DAILY_LIMIT,
+            ),
         }
     except Exception as e:
         frappe.logger("warranty_cron").warning(f"Could not load settings, using defaults: {str(e)}")
@@ -83,7 +89,8 @@ def load_warranty_check_config() -> Dict[str, Any]:
             "admin_email_list": "admin@artisanclarinets.com",
             "rate_limit_enabled": True,
             "max_notifications_per_run": 100,
-            "enable_performance_monitoring": True
+            "enable_performance_monitoring": True,
+            "recipient_daily_limit": DEFAULT_RECIPIENT_DAILY_LIMIT,
         }
     
     # Validate configuration values
@@ -92,8 +99,30 @@ def load_warranty_check_config() -> Dict[str, Any]:
     config["early_warning_days"] = max(config["expiry_threshold_days"], min(cint(config["early_warning_days"]), 730))
     config["max_notifications_per_run"] = max(1, min(cint(config["max_notifications_per_run"]), 1000))
     
+    config["recipient_daily_limit"] = max(0, cint(config["recipient_daily_limit"]))
+
     frappe.logger("warranty_cron").info(f"Loaded warranty check configuration: {config}")
     return config
+
+
+def _recipient_throttle_key(recipient: str, category: str) -> str:
+    today = nowdate()
+    normalized = recipient.strip().lower()
+    return f"warranty_throttle:{normalized}:{category}:{today}"
+
+
+def _within_daily_limit(recipient: str, category: str, limit: int) -> bool:
+    if limit <= 0:
+        return True
+
+    cache = frappe.cache()
+    key = _recipient_throttle_key(recipient, category)
+    current = cint(cache.get(key) or 0)
+    if current >= limit:
+        return False
+
+    cache.setex(key, 86400, current + 1)
+    return True
 
 def validate_system_state() -> bool:
     """Validate system state before running warranty checks"""
@@ -349,11 +378,24 @@ def process_single_instrument(
         
         # Send notifications based on configuration
         if config["enable_admin_notifications"]:
-            send_admin_notification(instrument, days_until_expiry, priority, config, job_id)
+            send_admin_notification(
+                instrument,
+                days_until_expiry,
+                priority,
+                config,
+                job_id,
+                category,
+            )
             notification_sent = True
-        
+
         if config["enable_customer_notifications"] and instrument.get("customer_email"):
-            send_customer_notification(instrument, days_until_expiry, config, job_id)
+            send_customer_notification(
+                instrument,
+                days_until_expiry,
+                config,
+                job_id,
+                category,
+            )
             notification_sent = True
         
         # Log notification
@@ -394,11 +436,12 @@ def should_send_notification(instrument_name: str, category: str) -> bool:
         return True
 
 def send_admin_notification(
-    instrument: Dict[str, Any], 
-    days_until_expiry: int, 
-    priority: str, 
+    instrument: Dict[str, Any],
+    days_until_expiry: int,
+    priority: str,
     config: Dict[str, Any],
-    job_id: str
+    job_id: str,
+    category: str,
 ):
     """Send warranty notification to administrators"""
     
@@ -440,19 +483,41 @@ def send_admin_notification(
     </div>
     """
     
+    limit = cint(config.get("recipient_daily_limit", DEFAULT_RECIPIENT_DAILY_LIMIT))
+    allowed_recipients = []
+    throttled = []
+
+    for email in admin_emails:
+        if _within_daily_limit(email, f"admin:{category}", limit):
+            allowed_recipients.append(email)
+        else:
+            throttled.append(email)
+
+    if not allowed_recipients:
+        frappe.logger("warranty_cron").info(
+            f"Admin recipients throttled for category {category}: {throttled}"
+        )
+        return
+
     frappe.sendmail(
-        recipients=admin_emails,
+        recipients=allowed_recipients,
         subject=subject,
         message=message,
         delayed=False,
         retry=MAX_RETRIES
     )
 
+    if throttled:
+        frappe.logger("warranty_cron").info(
+            f"Skipped throttled admin recipients for {category}: {throttled}"
+        )
+
 def send_customer_notification(
-    instrument: Dict[str, Any], 
-    days_until_expiry: int, 
+    instrument: Dict[str, Any],
+    days_until_expiry: int,
     config: Dict[str, Any],
-    job_id: str
+    job_id: str,
+    category: str,
 ):
     """Send warranty notification to customer"""
     
@@ -500,6 +565,13 @@ def send_customer_notification(
     </div>
     """
     
+    limit = cint(config.get("recipient_daily_limit", DEFAULT_RECIPIENT_DAILY_LIMIT))
+    if not _within_daily_limit(customer_email, f"customer:{category}", limit):
+        frappe.logger("warranty_cron").info(
+            f"Customer {customer_email} throttled for category {category}"
+        )
+        return
+
     frappe.sendmail(
         recipients=[customer_email],
         subject=subject,

@@ -12,6 +12,29 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import now_datetime
 
+
+def _structured_log(channel: str, *, op: str, status: str, docname: str | None, extras: dict | None = None) -> None:
+    """Emit a structured JSON log entry using the required instrument-profile channels."""
+    payload = {
+        'ts': now_datetime().isoformat(),
+        'user': getattr(frappe.session, 'user', 'Guest'),
+        'doctype': 'Instrument Serial Number',
+        'docname': docname,
+        'op': op,
+        'status': status,
+        'latency_ms': 0,
+        'extras': extras or {},
+    }
+    frappe.logger(channel).info(payload)
+
+
+def _log_security(op: str, status: str, docname: str | None, extras: dict | None = None) -> None:
+    _structured_log('instrument_profile_security', op=op, status=status, docname=docname, extras=extras)
+
+
+def _log_audit(op: str, status: str, docname: str | None, extras: dict | None = None) -> None:
+    _structured_log('instrument_profile_audit', op=op, status=status, docname=docname, extras=extras)
+
 from repair_portal.utils.serials import (
     attach_to_instrument as util_attach_isn,
 )
@@ -191,29 +214,50 @@ class InstrumentSerialNumber(Document):
     @frappe.whitelist()
     def attach_to_instrument(self, instrument: str):
         """Link this serial to an Instrument (and set Instrument.serial_no when available).
-        
+
         Security: Requires write permission on both ISN and Instrument.
         """
         # Security: Validate permissions BEFORE any operation
         if not frappe.has_permission('Instrument Serial Number', 'write', self.name):
+            _log_security(
+                op='attach_to_instrument',
+                status='denied',
+                docname=self.name,
+                extras={'reason': 'no_isn_write_permission', 'target_instrument': instrument},
+            )
             frappe.throw(_('Insufficient permissions to attach serial number'), frappe.PermissionError)
-        
+
         if not frappe.has_permission('Instrument', 'write', instrument):
+            _log_security(
+                op='attach_to_instrument',
+                status='denied',
+                docname=self.name,
+                extras={'reason': 'no_instrument_write_permission', 'target_instrument': instrument},
+            )
             frappe.throw(_('Insufficient permissions to modify instrument'), frappe.PermissionError)
-        
+
         if not frappe.db.exists('Instrument', instrument):
+            _log_security(
+                op='attach_to_instrument',
+                status='error',
+                docname=self.name,
+                extras={'reason': 'instrument_missing', 'target_instrument': instrument},
+            )
             frappe.throw(_("Instrument '{0}' not found.").format(instrument))
-        
-        # Audit log: Track who attached what
-        frappe.logger().info(
-            f"ISN Attachment: {self.name} → {instrument} by {frappe.session.user}"
-        )
-        
+
         util_attach_isn(isn_name=self.name, instrument=instrument, link_on_instrument=True)  # type: ignore
         # Reflect linkage locally if not already set
         if self.instrument != instrument:
             self.instrument = instrument
             self.save(ignore_permissions=True)
+
+        # Audit log: Track who attached what
+        _log_audit(
+            op='attach_to_instrument',
+            status='success',
+            docname=self.name,
+            extras={'target_instrument': instrument},
+        )
         return {'ok': True, 'instrument': instrument}
 
     @frappe.whitelist()
@@ -227,15 +271,27 @@ class InstrumentSerialNumber(Document):
         call_count = frappe.cache().get(cache_key) or 0
         
         if call_count > 10:  # Max 10 calls per minute
+            _log_security(
+                op='find_similar',
+                status='rate_limited',
+                docname=self.name,
+                extras={'limit': 10, 'window_seconds': 60},
+            )
             frappe.throw(
                 _('Rate limit exceeded. Please wait before searching again.'),
                 frappe.ValidationError
             )
-        
+
         frappe.cache().setex(cache_key, 60, call_count + 1)
-        
+
         # Permission check: Must have read access to ISN
         if not frappe.has_permission('Instrument Serial Number', 'read'):
+            _log_security(
+                op='find_similar',
+                status='denied',
+                docname=self.name,
+                extras={'reason': 'no_read_permission'},
+            )
             frappe.throw(_('Insufficient permissions'), frappe.PermissionError)
         
         if not self.serial:
