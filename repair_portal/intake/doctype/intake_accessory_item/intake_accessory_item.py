@@ -20,7 +20,7 @@ from frappe.model.document import Document
 from frappe.utils import flt
 
 # Use the settings from the moved module path
-from repair_portal.repair_portal_settings.doctype.clarinet_intake_settings.clarinet_intake_settings import (
+from repair_portal.repair_portal.doctype.clarinet_intake_settings.clarinet_intake_settings import (
 	get_intake_settings,
 )
 

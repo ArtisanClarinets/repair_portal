@@ -1,3 +1,4 @@
+
 # Absolute Path: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/api.py
 # Last Updated: 2025-10-10
 # Version: v2.0.0 (Intake wizard APIs, ownership enforcement, telemetry logging)
@@ -38,9 +39,6 @@ _ALLOWED_PLAYER_FIELDS = {
 }
 
 
-# ---------------------------------------------------------------------------
-# Internal helpers
-# ---------------------------------------------------------------------------
 
 def _ensure_serial_field_type() -> str | None:
     try:
@@ -210,7 +208,7 @@ def _resolve_player_docname(data: dict[str, Any]) -> str | None:
 
 
 # ---------------------------------------------------------------------------
-# Public API
+# Backwards-compatible endpoints retained for the Vue wizard (v2)
 # ---------------------------------------------------------------------------
 
 

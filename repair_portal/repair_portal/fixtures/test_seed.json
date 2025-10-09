@@ -1,0 +1,84 @@
+[
+  {
+    "doctype": "Brand",
+    "name": "BRAND-TEST-ALPHA",
+    "brand": "Brand Test Alpha",
+    "disabled": 0
+  },
+  {
+    "doctype": "Instrument Category",
+    "name": "IC-CLARINET-SEED",
+    "title": "Clarinet Seed Category",
+    "description": "Seed category for automated intake tests.",
+    "is_active": 1
+  },
+  {
+    "doctype": "Customer",
+    "name": "CUST-INTAKE-SEED-1",
+    "customer_name": "Seed Customer One",
+    "customer_type": "Individual",
+    "customer_group": "All Customer Groups",
+    "territory": "All Territories",
+    "email_id": "seed.one@example.com",
+    "mobile_no": "+1-555-0100"
+  },
+  {
+    "doctype": "Customer",
+    "name": "CUST-INTAKE-SEED-2",
+    "customer_name": "Seed Customer Two",
+    "customer_type": "Individual",
+    "customer_group": "All Customer Groups",
+    "territory": "All Territories",
+    "email_id": "seed.two@example.com",
+    "mobile_no": "+1-555-0101"
+  },
+  {
+    "doctype": "Instrument",
+    "name": "INST-LOANER-SEED-1",
+    "serial_no": "LN-TEST-0001",
+    "instrument_type": "B\u266d Clarinet",
+    "clarinet_type": "B\u266d Clarinet",
+    "brand": "Brand Test Alpha",
+    "model": "Loaner Seed 1",
+    "instrument_category": "IC-CLARINET-SEED",
+    "current_status": "Active"
+  },
+  {
+    "doctype": "Instrument",
+    "name": "INST-LOANER-SEED-2",
+    "serial_no": "LN-TEST-0002",
+    "instrument_type": "B\u266d Clarinet",
+    "clarinet_type": "B\u266d Clarinet",
+    "brand": "Brand Test Alpha",
+    "model": "Loaner Seed 2",
+    "instrument_category": "IC-CLARINET-SEED",
+    "current_status": "Active"
+  },
+  {
+    "doctype": "Loaner Instrument",
+    "name": "LOANER-AVAILABLE-SEED",
+    "status": "Draft",
+    "instrument": "INST-LOANER-SEED-1",
+    "issue_date": "2024-01-01",
+    "due_date": "2024-01-15",
+    "returned": 0
+  },
+  {
+    "doctype": "Loaner Instrument",
+    "name": "LOANER-ISSUED-SEED",
+    "status": "Issued",
+    "instrument": "INST-LOANER-SEED-2",
+    "issue_date": "2024-01-05",
+    "due_date": "2024-01-20",
+    "returned": 0
+  },
+  {
+    "doctype": "Consent Template",
+    "name": "Loaner Agreement",
+    "title": "Loaner Agreement",
+    "consent_type": "Repair",
+    "version": 1,
+    "content": "<p>Loaner instrument agreement terms for testing.</p>",
+    "is_active": 1
+  }
+]
