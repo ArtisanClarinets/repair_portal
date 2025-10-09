@@ -1,0 +1,123 @@
+{
+  "doctype": "DocType",
+  "name": "Loaner Agreement",
+  "module": "Intake",
+  "engine": "InnoDB",
+  "autoname": "LOANER-.#####",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "track_changes": 1,
+  "is_submittable": 1,
+  "allow_rename": 0,
+  "allow_copy": 0,
+  "allow_import": 0,
+  "field_order": [
+    "status",
+    "linked_loaner",
+    "linked_intake",
+    "agreement_template",
+    "terms_ack",
+    "section_signatures",
+    "borrower_signature",
+    "staff_signature",
+    "section_media",
+    "photos"
+  ],
+  "fields": [
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Draft\nSubmitted",
+      "default": "Draft",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "linked_loaner",
+      "label": "Loaner Instrument",
+      "fieldtype": "Link",
+      "options": "Loaner Instrument",
+      "reqd": 1,
+      "in_list_view": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "linked_intake",
+      "label": "Clarinet Intake",
+      "fieldtype": "Link",
+      "options": "Clarinet Intake",
+      "search_index": 1
+    },
+    {
+      "fieldname": "agreement_template",
+      "label": "Consent Template",
+      "fieldtype": "Link",
+      "options": "Consent Template"
+    },
+    {
+      "fieldname": "terms_ack",
+      "label": "Borrower Agrees to Terms",
+      "fieldtype": "Check",
+      "default": "0",
+      "reqd": 1
+    },
+    {
+      "fieldname": "section_signatures",
+      "fieldtype": "Section Break",
+      "label": "Signatures"
+    },
+    {
+      "fieldname": "borrower_signature",
+      "label": "Borrower Signature",
+      "fieldtype": "Signature",
+      "reqd": 1
+    },
+    {
+      "fieldname": "staff_signature",
+      "label": "Staff Signature",
+      "fieldtype": "Signature",
+      "reqd": 1
+    },
+    {
+      "fieldname": "section_media",
+      "fieldtype": "Section Break",
+      "label": "Photos"
+    },
+    {
+      "fieldname": "photos",
+      "label": "Instrument Photos",
+      "fieldtype": "Table",
+      "options": "Attachment Entry"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1,
+      "print": 1,
+      "email": 1,
+      "export": 1,
+      "share": 1
+    },
+    {
+      "role": "Intake Coordinator",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1,
+      "print": 1
+    }
+  ],
+  "workflow_state_field": "status"
+}
