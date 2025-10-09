@@ -9,7 +9,7 @@
   "hide_custom": 0,
   "icon": "quality",
   "indicator_color": "green",
-  "content": "[{\"id\":\"2a9d0c0d9a\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Portal</span>\",\"col\":12}},{\"id\":\"c3956c63e7\",\"type\":\"card\",\"data\":{\"card_name\":\"Inspection\",\"col\":3}},{\"id\":\"2f6c7b3b63\",\"type\":\"card\",\"data\":{\"card_name\":\"Intake\",\"col\":3}},{\"id\":\"a9c141f7b8\",\"type\":\"card\",\"data\":{\"card_name\":\"Instrument Setup\",\"col\":3}},{\"id\":\"e5f7c405dc\",\"type\":\"card\",\"data\":{\"card_name\":\"QA\",\"col\":3}},{\"id\":\"5c7b0a5e51\",\"type\":\"card\",\"data\":{\"card_name\":\"Repair Logging\",\"col\":3}},{\"id\":\"7a1b71e1a1\",\"type\":\"card\",\"data\":{\"card_name\":\"Repair Portal\",\"col\":3}},{\"id\":\"b9ed1f1f8d\",\"type\":\"card\",\"data\":{\"card_name\":\"Service Planning\",\"col\":3}},{\"id\":\"b5d1a9f2a3\",\"type\":\"card\",\"data\":{\"card_name\":\"Tools\",\"col\":3}},{\"id\":\"d1e3b5c4f7\",\"type\":\"card\",\"data\":{\"card_name\":\"Enhancements\",\"col\":3}},{\"id\":\"f3a2c9e1b0\",\"type\":\"card\",\"data\":{\"card_name\":\"Instrument Profile\",\"col\":3}},{\"id\":\"c0e7a3b1d5\",\"type\":\"card\",\"data\":{\"card_name\":\"Repair\",\"col\":3}},{\"id\":\"e1a3f5c9b2\",\"type\":\"card\",\"data\":{\"card_name\":\"Lab\",\"col\":3}}]",
+  "content": "[{\"id\": \"2a9d0c0d9a\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">Repair Portal</span>\", \"col\": 12}}, {\"id\": \"3eb7c92c-4\", \"type\": \"card\", \"data\": {\"card_name\": \"Intake Wizard\", \"col\": 3}}, {\"id\": \"c3956c63e7\", \"type\": \"card\", \"data\": {\"card_name\": \"Inspection\", \"col\": 3}}, {\"id\": \"2f6c7b3b63\", \"type\": \"card\", \"data\": {\"card_name\": \"Intake\", \"col\": 3}}, {\"id\": \"a9c141f7b8\", \"type\": \"card\", \"data\": {\"card_name\": \"Instrument Setup\", \"col\": 3}}, {\"id\": \"e5f7c405dc\", \"type\": \"card\", \"data\": {\"card_name\": \"QA\", \"col\": 3}}, {\"id\": \"5c7b0a5e51\", \"type\": \"card\", \"data\": {\"card_name\": \"Repair Logging\", \"col\": 3}}, {\"id\": \"7a1b71e1a1\", \"type\": \"card\", \"data\": {\"card_name\": \"Repair Portal\", \"col\": 3}}, {\"id\": \"b9ed1f1f8d\", \"type\": \"card\", \"data\": {\"card_name\": \"Service Planning\", \"col\": 3}}, {\"id\": \"b5d1a9f2a3\", \"type\": \"card\", \"data\": {\"card_name\": \"Tools\", \"col\": 3}}, {\"id\": \"d1e3b5c4f7\", \"type\": \"card\", \"data\": {\"card_name\": \"Enhancements\", \"col\": 3}}, {\"id\": \"f3a2c9e1b0\", \"type\": \"card\", \"data\": {\"card_name\": \"Instrument Profile\", \"col\": 3}}, {\"id\": \"c0e7a3b1d5\", \"type\": \"card\", \"data\": {\"card_name\": \"Repair\", \"col\": 3}}, {\"id\": \"e1a3f5c9b2\", \"type\": \"card\", \"data\": {\"card_name\": \"Lab\", \"col\": 3}}]",
   "links": [
     {
       "hidden": 0,
@@ -30,7 +30,25 @@
       "onboard": 0,
       "type": "Link"
     },
-
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Intake Wizard",
+      "link_count": 1,
+      "link_type": "Page",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Launch Wizard",
+      "link_count": 0,
+      "link_to": "intake_wizard",
+      "link_type": "Page",
+      "onboard": 0,
+      "type": "Link"
+    },
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -70,7 +88,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -130,7 +147,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -150,7 +166,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -180,7 +195,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -200,7 +214,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -240,7 +253,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -270,7 +282,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -290,7 +301,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -360,7 +370,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -430,7 +439,6 @@
       "onboard": 0,
       "type": "Link"
     },
-
     {
       "hidden": 0,
       "is_query_report": 0,

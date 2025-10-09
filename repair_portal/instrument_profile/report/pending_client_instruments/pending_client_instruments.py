@@ -4,7 +4,6 @@
 # Description: Server-side helper for the "Pending Client Instruments" query report - returns data for draft Client Instrument Profile submissions with filters for client name, status, and creation date range, keeping static type checkers happy.
 # Dependencies: frappe (>=15.0.0)
 
-from __future__ import annotationsader Template
 # Relative Path: repair_portal/instrument_profile/report/pending_client_instruments/pending_client_instruments.py
 # Last Updated: 2025-07-19
 # Version: v1.1.1

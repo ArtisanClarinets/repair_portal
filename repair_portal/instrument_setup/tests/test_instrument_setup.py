@@ -196,7 +196,7 @@ class TestInstrumentSetup(unittest.TestCase):
         tasks[1].save()
         
         # Check parent progress calculation
-        from repair_portal.repair_portal.instrument_setup.doctype.clarinet_setup_task.clarinet_setup_task import (
+        from repair_portal.instrument_setup.doctype.clarinet_setup_task.clarinet_setup_task import (
             update_parent_progress_inline,
         )
         update_parent_progress_inline(setup.name)

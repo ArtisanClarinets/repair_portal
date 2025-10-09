@@ -15,22 +15,12 @@ from frappe import _
 
 # -------- Normalization (single source of truth if available) --------
 try:
-    # layout A (common in your tree)
     from repair_portal.instrument_profile.doctype.instrument_serial_number.instrument_serial_number import (
         normalize_serial as _controller_normalize_serial,  # type: ignore
     )
-
     _HAVE_CONTROLLER_NORMALIZE = True
 except Exception:
-    try:
-        # layout B (double package path)
-        from repair_portal.repair_portal.instrument_profile.doctype.instrument_serial_number.instrument_serial_number import (  # type: ignore
-            normalize_serial as _controller_normalize_serial,
-        )
-
-        _HAVE_CONTROLLER_NORMALIZE = True
-    except Exception:
-        _HAVE_CONTROLLER_NORMALIZE = False
+    _HAVE_CONTROLLER_NORMALIZE = False
 
 if not _HAVE_CONTROLLER_NORMALIZE:
     import re
