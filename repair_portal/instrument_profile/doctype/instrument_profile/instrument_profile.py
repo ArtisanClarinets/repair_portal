@@ -50,8 +50,8 @@ class InstrumentProfile(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        from repair_portal.instrument_profile.doctype.external_work_logs.external_work_logs import (  # type: ignore
-            ExternalWorkLogs,
+        from repair_portal.instrument_profile.doctype.customer_external_work_log.customer_external_work_log import (  # type: ignore
+            CustomerExternalWorkLog,
         )
         from repair_portal.instrument_profile.doctype.instrument_accessory.instrument_accessory import (
             InstrumentAccessory,
@@ -79,7 +79,7 @@ class InstrumentProfile(Document):
         condition_logs: DF.Table[InstrumentConditionRecord]
         current_location: DF.Data | None
         customer: DF.Link | None
-        external_work_logs: DF.Table[ExternalWorkLogs]
+        external_work_logs: DF.Table[CustomerExternalWorkLog]
         headline: DF.Data | None
         initial_condition_notes: DF.Text | None
         instrument: DF.Link

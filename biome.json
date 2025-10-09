@@ -7,7 +7,10 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["repair_portal/lab/**/*"]
+    "includes": [
+      "repair_portal/intake/**/*",
+      "repair_portal/public/js/**/*"
+    ]
   },
   "formatter": {
     "enabled": true,
