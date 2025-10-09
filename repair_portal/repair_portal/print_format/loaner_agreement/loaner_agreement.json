@@ -1,0 +1,10 @@
+{
+  "doctype": "Print Format",
+  "module": "Intake",
+  "name": "Loaner Agreement",
+  "doc_type": "Loaner Agreement",
+  "print_format_type": "Jinja",
+  "html": "{% include 'repair_portal/repair_portal/print_format/loaner_agreement/loaner_agreement.html' %}",
+  "standard": 0,
+  "disabled": 0
+}
