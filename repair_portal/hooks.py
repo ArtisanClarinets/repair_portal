@@ -18,6 +18,14 @@ app_license = 'mit'
 required_apps = ['frappe', 'erpnext']
 
 
+fixtures = [
+    {
+        'doctype': 'Role',
+        'filters': [["role_name", "in", ['Intake Coordinator']]]
+    },
+]
+
+
 # fire this before any DDL, patches or fixtures run
 before_install = [
     'repair_portal.install.check_setup_complete',
@@ -117,6 +125,12 @@ doc_events = {
     },
 }
 
+
+scheduler_events = {
+    'daily': [
+        'repair_portal.intake.tasks.cleanup_intake_sessions',
+    ],
+}
 
 # website_route_rules = [
 #     {'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},

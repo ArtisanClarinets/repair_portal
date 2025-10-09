@@ -27,7 +27,7 @@ from frappe.utils import nowdate
 from repair_portal.intake.doctype.clarinet_intake.clarinet_intake_timeline import (
 	add_timeline_entries,
 )
-from repair_portal.repair_portal_settings.doctype.clarinet_intake_settings.clarinet_intake_settings import (
+from repair_portal.repair_portal.doctype.clarinet_intake_settings.clarinet_intake_settings import (
 	get_intake_settings,
 )
 

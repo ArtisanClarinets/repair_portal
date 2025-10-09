@@ -36,7 +36,10 @@
     "section_consent",
     "auto_create_consent_form",
     "default_consent_template",
-    "consent_required_for_intake_types"
+    "consent_required_for_intake_types",
+    "section_sla",
+    "sla_target_hours",
+    "sla_label"
   ],
   "fields": [
     {
@@ -78,7 +81,6 @@
       "options": "UOM",
       "default": "Nos"
     },
-
     {
       "fieldname": "section_behavior",
       "label": "Automation & Behavior",
@@ -108,7 +110,6 @@
       "fieldtype": "Check",
       "default": "0"
     },
-
     {
       "fieldname": "section_labels",
       "label": "Labels & Mapping",
@@ -150,7 +151,6 @@
       "fieldtype": "Table",
       "options": "Brand Mapping Rule"
     },
-
     {
       "fieldname": "section_consent",
       "label": "Consent Form Automation",
@@ -180,10 +180,39 @@
       "default": "Repair and Maintenance",
       "depends_on": "eval:doc.auto_create_consent_form",
       "description": "Which intake types require consent forms"
+    },
+    {
+      "fieldname": "section_sla",
+      "label": "Service Level Agreement",
+      "fieldtype": "Section Break",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "sla_target_hours",
+      "label": "SLA Target (Hours)",
+      "fieldtype": "Int",
+      "default": "72",
+      "description": "Number of hours after intake submission to promise readiness."
+    },
+    {
+      "fieldname": "sla_label",
+      "label": "SLA Label",
+      "fieldtype": "Data",
+      "default": "Promise by",
+      "description": "Label shown to coordinators and customers when displaying the SLA target."
     }
   ],
   "permissions": [
-    { "role": "System Manager", "read": 1, "write": 1, "create": 1 },
-    { "role": "Repair Manager", "read": 1, "write": 1 }
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1
+    }
   ]
 }
