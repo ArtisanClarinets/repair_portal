@@ -96,3 +96,23 @@ The Intake module orchestrates the full lifecycle of instrument and accessory in
 ---
 
 **This module is architected for transparency, compliance, and enterprise scale—no technical debt, no silos, and robust error logging at every step.**
+
+## Intake Wizard
+- Vue 3 desk page at `/intake/page/intake_wizard` mounts `public/js/intake_wizard/App.vue` using the same bundling pattern as the technician dashboard.
+- Persists drafts to the new **Intake Session** DocType with telemetry events, SLA indicator, and resumable sessions via the `session_id` query string.
+- Wizard steps reuse hardened APIs: serial normalization (`repair_portal.utils.serials`), customer sync (`repair_portal.intake.services.intake_sync`), brand mapping, and loaner listings.
+
+## New DocTypes
+- **Intake Session** – Draft storage for the wizard with automatic expiry and daily cleanup (`repair_portal.intake.tasks.cleanup_intake_sessions`).
+- **Loaner Agreement** – Submittable agreement linked to loaner instruments with printable PDF and signature validation.
+
+## API Surface
+- `repair_portal.intake.api.get_instrument_by_serial` now returns normalization metadata, brand mapping, and match context.
+- New endpoints: `upsert_customer`, `upsert_player_profile`, `list_available_loaners`, `save_intake_session`, `load_intake_session`, `create_intake`. All enforce intake permissions.
+
+---
+**DEVLOG (2025-10-10)**
+- Reused `repair_portal.intake.services.intake_sync.upsert_customer` for CRM hygiene.
+- Leveraged `repair_portal.utils.serials.find_by_serial` for serial lookups and normalization.
+- Applied brand normalization via `Brand Mapping Rule.map_brand`.
+- Loaner availability surfaces existing `Loaner Instrument` metadata with no duplicate logic.
