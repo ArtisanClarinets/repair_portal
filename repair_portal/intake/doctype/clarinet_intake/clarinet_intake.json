@@ -1,6 +1,6 @@
 {
   "doctype": "DocType",
-  "name": "Clarinet Intake",
+  "name": "Intake",
   "module": "Intake",
   "engine": "InnoDB",
   "autoname": "field:intake_record_id",

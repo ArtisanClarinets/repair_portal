@@ -51,7 +51,7 @@
 				"@modelcontextprotocol/server-memory"
 			],
 			"env": {
-				"MEMORY_FILE_PATH": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/.vscode/memory.sqlite"
+				"MEMORY_FILE_PATH": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/.vscode/memory.json"
 			},
 			"type": "stdio"
 		},
