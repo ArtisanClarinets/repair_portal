@@ -42,50 +42,46 @@ class MaterialRow:
 class RepairOrder(Document):
     """Rich workflow controller for the Repair Order doctype."""
 
-    def autoname(self) -> None:  # pragma: no cover - frappe hook
-        if self.naming_series:
-            self.name = make_autoname(self.naming_series)
-            self.player_profile = self.player_profile or None
-            return
-        self.name = make_autoname("RO-.####")
+        actual_materials: DF.Table[RepairActualMaterial]
+        assigned_technician: DF.Link | None
+        company: DF.Link | None
+        customer: DF.Link
+        instrument_profile: DF.Link | None
+        intake: DF.Link | None
+        is_warranty: DF.Check
+        labor_item: DF.Link
+        labor_rate: DF.Currency
+        naming_series: DF.Data
+        planned_materials: DF.Table[RepairPlannedMaterial]
+        posting_date: DF.Date | None
+        priority: DF.Literal[Low, Medium, High, Critical]
+        player_profile: DF.Link | None
+        qa_required: DF.Check
+        related_documents: DF.Table[RepairRelatedDocument]
+        remarks: DF.SmallText | None
+        require_invoice_before_delivery: DF.Check
+        target_delivery: DF.Date | None
+        total_actual_minutes: DF.Int
+        total_estimated_minutes: DF.Int
+        warehouse_source: DF.Link
+        warranty_until: DF.Date | None
+        workflow_state: DF.Literal[Draft, "In Progress", QA, Ready, Delivered, Closed]
+    # end: auto-generated types
+    # ---- Lifecycle ---------------------------------------------------------
 
-    # ---------------------------------------------------------------------
-    # Core hooks
-    # ---------------------------------------------------------------------
-    def before_insert(self) -> None:
-        self._apply_settings_defaults()
-        self._sync_current_stage()
-        self._compute_sla_due()
-
-    def validate(self) -> None:
-        self._apply_settings_defaults()
+    def validate(self):
+        self._apply_defaults_from_settings()
         self._validate_workflow_state()
-        self._validate_required_links()
-        self._validate_labor_sessions()
-        self._sync_current_stage()
-        self._rollup_time_totals()
-        self._ensure_material_rows_are_consistent()
-        self._enforce_qa_gate()
-        self._set_billing_status()
+        self._dedupe_related()
+        self._normalize_links()
+        self._sync_player_profile()
+        self._recompute_time_totals()
+        self._apply_warranty_flags()  # safe no-op if warranty fields not present
 
-    def before_save(self) -> None:
-        self._rollup_time_totals()
-        self._sync_current_stage()
-        self._compute_sla_due()
+    # ---- Defaults / Settings ----------------------------------------------
 
-    def on_update(self) -> None:
-        self._sync_player_profile_links()
-        self._enqueue_sla_monitor_if_needed()
-
-    def on_trash(self) -> None:
-        from repair_portal.repair.utils import clear_material_logs_for_order
-
-        clear_material_logs_for_order(self.name)
-
-    # ------------------------------------------------------------------
-    # Validation helpers
-    # ------------------------------------------------------------------
-    def _apply_settings_defaults(self) -> None:
+    def _apply_defaults_from_settings(self) -> None:
+        """Populate blank fields from Single 'Repair Settings' if available."""
         try:
             settings = frappe.get_single("Repair Settings")
         except Exception:
@@ -201,12 +197,74 @@ class RepairOrder(Document):
     def _compute_sla_due(self) -> None:
         if not self.sla_policy:
             return
-        if self.workflow_state == "Delivered":
-            self.sla_status = "On Track"
+        seen = set()
+        deduped = []
+        for row in (self.related_documents or []):
+            key = (row.doctype_name, row.document_name)
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append(row)
+        self.related_documents = deduped
+
+    def _sync_player_profile(self) -> None:
+        if not self.meta.has_field("player_profile"):
             return
-        try:
-            sla_rule = frappe.get_doc("SLA Policy", self.sla_policy)
-        except Exception:
+
+        profile_name = self.get("player_profile")
+        if not profile_name and self.intake and self.meta.has_field("intake"):
+            try:
+                profile_name = frappe.db.get_value("Clarinet Intake", self.intake, "player_profile")
+            except Exception:
+                frappe.log_error(title="RepairOrder Player Profile", message=frappe.get_traceback())
+                profile_name = None
+
+        if not profile_name and self.instrument_profile:
+            try:
+                if frappe.db.has_column("Instrument Profile", "owner_player"):
+                    profile_name = frappe.db.get_value(
+                        "Instrument Profile", self.instrument_profile, "owner_player"
+                    )
+            except Exception:
+                frappe.log_error(title="RepairOrder Player Profile", message=frappe.get_traceback())
+                profile_name = None
+
+        if profile_name:
+            self.player_profile = profile_name
+            if self.meta.has_field("customer") and not self.customer:
+                try:
+                    customer = frappe.db.get_value("Player Profile", profile_name, "customer")
+                    if customer:
+                        self.customer = customer
+                except Exception:
+                    frappe.log_error(title="RepairOrder Player Profile Customer", message=frappe.get_traceback())
+
+    # ---- Minutes / Totals --------------------------------------------------
+
+    def _recompute_time_totals(self) -> None:
+        """Aggregate est/actual minutes from child Repair Task rows if table exists."""
+        est_total = 0
+        act_total = 0
+        if self.meta.has_field("repair_tasks"):
+            for t in (self.get("repair_tasks") or []):
+                est_total += flt(t.get("est_minutes"))
+                act_total += flt(t.get("actual_minutes"))
+        if self.meta.has_field("total_estimated_minutes"):
+            self.total_estimated_minutes = int(est_total)
+        if self.meta.has_field("total_actual_minutes"):
+            self.total_actual_minutes = int(act_total)
+
+    # ---- Warranty flags (optional) -----------------------------------------
+
+    def _apply_warranty_flags(self) -> None:
+        """Populate is_warranty / warranty_until from Instrument Profile when available.
+
+        - Looks for a date field on Instrument Profile with common names:
+          'warranty_until' (preferred) or 'warranty_end_date' (fallback).
+        - If today's date <= warranty_until: is_warranty = 1, else 0.
+        - Safe no-op if fields or Instrument Profile are absent.
+        """
+        if not self.meta.has_field("is_warranty") and not self.meta.has_field("warranty_until"):
             return
         if not sla_rule.get("response_time"):
             return
@@ -454,18 +512,124 @@ def pause_sla(order: str, reason: str) -> None:
 
 
 @frappe.whitelist()
-def resume_sla(order: str) -> None:
-    doc: RepairOrder = frappe.get_doc("Repair Order", order)
-    doc.check_permission("write")
-    doc.db_set({"sla_status": "On Track", "sla_paused_on": None})
-    doc.add_comment("Info", _("SLA resumed."))
+def generate_sales_invoice_from_ro(repair_order: str) -> str:
+    ro = _get_ro(repair_order)
+
+    if not ro.get("customer"):
+        frappe.throw(_("Repair Order requires a Customer."))
+    if not ro.get("labor_item"):
+        frappe.throw(_("Repair Order requires a Labor Item (Service)."))
+
+    company = ro.get("company") or frappe.defaults.get_global_default("company")
+    if not company:
+        frappe.throw(_("Company is required (set on Repair Order or defaults)."))
+
+    si = frappe.new_doc("Sales Invoice")
+    si.customer = ro.customer
+    si.company = company
+    si.set_posting_time = 1
+    si.remarks = f"Repair Order: {ro.name}"
+
+    if getattr(si.meta, "has_field", None) and si.meta.has_field("player_profile"):
+        si.player_profile = ro.player_profile
+
+    # Parts: from Actual Materials child table only
+    for row in (ro.get("actual_materials") or []):
+        si.append("items", {
+            "item_code": row.item_code,
+            "qty": flt(row.qty) or 1,
+            "uom": row.uom or "Nos",
+            "description": f"{row.description or ''} (RO: {ro.name})".strip()
+        })
+
+    # Labor: minutes → hours
+    total_minutes = _get_total_minutes_from_tasks_or_aggregate(ro)
+    hours = round(total_minutes / 60.0, 2)
+    if hours > 0:
+        si.append("items", {
+            "item_code": ro.labor_item,
+            "qty": hours,
+            "uom": "Hour",
+            "rate": flt(ro.labor_rate) if ro.get("labor_rate") else 0.0,
+            "description": f"Labor for {ro.name} ({int(total_minutes)} minutes)"
+        })
+
+    si.insert(ignore_permissions=True)
+    frappe.msgprint(_("Sales Invoice created: {0}").format(frappe.bold(si.name)))
+    return si.name
 
 
-# ---------------------------------------------------------------------------
-# Utility for migration compatibility
-# ---------------------------------------------------------------------------
+# ---- Internal utilities ----------------------------------------------------
+
+def _get_ro(name: str) -> Document:
+    if not name:
+        frappe.throw(_("Repair Order name is required."))
+    return frappe.get_doc("Repair Order", name)
 
 
-def ensure_time_log_linked(stock_entry_name: str, repair_order: str) -> None:
-    """Legacy helper to map Stock Entries back to the Repair Order timeline."""
-    frappe.db.set_value("Stock Entry", stock_entry_name, "repair_order", repair_order)
+def _get_se(name: str) -> Document:
+    if not name:
+        frappe.throw(_("Stock Entry name is required."))
+    se = frappe.get_doc("Stock Entry", name)
+    if se.docstatus != 1:
+        frappe.throw(_("Stock Entry {0} must be submitted.").format(frappe.bold(name)))
+    return se
+
+
+def _get_total_minutes_from_tasks_or_aggregate(ro: Document) -> float:
+    if ro.meta.has_field("total_actual_minutes") and ro.get("total_actual_minutes") is not None:
+        return float(ro.total_actual_minutes)
+    total = 0.0
+    for t in (ro.get("repair_tasks") or []):
+        total += float(t.get("actual_minutes") or 0)
+    return total
+
+
+def _mirror_se_items_into_actuals(ro_name: str, se_name: str) -> None:
+    """Copy submitted Stock Entry items into RO.actual_materials for at-a-glance visibility."""
+    ro = frappe.get_doc("Repair Order", ro_name)
+    se = frappe.get_doc("Stock Entry", se_name)
+
+    ro.set("actual_materials", [])
+    for it in se.get("items", []):
+        ro.append("actual_materials", {
+            "item_code": it.item_code,
+            "description": it.description,
+            "qty": it.qty,
+            "uom": it.uom,
+            "valuation_rate": it.valuation_rate or 0,
+            "amount": flt(it.valuation_rate) * flt(it.qty),
+            "stock_entry": se.name
+        })
+    ro.save(ignore_permissions=True)
+
+
+# ---- Optional: hook target to auto-mirror on submit ------------------------
+
+def _on_submit_stock_entry(doc: Document, method: str | None = None) -> None:
+    ro_name = _extract_ro_from_se(doc)
+    if not ro_name or not frappe.db.exists("Repair Order", ro_name):
+        return
+    _mirror_se_items_into_actuals(ro_name, doc.name)
+
+
+def _extract_ro_from_se(se: Document) -> str | None:
+    if se.get("remarks"):
+        for token in str(se.remarks).replace(",", " ").split():
+            if token.startswith("RO-"):
+                return token.strip()
+    for it in se.get("items", []):
+        if it.get("description"):
+            for token in str(it.description).replace(",", " ").split():
+                if token.startswith("RO-"):
+                    return token.strip()
+    return None
+
+
+def _truthy(val) -> bool:
+    if isinstance(val, bool):
+        return val
+    try:
+        return int(val) != 0
+    except Exception:
+        return bool(val)

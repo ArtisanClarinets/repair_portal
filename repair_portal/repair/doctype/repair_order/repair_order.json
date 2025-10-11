@@ -9,6 +9,9 @@
  "field_order": [
   "naming_series",
   "customer",
+  "intake",
+  "player_profile",
+  "instrument_profile",
   "company",
   "player_profile",
   "instrument_profile",
@@ -93,7 +96,14 @@
    "in_standard_filter": 1
   },
   {
-   "fieldname": "intake",
+   "fieldname": "player_profile",
+   "fieldtype": "Link",
+   "label": "Player Profile",
+   "options": "Player Profile",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "company",
    "fieldtype": "Link",
    "label": "Intake",
    "options": "Clarinet Intake"
