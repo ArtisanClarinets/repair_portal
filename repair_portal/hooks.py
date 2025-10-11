@@ -23,6 +23,18 @@ fixtures = [
         'doctype': 'Role',
         'filters': [["role_name", "in", ['Intake Coordinator']]]
     },
+    {
+        'doctype': 'Email Group',
+        'filters': [["title", "=", 'Player Newsletter']]
+    },
+    {
+        'doctype': 'Series',
+        'filters': [["name", "in", ['PLAYER-']]]
+    },
+    {
+        'doctype': 'Custom Field',
+        'filters': [["name", "in", ['Sales Invoice-player_profile']]]
+    },
 ]
 
 

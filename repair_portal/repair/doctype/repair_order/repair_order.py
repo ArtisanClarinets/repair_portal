@@ -61,6 +61,7 @@ class RepairOrder(Document):
         planned_materials: DF.Table[RepairPlannedMaterial]
         posting_date: DF.Date | None
         priority: DF.Literal[Low, Medium, High, Critical]
+        player_profile: DF.Link | None
         qa_required: DF.Check
         related_documents: DF.Table[RepairRelatedDocument]
         remarks: DF.SmallText | None
@@ -79,6 +80,7 @@ class RepairOrder(Document):
         self._validate_workflow_state()
         self._dedupe_related()
         self._normalize_links()
+        self._sync_player_profile()
         self._recompute_time_totals()
         self._apply_warranty_flags()  # safe no-op if warranty fields not present
 
@@ -194,6 +196,38 @@ class RepairOrder(Document):
             seen.add(key)
             deduped.append(row)
         self.related_documents = deduped
+
+    def _sync_player_profile(self) -> None:
+        if not self.meta.has_field("player_profile"):
+            return
+
+        profile_name = self.get("player_profile")
+        if not profile_name and self.intake and self.meta.has_field("intake"):
+            try:
+                profile_name = frappe.db.get_value("Clarinet Intake", self.intake, "player_profile")
+            except Exception:
+                frappe.log_error(title="RepairOrder Player Profile", message=frappe.get_traceback())
+                profile_name = None
+
+        if not profile_name and self.instrument_profile:
+            try:
+                if frappe.db.has_column("Instrument Profile", "owner_player"):
+                    profile_name = frappe.db.get_value(
+                        "Instrument Profile", self.instrument_profile, "owner_player"
+                    )
+            except Exception:
+                frappe.log_error(title="RepairOrder Player Profile", message=frappe.get_traceback())
+                profile_name = None
+
+        if profile_name:
+            self.player_profile = profile_name
+            if self.meta.has_field("customer") and not self.customer:
+                try:
+                    customer = frappe.db.get_value("Player Profile", profile_name, "customer")
+                    if customer:
+                        self.customer = customer
+                except Exception:
+                    frappe.log_error(title="RepairOrder Player Profile Customer", message=frappe.get_traceback())
 
     # ---- Minutes / Totals --------------------------------------------------
 
@@ -326,6 +360,9 @@ def generate_sales_invoice_from_ro(repair_order: str) -> str:
     si.company = company
     si.set_posting_time = 1
     si.remarks = f"Repair Order: {ro.name}"
+
+    if getattr(si.meta, "has_field", None) and si.meta.has_field("player_profile"):
+        si.player_profile = ro.player_profile
 
     # Parts: from Actual Materials child table only
     for row in (ro.get("actual_materials") or []):

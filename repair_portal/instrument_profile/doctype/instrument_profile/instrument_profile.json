@@ -9,7 +9,7 @@
   "image_field": "profile_image",
   "title_field": "headline",
   "show_name_in_global_search": 1,
-  "search_fields": "serial_no,brand,model,customer",
+  "search_fields": "serial_no,brand,model,customer,owner_player",
 
   "field_order": [
     "instrument_details_tab",
@@ -26,6 +26,7 @@
     "serial_no",
     "column_break_right_identity",
     "customer",
+    "owner_player",
     "owner_name",
 
     "section_break_overview",
@@ -148,6 +149,14 @@
       "label": "Customer",
       "options": "Customer",
       "read_only": 1
+    },
+    {
+      "description": "Linked Player Profile",
+      "fieldname": "owner_player",
+      "fieldtype": "Link",
+      "in_standard_filter": 1,
+      "label": "Owner Player",
+      "options": "Player Profile"
     },
     {
       "fieldname": "owner_name",

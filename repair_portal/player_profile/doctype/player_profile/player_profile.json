@@ -1,103 +1,201 @@
 {
  "actions": [],
- "allow_rename": 1,
- "autoname": "format:PLAYER-.####.",
- "creation": "2025-07-27 03:28:59.133394",
- "description": "Fortune-500 production-ready Player Profile for comprehensive musician CRM tracking, preferences, equipment, and service history.",
+ "allow_import": 1,
+ "allow_rename": 0,
+ "autoname": "naming_series:PLAYER-.####",
+ "creation": "2024-01-01 00:00:00",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "identity_section",
+  "naming_series",
   "player_profile_id",
   "player_name",
   "preferred_name",
+  "date_of_birth",
+  "column_break_identity",
   "primary_email",
   "primary_phone",
-  "mailing_address",
+  "customer",
+  "newsletter_subscription",
+  "targeted_marketing_optin",
+  "address_section",
+  "mailing_address_line1",
+  "mailing_address_line2",
+  "city",
+  "state",
+  "postal_code",
+  "country",
   "profile_creation_date",
-  "section_break_musical",
+  "last_visit_date",
+  "customer_lifetime_value",
+  "musical_section",
   "player_level",
   "primary_playing_styles",
-  "affiliation",
   "primary_teacher",
-  "column_break_musical",
-  "equipment_preferences",
-  "key_height_preference",
-  "spring_tension_preference",
-  "preferred_pad_type",
-  "g_sharp_a_connection",
-  "section_break_service",
+  "affiliation",
+  "communication_preference",
+  "referral_source",
+  "preferences_section",
+  "player_equipment_preferences",
   "intonation_notes",
   "technician_notes",
   "instruments_owned",
-  "last_visit_date",
-  "section_break_crm",
-  "customer_lifetime_value",
-  "communication_preference",
-  "newsletter_subscription",
-  "targeted_marketing_optin",
-  "referral_source",
-  "column_break_status",
-  "profile_status",
-  "workflow_state"
+  "status_section",
+  "profile_status"
  ],
  "fields": [
   {
-   "default": "New",
+   "fieldname": "identity_section",
+   "fieldtype": "Section Break",
+   "label": "Identity"
+  },
+  {
+   "default": "PLAYER-.####",
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Naming Series",
+   "no_copy": 1
+  },
+  {
    "fieldname": "player_profile_id",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Player Profile ID",
    "read_only": 1,
    "reqd": 1,
-   "unique": 1,
-   "description": "Auto-generated unique identifier for this player profile"
+   "translatable": 0,
+   "unique": 1
   },
   {
    "fieldname": "player_name",
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Full Name",
-   "reqd": 1,
-   "description": "Full legal name of the player"
+   "label": "Player Name",
+   "personal_data": 1,
+   "reqd": 1
   },
   {
    "fieldname": "preferred_name",
    "fieldtype": "Data",
    "label": "Preferred Name",
-   "description": "Name the player prefers to be called"
+   "personal_data": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "personal_data": 1
+  },
+  {
+   "fieldname": "column_break_identity",
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "primary_email",
    "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Primary Email",
-   "reqd": 1,
-   "unique": 1,
    "options": "Email",
-   "description": "Primary email address for communication"
+   "personal_data": 1,
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "primary_phone",
    "fieldtype": "Data",
    "label": "Primary Phone",
    "options": "Phone",
-   "description": "Primary phone number"
+   "personal_data": 1,
+   "reqd": 1
   },
   {
-   "fieldname": "mailing_address",
-   "fieldtype": "Small Text",
-   "label": "Mailing Address",
-   "description": "Complete mailing address for correspondence and shipping"
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer"
   },
   {
-   "default": "Today",
+   "default": "0",
+   "fieldname": "newsletter_subscription",
+   "fieldtype": "Check",
+   "label": "Newsletter Subscription"
+  },
+  {
+   "default": "0",
+   "fieldname": "targeted_marketing_optin",
+   "fieldtype": "Check",
+   "label": "Targeted Marketing Opt-In"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Mailing Address"
+  },
+  {
+   "fieldname": "mailing_address_line1",
+   "fieldtype": "Data",
+   "label": "Address Line 1",
+   "personal_data": 1
+  },
+  {
+   "fieldname": "mailing_address_line2",
+   "fieldtype": "Data",
+   "label": "Address Line 2",
+   "personal_data": 1
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City",
+   "personal_data": 1
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State / Province",
+   "personal_data": 1
+  },
+  {
+   "fieldname": "postal_code",
+   "fieldtype": "Data",
+   "label": "Postal Code",
+   "personal_data": 1
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country"
+  },
+  {
    "fieldname": "profile_creation_date",
    "fieldtype": "Date",
    "label": "Profile Creation Date",
-   "read_only": 1,
-   "description": "Date when this profile was first created"
+   "no_copy": 1,
+   "read_only": 1
   },
   {
-   "fieldname": "section_break_musical",
+   "fieldname": "last_visit_date",
+   "fieldtype": "Date",
+   "label": "Last Visit Date",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "customer_lifetime_value",
+   "fieldtype": "Currency",
+   "label": "Customer Lifetime Value",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "musical_section",
    "fieldtype": "Section Break",
    "label": "Musical Profile"
   },
@@ -106,138 +204,67 @@
    "fieldtype": "Select",
    "in_standard_filter": 1,
    "label": "Player Level",
-   "options": "Student (Beginner)\nStudent (Advanced)\nAmateur/Hobbyist\nUniversity Student\nProfessional (Orchestral)\nProfessional (Jazz/Commercial)\nEducator\nCollector",
-   "reqd": 1,
-   "description": "Current skill/professional level of the player"
+   "options": "Student (Beginner)\nStudent (Intermediate)\nStudent (Advanced)\nUniversity Student\nAmateur/Hobbyist\nProfessional (Orchestral)\nProfessional (Jazz/Commercial)\nEducator\nCollector",
+   "reqd": 1
   },
   {
-   "default": "0",
    "fieldname": "primary_playing_styles",
    "fieldtype": "Small Text",
-   "label": "Primary Playing Style(s)",
-   "description": "Comma-separated list of playing styles: Orchestral, Chamber, Solo, Jazz, Klezmer, Contemporary, Concert Band"
-  },
-  {
-   "fieldname": "affiliation",
-   "fieldtype": "Data",
-   "label": "Affiliation / Organization",
-   "description": "Current musical organization, orchestra, or educational institution"
+   "label": "Primary Playing Styles"
   },
   {
    "fieldname": "primary_teacher",
    "fieldtype": "Data",
-   "label": "Primary Teacher / Mentor",
-   "description": "Name of primary teacher or mentor"
+   "label": "Primary Teacher",
+   "personal_data": 1
   },
   {
-   "fieldname": "column_break_musical",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "equipment_preferences",
-   "fieldtype": "Table",
-   "label": "Equipment Preference(s)",
-   "options": "Player Equipment Preference",
-   "description": "Detailed equipment preferences for mouthpiece, ligature, reeds, barrel, etc."
-  },
-  {
-   "fieldname": "key_height_preference",
-   "fieldtype": "Select",
-   "label": "Key Height Preference",
-   "options": "Low/Close\nStandard\nHigh/Open",
-   "description": "Preferred key height setting for clarinet"
-  },
-  {
-   "fieldname": "spring_tension_preference",
-   "fieldtype": "Select",
-   "label": "Spring Tension Preference",
-   "options": "Light/Fluid\nStandard/Firm\nHeavy/Resistant",
-   "description": "Preferred spring tension for key action"
-  },
-  {
-   "fieldname": "preferred_pad_type",
+   "fieldname": "affiliation",
    "fieldtype": "Data",
-   "label": "Preferred Pad Type",
-   "description": "Preferred type of clarinet pads (e.g., skin, synthetic, with or without resonators)"
-  },
-  {
-   "fieldname": "g_sharp_a_connection",
-   "fieldtype": "Data",
-   "label": "G#/A Key Connection",
-   "description": "Preference for G#/A key connection type"
-  },
-  {
-   "fieldname": "section_break_service",
-   "fieldtype": "Section Break",
-   "label": "Service & Technical Notes"
-  },
-  {
-   "fieldname": "intonation_notes",
-   "fieldtype": "Small Text",
-   "label": "Tuning & Intonation Notes",
-   "description": "Notes about tuning preferences, intonation tendencies, or barrel length preferences"
-  },
-  {
-   "fieldname": "technician_notes",
-   "fieldtype": "Small Text",
-   "label": "Technician Notes",
-   "description": "Internal notes for technicians about special requirements or observations"
-  },
-  {
-   "fieldname": "instruments_owned",
-   "fieldtype": "Table",
-   "label": "Instruments Currently Owned",
-   "options": "Instruments Owned",
-   "description": "List of instruments currently owned by this player"
-  },
-  {
-   "fieldname": "last_visit_date",
-   "fieldtype": "Date",
-   "label": "Last Visit Date",
-   "description": "Date of most recent visit or service interaction"
-  },
-  {
-   "fieldname": "section_break_crm",
-   "fieldtype": "Section Break",
-   "label": "CRM & Marketing"
-  },
-  {
-   "fieldname": "customer_lifetime_value",
-   "fieldtype": "Currency",
-   "label": "Customer Lifetime Value",
-   "read_only": 1,
-   "description": "Total lifetime value from sales invoices linked to this player"
+   "label": "School / Affiliation"
   },
   {
    "fieldname": "communication_preference",
    "fieldtype": "Select",
-   "label": "Communication Preference",
-   "options": "Email\nSMS\nPhone Call",
-   "description": "Preferred method of communication"
-  },
-  {
-   "default": "0",
-   "fieldname": "newsletter_subscription",
-   "fieldtype": "Check",
-   "label": "Newsletter Subscription",
-   "description": "Opt-in for newsletter subscription"
-  },
-  {
-   "default": "0",
-   "fieldname": "targeted_marketing_optin",
-   "fieldtype": "Check",
-   "label": "Targeted Marketing Opt-In",
-   "description": "Opt-in for targeted marketing communications"
+   "label": "Preferred Communication",
+   "options": "Email\nSMS\nPhone Call"
   },
   {
    "fieldname": "referral_source",
    "fieldtype": "Data",
-   "label": "Referral Source",
-   "description": "How this player heard about us (referral, search, social media, etc.)"
+   "label": "Referral Source"
   },
   {
-   "fieldname": "column_break_status",
-   "fieldtype": "Column Break"
+   "fieldname": "preferences_section",
+   "fieldtype": "Section Break",
+   "label": "Preferences & Notes"
+  },
+  {
+   "fieldname": "player_equipment_preferences",
+   "fieldtype": "Table",
+   "label": "Equipment Preferences",
+   "options": "Player Equipment Preference"
+  },
+  {
+   "fieldname": "intonation_notes",
+   "fieldtype": "Small Text",
+   "label": "Intonation Notes"
+  },
+  {
+   "fieldname": "technician_notes",
+   "fieldtype": "Small Text",
+   "label": "Technician Notes"
+  },
+  {
+   "fieldname": "instruments_owned",
+   "fieldtype": "Table",
+   "label": "Instruments Owned",
+   "options": "Instruments Owned"
+  },
+  {
+   "fieldname": "status_section",
+   "fieldtype": "Section Break",
+   "label": "Lifecycle"
   },
   {
    "default": "Draft",
@@ -246,27 +273,16 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Profile Status",
-   "options": "Draft\nActive\nArchived",
-   "description": "Current status of this player profile"
-  },
-  {
-   "fieldname": "workflow_state",
-   "fieldtype": "Link",
-   "label": "Workflow State",
-   "options": "Workflow State",
-   "read_only": 1,
-   "hidden": 1,
-   "description": "Internal workflow state tracking"
+   "options": "Draft\nActive\nArchived"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 0,
  "links": [],
- "modified": "2025-10-02 03:58:00.000000",
+ "modified": "2024-01-01 00:00:00",
  "modified_by": "Administrator",
  "module": "Player Profile",
  "name": "Player Profile",
- "naming_rule": "Expression",
- "owner": "Administrator",
  "permissions": [
   {
    "create": 1,
@@ -281,33 +297,41 @@
    "write": 1
   },
   {
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Technician",
-   "write": 1
-  },
-  {
    "create": 1,
+   "delete": 0,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "Repair Manager",
+   "share": 1,
    "write": 1
   },
   {
+   "create": 0,
+   "delete": 0,
    "email": 1,
    "print": 1,
    "read": 1,
-   "role": "Customer"
+   "role": "Technician",
+   "share": 0,
+   "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "print": 0,
+   "read": 1,
+   "role": "Customer",
+   "share": 0,
+   "write": 0
   }
  ],
- "row_format": "Dynamic",
- "search_fields": "player_name,primary_email,player_level",
+ "quick_entry": 0,
+ "search_fields": "player_name,primary_email,player_level,customer",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",

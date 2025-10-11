@@ -18,14 +18,36 @@ This doctype is used to:
 
 | Field Name | Type | Description |
 |------------|------|-------------|
-| `player_profile_id` | Data | **Required**, **Unique**, Read-only. Default: `New`. Auto-generated unique identifier for this player profile |
-| `player_name` | Data | **Required**. Full legal name of the player |
-| `preferred_name` | Data | Name the player prefers to be called |
-| `primary_email` | Data | **Required**, **Unique**. Primary email address for communication |
-| `primary_phone` | Data | Primary phone number |
-| `mailing_address` | Small Text | Complete mailing address for correspondence and shipping |
-| `profile_creation_date` | Date | Read-only. Default: `Today`. Date when this profile was first created |
-| `player_level` | Select (Student (Beginner)
+| `naming_series` | Data | Hidden. Default `PLAYER-.####` naming series selector. |
+| `player_profile_id` | Data | **Required**, **Unique**, Read-only. Mirrors document name. |
+| `player_name` | Data | **Required**. Full legal name of the player. |
+| `preferred_name` | Data | Optional friendly name. |
+| `date_of_birth` | Date | Used for COPPA enforcement (<13 disables marketing). |
+| `primary_email` | Data | **Required**, **Unique**. Primary email address. |
+| `primary_phone` | Data | **Required**. Validated against E.164-friendly pattern. |
+| `customer` | Link (Customer) | Optional linked ERPNext customer. |
+| `newsletter_subscription` | Check | Marketing opt-in flag (synced with Email Group). |
+| `targeted_marketing_optin` | Check | Advanced marketing opt-in (auto-disabled for minors). |
+| `mailing_address_line1` | Data | Address line 1 (personal data). |
+| `mailing_address_line2` | Data | Address line 2 (personal data). |
+| `city` | Data | City (personal data). |
+| `state` | Data | State/Province (personal data). |
+| `postal_code` | Data | Postal/ZIP code (personal data). |
+| `country` | Link (Country) | Country reference. |
+| `profile_creation_date` | Date | Read-only. Auto-populated creation date. |
+| `last_visit_date` | Date | Read-only. Latest Clarinet Intake or Repair Order date. |
+| `customer_lifetime_value` | Currency | Read-only. Sum of submitted Sales Invoices linked to profile. |
+| `player_level` | Select | **Required**. Skill level taxonomy. |
+| `primary_playing_styles` | Small Text | Free-form list of genres/styles. |
+| `primary_teacher` | Data | Visible for student levels only (personal data). |
+| `affiliation` | Data | School, ensemble, or organization. |
+| `communication_preference` | Select | Preferred contact channel. |
+| `referral_source` | Data | Acquisition source. |
+| `player_equipment_preferences` | Table (Player Equipment Preference) | Child table for equipment preferences. |
+| `intonation_notes` | Small Text | Technician-facing tuning notes. |
+| `technician_notes` | Small Text | Internal notes for the repair team. |
+| `instruments_owned` | Table (Instruments Owned) | Auto-synced inventory owned by the player. |
+| `profile_status` | Select | Lifecycle: Draft → Active → Archived. Drives workflow. |
 Student (Advanced)
 Amateur/Hobbyist
 University Student
@@ -33,11 +55,7 @@ Professional (Orchestral)
 Professional (Jazz/Commercial)
 Educator
 Collector) | **Required**. Current skill/professional level of the player |
-| `primary_playing_styles` | Small Text | Default: `0`. Comma-separated list of playing styles: Orchestral, Chamber, Solo, Jazz, Klezmer, Contemporary, Concert Band |
-| `affiliation` | Data | Current musical organization, orchestra, or educational institution |
-| `primary_teacher` | Data | Name of primary teacher or mentor |
-| `equipment_preferences` | Table (Player Equipment Preference) | Detailed equipment preferences for mouthpiece, ligature, reeds, barrel, etc. |
-| `key_height_preference` | Select (Low/Close
+
 Standard
 High/Open) | Preferred key height setting for clarinet |
 | `spring_tension_preference` | Select (Light/Fluid
@@ -65,10 +83,16 @@ The Python controller (`player_profile.py`) implements the following:
 - **`on_trash()`**: Executes before document deletion
 
 **Custom Methods:**
-- `autoname()`: Custom business logic method
-- `get_service_history()`: Custom business logic method
-- `get_equipment_recommendations()`: Custom business logic method
-- `update_marketing_preferences()`: Custom business logic method
+- `autoname()`: Deterministic naming using PLAYER- series.
+- `_sync_instruments_owned()`: Pulls Instrument Profiles owned by the player.
+- `_calculate_clv()`: Aggregates submitted Sales Invoices.
+- `_update_last_visit_date()`: Tracks last Clarinet Intake/Repair Order.
+
+**Whitelisted APIs:**
+- `get(player_email=None)`: Fetch profile by email with permission checks.
+- `save(doc_json)`: Portal-safe update endpoint.
+- `get_service_history(player_profile)`: Consolidated intake/repair history.
+- `update_marketing_preferences(name, newsletter=None, targeted=None)`: GDPR/COPPA-aware opt-in handler.
 
 #### Frontend Logic (JavaScript)
 

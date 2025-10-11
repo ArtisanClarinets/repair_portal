@@ -1,25 +1,17 @@
 {
- "channel": "Email",
- "condition": "doc.customer is None and doc.profile_status == 'Active'",
- "creation": "2025-10-02 14:30:00.000000",
- "docstatus": 0,
  "doctype": "Notification",
+ "name": "player_not_linked",
  "document_type": "Player Profile",
- "enabled": 1,
  "event": "Days After",
- "idx": 0,
- "is_standard": 0,
- "message": "<p>Player Profile <strong>{{ doc.name }}</strong> ({{ doc.player_name }}) is active but not linked to a Customer record.</p>\n<p><strong>Email:</strong> {{ doc.primary_email }}<br>\n<strong>Player Level:</strong> {{ doc.player_level }}<br>\n<strong>Created:</strong> {{ doc.profile_creation_date }}</p>\n<p>Please review and link to an existing Customer or create a new Customer record.</p>",
- "modified": "2025-10-02 14:30:00.000000",
- "modified_by": "Administrator",
- "name": "Player Not Linked",
- "owner": "Administrator",
+ "send_after_days": 7,
+ "channel": "Email",
+ "subject": "Player Profile {{ doc.name }} Missing Customer",
+ "message": "<p>Player Profile <strong>{{ doc.player_name }}</strong> ({{ doc.name }}) is active without a linked Customer.</p>\n<p>Please review the profile and link the appropriate Customer record.</p>",
+ "condition": "doc.profile_status == 'Active' and not doc.customer",
  "recipients": [
   {
    "receiver_by_document_field": "owner"
   }
  ],
- "send_after_event": 7,
- "send_system_notification": 1,
- "subject": "Player Profile {{ doc.name }} Not Linked to Customer"
+ "enabled": 1
 }
