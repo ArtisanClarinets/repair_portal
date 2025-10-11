@@ -18,6 +18,8 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import frappe
 from frappe import _
 from frappe.model import naming
@@ -43,10 +45,13 @@ from .clarinet_intake_timeline import add_timeline_entries
 
 # Dynamic mandatory fields by intake type
 MANDATORY_BY_TYPE = {
-	"New Inventory": {"item_code", "item_name", "acquisition_cost", "store_asking_price"},
-	"Repair": {"customer", "customers_stated_issue"},
-	"Maintenance": {"customer", "customers_stated_issue"},
+        "New Inventory": {"item_code", "item_name", "acquisition_cost", "store_asking_price"},
+        "Repair": {"customer", "customers_stated_issue"},
+        "Maintenance": {"customer", "customers_stated_issue"},
 }
+
+DEFAULT_PLAYER_LEVEL = "Amateur/Hobbyist"
+PLAYER_PROFILE = "Player Profile"
 
 
 class ClarinetIntake(Document):
@@ -78,9 +83,10 @@ class ClarinetIntake(Document):
 	# ---------------------------------------------------------------------------
 	# Validation
 	# ---------------------------------------------------------------------------
-	def validate(self) -> None:
-		self._enforce_dynamic_mandatory_fields()
-		self._sync_info_from_existing_instrument()
+        def validate(self) -> None:
+                self._enforce_dynamic_mandatory_fields()
+                self._sync_info_from_existing_instrument()
+                self._ensure_player_profile_link()
 
 	def _enforce_dynamic_mandatory_fields(self) -> None:
 		"""Raise if the fields required by intake_type are not present."""
@@ -95,15 +101,15 @@ class ClarinetIntake(Document):
 				title=_("Validation Error"),
 			)
 
-	def _sync_info_from_existing_instrument(self) -> None:
-		"""
-		If user entered a serial and Instrument already exists, populate convenience fields.
-		Works whether Instrument.serial_no is a Link (→ Instrument Serial Number) or Data.
-		"""
-		if self.serial_no and not self.instrument:  # type: ignore
-			serial_no_input = self.serial_no.strip()  # type: ignore
-			isn = find_by_serial(serial_no_input)
-			instr_doc = None
+        def _sync_info_from_existing_instrument(self) -> None:
+                """
+                If user entered a serial and Instrument already exists, populate convenience fields.
+                Works whether Instrument.serial_no is a Link (→ Instrument Serial Number) or Data.
+                """
+                if self.serial_no and not self.instrument:  # type: ignore
+                        serial_no_input = self.serial_no.strip()  # type: ignore
+                        isn = find_by_serial(serial_no_input)
+                        instr_doc = None
 
 			# Prefer the new Link-to-ISN schema
 			if isn and isn.get("name"):
@@ -115,18 +121,115 @@ class ClarinetIntake(Document):
 			# Fallback for legacy Data schema
 			if not instr_doc:
 				instr_name = frappe.db.get_value("Instrument", {"serial_no": serial_no_input}, "name")
-				if instr_name:
-					instr_doc = frappe.get_doc("Instrument", instr_name)  # type: ignore
+                                if instr_name:
+                                        instr_doc = frappe.get_doc("Instrument", instr_name)  # type: ignore
 
-			# Populate basic fields from the Instrument, if found
-			if instr_doc:
-				self.instrument = instr_doc.name
-				if not self.manufacturer:
-					self.manufacturer = getattr(instr_doc, "brand", None)
-				if not self.model:
-					self.model = getattr(instr_doc, "model", None)
-				if not self.instrument_category:
-					self.instrument_category = getattr(instr_doc, "instrument_category", None)
+                        # Populate basic fields from the Instrument, if found
+                        if instr_doc:
+                                self.instrument = instr_doc.name
+                                if not self.manufacturer:
+                                        self.manufacturer = getattr(instr_doc, "brand", None)
+                                if not self.model:
+                                        self.model = getattr(instr_doc, "model", None)
+                                if not self.instrument_category:
+                                        self.instrument_category = getattr(instr_doc, "instrument_category", None)
+
+        def _ensure_player_profile_link(self) -> None:
+                if not self.meta.has_field("player_profile"):
+                        return
+                if not (self.customer or self.customer_email or self.player_profile):
+                        return
+
+                profile_doc = self._resolve_player_profile()
+                if not profile_doc:
+                        return
+
+                updated = False
+                if self.customer and profile_doc.customer != self.customer:
+                        profile_doc.customer = self.customer
+                        updated = True
+                if self.customer_phone and not profile_doc.primary_phone:
+                        profile_doc.primary_phone = self.customer_phone
+                        updated = True
+
+                if updated:
+                        profile_doc.save(ignore_permissions=True)
+
+                self.player_profile = profile_doc.name
+
+        def _resolve_player_profile(self) -> Optional[Document]:
+                try:
+                        if self.player_profile and frappe.db.exists(PLAYER_PROFILE, self.player_profile):
+                                return frappe.get_doc(PLAYER_PROFILE, self.player_profile)
+
+                        email = (self.customer_email or "").strip()
+                        profile_name: Optional[str] = None
+                        if email:
+                                profile_name = frappe.db.get_value(PLAYER_PROFILE, {"primary_email": email}, "name")
+                        if not profile_name and self.customer:
+                                profile_name = frappe.db.get_value(PLAYER_PROFILE, {"customer": self.customer}, "name")
+
+                        if profile_name:
+                                return frappe.get_doc(PLAYER_PROFILE, profile_name)
+
+                        if not email:
+                                return None
+
+                        player_name = self.customer_full_name or self._get_customer_name() or email
+                        payload = {
+                                "doctype": PLAYER_PROFILE,
+                                "player_name": player_name,
+                                "preferred_name": self.customer_full_name,
+                                "primary_email": email,
+                                "primary_phone": self.customer_phone,
+                                "player_level": DEFAULT_PLAYER_LEVEL,
+                                "customer": self.customer,
+                                "newsletter_subscription": 0,
+                                "targeted_marketing_optin": 0,
+                        }
+                        doc = frappe.get_doc(payload)
+                        doc.insert(ignore_permissions=True)
+                        return doc
+                except Exception:
+                        frappe.log_error(
+                                title="ClarinetIntake Player Profile", message=frappe.get_traceback()
+                        )
+                        return None
+
+        def _get_customer_name(self) -> Optional[str]:
+                if not self.customer:
+                        return None
+                try:
+                        return frappe.db.get_value("Customer", self.customer, "customer_name")
+                except Exception:
+                        frappe.log_error(
+                                title="ClarinetIntake Customer Lookup", message=frappe.get_traceback()
+                        )
+                        return None
+
+        def _apply_player_profile_links(self) -> None:
+                if not self.meta.has_field("player_profile") or not self.player_profile:
+                        return
+
+                try:
+                        profile_name = self.player_profile
+                        instrument_profile = getattr(self, "instrument_profile", None)
+                        if instrument_profile and frappe.db.has_column("Instrument Profile", "owner_player"):
+                                frappe.db.set_value("Instrument Profile", instrument_profile, "owner_player", profile_name)
+                                if self.customer:
+                                        frappe.db.set_value("Instrument Profile", instrument_profile, "customer", self.customer)
+                        elif self.instrument and frappe.db.has_column("Instrument Profile", "owner_player"):
+                                linked_profile = frappe.db.get_value(
+                                        "Instrument Profile", {"instrument": self.instrument}, "name"
+                                )
+                                if linked_profile:
+                                        frappe.db.set_value("Instrument Profile", linked_profile, "owner_player", profile_name)
+                                        if self.customer:
+                                                frappe.db.set_value("Instrument Profile", linked_profile, "customer", self.customer)
+                except Exception:
+                        frappe.log_error(
+                                title="ClarinetIntake Player Profile Link", message=frappe.get_traceback()
+                        )
 
 	# ---------------------------------------------------------------------------
 	# Automation
@@ -340,11 +443,13 @@ class ClarinetIntake(Document):
 				frappe.msgprint(_("Clarinet Initial Setup <b>{0}</b> created.").format(setup.name))
 
 			# --- 6) Consent Form (Repair/Maintenance, if enabled in settings) -------------------
-			if settings.get("auto_create_consent_form") and self._should_create_consent():
-				self._create_consent_form(settings)
+                        if settings.get("auto_create_consent_form") and self._should_create_consent():
+                                self._create_consent_form(settings)
 
-			# --- Timeline entries ---------------------------------------------------------------
-			add_timeline_entries(self, "after_insert")
+                        self._apply_player_profile_links()
+
+                        # --- Timeline entries ---------------------------------------------------------------
+                        add_timeline_entries(self, "after_insert")
 
 		except Exception:
 			frappe.log_error(title="ClarinetIntake.after_insert", message=frappe.get_traceback())

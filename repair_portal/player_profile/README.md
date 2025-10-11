@@ -1,744 +1,195 @@
-# Player Profile Module# Player Profile Module
+# Player Profile Module
 
+The **Player Profile** module centralizes musician identity, preferences, and lifecycle analytics across the repair_portal app. It links ERPNext Customers, Instrument Profiles, Clarinet Intake records, Repair Orders, and Sales Invoices to present a single source of truth for every player.
 
+## Highlights
 
-**Status:** ✅ Production Ready (Fortune-500 Standards)  ## Workflow Consolidation — 2025-07-27
-
-**Version:** 3.0.0  
-
-**Last Updated:** 2025-10-02  **Major update:**
-
-**Maintainer:** repair_portal Team- Consolidated two overlapping workflow files (`player_profile_workflow.json`, `player_profile_setup.json`) into a single canonical workflow for the `Player Profile` doctype.
-
-- The unified workflow covers the states: Draft → Active → Archived, with all transitions performed by the Repair Manager role only.
-
-## Purpose- Legacy or non-aligned states such as `Linked to Client` have been removed for clarity and maintainability.
-
-- All forms, reports, and automations now reference only the official workflow states, matching the select field options.
-
-The Player Profile module provides comprehensive Customer Relationship Management (CRM) functionality for managing musician profiles, equipment preferences, service history, and marketing engagement within the repair_portal application.
-
-> This change reduces confusion, prevents workflow collisions, and aligns player profile lifecycle with Frappe/ERPNext best practices.
-
-This module serves as the central hub for:
-
-- **Player identity management** (demographics, contact info, skill level)---
-
-- **Equipment preferences** (mouthpieces, reeds, ligatures, barrels)
-
-- **Service history tracking** (repairs, intakes, maintenance)For details, see `/workflow/player_profile_workflow/player_profile_workflow.json` and project changelog.
-- **CRM automation** (lifetime value calculation, marketing opt-ins, newsletter management)
-- **Workflow management** (Draft → Active → Archived lifecycle)
+- **Lifecycle management** — Draft → Active → Archived workflow with button-driven transitions and archived-state guard rails.
+- **Deep integrations** — Automatic linkage with Customers, Instrument Profiles (`owner_player`), Clarinet Intake, Repair Orders, and Sales Invoices (CLV field).
+- **Marketing compliance** — COPPA-aware marketing toggles, newsletter sync via configurable Email Group, and GDPR-friendly anonymization guidance.
+- **Portal self-service** — Controlled update API that lets verified players maintain contact details without exposing sensitive fields.
+- **Operational telemetry** — Customer lifetime value, last visit rollup, and service history aggregation for Clarinet Intake and Repair Orders.
 
 ---
 
-## Architecture Overview
+## Schema Overview
 
-### Module Structure
+### Player Profile (`player_profile`)
 
-```
-player_profile/
-├── doctype/
-│   ├── player_profile/
-│   │   ├── player_profile.json          # DocType schema
-│   │   ├── player_profile.py            # Server controller (v3.0.0)
-│   │   ├── player_profile.js            # Client controller (v3.0.0)
-│   │   ├── test_player_profile.py       # Test suite
-│   │   └── README.md                    # DocType documentation
-│   └── player_equipment_preference/
-│       ├── player_equipment_preference.json
-│       ├── player_equipment_preference.py
-│       └── test_player_equipment_preference.py
-├── workflow/
-│   └── player_profile_workflow/
-│       └── player_profile_workflow.json  # Workflow definition
-├── workflow_state/
-│   ├── active/active.json
-│   ├── archived/archived.json
-│   └── linked_to_client/linked_to_client.json
-├── notification/
-│   └── player_not_linked/
-│       └── player_not_linked.json       # Notification config
-└── README.md                            # This file
-```
+| Field | Type | Notes |
+| --- | --- | --- |
+| `player_profile_id` | Data (read-only) | Autoname (`PLAYER-.####`) synced with `name`.
+| `player_name` | Data (required, personal data) | Legal name.
+| `preferred_name` | Data (personal data) | Used for communications.
+| `primary_email` | Data (required, unique, personal data) | Validated email; drives portal identity.
+| `primary_phone` | Data (required, personal data) | Regex validated (`^[0-9+()\-\s]{7,20}$`).
+| `customer` | Link → Customer | Optional but recommended for billing and permissions.
+| `player_level` | Select (required) | Student/Amateur/Professional tiers.
+| `profile_status` | Select | Draft / Active / Archived (workflow state).
+| `newsletter_subscription` | Check | Player opt-in. Disabled automatically for COPPA (<13).
+| `targeted_marketing_optin` | Check | Secondary marketing flag with COPPA enforcement.
+| `date_of_birth` | Date | Enables COPPA logic.
+| Address fields | Data / Link | Mailing address (GDPR tagged).
+| `profile_creation_date` | Date (read-only) | Auto-set on insert.
+| `last_visit_date` | Date (read-only) | Derived from latest Clarinet Intake or Repair Order.
+| `customer_lifetime_value` | Currency (read-only) | Sum of submitted Sales Invoices linked via custom field `player_profile`.
 
-### Key DocTypes
+**Child tables**
 
-#### 1. Player Profile (Primary)
-**Purpose:** Central player identity and CRM record
+- `player_equipment_preferences` → **Player Equipment Preference** (mouthpiece, ligature, reed, instrument link).
+- `instruments_owned` → **Instruments Owned** (instrument profile, instrument, serial, model, customer).
 
-**Schema Summary:**
-- **Naming:** Auto-generated `player_profile_id` (format: PLAYER-YYYY-####)
-- **Key Fields:**
-  - `player_name` (Data, required) - Full legal name
-  - `preferred_name` (Data) - Preferred name for communications
-  - `primary_email` (Data, unique, required) - Contact email
-  - `primary_phone` (Phone) - Contact phone
-  - `player_level` (Select, required) - Skill level (Student/Amateur/Professional)
-  - `profile_status` (Select) - Workflow state (Draft/Active/Archived)
-  - `customer_lifetime_value` (Currency, read-only) - Calculated CLV
-  - `newsletter_subscription` (Check) - Newsletter opt-in
-  - `targeted_marketing_optin` (Text) - Marketing interests
+**Tracking flags**: `track_changes`, `track_seen`, and `track_views` are enabled for full auditability.
 
-**Links:**
-- `customer` → Customer (optional, for billing integration)
-- `equipment_preferences` → Player Equipment Preference (Table, 1:N)
-- `instruments_owned` → Instruments Owned (Table, 1:N, from customer module)
+### Player Equipment Preference (Child)
 
-**Indexes:** (Performance-optimized)
-- `player_name` (full-text search)
-- `primary_email` (unique lookups)
-- `player_level` (filtering/reporting)
-- `profile_status` (workflow queries)
+Captures preferred gear per player. Validates linked Instrument Profile entries when set.
 
-#### 2. Player Equipment Preference (Child Table)
-**Purpose:** Track player's equipment setup preferences
+### Instruments Owned (Child)
 
-**Schema Summary:**
-- **Naming:** Auto-generated (child table)
-- **Key Fields:**
-  - `mouthpiece` (Small Text) - Preferred mouthpiece
-  - `ligature` (Small Text) - Preferred ligature
-  - `reed_brand` (Data) - Reed brand
-  - `reed_model` (Data) - Reed model
-  - `reed_strength` (Data) - Reed strength (e.g., "3.5")
-  - `barrel` (Small Text) - Barrel preference
-  - `instrument` (Link to Instrument Profile) - Associated instrument
-  - `comments` (Text) - Additional notes
+Read-only table synchronized from Instrument Profiles where `owner_player` matches the Player Profile. Includes enforced `customer` linkage for each row.
 
-**Parent Relationship:**
-- `parent` → Player Profile
-- `parenttype` → "Player Profile"
-- `parentfield` → "equipment_preferences"
+### Player Profile Settings (Single)
+
+Configures the newsletter Email Group used when syncing marketing subscriptions. Located at **Player Profile Settings** and defaults to “Player Newsletter”.
+
+### Customizations
+
+- **Sales Invoice** now includes a `player_profile` custom Link field (fixture + patch) with an index for performant CLV queries.
+- **Instrument Profile** exposes `owner_player` for ownership attribution and filtering.
+- **Repair Order** adds `player_profile` (auto-synced from Clarinet Intake / Instrument Profile and pushed to Sales Invoices).
+- **Clarinet Intake** surfaces a read-only `player_profile` field which is populated/created automatically during validation.
 
 ---
 
-## Business Rules
+## Server Logic Summary (`player_profile.py`)
 
-### Validation Hooks
+| Hook | Key Behaviors |
+| --- | --- |
+| `autoname` | Generates `PLAYER-.####` identifier and mirrors to `player_profile_id`. |
+| `before_insert` | Validates required fields, email, phone, duplicate email, customer existence; sets creation date. |
+| `validate` | Re-applies core validation, ensures customer alignment, validates child tables, enforces archived read-only guard, and applies COPPA rules (disables marketing + timeline comment). |
+| `before_save` | Syncs owned instruments from Instrument Profiles, recalculates CLV via Query Builder aggregate, and refreshes `last_visit_date` from Clarinet Intake / Repair Order activity. |
+| `on_update` | Syncs newsletter membership using configurable Email Group, logs status changes. |
+| `on_trash` | Removes newsletter membership, clears Instrument Profile `owner_player`, and deletes Contact links. |
 
-#### `before_insert()`
-1. Generate unique `player_profile_id` if not set (format: PLAYER-YYYY-####)
-2. Validate required fields: `player_name`, `primary_email`, `player_level`
-3. Set `profile_creation_date` to today's date
-4. Set default `profile_status` = "Draft"
+**Marketing Compliance**
 
-#### `validate()`
-1. **Email validation:** Regex pattern for valid email format
-2. **Phone validation:** Character validation for phone numbers
-3. **Duplicate check:** Prevent duplicate `primary_email` addresses
-4. **COPPA compliance:** Auto-opt-out of marketing for users under 13 (if date_of_birth provided)
-5. **Equipment preferences:** Validate linked instruments exist
-6. **Customer link:** If customer set, validate it exists and is active
+- COPPA: Players younger than 13 automatically lose newsletter/targeted opt-ins, newsletter membership is removed, and a timeline comment is recorded.
+- GDPR: Personal data fields are tagged. `PlayerProfile.sync_contact()` provides an optional utility to create/update a Contact linked to both the Customer and Player Profile for sites that rely on Contacts. Use Frappe’s Data Deletion Request workflow or redact fields via a small admin method for anonymization.
 
-#### `on_update()`
-1. **Instruments owned sync:** Update `instruments_owned` table from linked Instrument Profiles
-2. **CLV calculation:** Recalculate `customer_lifetime_value` from Sales Invoices
-3. **Email group sync:** Add/remove from newsletter email group based on `newsletter_subscription`
+**Portal APIs**
 
-#### `on_trash()`
-1. Delete linked equipment preferences (cascade)
-2. Log deletion event for audit trail
+- `get(player_email=None)` — Returns profile data for staff or the authenticated portal user (matching `primary_email`).
+- `save(doc_json)` — Staff have full write access. Portal users may update only whitelisted contact and consent fields after identity verification; writes run through the standard controller validation.
+- `get_service_history(player_profile)` — Returns combined Clarinet Intake + Repair Order events (date, type, reference, serial, description) sorted descending.
+- `update_marketing_preferences(name, newsletter=None, targeted=None)` — Staff-only helper that re-runs COPPA enforcement.
+- `sync_contact(name, force=0)` — Staff utility to ensure a Contact exists with dynamic links to Customer and Player Profile.
 
-### Lifecycle Automation
-
-**Draft → Active:**
-- Trigger: User clicks "Activate" button
-- Validation: All required fields filled, valid email/phone
-- Side effects: Send welcome email, add to newsletter (if opted in)
-
-**Active → Archived:**
-- Trigger: User clicks "Archive" button
-- Validation: Confirmation dialog
-- Side effects: Remove from newsletter, preserve service history
-
-**Archived → Active (Restore):**
-- Trigger: User clicks "Restore" button
-- Validation: Profile data still valid
-- Side effects: Re-add to newsletter (if opted in)
+All APIs rely on `_ensure_profile_permission` to guard scope and log permission issues.
 
 ---
 
-## Workflows
+## Client Experience (`player_profile.js`)
 
-### Player Profile Workflow
-
-**States:**
-1. **Draft** (doc_status=0)
-   - Initial state on creation
-   - Profile being built
-   - Not visible to public portals
-
-2. **Active** (doc_status=1)
-   - Profile complete and verified
-   - Eligible for CRM campaigns
-   - Visible in customer portals
-
-3. **Archived** (doc_status=2)
-   - Inactive profile (customer left, duplicate, etc.)
-   - Preserved for historical purposes
-   - Not included in active CRM lists
-
-**Transitions:**
-- **Activate:** Draft → Active (role: Repair Manager)
-- **Archive:** Active → Archived (role: Repair Manager)
-- **Restore:** Archived → Active (role: Repair Manager)
-
-**Workflow State Field:** `profile_status` (Select field, not Link)
+- Student-specific fields (`primary_teacher`, `affiliation`) toggle based on `player_level` prefix.
+- Inline validation for email/phone with immediate feedback.
+- Custom buttons for workflow transitions (Activate, Archive, Restore) using `frappe.model.workflow.apply_workflow`.
+- CRM actions: “Email Player”, “Call Player”, “Show Owned Instruments”, and “View Service History” (renders sanitized table via whitelisted method).
+- Dashboard comments display Profile Status, Customer Lifetime Value, Last Visit Date, and Profile Age.
+- Archived profiles auto-disable fields (except workflow buttons) to preserve history.
 
 ---
 
-## Client Logic (player_profile.js)
+## Integrations
 
-### Form Handlers
-
-**`onload(frm)`**
-- Initialize dynamic field visibility based on player_level
-- Set up query filters for customer link (disabled=0)
-
-**`refresh(frm)`**
-- Display status headline badge
-- Add workflow action buttons (Activate/Archive/Restore)
-- Add CRM action buttons (Email/Call/Follow-up)
-- Add insight buttons (Owned Instruments/Liked Instruments/Service History)
-- Display CRM metrics (CLV, last visit, profile age)
-
-### Field Validation
-
-**`primary_email(frm)`**
-- Real-time email format validation (regex)
-- Check for duplicate email addresses
-- Show error message if invalid or duplicate
-
-**`primary_phone(frm)`**
-- Real-time phone format validation
-- Allow digits, spaces, dashes, parentheses, plus sign
-
-**`player_level(frm)`**
-- Dynamic UI: Show/hide `primary_teacher` and `affiliation` for students
-- Set field descriptions
-
-### Child Table Handlers
-
-**`equipment_preferences_add()`**
-- Set default `idx` value for new rows
-
-**`reed_strength()`**
-- Validate reed strength is in approved list (1.5 to 5.0)
-
-**`instrument()`**
-- Validate linked Instrument Profile exists
+- **Customer** — `player_profile.customer` scopes reports and portal permissions; Clarinet Intake auto-links profiles to the same Customer and `sync_contact` can create a Contact under that Customer.
+- **Instrument Profile** — `owner_player` mirrors Player Profile ownership. `on_trash` clears the link, and Clarinet Intake automatically sets `owner_player` when instruments are created or linked.
+- **Clarinet Intake** — Validation finds or creates Player Profiles by email/customer and stores the link. `last_visit_date` queries the most recent intake date.
+- **Repair Order** — `player_profile` field auto-populates from linked intake/instrument profile. Sales Invoices generated from Repair Orders inherit the `player_profile` custom field.
+- **Sales Invoice** — Custom field `player_profile` plus index ensures CLV calculations stay performant even at scale.
+- **Email Group** — Default “Player Newsletter” (configurable). COPPA disables membership automatically.
 
 ---
 
-## Server Logic (player_profile.py)
+## Portal Self-Service
 
-### Private Methods
-
-#### `_resolve_serial_display(serial_display: str) -> str | None`
-**Purpose:** ISN-aware serial number resolution  
-**Parameters:** `serial_display` - Serial number in various formats  
-**Returns:** Resolved Instrument Profile name or None  
-**Business Logic:**
-- Supports ISN-#### format
-- Supports standard serial number format
-- Returns None if not found or ambiguous
-
-#### `_validate_email_format() -> None`
-**Purpose:** Validate email format with regex  
-**Throws:** `frappe.ValidationError` if invalid  
-**Pattern:** `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
-
-#### `_validate_phone_format() -> None`
-**Purpose:** Validate phone number format  
-**Throws:** `frappe.ValidationError` if invalid  
-**Pattern:** `^[\d\s\-\+\(\)\.]+$`
-
-#### `_check_duplicate_email() -> None`
-**Purpose:** Prevent duplicate email addresses  
-**Throws:** `frappe.ValidationError` if duplicate exists  
-**Logic:** Query existing profiles excluding current doc
-
-#### `_check_coppa_compliance() -> None`
-**Purpose:** COPPA compliance for users under 13  
-**Side Effects:** Auto-set `newsletter_subscription=0` and clear `targeted_marketing_optin`  
-**Logic:** Calculate age from `date_of_birth`, enforce if < 13 years
-
-#### `_sync_instruments_owned() -> None`
-**Purpose:** Synchronize owned instruments from Instrument Profiles  
-**Side Effects:** Updates `instruments_owned` child table  
-**Logic:** Query Instrument Profiles where owner_player=this player
-
-#### `_calc_lifetime_value() -> float`
-**Purpose:** Calculate customer lifetime value from invoices  
-**Returns:** Total grand_total from paid Sales Invoices  
-**Logic:** Sum all Sales Invoices linked to this player's customer
-
-#### `_sync_email_group() -> None`
-**Purpose:** Manage newsletter email group membership  
-**Side Effects:** Add/remove from "Player Newsletter" email group  
-**Logic:** Based on `newsletter_subscription` flag
-
-### Public API Methods (Whitelisted)
-
-#### `@frappe.whitelist() get_service_history() -> list[dict]`
-**Purpose:** Retrieve service/repair history for this player  
-**Permission:** Requires "read" permission on Player Profile  
-**Returns:** List of service records with date, type, serial_no, description  
-**Query:** Searches Clarinet Intake and Instrument Inspection linked to player
-
-**Example Response:**
-```json
-[
-  {
-    "date": "2025-09-15",
-    "doctype": "Clarinet Intake",
-    "serial_no": "ISN-1234",
-    "description": "Annual maintenance"
-  }
-]
-```
-
-#### `@frappe.whitelist() get_equipment_recommendations() -> dict`
-**Purpose:** Get equipment recommendations based on player level  
-**Permission:** Requires "read" permission on Player Profile  
-**Returns:** Dict with mouthpiece and reed recommendations  
-**Logic:** Level-based recommendations (Student/Amateur/Professional)
-
-**Example Response:**
-```json
-{
-  "mouthpieces": ["Vandoren B40", "Vandoren M30"],
-  "reeds": ["Vandoren Traditional 2.5-3.0", "D'Addario Reserve 3.0"]
-}
-```
-
-#### `@frappe.whitelist() update_marketing_preferences(newsletter: int, targeted: str) -> dict`
-**Purpose:** Update marketing preferences via API  
-**Permission:** Requires "write" permission on Player Profile  
-**Parameters:**
-- `newsletter` (int) - 1 for opt-in, 0 for opt-out
-- `targeted` (str) - Comma-separated marketing interests
-
-**Returns:** Success status and updated values
-
-**Example Request:**
-```python
-frappe.call({
-  method: 'update_marketing_preferences',
-  doc: frm.doc,
-  args: { newsletter: 1, targeted: 'New Products,Events' }
-})
-```
+1. Assign portal users (Customer role) whose login email matches `primary_email`.
+2. `player_profile.get()` leverages the session to return the correct record.
+3. `player_profile.save(doc_json)` accepts only the allow-listed fields (preferred name, contact details, marketing toggles) and runs full server validation.
+4. Attempts to edit restricted fields raise `frappe.PermissionError`.
 
 ---
 
-## Data Integrity
+## COPPA & GDPR Guidance
 
-### Required Fields
-- `player_name` - Cannot be null or empty
-- `primary_email` - Cannot be null, must be unique, must be valid format
-- `player_level` - Must be one of predefined options
-
-### Unique Constraints
-- `player_profile_id` - Auto-generated, unique
-- `primary_email` - Enforced at application level
-
-### Referential Integrity
-- `customer` → Customer (optional, validated if set)
-- `equipment_preferences[].instrument` → Instrument Profile (validated if set)
-- `instruments_owned[]` → Synced from Instrument Profile.owner_player
-
-### Default Values
-- `profile_status` = "Draft"
-- `profile_creation_date` = today()
-- `customer_lifetime_value` = 0
-- `newsletter_subscription` = 0
-
-### Data Validation Rules
-1. Email must match regex pattern
-2. Phone must contain only valid characters
-3. Player level must be from approved list
-4. No duplicate emails allowed
-5. COPPA compliance enforced for minors
+- Set `date_of_birth` for minors to trigger automatic marketing lockouts.
+- Use `Player Profile Settings` to select the appropriate newsletter Email Group; the controller creates the default group if missing.
+- To anonymize a record, either submit a Data Deletion Request or write a short admin script that clears personal fields and calls `sync_contact` to update downstream contacts.
+- Audit logs: Status changes and COPPA actions add timeline comments; `track_changes` surfaces field history.
 
 ---
 
-## Security & Permissions
+## Administration & Operations
 
-### Role Permissions
+### Initial Setup
 
-**System Manager:**
-- Full access (create, read, write, delete)
-- Can transition all workflow states
+1. Install fixtures via `bench migrate` (ensures naming series, email group, and Sales Invoice custom field).
+2. Configure **Player Profile Settings** to point to your marketing Email Group (defaults to *Player Newsletter*).
+3. Verify the Sales Invoice custom field `player_profile` exists (`Customize Form → Sales Invoice`).
+4. Confirm the Repair Order DocType includes the `player_profile` link (already bundled).
 
-**Repair Manager:**
-- Create, read, write
-- Can activate/archive profiles
-- Can view all profiles
+### Post-Deploy Checklist
 
-**Repair Technician:**
-- Read access to active profiles
-- Can view service history
-- Cannot edit profiles
+- `bench --site <yoursite> migrate`
+- `bench --site <yoursite> clear-cache && bench build`
+- `bench --site <yoursite> run-tests --module repair_portal --doctype "Player Profile"`
+- Create a sample Player Profile and run workflow transitions (Draft → Active → Archived).
+- Submit Clarinet Intake + Repair Order to ensure player linkage and last-visit metrics populate.
+- Verify newsletter sync (check Email Group membership) and Sales Invoice CLV rollups.
 
-**Guest/Portal User:**
-- No access (internal CRM only)
+### Ongoing Operations
 
-### Permission Enforcement
-
-**Server-side (player_profile.py):**
-```python
-@frappe.whitelist()
-def get_service_history(self):
-    frappe.has_permission("Player Profile", "read", throw=True)
-    # ... implementation
-```
-
-**Client-side (player_profile.js):**
-- Buttons conditionally displayed based on permissions
-- Workflow actions require appropriate role
-
-### API Security
-
-**Whitelisted Methods:**
-- `get_service_history()` - Read permission required
-- `get_equipment_recommendations()` - Read permission required
-- `update_marketing_preferences()` - Write permission required
-
-**Input Validation:**
-- All inputs validated server-side
-- No trust placed in client-submitted data
-- Parameterized queries (no SQL injection risk)
-
-**Rate Limiting:**
-- Implemented at Frappe framework level
-- Per-user request throttling
+- Review `frappe.log_error` for `PlayerProfile` channel weekly.
+- Monitor Sales Invoice index health (`SHOW INDEX FROM tabSales Invoice`) if dataset grows rapidly.
+- Periodically run `player_profile.sync_contact` for profiles lacking Contacts when CRM modules rely on ERPNext’s Contact doctype.
 
 ---
 
-## Testing
+## Tests
 
-### Test Suite: `test_player_profile.py`
+Automated tests live under `repair_portal/repair_portal/player_profile/tests/`:
 
-**Coverage:**
-- ✅ Creation with required fields
-- ✅ Creation fails without required fields
-- ✅ Unique email constraint enforcement
-- ✅ Email format validation
-- ✅ Phone format validation
-- ✅ Profile creation date auto-set
-- ✅ Customer lifetime value calculation
-- ✅ Equipment preferences validation
-- ✅ Profile status transitions
-- ✅ Permission enforcement
-- ✅ API method testing (service history, recommendations, preferences)
-- ✅ COPPA compliance (future implementation)
-- ✅ Email group synchronization (future implementation)
-- ✅ Special characters in name
-- ✅ Long text field handling
-- ✅ Bulk profile creation
+- `test_player_profile_validation.py`
+- `test_player_profile_coppa.py`
+- `test_player_profile_workflow.py`
+- `test_player_profile_instrument_sync.py`
+- `test_player_profile_service_history.py`
+- `test_player_profile_clv.py`
+- `test_player_profile_api_permissions.py`
 
-**Run Tests:**
-```bash
-bench --site erp.artisanclarinets.com run-tests \
-  --module repair_portal.player_profile.doctype.player_profile.test_player_profile
-```
-
-### Test Suite: `test_player_equipment_preference.py`
-
-**Coverage:**
-- ✅ Add equipment preference to profile
-- ✅ Multiple equipment preferences
-- ✅ Instrument link validation
-- ✅ Reed strength format validation
-- ✅ Parent relationship integrity
-- ✅ Equipment preference ordering (idx)
-- ✅ Update equipment preference
-- ✅ Delete equipment preference
-- ✅ Edge cases (empty fields, special characters, long comments)
-- ✅ Cascade delete with parent
-
-**Run Tests:**
-```bash
-bench --site erp.artisanclarinets.com run-tests \
-  --module repair_portal.player_profile.doctype.player_equipment_preference.test_player_equipment_preference
-```
+Run via `bench --site <site> run-tests --module repair_portal --doctype "Player Profile"`.
 
 ---
 
-## Performance Optimization
+## Troubleshooting
 
-### Database Indexes
-
-**Applied via migration patch** `v15_02_player_profile_indexes.py`:
-```python
-frappe.db.add_index("Player Profile", ["player_name"])      # Full-text search
-frappe.db.add_index("Player Profile", ["primary_email"])    # Unique lookups
-frappe.db.add_index("Player Profile", ["player_level"])     # Filtering
-frappe.db.add_index("Player Profile", ["profile_status"])   # Workflow queries
-```
-
-### Query Optimization
-
-**Avoid N+1 queries:**
-```python
-# Bad:
-for profile in profiles:
-    customer = frappe.get_doc("Customer", profile.customer)
-
-# Good:
-profiles = frappe.get_all("Player Profile", 
-    fields=["name", "customer"],
-    filters={"profile_status": "Active"})
-```
-
-**Use pluck for single column:**
-```python
-emails = frappe.get_all("Player Profile", pluck="primary_email")
-```
-
-### Caching Strategy
-
-**Read-only lookups:**
-```python
-@frappe.cache()
-def get_player_levels():
-    return frappe.get_meta("Player Profile").get_field("player_level").options.split("\n")
-```
+| Symptom | Steps |
+| --- | --- |
+| Newsletter sync fails | Confirm **Player Profile Settings → Newsletter Email Group** exists; re-save to refresh cache. |
+| CLV remains zero | Ensure Sales Invoices use the `player_profile` custom field and are submitted. Run the index patch (`bench execute repair_portal.patches.v15_08_add_player_profile_indexes.execute`). |
+| Instrument ownership missing | Confirm Instrument Profile has `owner_player` column (part of module) and that Clarinet Intake successfully linked the player. Use `profile._sync_instruments_owned()` in console to rebuild. |
+| Portal user cannot edit profile | Verify the user’s email matches `primary_email` and they possess the `Customer` role only. |
 
 ---
 
-## Integration Points
+## Related Files
 
-### Customer Module Integration
+- `player_profile.py` — Core controller logic and whitelisted APIs.
+- `player_profile.js` — Desk client behavior and dashboards.
+- `player_profile_workflow.json` — Unified workflow definition.
+- `player_profile_settings.json` — Marketing configuration (Single DocType).
+- `v15_08_add_player_profile_indexes.py` — Patch for indexes and Sales Invoice custom field.
+- `sales_invoice_custom_fields.json` — Fixture for the Sales Invoice custom field.
 
-**Link:** `player_profile.customer` → `Customer.name`  
-**Purpose:** Billing and invoicing integration  
-**Sync:** One-way (Player Profile references Customer)
-
-**Integration Logic:**
-```python
-if self.customer:
-    customer_doc = frappe.get_doc("Customer", self.customer)
-    # Sync CLV from Sales Invoices
-    self.customer_lifetime_value = self._calc_lifetime_value()
-```
-
-### Instrument Profile Integration
-
-**Link:** `player_equipment_preference.instrument` → `Instrument Profile.name`  
-**Purpose:** Track which instruments player prefers/owns  
-**Sync:** Bidirectional (Instrument Profile.owner_player ← Player Profile)
-
-**Integration Logic:**
-```python
-# Sync owned instruments
-owned = frappe.get_all("Instrument Profile",
-    filters={"owner_player": self.name},
-    fields=["name", "serial_no", "instrument_category"])
-self.instruments_owned = owned
-```
-
-### Clarinet Intake Integration
-
-**Link:** `Clarinet Intake.player` → `Player Profile.name`  
-**Purpose:** Service history tracking  
-**Sync:** One-way (Clarinet Intake references Player Profile)
-
-**Integration Logic:**
-```python
-# Service history query
-intakes = frappe.get_all("Clarinet Intake",
-    filters={"player": self.name},
-    fields=["received_date", "serial_no", "intake_summary"])
-```
-
-### Email Group Integration
-
-**Link:** `Email Group Member.email` ← `Player Profile.primary_email`  
-**Purpose:** Newsletter management  
-**Sync:** Automatic via `_sync_email_group()`
-
-**Integration Logic:**
-```python
-if self.newsletter_subscription:
-    frappe.get_doc({
-        "doctype": "Email Group Member",
-        "email_group": "Player Newsletter",
-        "email": self.primary_email
-    }).insert(ignore_if_duplicate=True)
-```
-
----
-
-## Deployment & Operations
-
-### Migration Checklist
-
-1. **Pre-migration:**
-   - Backup database: `bench --site erp.artisanclarinets.com backup`
-   - Test on staging environment first
-
-2. **Migrate:**
-   ```bash
-   bench --site erp.artisanclarinets.com migrate
-   ```
-
-3. **Post-migration:**
-   - Verify indexes created: Check query performance
-   - Run smoke tests: Create/update/delete test profile
-   - Verify workflow transitions: Test all states
-
-### Monitoring
-
-**Key Metrics:**
-- Active player profiles count
-- New profiles created per week
-- CLV trends over time
-- Newsletter subscription rate
-- Service history query performance
-
-**Dashboard Queries:**
-```sql
--- Active profiles by level
-SELECT player_level, COUNT(*) as count
-FROM `tabPlayer Profile`
-WHERE profile_status = 'Active'
-GROUP BY player_level;
-
--- Average CLV by level
-SELECT player_level, AVG(customer_lifetime_value) as avg_clv
-FROM `tabPlayer Profile`
-WHERE profile_status = 'Active' AND customer_lifetime_value > 0
-GROUP BY player_level;
-```
-
-### Troubleshooting
-
-**Problem:** Duplicate email error  
-**Solution:** Check for existing profile with same email, merge if needed
-
-**Problem:** CLV not calculating  
-**Solution:** Verify customer link exists, check Sales Invoice data
-
-**Problem:** Workflow buttons not appearing  
-**Solution:** Check user role permissions, verify workflow state field
-
----
-
-## Compliance & Regulations
-
-### COPPA (Children's Online Privacy Protection Act)
-
-**Requirement:** Cannot collect marketing data from users under 13  
-**Implementation:** `_check_coppa_compliance()` method  
-**Logic:**
-- If `date_of_birth` indicates age < 13
-- Automatically set `newsletter_subscription = 0`
-- Clear `targeted_marketing_optin`
-- Log compliance action
-
-### GDPR (General Data Protection Regulation)
-
-**Right to Access:** Implemented via `get_service_history()` API  
-**Right to Erasure:** Implemented via standard Frappe delete with audit trail  
-**Data Portability:** Export functionality via Frappe's built-in export  
-**Consent Management:** `newsletter_subscription` and `targeted_marketing_optin` fields
-
-### CAN-SPAM Act
-
-**Requirement:** Clear unsubscribe mechanism  
-**Implementation:**
-- `newsletter_subscription` flag
-- Synced with Email Group membership
-- Unsubscribe link in all emails (Frappe Email Group feature)
-
----
-
-## Changelog
-
-### Version 3.0.0 (2025-10-02)
-- Complete Fortune-500 level rewrite of player_profile.py controller
-- Added comprehensive validation methods (email, phone, duplicate check)
-- Implemented COPPA compliance logic
-- Added three whitelisted API methods (service history, recommendations, preferences)
-- Enhanced error handling with try-except blocks
-- Created comprehensive test suites (test_player_profile.py, test_player_equipment_preference.py)
-- Complete rewrite of player_profile.js client controller
-- Added real-time field validation (email, phone)
-- Enhanced workflow buttons with confirmations and error handling
-- Added CRM action buttons (Email, Call, Follow-up)
-- Added insight buttons (Service History, Equipment Recommendations)
-- Enhanced metrics display (CLV, last visit, profile age)
-- Added child table validation (equipment preferences)
-- Updated README.md with complete documentation
-
-### Version 2.0.0 (2025-07-20)
-- Added workflow integration (Draft/Active/Archived)
-- Implemented CLV calculation
-- Added CRM action buttons
-- Enhanced UI with dynamic field visibility
-
-### Version 1.0.0 (Initial Release)
-- Basic player profile management
-- Equipment preferences child table
-- Email and phone fields
-- Player level classification
-
----
-
-## Future Enhancements
-
-### Planned Features
-
-1. **Date of Birth Field**
-   - Enable COPPA compliance enforcement
-   - Age-based equipment recommendations
-   - Birthday marketing campaigns
-
-2. **Advanced Search & Filtering**
-   - Full-text search across all fields
-   - Saved filter presets
-   - Export filtered results
-
-3. **Player Portal**
-   - Self-service profile updates
-   - Service history viewing
-   - Equipment recommendation requests
-
-4. **Integration with External CRM**
-   - Mailchimp sync
-   - HubSpot integration
-   - Salesforce connector
-
-5. **Advanced Analytics**
-   - Player retention analysis
-   - Equipment preference trends
-   - CLV prediction models
-
-6. **Automated Marketing Campaigns**
-   - Birthday emails
-   - Reengagement campaigns
-   - Upsell recommendations
-
----
-
-## Contact & Support
-
-**Module Maintainer:** repair_portal Development Team  
-**Documentation:** This README and inline code comments  
-**Issue Tracking:** GitHub Issues (repair_portal repository)  
-**Support:** Frappe Community Forum
-
----
-
-## License
-
-Proprietary - ArtisanClarinets  
-Not for redistribution without permission
-
----
-
-**Last Updated:** 2025-10-02  
-**Document Version:** 3.0.0
+The module is ready for Fortune-500 deployments with explicit integrations, compliance guards, and automated tests.

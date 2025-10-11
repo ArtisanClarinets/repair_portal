@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "",
+ "creation": "2024-10-01 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "technician",
+  "started_on",
+  "ended_on",
+  "estimated_minutes",
+  "billable_minutes",
+  "repair_task",
+  "overtime_multiplier_override",
+  "rush_multiplier_override",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "technician",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Technician",
+   "options": "User"
+  },
+  {
+   "fieldname": "started_on",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Started On",
+   "reqd": 1
+  },
+  {
+   "fieldname": "ended_on",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Ended On",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "estimated_minutes",
+   "fieldtype": "Float",
+   "label": "Estimated Minutes",
+   "precision": "1"
+  },
+  {
+   "default": "0",
+   "fieldname": "billable_minutes",
+   "fieldtype": "Float",
+   "label": "Billable Minutes",
+   "precision": "1"
+  },
+  {
+   "fieldname": "repair_task",
+   "fieldtype": "Link",
+   "label": "Repair Task",
+   "options": "Repair Task"
+  },
+  {
+   "default": "0",
+   "fieldname": "overtime_multiplier_override",
+   "fieldtype": "Float",
+   "label": "Overtime Multiplier Override",
+   "precision": "2"
+  },
+  {
+   "default": "0",
+   "fieldname": "rush_multiplier_override",
+   "fieldtype": "Float",
+   "label": "Rush Multiplier Override",
+   "precision": "2"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "has_web_view": 0,
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "max_attachments": 0,
+ "modified": "2024-10-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Repair",
+ "name": "Repair Labor Session",
+ "owner": "Administrator",
+ "permissions": [],
+ "track_changes": 1
+}

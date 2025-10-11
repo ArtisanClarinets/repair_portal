@@ -1,33 +1,52 @@
 {
  "actions": [],
+ "allow_rename": 0,
  "autoname": "naming_series:",
- "creation": "2025-09-19 18:41:41.176642",
+ "creation": "2024-01-01 00:00:00.000000",
  "doctype": "DocType",
+ "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
   "customer",
-  "intake",
-  "instrument_profile",
   "company",
+  "player_profile",
+  "instrument_profile",
+  "intake",
   "posting_date",
   "priority",
   "assigned_technician",
   "target_delivery",
+  "section_sla",
+  "sla_policy",
+  "sla_due_date",
+  "sla_status",
+  "sla_paused_on",
+  "sla_pause_reason",
+  "section_labor",
+  "labor_item",
+  "labor_rate",
+  "overtime_multiplier",
+  "rush_multiplier",
+  "labor_sessions",
+  "total_estimated_minutes",
+  "total_actual_minutes",
+  "total_billable_hours",
   "section_materials_planned",
   "planned_materials",
   "section_materials_actual",
   "warehouse_source",
   "actual_materials",
-  "section_labor",
-  "labor_item",
-  "labor_rate",
-  "total_estimated_minutes",
-  "total_actual_minutes",
+  "last_material_issue",
   "section_workflow",
-  "qa_required",
-  "require_invoice_before_delivery",
   "workflow_state",
+  "current_stage",
+  "qa_required",
+  "qa_inspection",
+  "qa_status",
+  "qa_completed_on",
+  "billing_status",
+  "require_invoice_before_delivery",
   "remarks",
   "section_related",
   "related_documents",
@@ -53,28 +72,44 @@
    "reqd": 1
   },
   {
-   "fieldname": "instrument_profile",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Instrument Profile",
-   "options": "Instrument Profile"
-  },
-  {
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
-   "options": "Company"
+   "options": "Company",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "player_profile",
+   "fieldtype": "Link",
+   "label": "Player Profile",
+   "options": "Player Profile",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "instrument_profile",
+   "fieldtype": "Link",
+   "label": "Instrument Profile",
+   "options": "Instrument Profile",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "intake",
+   "fieldtype": "Link",
+   "label": "Intake",
+   "options": "Clarinet Intake"
   },
   {
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "default": "Medium",
    "fieldname": "priority",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Priority",
    "options": "Low\nMedium\nHigh\nCritical"
   },
@@ -82,12 +117,108 @@
    "fieldname": "assigned_technician",
    "fieldtype": "Link",
    "label": "Assigned Technician",
-   "options": "User"
+   "options": "User",
+   "in_standard_filter": 1
   },
   {
    "fieldname": "target_delivery",
    "fieldtype": "Date",
-   "label": "Target Delivery"
+   "label": "Target Delivery",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "section_sla",
+   "fieldtype": "Section Break",
+   "label": "SLA"
+  },
+  {
+   "fieldname": "sla_policy",
+   "fieldtype": "Link",
+   "label": "SLA Policy",
+   "options": "SLA Policy"
+  },
+  {
+   "fieldname": "sla_due_date",
+   "fieldtype": "Datetime",
+   "label": "SLA Due",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sla_status",
+   "fieldtype": "Select",
+   "label": "SLA Status",
+   "options": "On Track\nAt Risk\nPaused\nBreached",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sla_paused_on",
+   "fieldtype": "Datetime",
+   "label": "SLA Paused On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sla_pause_reason",
+   "fieldtype": "Small Text",
+   "label": "SLA Pause Reason"
+  },
+  {
+   "fieldname": "section_labor",
+   "fieldtype": "Section Break",
+   "label": "Labor"
+  },
+  {
+   "fieldname": "labor_item",
+   "fieldtype": "Link",
+   "label": "Labor Item (Service)",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "labor_rate",
+   "fieldtype": "Currency",
+   "label": "Labor Rate"
+  },
+  {
+   "default": "1.0",
+   "fieldname": "overtime_multiplier",
+   "fieldtype": "Float",
+   "label": "Overtime Multiplier",
+   "precision": "2"
+  },
+  {
+   "default": "1.0",
+   "fieldname": "rush_multiplier",
+   "fieldtype": "Float",
+   "label": "Rush Multiplier",
+   "precision": "2"
+  },
+  {
+   "fieldname": "labor_sessions",
+   "fieldtype": "Table",
+   "label": "Labor Sessions",
+   "options": "Repair Labor Session"
+  },
+  {
+   "fieldname": "total_estimated_minutes",
+   "fieldtype": "Int",
+   "label": "Estimated Minutes",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_actual_minutes",
+   "fieldtype": "Int",
+   "label": "Actual Minutes",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "total_billable_hours",
+   "fieldtype": "Float",
+   "label": "Billable Hours",
+   "read_only": 1,
+   "precision": "2"
   },
   {
    "fieldname": "section_materials_planned",
@@ -119,39 +250,31 @@
    "options": "Repair Actual Material"
   },
   {
-   "fieldname": "section_labor",
-   "fieldtype": "Section Break",
-   "label": "Labor"
-  },
-  {
-   "fieldname": "labor_item",
+   "fieldname": "last_material_issue",
    "fieldtype": "Link",
-   "label": "Labor Item (Service)",
-   "options": "Item",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "labor_rate",
-   "fieldtype": "Currency",
-   "label": "Labor Rate"
-  },
-  {
-   "fieldname": "total_estimated_minutes",
-   "fieldtype": "Int",
-   "label": "Total Estimated Minutes",
-   "read_only": 1
-  },
-  {
-   "fieldname": "total_actual_minutes",
-   "fieldtype": "Int",
-   "label": "Total Actual Minutes",
+   "label": "Last Material Issue",
+   "options": "Stock Entry",
    "read_only": 1
   },
   {
    "fieldname": "section_workflow",
    "fieldtype": "Section Break",
-   "label": "Workflow Controls"
+   "label": "Workflow"
+  },
+  {
+   "default": "Requested",
+   "fieldname": "workflow_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Workflow State",
+   "options": "Requested\nQuoted\nIn Progress\nReady for QA\nCompleted\nDelivered",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_stage",
+   "fieldtype": "Data",
+   "label": "Current Stage",
+   "read_only": 1
   },
   {
    "default": "1",
@@ -160,19 +283,37 @@
    "label": "QA Required"
   },
   {
+   "fieldname": "qa_inspection",
+   "fieldtype": "Link",
+   "label": "QA Inspection",
+   "options": "Quality Inspection"
+  },
+  {
+   "fieldname": "qa_status",
+   "fieldtype": "Select",
+   "label": "QA Status",
+   "options": "Pending\nPass\nFail",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qa_completed_on",
+   "fieldtype": "Datetime",
+   "label": "QA Completed On",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "label": "Billing Status",
+   "options": "Draft\nInvoiced\nPaid\nWarranty",
+   "read_only": 1
+  },
+  {
    "default": "0",
    "fieldname": "require_invoice_before_delivery",
    "fieldtype": "Check",
    "label": "Require Invoice Before Delivery"
-  },
-  {
-   "default": "Draft",
-   "fieldname": "workflow_state",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "RO Status",
-   "options": "Draft\nIn Progress\nQA\nReady\nDelivered\nClosed",
-   "read_only": 1
   },
   {
    "fieldname": "remarks",
@@ -207,16 +348,15 @@
    "fieldtype": "Date",
    "label": "Warranty Until",
    "read_only": 1
-  },
-  {
-   "fieldname": "intake",
-   "fieldtype": "Link",
-   "label": "Intake",
-   "options": "Clarinet Intake"
   }
  ],
+ "has_web_view": 0,
+ "hide_toolbar": 0,
+ "index_web_pages_for_search": 0,
+ "is_submittable": 0,
  "links": [],
- "modified": "2025-09-19 18:51:58.686844",
+ "max_attachments": 0,
+ "modified": "2024-10-01 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Repair",
  "name": "Repair Order",
@@ -227,35 +367,70 @@
    "create": 1,
    "delete": 1,
    "email": 1,
+   "export": 1,
    "print": 1,
    "read": 1,
+   "report": 1,
    "role": "Repair Manager",
    "share": 1,
    "write": 1
   },
   {
    "email": 1,
+   "export": 1,
    "print": 1,
    "read": 1,
+   "report": 1,
    "role": "Repair Technician",
    "write": 1
   },
   {
    "email": 1,
+   "export": 1,
    "print": 1,
    "read": 1,
-   "role": "Sales User"
+   "role": "Customer Service"
   },
   {
    "email": 1,
    "print": 1,
    "read": 1,
-   "role": "Accounts User"
+   "role": "QA Manager"
   }
  ],
- "row_format": "Dynamic",
+ "quick_entry": 0,
+ "search_fields": "customer, instrument_profile, assigned_technician, workflow_state, sla_status",
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [],
- "track_changes": 1
+ "states": [
+  {
+   "docstatus": 0,
+   "name": "Requested"
+  },
+  {
+   "docstatus": 0,
+   "name": "Quoted"
+  },
+  {
+   "docstatus": 0,
+   "name": "In Progress"
+  },
+  {
+   "docstatus": 0,
+   "name": "Ready for QA"
+  },
+  {
+   "docstatus": 0,
+   "name": "Completed"
+  },
+  {
+   "docstatus": 0,
+   "name": "Delivered"
+  }
+ ],
+ "timeline_field": "instrument_profile",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

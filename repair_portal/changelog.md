@@ -296,7 +296,7 @@ Using "Replace String in File"
 ```
 
 
-Read [](file:///home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/instruments_owned/instruments_owned.py)
+Read [](file:///home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/instruments_owned/instruments_owned.py)
 
 Using "Replace String in File"
 
@@ -464,7 +464,7 @@ Read [](file:///home/frappe/frappe-bench/apps/repair_portal/repair_portal/custom
 
 Now I need to fix the field mismatches between the JSON schemas and the test expectations. Let me check all the JSON files to understand the correct field names: 
 
-Read [](file:///home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/instruments_owned/instruments_owned.json#1-1), lines 1 to 50
+Read [](file:///home/frappe/frappe-bench/apps/repair_portal/repair_portal/player_profile/doctype/instruments_owned/instruments_owned.json#1-1), lines 1 to 50
 
 Read [](file:///home/frappe/frappe-bench/apps/repair_portal/repair_portal/customer/doctype/linked_players/linked_players.json#1-1), lines 1 to 50
 
@@ -1124,3 +1124,8 @@ The repair_portal customer module now exceeds Fortune-500 enterprise standards w
 *This comprehensive Fortune-500 level review has been completed successfully with all requested enhancements implemented, tested, and verified. The customer module is now production-ready with enterprise-grade security, performance, and maintainability standards.*
 
 Made changes.
+## 2025-08-22
+- Added cross-module registry constants and security decorators shared across the bench.
+- Implemented shared SLA, inventory, billing, QA, warranty, messaging, and tools services with structured logging.
+- Delivered automated codebase mapping plus cross-link documentation to keep references audit-ready.
+- Registered hourly/daily scheduler jobs for SLA breach scans, billing finalisation, and feedback outreach.

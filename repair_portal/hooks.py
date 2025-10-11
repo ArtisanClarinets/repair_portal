@@ -23,6 +23,18 @@ fixtures = [
         'doctype': 'Role',
         'filters': [["role_name", "in", ['Intake Coordinator']]]
     },
+    {
+        'doctype': 'Email Group',
+        'filters': [["title", "=", 'Player Newsletter']]
+    },
+    {
+        'doctype': 'Series',
+        'filters': [["name", "in", ['PLAYER-']]]
+    },
+    {
+        'doctype': 'Custom Field',
+        'filters': [["name", "in", ['Sales Invoice-player_profile']]]
+    },
 ]
 
 
@@ -127,8 +139,13 @@ doc_events = {
 
 
 scheduler_events = {
-    'daily': [
-        'repair_portal.intake.tasks.cleanup_intake_sessions',
+    "hourly": [
+        "repair_portal.core.tasks.sla_breach_scan",
+        "repair_portal.core.tasks.finalize_billing_packets",
+    ],
+    "daily": [
+        "repair_portal.intake.tasks.cleanup_intake_sessions",
+        "repair_portal.core.tasks.send_feedback_requests",
     ],
 }
 

@@ -20,7 +20,7 @@
   "sort_order": "DESC",
   "title_field": "intake_record_id",
   "image_field": "initial_intake_photos",
-  "search_fields": "intake_record_id, serial_no, customer, manufacturer, model, item_code",
+  "search_fields": "intake_record_id, serial_no, customer, manufacturer, model, item_code, player_profile",
   "field_order": [
     "sec_overview",
     "intake_record_id",
@@ -58,6 +58,7 @@
     "customer_full_name",
     "customer_phone",
     "customer_email",
+    "player_profile",
     "customer_type",
     "col_customer_right",
     "customers_stated_issue",
@@ -313,6 +314,15 @@
       "fieldname": "customer_email",
       "fieldtype": "Data",
       "label": "Customer Email",
+      "depends_on": "eval:doc.intake_type != 'New Inventory'"
+    },
+    {
+      "description": "Automatically linked Player Profile",
+      "fieldname": "player_profile",
+      "fieldtype": "Link",
+      "label": "Player Profile",
+      "options": "Player Profile",
+      "read_only": 1,
       "depends_on": "eval:doc.intake_type != 'New Inventory'"
     },
     {
