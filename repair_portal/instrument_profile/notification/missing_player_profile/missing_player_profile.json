@@ -1,14 +1,17 @@
 {
-  "doctype": "Notification",
-  "name": "missing_player_profile",
-  "document_type": "Instrument Profile",
-  "subject": "Player Profile Missing",
-  "message": "Instrument {{ doc.name }} is waiting on a Player Profile.",
-  "event": "Value Change",
-  "send_alert_on": "profile_status",
-  "value_changed": "Waiting on Player",
-  "recipients": [{"receiver_by_role": "Repair Manager"}],
-  "enabled": 1,
-  "channel": "Email",
-  "send_on": "Value Change"
+ "doctype": "Notification",
+ "name": "missing_player_profile",
+ "document_type": "Instrument Profile",
+ "event": "Value Change",
+ "condition": "not doc.owner_player",
+ "subject": "Instrument {{ doc.name }} Missing Player Profile",
+ "message": "<p>Instrument Profile <strong>{{ doc.name }}</strong> for {{ doc.customer or 'unassigned customer' }} does not have an associated Player Profile.</p>\n<p>Please update the record and link the correct Player Profile to maintain ownership history.</p>",
+ "recipients": [
+  {
+   "receiver_by_role": "Repair Manager"
+  }
+ ],
+ "enabled": 1,
+ "channel": "Email",
+ "value_changed": "owner_player"
 }

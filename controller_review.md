@@ -137,7 +137,7 @@ Recommendations: Add validation for type uniqueness and error handling for SQL f
 Purpose: Module initializer for Customer Type.
 Recommendations: No action needed unless shared imports or setup logic required.
 
-[repair_portal/customer/doctype/instruments_owned/instruments_owned.py]
+[repair_portal/player_profile/doctype/instruments_owned/instruments_owned.py]
 Purpose: Refactored child table to support Customer linkage in ERPNext-native architecture.
 Class: `InstrumentsOwned(Document)`
 - Validates that customer link is present for each entry.

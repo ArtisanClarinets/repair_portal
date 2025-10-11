@@ -8,6 +8,7 @@ import frappe
 from frappe import _
 from frappe.utils import flt
 
+from repair_portal.player_profile.doctype.player_profile import player_profile
 
 def _as_bool(val):
     # Handles 0/1, '0'/'1', True/False
@@ -49,25 +50,26 @@ def get():
         'preferred_name': doc.preferred_name,  # type: ignore
         'primary_email': doc.primary_email,  # type: ignore
         'primary_phone': doc.primary_phone,  # type: ignore
-        'mailing_address': doc.mailing_address,  # type: ignore
+        'mailing_address_line1': getattr(doc, 'mailing_address_line1', None),
+        'mailing_address_line2': getattr(doc, 'mailing_address_line2', None),
+        'city': getattr(doc, 'city', None),
+        'state': getattr(doc, 'state', None),
+        'postal_code': getattr(doc, 'postal_code', None),
+        'country': getattr(doc, 'country', None),
         'profile_creation_date': doc.profile_creation_date,  # type: ignore
         'profile_status': doc.profile_status,  # type: ignore
         'player_level': doc.player_level,  # type: ignore
         'primary_playing_styles': _listify(doc.primary_playing_styles),  # type: ignore
         'affiliation': doc.affiliation,  # type: ignore
         'primary_teacher': doc.primary_teacher,  # type: ignore
-        'key_height_preference': doc.key_height_preference,  # type: ignore
-        'spring_tension_preference': doc.spring_tension_preference,  # type: ignore
-        'preferred_pad_type': doc.preferred_pad_type,  # type: ignore
-        'g_sharp_a_connection': doc.g_sharp_a_connection,  # type: ignore
         'intonation_notes': doc.intonation_notes,  # type: ignore
         'instruments_owned': safe_table(doc, 'instruments_owned'),
-        'equipment_preferences': safe_table(doc, 'equipment_preferences'),
+        'equipment_preferences': safe_table(doc, 'player_equipment_preferences'),
         'last_visit_date': doc.last_visit_date,  # type: ignore
         'customer_lifetime_value': flt(getattr(doc, 'customer_lifetime_value', 0)),
         'communication_preference': doc.communication_preference,  # type: ignore
         'newsletter_subscription': _as_bool(getattr(doc, 'newsletter_subscription', 0)),
-        'targeted_marketing_optin': _listify(doc.targeted_marketing_optin),  # type: ignore
+        'targeted_marketing_optin': _as_bool(getattr(doc, 'targeted_marketing_optin', 0)),
         'referral_source': doc.referral_source,  # type: ignore
         'is_staff': is_staff,
     }
@@ -86,58 +88,12 @@ def save():
     doc = frappe.get_doc('Player Profile', profile_name)  # type: ignore
     data = frappe.local.form_dict or json.loads(frappe.request.data or '{}')
     # Handle all editable fields
-    for field in [
-        'player_name',
-        'preferred_name',
-        'primary_email',
-        'primary_phone',
-        'mailing_address',
-        'profile_creation_date',
-        'profile_status',
-        'player_level',
-        'affiliation',
-        'primary_teacher',
-        'key_height_preference',
-        'spring_tension_preference',
-        'preferred_pad_type',
-        'g_sharp_a_connection',
-        'intonation_notes',
-        'last_visit_date',
-        'customer_lifetime_value',
-        'communication_preference',
-        'newsletter_subscription',
-        'referral_source',
-    ]:
+    allowed_fields = sorted(player_profile._ALLOWED_PORTAL_FIELDS)
+    payload = {'doctype': 'Player Profile', 'name': doc.name}
+    for field in allowed_fields:
         if field in data:
-            setattr(doc, field, data[field])
+            payload[field] = data[field]
 
-    # Multiselects (accept list or string)
-    if 'primary_playing_styles' in data:
-        val = data['primary_playing_styles']
-        if isinstance(val, list):
-            doc.primary_playing_styles = ', '.join(val)  # type: ignore
-        else:
-            doc.primary_playing_styles = str(val)  # type: ignore
-    if 'targeted_marketing_optin' in data:
-        val = data['targeted_marketing_optin']
-        if isinstance(val, list):
-            doc.targeted_marketing_optin = ', '.join(val)  # type: ignore
-        else:
-            doc.targeted_marketing_optin = str(val)  # type: ignore
-
-    # Booleans (newsletter_subscription)
-    if 'newsletter_subscription' in data:
-        doc.newsletter_subscription = int(bool(data['newsletter_subscription']))  # type: ignore
-
-    # Child tables
-    for table_field, table_doctype in [
-        ('instruments_owned', 'Player Profile Instrument'),
-        ('equipment_preferences', 'Player Profile Equipment'),
-    ]:
-        if table_field in data:
-            doc.set(table_field, [])
-            for row in data[table_field]:
-                doc.append(table_field, row)
-    doc.save(ignore_permissions=True)
+    player_profile.save(frappe.as_json(payload))
     frappe.db.commit()
     return {'success': True}

@@ -146,6 +146,7 @@
         doc.instrument = frm.doc.instrument || null;
         doc.customer = frm.doc.customer || null;
         doc.intake = frm.doc.name;
+        doc.player_profile = frm.doc.player_profile || null;
         frappe.ui.form.make_quick_entry('Repair Order', null, null, doc);
       },
       __('Make')

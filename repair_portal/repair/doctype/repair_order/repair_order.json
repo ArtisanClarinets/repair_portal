@@ -8,6 +8,7 @@
   "naming_series",
   "customer",
   "intake",
+  "player_profile",
   "instrument_profile",
   "company",
   "posting_date",
@@ -58,6 +59,13 @@
    "in_list_view": 1,
    "label": "Instrument Profile",
    "options": "Instrument Profile"
+  },
+  {
+   "fieldname": "player_profile",
+   "fieldtype": "Link",
+   "label": "Player Profile",
+   "options": "Player Profile",
+   "in_standard_filter": 1
   },
   {
    "fieldname": "company",

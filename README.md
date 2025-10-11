@@ -443,7 +443,7 @@ Below is a complete directory of all modules and their doctypes:
 - **Consent Settings** - [Documentation](repair_portal/customer/doctype/consent_settings/README.md)
 - **Consent Template** - [Documentation](repair_portal/customer/doctype/consent_template/README.md)
 - **Customer Type** - [Documentation](repair_portal/customer/doctype/customer_type/README.md)
-- **Instruments Owned** - [Documentation](repair_portal/customer/doctype/instruments_owned/README.md)
+- **Instruments Owned** - [Documentation](repair_portal/player_profile/doctype/instruments_owned/README.md)
 - **Linked Players** - [Documentation](repair_portal/customer/doctype/linked_players/README.md)
 
 ### Enhancements & Upgrades

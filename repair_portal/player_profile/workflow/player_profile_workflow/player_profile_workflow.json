@@ -1,30 +1,57 @@
 {
-    "workflow_name": "Player Profile Workflow",
-    "label": "Player Profile Workflow",
-    "name": "player_profile_workflow",
-    "doctype": "Workflow",
-    "doc_type": "Player Profile",
-    "workflow_state_field": "profile_status",
-    "state_field": "profile_status",
-    "is_default": 1,
-    "document_type": "Player Profile",
-    "is_active": 1,
-    "description": "Unified, Fortune-500 workflow for managing Player Profile lifecycle.",
-    "module": "Player Profile",
-    "custom": 0,
-    "istable": 0,
-    "editable_grid": 1,
-    "standard": 1,
-    "states": [
-        { "state": "Draft", "doc_status": 0 },
-        { "state": "Active", "doc_status": 1 },
-        { "state": "Archived", "doc_status": 2 }
-    ],
-    "transitions": [
-        { "state": "Draft", "action": "Activate", "next_state": "Active", "allowed": "Repair Manager" },
-        { "state": "Active", "action": "Archive", "next_state": "Archived", "allowed": "Repair Manager" },
-        { "state": "Archived", "action": "Restore", "next_state": "Draft", "allowed": "Repair Manager" }
-    ],
-    "is_standard": 1,
-    "sync_on_migrate": 1
+ "doctype": "Workflow",
+ "name": "player_profile_workflow",
+ "workflow_name": "Player Profile Workflow",
+ "document_type": "Player Profile",
+ "is_active": 1,
+ "is_standard": 1,
+ "workflow_state_field": "profile_status",
+ "state_field": "profile_status",
+ "description": "Unified Player Profile lifecycle",
+ "states": [
+  {
+   "state": "Draft",
+   "doc_status": 0,
+   "is_optional_state": 0
+  },
+  {
+   "state": "Active",
+   "doc_status": 1,
+   "is_optional_state": 0
+  },
+  {
+   "state": "Archived",
+   "doc_status": 2,
+   "is_optional_state": 0
+  }
+ ],
+ "transitions": [
+  {
+   "state": "Draft",
+   "action": "Activate",
+   "next_state": "Active",
+   "allowed": [
+    "Repair Manager",
+    "System Manager"
+   ]
+  },
+  {
+   "state": "Active",
+   "action": "Archive",
+   "next_state": "Archived",
+   "allowed": [
+    "Repair Manager",
+    "System Manager"
+   ]
+  },
+  {
+   "state": "Archived",
+   "action": "Restore",
+   "next_state": "Draft",
+   "allowed": [
+    "Repair Manager",
+    "System Manager"
+   ]
+  }
+ ]
 }
