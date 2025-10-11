@@ -294,3 +294,20 @@ def create_repair_order_from_quotation(quotation: str | Document, submit: bool =
         qdoc.db_set("repair_order", order.name)
 
     return order
+
+
+
+def clear_material_logs_for_order(order_name: str) -> None:
+    """Remove Actual Material child rows and dependent technician logs when deleting an order."""
+    try:
+        doc = frappe.get_doc('Repair Order', order_name)
+    except Exception:
+        return
+    if doc.meta.has_field('actual_materials'):
+        doc.set('actual_materials', [])
+        doc.save(ignore_permissions=True)
+    # Also purge any legacy repair logging entries mapped to the order
+    if frappe.db.table_exists('Repair Parts Log'):
+        frappe.db.delete('Repair Parts Log', {'repair_order': order_name})
+
+

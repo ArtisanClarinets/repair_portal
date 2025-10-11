@@ -14,6 +14,6 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    install_requires=['frappe'],
+    install_requires=['frappe', 'pydantic>=1.10,<3'],
     entry_points={'frappe.app': ['repair_portal = repair_portal']},
 )

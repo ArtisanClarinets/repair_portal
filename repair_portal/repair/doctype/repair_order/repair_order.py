@@ -1,52 +1,46 @@
-# Relative Path: repair_portal/repair/doctype/repair_order/repair_order.py
-# Version: 2.3.0 (2025-09-17)
-# Purpose:
-#   Hardened server logic for Repair Order with:
-#     - Defaults from Single "Repair Settings"
-#     - Workflow state validation (advisory, schema-safe)
-#     - Optional normalization into 'related_documents' child table
-#     - Materials actuals mirrored from Stock Entry
-#     - Sales Invoice generation (parts + labor minutes→hours)
-#     - Warranty flags synced from Instrument Profile (if available)
-#     - (New) Stock Entry draft prefilled from Planned Materials (optional)
-#
-# Safe on sites where some optional fields/child tables are absent.
+"""Repair Order controller with workflow, labor, materials, SLA, and billing logic.
+
+All heavy lifting happens server-side to guarantee a single source of truth for
+technician actions and customer communications. The implementation is guarded
+so that it remains backwards compatible with partially configured sites while
+still enforcing the stricter workflow mandated for enterprise deployments.
+"""
 
 from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Iterable
 
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import flt, getdate, nowdate
+from frappe.model.naming import make_autoname
+from frappe.utils import cint, flt, get_datetime, get_link_to_form, now_datetime
 
-CANONICAL_WORKFLOW_STATES = [
-    "Draft",
+WORKFLOW_SEQUENCE: tuple[str, ...] = (
+    "Requested",
+    "Quoted",
     "In Progress",
-    "QA",
-    "Ready",
+    "Ready for QA",
+    "Completed",
     "Delivered",
-    "Closed",
-]
+)
+
+SLA_STATUSES = {"On Track", "At Risk", "Paused", "Breached"}
+BILLING_STATES = {"Draft", "Invoiced", "Paid", "Warranty"}
+
+
+@dataclass
+class MaterialRow:
+    item_code: str
+    qty: float
+    warehouse: str
+    batch_no: str | None = None
+    serial_no: str | None = None
 
 
 class RepairOrder(Document):
-    # begin: auto-generated types
-    # This code is auto-generated. Do not modify anything in this block.
-
-    from typing import TYPE_CHECKING
-
-    if TYPE_CHECKING:
-        from frappe.types import DF
-
-        from repair_portal.repair.doctype.repair_actual_material.repair_actual_material import (
-            RepairActualMaterial,
-        )
-        from repair_portal.repair.doctype.repair_planned_material.repair_planned_material import (
-            RepairPlannedMaterial,
-        )
-        from repair_portal.repair.doctype.repair_related_document.repair_related_document import (
-            RepairRelatedDocument,
-        )
+    """Rich workflow controller for the Repair Order doctype."""
 
         actual_materials: DF.Table[RepairActualMaterial]
         assigned_technician: DF.Link | None
@@ -89,103 +83,119 @@ class RepairOrder(Document):
     def _apply_defaults_from_settings(self) -> None:
         """Populate blank fields from Single 'Repair Settings' if available."""
         try:
-            rs = frappe.get_single("Repair Settings")
+            settings = frappe.get_single("Repair Settings")
         except Exception:
-            rs = None
-        if not rs:
             return
 
-        if not self.get("company") and rs.get("default_company"):
-            self.company = rs.default_company
-        if not self.get("warehouse_source") and rs.get("default_source_warehouse"):
-            self.warehouse_source = rs.default_source_warehouse
-        if not self.get("labor_item") and rs.get("default_labor_item"):
-            self.labor_item = rs.default_labor_item
-        if not self.get("labor_rate") and rs.get("default_labor_rate"):
-            self.labor_rate = rs.default_labor_rate
-
-        if self.meta.has_field("qa_required") and self.qa_required is None:
-            self.qa_required = 1 if flt(rs.get("default_qa_required")) else 0
-        if self.meta.has_field("require_invoice_before_delivery") and self.require_invoice_before_delivery is None:
-            self.require_invoice_before_delivery = 1 if flt(rs.get("default_require_invoice_before_delivery")) else 0
-
-    # ---- Validations -------------------------------------------------------
+        if not self.company and settings.get("default_company"):
+            self.company = settings.default_company
+        if not self.warehouse_source and settings.get("default_source_warehouse"):
+            self.warehouse_source = settings.default_source_warehouse
+        if not self.labor_item and settings.get("default_labor_item"):
+            self.labor_item = settings.default_labor_item
+        if not flt(self.labor_rate) and settings.get("default_labor_rate"):
+            self.labor_rate = flt(settings.default_labor_rate)
+        if not flt(self.overtime_multiplier):
+            self.overtime_multiplier = flt(settings.get("default_overtime_multiplier") or 1.0)
+        if not flt(self.rush_multiplier):
+            self.rush_multiplier = flt(settings.get("default_rush_multiplier") or 1.0)
+        if not self.sla_policy and settings.get("default_sla_policy"):
+            self.sla_policy = settings.default_sla_policy
 
     def _validate_workflow_state(self) -> None:
-        """Advisory validation on workflow_state; skip cleanly if field absent."""
-        if not self.meta.has_field("workflow_state"):
+        if not self.workflow_state:
+            self.workflow_state = WORKFLOW_SEQUENCE[0]
             return
+        if self.workflow_state not in WORKFLOW_SEQUENCE:
+            frappe.throw(_("Invalid workflow state: {0}").format(self.workflow_state))
+        if self._doc_before_save:
+            previous = self._doc_before_save.workflow_state or WORKFLOW_SEQUENCE[0]
+            allowed = self._allowed_next_states(previous)
+            if self.workflow_state not in allowed:
+                frappe.throw(
+                    _("Illegal transition from {0} to {1}. Allowed transitions: {2}")
+                    .format(previous, self.workflow_state, ", ".join(allowed))
+                )
 
-        ws = self.get("workflow_state")
-        if not ws:
-            frappe.msgprint(
-                _("Repair Order is missing a workflow state; defaulting to Draft."),
-                alert=True, indicator="orange",
-            )
-            self.workflow_state = "Draft"
-            ws = "Draft"
+    def _allowed_next_states(self, current: str) -> tuple[str, ...]:
+        idx = WORKFLOW_SEQUENCE.index(current) if current in WORKFLOW_SEQUENCE else 0
+        if current == "Requested":
+            return ("Requested", "Quoted")
+        if current == "Quoted":
+            return ("Quoted", "In Progress")
+        if current == "In Progress":
+            return ("In Progress", "Ready for QA")
+        if current == "Ready for QA":
+            return ("Ready for QA", "In Progress", "Completed")
+        if current == "Completed":
+            return ("Completed", "Delivered")
+        if current == "Delivered":
+            return ("Delivered",)
+        return (WORKFLOW_SEQUENCE[idx],)
 
-        if ws not in CANONICAL_WORKFLOW_STATES:
-            frappe.msgprint(
-                _("Workflow state '{0}' is not in the recommended set: {1}")
-                .format(frappe.bold(ws), ", ".join(CANONICAL_WORKFLOW_STATES)),
-                alert=True, indicator="orange",
-            )
+    def _validate_required_links(self) -> None:
+        missing = []
+        if not self.customer:
+            missing.append("Customer")
+        if not self.warehouse_source:
+            missing.append("Source Warehouse")
+        if missing:
+            frappe.throw(_("Repair Order missing required fields: {0}").format(", ".join(missing)))
 
-        # Early operator guidance (no throw)
-        required_now = []
-        if not self.get("customer"):
-            required_now.append("Customer")
-        if not self.get("warehouse_source"):
-            required_now.append("Source Warehouse")
-        if not self.get("labor_item"):
-            required_now.append("Labor Item (Service)")
-        if required_now:
-            frappe.msgprint(
-                _("Missing recommended fields on Repair Order: {0}")
-                .format(", ".join(required_now)),
-                alert=True, indicator="orange",
-            )
+    def _validate_labor_sessions(self) -> None:
+        total = 0
+        for row in self.labor_sessions or []:
+            if not row.started_on or not row.ended_on:
+                frappe.throw(_("Labor session {0} must have start and end times.").format(row.idx))
+            start = get_datetime(row.started_on)
+            end = get_datetime(row.ended_on)
+            if start >= end:
+                frappe.throw(_("Labor session {0} end must be after start.").format(row.idx))
+            total += (end - start).total_seconds() / 60
+        self.total_actual_minutes = cint(total)
 
-    # ---- Related Documents -------------------------------------------------
+    def _ensure_material_rows_are_consistent(self) -> None:
+        for row in self.actual_materials or []:
+            if not row.item_code:
+                frappe.throw(_("Actual material row {0} requires an Item.").format(row.idx))
+            if flt(row.qty) <= 0:
+                frappe.throw(_("Actual material row {0} must have positive quantity.").format(row.idx))
+            if not row.warehouse:
+                row.warehouse = self.warehouse_source
 
-    def _normalize_links(self) -> None:
-        """If 'related_documents' exists, add first-class links for operator context."""
-        if not self.meta.has_field("related_documents"):
+    def _enforce_qa_gate(self) -> None:
+        if self.workflow_state in {"Completed", "Delivered"} and self.qa_required:
+            if not self.qa_inspection:
+                frappe.throw(_("QA inspection is required before completion."))
+            if self.qa_status != "Pass":
+                frappe.throw(_("QA inspection must be marked as Pass before completion."))
+
+    def _set_billing_status(self) -> None:
+        if self.is_warranty:
+            self.billing_status = "Warranty"
             return
+        if self.billing_status not in BILLING_STATES:
+            self.billing_status = "Draft"
 
-        def opt(fieldname: str) -> str | None:
-            return self.get(fieldname) if self.meta.has_field(fieldname) else None
+    # ------------------------------------------------------------------
+    # Computations
+    # ------------------------------------------------------------------
+    def _rollup_time_totals(self) -> None:
+        estimated = sum(flt(row.estimated_minutes or 0) for row in self.labor_sessions or [])
+        actual_minutes = 0.0
+        for row in self.labor_sessions or []:
+            start = get_datetime(row.started_on) if row.started_on else None
+            end = get_datetime(row.ended_on) if row.ended_on else None
+            if start and end:
+                actual_minutes += (end - start).total_seconds() / 60
+        multiplier = flt(self.overtime_multiplier or 1.0) * flt(self.rush_multiplier or 1.0)
+        hours = (actual_minutes / 60.0) * multiplier
+        self.total_estimated_minutes = cint(estimated)
+        self.total_actual_minutes = cint(actual_minutes)
+        self.total_billable_hours = flt(hours, 2)
 
-        link_candidates = {
-            # Optional stage links only if such fields exist on schema
-            "Clarinet Intake": ["clarinet_intake", "intake"],
-            "Instrument Inspection": ["instrument_inspection"],
-            "Service Plan": ["service_plan"],
-            "Repair Estimate": ["repair_estimate"],
-            "Measurement Session": ["measurement_session"],
-            # Always attempt to include Instrument Profile (first-class)
-            "Instrument Profile": ["instrument_profile"],
-        }
-        for dt, candidates in link_candidates.items():
-            for fieldname in candidates:
-                name = opt(fieldname)
-                if name:
-                    self._ensure_related(dt, name, desc="Stage link")
-                    break
-
-    def _ensure_related(self, doctype: str, name: str, desc: str = "") -> None:
-        rows = (self.related_documents or []) if self.meta.has_field("related_documents") else []
-        exists = any((row.doctype_name == doctype and row.document_name == name) for row in rows)
-        if not exists and self.meta.has_field("related_documents"):
-            self.append("related_documents", {
-                "doctype_name": doctype,
-                "document_name": name,
-                "description": desc
-            })
-
-    def _dedupe_related(self) -> None:
-        if not self.meta.has_field("related_documents"):
+    def _compute_sla_due(self) -> None:
+        if not self.sla_policy:
             return
         seen = set()
         deduped = []
@@ -256,90 +266,249 @@ class RepairOrder(Document):
         """
         if not self.meta.has_field("is_warranty") and not self.meta.has_field("warranty_until"):
             return
-        if not self.get("instrument_profile"):
-            if self.meta.has_field("is_warranty"):
-                self.is_warranty = 0
+        if not sla_rule.get("response_time"):
             return
+        baseline = get_datetime(self.posting_date) if self.posting_date else now_datetime()
+        self.sla_due_date = baseline + sla_rule.response_time
+        self._update_sla_status()
 
-        warranty_date = None
+    def _update_sla_status(self) -> None:
+        if self.sla_status == "Paused":
+            return
+        if not self.sla_due_date:
+            self.sla_status = "On Track"
+            return
+        remaining = (self.sla_due_date - now_datetime()).total_seconds()
+        if remaining <= 0:
+            self.sla_status = "Breached"
+        elif remaining < 3600 * 6:
+            self.sla_status = "At Risk"
+        else:
+            self.sla_status = "On Track"
+
+    def _sync_current_stage(self) -> None:
+        self.current_stage = self.workflow_state or WORKFLOW_SEQUENCE[0]
+
+    def _sync_player_profile_links(self) -> None:
+        if not self.player_profile or not self.customer:
+            return
         try:
-            ip = frappe.get_doc("Instrument Profile", self.instrument_profile)
-            for candidate in ("warranty_until", "warranty_end_date"):
-                if hasattr(ip, candidate) and ip.get(candidate):
-                    warranty_date = getdate(ip.get(candidate))
-                    break
+            profile = frappe.get_doc("Player Profile", self.player_profile)
         except Exception:
-            warranty_date = None
+            return
+        if profile.customer and profile.customer != self.customer:
+            return
+        if not profile.customer:
+            profile.db_set("customer", self.customer, notify=True)
 
-        if self.meta.has_field("warranty_until"):
-            self.warranty_until = warranty_date if warranty_date else None
+    def _enqueue_sla_monitor_if_needed(self) -> None:
+        if frappe.flags.in_test or frappe.flags.in_migrate:
+            return
+        frappe.enqueue("repair_portal.repair.doctype.repair_order.repair_order.monitor_open_orders")
 
-        if self.meta.has_field("is_warranty"):
-            if warranty_date and getdate(nowdate()) <= warranty_date:
-                self.is_warranty = 1
-            else:
-                self.is_warranty = 0
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
+    @frappe.whitelist()
+    def consume_materials(self) -> str:
+        self.check_permission("write")
+        self.reload()
+        material_rows = self._material_rows_for_issue()
+        if not material_rows:
+            frappe.throw(_("No planned materials available to consume."))
+        stock_entry = self._create_stock_entry(material_rows)
+        frappe.msgprint(
+            _("Created Stock Entry {0} for material consumption.").format(
+                get_link_to_form("Stock Entry", stock_entry.name)
+            ),
+            indicator="green",
+        )
+        return stock_entry.name
 
-    # ---- Utility for client 'Create' shortcuts -----------------------------
+    def _material_rows_for_issue(self) -> list[MaterialRow]:
+        rows: list[MaterialRow] = []
+        for planned in self.planned_materials or []:
+            qty = flt(planned.qty) - flt(planned.consumed_qty or 0)
+            if qty <= 0:
+                continue
+            rows.append(
+                MaterialRow(
+                    item_code=planned.item_code,
+                    qty=qty,
+                    warehouse=self.warehouse_source,
+                    batch_no=getattr(planned, "batch_no", None),
+                    serial_no=getattr(planned, "serial_no", None),
+                )
+            )
+        return rows
+
+    def _create_stock_entry(self, rows: Iterable[MaterialRow]):
+        stock_entry = frappe.new_doc("Stock Entry")
+        stock_entry.stock_entry_type = "Material Issue"
+        stock_entry.company = self.company
+        stock_entry.repair_order = self.name
+        for row in rows:
+            stock_entry.append(
+                "items",
+                {
+                    "item_code": row.item_code,
+                    "qty": row.qty,
+                    "s_warehouse": row.warehouse,
+                    "batch_no": row.batch_no,
+                    "serial_no": row.serial_no,
+                },
+            )
+        stock_entry.insert(ignore_permissions=True)
+        stock_entry.submit()
+        self.db_set("last_material_issue", stock_entry.name)
+        self._mirror_stock_entry_to_actuals(stock_entry)
+        return stock_entry
+
+    def _mirror_stock_entry_to_actuals(self, stock_entry: Document) -> None:
+        self.reload()
+        self.set("actual_materials", [])
+        for item in stock_entry.items:
+            self.append(
+                "actual_materials",
+                {
+                    "item_code": item.item_code,
+                    "qty": item.qty,
+                    "warehouse": item.s_warehouse,
+                    "batch_no": item.batch_no,
+                    "serial_no": item.serial_no,
+                    "stock_entry_detail": item.name,
+                },
+            )
+        self.flags.ignore_validate_update_after_submit = True
+        self.save(ignore_permissions=True)
+
+    # ------------------------------------------------------------------
+    # QA utilities
+    # ------------------------------------------------------------------
+    def record_qa_result(self, status: str, inspection: str | None = None) -> None:
+        if status not in {"Pending", "Pass", "Fail"}:
+            frappe.throw(_("Unsupported QA status"))
+        self.qa_status = status
+        if inspection:
+            self.qa_inspection = inspection
+        self.qa_completed_on = now_datetime() if status == "Pass" else None
+        self.save(ignore_permissions=True)
+
+    # ------------------------------------------------------------------
+    # Finance helpers
+    # ------------------------------------------------------------------
+    def build_invoice_items(self) -> list[dict[str, object]]:
+        labor_hours = self.total_billable_hours or 0
+        labor_amount = flt(labor_hours) * flt(self.labor_rate or 0)
+        items: list[dict[str, object]] = []
+        if labor_amount or labor_hours:
+            items.append(
+                {
+                    "item_code": self.labor_item,
+                    "qty": labor_hours or 1,
+                    "rate": self.labor_rate,
+                    "description": _("Labor for Repair Order {0}").format(self.name),
+                }
+            )
+        for row in self.actual_materials or []:
+            items.append(
+                {
+                    "item_code": row.item_code,
+                    "qty": row.qty,
+                    "rate": row.rate or 0,
+                    "warehouse": row.warehouse,
+                    "description": _("Part for Repair Order {0}").format(self.name),
+                }
+            )
+        return items
 
     @frappe.whitelist()
-    def create_child(self, doctype: str) -> dict:
-        if not doctype:
-            frappe.throw(_("doctype is required"))
-        opts = {
-            "repair_order": self.name,
-            "customer": self.get("customer"),
-            "instrument_profile": self.get("instrument_profile"),
-        }
-        return {"doctype": doctype, "route_options": opts}
+    def make_sales_invoice(self) -> str:
+        self.check_permission("write")
+        if self.billing_status in {"Invoiced", "Paid"}:
+            frappe.throw(_("Repair Order already invoiced."))
+        invoice = frappe.new_doc("Sales Invoice")
+        invoice.customer = self.customer
+        invoice.company = self.company
+        invoice.repair_order = self.name
+        invoice.set("items", [])
+        for row in self.build_invoice_items():
+            invoice.append("items", row)
+        invoice.flags.ignore_permissions = True
+        invoice.insert()
+        if not self.require_invoice_before_delivery:
+            invoice.submit()
+        self.db_set("billing_status", "Invoiced")
+        frappe.msgprint(
+            _("Created Sales Invoice {0}").format(get_link_to_form("Sales Invoice", invoice.name)),
+            indicator="green",
+        )
+        return invoice.name
 
 
-# ===========================================================================
-# ERPNext Integrations (Actuals via Stock Entry, Invoice generation)
-# ===========================================================================
+# ---------------------------------------------------------------------------
+# Scheduler + service helpers
+# ---------------------------------------------------------------------------
+
+
+def monitor_open_orders() -> None:
+    """Scheduled job invoked hourly to evaluate SLA status and escalate."""
+    open_orders = frappe.get_all(
+        "Repair Order",
+        filters={"workflow_state": ("not in", ["Delivered"])},
+        fields=["name", "sla_status", "sla_due_date", "assigned_technician", "workflow_state"],
+        order_by="modified desc",
+    )
+    for order in open_orders:
+        try:
+            _process_single_order(order)
+        except Exception as exc:  # pragma: no cover - guard rail
+            frappe.log_error(
+                title="Repair SLA Monitor Failure",
+                message=frappe.as_json({"order": order.name, "exc": frappe.get_traceback(), "error": str(exc)}),
+            )
+
+
+def _process_single_order(order: dict[str, object]) -> None:
+    doc = frappe.get_doc("Repair Order", order["name"])
+    previous = doc.sla_status
+    doc._update_sla_status()
+    if doc.sla_status != previous:
+        doc.db_set("sla_status", doc.sla_status)
+        doc.add_comment(
+            "Info",
+            _("SLA status changed to {0}").format(doc.sla_status),
+        )
+        if doc.sla_status in {"At Risk", "Breached"}:
+            _notify_sla_escalation(doc)
+
+
+def _notify_sla_escalation(doc: RepairOrder) -> None:
+    recipients: list[str] = []
+    if doc.assigned_technician:
+        recipients.append(doc.assigned_technician)
+    manager_role_users = [x.parent for x in frappe.get_all("Has Role", filters={"role": "Repair Manager"}, fields=["parent"])]
+    recipients.extend(manager_role_users)
+    recipients = sorted(set([r for r in recipients if r]))
+    if not recipients:
+        return
+    frappe.sendmail(
+        recipients=recipients,
+        subject=_("Repair Order {0} SLA {1}").format(doc.name, doc.sla_status),
+        message=_("Repair Order {0} is now {1} against SLA and needs attention.").format(doc.name, doc.sla_status),
+    )
+
 
 @frappe.whitelist()
-def create_material_issue_draft(repair_order: str, include_planned: int | bool = 0) -> list[str]:
-    """Create a draft Stock Entry (Material Issue).
-    Args:
-        repair_order: Repair Order name
-        include_planned: if truthy, prefill items from planned_materials
-    Returns:
-        [Stock Entry name]
-    """
-    ro = _get_ro(repair_order)
-    company = ro.get("company") or frappe.defaults.get_global_default("company")
-    if not company:
-        frappe.throw(_("Company is required (set on Repair Order or defaults)."))
-    if not ro.get("warehouse_source"):
-        frappe.throw(_("Source Warehouse is required on the Repair Order."))
-
-    se = frappe.new_doc("Stock Entry")
-    se.purpose = "Material Issue"
-    se.company = company
-    se.set_posting_time = 1
-    se.remarks = f"Materials for {ro.name}"
-
-    if _truthy(include_planned) and ro.meta.has_field("planned_materials"):
-        for pm in (ro.get("planned_materials") or []):
-            if not pm.get("item_code") or not flt(pm.get("qty")):
-                continue
-            se.append("items", {
-                "item_code": pm.item_code,
-                "qty": flt(pm.qty),
-                "uom": pm.uom or "Nos",
-                "s_warehouse": ro.warehouse_source,
-                "description": (pm.description or f"Planned for {ro.name}")
-            })
-
-    se.insert(ignore_permissions=True)
-    return [se.name]
-
-
-@frappe.whitelist()
-def refresh_actuals_from_stock_entry(repair_order: str, stock_entry: str) -> None:
-    ro = _get_ro(repair_order)
-    _mirror_se_items_into_actuals(ro.name, _get_se(stock_entry).name)
+def pause_sla(order: str, reason: str) -> None:
+    doc: RepairOrder = frappe.get_doc("Repair Order", order)
+    doc.check_permission("write")
+    doc.db_set({
+        "sla_status": "Paused",
+        "sla_paused_on": now_datetime(),
+        "sla_pause_reason": reason,
+    })
+    doc.add_comment("Info", _("SLA paused: {0}").format(reason))
 
 
 @frappe.whitelist()
