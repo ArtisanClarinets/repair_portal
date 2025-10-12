@@ -42,7 +42,9 @@ class ConsentSettings(Document):
     def after_insert(self):
         """Initialize default settings after first creation."""
         self._create_default_templates()
-        self._ensure_consent_workflow()
+        # Skip workflow installation during app installation to prevent errors
+        # Workflow can be manually installed later via settings
+        # self._ensure_consent_workflow()
 
     # ------------------------------------------------------------------
     # Public API: callable from bench or client
@@ -277,7 +279,9 @@ class ConsentSettings(Document):
             frappe.log_error("Consent workflow installer not found")
             return {"status": "error", "message": "Workflow installer not available"}
         except Exception as e:
-            frappe.log_error(f"Error installing consent workflow: {str(e)}")
+            # Use shorter error message to avoid DB column length issues
+            error_msg = str(e)[:100] + "..." if len(str(e)) > 100 else str(e)
+            frappe.log_error(f"Consent workflow error: {error_msg}")
             return {"status": "error", "message": str(e)}
 
     def _clear_caches(self) -> None:

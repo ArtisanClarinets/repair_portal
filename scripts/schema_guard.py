@@ -62,7 +62,7 @@ def main():
         "ToDo","Communication","Workflow","Workflow Action","Workflow State","Item Group","Warehouse","Price List",
         "Quotation","Sales Order","Purchase Order","Delivery Note","Purchase Receipt","Payment Entry","Journal Entry",
         "DocType","Currency","Employee","Role","Activity Type","Service Type","Workshop","Asset","Stock Entry",
-        "Work Order","Inspection Report","Brand"
+        "Work Order","Inspection Report","Brand","Clarinet Intake","Country","Email Group","Quality Inspection","Attachment Entry"
     ])
     
     # Combine both repo doctypes and core allowed

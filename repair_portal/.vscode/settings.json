@@ -17,5 +17,11 @@
         "repair_portal/.vscode/mcp.json: frappe": {
             "allowedModels": []
         }
+    },
+    "chat.mcp.discovery.enabled": {
+        "claude-desktop": true,
+        "windsurf": true,
+        "cursor-global": true,
+        "cursor-workspace": true
     }
 }

@@ -1,0 +1,87 @@
+{
+	"inputs": [
+		{
+			"id": "filesystem_path",
+			"type": "promptString",
+			"description": "Path to the directory to use as filesystem context",
+			"password": false,
+			"default": "${workspaceFolder}"
+		},
+		{
+			"id": "memory_file_path",
+			"type": "promptString",
+			"description": "Path to the memory storage file (optional)",
+			"password": false
+		},
+		{
+			"id": "frappe_url",
+			"type": "promptString",
+			"description": "Frappe URL (e.g. https://erp.artisanclarinets.com)",
+			"password": false,
+			"default": "https://erp.artisanclarinets.com"
+		},
+		{
+			"id": "frappe_api_key",
+			"type": "promptString",
+			"description": "Frappe API Key",
+			"password": false,
+			"default": "f7f8c618768d08f"
+		},
+		{
+			"id": "frappe_api_secret",
+			"type": "promptString",
+			"description": "Frappe API Secret",
+			"password": true,
+			"default": "fe62f6ce3368401"
+		}
+	],
+	"servers": {
+		"sequentialthinking": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-sequential-thinking"
+			],
+			"type": "stdio"
+		},
+		"memory": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-memory"
+			],
+			"env": {
+				"MEMORY_FILE_PATH": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/.vscode/memory.json"
+			},
+			"type": "stdio"
+		},
+		"desktop-commander": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@wonderwhy-er/desktop-commander"
+			],
+			"type": "stdio"
+		},
+		"frappe": {
+			"command": "npx",
+			"args": [
+				"frappe-mcp-server"
+			],
+			"env": {
+				"FRAPPE_URL": "${input:frappe_url}",
+				"FRAPPE_API_KEY": "${input:frappe_api_key}",
+				"FRAPPE_API_SECRET": "${input:frappe_api_secret}"
+			},
+			"type": "stdio"
+		},
+		"upstash-context7": {
+			"args": [
+				"-y",
+				"@upstash/context7-mcp"
+			],
+			"command": "npx",
+			"type": "stdio"
+		}
+	}
+}

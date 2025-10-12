@@ -159,3 +159,50 @@ def audit_naming_series_after_migrate():
             frappe.db.rollback()
         except Exception:
             pass
+
+
+#############################################################################
+# Custom Field Creation                                                     #
+# Creates required custom fields programmatically                           #
+# Date: 2025-10-12                                                          #
+# Version: 1.0                                                              #
+#############################################################################
+
+def create_custom_fields():
+    """Create custom fields required for repair portal functionality."""
+    import frappe
+    from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
+    
+    try:
+        print('🔧 Creating custom fields...')
+        
+        # Define custom fields
+        custom_fields = {
+            'Sales Invoice': [
+                {
+                    'fieldname': 'player_profile',
+                    'label': 'Player Profile',
+                    'fieldtype': 'Link',
+                    'options': 'Player Profile',
+                    'insert_after': 'customer',
+                    'in_standard_filter': 1,
+                    'description': 'Linked Player Profile for CLV tracking',
+                    'translatable': 0
+                }
+            ]
+        }
+        
+        # Create the custom fields
+        create_custom_fields(custom_fields, update=True)
+        
+        print('✅ Custom fields created successfully.')
+        frappe.logger().info('Custom fields created successfully.')
+        
+    except Exception as e:
+        print(f'\033[91m❌ Custom field creation failed: {e}\033[0m')
+        frappe.log_error(title='Custom Field Creation Failed', message=traceback.format_exc())
+        # Don't fail installation for custom fields
+        try:
+            frappe.db.rollback()
+        except Exception:
+            pass

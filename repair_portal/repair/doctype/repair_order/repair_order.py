@@ -42,30 +42,30 @@ class MaterialRow:
 class RepairOrder(Document):
     """Rich workflow controller for the Repair Order doctype."""
 
-        actual_materials: DF.Table[RepairActualMaterial]
-        assigned_technician: DF.Link | None
-        company: DF.Link | None
-        customer: DF.Link
-        instrument_profile: DF.Link | None
-        intake: DF.Link | None
-        is_warranty: DF.Check
-        labor_item: DF.Link
-        labor_rate: DF.Currency
-        naming_series: DF.Data
-        planned_materials: DF.Table[RepairPlannedMaterial]
-        posting_date: DF.Date | None
-        priority: DF.Literal[Low, Medium, High, Critical]
-        player_profile: DF.Link | None
-        qa_required: DF.Check
-        related_documents: DF.Table[RepairRelatedDocument]
-        remarks: DF.SmallText | None
-        require_invoice_before_delivery: DF.Check
-        target_delivery: DF.Date | None
-        total_actual_minutes: DF.Int
-        total_estimated_minutes: DF.Int
-        warehouse_source: DF.Link
-        warranty_until: DF.Date | None
-        workflow_state: DF.Literal[Draft, "In Progress", QA, Ready, Delivered, Closed]
+    actual_materials: DF.Table[RepairActualMaterial]
+    assigned_technician: DF.Link | None
+    company: DF.Link | None
+    customer: DF.Link
+    instrument_profile: DF.Link | None
+    intake: DF.Link | None
+    is_warranty: DF.Check
+    labor_item: DF.Link
+    labor_rate: DF.Currency
+    naming_series: DF.Data
+    planned_materials: DF.Table[RepairPlannedMaterial]
+    posting_date: DF.Date | None
+    priority: DF.Literal[Low, Medium, High, Critical]
+    player_profile: DF.Link | None
+    qa_required: DF.Check
+    related_documents: DF.Table[RepairRelatedDocument]
+    remarks: DF.SmallText | None
+    require_invoice_before_delivery: DF.Check
+    target_delivery: DF.Date | None
+    total_actual_minutes: DF.Int
+    total_estimated_minutes: DF.Int
+    warehouse_source: DF.Link
+    warranty_until: DF.Date | None
+    workflow_state: DF.Literal[Draft, "In Progress", QA, Ready, Delivered, Closed]
     # end: auto-generated types
     # ---- Lifecycle ---------------------------------------------------------
 

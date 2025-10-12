@@ -371,7 +371,38 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
         nonlocal changed
         st = _find_state_row(wf, state_name)
         if not st:
-            st = wf.append("states", {"state": state_name, "doc_status": doc_status, "style": style})
+            # Prepare initial allow_edit value depending on the child-field type
+            roles_to_seed = list(roles) if roles else []
+            if not roles_to_seed:
+                roles_to_seed = ["System Manager"]
+
+            # Determine child doctype for 'states' table on Workflow
+            wf_meta = frappe.get_meta("Workflow")
+            states_field = wf_meta.get_field("states")
+            child_doctype = getattr(states_field, "options", None) if states_field else None
+
+            allow_edit_value = None
+            if child_doctype:
+                child_meta = frappe.get_meta(child_doctype)
+                child_fd = child_meta.get_field("allow_edit")
+                if child_fd:
+                    ft = str(child_fd.fieldtype or "")
+                    if ft in ("Table", "Table MultiSelect", "Table Multiselect"):
+                        allow_edit_value = [{"role": r} for r in roles_to_seed]
+                    elif ft in ("MultiSelect", "Small Text", "Text", "Data"):
+                        allow_edit_value = "\n".join(sorted(set(roles_to_seed)))
+                    elif ft == "Link":
+                        # Single-link to Role: pick first existing role as scalar
+                        allow_edit_value = str(roles_to_seed[0])
+
+            # Fallback: if unknown, use table-like rows
+            if allow_edit_value is None:
+                allow_edit_value = [{"role": r} for r in roles_to_seed]
+
+            st = wf.append(
+                "states",
+                {"state": state_name, "doc_status": doc_status, "style": style, "allow_edit": allow_edit_value},
+            )
             changed = True
         else:
             # Update if drifted
@@ -408,6 +439,33 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
             }
             if has_condition_field and condition:
                 data["condition"] = condition
+            # Prepare initial allowed value depending on child field type for transitions
+            roles_to_seed = list(roles or [])
+            if not roles_to_seed:
+                roles_to_seed = ["System Manager"]
+
+            # Determine child doctype for 'transitions' table on Workflow
+            trans_field = wf_meta.get_field("transitions") if (wf_meta := frappe.get_meta("Workflow")) else None
+            trans_child_doctype = getattr(trans_field, "options", None) if trans_field else None
+
+            allowed_value = None
+            if trans_child_doctype:
+                tr_child_meta = frappe.get_meta(trans_child_doctype)
+                tr_child_fd = tr_child_meta.get_field("allowed")
+                if tr_child_fd:
+                    ft = str(tr_child_fd.fieldtype or "")
+                    if ft in ("Table", "Table MultiSelect", "Table Multiselect"):
+                        allowed_value = [{"role": r} for r in roles_to_seed]
+                    elif ft in ("MultiSelect", "Small Text", "Text", "Data"):
+                        allowed_value = "\n".join(sorted(set(roles_to_seed)))
+                    elif ft == "Link":
+                        allowed_value = str(roles_to_seed[0])
+
+            if allowed_value is None:
+                allowed_value = [{"role": r} for r in roles_to_seed]
+
+            data["allowed"] = allowed_value
+
             tr = wf.append("transitions", data)
             changed = True
         else:
@@ -453,11 +511,47 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
         roles=roles_signed,
     )
 
-    # Save workflow
+    # Save workflow.
+    # Insert allowing missing mandatory child rows first (some sites require staged population).
     if created:
-        wf.insert(ignore_permissions=True)
-    elif changed:
-        wf.save(ignore_permissions=True)
+        # Insert while skipping mandatory and link validations to allow staged population
+        wf.insert(ignore_permissions=True, ignore_mandatory=True, ignore_links=True)
+
+        # reload from DB to operate on persisted rows and avoid validation-time link checks
+        try:
+            wf = frappe.get_doc("Workflow", WF_NAME)
+        except Exception:
+            # if reload fails, at least commit and rethrow later
+            frappe.db.commit()
+            _site_log(f"Workflow '{WF_NAME}' inserted but reload failed; aborting safe merge.")
+            raise
+
+        # Ensure role child rows exist on persisted rows
+        # States
+        for state_name, roles in [("Draft", roles_draft), ("Pending Signature", roles_pending), ("Signed", roles_signed), ("Cancelled", roles_cancelled)]:
+            st = _find_state_row(wf, state_name)
+            if st:
+                if _ensure_roles_on_row(st, "allow_edit", list(roles)):
+                    changed = True
+
+        # Transitions
+        transitions_to_check = [
+            ("Draft", action_request, "Pending Signature", roles_draft),
+            ("Pending Signature", action_submit, "Signed", roles_pending),
+            ("Signed", action_cancel, "Cancelled", roles_signed),
+        ]
+        for state, action_name, next_state, roles in transitions_to_check:
+            tr = _find_transition_row(wf, state, action_name, next_state)
+            if tr:
+                if _ensure_roles_on_row(tr, "allowed", list(roles)):
+                    changed = True
+
+        if changed:
+            wf.save(ignore_permissions=True)
+    else:
+        if changed:
+            wf.save(ignore_permissions=True)
+
     frappe.db.commit()
     _site_log(f"Workflow '{WF_NAME}' installed/updated (changed={changed}).")
 

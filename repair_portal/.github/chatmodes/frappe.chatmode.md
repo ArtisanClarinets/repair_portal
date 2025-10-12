@@ -1,6 +1,6 @@
 ---
 description: 'Frappe V15 Repair Portal Chat Mode & Developer Logic Summary'
-tools: ['runCommands', 'runTasks', 'createFile', 'createDirectory', 'editFiles', 'search', 'runVscodeCommand', 'getProjectSetupInfo', 'extensions', 'usages', 'think', 'problems', 'changes', 'testFailure', 'fetch', 'todos', 'runTests', 'sequentialthinking', 'memory']
+tools: ['runCommands', 'runTasks', 'edit/createFile', 'edit/createDirectory', 'edit/editFiles', 'search', 'new/runVscodeCommand', 'new/getProjectSetupInfo', 'memory/*', 'sequentialthinking/*', 'extensions', 'todos', 'runTests', 'usages', 'think', 'problems', 'changes', 'testFailure', 'fetch']
 ---
 # Copilot Instructions — Fortune-500 Production-Readiness Review (repair_portal)
 
@@ -38,7 +38,7 @@ Commands & SQL (triple backticks):
 
 
 bench --site erp.artisanclarinets.com migrate
-Section order (mandatory): as in Prime Directives #5.
+Section order (mandatory): as in Prime Directives # 5.
 
 2) Tooling You MUST Use (Install Once)
 
@@ -99,7 +99,7 @@ Create and run this one-file validator before any code changes.
 
 
 cat >/home/frappe/frappe-bench/apps/repair_portal/scripts/schema_guard.py <<'PY'
-#!/usr/bin/env python3
+# /usr/bin/env python3
 import json, os, sys, re, glob
 ROOT = "/home/frappe/frappe-bench/apps/repair_portal"
 errors = []
