@@ -81,6 +81,7 @@
  ],
  "has_web_view": 0,
  "index_web_pages_for_search": 0,
+ "is_child_table": 1,
  "istable": 1,
  "max_attachments": 0,
  "modified": "2024-10-01 00:00:00.000000",

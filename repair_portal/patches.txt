@@ -14,3 +14,4 @@ repair_portal.patches.v15_06_data_integrity_validation
 repair_portal.patches.v15_07_player_profile_defaults
 repair_portal.repair_logging.patches.v15_01_add_performance_indexes
 repair_portal.patches.v15_08_add_player_profile_indexes
+repair_portal.patches.v15_09_restore_core_module_mapping

@@ -1,78 +1,79 @@
 {
-  "doctype": "DocType",
-  "name": "Consent Log Entry",
-  "module": "Customer",
-  "istable": 1,
-  "custom": 0,
-  "fields": [
-    {
-      "fieldname": "entry_date",
-      "fieldtype": "Date",
-      "label": "Entry Date"
-    },
-    {
-      "fieldname": "method",
-      "fieldtype": "Select",
-      "options": "Phone\nText\nEmail\nIn Person",
-      "label": "Method"
-    },
-    {
-      "fieldname": "technician",
-      "fieldtype": "Link",
-      "options": "User",
-      "label": "Technician"
-    },
-    {
-      "fieldname": "notes",
-      "fieldtype": "Small Text",
-      "label": "Notes"
-    },
-    {
-      "fieldname": "consent_type",
-      "fieldtype": "Select",
-      "label": "Consent Type",
-      "options": "Repair Authorization\nPhotography\nPrivacy Waiver"
-    },
-    {
-      "fieldname": "date_given",
-      "fieldtype": "Date",
-      "label": "Date Given"
-    },
-    {
-      "fieldname": "reference_doctype",
-      "fieldtype": "Link",
-      "options": "DocType",
-      "label": "Reference Doctype"
-    },
-    {
-      "fieldname": "reference_name",
-      "fieldtype": "Dynamic Link",
-      "options": "reference_doctype",
-      "label": "Reference Name"
-    }
-  ],
-  "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1
-    },
-    {
-      "role": "Technician",
-      "read": 1,
-      "write": 1,
-      "create": 1
-    },
-    {
-      "role": "Service Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "submit": 1,
-      "delete": 1
-    }
-  ],
-  "engine": "InnoDB"
+ "doctype": "DocType",
+ "name": "Consent Log Entry",
+ "module": "Customer",
+ "is_child_table": 1,
+ "istable": 1,
+ "custom": 0,
+ "fields": [
+  {
+   "fieldname": "entry_date",
+   "fieldtype": "Date",
+   "label": "Entry Date"
+  },
+  {
+   "fieldname": "method",
+   "fieldtype": "Select",
+   "options": "Phone\nText\nEmail\nIn Person",
+   "label": "Method"
+  },
+  {
+   "fieldname": "technician",
+   "fieldtype": "Link",
+   "options": "User",
+   "label": "Technician"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "consent_type",
+   "fieldtype": "Select",
+   "label": "Consent Type",
+   "options": "Repair Authorization\nPhotography\nPrivacy Waiver"
+  },
+  {
+   "fieldname": "date_given",
+   "fieldtype": "Date",
+   "label": "Date Given"
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "options": "DocType",
+   "label": "Reference Doctype"
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "options": "reference_doctype",
+   "label": "Reference Name"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Technician",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Service Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "delete": 1
+  }
+ ],
+ "engine": "InnoDB"
 }

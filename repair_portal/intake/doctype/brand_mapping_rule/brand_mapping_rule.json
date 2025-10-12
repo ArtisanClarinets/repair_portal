@@ -1,48 +1,54 @@
 {
-  "doctype": "DocType",
-  "name": "Brand Mapping Rule",
-  "module": "Intake",
-  "engine": "InnoDB",
-  "custom": 0,
-  "is_standard": 1,
-
-  "istable": 1,
-  "editable_grid": 1,
-
-  "track_changes": 1,
-  "track_seen": 1,
-  "track_views": 1,
-
-  "allow_import": 1,
-
-  "field_order": [
-    "from_brand",
-    "to_brand"
-  ],
-
-  "fields": [
-    {
-      "fieldname": "from_brand",
-      "label": "Source Brand",
-      "fieldtype": "Data",
-      "reqd": 1,
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "search_index": 1,
-      "bold": 1
-    },
-    {
-      "fieldname": "to_brand",
-      "label": "Mapped Brand",
-      "fieldtype": "Data",
-      "reqd": 1,
-      "in_list_view": 1,
-      "in_standard_filter": 1
-    }
-  ],
-
-  "permissions": [
-    { "role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1 },
-    { "role": "Repair Manager", "read": 1, "write": 1, "create": 1 }
-  ]
+ "doctype": "DocType",
+ "name": "Brand Mapping Rule",
+ "module": "Intake",
+ "engine": "InnoDB",
+ "custom": 0,
+ "is_standard": 1,
+ "is_child_table": 1,
+ "istable": 1,
+ "editable_grid": 1,
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1,
+ "allow_import": 1,
+ "field_order": [
+  "from_brand",
+  "to_brand"
+ ],
+ "fields": [
+  {
+   "fieldname": "from_brand",
+   "label": "Source Brand",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "to_brand",
+   "label": "Mapped Brand",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Repair Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  }
+ ]
 }
