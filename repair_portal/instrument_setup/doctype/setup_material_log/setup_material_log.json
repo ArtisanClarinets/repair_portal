@@ -60,6 +60,7 @@
    "read_only": 1
   }
  ],
+ "is_child_table": 1,
  "istable": 1,
  "links": [],
  "modified": "2025-08-15 22:45:33.805785",

@@ -44,6 +44,7 @@
    "label": "Completed"
   }
  ],
+ "is_child_table": 1,
  "istable": 1,
  "links": [],
  "modified": "2025-07-29 23:50:13.975660",

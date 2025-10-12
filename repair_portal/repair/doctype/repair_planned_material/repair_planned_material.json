@@ -1,67 +1,68 @@
 {
-  "doctype": "DocType",
-  "name": "Repair Planned Material",
-  "module": "Repair",
-  "custom": 0,
-  "istable": 1,
-  "editable_grid": 1,
-  "track_changes": 1,
-  "engine": "InnoDB",
-  "field_order": [
-    "item_code",
-    "description",
-    "qty",
-    "uom",
-    "planned_rate",
-    "planned_amount",
-    "notes"
-  ],
-  "fields": [
-    {
-      "fieldname": "item_code",
-      "label": "Item",
-      "fieldtype": "Link",
-      "options": "Item",
-      "reqd": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "description",
-      "label": "Description",
-      "fieldtype": "Small Text"
-    },
-    {
-      "fieldname": "qty",
-      "label": "Qty",
-      "fieldtype": "Float",
-      "reqd": 1,
-      "default": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "uom",
-      "label": "UOM",
-      "fieldtype": "Link",
-      "options": "UOM",
-      "default": "Nos",
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "planned_rate",
-      "label": "Planned Rate",
-      "fieldtype": "Currency"
-    },
-    {
-      "fieldname": "planned_amount",
-      "label": "Planned Amount",
-      "fieldtype": "Currency",
-      "read_only": 1
-    },
-    {
-      "fieldname": "notes",
-      "label": "Notes",
-      "fieldtype": "Small Text"
-    }
-  ],
-  "permissions": []
+ "doctype": "DocType",
+ "name": "Repair Planned Material",
+ "module": "Repair",
+ "custom": 0,
+ "is_child_table": 1,
+ "istable": 1,
+ "editable_grid": 1,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "description",
+  "qty",
+  "uom",
+  "planned_rate",
+  "planned_amount",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "label": "Item",
+   "fieldtype": "Link",
+   "options": "Item",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "description",
+   "label": "Description",
+   "fieldtype": "Small Text"
+  },
+  {
+   "fieldname": "qty",
+   "label": "Qty",
+   "fieldtype": "Float",
+   "reqd": 1,
+   "default": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "uom",
+   "label": "UOM",
+   "fieldtype": "Link",
+   "options": "UOM",
+   "default": "Nos",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "planned_rate",
+   "label": "Planned Rate",
+   "fieldtype": "Currency"
+  },
+  {
+   "fieldname": "planned_amount",
+   "label": "Planned Amount",
+   "fieldtype": "Currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "label": "Notes",
+   "fieldtype": "Small Text"
+  }
+ ],
+ "permissions": []
 }
