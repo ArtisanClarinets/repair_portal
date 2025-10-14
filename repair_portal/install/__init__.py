@@ -1,4 +1,5 @@
-# repair_portal/install.py
+# repair_portal/install/__init__.py
+import os
 import sys
 import traceback
 
@@ -66,7 +67,7 @@ def seed_item_groups_after_migrate():
     """
     import traceback
 
-    from .scripts.item_group_loader import load_item_groups_from_default_schemas
+    from ..scripts.item_group_loader import load_item_groups_from_default_schemas
 
     try:
         print('🎼 Seeding Item Groups from scripts/schemas …')
@@ -90,10 +91,10 @@ def seed_item_groups_after_migrate():
         # raise
 
 
-#############################################################################
-# in repair_portal/install.py
+# ############################################################################
+# in repair_portal/install/__init__.py
 def seed_all_from_schemas():
-    from .scripts.doctype_loader import load_from_default_schemas
+    from ..scripts.doctype_loader import load_from_default_schemas
 
     try:
         print('🌱 Seeding doctypes from schemas …')
@@ -109,16 +110,13 @@ def seed_all_from_schemas():
 #############################################################################
 
 
-#############################################################################
+# ############################################################################
 # Audit: Naming Series after migrate                                        #
 # Runs the naming_audit and prints to console + logs. Does NOT block        #
 # migrate unless REPAIR_PORTAL_FAIL_ON_NAMING_AUDIT=1                       #
 # Date: 2025-08-10                                                          #
 # Version: 1.1                                                              #
 #############################################################################
-import os
-
-
 def audit_naming_series_after_migrate():
     """Hook target for after_migrate: run naming series audit."""
     # ✅ Correct import path (no double 'repair_portal')
