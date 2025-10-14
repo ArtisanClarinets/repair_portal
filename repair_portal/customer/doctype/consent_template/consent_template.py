@@ -12,7 +12,18 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import now_datetime, nowdate
-from jinja2 import Environment, TemplateSyntaxError
+from jinja2 import Environment, TemplateSyntaxError, select_autoescape
+
+
+def _create_validation_environment() -> Environment:
+    """Return a Jinja environment configured with HTML autoescaping."""
+    return Environment(
+        autoescape=select_autoescape(
+            enabled_extensions=("html", "htm", "xml"),
+            default=True,
+            default_for_string=True,
+        )
+    )
 
 
 class ConsentTemplate(Document):
@@ -202,7 +213,7 @@ class ConsentTemplate(Document):
             return None
 
         try:
-            Environment().parse(source)
+            _create_validation_environment().parse(source)
         except TemplateSyntaxError as exc:
             message = _(
                 "Invalid Jinja syntax in Consent Template content at line {0}: {1}"
@@ -350,7 +361,7 @@ def validate_template_content(content: str) -> dict[str, Any]:
         return {"valid": False, "message": "No content provided"}
     
     try:
-        Environment().parse(content)
+        _create_validation_environment().parse(content)
         return {"valid": True, "message": "Template syntax is valid"}
     except TemplateSyntaxError as exc:
         message = _(
