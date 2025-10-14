@@ -106,9 +106,15 @@ class ConsentSettings(Document):
     def validate_template_syntax(self, template_content: str) -> dict[str, Any]:
         """Validate Jinja template syntax and available variables."""
         try:
-            from jinja2 import Environment, meta
-            
-            env = Environment()
+            from jinja2 import Environment, meta, select_autoescape
+
+            env = Environment(
+                autoescape=select_autoescape(
+                    enabled_extensions=("html", "htm", "xml"),
+                    default=True,
+                    default_for_string=True,
+                )
+            )
             ast = env.parse(template_content)
             undefined_vars = meta.find_undeclared_variables(ast)
             available_vars = set(self.get_available_variables())
