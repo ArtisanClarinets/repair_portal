@@ -72,6 +72,19 @@
             <small class="field-hint">Used for practice feedback and tonal reports.</small>
             <p v-if="errors.primary_email" class="field-error">{{ errors.primary_email }}</p>
           </label>
+          <label :class="{ 'has-error': errors.primary_phone }">
+            <span>Primary Phone</span>
+            <input
+              v-model.trim="local.primary_phone"
+              type="tel"
+              required
+              @input="update"
+              :readonly="local.sameAsCustomer"
+              :aria-invalid="Boolean(errors.primary_phone)"
+            />
+            <small class="field-hint">Direct line for urgent setup updates.</small>
+            <p v-if="errors.primary_phone" class="field-error">{{ errors.primary_phone }}</p>
+          </label>
           <label :class="{ 'has-error': errors.player_level }">
             <span>Player Level</span>
             <select v-model="local.player_level" @change="update" :disabled="local.sameAsCustomer">
@@ -112,6 +125,10 @@
             <option>Collector</option>
           </select>
         </label>
+        <label>
+          <span>Primary Phone</span>
+          <input v-model.trim="local.primary_phone" type="tel" readonly />
+        </label>
       </div>
     </div>
   </section>
@@ -119,6 +136,8 @@
 
 <script setup>
 import { computed, reactive, ref, watch } from "vue";
+
+const phonePattern = /^[0-9()+\-\s]{7,}$/;
 
 const props = defineProps({
   modelValue: { type: Object, default: () => ({ sameAsCustomer: true }) },
@@ -134,6 +153,7 @@ const local = reactive({
   player_name: "",
   preferred_name: "",
   primary_email: "",
+  primary_phone: "",
   player_level: "Amateur/Hobbyist",
   profile: null,
 });
@@ -142,13 +162,19 @@ const results = reactive([]);
 const loading = ref(false);
 let debounceTimer = null;
 
-const errors = reactive({ player_name: null, primary_email: null, player_level: null });
+const errors = reactive({ player_name: null, primary_email: null, primary_phone: null, player_level: null });
 
 const isValid = computed(() => {
   if (local.sameAsCustomer) {
-    return Boolean(local.player_name && local.primary_email);
+    return Boolean(local.player_name && local.primary_email && local.primary_phone && phonePattern.test(local.primary_phone));
   }
-  return Boolean(local.player_name && local.primary_email && local.player_level);
+  return Boolean(
+    local.player_name &&
+      local.primary_email &&
+      local.primary_phone &&
+      phonePattern.test(local.primary_phone) &&
+      local.player_level
+  );
 });
 
 const statusMessage = computed(() => {
@@ -193,6 +219,7 @@ function syncWithCustomer() {
   if (local.sameAsCustomer) {
     local.player_name = props.customer.customer_name || "";
     local.primary_email = props.customer.email || props.customer.email_id || "";
+    local.primary_phone = props.customer.phone || props.customer.mobile_no || "";
   }
   update();
 }
@@ -226,6 +253,7 @@ function selectPlayer(row) {
     profile: row.name,
     player_name: row.player_name,
     primary_email: row.primary_email,
+    primary_phone: row.primary_phone || local.primary_phone,
     sameAsCustomer: false,
   });
   update();
@@ -261,12 +289,23 @@ function validate(show = true) {
   if (!local.primary_email) {
     errors.primary_email = "Primary email is required.";
   }
+  if (!local.primary_phone) {
+    errors.primary_phone = "Primary phone is required.";
+  } else if (!phonePattern.test(local.primary_phone)) {
+    errors.primary_phone = "Include only digits, spaces, +, or - characters.";
+  }
   if (!local.sameAsCustomer && !local.player_level) {
     errors.player_level = "Select a player level.";
   }
   const valid = local.sameAsCustomer
-    ? Boolean(local.player_name && local.primary_email)
-    : Boolean(local.player_name && local.primary_email && local.player_level);
+    ? Boolean(local.player_name && local.primary_email && local.primary_phone && !errors.primary_phone)
+    : Boolean(
+        local.player_name &&
+          local.primary_email &&
+          local.primary_phone &&
+          !errors.primary_phone &&
+          local.player_level
+      );
   if (show) {
     emit("validity-change", valid);
   } else {

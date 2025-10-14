@@ -16,6 +16,20 @@
       <article class="card">
         <h3>Core Specifications</h3>
         <div class="field-grid">
+          <label :class="{ 'has-error': errors.instrument_category }">
+            <span>Instrument Category</span>
+            <select v-model="local.instrument_category" @change="onChange" :disabled="categoryLoading">
+              <option value="">Select category</option>
+              <option v-for="category in categoryOptions" :key="category.name" :value="category.name">
+                {{ category.title }}
+              </option>
+              <option v-if="local.instrument_category && !categoryExists" :value="local.instrument_category">
+                {{ local.instrument_category }}
+              </option>
+            </select>
+            <small class="field-hint">Aligns with Instrument Category records for reporting.</small>
+            <p v-if="errors.instrument_category" class="field-error">{{ errors.instrument_category }}</p>
+          </label>
           <label :class="{ 'has-error': errors.manufacturer }">
             <span>Manufacturer</span>
             <input
@@ -56,18 +70,33 @@
             <small class="field-hint">Blur to run a duplicate check and normalization.</small>
             <p v-if="errors.serial_no" class="field-error">{{ errors.serial_no }}</p>
           </label>
-          <label>
+          <label :class="{ 'has-error': errors.clarinet_type }">
             <span>Clarinet Type</span>
             <select v-model="local.clarinet_type" @change="onChange">
               <option value="">Select type</option>
-              <option>Soprano (Bb)</option>
-              <option>Soprano (A)</option>
-              <option>Soprano (Eb)</option>
+              <option>B♭ Clarinet</option>
+              <option>A Clarinet</option>
+              <option>E♭ Clarinet</option>
               <option>Bass Clarinet</option>
-              <option>Contra Alto</option>
-              <option>Contra Bass</option>
+              <option>Alto Clarinet</option>
+              <option>Contrabass Clarinet</option>
               <option>Other</option>
             </select>
+            <p v-if="errors.clarinet_type" class="field-error">{{ errors.clarinet_type }}</p>
+          </label>
+          <label>
+            <span>Instrument Type</span>
+            <select v-model="local.instrument_type" @change="onChange">
+              <option value="">Select type</option>
+              <option>B♭ Clarinet</option>
+              <option>A Clarinet</option>
+              <option>E♭ Clarinet</option>
+              <option>Bass Clarinet</option>
+              <option>Alto Clarinet</option>
+              <option>Contrabass Clarinet</option>
+              <option>Other</option>
+            </select>
+            <small class="field-hint">Feeds Instrument master data for automation.</small>
           </label>
           <label>
             <span>Body Material</span>
@@ -103,6 +132,9 @@
             </span>
           </li>
         </ul>
+        <p class="mapping-guidance" v-if="serialState.brandMapping">
+          Manufacturer updated using catalog rules. Review the mapped brand before submission.
+        </p>
         <button type="button" class="secondary" @click="handleSerialLookup" :disabled="serialState.loading">
           {{ serialState.loading ? 'Checking…' : 'Re-run Serial Check' }}
         </button>
@@ -117,21 +149,77 @@
         </p>
       </div>
       <form class="accessory-form" @submit.prevent="addAccessory">
-        <input v-model.trim="accessoryInput" type="text" placeholder="Add accessory" />
-        <button type="submit" class="secondary">Add</button>
+        <div class="accessory-fields">
+          <div class="accessory-field">
+            <label>
+              <span>Item Code</span>
+              <input
+                v-model.trim="accessoryForm.item_code"
+                type="text"
+                placeholder="Search item code"
+                @input="onAccessoryCodeInput"
+              />
+            </label>
+            <ul v-if="itemResults.length" class="lookup-list" role="listbox">
+              <li v-for="item in itemResults" :key="item.name">
+                <button type="button" @click="selectAccessoryItem(item)">
+                  <span class="lookup-primary">{{ item.name }}</span>
+                  <span class="lookup-secondary">{{ item.item_name || item.description || '—' }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="accessory-field">
+            <label>
+              <span>Description</span>
+              <input v-model.trim="accessoryForm.description" type="text" placeholder="Case, mouthpiece, etc." />
+            </label>
+          </div>
+          <div class="accessory-field accessory-field--compact">
+            <label>
+              <span>Qty</span>
+              <input v-model.number="accessoryForm.qty" type="number" min="1" step="1" />
+            </label>
+          </div>
+          <div class="accessory-field accessory-field--compact">
+            <label>
+              <span>UOM</span>
+              <input v-model.trim="accessoryForm.uom" type="text" placeholder="Each" />
+            </label>
+          </div>
+          <button type="submit" class="secondary">Add</button>
+        </div>
+        <p v-if="accessoryError" class="field-error">{{ accessoryError }}</p>
       </form>
-      <ul class="chip-list" role="list">
-        <li v-for="(item, index) in local.accessories" :key="`${item}-${index}`" class="chip">
-          <span>{{ item }}</span>
-          <button type="button" aria-label="Remove accessory" @click="removeAccessory(index)">×</button>
-        </li>
-      </ul>
+      <table v-if="local.accessories.length" class="accessory-table">
+        <thead>
+          <tr>
+            <th scope="col">Item Code</th>
+            <th scope="col">Description</th>
+            <th scope="col">Qty</th>
+            <th scope="col">UOM</th>
+            <th scope="col" class="actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in local.accessories" :key="`${item.item_code}-${index}`">
+            <td>{{ item.item_code }}</td>
+            <td>{{ item.description || '—' }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.uom || '—' }}</td>
+            <td class="actions">
+              <button type="button" class="link-button" @click="removeAccessory(index)">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p v-else class="lookup-empty">No accessories recorded yet.</p>
     </article>
   </section>
 </template>
 
 <script setup>
-import { computed, reactive, ref, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
 
 const props = defineProps({
   modelValue: { type: Object, default: () => ({ accessories: [] }) },
@@ -145,6 +233,8 @@ const local = reactive({
   model: "",
   serial_no: "",
   clarinet_type: "",
+  instrument_category: "",
+  instrument_type: "",
   body_material: "",
   key_plating: "",
   accessories: [],
@@ -153,8 +243,16 @@ const local = reactive({
   brand_mapping: null,
 });
 
-const errors = reactive({ manufacturer: null, model: null, serial_no: null });
-const accessoryInput = ref("");
+const errors = reactive({ manufacturer: null, model: null, serial_no: null, instrument_category: null, clarinet_type: null });
+const categoryOptions = ref([]);
+const categoryExists = computed(() =>
+  categoryOptions.value.some((category) => category.name === local.instrument_category)
+);
+const categoryLoading = ref(false);
+const accessoryForm = reactive({ item_code: "", description: "", qty: 1, uom: "" });
+const accessoryError = ref("");
+const itemResults = ref([]);
+let accessorySearchTimer = null;
 const serialState = reactive({
   loading: false,
   message: "Serial not checked yet",
@@ -171,14 +269,32 @@ const serialStatusClass = computed(() => {
   return "status-pill--muted";
 });
 
+function normalizeAccessoryList(list = []) {
+  if (!Array.isArray(list)) {
+    return [];
+  }
+  return list
+    .map((item) => {
+      if (!item) return null;
+      if (typeof item === "string") {
+        return { item_code: "", description: item, qty: 1, uom: "" };
+      }
+      return {
+        item_code: item.item_code || "",
+        description: item.description || item.label || "",
+        qty: Number.isFinite(item.qty) ? Number(item.qty) : 1,
+        uom: item.uom || "",
+      };
+    })
+    .filter(Boolean);
+}
+
 watch(
   () => props.modelValue,
   (value) => {
     const incoming = { accessories: [], brand_mapping: null, ...value };
     Object.assign(local, incoming);
-    if (!Array.isArray(local.accessories)) {
-      local.accessories = [];
-    }
+    local.accessories = normalizeAccessoryList(incoming.accessories);
     validate(false);
   },
   { immediate: true, deep: true }
@@ -201,6 +317,9 @@ function clearErrors() {
 
 function validate(show = true) {
   clearErrors();
+  if (!local.instrument_category) {
+    errors.instrument_category = "Instrument category is required.";
+  }
   if (!local.manufacturer) {
     errors.manufacturer = "Manufacturer is required.";
   }
@@ -210,13 +329,88 @@ function validate(show = true) {
   if (!local.serial_no) {
     errors.serial_no = "Serial number is required.";
   }
-  const valid = !errors.manufacturer && !errors.model && !errors.serial_no;
+  if (!local.clarinet_type) {
+    errors.clarinet_type = "Clarinet type is required.";
+  }
+  const valid =
+    !errors.instrument_category && !errors.manufacturer && !errors.model && !errors.serial_no && !errors.clarinet_type;
   if (show) {
     emit("validity-change", valid);
   } else {
     emit("validity-change", valid);
   }
   return valid;
+}
+
+async function loadCategories() {
+  categoryLoading.value = true;
+  try {
+    const response = await frappe.call({
+      method: "frappe.client.get_list",
+      args: {
+        doctype: "Instrument Category",
+        fields: ["name", "title"],
+        filters: { is_active: 1 },
+        limit_page_length: 50,
+        order_by: "title asc",
+      },
+    });
+    categoryOptions.value = (response.message || []).map((row) => ({
+      name: row.name,
+      title: row.title || row.name,
+    }));
+  } catch (error) {
+    console.warn("Failed to load instrument categories", error);
+  } finally {
+    categoryLoading.value = false;
+  }
+}
+
+async function fetchAccessoryItems(query) {
+  try {
+    const response = await frappe.call({
+      method: "frappe.client.get_list",
+      args: {
+        doctype: "Item",
+        txt: query,
+        fields: ["name", "item_name", "description", "stock_uom"],
+        limit_page_length: 8,
+      },
+    });
+    return response.message || [];
+  } catch (error) {
+    console.warn("Failed to search items", error);
+    return [];
+  }
+}
+
+function onAccessoryCodeInput() {
+  accessoryError.value = "";
+  if (accessorySearchTimer) {
+    clearTimeout(accessorySearchTimer);
+  }
+  if (!accessoryForm.item_code || accessoryForm.item_code.length < 2) {
+    itemResults.value = [];
+    return;
+  }
+  accessorySearchTimer = setTimeout(async () => {
+    itemResults.value = await fetchAccessoryItems(accessoryForm.item_code);
+  }, 250);
+}
+
+function selectAccessoryItem(item) {
+  accessoryForm.item_code = item.name;
+  accessoryForm.description = item.item_name || item.description || accessoryForm.description;
+  accessoryForm.uom = item.stock_uom || accessoryForm.uom;
+  itemResults.value = [];
+}
+
+function resetAccessoryForm() {
+  accessoryForm.item_code = "";
+  accessoryForm.description = "";
+  accessoryForm.qty = 1;
+  accessoryForm.uom = "";
+  itemResults.value = [];
 }
 
 async function handleSerialLookup() {
@@ -256,11 +450,19 @@ async function handleSerialLookup() {
 }
 
 function addAccessory() {
-  if (!accessoryInput.value) {
+  accessoryError.value = "";
+  if (!accessoryForm.item_code) {
+    accessoryError.value = "Item code is required.";
     return;
   }
-  local.accessories = [...local.accessories, accessoryInput.value];
-  accessoryInput.value = "";
+  const entry = {
+    item_code: accessoryForm.item_code,
+    description: accessoryForm.description,
+    qty: accessoryForm.qty > 0 ? accessoryForm.qty : 1,
+    uom: accessoryForm.uom,
+  };
+  local.accessories = [...local.accessories, entry];
+  resetAccessoryForm();
   emitUpdate();
 }
 
@@ -268,6 +470,25 @@ function removeAccessory(index) {
   local.accessories = local.accessories.filter((_, i) => i !== index);
   emitUpdate();
 }
+
+watch(
+  () => local.clarinet_type,
+  (value) => {
+    if (!local.instrument_type && value) {
+      local.instrument_type = value;
+    }
+  }
+);
+
+onMounted(() => {
+  loadCategories();
+});
+
+onBeforeUnmount(() => {
+  if (accessorySearchTimer) {
+    clearTimeout(accessorySearchTimer);
+  }
+});
 </script>
 
 <style scoped>
@@ -415,6 +636,12 @@ select:focus-visible {
   color: #312e81;
 }
 
+.mapping-guidance {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: #1d4ed8;
+}
+
 .mapping-pill {
   display: inline-flex;
   align-items: center;
@@ -452,36 +679,116 @@ select:focus-visible {
 
 .accessory-form {
   display: flex;
+  flex-direction: column;
   gap: 0.75rem;
 }
 
-.accessory-form input {
-  flex: 1;
+.accessory-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  align-items: flex-end;
 }
 
-.chip-list {
+.accessory-field {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.45rem;
+  position: relative;
+}
+
+.accessory-field--compact input {
+  width: 100%;
+}
+
+.lookup-list {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #cbd5f5;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0.35rem 0;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 10;
 }
 
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: #e2e8f0;
-  border-radius: 999px;
-  padding: 0.35rem 0.75rem;
+.lookup-list li + li {
+  border-top: 1px solid #e2e8f0;
 }
 
-.chip button {
-  border: none;
+.lookup-list button {
+  width: 100%;
   background: transparent;
+  border: none;
+  text-align: left;
+  padding: 0.4rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
   cursor: pointer;
-  font-size: 1rem;
-  line-height: 1;
+}
+
+.lookup-list button:hover {
+  background: #eef2ff;
+}
+
+.lookup-primary {
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.lookup-secondary {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.accessory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+}
+
+.accessory-table th,
+.accessory-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.accessory-table th {
+  background: #f8fafc;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.accessory-table td.actions,
+.accessory-table th.actions {
+  text-align: right;
+}
+
+.link-button {
+  border: none;
+  background: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.lookup-empty {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
 }
 </style>
