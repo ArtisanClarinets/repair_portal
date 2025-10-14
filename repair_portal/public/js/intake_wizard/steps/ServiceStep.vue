@@ -90,19 +90,34 @@
           </div>
           <div class="loaner-agreement">
             <h4>Loaner Agreement</h4>
+            <p class="section-hint">
+              Capture borrower and staff approvals. Signatures are stored as secure image data and surfaced on the agreement PDF.
+            </p>
             <label class="checkbox">
               <input type="checkbox" v-model="local.loanerAgreement.terms_ack" @change="update" /> Borrower agrees to terms
             </label>
-            <label :class="{ 'has-error': errors.borrower_signature }">
-              <span>Borrower Signature (data URL)</span>
-              <input v-model.trim="local.loanerAgreement.borrower_signature" type="text" @input="update" />
-              <p v-if="errors.borrower_signature" class="field-error">{{ errors.borrower_signature }}</p>
-            </label>
-            <label :class="{ 'has-error': errors.staff_signature }">
-              <span>Staff Signature (data URL)</span>
-              <input v-model.trim="local.loanerAgreement.staff_signature" type="text" @input="update" />
-              <p v-if="errors.staff_signature" class="field-error">{{ errors.staff_signature }}</p>
-            </label>
+            <div :class="['signature-field', { 'has-error': signatureErrors.borrower || errors.borrower_signature }]">
+              <SignaturePad
+                v-model="local.loanerAgreement.borrower_signature"
+                label="Borrower Signature"
+                :max-bytes="MAX_SIGNATURE_BYTES"
+                @update:modelValue="setSignature('borrower_signature', $event)"
+                @invalid="handleSignatureError('borrower', $event)"
+              />
+              <p v-if="signatureErrors.borrower" class="field-error">{{ signatureErrors.borrower }}</p>
+              <p v-else-if="errors.borrower_signature" class="field-error">{{ errors.borrower_signature }}</p>
+            </div>
+            <div :class="['signature-field', { 'has-error': signatureErrors.staff || errors.staff_signature }]">
+              <SignaturePad
+                v-model="local.loanerAgreement.staff_signature"
+                label="Staff Signature"
+                :max-bytes="MAX_SIGNATURE_BYTES"
+                @update:modelValue="setSignature('staff_signature', $event)"
+                @invalid="handleSignatureError('staff', $event)"
+              />
+              <p v-if="signatureErrors.staff" class="field-error">{{ signatureErrors.staff }}</p>
+              <p v-else-if="errors.staff_signature" class="field-error">{{ errors.staff_signature }}</p>
+            </div>
           </div>
         </div>
       </transition>
@@ -112,6 +127,8 @@
 
 <script setup>
 import { computed, reactive, watch } from "vue";
+
+import SignaturePad from "../components/SignaturePad.vue";
 
 const props = defineProps({
   modelValue: { type: Object, default: () => ({ loanerRequired: false }) },
@@ -138,6 +155,7 @@ const local = reactive({
 });
 
 const errors = reactive({ issue_description: null, borrower_signature: null, staff_signature: null });
+const signatureErrors = reactive({ borrower: null, staff: null });
 const loading = computed(() => props.loaners.length === 0 && local.loanerRequired);
 
 const loaners = computed(() => props.loaners || []);
@@ -161,12 +179,20 @@ const statusClass = computed(() => {
   return "status-pill--neutral";
 });
 
+const MAX_SIGNATURE_BYTES = 180 * 1024;
+
 watch(
   () => props.modelValue,
   (value) => {
     Object.assign(local, { ...local, ...value });
     if (!local.loanerAgreement) {
       local.loanerAgreement = { terms_ack: false, borrower_signature: "", staff_signature: "", linked_loaner: "" };
+    }
+    if (!local.loanerAgreement.borrower_signature) {
+      signatureErrors.borrower = null;
+    }
+    if (!local.loanerAgreement.staff_signature) {
+      signatureErrors.staff = null;
     }
     validate(false);
   },
@@ -191,6 +217,18 @@ function update() {
   validate(false);
 }
 
+function setSignature(field, value) {
+  if (!local.loanerAgreement) {
+    return;
+  }
+  local.loanerAgreement[field] = value || "";
+  update();
+}
+
+function handleSignatureError(type, message) {
+  signatureErrors[type] = message;
+}
+
 function buildIntakeDetails() {
   return {
     intake_type: local.intakeType,
@@ -212,6 +250,8 @@ function toggleLoaner() {
   } else {
     local.loanerInstrument = "";
     local.loanerAgreement = { terms_ack: false, borrower_signature: "", staff_signature: "", linked_loaner: "" };
+    signatureErrors.borrower = null;
+    signatureErrors.staff = null;
   }
   update();
 }
@@ -252,6 +292,12 @@ function validate(show = true) {
     }
     if (!local.loanerAgreement.staff_signature) {
       errors.staff_signature = "Staff signature required.";
+      valid = false;
+    }
+    if (signatureErrors.borrower) {
+      valid = false;
+    }
+    if (signatureErrors.staff) {
       valid = false;
     }
   }
@@ -449,6 +495,17 @@ textarea:focus-visible {
 .loaner-agreement {
   display: grid;
   gap: 0.75rem;
+}
+
+.signature-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.signature-field.has-error .pad-wrapper {
+  border-color: #f87171;
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.25);
 }
 
 .fade-enter-active,

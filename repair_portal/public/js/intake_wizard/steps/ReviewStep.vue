@@ -27,9 +27,18 @@
         </header>
         <p><strong>{{ instrument.manufacturer || '—' }} {{ instrument.model || '' }}</strong></p>
         <p>Serial: {{ instrument.serial_no || '—' }}</p>
-        <ul>
-          <li v-for="item in instrument.accessories || []" :key="item">Accessory: {{ item }}</li>
-          <li v-if="!(instrument.accessories || []).length">No accessories recorded</li>
+        <p>Category: {{ instrument.instrument_category || '—' }}</p>
+        <p>Type: {{ instrument.clarinet_type || '—' }}</p>
+        <ul class="accessory-list">
+          <li v-for="(item, index) in normalizedAccessories" :key="`${item.item_code}-${index}`">
+            <span class="accessory-label">Accessory</span>
+            <span class="accessory-value">
+              {{ item.item_code }}
+              <template v-if="item.description">— {{ item.description }}</template>
+              <template v-if="item.qty">×{{ item.qty }}</template>
+            </span>
+          </li>
+          <li v-if="!normalizedAccessories.length">No accessories recorded</li>
         </ul>
       </article>
       <article class="summary-card" role="listitem">
@@ -39,6 +48,7 @@
         </header>
         <p><strong>{{ player.player_name || customer.customer_name || '—' }}</strong></p>
         <p>{{ player.primary_email || customer.email || '—' }}</p>
+        <p>{{ player.primary_phone || customer.phone || '—' }}</p>
         <p>{{ player.player_level || '—' }}</p>
       </article>
     </div>
@@ -76,7 +86,33 @@ const emit = defineEmits(["validity-change"]);
 
 const customerOk = computed(() => Boolean(props.customer.customer_name && props.customer.email && props.customer.phone));
 const instrumentOk = computed(() => Boolean(props.instrument.manufacturer && props.instrument.model && props.instrument.serial_no));
-const playerOk = computed(() => Boolean((props.player.sameAsCustomer && customerOk.value) || (props.player.player_name && props.player.primary_email)));
+const normalizedAccessories = computed(() => {
+  if (!Array.isArray(props.instrument.accessories)) {
+    return [];
+  }
+  return props.instrument.accessories
+    .map((item) =>
+      item && typeof item === "object"
+        ? {
+            item_code: item.item_code || "",
+            description: item.description || "",
+            qty: item.qty || "",
+          }
+        : {
+            item_code: typeof item === "string" ? item : "",
+            description: "",
+            qty: "",
+          }
+    )
+    .filter((entry) => entry.item_code || entry.description);
+});
+const playerOk = computed(
+  () =>
+    Boolean(
+      (props.player.sameAsCustomer && customerOk.value) ||
+        (props.player.player_name && props.player.primary_email && props.player.primary_phone)
+    )
+);
 const serviceOk = computed(() => {
   let valid = true;
   if (props.service.intakeType === "New Inventory") {
@@ -191,6 +227,28 @@ watch(
 .badge--warn {
   background: #fee2e2;
   color: #b91c1c;
+}
+
+.accessory-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.accessory-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.05em;
+}
+
+.accessory-value {
+  display: block;
+  font-weight: 600;
+  color: #1e293b;
 }
 
 .alert {

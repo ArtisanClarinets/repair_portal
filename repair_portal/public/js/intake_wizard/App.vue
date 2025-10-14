@@ -193,15 +193,226 @@ const steps = [
   },
 ];
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phonePattern = /^[0-9()+\-\s]{7,}$/;
+
+function defaultCustomer() {
+  return {
+    name: null,
+    customer_name: "",
+    email: "",
+    phone: "",
+    address_line1: "",
+    address_line2: "",
+    city: "",
+    state: "",
+    pincode: "",
+    country: "United States",
+  };
+}
+
+function defaultInstrument() {
+  return {
+    manufacturer: "",
+    model: "",
+    serial_no: "",
+    instrument_category: "",
+    clarinet_type: "",
+    instrument_type: "",
+    body_material: "",
+    key_plating: "",
+    item_code: "",
+    item_name: "",
+    accessories: [],
+    brand_mapping: null,
+  };
+}
+
+function defaultPlayer() {
+  return {
+    sameAsCustomer: true,
+    player_name: "",
+    preferred_name: "",
+    primary_email: "",
+    primary_phone: "",
+    player_level: "Amateur/Hobbyist",
+    profile: null,
+  };
+}
+
+function defaultService() {
+  return {
+    intakeType: "Repair",
+    acquisition_cost: 0,
+    store_asking_price: 0,
+    issue_description: "",
+    condition_notes: "",
+    loanerRequired: false,
+    loanerInstrument: "",
+    loanerAgreement: {
+      terms_ack: false,
+      borrower_signature: "",
+      staff_signature: "",
+      linked_loaner: "",
+    },
+    intakeDetails: {},
+  };
+}
+
+function normalizeAccessory(item) {
+  if (!item) {
+    return null;
+  }
+  if (typeof item === "string") {
+    return {
+      item_code: "",
+      description: item,
+      qty: 1,
+      uom: "",
+      rate: 0,
+    };
+  }
+  const normalized = {
+    item_code: item.item_code || "",
+    description: item.description || item.label || "",
+    qty: Number.isFinite(item.qty) ? Number(item.qty) : 1,
+    uom: item.uom || "",
+    rate: Number.isFinite(item.rate) ? Number(item.rate) : 0,
+  };
+  return normalized;
+}
+
+function normalizeAccessories(accessories = []) {
+  return (Array.isArray(accessories) ? accessories : [])
+    .map((item) => normalizeAccessory(item))
+    .filter(Boolean);
+}
+
+function transformAccessoriesForIntake(accessories = []) {
+  return normalizeAccessories(accessories)
+    .filter((item) => item.item_code)
+    .map((item, index) => ({
+      doctype: "Intake Accessory Item",
+      idx: index + 1,
+      item_code: item.item_code,
+      description: item.description || undefined,
+      qty: item.qty || 1,
+      uom: item.uom || undefined,
+      rate: item.rate || 0,
+    }));
+}
+
+function computeCustomerValidityState(customer) {
+  if (!customer) return false;
+  return Boolean(
+    customer.customer_name &&
+      customer.email &&
+      emailPattern.test(customer.email) &&
+      customer.phone &&
+      phonePattern.test(customer.phone)
+  );
+}
+
+function computeInstrumentValidityState(instrument) {
+  if (!instrument) return false;
+  return Boolean(
+    instrument.manufacturer &&
+      instrument.model &&
+      instrument.serial_no &&
+      instrument.instrument_category &&
+      instrument.clarinet_type
+  );
+}
+
+function computePlayerValidityState(player, customer) {
+  if (!player) return false;
+  if (player.sameAsCustomer) {
+    return computeCustomerValidityState(customer);
+  }
+  return Boolean(
+    player.player_name &&
+      player.primary_email &&
+      emailPattern.test(player.primary_email) &&
+      player.primary_phone &&
+      phonePattern.test(player.primary_phone) &&
+      player.player_level
+  );
+}
+
+function computeServiceValidityState(service) {
+  if (!service) return false;
+  let valid = true;
+  if ((service.intakeType || "Repair") !== "New Inventory") {
+    valid = Boolean(service.issue_description);
+  }
+  if (service.loanerRequired) {
+    valid =
+      valid &&
+      Boolean(
+        service.loanerInstrument &&
+          service.loanerAgreement?.terms_ack &&
+          service.loanerAgreement?.borrower_signature &&
+          service.loanerAgreement?.staff_signature
+      );
+  }
+  return Boolean(valid);
+}
+
+function computeReviewValidityState(customer, instrument, player, service) {
+  return (
+    computeCustomerValidityState(customer) &&
+    computeInstrumentValidityState(instrument) &&
+    computePlayerValidityState(player, customer) &&
+    computeServiceValidityState(service)
+  );
+}
+
 const activeStepIndex = ref(0);
-const stepValidity = reactive({ customer: false, instrument: false, player: true, service: false, review: false });
+const stepValidity = reactive({ customer: false, instrument: false, player: false, service: false, review: false });
 const stepModels = reactive({
-  customer: {},
-  instrument: { accessories: [], brand_mapping: null },
-  player: { sameAsCustomer: true },
-  service: { loanerRequired: false, accessories: [] },
+  customer: defaultCustomer(),
+  instrument: defaultInstrument(),
+  player: defaultPlayer(),
+  service: defaultService(),
   review: {},
 });
+
+function refreshValidity(stepKey) {
+  if (stepKey === "customer") {
+    stepValidity.customer = computeCustomerValidityState(stepModels.customer);
+  } else if (stepKey === "instrument") {
+    stepValidity.instrument = computeInstrumentValidityState(stepModels.instrument);
+  } else if (stepKey === "player") {
+    stepValidity.player = computePlayerValidityState(stepModels.player, stepModels.customer);
+  } else if (stepKey === "service") {
+    stepValidity.service = computeServiceValidityState(stepModels.service);
+  } else if (stepKey === "review") {
+    stepValidity.review = computeReviewValidityState(
+      stepModels.customer,
+      stepModels.instrument,
+      stepModels.player,
+      stepModels.service
+    );
+  }
+  if (stepKey !== "review") {
+    stepValidity.review = computeReviewValidityState(
+      stepModels.customer,
+      stepModels.instrument,
+      stepModels.player,
+      stepModels.service
+    );
+  }
+}
+
+function recomputeAllStepValidity() {
+  refreshValidity("customer");
+  refreshValidity("instrument");
+  refreshValidity("player");
+  refreshValidity("service");
+  refreshValidity("review");
+}
+
+recomputeAllStepValidity();
 const sessionState = reactive({ id: null, status: "Draft" });
 const autosaveState = reactive({ status: "idle", message: "Idle", timestamp: null });
 const loadingStates = reactive({ customer: false, instrument: false, player: false, service: false, review: false });
@@ -312,6 +523,14 @@ function updateUrlSessionParam() {
 
 function updateValidity(stepKey, value) {
   stepValidity[stepKey] = value;
+  if (stepKey !== "review") {
+    stepValidity.review = computeReviewValidityState(
+      stepModels.customer,
+      stepModels.instrument,
+      stepModels.player,
+      stepModels.service
+    );
+  }
   stepModels.review = buildReviewModel();
   scheduleSave(stepKey);
 }
@@ -426,13 +645,21 @@ async function searchPlayers(query) {
 async function handlePlayerUpsert(data) {
   loadingStates.player = true;
   try {
+    const payload = {
+      ...data,
+      primary_phone: data.primary_phone,
+    };
+    if (stepModels.customer?.name) {
+      payload.customer = stepModels.customer.name;
+    }
     const response = await frappe.call({
       method: "repair_portal.intake.api.upsert_player_profile",
-      args: { payload: data },
+      args: { payload },
     });
     stepModels.player.profile = response.message.player_profile;
     updateValidity("player", true);
-    frappe.show_alert({ message: "Player profile saved", indicator: "green" });
+    const linkedName = stepModels.customer?.customer_name || "customer";
+    frappe.show_alert({ message: `Player profile synced to ${linkedName}`, indicator: "green" });
     return response.message;
   } finally {
     loadingStates.player = false;
@@ -474,29 +701,49 @@ async function submitIntake() {
   submissionState.error = null;
   submissionState.success = false;
   try {
-    const payload = {
-      customer: stepModels.customer,
-      instrument: stepModels.instrument,
-      player: stepModels.player,
-      intake: {
-        ...stepModels.instrument,
-        ...stepModels.customer,
-        ...stepModels.service.intakeDetails,
-        intake_type: stepModels.service.intakeType || "New Inventory",
-        manufacturer: stepModels.instrument.manufacturer,
-        model: stepModels.instrument.model,
-        serial_no: stepModels.instrument.serial_no,
-        item_code: stepModels.instrument.item_code || stepModels.instrument.serial_no,
-        item_name: stepModels.instrument.item_name || stepModels.instrument.model,
-        acquisition_cost: stepModels.service.acquisition_cost || 0,
-        store_asking_price: stepModels.service.store_asking_price || 0,
-        customers_stated_issue: stepModels.service.issue_description,
-        initial_assessment_notes: stepModels.service.condition_notes,
-        customer: stepModels.customer.name,
-      },
+    const customer = { ...defaultCustomer(), ...stepModels.customer };
+    const instrument = { ...defaultInstrument(), ...stepModels.instrument };
+    instrument.accessories = normalizeAccessories(instrument.accessories);
+    const player = { ...defaultPlayer(), ...stepModels.player };
+    const service = { ...defaultService(), ...stepModels.service };
+    const customerLink = customer.name;
+    if (!customerLink) {
+      throw new Error("Customer record must be saved before submission.");
+    }
+    const intakeAccessories = transformAccessoriesForIntake(instrument.accessories);
+    const intakePayload = {
+      ...service.intakeDetails,
+      intake_type: service.intakeType || service.intakeDetails?.intake_type || "New Inventory",
+      instrument_category: instrument.instrument_category,
+      manufacturer: instrument.manufacturer,
+      model: instrument.model,
+      serial_no: instrument.serial_no,
+      clarinet_type: instrument.clarinet_type,
+      body_material: instrument.body_material,
+      key_plating: instrument.key_plating,
+      item_code: instrument.item_code || instrument.serial_no || instrument.model,
+      item_name: instrument.item_name || instrument.model || instrument.serial_no,
+      acquisition_cost: Number.isFinite(service.acquisition_cost) ? Number(service.acquisition_cost) : 0,
+      store_asking_price: Number.isFinite(service.store_asking_price) ? Number(service.store_asking_price) : 0,
+      customers_stated_issue: service.issue_description,
+      initial_assessment_notes: service.condition_notes,
+      customer: customerLink,
+      customer_full_name: customer.customer_name,
+      customer_email: customer.email,
+      customer_phone: customer.phone,
+      player_profile: player.profile || undefined,
     };
-    if (stepModels.service.loanerAgreement) {
-      payload.loaner_agreement = stepModels.service.loanerAgreement;
+    if (intakeAccessories.length) {
+      intakePayload.accessory_id = intakeAccessories;
+    }
+    const payload = {
+      customer,
+      instrument,
+      player,
+      intake: intakePayload,
+    };
+    if (service.loanerAgreement && (service.loanerAgreement.borrower_signature || service.loanerAgreement.staff_signature)) {
+      payload.loaner_agreement = service.loanerAgreement;
     }
     const response = await frappe.call({
       method: "repair_portal.intake.api.create_intake",
@@ -527,15 +774,24 @@ async function loadSession(sessionId) {
     const message = response.message || {};
     sessionState.id = message.session_id;
     sessionState.status = message.status || "Draft";
-    stepModels.customer = message.customer_json || {};
-    stepModels.instrument = message.instrument_json || { accessories: [], brand_mapping: null };
-    stepModels.player = message.player_json || { sameAsCustomer: true };
-    const servicePayload = (message.intake_json && message.intake_json.service) || { loanerRequired: false };
-    stepModels.service = { ...stepModels.service, ...servicePayload };
+    const customerPayload = { ...defaultCustomer(), ...(message.customer_json || {}) };
+    const instrumentPayload = { ...defaultInstrument(), ...(message.instrument_json || {}) };
+    instrumentPayload.accessories = normalizeAccessories(instrumentPayload.accessories);
+    const playerPayload = { ...defaultPlayer(), ...(message.player_json || {}) };
+    playerPayload.sameAsCustomer = playerPayload.sameAsCustomer !== false;
+    const rawService = (message.intake_json && message.intake_json.service) || {};
+    const servicePayload = { ...defaultService(), ...rawService };
+    servicePayload.loanerAgreement = {
+      ...defaultService().loanerAgreement,
+      ...(rawService.loanerAgreement || rawService.loaner_agreement || {}),
+    };
+    servicePayload.intakeDetails = rawService.intakeDetails || servicePayload.intakeDetails || {};
+    stepModels.customer = customerPayload;
+    stepModels.instrument = instrumentPayload;
+    stepModels.player = playerPayload;
+    stepModels.service = servicePayload;
     stepModels.review = buildReviewModel();
-    Object.keys(stepValidity).forEach((key) => {
-      stepValidity[key] = key === "player" ? true : Boolean(message.last_step);
-    });
+    recomputeAllStepValidity();
     isBootstrapped.value = true;
   } catch (error) {
     console.warn("Failed to load intake session", error);
@@ -561,6 +817,13 @@ async function bootstrapSession() {
     sessionState.status = response.message.status;
     updateUrlSessionParam();
   }
+  stepModels.customer = defaultCustomer();
+  stepModels.instrument = defaultInstrument();
+  stepModels.instrument.accessories = [];
+  stepModels.player = defaultPlayer();
+  stepModels.service = defaultService();
+  stepModels.review = buildReviewModel();
+  recomputeAllStepValidity();
   isBootstrapped.value = true;
 }
 
@@ -621,6 +884,8 @@ watch(
 watch(
   () => stepModels.customer,
   () => {
+    refreshValidity("customer");
+    stepModels.review = buildReviewModel();
     scheduleSave("customer");
   },
   { deep: true }
@@ -629,6 +894,11 @@ watch(
 watch(
   () => stepModels.instrument,
   () => {
+    if (!Array.isArray(stepModels.instrument.accessories)) {
+      stepModels.instrument.accessories = [];
+    }
+    refreshValidity("instrument");
+    stepModels.review = buildReviewModel();
     scheduleSave("instrument");
   },
   { deep: true }
@@ -637,6 +907,8 @@ watch(
 watch(
   () => stepModels.player,
   () => {
+    refreshValidity("player");
+    stepModels.review = buildReviewModel();
     scheduleSave("player");
   },
   { deep: true }
@@ -645,6 +917,8 @@ watch(
 watch(
   () => stepModels.service,
   () => {
+    refreshValidity("service");
+    stepModels.review = buildReviewModel();
     scheduleSave("service");
   },
   { deep: true }
