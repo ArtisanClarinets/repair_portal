@@ -18,7 +18,6 @@
    "collapsible": 0
   },
   {
-   "default": "Player Newsletter",
    "description": "Email Group used for Player Profile newsletter subscriptions.",
    "fieldname": "newsletter_email_group",
    "fieldtype": "Link",

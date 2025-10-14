@@ -12,10 +12,20 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import now_datetime, nowdate
+from jinja2 import Environment, TemplateSyntaxError
 
 
 class ConsentTemplate(Document):
     # Events ---------------------------------------------------------------
+
+    @property
+    def template_content(self) -> str | None:  # pragma: no cover - compatibility shim
+        """Backward-compatible alias for renamed "content" field."""
+        return getattr(self, "content", None)
+
+    @template_content.setter
+    def template_content(self, value: str | None) -> None:  # pragma: no cover - compatibility shim
+        self.content = value  # type: ignore[assignment]
 
     def before_insert(self):
         """Initialize template before creation."""
@@ -37,7 +47,7 @@ class ConsentTemplate(Document):
         self._validate_usage_constraints()
         
         # Auto-generate preview if content exists
-        if self.template_content:
+        if self.content:
             self._generate_preview()
 
     def before_save(self):
@@ -93,7 +103,7 @@ class ConsentTemplate(Document):
     @frappe.whitelist()
     def preview_with_sample_data(self) -> str:
         """Generate preview with sample data for testing."""
-        if not self.template_content:
+        if not self.content:
             return _("No template content to preview")
         
         # Create sample context
@@ -101,7 +111,7 @@ class ConsentTemplate(Document):
         
         try:
             jenv = frappe.get_jenv()
-            template = jenv.from_string(self.template_content)
+            template = jenv.from_string(self.content)
             return template.render(sample_context)
         except Exception as e:
             return _("Preview generation failed: {0}").format(str(e))
@@ -180,34 +190,35 @@ class ConsentTemplate(Document):
         if not self.template_name:
             frappe.throw(_("Template Name is required"))
         
-        if not self.template_content:
+        if not self.content:
             frappe.throw(_("Template Content is required"))
 
     def _validate_template_syntax(self, return_result: bool = False) -> dict[str, Any] | None:
-        """Validate Jinja template syntax."""
-        if not self.template_content:
+        """Validate Jinja template syntax for the template content field."""
+        source = self.content or ""
+        if not source:
             if return_result:
                 return {"valid": True, "message": "No content to validate"}
             return None
-        
+
         try:
-            # Test with Frappe's Jinja environment
-            jenv = frappe.get_jenv()
-            template = jenv.from_string(self.template_content)
-            
-            # Test render with sample data
-            sample_context = self._build_sample_context()
-            template.render(sample_context)
-            
+            Environment().parse(source)
+        except TemplateSyntaxError as exc:
+            message = _(
+                "Invalid Jinja syntax in Consent Template content at line {0}: {1}"
+            ).format(exc.lineno, exc.message)
             if return_result:
-                return {"valid": True, "message": "Template syntax is valid"}
-            
-        except Exception as e:
-            error_msg = _("Template syntax error: {0}").format(str(e))
+                return {"valid": False, "message": message}
+            frappe.throw(message)
+        except Exception as exc:  # pragma: no cover - defensive guard
+            message = _("Template syntax validation failed: {0}").format(str(exc))
             if return_result:
-                return {"valid": False, "message": error_msg}
-            else:
-                frappe.throw(error_msg)
+                return {"valid": False, "message": message}
+            frappe.throw(message)
+
+        if return_result:
+            return {"valid": True, "message": _("Template syntax is valid")}
+        return None
 
     def _validate_required_fields_structure(self) -> None:
         """Validate required fields configuration."""
@@ -339,18 +350,12 @@ def validate_template_content(content: str) -> dict[str, Any]:
         return {"valid": False, "message": "No content provided"}
     
     try:
-        jenv = frappe.get_jenv()
-        template = jenv.from_string(content)
-        
-        # Test with minimal context
-        test_context = {
-            "date": nowdate(),
-            "form": {"name": "TEST"},
-            "customer_name": "Test Customer"
-        }
-        template.render(test_context)
-        
+        Environment().parse(content)
         return {"valid": True, "message": "Template syntax is valid"}
-        
-    except Exception as e:
-        return {"valid": False, "message": str(e)}
+    except TemplateSyntaxError as exc:
+        message = _(
+            "Invalid Jinja syntax in Consent Template content at line {0}: {1}"
+        ).format(exc.lineno, exc.message)
+        return {"valid": False, "message": message}
+    except Exception as exc:  # pragma: no cover - defensive guard
+        return {"valid": False, "message": str(exc)}
