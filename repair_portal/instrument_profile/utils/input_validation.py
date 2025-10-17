@@ -2,7 +2,7 @@
 # Date: 2025-01-21
 # Version: 1.0.0
 # Description: Comprehensive input validation, sanitization, and XSS protection utilities for Fortune-500 security standards
-# Dependencies: frappe, bleach, html, re, urllib.parse
+# Dependencies: frappe, bleach, html, re
 
 import frappe
 from frappe import _
@@ -191,7 +191,7 @@ class InputValidator:
         
         value = value.strip().lower()
         
-        if not frappe.utils.validate_email_address(value, throw=False):
+        if not re.match(PATTERNS['email'], value):
             raise ValidationError(f"Field '{field_name}' must be a valid email address")
         
         # Additional security checks
@@ -303,11 +303,7 @@ class InputValidator:
             raise ValidationError(f"Field '{field_name}' URL scheme not allowed")
         
         if not parsed_url.netloc:
-            raise ValidationError(f"Field '{field_name}' must include a valid host")
-        
-        disallowed_hosts = {host.lower() for host in config.get('disallowed_hosts', [])}
-        if parsed_url.hostname and parsed_url.hostname.lower() in disallowed_hosts:
-            raise ValidationError(f"Field '{field_name}' URL host is not permitted")
+            raise ValidationError(f"Field '{field_name}' must include a valid network location")
         
         return value
     
