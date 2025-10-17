@@ -2,7 +2,7 @@
 # Date: 2025-01-21
 # Version: 1.0.0
 # Description: Comprehensive input validation, sanitization, and XSS protection utilities for Fortune-500 security standards
-# Dependencies: frappe, bleach, html, re, validators
+# Dependencies: frappe, bleach, html, re, urllib.parse
 
 import frappe
 from frappe import _
@@ -12,7 +12,7 @@ import bleach
 from typing import Any, Dict, List, Optional, Union
 import json
 from datetime import datetime
-import validators
+from urllib.parse import urlparse
 
 # Security configuration
 ALLOWED_HTML_TAGS = ['b', 'i', 'u', 'strong', 'em', 'br', 'p', 'div', 'span']
@@ -191,7 +191,7 @@ class InputValidator:
         
         value = value.strip().lower()
         
-        if not validators.email(value):
+        if not frappe.utils.validate_email_address(value, throw=False):
             raise ValidationError(f"Field '{field_name}' must be a valid email address")
         
         # Additional security checks
@@ -292,15 +292,22 @@ class InputValidator:
         
         value = value.strip()
         
-        if not validators.url(value):
+        if not re.match(PATTERNS['url'], value):
             raise ValidationError(f"Field '{field_name}' must be a valid URL")
         
         # Security checks for URLs
         allowed_schemes = config.get('allowed_schemes', ['http', 'https'])
-        parsed_url = validators.utils.urlparse(value)
+        parsed_url = urlparse(value)
         
         if parsed_url.scheme not in allowed_schemes:
             raise ValidationError(f"Field '{field_name}' URL scheme not allowed")
+        
+        if not parsed_url.netloc:
+            raise ValidationError(f"Field '{field_name}' must include a valid host")
+        
+        disallowed_hosts = {host.lower() for host in config.get('disallowed_hosts', [])}
+        if parsed_url.hostname and parsed_url.hostname.lower() in disallowed_hosts:
+            raise ValidationError(f"Field '{field_name}' URL host is not permitted")
         
         return value
     
