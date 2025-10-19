@@ -311,210 +311,55 @@ function validate(show = true) {
 </script>
 
 <style scoped>
-.wizard-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+/* --- Core Section & Card Styles --- */
+.wizard-section { display: flex; flex-direction: column; gap: 2rem; }
+.section-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
+.section-header h2 { margin: 0; font-size: 1.5rem; color: #1e293b; }
+.section-hint { margin: 0.25rem 0 0; color: #64748b; max-width: 620px; }
+.card { background-color: #ffffff; border-radius: 0.75rem; border: 1px solid #e2e8f0; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+.card h3 { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1e293b; }
+.content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.field-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-}
+/* --- Status Pill Styles --- */
+.status-pill { border-radius: 999px; padding: 0.375rem 0.875rem; font-size: 0.875rem; font-weight: 500; }
+.status-pill--success { background-color: #dcfce7; color: #166534; }
+.status-pill--warning { background-color: #fef3c7; color: #b45309; }
+.status-pill--neutral { background-color: #eef2ff; color: #4338ca; }
 
-.section-hint {
-  margin: 0.25rem 0 0;
-  color: #64748b;
-  max-width: 620px;
-}
+/* --- Form Element Styles --- */
+label { display: flex; flex-direction: column; gap: 0.5rem; font-weight: 500; font-size: 0.875rem; color: #334155; }
+input, select, textarea { padding: 0.65rem 0.875rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: #ffffff; font-size: 1rem; color: #1e293b; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
+textarea { resize: vertical; min-height: 80px; }
+.field-error { margin: 0; font-size: 0.875rem; color: #dc2626; }
+.has-error input, .has-error textarea { border-color: #fca5a5; }
 
-.status-cluster {
-  display: flex;
-  gap: 0.5rem;
-}
+/* --- Special Components --- */
+.callout { background-color: #f0f9ff; color: #075985; padding: 1rem; border-radius: 0.5rem; border: 1px solid #bae6fd; margin: 0; }
+.char-count { font-size: 0.875rem; color: #94a3b8; text-align: right; }
+.checkbox { display: inline-flex; align-items: center; gap: 0.75rem; font-weight: 500; }
 
-.status-pill {
-  border-radius: 999px;
-  padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: #e2e8f0;
-  color: #475569;
-}
-
-.status-pill--success {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.status-pill--warning {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.status-pill--neutral {
-  background: #e0f2fe;
-  color: #0369a1;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-}
-
-.card {
-  background: #f8fafc;
-  border-radius: 1rem;
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.card h3 {
-  margin: 0;
-  font-size: 1rem;
-}
-
-.field-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-
-input,
-select,
-textarea {
-  padding: 0.6rem 0.85rem;
-  border-radius: 0.75rem;
-  border: 1px solid #cbd5f5;
-  font-size: 0.95rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-textarea {
-  resize: vertical;
-}
-
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-}
-
-.field-error {
-  margin: 0;
-  font-size: 0.8rem;
-  color: #b91c1c;
-}
-
-.has-error input,
-.has-error textarea {
-  border-color: #f87171;
-}
-
-.callout {
-  background: #fff7ed;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  margin: 0;
-  color: #7c2d12;
-}
-
-.char-count {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  text-align: right;
-}
-
-.loaner-card {
-  background: #fff;
-}
-
-.loaner-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-
-.checkbox {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-weight: 600;
-}
-
-.loaner-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.loaner-toolbar {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.secondary {
-  border: 1px solid #cbd5f5;
-  padding: 0.5rem 1rem;
-  border-radius: 0.75rem;
-  background: transparent;
-  cursor: pointer;
-  font-weight: 600;
-  color: #1e3a8a;
-}
-
-.loaner-count {
-  font-size: 0.85rem;
-  color: #64748b;
-}
-
-.loaner-preview {
-  background: #f8fafc;
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  color: #475569;
-}
-
+/* --- Loaner Section --- */
+.loaner-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.loaner-body { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; }
+.loaner-toolbar { display: flex; gap: 1rem; align-items: center; }
+.loaner-count { font-size: 0.875rem; color: #64748b; }
+.loaner-preview { background-color: #f8fafc; border-radius: 0.5rem; padding: 1rem; color: #475569; border: 1px solid #e2e8f0; }
 .loaner-agreement {
   display: grid;
-  gap: 0.75rem;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: start;
 }
+.signature-field { min-width: 0; }
+.signature-field :deep(.signature-pad) { width: 100%; }
+.signature-field.has-error :deep(.pad-wrapper) { border-color: #fca5a5; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2); }
 
-.signature-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+/* --- Shared Button Styles --- */
+.secondary { border: 1px solid #cbd5e1; padding: 0.65rem 1rem; border-radius: 0.5rem; background-color: #ffffff; cursor: pointer; font-weight: 600; color: #334155; }
 
-.signature-field.has-error .pad-wrapper {
-  border-color: #f87171;
-  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.25);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+/* --- Transitions --- */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(-10px); }
 </style>
