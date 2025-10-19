@@ -294,47 +294,26 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.signature-pad {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.signature-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.signature-label {
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.signature-instruction {
-  font-size: 0.8rem;
-  color: #64748b;
-}
+.signature-pad { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; }
+.signature-header { display: flex; flex-direction: column; }
+.signature-label { font-weight: 500; font-size: 0.875rem; color: #334155; }
+.signature-instruction { font-size: 0.875rem; color: #64748b; }
 
 .pad-wrapper {
   position: relative;
-  border: 1px dashed #cbd5f5;
-  border-radius: 0.75rem;
-  background: #fff;
-  height: 200px;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  height: 180px;
   overflow: hidden;
-}
-
-.pad-wrapper--empty {
-  background: #f8fafc;
-}
-
-.pad-canvas {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
-  height: 100%;
-  touch-action: none;
-  cursor: crosshair;
+  max-width: 100%;
 }
+.pad-wrapper:has(:focus-visible) { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
+.pad-wrapper--empty { background-color: #f8fafc; }
+
+.pad-canvas { width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
 
 .pad-placeholder {
   position: absolute;
@@ -343,88 +322,24 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   color: #94a3b8;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   pointer-events: none;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
 }
 
-.pad-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
+.pad-controls { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.pad-controls .secondary { border: 1px solid #cbd5e1; background-color: #ffffff; color: #334155; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-weight: 600; }
+.pad-controls .secondary:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.pad-controls .secondary {
-  border: 1px solid #cbd5f5;
-  background: #fff;
-  color: #1d4ed8;
-  padding: 0.5rem 1rem;
-  border-radius: 0.65rem;
-  cursor: pointer;
-}
+.upload-label { position: relative; display: inline-flex; align-items: center; padding: 0.5rem 1rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; background-color: #f8fafc; color: #334155; cursor: pointer; font-weight: 600; }
+.upload-label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.size-hint { font-size: 0.8rem; color: #94a3b8; }
 
-.pad-controls .secondary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.signature-error { margin: 0; font-size: 0.875rem; color: #dc2626; }
+.signature-preview { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-start; }
+.signature-preview img { max-width: 280px; max-height: 100px; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #ffffff; padding: 0.25rem; }
+.signature-preview figcaption { font-size: 0.8rem; color: #94a3b8; }
 
-.upload-label {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #cbd5f5;
-  border-radius: 0.65rem;
-  background: #f8fafc;
-  color: #334155;
-  cursor: pointer;
-}
-
-.upload-label input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.size-hint {
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
-
-.signature-error {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #b91c1c;
-}
-
-.signature-preview {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-start;
-}
-
-.signature-preview img {
-  max-width: 320px;
-  max-height: 120px;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  background: #fff;
-  padding: 0.5rem;
-}
-
-.signature-preview figcaption {
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
-
-.is-disabled {
-  opacity: 0.6;
-  pointer-events: none;
-}
+.is-disabled { opacity: 0.6; pointer-events: none; }
 </style>
