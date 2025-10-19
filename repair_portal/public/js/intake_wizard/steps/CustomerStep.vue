@@ -285,17 +285,24 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* --- Core Section & Card Styles --- */
 .wizard-section {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 1.5rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1e293b;
 }
 
 .section-hint {
@@ -304,104 +311,106 @@ onMounted(() => {
   max-width: 620px;
 }
 
-.status-cluster {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.status-pill {
-  border-radius: 999px;
-  padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.status-pill.success {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.status-pill.neutral {
-  background: #e2e8f0;
-  color: #475569;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-}
-
 .card {
-  background: #f8fafc;
-  border-radius: 1rem;
-  padding: 1.25rem;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  gap: 1.25rem;
 }
 
 .card h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
 .field-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
 }
 
+/* --- Form Element Styles --- */
 label {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-
-label span {
-  color: #0f172a;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #334155;
 }
 
 input {
-  padding: 0.6rem 0.85rem;
-  border-radius: 0.75rem;
-  border: 1px solid #cbd5f5;
-  font-size: 0.95rem;
+  padding: 0.65rem 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  font-size: 1rem;
+  color: #1e293b;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus-visible {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
 .field-hint {
   font-weight: 400;
-  color: #94a3b8;
+  font-size: 0.875rem;
+  color: #64748b;
 }
 
 .field-error {
   margin: 0;
-  font-size: 0.8rem;
-  color: #b91c1c;
+  font-size: 0.875rem;
+  color: #dc2626;
 }
 
 .has-error input {
-  border-color: #f87171;
+  border-color: #fca5a5;
+  background-color: #fef2f2;
+}
+.has-error input:focus-visible {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+/* --- Status & Lookup Styles --- */
+.status-pill {
+  border-radius: 999px;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.status-pill.success {
+  background-color: #dcfce7;
+  color: #166534;
+}
+.status-pill.neutral {
+  background-color: #f1f5f9;
+  color: #475569;
 }
 
 .lookup-card {
-  position: relative;
+  background-color: #f8fafc; /* Subtle background for lookup */
 }
 
 .lookup-hint {
   margin: 0;
   color: #64748b;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
 }
 
 .search-control {
@@ -414,111 +423,118 @@ input:focus-visible {
 
 .loader {
   position: absolute;
-  right: 0.75rem;
+  right: 0.875rem;
   top: 50%;
-  width: 1rem;
-  height: 1rem;
-  margin-top: -0.5rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: -0.5625rem;
   border-radius: 50%;
-  border: 2px solid #cbd5f5;
-  border-top-color: #2563eb;
-  animation: spin 0.9s linear infinite;
+  border: 2px solid #cbd5e1;
+  border-top-color: #4f46e5;
+  animation: spin 0.8s linear infinite;
 }
+
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .search-results {
   list-style: none;
   padding: 0;
-  margin: 1rem 0 0;
+  margin: 0.5rem 0 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .result-button {
-  border: 1px solid #cbd5f5;
-  border-radius: 0.75rem;
-  padding: 0.75rem;
-  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.875rem;
+  background-color: #ffffff;
   cursor: pointer;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.35rem;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
   text-align: left;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .result-button:hover {
-  border-color: #2563eb;
+  border-color: #4f46e5;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .result-main {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .result-name {
   font-weight: 600;
+  color: #1e293b;
 }
 
 .result-meta {
   color: #64748b;
   font-size: 0.8rem;
+  background-color: #f1f5f9;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
 }
 
 .result-secondary {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: #475569;
 }
 
 .lookup-empty {
   margin: 0;
-  font-size: 0.85rem;
-  color: #94a3b8;
+  font-size: 0.875rem;
+  color: #64748b;
+  text-align: center;
+  padding: 1rem;
+  background-color: #f1f5f9;
+  border-radius: 0.5rem;
 }
 
-.address-card {
-  background: #fff7ed;
-}
-
+/* --- Actions Footer --- */
 .actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  margin-top: 1rem; /* Add some space above actions */
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
 }
 
+/* --- Shared Button Styles from App.vue are assumed --- */
 .primary,
 .secondary {
-  border-radius: 0.75rem;
-  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.25rem;
   font-size: 0.95rem;
   cursor: pointer;
   font-weight: 600;
 }
 
 .primary {
-  background: #2563eb;
-  border: none;
-  color: #fff;
+  background-color: #4f46e5;
+  color: #ffffff;
+  border: 1px solid #4f46e5;
 }
-
 .primary[disabled] {
-  background: #93c5fd;
+  background-color: #a5b4fc;
+  border-color: #a5b4fc;
   cursor: not-allowed;
 }
 
 .secondary {
-  background: transparent;
-  border: 1px solid #cbd5f5;
-  color: #1e3a8a;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
 }
 </style>

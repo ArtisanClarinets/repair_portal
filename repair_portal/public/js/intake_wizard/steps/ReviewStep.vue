@@ -153,121 +153,33 @@ watch(
 </script>
 
 <style scoped>
-.wizard-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+/* --- Core Section & Card Styles --- */
+.wizard-section { display: flex; flex-direction: column; gap: 2rem; }
+.section-header { display: flex; justify-content: space-between; align-items: center; }
+.section-header h2 { margin: 0; font-size: 1.5rem; color: #1e293b; }
+.section-hint { margin: 0.25rem 0 0; color: #64748b; }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/* --- Status & Badge Styles --- */
+.status-pill { border-radius: 999px; padding: 0.375rem 0.875rem; font-size: 0.875rem; font-weight: 500; }
+.status-pill--ready { background-color: #dcfce7; color: #166534; }
+.status-pill--warning { background-color: #fef3c7; color: #b45309; }
+.badge { border-radius: 999px; padding: 0.25rem 0.65rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+.badge--ok { background-color: #dcfce7; color: #166534; }
+.badge--warn { background-color: #fee2e2; color: #b91c1c; }
 
-.section-hint {
-  margin: 0.25rem 0 0;
-  color: #64748b;
-}
+/* --- Summary Layout --- */
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+.summary-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.summary-card header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 0.75rem; border-bottom: 1px solid #e2e8f0; }
+.summary-card h3 { margin: 0; font-size: 1.125rem; font-weight: 600; }
+.summary-card p { margin: 0; color: #475569; line-height: 1.6; }
+.summary-card p strong { color: #1e293b; font-weight: 600; }
 
-.status-pill {
-  border-radius: 999px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: #fef3c7;
-  color: #92400e;
-}
+/* --- Accessory List in Review --- */
+.accessory-list { list-style: none; margin: 0.5rem 0 0; padding-top: 0.75rem; border-top: 1px dashed #cbd5e1; display: flex; flex-direction: column; gap: 0.5rem; }
+.accessory-label { font-size: 0.8rem; text-transform: uppercase; color: #64748b; font-weight: 500; }
+.accessory-value { display: block; font-weight: 500; color: #1e293b; }
 
-.status-pill--ready {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-.summary-card {
-  background: #f8fafc;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  box-shadow: inset 0 1px 0 #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.summary-card header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.summary-card h3 {
-  margin: 0;
-  font-size: 1rem;
-}
-
-.badge {
-  border-radius: 999px;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.badge--ok {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.badge--warn {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-.accessory-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.accessory-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: #64748b;
-  letter-spacing: 0.05em;
-}
-
-.accessory-value {
-  display: block;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.alert {
-  background: #fef3c7;
-  border-left: 4px solid #f59e0b;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-}
-
-.section-hint,
-.summary-card p,
-.summary-card ul {
-  color: #475569;
-}
-
-.summary-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0.9rem;
-}
+/* --- Alert Box --- */
+.alert { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 1rem 1.25rem; border-radius: 0.5rem; color: #92400e; }
 </style>
