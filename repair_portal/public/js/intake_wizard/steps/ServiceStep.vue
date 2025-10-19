@@ -316,6 +316,7 @@ function validate(show = true) {
 .section-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
 .section-header h2 { margin: 0; font-size: 1.5rem; color: #1e293b; }
 .section-hint { margin: 0.25rem 0 0; color: #64748b; max-width: 620px; }
+.status-cluster { display: inline-flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
 .card { background-color: #ffffff; border-radius: 0.75rem; border: 1px solid #e2e8f0; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
 .card h3 { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1e293b; }
 .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
@@ -342,18 +343,22 @@ textarea { resize: vertical; min-height: 80px; }
 
 /* --- Loaner Section --- */
 .loaner-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
-.loaner-body { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; }
-.loaner-toolbar { display: flex; gap: 1rem; align-items: center; }
+.loaner-body { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; max-width: 100%; }
+.loaner-toolbar { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
 .loaner-count { font-size: 0.875rem; color: #64748b; }
-.loaner-preview { background-color: #f8fafc; border-radius: 0.5rem; padding: 1rem; color: #475569; border: 1px solid #e2e8f0; }
+.loaner-preview { background-color: #f8fafc; border-radius: 0.5rem; padding: 1rem; color: #475569; border: 1px solid #e2e8f0; word-break: break-word; }
 .loaner-agreement {
   display: grid;
   gap: 1.25rem;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   align-items: start;
+  max-width: 100%;
 }
+.loaner-agreement > * { min-width: 0; }
 .signature-field { min-width: 0; }
 .signature-field :deep(.signature-pad) { width: 100%; }
+.signature-field :deep(.pad-wrapper) { width: 100%; max-width: 100%; }
+.signature-field :deep(canvas) { width: 100% !important; }
 .signature-field.has-error :deep(.pad-wrapper) { border-color: #fca5a5; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2); }
 
 /* --- Shared Button Styles --- */

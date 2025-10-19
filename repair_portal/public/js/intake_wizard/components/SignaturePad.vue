@@ -294,7 +294,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.signature-pad { display: flex; flex-direction: column; gap: 0.75rem; }
+.signature-pad { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; }
 .signature-header { display: flex; flex-direction: column; }
 .signature-label { font-weight: 500; font-size: 0.875rem; color: #334155; }
 .signature-instruction { font-size: 0.875rem; color: #64748b; }
@@ -307,6 +307,8 @@ onBeforeUnmount(() => {
   height: 180px;
   overflow: hidden;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 100%;
 }
 .pad-wrapper:has(:focus-visible) { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
 .pad-wrapper--empty { background-color: #f8fafc; }

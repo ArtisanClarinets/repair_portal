@@ -506,6 +506,13 @@ onBeforeUnmount(() => {
   gap: 1.5rem;
 }
 
+.status-cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .section-header h2 { margin: 0; font-size: 1.5rem; color: #1e293b; }
 
 .section-hint {
