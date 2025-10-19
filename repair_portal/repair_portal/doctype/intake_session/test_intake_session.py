@@ -7,6 +7,7 @@ from frappe.tests.utils import FrappeTestCase
 from frappe.utils import add_days, today
 
 from repair_portal.intake.tasks import cleanup_intake_sessions
+from repair_portal.intake.doctype.intake_session.intake_session import _get_session_ttl_days
 
 
 class TestIntakeSession(FrappeTestCase):
@@ -82,3 +83,12 @@ class TestIntakeSession(FrappeTestCase):
         deleted = cleanup_intake_sessions()
         self.assertGreaterEqual(deleted, 1)
         self.assertFalse(frappe.db.exists("Intake Session", doc.name))
+
+    def test_validate_restores_minimum_expiry(self) -> None:
+        doc = self._new_session()
+        frappe.db.set_value("Intake Session", doc.name, "expires_on", add_days(today(), -5))
+        doc.reload()
+        doc.save()
+        doc.reload()
+        expected = add_days(today(), _get_session_ttl_days())
+        self.assertEqual(doc.expires_on, expected)

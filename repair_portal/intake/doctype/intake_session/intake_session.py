@@ -110,7 +110,7 @@ class IntakeSession(Document):
             self.expires_on = add_days(today(), ttl_days)
         else:
             expires = _ensure_date(self.expires_on)
-            minimum = add_days(today(), 1)
+            minimum = _ensure_date(add_days(today(), 1))
             if expires < minimum:
                 self.expires_on = add_days(today(), ttl_days)
 
