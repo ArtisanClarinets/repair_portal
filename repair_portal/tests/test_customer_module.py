@@ -10,6 +10,8 @@ from frappe.model.document import Document
 from frappe.tests.utils import FrappeTestCase
 from frappe.utils import random_string
 
+from repair_portal.customer.doctype.customer_type.customer_type import CustomerType
+
 
 class TestCustomerModule(FrappeTestCase):
     """Database-backed tests for Customer module DocTypes."""
@@ -77,6 +79,35 @@ class TestCustomerModule(FrappeTestCase):
             frappe.get_doc("Customer Type", alternate.name).get_default_customer_type(),
             alternate.name,
         )
+
+    def test_customer_type_cache_cleared_on_label_change(self) -> None:
+        """Renaming the displayed label should drop cached listings."""
+        customer_type = self._create_customer_type()
+        cache_key = f"customer_type_{customer_type.name}"
+        frappe.cache().set_value(cache_key, "stale")
+
+        customer_type.type_name = f"Renamed {random_string(6)}"
+        customer_type.save(ignore_permissions=True)
+
+        self.assertIsNone(frappe.cache().get_value(cache_key))
+
+    def test_get_active_customer_types_reflects_label_updates(self) -> None:
+        """Active customer type listings should include the latest label."""
+        customer_type = self._create_customer_type()
+
+        updated_label = f"Updated {random_string(6)}"
+        customer_type.type_name = updated_label
+        customer_type.save(ignore_permissions=True)
+
+        active_types = CustomerType.get_active_customer_types()
+        matching = next(
+            (row for row in active_types if row["name"] == customer_type.name),
+            None,
+        )
+
+        self.assertIsNotNone(matching, "Updated customer type not returned in active list")
+        assert matching is not None  # For type checkers
+        self.assertEqual(matching["type_name"], updated_label)
 
 
 if __name__ == "__main__":
