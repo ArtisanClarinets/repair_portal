@@ -34,7 +34,7 @@ except Exception:
 
 @frappe.whitelist()
 def generate_shooting_kit_preview(
-    aruco_dict: str = 'DICT_4X4_50',
+    aruco_dict: str = "DICT_4X4_50",
     marker_length_mm: float = 50.0,
     pad_diameter_mm: float = 10.0,  # kept for future use/URL parity
     docname: str | None = None,
@@ -42,23 +42,19 @@ def generate_shooting_kit_preview(
     """Return a downloadable PDF Shooting Kit (works before saving the DocType)."""
     if not HAS_CV2:
         frappe.throw(
-            _(
-                'OpenCV (contrib) is required to generate the ArUco marker (package: opencv-contrib-python).'
-            )
+            _("OpenCV (contrib) is required to generate the ArUco marker (package: opencv-contrib-python).")
         )
     if not HAS_REPORTLAB:
-        frappe.throw(_('ReportLab is required to create PDFs (package: reportlab).'))
+        frappe.throw(_("ReportLab is required to create PDFs (package: reportlab)."))
 
     marker_png = _make_aruco_png_bytes(aruco_dict=aruco_dict, side_px=1200)
-    pdf_bytes = _build_marker_pdf(
-        marker_png, float(marker_length_mm), str(aruco_dict), str(docname or 'New')
-    )
+    pdf_bytes = _build_marker_pdf(marker_png, float(marker_length_mm), str(aruco_dict), str(docname or "New"))
 
-    filename = f"Pad-Shooting-Kit-{(docname or 'New')}.pdf".replace('/', '-')
+    filename = f"Pad-Shooting-Kit-{(docname or 'New')}.pdf".replace("/", "-")
     frappe.local.response.filename = filename
     frappe.local.response.filecontent = pdf_bytes
-    frappe.local.response.type = 'download'
-    frappe.local.response.display_content_as = 'attachment'
+    frappe.local.response.type = "download"
+    frappe.local.response.display_content_as = "attachment"
     return
 
 
@@ -66,17 +62,17 @@ def generate_shooting_kit_preview(
 
 
 def _make_aruco_png_bytes(aruco_dict: str, side_px: int = 1200) -> bytes:
-    if not HAS_CV2 or not hasattr(cv2, 'aruco'):
-        raise RuntimeError('OpenCV contrib (cv2.aruco) not available.')
+    if not HAS_CV2 or not hasattr(cv2, "aruco"):
+        raise RuntimeError("OpenCV contrib (cv2.aruco) not available.")
     aruco = cv2.aruco
     dict_map = {
-        'DICT_4X4_50': aruco.DICT_4X4_50,
-        'DICT_4X4_100': aruco.DICT_4X4_100,
-        'DICT_5X5_50': aruco.DICT_5X5_50,
-        'DICT_5X5_100': aruco.DICT_5X5_100,
-        'DICT_6X6_50': aruco.DICT_6X6_50,
-        'DICT_6X6_100': aruco.DICT_6X6_100,
-        'DICT_APRILTAG_36h11': aruco.DICT_APRILTAG_36h11,
+        "DICT_4X4_50": aruco.DICT_4X4_50,
+        "DICT_4X4_100": aruco.DICT_4X4_100,
+        "DICT_5X5_50": aruco.DICT_5X5_50,
+        "DICT_5X5_100": aruco.DICT_5X5_100,
+        "DICT_6X6_50": aruco.DICT_6X6_50,
+        "DICT_6X6_100": aruco.DICT_6X6_100,
+        "DICT_APRILTAG_36h11": aruco.DICT_APRILTAG_36h11,
     }
     dkey = dict_map.get(aruco_dict, aruco.DICT_4X4_50)
     adict = aruco.getPredefinedDictionary(dkey)
@@ -85,9 +81,9 @@ def _make_aruco_png_bytes(aruco_dict: str, side_px: int = 1200) -> bytes:
     border = int(0.1 * side_px)
     canvas_img = 255 * np.ones((side_px + 2 * border, side_px + 2 * border), dtype=np.uint8)
     canvas_img[border : border + side_px, border : border + side_px] = img
-    ok, buf = cv2.imencode('.png', canvas_img)
+    ok, buf = cv2.imencode(".png", canvas_img)
     if not ok:
-        raise RuntimeError('Failed to encode ArUco PNG.')
+        raise RuntimeError("Failed to encode ArUco PNG.")
     return buf.tobytes()
 
 
@@ -101,7 +97,7 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
     All sizes in true millimeters; print at 100%.
     """
     if not HAS_REPORTLAB:
-        raise RuntimeError('ReportLab not available.')
+        raise RuntimeError("ReportLab not available.")
     buf = io.BytesIO()
 
     def draw_single_page(c, pagesize, label):
@@ -122,44 +118,44 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
         content_h = content_top - content_bottom
 
         # header
-        c.setTitle(f'Pad Shooting Kit: {docname}')
-        c.setFont('Helvetica-Bold', 16)
-        c.drawString(m, page_h - m - 12, f'Clarinet Pad Shooting Kit ({label})')
-        c.setFont('Helvetica', 10)
+        c.setTitle(f"Pad Shooting Kit: {docname}")
+        c.setFont("Helvetica-Bold", 16)
+        c.drawString(m, page_h - m - 12, f"Clarinet Pad Shooting Kit ({label})")
+        c.setFont("Helvetica", 10)
         c.drawString(
             m,
             page_h - m - 28,
-            f'Document: {docname}   |   ArUco: {aruco_dict}   |   Marker Side: {int(marker_mm)} mm',
+            f"Document: {docname}   |   ArUco: {aruco_dict}   |   Marker Side: {int(marker_mm)} mm",
         )
 
         # left column text
         x = m
         y = content_top
-        c.setFont('Helvetica-Bold', 12)
-        c.drawString(x, y, 'Step-by-Step: How to Use the Marker Grid')
+        c.setFont("Helvetica-Bold", 12)
+        c.drawString(x, y, "Step-by-Step: How to Use the Marker Grid")
         y -= 16
 
         steps = [
             "Print this kit at 100% scale (no 'Fit to Page').",
-            'Verify the 100 mm ruler on this page matches a real ruler.',
-            'Cut out a marker (from the grid page) and tape it on a dark, matte surface.',
-            'Arrange pads with ≥ 1/2 pad gap; keep the marker flat on the same plane.',
-            'Take a top-down photo (camera parallel), no glare/blur; shortest side ≥ 2000 px.',
+            "Verify the 100 mm ruler on this page matches a real ruler.",
+            "Cut out a marker (from the grid page) and tape it on a dark, matte surface.",
+            "Arrange pads with ≥ 1/2 pad gap; keep the marker flat on the same plane.",
+            "Take a top-down photo (camera parallel), no glare/blur; shortest side ≥ 2000 px.",
             "Upload the photo in Pad Count Intake → Photo, then click 'Process Image'.",
-            'Review the annotated preview; approve or adjust the final count; Update Inventory.',
+            "Review the annotated preview; approve or adjust the final count; Update Inventory.",
         ]
         y = _draw_bulleted(c, steps, x, y, left_w, number=True, leading=13)
         y -= 6
 
-        c.setFont('Helvetica-Bold', 10)
-        c.drawString(x, y, 'Tips:')
+        c.setFont("Helvetica-Bold", 10)
+        c.drawString(x, y, "Tips:")
         y -= 12
         tips = [
-            'One marker is enough; two at opposite corners improve reliability.',
-            'Keep printed markers clean and flat. Re-print if worn or curled.',
+            "One marker is enough; two at opposite corners improve reliability.",
+            "Keep printed markers clean and flat. Re-print if worn or curled.",
             "If the printed ruler isn't exactly 100 mm, re-print at 100% scale.",
         ]
-        y = _draw_bulleted(c, tips, x, y, left_w, bullet='•', leading=13)
+        y = _draw_bulleted(c, tips, x, y, left_w, bullet="•", leading=13)
 
         # right column visuals
         marker_pts = marker_mm * mm
@@ -187,15 +183,15 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
             mrk_y,
             width=marker_pts,
             height=marker_pts,
-            mask='auto',
+            mask="auto",
         )
 
         # ✅ Ruler block (now inside function; has access to page/right geometry and mrk_y)
         r_len = 100 * mm
         r_x = right_x + (right_w - r_len) / 2.0
         r_y = mrk_y - (ruler_block_h + 4 * mm)
-        c.setFont('Helvetica', 9)
-        c.drawString(r_x, r_y + 12 * mm, 'Ruler: 100 mm')
+        c.setFont("Helvetica", 9)
+        c.drawString(r_x, r_y + 12 * mm, "Ruler: 100 mm")
         c.line(r_x, r_y, r_x + r_len, r_y)
         for i in range(0, 101, 10):
             x_tick = r_x + i * mm
@@ -203,8 +199,8 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
             c.line(x_tick, r_y, x_tick, r_y + tick_h)
             c.drawString(x_tick - 6 * mm, r_y - 4 * mm, str(i))
 
-        c.setFont('Helvetica-Oblique', 9)
-        c.drawString(m, m, 'Print at 100% scale. Keep this sheet flat when shooting.')
+        c.setFont("Helvetica-Oblique", 9)
+        c.drawString(m, m, "Print at 100% scale. Keep this sheet flat when shooting.")
         c.showPage()
 
     def draw_grid_page(c, pagesize, label, rows=3, cols=3):
@@ -219,8 +215,8 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
         content_top = page_h - m - header_h
         content_bottom = m + footer_h + 22 * mm
 
-        c.setFont('Helvetica-Bold', 14)
-        c.drawString(m, page_h - m - 12, f'Pad Shooting Kit Multi-Marker Grid ({label})')
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(m, page_h - m - 12, f"Pad Shooting Kit Multi-Marker Grid ({label})")
 
         avail_w = page_w - 2 * m
         avail_h = content_top - content_bottom
@@ -235,7 +231,7 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
                 x = m + col * cell_w + (cell_w - side) / 2.0
                 y = content_top - (r + 1) * cell_h + (cell_h - side) / 2.0
                 c.rect(x - 1, y - 1, side + 2, side + 2, stroke=1, fill=0)
-                c.drawImage(IR, x, y, width=side, height=side, mask='auto')
+                c.drawImage(IR, x, y, width=side, height=side, mask="auto")
                 if r == 0 and col == 0:
                     tl_x, tl_y = x, y
 
@@ -247,8 +243,8 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
         mini_x = m
         if mini_x + mini_len > page_w - m:
             mini_x = m + (avail_w - mini_len) / 2.0
-        c.setFont('Helvetica', 8)
-        c.drawString(mini_x, text_y, 'Mini Ruler: 50 mm')
+        c.setFont("Helvetica", 8)
+        c.drawString(mini_x, text_y, "Mini Ruler: 50 mm")
         c.line(mini_x, mini_y, mini_x + mini_len, mini_y)
         from reportlab.pdfbase.pdfmetrics import stringWidth
 
@@ -257,15 +253,15 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
             tick_h = (4 * mm) if (i % 50) else (7 * mm)
             c.line(x_tick, mini_y, x_tick, mini_y + tick_h)
             lbl = str(i)
-            lbl_w = stringWidth(lbl, 'Helvetica', 8)
+            lbl_w = stringWidth(lbl, "Helvetica", 8)
             c.drawString(x_tick - (lbl_w / 2.0), mini_y - 4 * mm, lbl)
 
         # bottom 100 mm ruler
         r_len = 100 * mm
         r_x = (page_w - r_len) / 2.0
         r_y = m + 22 * mm
-        c.setFont('Helvetica', 9)
-        c.drawString(r_x, r_y + 12 * mm, 'Ruler: 100 mm')
+        c.setFont("Helvetica", 9)
+        c.drawString(r_x, r_y + 12 * mm, "Ruler: 100 mm")
         c.line(r_x, r_y, r_x + r_len, r_y)
         for i in range(0, 101, 10):
             x_tick = r_x + i * mm
@@ -273,25 +269,23 @@ def _build_marker_pdf(marker_png: bytes, marker_mm: float, aruco_dict: str, docn
             c.line(x_tick, r_y, x_tick, r_y + tick_h)
             c.drawString(x_tick - 6 * mm, r_y - 4 * mm, str(i))
 
-        c.setFont('Helvetica-Oblique', 9)
-        c.drawString(m, m, f'Grid layout {rows}x{cols} ({label}). Print at 100%.')
+        c.setFont("Helvetica-Oblique", 9)
+        c.drawString(m, m, f"Grid layout {rows}x{cols} ({label}). Print at 100%.")
         c.showPage()
 
     c = canvas.Canvas(buf, pagesize=A4)
-    draw_single_page(c, A4, 'A4 Single')
-    draw_grid_page(c, A4, 'A4 Grid')
+    draw_single_page(c, A4, "A4 Single")
+    draw_grid_page(c, A4, "A4 Grid")
     c.save()
     return buf.getvalue()
 
 
-def _build_marker_pdf_compact(
-    marker_png: bytes, marker_mm: float, aruco_dict: str, docname: str
-) -> bytes:
+def _build_marker_pdf_compact(marker_png: bytes, marker_mm: float, aruco_dict: str, docname: str) -> bytes:
     """Compact one-page PDF variant for quick printing: smaller fonts, truncated header.
     Useful for diagnostics and compact printouts where full instruction text is not needed.
     """
     if not HAS_REPORTLAB:
-        raise RuntimeError('ReportLab not available.')
+        raise RuntimeError("ReportLab not available.")
     buf = io.BytesIO()
     page = A4
     page_w, page_h = page
@@ -299,13 +293,13 @@ def _build_marker_pdf_compact(
 
     m = 12 * mm
     # header (compact)
-    c.setFont('Helvetica-Bold', 12)
-    short_name = (docname or '').strip()
+    c.setFont("Helvetica-Bold", 12)
+    short_name = (docname or "").strip()
     if len(short_name) > 40:
-        short_name = short_name[:37] + '...'
-    c.drawString(m, page_h - m - 8, f'Pad Shooting Kit (Compact) — {short_name}')
-    c.setFont('Helvetica', 8)
-    c.drawString(m, page_h - m - 20, f'ArUco: {aruco_dict}   |   Marker: {int(marker_mm)} mm')
+        short_name = short_name[:37] + "..."
+    c.drawString(m, page_h - m - 8, f"Pad Shooting Kit (Compact) — {short_name}")
+    c.setFont("Helvetica", 8)
+    c.drawString(m, page_h - m - 20, f"ArUco: {aruco_dict}   |   Marker: {int(marker_mm)} mm")
 
     # marker preview (compact, top-left)
     try:
@@ -317,32 +311,32 @@ def _build_marker_pdf_compact(
     img_x = m
     img_y = page_h - m - 20 - marker_side - 6 * mm
     if img_reader:
-        c.drawImage(img_reader, img_x, img_y, width=marker_side, height=marker_side, mask='auto')
+        c.drawImage(img_reader, img_x, img_y, width=marker_side, height=marker_side, mask="auto")
     else:
         c.rect(img_x, img_y, marker_side, marker_side)
 
     # small bullet points
     bullets = [
-        'Print at 100% (no fit-to-page).',
-        'Place marker on matte dark background.',
-        'Top-down shot; avoid glare/blur.',
-        'Use the grid page for extra markers if needed.',
+        "Print at 100% (no fit-to-page).",
+        "Place marker on matte dark background.",
+        "Top-down shot; avoid glare/blur.",
+        "Use the grid page for extra markers if needed.",
     ]
     tx = img_x + marker_side + 8 * mm
     ty = page_h - m - 30
-    c.setFont('Helvetica', 9)
+    c.setFont("Helvetica", 9)
     leading = 11
     for b in bullets:
-        c.drawString(tx, ty, f'• {b}')
+        c.drawString(tx, ty, f"• {b}")
         ty -= leading
 
     # compact 100mm ruler at bottom
     r_len = 100 * mm
     r_x = (page_w - r_len) / 2.0
     r_y = m + 18 * mm
-    c.setFont('Helvetica', 8)
+    c.setFont("Helvetica", 8)
     # raise legend slightly to add breathing room above the ruler
-    c.drawString(r_x, r_y + 10 * mm, 'Ruler: 100 mm')
+    c.drawString(r_x, r_y + 10 * mm, "Ruler: 100 mm")
     c.line(r_x, r_y, r_x + r_len, r_y)
     for i in range(0, 101, 10):
         x_tick = r_x + i * mm
@@ -350,10 +344,8 @@ def _build_marker_pdf_compact(
         c.line(x_tick, r_y, x_tick, r_y + tick_h)
         c.drawString(x_tick - 4 * mm, r_y - 4 * mm, str(i))
 
-    c.setFont('Helvetica-Oblique', 8)
-    c.drawString(
-        m, m, 'Compact variant: for quick print/diagnostics. Full kit available in main PDF.'
-    )
+    c.setFont("Helvetica-Oblique", 8)
+    c.drawString(m, m, "Compact variant: for quick print/diagnostics. Full kit available in main PDF.")
     c.save()
     return buf.getvalue()
 
@@ -361,15 +353,15 @@ def _build_marker_pdf_compact(
 # ---- text helpers ----
 
 
-def _wrap_lines(c, text: str, max_width: float, font_name='Helvetica', font_size=10):
+def _wrap_lines(c, text: str, max_width: float, font_name="Helvetica", font_size=10):
     """Return wrapped lines to fit max_width (points)."""
     from reportlab.pdfbase.pdfmetrics import stringWidth
 
     c.setFont(font_name, font_size)
     words = text.split()
-    lines, cur = [], ''
+    lines, cur = [], ""
     for w in words:
-        probe = (cur + ' ' + w).strip()
+        probe = (cur + " " + w).strip()
         if stringWidth(probe, font_name, font_size) <= max_width:
             cur = probe
         else:
@@ -387,7 +379,7 @@ def _draw_paragraph(
     x: float,
     y: float,
     max_width: float,
-    font_name='Helvetica',
+    font_name="Helvetica",
     font_size=10,
     leading=13,
 ) -> float:
@@ -405,16 +397,16 @@ def _draw_bulleted(
     x: float,
     y: float,
     max_width: float,
-    bullet='•',
+    bullet="•",
     number=False,
     leading=13,
-    font_name='Helvetica',
+    font_name="Helvetica",
     font_size=10,
 ) -> float:
     pad = 10
     num = 1
     for it in items:
-        label = f'{num})' if number else bullet
+        label = f"{num})" if number else bullet
         c.setFont(font_name, font_size)
         c.drawString(x, y, label)
         y = _draw_paragraph(

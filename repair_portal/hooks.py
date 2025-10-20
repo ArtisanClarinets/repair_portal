@@ -8,60 +8,46 @@
 from repair_portal.repair import utils as _repair_utils  # noqa: F401
 
 export_python_type_annotations = True
-app_name = 'repair_portal'
-app_title = 'Repair Portal'
-app_publisher = 'Dylan Thompson'
-app_description = 'Portals for the Repair Portal App'
-app_email = 'info@artisanclarinets.com'
-app_license = 'mit'
+app_name = "repair_portal"
+app_title = "Repair Portal"
+app_publisher = "Dylan Thompson"
+app_description = "Portals for the Repair Portal App"
+app_email = "info@artisanclarinets.com"
+app_license = "mit"
 
-required_apps = ['frappe', 'erpnext']
+required_apps = ["frappe", "erpnext"]
 
 
 fixtures = [
-    {
-        'doctype': 'Role',
-        'filters': [["role_name", "in", ['Intake Coordinator']]]
-    },
-    {
-        'doctype': 'Email Group',
-        'filters': [["title", "=", 'Player Newsletter']]
-    },
-    {
-        'doctype': 'Series',
-        'filters': [["name", "in", ['PLAYER-']]]
-    },
+    {"doctype": "Role", "filters": [["role_name", "in", ["Intake Coordinator"]]]},
+    {"doctype": "Email Group", "filters": [["title", "=", "Player Newsletter"]]},
+    {"doctype": "Series", "filters": [["name", "in", ["PLAYER-"]]]},
 ]
 
 
 # fire this before any DDL, patches or fixtures run
 before_install = [
-    'repair_portal.install.seed_email_groups.ensure_email_groups',
-    'repair_portal.install.check_setup_complete',
-    'repair_portal.install.seed_item_groups_after_migrate',
+    "repair_portal.install.seed_email_groups.ensure_email_groups",
+    "repair_portal.install.check_setup_complete",
+    "repair_portal.install.seed_item_groups_after_migrate",
 ]
 
 after_install = [
-    'repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes',
-    'repair_portal.install.seed_all_from_schemas',
-    'repair_portal.install.create_custom_fields',
-    'repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts',
-
+    "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
+    "repair_portal.install.seed_all_from_schemas",
+    "repair_portal.install.create_custom_fields",
+    "repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts",
 ]
 
 after_migrate = [
-     'repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes',
-
-
+    "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
     # use if update schemas in scripts/hooks/schemas/*
     #   "repair_portal.install.seed_item_groups_after_migrate",
     #   "repair_portal.install.seed_all_from_schemas",
-    
     # Ensure Consent Artifacts are installed/updated
     # 'repair_portal.utils.install.ensure_workflow_prereqs.ensure_workflow_prereqs',
-
-    'repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts',
-    'repair_portal.patches.post_install.001_fix_player_profile_settings_email_group.execute',
+    "repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts",
+    "repair_portal.patches.post_install.001_fix_player_profile_settings_email_group.execute",
 ]
 
 
@@ -73,36 +59,34 @@ doc_events = {
     "Clarinet Intake": {
         # after_insert will call our new function
         "after_insert": (
-            "repair_portal.intake.doctype.clarinet_intake"
-            + ".clarinet_intake_timeline.add_timeline_entries"
+            "repair_portal.intake.doctype.clarinet_intake" + ".clarinet_intake_timeline.add_timeline_entries"
         ),
         "validate": "repair_portal.repair.utils.on_child_validate",
         "on_update": "repair_portal.repair.utils.on_child_validate",
     },
-    'Instrument': {
-        'after_insert': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
-        'on_update': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
-        'on_change': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
+    "Instrument": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_change": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
     },
-    'Instrument Serial Number': {
-        'on_update': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
+    "Instrument Serial Number": {
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
     },
     # Optional handlers if these doctypes exist in your app/site:
-    'Instrument Condition Record': {
-        'after_insert': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
-        'on_update': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
-        'on_trash': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
+    "Instrument Condition Record": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
     },
-    'Instrument Media': {
-        'after_insert': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
-        'on_trash': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
+    "Instrument Media": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
     },
-    'Instrument Interaction Log': {
-        'after_insert': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
-        'on_trash': 'repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change',
+    "Instrument Interaction Log": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
     },
     # End Optional handlers
-
     "Instrument Inspection": {
         "validate": "repair_portal.repair.utils.on_child_validate",
         "on_update": "repair_portal.repair.utils.on_child_validate",
@@ -153,6 +137,3 @@ scheduler_events = {
 # ]
 
 # --- [BEGIN Repair Portal (Repair workflow) additions] ---
-
-
-

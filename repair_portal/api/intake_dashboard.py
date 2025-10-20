@@ -9,24 +9,21 @@ import frappe
 @frappe.whitelist(allow_guest=False)
 def get_intake_counts():
     statuses = [
-        'Pending',
-        'Received',
-        'Inspection',
-        'Repair',
-        'Awaiting Customer Approval',
-        'Complete',
+        "Pending",
+        "Received",
+        "Inspection",
+        "Repair",
+        "Awaiting Customer Approval",
+        "Complete",
     ]
-    return {
-        status: frappe.db.count('Clarinet Intake', {'intake_status': status})
-        for status in statuses
-    }
+    return {status: frappe.db.count("Clarinet Intake", {"intake_status": status}) for status in statuses}
 
 
 @frappe.whitelist(allow_guest=False)
 def get_recent_intakes():
     return frappe.get_all(
-        'Clarinet Intake',
-        fields=['name', 'intake_status', 'customer', 'instrument', 'modified'],
-        order_by='modified desc',
+        "Clarinet Intake",
+        fields=["name", "intake_status", "customer", "instrument", "modified"],
+        order_by="modified desc",
         limit=10,
     )

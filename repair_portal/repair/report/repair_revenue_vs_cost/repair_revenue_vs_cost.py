@@ -10,12 +10,12 @@ def execute(filters=None):
     filters = filters or {}
     conditions = []
 
-    if filters.get('from_date'):
-        conditions.append('ro.creation >= %(from_date)s')
-    if filters.get('to_date'):
-        conditions.append('ro.creation <= %(to_date)s')
+    if filters.get("from_date"):
+        conditions.append("ro.creation >= %(from_date)s")
+    if filters.get("to_date"):
+        conditions.append("ro.creation <= %(to_date)s")
 
-    where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ''
+    where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
 
     query = f"""
         SELECT
@@ -31,14 +31,14 @@ def execute(filters=None):
 
     columns = [
         {
-            'label': 'Repair Order',
-            'fieldname': 'repair_order',
-            'fieldtype': 'Link',
-            'options': 'Repair Order',
+            "label": "Repair Order",
+            "fieldname": "repair_order",
+            "fieldtype": "Link",
+            "options": "Repair Order",
         },
-        {'label': 'Parts Cost', 'fieldname': 'total_parts_cost', 'fieldtype': 'Currency'},
-        {'label': 'Labor Value ($50/hr)', 'fieldname': 'labor_value', 'fieldtype': 'Currency'},
-        {'label': 'Total Cost', 'fieldname': 'total_cost', 'fieldtype': 'Currency'},
+        {"label": "Parts Cost", "fieldname": "total_parts_cost", "fieldtype": "Currency"},
+        {"label": "Labor Value ($50/hr)", "fieldname": "labor_value", "fieldtype": "Currency"},
+        {"label": "Total Cost", "fieldname": "total_cost", "fieldtype": "Currency"},
     ]
 
     return columns, data

@@ -36,10 +36,12 @@ def execute() -> None:
         settings.save(ignore_permissions=True)
 
     if not frappe.db.exists("Email Group", REQUIRED_GROUP):
-        doc = frappe.get_doc({
-            "doctype": "Email Group",
-            "title": REQUIRED_GROUP,
-        })
+        doc = frappe.get_doc(
+            {
+                "doctype": "Email Group",
+                "title": REQUIRED_GROUP,
+            }
+        )
         if frappe.db.has_column("Email Group", "email_group_name"):
             doc.email_group_name = REQUIRED_GROUP  # type: ignore[attr-defined]
         doc.insert(ignore_permissions=True)

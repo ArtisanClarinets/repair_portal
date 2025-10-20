@@ -47,7 +47,9 @@ class ClarinetIntakeSettings(Document):
             return
 
         frappe.msgprint(
-            _( "{doctype} '{value}' not found. Clearing the value." ).format(doctype=doctype, value=frappe.as_unicode(value)),
+            _("{doctype} '{value}' not found. Clearing the value.").format(
+                doctype=doctype, value=frappe.as_unicode(value)
+            ),
             indicator="orange",
         )
         setattr(self, fieldname, None)

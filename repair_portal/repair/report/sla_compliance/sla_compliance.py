@@ -38,8 +38,20 @@ def _get_columns() -> list[dict[str, Any]]:
         {"label": "Repair Order", "fieldname": "name", "fieldtype": "Link", "options": RO, "width": 140},
         {"label": "Customer", "fieldname": "customer_name", "fieldtype": "Data", "width": 180},
         {"label": "Service Type", "fieldname": "service_type", "fieldtype": "Data", "width": 140},
-        {"label": "Workshop", "fieldname": "workshop", "fieldtype": "Link", "options": "Workshop", "width": 120},
-        {"label": "SLA Policy", "fieldname": "sla_policy", "fieldtype": "Link", "options": "SLA Policy", "width": 140},
+        {
+            "label": "Workshop",
+            "fieldname": "workshop",
+            "fieldtype": "Link",
+            "options": "Workshop",
+            "width": 120,
+        },
+        {
+            "label": "SLA Policy",
+            "fieldname": "sla_policy",
+            "fieldtype": "Link",
+            "options": "SLA Policy",
+            "width": 140,
+        },
         {"label": "SLA Start", "fieldname": "sla_start", "fieldtype": "Datetime", "width": 160},
         {"label": "SLA Due", "fieldname": "sla_due", "fieldtype": "Datetime", "width": 160},
         {"label": "Progress (%)", "fieldname": "sla_progress_pct", "fieldtype": "Percent", "width": 110},
@@ -113,7 +125,9 @@ def _get_data(filters: dict[str, Any]) -> list[dict[str, Any]]:
         if unique_customers:
             try:
                 # Try to fetch Customer.customer_name (if present), fallback to name
-                rows = frappe.get_all("Customer", filters={"name": ["in", unique_customers]}, fields=["name", "customer_name"])
+                rows = frappe.get_all(
+                    "Customer", filters={"name": ["in", unique_customers]}, fields=["name", "customer_name"]
+                )
                 for rr in rows:
                     display = rr.get("customer_name") or rr.get("name")
                     customer_map[rr["name"]] = display
@@ -128,8 +142,18 @@ def _get_data(filters: dict[str, Any]) -> list[dict[str, Any]]:
         row: dict[str, Any] = {"name": r["name"]}
 
         # Map/alias fields into the report schema
-        for logical in ["service_type", "workshop", "sla_policy", "sla_start", "sla_due",
-                        "sla_progress_pct", "sla_status", "sla_breached", "workflow_state", "modified"]:
+        for logical in [
+            "service_type",
+            "workshop",
+            "sla_policy",
+            "sla_start",
+            "sla_due",
+            "sla_progress_pct",
+            "sla_status",
+            "sla_breached",
+            "workflow_state",
+            "modified",
+        ]:
             actual = actual_map.get(logical)
             row[logical] = r.get(actual) if actual else None
 

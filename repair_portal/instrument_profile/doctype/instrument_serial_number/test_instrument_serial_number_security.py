@@ -18,25 +18,31 @@ class TestInstrumentSerialNumberSecurity(FrappeTestCase):
         frappe.set_user("Administrator")
 
         if not frappe.db.exists("Brand", "Security ISN Brand"):
-            frappe.get_doc({
-                "doctype": "Brand",
-                "brand": "Security ISN Brand",
-            }).insert(ignore_permissions=True)
+            frappe.get_doc(
+                {
+                    "doctype": "Brand",
+                    "brand": "Security ISN Brand",
+                }
+            ).insert(ignore_permissions=True)
 
-        self.instrument = frappe.get_doc({
-            "doctype": "Instrument",
-            "serial_no": f"SEC-ISN-{frappe.generate_hash(length=5)}",
-            "brand": "Security ISN Brand",
-            "clarinet_type": "Bb Clarinet",
-            "current_status": "Active",
-        })
+        self.instrument = frappe.get_doc(
+            {
+                "doctype": "Instrument",
+                "serial_no": f"SEC-ISN-{frappe.generate_hash(length=5)}",
+                "brand": "Security ISN Brand",
+                "clarinet_type": "Bb Clarinet",
+                "current_status": "Active",
+            }
+        )
         self.instrument.insert(ignore_permissions=True)
 
-        self.isn = frappe.get_doc({
-            "doctype": "Instrument Serial Number",
-            "serial": f"SECISN-{frappe.generate_hash(length=4)}",
-            "instrument": self.instrument.name,
-        })
+        self.isn = frappe.get_doc(
+            {
+                "doctype": "Instrument Serial Number",
+                "serial": f"SECISN-{frappe.generate_hash(length=4)}",
+                "instrument": self.instrument.name,
+            }
+        )
         self.isn.insert(ignore_permissions=True)
 
         self.addCleanup(lambda: frappe.set_user("Administrator"))
@@ -48,7 +54,7 @@ class TestInstrumentSerialNumberSecurity(FrappeTestCase):
             frappe.delete_doc("Instrument", self.instrument.name, force=True, ignore_permissions=True)
         super().tearDown()
 
-    def _make_user(self, email: str, roles: list[str]) -> 'Document':
+    def _make_user(self, email: str, roles: list[str]) -> "Document":
         if frappe.db.exists("User", email):
             user = frappe.get_doc("User", email)
         else:

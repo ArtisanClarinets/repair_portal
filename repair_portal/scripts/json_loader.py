@@ -34,7 +34,7 @@ def _schemas_dir(spec: str) -> str:
 
     scripts_dir = _module_dir()
     preferred = os.path.abspath(os.path.join(scripts_dir, spec))  # scripts/<spec>
-    sibling = os.path.abspath(os.path.join(scripts_dir, '..', spec))  # ../<spec>
+    sibling = os.path.abspath(os.path.join(scripts_dir, "..", spec))  # ../<spec>
 
     if os.path.isdir(preferred):
         return preferred
@@ -51,11 +51,11 @@ def _schemas_dir(spec: str) -> str:
 def _is_json_lines(text: str) -> bool:
     s = text.lstrip()
     # Not starting with '[' means likely JSONL or a single object
-    return not s.startswith('[')
+    return not s.startswith("[")
 
 
 def _read_docs_from_file(path: str) -> list[dict[str, Any]]:
-    with open(path, encoding='utf-8') as f:
+    with open(path, encoding="utf-8") as f:
         raw = f.read().strip()
         if not raw:
             return []
@@ -75,7 +75,7 @@ def _read_docs_from_file(path: str) -> list[dict[str, Any]]:
                 return [data]
             if isinstance(data, list):
                 return data
-            raise ValueError(f'Unsupported JSON root in {path}: {type(data)}')
+            raise ValueError(f"Unsupported JSON root in {path}: {type(data)}")
 
 
 def _doctype_from_filename(filename: str) -> str:
@@ -85,8 +85,8 @@ def _doctype_from_filename(filename: str) -> str:
 
 
 def _ensure_doctype(doc: dict[str, Any], default_doctype: str) -> dict[str, Any]:
-    if 'doctype' not in doc or not doc['doctype']:
-        doc['doctype'] = default_doctype
+    if "doctype" not in doc or not doc["doctype"]:
+        doc["doctype"] = default_doctype
     return doc
 
 
@@ -98,7 +98,7 @@ def _ensure_doctype(doc: dict[str, Any], default_doctype: str) -> dict[str, Any]
 def _update_existing(doctype: str, name: str, payload: dict[str, Any]) -> None:
     existing = frappe.get_doc(doctype, name)
     for k, v in payload.items():
-        if k in ('doctype', 'name'):
+        if k in ("doctype", "name"):
             continue
         existing.set(k, v)
     existing.save(ignore_permissions=True)
@@ -111,9 +111,9 @@ def _insert_new(payload: dict[str, Any]) -> str | None:
         return d.name
     except DuplicateEntryError:
         # Name collision / already created elsewhere → update instead
-        name = payload.get('name')
+        name = payload.get("name")
         if name:
-            _update_existing(payload['doctype'], name, payload)
+            _update_existing(payload["doctype"], name, payload)
             return name
         return None
 
@@ -125,12 +125,12 @@ def _find_match_name(doctype: str, doc: dict[str, Any]) -> str | None:
       2) If '_match' (filters dict) provided → find existing by those filters.
       3) Else, no match (will insert).
     """
-    if doc.get('name'):
-        return doc['name']
+    if doc.get("name"):
+        return doc["name"]
 
-    match = doc.get('_match')
+    match = doc.get("_match")
     if isinstance(match, dict) and match:
-        res = frappe.get_all(doctype, filters=match, pluck='name', limit=1)
+        res = frappe.get_all(doctype, filters=match, pluck="name", limit=1)
         return res[0] if res else None
     return None
 
@@ -140,7 +140,7 @@ def _try_apply(doc: dict[str, Any]) -> bool:
     Attempt one upsert of a single document.
     Returns True if applied, False if should retry later (e.g., parent missing).
     """
-    doctype = doc['doctype']
+    doctype = doc["doctype"]
     name_to_update = _find_match_name(doctype, doc)
 
     try:
@@ -192,7 +192,7 @@ def _load_files_in_pass(files: list[str]) -> int:
 # ──────────────────────────────────────────────────────────────────────────────
 
 
-def load_from_adjacent(directory: str = 'schemas', max_passes: int = 5) -> None:
+def load_from_adjacent(directory: str = "schemas", max_passes: int = 5) -> None:
     """
     Load JSON schemas from a directory *relative to this scripts/ folder* by default.
 
@@ -206,12 +206,10 @@ def load_from_adjacent(directory: str = 'schemas', max_passes: int = 5) -> None:
             --kwargs "{'directory': 'schemas'}"
     """
     # Ensure site context if invoked outside hooks
-    if not getattr(frappe.local, 'site', None):
-        site = os.environ.get('FRAPPE_SITE') or os.environ.get('SITE_NAME')
+    if not getattr(frappe.local, "site", None):
+        site = os.environ.get("FRAPPE_SITE") or os.environ.get("SITE_NAME")
         if not site:
-            raise RuntimeError(
-                'No site context. Use `bench --site <site> execute ...` or set FRAPPE_SITE.'
-            )
+            raise RuntimeError("No site context. Use `bench --site <site> execute ...` or set FRAPPE_SITE.")
         frappe.init(site=site)
         frappe.connect()
 
@@ -219,17 +217,17 @@ def load_from_adjacent(directory: str = 'schemas', max_passes: int = 5) -> None:
     if not os.path.isdir(path):
         scripts_dir = _module_dir()
         preferred = os.path.abspath(os.path.join(scripts_dir, directory))  # scripts/<directory>
-        sibling = os.path.abspath(os.path.join(scripts_dir, '..', directory))  # ../<directory>
+        sibling = os.path.abspath(os.path.join(scripts_dir, "..", directory))  # ../<directory>
         raise RuntimeError(
-            'Schemas directory not found.\n'
-            f'  Tried: {preferred}\n'
-            f'         {sibling}\n'
-            'Create one of these or pass an absolute path / correct directory argument.'
+            "Schemas directory not found.\n"
+            f"  Tried: {preferred}\n"
+            f"         {sibling}\n"
+            "Create one of these or pass an absolute path / correct directory argument."
         )
 
-    files = [os.path.join(path, f) for f in os.listdir(path) if f.endswith('.json')]
+    files = [os.path.join(path, f) for f in os.listdir(path) if f.endswith(".json")]
     if not files:
-        frappe.logger().info(f'No JSON files in {path}')
+        frappe.logger().info(f"No JSON files in {path}")
         return
 
     # Multi-pass to satisfy dependencies (parents, linked docs, etc.)
@@ -241,7 +239,7 @@ def load_from_adjacent(directory: str = 'schemas', max_passes: int = 5) -> None:
             break
 
     frappe.logger().info(
-        f'JSON Loader finished. Applied {total_applied} changes in up to {max_passes} passes from {path}.'
+        f"JSON Loader finished. Applied {total_applied} changes in up to {max_passes} passes from {path}."
     )
 
 

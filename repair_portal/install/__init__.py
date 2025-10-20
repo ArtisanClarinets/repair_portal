@@ -17,12 +17,12 @@ def _is_setup_complete() -> bool:
     db = frappe.db  # type: ignore
 
     # 1️⃣  Wizard flag (v14+)
-    if db.table_exists('System Settings') and db.has_column('System Settings', 'setup_complete'):
-        if db.get_single_value('System Settings', 'setup_complete'):
+    if db.table_exists("System Settings") and db.has_column("System Settings", "setup_complete"):
+        if db.get_single_value("System Settings", "setup_complete"):
             return True
 
     # 2️⃣  Fallback: any Company exists
-    return db.table_exists('Company') and db.count('Company') > 0
+    return db.table_exists("Company") and db.count("Company") > 0
 
 
 def check_setup_complete(*args):
@@ -31,10 +31,10 @@ def check_setup_complete(*args):
 
     site = frappe.local.site  # type: ignore
     msg = (
-        f'\n🛑  ERPNext setup wizard is *not finished* for site **{site}**.\n'
-        f'➡️  Log in as *Administrator*, complete the wizard,\n'
-        f'   then run:\n'
-        f'   bench --site {site} install-app repair_portal\n'
+        f"\n🛑  ERPNext setup wizard is *not finished* for site **{site}**.\n"
+        f"➡️  Log in as *Administrator*, complete the wizard,\n"
+        f"   then run:\n"
+        f"   bench --site {site} install-app repair_portal\n"
     )
 
     # optional – make absolutely sure no open tx is left hanging
@@ -44,7 +44,7 @@ def check_setup_complete(*args):
     sys.exit(msg)
 
     # If we reach here, it means the setup is complete
-    print(f'✅  ERPNext setup wizard is *finished* for site **{site}**.')
+    print(f"✅  ERPNext setup wizard is *finished* for site **{site}**.")
 
 
 #############################################################################
@@ -70,23 +70,23 @@ def seed_item_groups_after_migrate():
     from ..scripts.item_group_loader import load_item_groups_from_default_schemas
 
     try:
-        print('🎼 Seeding Item Groups from scripts/schemas …')
-        frappe.logger().info('Seeding Item Groups from scripts/schemas …')
+        print("🎼 Seeding Item Groups from scripts/schemas …")
+        frappe.logger().info("Seeding Item Groups from scripts/schemas …")
         load_item_groups_from_default_schemas()  # auto-detects Item Group JSON
-        print('✅ Item Group seeding finished.')
-        frappe.logger().info('Item Group seeding finished.')
+        print("✅ Item Group seeding finished.")
+        frappe.logger().info("Item Group seeding finished.")
     except (FileNotFoundError, RuntimeError) as e:
         # Missing folder or file? Don't fail migrate—just inform and continue.
-        msg = f'Skipping Item Group seeding: {e}'
-        print(f'ℹ️  {msg}')
+        msg = f"Skipping Item Group seeding: {e}"
+        print(f"ℹ️  {msg}")
         frappe.logger().info(msg)
     except Exception as e:
         # Unexpected error: log and continue (don’t break migrate by default)
         frappe.db.rollback()
-        print(f'\033[91m❌ Item Group seeding failed: {e}\033[0m')
-        frappe.logger().error(f'Item Group seeding failed: {e}')
+        print(f"\033[91m❌ Item Group seeding failed: {e}\033[0m")
+        frappe.logger().error(f"Item Group seeding failed: {e}")
         frappe.logger().error(traceback.format_exc())
-        frappe.log_error(title='Item Group Seeding Failed', message=traceback.format_exc())
+        frappe.log_error(title="Item Group Seeding Failed", message=traceback.format_exc())
         # If you prefer to fail the migration on errors, uncomment:
         # raise
 
@@ -97,13 +97,13 @@ def seed_all_from_schemas():
     from ..scripts.doctype_loader import load_from_default_schemas
 
     try:
-        print('🌱 Seeding doctypes from schemas …')
+        print("🌱 Seeding doctypes from schemas …")
         load_from_default_schemas()
-        print('✅ Seeding complete.')
+        print("✅ Seeding complete.")
     except Exception as e:
         frappe.db.rollback()
-        print(f'\033[91m❌ Seeding failed: {e}\033[0m')
-        frappe.log_error(title='Schema Seeding Failed', message=traceback.format_exc())
+        print(f"\033[91m❌ Seeding failed: {e}\033[0m")
+        frappe.log_error(title="Schema Seeding Failed", message=traceback.format_exc())
         # raise  # uncomment if you want migrate to fail on errors
 
 
@@ -126,31 +126,31 @@ def audit_naming_series_after_migrate():
     try:
         from repair_portal.logger import get_logger
 
-        log = get_logger('naming_audit')
+        log = get_logger("naming_audit")
     except Exception:
         log = None
 
     try:
-        print('🔎 Auditing naming series …')
+        print("🔎 Auditing naming series …")
         if log:
-            log.info('Starting naming series audit (after_migrate)')
+            log.info("Starting naming series audit (after_migrate)")
         naming_audit.run()  # prints full report
-        print('✅ Naming series audit complete.')
+        print("✅ Naming series audit complete.")
         if log:
-            log.info('Naming series audit complete.')
+            log.info("Naming series audit complete.")
     except Exception as e:
         # show full traceback in console
-        print(f'\033[91m❌ Naming series audit failed: {e}\033[0m')
+        print(f"\033[91m❌ Naming series audit failed: {e}\033[0m")
         traceback.print_exc()
-        frappe.log_error(title='Naming Series Audit Failed', message=traceback.format_exc())
+        frappe.log_error(title="Naming Series Audit Failed", message=traceback.format_exc())
         if log:
-            log.exception('Naming series audit failed')
+            log.exception("Naming series audit failed")
         # optional: fail migration only when explicitly enabled
-        if str(os.environ.get('REPAIR_PORTAL_FAIL_ON_NAMING_AUDIT', '0')).lower() in (
-            '1',
-            'true',
-            'yes',
-            'on',
+        if str(os.environ.get("REPAIR_PORTAL_FAIL_ON_NAMING_AUDIT", "0")).lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
         ):
             raise
         try:
@@ -166,39 +166,40 @@ def audit_naming_series_after_migrate():
 # Version: 1.0                                                              #
 #############################################################################
 
+
 def create_custom_fields():
     """Create custom fields required for repair portal functionality."""
     import frappe
     from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
-    
+
     try:
-        print('🔧 Creating custom fields...')
-        
+        print("🔧 Creating custom fields...")
+
         # Define custom fields
         custom_fields = {
-            'Sales Invoice': [
+            "Sales Invoice": [
                 {
-                    'fieldname': 'player_profile',
-                    'label': 'Player Profile',
-                    'fieldtype': 'Link',
-                    'options': 'Player Profile',
-                    'insert_after': 'customer',
-                    'in_standard_filter': 1,
-                    'description': 'Linked Player Profile for CLV tracking',
-                    'translatable': 0
+                    "fieldname": "player_profile",
+                    "label": "Player Profile",
+                    "fieldtype": "Link",
+                    "options": "Player Profile",
+                    "insert_after": "customer",
+                    "in_standard_filter": 1,
+                    "description": "Linked Player Profile for CLV tracking",
+                    "translatable": 0,
                 }
             ]
         }
-        
+
         # Create the custom fields
         create_custom_fields(custom_fields, update=True)
-        
-        print('✅ Custom fields created successfully.')
-        frappe.logger().info('Custom fields created successfully.')
-        
+
+        print("✅ Custom fields created successfully.")
+        frappe.logger().info("Custom fields created successfully.")
+
     except Exception as e:
-        print(f'\033[91m❌ Custom field creation failed: {e}\033[0m')
-        frappe.log_error(title='Custom Field Creation Failed', message=traceback.format_exc())
+        print(f"\033[91m❌ Custom field creation failed: {e}\033[0m")
+        frappe.log_error(title="Custom Field Creation Failed", message=traceback.format_exc())
         # Don't fail installation for custom fields
         try:
             frappe.db.rollback()

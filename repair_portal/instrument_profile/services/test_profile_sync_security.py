@@ -57,7 +57,7 @@ class TestProfileSyncSecurity(FrappeTestCase):
             frappe.delete_doc("Instrument", self.instrument.name, force=True, ignore_permissions=True)
         super().tearDown()
 
-    def _make_user(self, email: str, roles: list[str]) -> 'Document':
+    def _make_user(self, email: str, roles: list[str]) -> "Document":
         if frappe.db.exists("User", email):
             user = frappe.get_doc("User", email)
         else:
@@ -146,13 +146,16 @@ class TestProfileSyncSecurity(FrappeTestCase):
                 return job_logger
             return MagicMock()
 
-        with patch(
-            "repair_portal.instrument_profile.services.profile_sync.frappe.logger",
-            new=_logger,
-        ), patch(
-            "repair_portal.instrument_profile.services.profile_sync.frappe.db.set_value",
-            wraps=frappe.db.set_value,
-        ) as patched_set_value:
+        with (
+            patch(
+                "repair_portal.instrument_profile.services.profile_sync.frappe.logger",
+                new=_logger,
+            ),
+            patch(
+                "repair_portal.instrument_profile.services.profile_sync.frappe.db.set_value",
+                wraps=frappe.db.set_value,
+            ) as patched_set_value,
+        ):
             result = profile_sync.sync_now(profile=self.profile.name)
 
         self.assertEqual(result["profile"], self.profile.name)
@@ -161,9 +164,7 @@ class TestProfileSyncSecurity(FrappeTestCase):
         self.assertEqual(job_payload["status"], "success")
         self.assertEqual(job_payload["extras"].get("instrument"), self.instrument.name)
 
-        calls = [
-            call for call in patched_set_value.call_args_list if call[0][0] == "Instrument Profile"
-        ]
+        calls = [call for call in patched_set_value.call_args_list if call[0][0] == "Instrument Profile"]
         self.assertEqual(len(calls), 1)
         updated_fields = calls[0][0][2]
         self.assertIsInstance(updated_fields, dict)

@@ -16,21 +16,21 @@ from frappe import _
 class ErrorSeverity(Enum):
     """Error severity levels for proper categorization."""
 
-    LOW = 'Low'
-    MEDIUM = 'Medium'
-    HIGH = 'High'
-    CRITICAL = 'Critical'
+    LOW = "Low"
+    MEDIUM = "Medium"
+    HIGH = "High"
+    CRITICAL = "Critical"
 
 
 class ErrorCategory(Enum):
     """Error categories for systematic handling."""
 
-    VALIDATION = 'Validation Error'
-    PERMISSION = 'Permission Error'
-    DATABASE = 'Database Error'
-    INTEGRATION = 'Integration Error'
-    BUSINESS_LOGIC = 'Business Logic Error'
-    SYSTEM = 'System Error'
+    VALIDATION = "Validation Error"
+    PERMISSION = "Permission Error"
+    DATABASE = "Database Error"
+    INTEGRATION = "Integration Error"
+    BUSINESS_LOGIC = "Business Logic Error"
+    SYSTEM = "System Error"
 
 
 class EnterpriseErrorHandler:
@@ -62,16 +62,16 @@ class EnterpriseErrorHandler:
 
         # Create comprehensive error log
         error_details = {
-            'error_id': error_id,
-            'category': category.value,
-            'severity': severity.value,
-            'message': str(error),
-            'traceback': traceback.format_exc(),
-            'user': frappe.session.user,
-            'timestamp': frappe.utils.now(),  # type: ignore
-            'context': context,
-            'request_data': EnterpriseErrorHandler._get_sanitized_request_data(),
-            'system_info': EnterpriseErrorHandler._get_system_info(),
+            "error_id": error_id,
+            "category": category.value,
+            "severity": severity.value,
+            "message": str(error),
+            "traceback": traceback.format_exc(),
+            "user": frappe.session.user,
+            "timestamp": frappe.utils.now(),  # type: ignore
+            "context": context,
+            "request_data": EnterpriseErrorHandler._get_sanitized_request_data(),
+            "system_info": EnterpriseErrorHandler._get_system_info(),
         }
 
         # Log to appropriate channels based on severity
@@ -100,20 +100,20 @@ class EnterpriseErrorHandler:
 
         for rule in validation_rules:
             try:
-                rule_name = rule.get('name', 'Unknown Rule')
-                condition = rule.get('condition')
-                message = rule.get('message', f'Validation failed for {rule_name}')
-                severity = rule.get('severity', ErrorSeverity.MEDIUM)
+                rule_name = rule.get("name", "Unknown Rule")
+                condition = rule.get("condition")
+                message = rule.get("message", f"Validation failed for {rule_name}")
+                severity = rule.get("severity", ErrorSeverity.MEDIUM)
 
                 # Execute validation condition
                 if condition and not EnterpriseErrorHandler._evaluate_condition(doc, condition):
                     errors.append(
                         {
-                            'rule': rule_name,
-                            'message': message,
-                            'severity': severity.value,
-                            'field': rule.get('field'),
-                            'value': getattr(doc, rule.get('field', ''), None),
+                            "rule": rule_name,
+                            "message": message,
+                            "severity": severity.value,
+                            "field": rule.get("field"),
+                            "value": getattr(doc, rule.get("field", ""), None),
                         }
                     )
 
@@ -121,7 +121,7 @@ class EnterpriseErrorHandler:
                 # Log validation rule execution error
                 frappe.log_error(
                     f"Validation rule execution failed: {rule.get('name', 'Unknown')} - {str(e)}",
-                    'Validation Rule Error',
+                    "Validation Rule Error",
                 )
 
         return errors
@@ -156,37 +156,37 @@ class EnterpriseErrorHandler:
 
             # Calculate error trends
             total_errors = len(error_stats)  # type: ignore
-            critical_errors = len([e for e in error_stats if e.get('error_severity') == 'Critical'])  # type: ignore
+            critical_errors = len([e for e in error_stats if e.get("error_severity") == "Critical"])  # type: ignore
 
             # Get top error categories
             category_counts = {}
             for stat in error_stats:
-                category = stat.get('error_category', 'Unknown')  # type: ignore
-                category_counts[category] = category_counts.get(category, 0) + stat.get( # type: ignore
-                    'error_count', 0
+                category = stat.get("error_category", "Unknown")  # type: ignore
+                category_counts[category] = category_counts.get(category, 0) + stat.get(  # type: ignore
+                    "error_count", 0
                 )  # type: ignore
 
             top_categories = sorted(category_counts.items(), key=lambda x: x[1], reverse=True)[:5]
 
             # Get resolution metrics
             resolved_errors = frappe.db.count(
-                'Error Log Enhanced', {'creation': ['>=', from_date], 'status': 'Resolved'}
+                "Error Log Enhanced", {"creation": [">=", from_date], "status": "Resolved"}
             )
 
             resolution_rate = (resolved_errors / total_errors * 100) if total_errors > 0 else 0
 
             return {
-                'total_errors': total_errors,
-                'critical_errors': critical_errors,
-                'resolution_rate': round(resolution_rate, 2),
-                'top_categories': top_categories,
-                'error_trends': error_stats,
-                'last_updated': frappe.utils.now(),  # type: ignore
+                "total_errors": total_errors,
+                "critical_errors": critical_errors,
+                "resolution_rate": round(resolution_rate, 2),
+                "top_categories": top_categories,
+                "error_trends": error_stats,
+                "last_updated": frappe.utils.now(),  # type: ignore
             }
 
         except Exception as e:
-            frappe.log_error(f'Error dashboard data generation failed: {str(e)}')
-            return {'error': 'Failed to generate error dashboard data'}
+            frappe.log_error(f"Error dashboard data generation failed: {str(e)}")
+            return {"error": "Failed to generate error dashboard data"}
 
     @staticmethod
     def _categorize_error(error: Exception) -> ErrorCategory:
@@ -194,15 +194,15 @@ class EnterpriseErrorHandler:
         error_type = type(error).__name__
         error_message = str(error).lower()
 
-        if error_type in ['ValidationError', 'MandatoryError']:
+        if error_type in ["ValidationError", "MandatoryError"]:
             return ErrorCategory.VALIDATION
-        elif error_type in ['PermissionError', 'Forbidden']:
+        elif error_type in ["PermissionError", "Forbidden"]:
             return ErrorCategory.PERMISSION
-        elif 'database' in error_message or 'sql' in error_message:
+        elif "database" in error_message or "sql" in error_message:
             return ErrorCategory.DATABASE
-        elif 'api' in error_message or 'integration' in error_message:
+        elif "api" in error_message or "integration" in error_message:
             return ErrorCategory.INTEGRATION
-        elif error_type in ['ValueError', 'TypeError']:
+        elif error_type in ["ValueError", "TypeError"]:
             return ErrorCategory.BUSINESS_LOGIC
         else:
             return ErrorCategory.SYSTEM
@@ -213,14 +213,12 @@ class EnterpriseErrorHandler:
         error_message = str(error).lower()
 
         # Critical errors
-        if any(
-            keyword in error_message for keyword in ['database', 'connection', 'timeout', 'memory']
-        ):
+        if any(keyword in error_message for keyword in ["database", "connection", "timeout", "memory"]):
             return ErrorSeverity.CRITICAL
 
         # High severity errors
         if category in [ErrorCategory.DATABASE, ErrorCategory.SYSTEM] or (
-            'permission' in error_message or 'unauthorized' in error_message
+            "permission" in error_message or "unauthorized" in error_message
         ):
             return ErrorSeverity.HIGH
 
@@ -238,18 +236,18 @@ class EnterpriseErrorHandler:
             # Create enhanced error log document
             error_log = frappe.get_doc(
                 {
-                    'doctype': 'Error Log Enhanced',
-                    'error_id': error_details['error_id'],
-                    'error_category': error_details['category'],
-                    'error_severity': error_details['severity'],
-                    'error_message': error_details['message'],
-                    'traceback': error_details['traceback'],
-                    'user': error_details['user'],
-                    'context_data': json.dumps(error_details['context']),
-                    'request_data': json.dumps(error_details['request_data']),
-                    'system_info': json.dumps(error_details['system_info']),
-                    'status': 'Open',
-                    'resolution_notes': '',
+                    "doctype": "Error Log Enhanced",
+                    "error_id": error_details["error_id"],
+                    "error_category": error_details["category"],
+                    "error_severity": error_details["severity"],
+                    "error_message": error_details["message"],
+                    "traceback": error_details["traceback"],
+                    "user": error_details["user"],
+                    "context_data": json.dumps(error_details["context"]),
+                    "request_data": json.dumps(error_details["request_data"]),
+                    "system_info": json.dumps(error_details["system_info"]),
+                    "status": "Open",
+                    "resolution_notes": "",
                 }
             )
 
@@ -263,7 +261,7 @@ class EnterpriseErrorHandler:
 
         except Exception as e:
             # Fallback logging if enhanced logging fails
-            print(f'Error logging failed: {str(e)}', file=sys.stderr)
+            print(f"Error logging failed: {str(e)}", file=sys.stderr)
 
     @staticmethod
     def _notify_administrators(error_details: dict[str, Any]):
@@ -271,9 +269,9 @@ class EnterpriseErrorHandler:
         try:
             # Get administrators
             admins = frappe.get_all(
-                'User',
-                filters={'role_profile_name': 'System Manager', 'enabled': 1},
-                fields=['email'],
+                "User",
+                filters={"role_profile_name": "System Manager", "enabled": 1},
+                fields=["email"],
             )
 
             if not admins:
@@ -297,38 +295,36 @@ class EnterpriseErrorHandler:
 
             # Send email notifications
             for admin in admins:
-                frappe.sendmail(
-                    recipients=[admin.email], subject=subject, message=message, delayed=False
-                )
+                frappe.sendmail(recipients=[admin.email], subject=subject, message=message, delayed=False)
 
         except Exception as e:
-            frappe.log_error(f'Administrator notification failed: {str(e)}')
+            frappe.log_error(f"Administrator notification failed: {str(e)}")
 
     @staticmethod
     def _create_user_response(error_details: dict[str, Any]) -> dict[str, Any]:
         """Create sanitized error response for end users."""
-        severity = error_details['severity']
+        severity = error_details["severity"]
 
         # Different responses based on severity
         if severity == ErrorSeverity.CRITICAL.value:
             message = _(
-                'A system error has occurred. Technical support has been notified. Please try again later.'
+                "A system error has occurred. Technical support has been notified. Please try again later."
             )
         elif severity == ErrorSeverity.HIGH.value:
             message = _(
-                'An error occurred while processing your request. Please contact support if this persists.'
+                "An error occurred while processing your request. Please contact support if this persists."
             )
         else:
             # For medium/low severity, show the actual error message
-            message = error_details['message']
+            message = error_details["message"]
 
         return {
-            'success': False,
-            'error': True,
-            'message': message,
-            'error_id': error_details['error_id'],
-            'severity': severity,
-            'timestamp': error_details['timestamp'],
+            "success": False,
+            "error": True,
+            "message": message,
+            "error_id": error_details["error_id"],
+            "severity": severity,
+            "timestamp": error_details["timestamp"],
         }
 
     @staticmethod
@@ -337,9 +333,9 @@ class EnterpriseErrorHandler:
         try:
             request_data = {}
 
-            if hasattr(frappe.local, 'form_dict'):
+            if hasattr(frappe.local, "form_dict"):
                 # Remove sensitive fields from logging
-                sensitive_fields = ['password', 'api_key', 'token', 'secret']
+                sensitive_fields = ["password", "api_key", "token", "secret"]
 
                 for key, value in frappe.local.form_dict.items():
                     if not any(field in key.lower() for field in sensitive_fields):
@@ -348,23 +344,21 @@ class EnterpriseErrorHandler:
             return request_data
 
         except Exception:
-            return {'error': 'Failed to capture request data'}
+            return {"error": "Failed to capture request data"}
 
     @staticmethod
     def _get_system_info() -> dict[str, Any]:
         """Get system information for error context."""
         try:
             return {
-                'python_version': sys.version,
-                'frappe_version': frappe.__version__,
-                'site': frappe.local.site,
-                'user_agent': frappe.get_request_header('User-Agent', ''),
-                'ip_address': frappe.local.request_ip
-                if hasattr(frappe.local, 'request_ip')
-                else None,
+                "python_version": sys.version,
+                "frappe_version": frappe.__version__,
+                "site": frappe.local.site,
+                "user_agent": frappe.get_request_header("User-Agent", ""),
+                "ip_address": frappe.local.request_ip if hasattr(frappe.local, "request_ip") else None,
             }
         except Exception:
-            return {'error': 'Failed to capture system info'}
+            return {"error": "Failed to capture system info"}
 
     @staticmethod
     def _evaluate_condition(doc, condition: str) -> bool:
@@ -372,21 +366,21 @@ class EnterpriseErrorHandler:
         try:
             # Create safe evaluation context
             context = {
-                'doc': doc,
-                'frappe': frappe,
-                '_': _,
-                'len': len,
-                'str': str,
-                'int': int,
-                'float': float,
-                'bool': bool,
+                "doc": doc,
+                "frappe": frappe,
+                "_": _,
+                "len": len,
+                "str": str,
+                "int": int,
+                "float": float,
+                "bool": bool,
             }
 
             # Evaluate condition safely
-            return bool(eval(condition, {'__builtins__': {}}, context))
+            return bool(eval(condition, {"__builtins__": {}}, context))
 
         except Exception as e:
-            frappe.log_error(f'Condition evaluation failed: {condition} - {str(e)}')
+            frappe.log_error(f"Condition evaluation failed: {condition} - {str(e)}")
             return True  # Default to pass if evaluation fails
 
 
@@ -401,7 +395,7 @@ def safe_api_call(func):
             return func(*args, **kwargs)
         except Exception as e:
             return EnterpriseErrorHandler.handle_api_error(
-                e, {'function': func.__name__, 'args': str(args)[:500], 'kwargs': str(kwargs)[:500]}
+                e, {"function": func.__name__, "args": str(args)[:500], "kwargs": str(kwargs)[:500]}
             )
 
     return wrapper
@@ -410,24 +404,24 @@ def safe_api_call(func):
 # Example business validation rules:
 INSTRUMENT_VALIDATION_RULES = [
     {
-        'name': 'Serial Number Required',
-        'condition': 'doc.serial_no and len(doc.serial_no) >= 6',
-        'message': 'Serial number must be at least 6 characters',
-        'severity': ErrorSeverity.HIGH,
-        'field': 'serial_no',
+        "name": "Serial Number Required",
+        "condition": "doc.serial_no and len(doc.serial_no) >= 6",
+        "message": "Serial number must be at least 6 characters",
+        "severity": ErrorSeverity.HIGH,
+        "field": "serial_no",
     },
     {
-        'name': 'Customer Assignment',
-        'condition': "doc.customer or doc.status == 'Draft'",
-        'message': 'Customer must be assigned for non-draft instruments',
-        'severity': ErrorSeverity.MEDIUM,
-        'field': 'customer',
+        "name": "Customer Assignment",
+        "condition": "doc.customer or doc.status == 'Draft'",
+        "message": "Customer must be assigned for non-draft instruments",
+        "severity": ErrorSeverity.MEDIUM,
+        "field": "customer",
     },
     {
-        'name': 'Valid Workflow State',
-        'condition': "doc.workflow_state in ['Draft', 'Active', 'Archived', 'Maintenance']",
-        'message': 'Invalid workflow state specified',
-        'severity': ErrorSeverity.HIGH,
-        'field': 'workflow_state',
+        "name": "Valid Workflow State",
+        "condition": "doc.workflow_state in ['Draft', 'Active', 'Archived', 'Maintenance']",
+        "message": "Invalid workflow state specified",
+        "severity": ErrorSeverity.HIGH,
+        "field": "workflow_state",
     },
 ]

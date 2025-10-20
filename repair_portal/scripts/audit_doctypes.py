@@ -49,35 +49,35 @@ try:
     from frappe.utils.data import scrub as _frappe_scrub  # type: ignore
 
     def scrub(s: str) -> str:
-        return _frappe_scrub(s or '')
+        return _frappe_scrub(s or "")
 
 except Exception:
 
     def scrub(s: str) -> str:
-        s = (s or '').strip().lower()
-        s = re.sub(r'\s+', '_', s)
-        s = re.sub(r'[^a-z0-9_]', '_', s)
-        s = re.sub(r'_+', '_', s).strip('_')
+        s = (s or "").strip().lower()
+        s = re.sub(r"\s+", "_", s)
+        s = re.sub(r"[^a-z0-9_]", "_", s)
+        s = re.sub(r"_+", "_", s).strip("_")
         return s
 
 
 # ---- CONFIG ----
-APP_ROOT = Path('/home/frappe/frappe-bench/apps/repair_portal/repair_portal')
-MODULES_TXT = APP_ROOT / 'modules.txt'
+APP_ROOT = Path("/home/frappe/frappe-bench/apps/repair_portal/repair_portal")
+MODULES_TXT = APP_ROOT / "modules.txt"
 NEAR_DUPLICATE_THRESHOLD = 0.30  # match your current tolerance
-FIELDNAME_RE = re.compile(r'^[a-z][a-z0-9_]{0,139}$')  # DocType fieldname guard
+FIELDNAME_RE = re.compile(r"^[a-z][a-z0-9_]{0,139}$")  # DocType fieldname guard
 
-TABLE_FTYPES = {'Table', 'Table MultiSelect'}
-LINK_FTYPES = {'Link'}  # (Dynamic Link not validated here)
+TABLE_FTYPES = {"Table", "Table MultiSelect"}
+LINK_FTYPES = {"Link"}  # (Dynamic Link not validated here)
 
 # Known resource types we’ll give extra checks for (others still validated for path/module/name)
 RESOURCE_TYPES_WITH_EXTRA = {
-    'DocType',
-    'Report',
-    'Dashboard',
-    'Dashboard Chart',
-    'Number Card',
-    'Workspace',
+    "DocType",
+    "Report",
+    "Dashboard",
+    "Dashboard Chart",
+    "Number Card",
+    "Workspace",
 }
 
 
@@ -101,16 +101,16 @@ class DocInfo(Resource):
     """
 
     def __init__(self, name: str, module: str, path: Path, data: dict):
-        super().__init__('DocType', name, module, path, data)
-        self.fields: list[dict] = data.get('fields') or []
-        self.istable: bool = bool(data.get('istable'))
-        self.editable_grid: bool = bool(data.get('editable_grid'))
-        self.autoname: str = (data.get('autoname') or '').strip()
+        super().__init__("DocType", name, module, path, data)
+        self.fields: list[dict] = data.get("fields") or []
+        self.istable: bool = bool(data.get("istable"))
+        self.editable_grid: bool = bool(data.get("editable_grid"))
+        self.autoname: str = (data.get("autoname") or "").strip()
 
         self.fieldnames: list[str] = [
-            f.get('fieldname').strip()  # type: ignore
+            f.get("fieldname").strip()  # type: ignore
             for f in self.fields
-            if isinstance(f, dict) and f.get('fieldname')  # type: ignore
+            if isinstance(f, dict) and f.get("fieldname")  # type: ignore
         ]
         self.fieldname_set: set[str] = set(self.fieldnames)
 
@@ -119,26 +119,26 @@ class DocInfo(Resource):
         self.depends_on_refs: list[tuple[str, str]] = []  # (fieldname, expr)
 
         for f in self.fields:
-            ft = f.get('fieldtype')
-            opts = (f.get('options') or '').strip()
+            ft = f.get("fieldtype")
+            opts = (f.get("options") or "").strip()
             if ft in TABLE_FTYPES:
-                self.table_targets.append((f.get('fieldname') or '', opts))
+                self.table_targets.append((f.get("fieldname") or "", opts))
             elif ft in LINK_FTYPES and opts:
-                self.link_targets.append((f.get('fieldname') or '', opts))
-            dep = (f.get('depends_on') or '').strip()
+                self.link_targets.append((f.get("fieldname") or "", opts))
+            dep = (f.get("depends_on") or "").strip()
             if dep:
-                self.depends_on_refs.append((f.get('fieldname') or '', dep))
+                self.depends_on_refs.append((f.get("fieldname") or "", dep))
 
 
 # ---------- Utilities ----------
 def _read_modules_from_txt(modules_txt: Path) -> list[str]:
     if not modules_txt.exists():
-        print(f'❌ modules.txt not found: {modules_txt}')
+        print(f"❌ modules.txt not found: {modules_txt}")
         return []
     mods: list[str] = []
-    for line in modules_txt.read_text(encoding='utf-8').splitlines():
+    for line in modules_txt.read_text(encoding="utf-8").splitlines():
         line = line.strip()
-        if not line or line.startswith('#'):
+        if not line or line.startswith("#"):
             continue
         mods.append(line)
     return mods
@@ -155,11 +155,11 @@ def _iter_resource_json_for_module(module_name: str) -> list[Path]:
     paths: list[Path] = []
     for type_dir in [p for p in mod_dir.iterdir() if p.is_dir()]:
         for name_dir in [p for p in type_dir.iterdir() if p.is_dir()]:
-            json_path = name_dir / f'{name_dir.name}.json'
+            json_path = name_dir / f"{name_dir.name}.json"
             if json_path.exists():
                 paths.append(json_path)
             # be tolerant: also include any extra *.json colocated (translations, variants)
-            for p in name_dir.glob('*.json'):
+            for p in name_dir.glob("*.json"):
                 if p not in paths:
                     paths.append(p)
     return paths
@@ -167,13 +167,13 @@ def _iter_resource_json_for_module(module_name: str) -> list[Path]:
 
 def _load_json(path: Path) -> dict:
     try:
-        data = json.loads(path.read_text(encoding='utf-8'))
+        data = json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
-        print(f'✗ JSON read error: {path} ({e})')
+        print(f"✗ JSON read error: {path} ({e})")
         return {}
     if not isinstance(data, dict):
         return {}
-    if not data.get('doctype'):
+    if not data.get("doctype"):
         return {}
     return data
 
@@ -181,7 +181,7 @@ def _load_json(path: Path) -> dict:
 def _guess_name_from_path(p: Path) -> str:
     # Expect .../<module>/<type>/<name>/<name>.json
     try:
-        return p.parent.name.replace('_', ' ').title()
+        return p.parent.name.replace("_", " ").title()
     except Exception:
         return p.stem
 
@@ -190,10 +190,10 @@ def _resource_from_json(path: Path, fallback_module: str) -> Resource | None:
     data = _load_json(path)
     if not data:
         return None
-    rtype = (data.get('doctype') or '').strip()
-    name = (data.get('name') or '').strip() or _guess_name_from_path(path)
-    module = (data.get('module') or fallback_module).strip()
-    if rtype == 'DocType':
+    rtype = (data.get("doctype") or "").strip()
+    name = (data.get("name") or "").strip() or _guess_name_from_path(path)
+    module = (data.get("module") or fallback_module).strip()
+    if rtype == "DocType":
         return DocInfo(name=name, module=module, path=path, data=data)
     return Resource(doctype_type=rtype, name=name, module=module, path=path, data=data)
 
@@ -206,8 +206,8 @@ def _jaccard(a: set[str], b: set[str]) -> float:
 
 def _extract_depends_fields(expr: str) -> set[str]:
     # e.g. "eval:doc.create_task==1 and doc.section=='Upper Joint'"
-    out = set(re.findall(r'doc\.([a-zA-Z0-9_]+)', expr))
-    if not expr.startswith('eval:'):
+    out = set(re.findall(r"doc\.([a-zA-Z0-9_]+)", expr))
+    if not expr.startswith("eval:"):
         out.add(expr.strip())
     return {x for x in out if x}
 
@@ -215,12 +215,12 @@ def _extract_depends_fields(expr: str) -> set[str]:
 # ---------- Main ----------
 def run():
     modules = _read_modules_from_txt(MODULES_TXT)
-    print(f'Scanning modules from modules.txt: {modules}')
+    print(f"Scanning modules from modules.txt: {modules}")
 
     if not modules:
-        print('✅ No exact-name duplicates.')
-        print('✅ No near-duplicates by fieldnames.')
-        print('✅ No cross-module table references.')
+        print("✅ No exact-name duplicates.")
+        print("✅ No near-duplicates by fieldnames.")
+        print("✅ No cross-module table references.")
         return
 
     # Catalog all resources (any JSON with a 'doctype' key)
@@ -253,7 +253,7 @@ def run():
                 pass
 
             # Index; check duplicates per (type, name)
-            key = f'{r.type}:{r.name}'
+            key = f"{r.type}:{r.name}"
             if r.name in catalog_by_type[r.type]:
                 name_collisions[key].append(catalog_by_type[r.type][r.name])
                 name_collisions[key].append(r)
@@ -262,29 +262,29 @@ def run():
 
     # Summary
     total_resources = sum(len(d) for d in catalog_by_type.values())
-    print(f'Found {total_resources} resource(s) across {len(modules)} module(s).')
-    print('Resources by type:')
+    print(f"Found {total_resources} resource(s) across {len(modules)} module(s).")
+    print("Resources by type:")
     for rtype, d in sorted(catalog_by_type.items(), key=lambda x: (-len(x[1]), x[0])):
-        print(f'  - {rtype}: {len(d)}')
+        print(f"  - {rtype}: {len(d)}")
 
     # 1) Exact-name duplicates (per resource type)
     if name_collisions:
-        print('❌ Exact-name duplicates (type:name → [module :: path]):')
+        print("❌ Exact-name duplicates (type:name → [module :: path]):")
         already = set()
         for key, res_list in sorted(name_collisions.items()):
             tup = (key, tuple(r.path for r in res_list))
             if tup in already:
                 continue
-            print(f'  - {key}:')
+            print(f"  - {key}:")
             for r in res_list:
-                print(f'      • {r.module} :: {r.path}')
+                print(f"      • {r.module} :: {r.path}")
             already.add(tup)
     else:
-        print('✅ No exact-name duplicates across resource types.')
+        print("✅ No exact-name duplicates across resource types.")
 
     # ---------- DocType-only deep checks ----------
     doctypes: dict[str, DocInfo] = {
-        name: r for name, r in catalog_by_type.get('DocType', {}).items() if isinstance(r, DocInfo)
+        name: r for name, r in catalog_by_type.get("DocType", {}).items() if isinstance(r, DocInfo)
     }
 
     # 2) Near-duplicates (DocType field overlap)
@@ -300,25 +300,21 @@ def run():
                 nd_warnings.append((A.name, B.name, round(jac, 3)))
     if nd_warnings:
         print(
-            f'⚠️ Potential near-duplicates by field overlap (DocType, threshold ≥ {NEAR_DUPLICATE_THRESHOLD}):'
+            f"⚠️ Potential near-duplicates by field overlap (DocType, threshold ≥ {NEAR_DUPLICATE_THRESHOLD}):"
         )
         for a, b, score in sorted(nd_warnings, key=lambda x: -x[2]):
-            print(f'  - {a} ↔ {b} (Jaccard={score})')
+            print(f"  - {a} ↔ {b} (Jaccard={score})")
     else:
-        print('✅ No near-duplicates by DocType fieldnames.')
+        print("✅ No near-duplicates by DocType fieldnames.")
 
     # 3,4,5) Table/Link integrity (DocType)
-    cross_refs: list[
-        tuple[str, str, str, str]
-    ] = []  # (parent_doctype, parent_module, fieldtype, child_doctype)
+    cross_refs: list[tuple[str, str, str, str]] = (
+        []
+    )  # (parent_doctype, parent_module, fieldtype, child_doctype)
     dangling_tables: list[tuple[str, str, str]] = []  # (parent_doctype, fieldname, missing_child)
-    non_child_table_targets: list[
-        tuple[str, str, str]
-    ] = []  # (parent_doctype, fieldname, bad_child)
+    non_child_table_targets: list[tuple[str, str, str]] = []  # (parent_doctype, fieldname, bad_child)
     table_without_options: list[tuple[str, str]] = []  # (parent_doctype, fieldname)
-    dangling_links_disk: list[
-        tuple[str, str, str]
-    ] = []  # (parent_doctype, fieldname, missing_target)
+    dangling_links_disk: list[tuple[str, str, str]] = []  # (parent_doctype, fieldname, missing_target)
     db_only_link_count = 0  # count-only, no list
 
     for parent in doctypes.values():
@@ -330,25 +326,25 @@ def run():
                 # not in repo; check DB
                 exists_in_db = False
                 try:
-                    if frappe.db.exists('DocType', child):
+                    if frappe.db.exists("DocType", child):
                         exists_in_db = True
                 except Exception:
                     pass
                 if exists_in_db:
-                    cross_refs.append((parent.name, parent.module, 'Table', child))
+                    cross_refs.append((parent.name, parent.module, "Table", child))
                 else:
                     dangling_tables.append((parent.name, fieldname, child))
                 continue
             if not doctypes[child].istable:
                 non_child_table_targets.append((parent.name, fieldname, child))
             if doctypes[child].module != parent.module:
-                cross_refs.append((parent.name, parent.module, 'Table', child))
+                cross_refs.append((parent.name, parent.module, "Table", child))
 
         for fieldname, target in parent.link_targets:
             if target not in doctypes:
                 exists_in_db = False
                 try:
-                    if frappe.db.exists('DocType', target):
+                    if frappe.db.exists("DocType", target):
                         exists_in_db = True
                 except Exception:
                     pass
@@ -358,44 +354,42 @@ def run():
                     dangling_links_disk.append((parent.name, fieldname, target))
 
     if cross_refs:
-        print('ℹ️ Cross-module table references (DocType) (parent [module] fieldtype → child):')
+        print("ℹ️ Cross-module table references (DocType) (parent [module] fieldtype → child):")
         for parent_name, parent_mod, fieldtype, child in sorted(cross_refs):
-            child_mod = doctypes[child].module if child in doctypes else '(DB-only)'
-            print(f'  - {parent_name} [{parent_mod}] {fieldtype} → {child} [{child_mod}]')
+            child_mod = doctypes[child].module if child in doctypes else "(DB-only)"
+            print(f"  - {parent_name} [{parent_mod}] {fieldtype} → {child} [{child_mod}]")
     else:
-        print('✅ No cross-module table references (DocType).')
+        print("✅ No cross-module table references (DocType).")
 
     if dangling_tables:
-        print('❌ Dangling Table references (DocType) (child not found on disk nor DB):')
+        print("❌ Dangling Table references (DocType) (child not found on disk nor DB):")
         for parent_name, fieldname, missing_child in sorted(dangling_tables):
-            print(f'  - {parent_name}.{fieldname} → {missing_child} (missing)')
+            print(f"  - {parent_name}.{fieldname} → {missing_child} (missing)")
     else:
-        print('✅ No dangling Table references (DocType).')
+        print("✅ No dangling Table references (DocType).")
 
     if non_child_table_targets:
-        print('❌ Table fields pointing to NON-child DocTypes (DocType; must have istable=1):')
+        print("❌ Table fields pointing to NON-child DocTypes (DocType; must have istable=1):")
         for parent_name, fieldname, bad_child in sorted(non_child_table_targets):
-            print(f'  - {parent_name}.{fieldname} → {bad_child} (istable=0)')
+            print(f"  - {parent_name}.{fieldname} → {bad_child} (istable=0)")
     else:
-        print('✅ All Table fields point to Child Tables (DocType).')
+        print("✅ All Table fields point to Child Tables (DocType).")
 
     if table_without_options:
         print("❌ Table fields missing 'options' (DocType; child DocType name):")
         for parent_name, fieldname in sorted(table_without_options):
-            print(f'  - {parent_name}.{fieldname} (no options set)')
+            print(f"  - {parent_name}.{fieldname} (no options set)")
     else:
         print("✅ All Table fields define 'options' (DocType).")
 
     if dangling_links_disk:
-        print('❌ Dangling Link targets (DocType; not found on disk or DB):')
+        print("❌ Dangling Link targets (DocType; not found on disk or DB):")
         for parent_name, fieldname, target in sorted(dangling_links_disk):
-            print(f'  - {parent_name}.{fieldname} → {target}')
+            print(f"  - {parent_name}.{fieldname} → {target}")
     else:
-        print('✅ No dangling Link targets (DocType).')
+        print("✅ No dangling Link targets (DocType).")
 
-    print(
-        f'✅ Link targets present in DB but not in repo (DocType): OK ({db_only_link_count} verified)'
-    )
+    print(f"✅ Link targets present in DB but not in repo (DocType): OK ({db_only_link_count} verified)")
 
     # 6) Duplicate DocType fieldnames
     dup_fields = []
@@ -405,11 +399,11 @@ def run():
         if dups:
             dup_fields.append((doc.name, dups))
     if dup_fields:
-        print('❌ Duplicate fieldnames within DocTypes:')
+        print("❌ Duplicate fieldnames within DocTypes:")
         for docname, dups in sorted(dup_fields):
             print(f"  - {docname}: {', '.join(sorted(dups))}")
     else:
-        print('✅ No duplicate fieldnames inside any DocType.')
+        print("✅ No duplicate fieldnames inside any DocType.")
 
     # 7) Fieldname regex compliance
     bad_fieldnames = []
@@ -418,11 +412,11 @@ def run():
             if not FIELDNAME_RE.match(fn):
                 bad_fieldnames.append((doc.name, fn))
     if bad_fieldnames:
-        print('❌ Fieldnames failing Frappe-safe regex [a-z][a-z0-9_]{0,139}:')
+        print("❌ Fieldnames failing Frappe-safe regex [a-z][a-z0-9_]{0,139}:")
         for docname, fn in sorted(bad_fieldnames):
-            print(f'  - {docname}.{fn}')
+            print(f"  - {docname}.{fn}")
     else:
-        print('✅ All DocType fieldnames comply with safe format.')
+        print("✅ All DocType fieldnames comply with safe format.")
 
     # 8) depends_on references unknown fields
     bad_depends = []
@@ -433,11 +427,11 @@ def run():
                 if r and r not in doc.fieldname_set:
                     bad_depends.append((doc.name, fieldname, expr, r))
     if bad_depends:
-        print('❌ depends_on referencing unknown fields (DocType):')
+        print("❌ depends_on referencing unknown fields (DocType):")
         for docname, fieldname, expr, missing in sorted(bad_depends):
             print(f"  - {docname}.{fieldname} depends_on '{expr}' → missing '{missing}'")
     else:
-        print('✅ All depends_on expressions reference existing fields (DocType).')
+        print("✅ All depends_on expressions reference existing fields (DocType).")
 
     # 9) JSON 'module' vs folder for ALL resources
     if path_mismatch:
@@ -445,24 +439,22 @@ def run():
         for json_mod, expected_root, p in path_mismatch:
             print(f"  - module='{json_mod}' expected under '{expected_root}', file at '{p}'")
     else:
-        print('✅ No module/path mismatches between JSON and filesystem (all types).')
+        print("✅ No module/path mismatches between JSON and filesystem (all types).")
 
     # 10) Folder/file vs name mismatches for ALL resources
     if folder_name_mismatch:
-        print('⚠️ Resource folder/file naming mismatch (all types):')
+        print("⚠️ Resource folder/file naming mismatch (all types):")
         for name, expected_folder, p in folder_name_mismatch:
             print(f"  - '{name}' should live in folder/file '{expected_folder}.json' → {p}")
     else:
-        print('✅ Folder/file names match resource names (all types).')
+        print("✅ Folder/file names match resource names (all types).")
 
     # 11) Parent DocTypes missing autoname
-    parent_missing_autoname = [
-        d.name for d in doctypes.values() if not d.istable and not d.autoname
-    ]
+    parent_missing_autoname = [d.name for d in doctypes.values() if not d.istable and not d.autoname]
     if parent_missing_autoname:
         print("⚠️ Parent DocTypes missing 'autoname' (consider 'field:...' or 'format:...'):")
         for n in sorted(parent_missing_autoname):
-            print(f'  - {n}')
+            print(f"  - {n}")
     else:
         print("✅ All parent DocTypes define an 'autoname' or are intentionally named.")
 
@@ -471,23 +463,23 @@ def run():
     if child_no_editgrid:
         print("⚠️ Child tables without 'editable_grid: 1':")
         for n in sorted(child_no_editgrid):
-            print(f'  - {n}')
+            print(f"  - {n}")
     else:
-        print('✅ All child tables have editable_grid=1.')
+        print("✅ All child tables have editable_grid=1.")
 
     # 13) Extra checks for non-DocType resources
     #     Keep these light and safe; only flag clear problems
     # Reports
-    reports = list(catalog_by_type.get('Report', {}).values())
+    reports = list(catalog_by_type.get("Report", {}).values())
     report_issues = []
     for r in reports:
-        rt = (r.data.get('report_type') or '').strip()
-        ref_dt = (r.data.get('ref_doctype') or '').strip()
-        if rt in {'Report Builder', 'Script Report'} and not ref_dt:
-            report_issues.append((r.name, 'Missing ref_doctype for non-Query report'))
-        if rt == 'Query Report':
+        rt = (r.data.get("report_type") or "").strip()
+        ref_dt = (r.data.get("ref_doctype") or "").strip()
+        if rt in {"Report Builder", "Script Report"} and not ref_dt:
+            report_issues.append((r.name, "Missing ref_doctype for non-Query report"))
+        if rt == "Query Report":
             # query text is usually stored inline as 'query'
-            if not (r.data.get('query') or '').strip():
+            if not (r.data.get("query") or "").strip():
                 # Some Query Reports may load SQL elsewhere; warn only
                 report_issues.append((r.name, "Query Report without inline 'query'"))
         # Validate ref_doctype exists (repo or DB)
@@ -495,49 +487,47 @@ def run():
             if ref_dt not in doctypes:
                 exists = False
                 try:
-                    if frappe.db.exists('DocType', ref_dt):
+                    if frappe.db.exists("DocType", ref_dt):
                         exists = True
                 except Exception:
                     pass
                 if not exists:
-                    report_issues.append(
-                        (r.name, f"ref_doctype '{ref_dt}' not found on disk or DB")
-                    )
+                    report_issues.append((r.name, f"ref_doctype '{ref_dt}' not found on disk or DB"))
     if report_issues:
-        print('⚠️ Report sanity issues:')
+        print("⚠️ Report sanity issues:")
         for name, msg in sorted(report_issues):
-            print(f'  - {name}: {msg}')
+            print(f"  - {name}: {msg}")
     else:
-        print('✅ Reports: basic checks OK.')
+        print("✅ Reports: basic checks OK.")
 
     # Dashboard Chart / Number Card document_type validations
     bad_doc_target = []
-    for rtype in ('Dashboard Chart', 'Number Card'):
+    for rtype in ("Dashboard Chart", "Number Card"):
         for res in catalog_by_type.get(rtype, {}).values():
-            dt = (res.data.get('document_type') or '').strip()
+            dt = (res.data.get("document_type") or "").strip()
             if dt:
                 if dt not in doctypes:
                     exists = False
                     try:
-                        if frappe.db.exists('DocType', dt):
+                        if frappe.db.exists("DocType", dt):
                             exists = True
                     except Exception:
                         pass
                     if not exists:
                         bad_doc_target.append((rtype, res.name, dt))
     if bad_doc_target:
-        print('❌ Chart/Card document_type targets missing:')
+        print("❌ Chart/Card document_type targets missing:")
         for rtype, name, dt in sorted(bad_doc_target):
             print(f"  - {rtype} '{name}' → document_type '{dt}' not found (disk+DB)")
     else:
-        print('✅ Dashboard Charts & Number Cards: document_type targets OK (or unset).')
+        print("✅ Dashboard Charts & Number Cards: document_type targets OK (or unset).")
 
     # Per-type counts (again, compact)
-    print('Resources per type:')
+    print("Resources per type:")
     for rtype, d in sorted(catalog_by_type.items(), key=lambda x: (-len(x[1]), x[0])):
-        print(f'  - {rtype}: {len(d)}')
+        print(f"  - {rtype}: {len(d)}")
 
 
 # Allow local execution
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

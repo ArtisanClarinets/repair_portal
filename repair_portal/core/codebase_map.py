@@ -126,7 +126,9 @@ def _collect_hooks() -> List[HookInfo]:
             for target in node.targets:
                 if isinstance(target, ast.Name):
                     value_repr = ast.get_source_segment(source, node.value) or ""
-                    hooks.append(HookInfo(name=target.id, kind=node.value.__class__.__name__, value=value_repr))
+                    hooks.append(
+                        HookInfo(name=target.id, kind=node.value.__class__.__name__, value=value_repr)
+                    )
     return hooks
 
 
@@ -138,17 +140,13 @@ class WhitelistVisitor(ast.NodeVisitor):
     def visit_FunctionDef(self, node: ast.FunctionDef) -> None:  # noqa: N802
         decorators = node.decorator_list
         whitelisted = any(
-            (
-                isinstance(decorator, ast.Attribute) and decorator.attr == "whitelist"
-            )
+            (isinstance(decorator, ast.Attribute) and decorator.attr == "whitelist")
             or (
                 isinstance(decorator, ast.Call)
                 and isinstance(decorator.func, ast.Attribute)
                 and decorator.func.attr == "whitelist"
             )
-            or (
-                isinstance(decorator, ast.Name) and decorator.id == "whitelist"
-            )
+            or (isinstance(decorator, ast.Name) and decorator.id == "whitelist")
             for decorator in decorators
         )
 

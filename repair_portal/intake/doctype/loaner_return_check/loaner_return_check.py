@@ -12,19 +12,18 @@ from frappe.model.document import Document
 
 
 class LoanerReturnCheck(Document):
-	"""
-	Controller for Loaner Return Check.
-	Validates that damage reports include condition notes.
-	"""
+    """
+    Controller for Loaner Return Check.
+    Validates that damage reports include condition notes.
+    """
 
-	def validate(self) -> None:
-		"""Ensure condition notes are provided when damage is flagged."""
-		self._validate_damage_documentation()
+    def validate(self) -> None:
+        """Ensure condition notes are provided when damage is flagged."""
+        self._validate_damage_documentation()
 
-	def _validate_damage_documentation(self) -> None:
-		"""Require condition notes when damage is observed."""
-		if self.damage_found and not self.condition_notes:  # type: ignore
-			frappe.throw(
-				_("Please include condition notes when damage is flagged."),
-				title=_("Validation Error")
-			)
+    def _validate_damage_documentation(self) -> None:
+        """Require condition notes when damage is observed."""
+        if self.damage_found and not self.condition_notes:  # type: ignore
+            frappe.throw(
+                _("Please include condition notes when damage is flagged."), title=_("Validation Error")
+            )

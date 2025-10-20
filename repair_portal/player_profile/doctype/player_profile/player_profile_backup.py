@@ -23,27 +23,27 @@ def _resolve_serial_display(instrument_profile_row: dict) -> str | None:
            • If it's a Link to ISN, show ISN.serial (raw stamped string).
            • If it's a Data/ERPNext Serial No, show that value.
     """
-    if instrument_profile_row.get('serial_no'):
-        return instrument_profile_row.get('serial_no')
+    if instrument_profile_row.get("serial_no"):
+        return instrument_profile_row.get("serial_no")
 
-    instrument_name = instrument_profile_row.get('instrument')
+    instrument_name = instrument_profile_row.get("instrument")
     if not instrument_name:
         return None
 
     # Get Instrument.serial_no value and its field type
-    serial_value = frappe.db.get_value('Instrument', instrument_name, 'serial_no')
+    serial_value = frappe.db.get_value("Instrument", instrument_name, "serial_no")
     if not serial_value:
         return None
 
     # Determine fieldtype dynamically
     try:
-        df = frappe.get_meta('Instrument').get_field('serial_no')
-        fieldtype = getattr(df, 'fieldtype', None) if df else None
+        df = frappe.get_meta("Instrument").get_field("serial_no")
+        fieldtype = getattr(df, "fieldtype", None) if df else None
     except Exception:
         fieldtype = None
 
-    if fieldtype == 'Link' and frappe.db.exists('Instrument Serial Number', serial_value):
-        return frappe.db.get_value('Instrument Serial Number', serial_value, 'serial')  # type: ignore
+    if fieldtype == "Link" and frappe.db.exists("Instrument Serial Number", serial_value):
+        return frappe.db.get_value("Instrument Serial Number", serial_value, "serial")  # type: ignore
 
     # Legacy Data or ERPNext Serial No docname stored as Data
     return serial_value  # type: ignore
@@ -66,25 +66,25 @@ class PlayerProfile(Document):
         )
 
         affiliation: DF.Data | None
-        communication_preference: DF.Literal['Email', 'SMS', 'Phone Call']
+        communication_preference: DF.Literal["Email", "SMS", "Phone Call"]
         customer_lifetime_value: DF.Currency
         equipment_preferences: DF.Table[PlayerEquipmentPreference]
         g_sharp_a_connection: DF.Data | None
         instruments_owned: DF.Table[InstrumentsOwned]
         intonation_notes: DF.SmallText | None
-        key_height_preference: DF.Literal['Low/Close', 'Standard', 'High/Open']
+        key_height_preference: DF.Literal["Low/Close", "Standard", "High/Open"]
         last_visit_date: DF.Date | None
         mailing_address: DF.SmallText | None
         newsletter_subscription: DF.Check
         player_level: DF.Literal[
-            'Student (Beginner)',  # type: ignore
-            'Student (Advanced)',  # type: ignore
-            'Amateur/Hobbyist',
-            'University Student',
-            'Professional (Orchestral)',  # type: ignore
-            'Professional (Jazz/Commercial)',  # type: ignore
-            'Educator',
-            'Collector',
+            "Student (Beginner)",  # type: ignore
+            "Student (Advanced)",  # type: ignore
+            "Amateur/Hobbyist",
+            "University Student",
+            "Professional (Orchestral)",  # type: ignore
+            "Professional (Jazz/Commercial)",  # type: ignore
+            "Educator",
+            "Collector",
         ]  # type: ignore
         player_name: DF.Data
         player_profile_id: DF.Data
@@ -95,9 +95,9 @@ class PlayerProfile(Document):
         primary_playing_styles: DF.Check
         primary_teacher: DF.Data | None
         profile_creation_date: DF.Date | None
-        profile_status: DF.Literal['Draft', 'Active', 'Archived']
+        profile_status: DF.Literal["Draft", "Active", "Archived"]
         referral_source: DF.Data | None
-        spring_tension_preference: DF.Literal['Light/Fluid', 'Standard/Firm', 'Heavy/Resistant']
+        spring_tension_preference: DF.Literal["Light/Fluid", "Standard/Firm", "Heavy/Resistant"]
         targeted_marketing_optin: DF.Check
         technician_notes: DF.SmallText | None
     # end: auto-generated types
@@ -107,8 +107,8 @@ class PlayerProfile(Document):
     """
 
     def autoname(self):
-        if not self.player_profile_id or self.player_profile_id == 'New':
-            self.player_profile_id = f'PLAYER-{frappe.generate_hash(length=5).upper()}'
+        if not self.player_profile_id or self.player_profile_id == "New":
+            self.player_profile_id = f"PLAYER-{frappe.generate_hash(length=5).upper()}"
 
     def validate(self):
         """
@@ -116,17 +116,17 @@ class PlayerProfile(Document):
         """
         # Core field checks
         if not self.player_name:
-            frappe.throw('Full Name is required for Player Profile.')
+            frappe.throw("Full Name is required for Player Profile.")
         if not self.primary_email:
-            frappe.throw('Primary Email is required for Player Profile.')
+            frappe.throw("Primary Email is required for Player Profile.")
         # COPPA/child privacy (if date of birth is present)
-        if hasattr(self, 'date_of_birth') and self.date_of_birth:  # type: ignore
+        if hasattr(self, "date_of_birth") and self.date_of_birth:  # type: ignore
             try:
                 age = (datetime.now().date() - self.date_of_birth).days // 365  # type: ignore
                 if age < 13:
                     self._block_marketing_emails()
             except Exception:
-                frappe.log_error(frappe.get_traceback(), 'PlayerProfile.validate failed on DOB')
+                frappe.log_error(frappe.get_traceback(), "PlayerProfile.validate failed on DOB")
 
         # CRM triggers (opt-ins)
         if self.newsletter_subscription:
@@ -146,28 +146,26 @@ class PlayerProfile(Document):
         """
         try:
             if self.primary_email:
-                frappe.db.set_value(
-                    'Email Group Member', {'email': self.primary_email}, 'unsubscribed', 1
-                )
+                frappe.db.set_value("Email Group Member", {"email": self.primary_email}, "unsubscribed", 1)
             # Notify parent/client user if available
             customer = frappe.db.get_value(
-                'Customer',
-                {'email_id': self.primary_email},
-                ['linked_user'], #type: ignore
+                "Customer",
+                {"email_id": self.primary_email},
+                ["linked_user"],  # type: ignore
                 as_dict=True,  # type: ignore
             )  # type: ignore
             if customer and customer.linked_user:  # type: ignore
-                parent_email = frappe.db.get_value('User', customer.linked_user, 'email')  # type: ignore
+                parent_email = frappe.db.get_value("User", customer.linked_user, "email")  # type: ignore
                 if parent_email:
-                    subject = f'Profile Marketing Blocked for {self.player_name}'
+                    subject = f"Profile Marketing Blocked for {self.player_name}"
                     message = (
-                        f'Dear Parent/Guardian,<br>Due to compliance, marketing emails for {self.player_name} '
-                        f'have been blocked (age under 13). No action is required.<br>Thank you!<br>— The Artisan Clarinets Team'
+                        f"Dear Parent/Guardian,<br>Due to compliance, marketing emails for {self.player_name} "
+                        f"have been blocked (age under 13). No action is required.<br>Thank you!<br>— The Artisan Clarinets Team"
                     )
                     frappe.sendmail(recipients=[parent_email], subject=subject, message=message)
         except Exception:
             frappe.log_error(
-                frappe.get_traceback(), 'PlayerProfile: block_marketing_emails notification failed'
+                frappe.get_traceback(), "PlayerProfile: block_marketing_emails notification failed"
             )
 
     def _sync_email_group(self):
@@ -178,13 +176,13 @@ class PlayerProfile(Document):
             if self.primary_email:
                 frappe.get_doc(
                     {
-                        'doctype': 'Email Group Member',
-                        'email': self.primary_email,
-                        'email_group': 'Player Newsletter',
+                        "doctype": "Email Group Member",
+                        "email": self.primary_email,
+                        "email_group": "Player Newsletter",
                     }
                 ).insert(ignore_permissions=True, ignore_if_duplicate=True)
         except Exception:
-            frappe.log_error(frappe.get_traceback(), 'PlayerProfile: sync_email_group failed')
+            frappe.log_error(frappe.get_traceback(), "PlayerProfile: sync_email_group failed")
 
     def _sync_instruments_owned(self):
         """
@@ -193,24 +191,24 @@ class PlayerProfile(Document):
         """
         try:
             owned = frappe.get_all(
-                'Instrument Profile',
-                filters={'owner_player': self.name},
+                "Instrument Profile",
+                filters={"owner_player": self.name},
                 fields=[
-                    'name',
-                    'serial_no',
-                    'model',
-                    'instrument',
+                    "name",
+                    "serial_no",
+                    "model",
+                    "instrument",
                 ],  # include instrument link for ISN-aware resolution
             )
-            self.set('instruments_owned', [])
+            self.set("instruments_owned", [])
             for row in owned:
                 serial_display = _resolve_serial_display(row)
                 self.append(
-                    'instruments_owned',
-                    {'name': row['name'], 'serial_no': serial_display, 'model': row.get('model')},
+                    "instruments_owned",
+                    {"name": row["name"], "serial_no": serial_display, "model": row.get("model")},
                 )
         except Exception:
-            frappe.log_error(frappe.get_traceback(), 'PlayerProfile: sync_instruments_owned failed')
+            frappe.log_error(frappe.get_traceback(), "PlayerProfile: sync_instruments_owned failed")
 
     def _calc_lifetime_value(self):
         """
@@ -218,15 +216,13 @@ class PlayerProfile(Document):
         """
         try:
             invoices = frappe.get_all(
-                'Sales Invoice',
-                filters={'player_profile': self.name, 'docstatus': 1},
-                fields=['grand_total'],
+                "Sales Invoice",
+                filters={"player_profile": self.name, "docstatus": 1},
+                fields=["grand_total"],
             )
-            self.customer_lifetime_value = (
-                sum(inv['grand_total'] for inv in invoices) if invoices else 0
-            )
+            self.customer_lifetime_value = sum(inv["grand_total"] for inv in invoices) if invoices else 0
         except Exception:
-            frappe.log_error(frappe.get_traceback(), 'PlayerProfile: calc_lifetime_value failed')
+            frappe.log_error(frappe.get_traceback(), "PlayerProfile: calc_lifetime_value failed")
 
     def on_update(self):
         """
@@ -234,14 +230,14 @@ class PlayerProfile(Document):
         """
         try:
             # CRM Notification Example: If a "liked" instrument is available, trigger notification
-            for liked in self.get('instruments_liked') or []:
-                instrument = frappe.get_doc('Instrument Profile', liked.instrument)
-                if instrument.status == 'Available':  # type: ignore
+            for liked in self.get("instruments_liked") or []:
+                instrument = frappe.get_doc("Instrument Profile", liked.instrument)
+                if instrument.status == "Available":  # type: ignore
                     self._notify_liked_instrument(instrument)
             # Staff Notes handling (running log)
             # No duplicate notes; always log new note if present
         except Exception:
-            frappe.log_error(frappe.get_traceback(), 'PlayerProfile: on_update CRM triggers failed')
+            frappe.log_error(frappe.get_traceback(), "PlayerProfile: on_update CRM triggers failed")
 
     def _notify_liked_instrument(self, instrument):
         """
@@ -249,15 +245,13 @@ class PlayerProfile(Document):
         """
         try:
             if self.primary_email:
-                subject = f'Your Liked Instrument {instrument.name} is Now Available!'
+                subject = f"Your Liked Instrument {instrument.name} is Now Available!"
                 message = (
-                    f'Hi {self.preferred_name or self.player_name},<br><br>'
-                    f'Your liked instrument <b>{instrument.name}</b> is now in stock! '
+                    f"Hi {self.preferred_name or self.player_name},<br><br>"
+                    f"Your liked instrument <b>{instrument.name}</b> is now in stock! "
                     f"<a href='/app/instrument-profile/{instrument.name}'>View Details</a>."
-                    f'<br><br>— The Artisan Clarinets Team'
+                    f"<br><br>— The Artisan Clarinets Team"
                 )
                 frappe.sendmail(recipients=[self.primary_email], subject=subject, message=message)
         except Exception:
-            frappe.log_error(
-                frappe.get_traceback(), 'PlayerProfile: notify_liked_instrument failed'
-            )
+            frappe.log_error(frappe.get_traceback(), "PlayerProfile: notify_liked_instrument failed")

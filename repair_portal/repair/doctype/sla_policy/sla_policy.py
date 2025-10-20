@@ -23,7 +23,7 @@ class SLAPolicy(Document):
     # ------------------------
     def _validate_thresholds(self):
         for field in ("warn_threshold_pct", "critical_threshold_pct"):
-            val = (self.get(field) or 0)
+            val = self.get(field) or 0
             if not (0 <= int(val) <= 100):
                 frappe.throw(f"{field} must be between 0 and 100.")
         if int(self.warn_threshold_pct or 0) > int(self.critical_threshold_pct or 0):

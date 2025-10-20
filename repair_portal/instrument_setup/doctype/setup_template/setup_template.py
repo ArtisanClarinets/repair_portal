@@ -20,8 +20,9 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
-D2 = Decimal("0.01")    # 2-decimal quantizer
-SIXTY = Decimal(60)     # 60 minutes
+D2 = Decimal("0.01")  # 2-decimal quantizer
+SIXTY = Decimal(60)  # 60 minutes
+
 
 def _D(x: Any, default: str = "0") -> Decimal:
     """Safe Decimal parser using str() to avoid binary float artifacts."""
@@ -32,6 +33,7 @@ def _D(x: Any, default: str = "0") -> Decimal:
     except Exception:
         return Decimal(default)
 
+
 def _get_settings_decimal(fieldname: str, default: str) -> Decimal:
     """Fetch a numeric single value from Repair Portal Settings as Decimal."""
     try:
@@ -39,6 +41,7 @@ def _get_settings_decimal(fieldname: str, default: str) -> Decimal:
         return _D(val, default)
     except Exception:
         return Decimal(default)
+
 
 def _sum_minutes_and_hours(rows) -> tuple[int, Decimal]:
     """
@@ -48,7 +51,7 @@ def _sum_minutes_and_hours(rows) -> tuple[int, Decimal]:
     total_minutes = 0
     hours_per_day = _get_settings_decimal("hours_per_day", "8")
 
-    for r in (rows or []):
+    for r in rows or []:
         # Prefer minutes (new field)
         mins = int(_D(getattr(r, "exp_duration_mins", 0)))
         if mins > 0:
@@ -105,7 +108,7 @@ class SetupTemplate(Document):
 
         # Save path: recompute deterministically and persist
         _, hours = _sum_minutes_and_hours(self.get("template_tasks"))
-        self.estimated_hours = float(hours)                       # store float; compute with Decimal
+        self.estimated_hours = float(hours)  # store float; compute with Decimal
         self.estimated_cost = float(self._compute_total_cost(hours))
 
     # ---------------------------- validations / helpers ---------------------------
@@ -123,7 +126,9 @@ class SetupTemplate(Document):
                 self.pad_map = existing  # type: ignore[assignment]
                 frappe.msgprint(_("Found existing Pad Map: {0}").format(existing))
             else:
-                pad_map = frappe.get_doc({"doctype": "Clarinet Pad Map", "clarinet_model": self.clarinet_model})
+                pad_map = frappe.get_doc(
+                    {"doctype": "Clarinet Pad Map", "clarinet_model": self.clarinet_model}
+                )
                 pad_map.insert(ignore_permissions=True)
                 self.pad_map = pad_map.name
                 frappe.msgprint(_("Auto-created Pad Map: {0}").format(pad_map.name))

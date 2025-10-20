@@ -24,7 +24,9 @@ def execute() -> None:
         except Exception:
             frappe.log_error("Failed to seed role", frappe.as_json({"role": role}))
 
-    if frappe.db.table_exists("Repair Portal Settings") and not frappe.db.get_value("Repair Portal Settings", None):
+    if frappe.db.table_exists("Repair Portal Settings") and not frappe.db.get_value(
+        "Repair Portal Settings", None
+    ):
         doc = frappe.get_doc({"doctype": "Repair Portal Settings"})
         doc.flags.ignore_permissions = True
         doc.insert()

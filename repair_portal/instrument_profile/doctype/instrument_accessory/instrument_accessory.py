@@ -23,13 +23,15 @@ class InstrumentAccessory(Document):
         # Ensure removed_date is after acquired_date
         if self.removed_date and self.acquired_date:
             if getdate(self.removed_date) < getdate(self.acquired_date):
-                frappe.throw(_('Removed Date cannot be before Acquired Date'))
-        
+                frappe.throw(_("Removed Date cannot be before Acquired Date"))
+
         # If removed_date is set, current should be unchecked
         if self.removed_date and self.current:
             frappe.msgprint(
-                _('Accessory has a removal date but is marked as Currently Paired. Unchecking current status.'),
-                indicator='orange',
-                alert=True
+                _(
+                    "Accessory has a removal date but is marked as Currently Paired. Unchecking current status."
+                ),
+                indicator="orange",
+                alert=True,
             )
             self.current = 0

@@ -28,17 +28,17 @@ class RepairRequest(Document):
         date_reported: DF.Date | None
         instrument_category: DF.Link | None
         issue_description: DF.Text
-        priority_level: DF.Literal['', 'Low', 'Medium', 'High']
+        priority_level: DF.Literal["", "Low", "Medium", "High"]
         promise_date: DF.Date | None
         qa_checklist: DF.Table[QaChecklistItem]
         repair_notes: DF.Table[RepairTaskLog]
-        status: DF.Literal['', 'Open', 'In Progress', 'Resolved', 'Closed']
+        status: DF.Literal["", "Open", "In Progress", "Resolved", "Closed"]
         technician_assigned: DF.Link | None
 
     # end: auto-generated types
     def validate(self):
         if not self.customer:
-            frappe.throw('Customer is required')
+            frappe.throw("Customer is required")
 
     def on_submit(self):
-        frappe.msgprint('Repair Request submitted.')
+        frappe.msgprint("Repair Request submitted.")

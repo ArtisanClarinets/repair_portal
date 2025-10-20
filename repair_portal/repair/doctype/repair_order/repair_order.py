@@ -113,8 +113,9 @@ class RepairOrder(Document):
             allowed = self._allowed_next_states(previous)
             if self.workflow_state not in allowed:
                 frappe.throw(
-                    _("Illegal transition from {0} to {1}. Allowed transitions: {2}")
-                    .format(previous, self.workflow_state, ", ".join(allowed))
+                    _("Illegal transition from {0} to {1}. Allowed transitions: {2}").format(
+                        previous, self.workflow_state, ", ".join(allowed)
+                    )
                 )
 
     def _allowed_next_states(self, current: str) -> tuple[str, ...]:
@@ -199,7 +200,7 @@ class RepairOrder(Document):
             return
         seen = set()
         deduped = []
-        for row in (self.related_documents or []):
+        for row in self.related_documents or []:
             key = (row.doctype_name, row.document_name)
             if key in seen:
                 continue
@@ -237,7 +238,9 @@ class RepairOrder(Document):
                     if customer:
                         self.customer = customer
                 except Exception:
-                    frappe.log_error(title="RepairOrder Player Profile Customer", message=frappe.get_traceback())
+                    frappe.log_error(
+                        title="RepairOrder Player Profile Customer", message=frappe.get_traceback()
+                    )
 
     # ---- Minutes / Totals --------------------------------------------------
 
@@ -246,7 +249,7 @@ class RepairOrder(Document):
         est_total = 0
         act_total = 0
         if self.meta.has_field("repair_tasks"):
-            for t in (self.get("repair_tasks") or []):
+            for t in self.get("repair_tasks") or []:
                 est_total += flt(t.get("est_minutes"))
                 act_total += flt(t.get("actual_minutes"))
         if self.meta.has_field("total_estimated_minutes"):
@@ -465,7 +468,9 @@ def monitor_open_orders() -> None:
         except Exception as exc:  # pragma: no cover - guard rail
             frappe.log_error(
                 title="Repair SLA Monitor Failure",
-                message=frappe.as_json({"order": order.name, "exc": frappe.get_traceback(), "error": str(exc)}),
+                message=frappe.as_json(
+                    {"order": order.name, "exc": frappe.get_traceback(), "error": str(exc)}
+                ),
             )
 
 
@@ -487,7 +492,9 @@ def _notify_sla_escalation(doc: RepairOrder) -> None:
     recipients: list[str] = []
     if doc.assigned_technician:
         recipients.append(doc.assigned_technician)
-    manager_role_users = [x.parent for x in frappe.get_all("Has Role", filters={"role": "Repair Manager"}, fields=["parent"])]
+    manager_role_users = [
+        x.parent for x in frappe.get_all("Has Role", filters={"role": "Repair Manager"}, fields=["parent"])
+    ]
     recipients.extend(manager_role_users)
     recipients = sorted(set([r for r in recipients if r]))
     if not recipients:
@@ -495,7 +502,9 @@ def _notify_sla_escalation(doc: RepairOrder) -> None:
     frappe.sendmail(
         recipients=recipients,
         subject=_("Repair Order {0} SLA {1}").format(doc.name, doc.sla_status),
-        message=_("Repair Order {0} is now {1} against SLA and needs attention.").format(doc.name, doc.sla_status),
+        message=_("Repair Order {0} is now {1} against SLA and needs attention.").format(
+            doc.name, doc.sla_status
+        ),
     )
 
 
@@ -503,11 +512,13 @@ def _notify_sla_escalation(doc: RepairOrder) -> None:
 def pause_sla(order: str, reason: str) -> None:
     doc: RepairOrder = frappe.get_doc("Repair Order", order)
     doc.check_permission("write")
-    doc.db_set({
-        "sla_status": "Paused",
-        "sla_paused_on": now_datetime(),
-        "sla_pause_reason": reason,
-    })
+    doc.db_set(
+        {
+            "sla_status": "Paused",
+            "sla_paused_on": now_datetime(),
+            "sla_pause_reason": reason,
+        }
+    )
     doc.add_comment("Info", _("SLA paused: {0}").format(reason))
 
 
@@ -534,25 +545,31 @@ def generate_sales_invoice_from_ro(repair_order: str) -> str:
         si.player_profile = ro.player_profile
 
     # Parts: from Actual Materials child table only
-    for row in (ro.get("actual_materials") or []):
-        si.append("items", {
-            "item_code": row.item_code,
-            "qty": flt(row.qty) or 1,
-            "uom": row.uom or "Nos",
-            "description": f"{row.description or ''} (RO: {ro.name})".strip()
-        })
+    for row in ro.get("actual_materials") or []:
+        si.append(
+            "items",
+            {
+                "item_code": row.item_code,
+                "qty": flt(row.qty) or 1,
+                "uom": row.uom or "Nos",
+                "description": f"{row.description or ''} (RO: {ro.name})".strip(),
+            },
+        )
 
     # Labor: minutes → hours
     total_minutes = _get_total_minutes_from_tasks_or_aggregate(ro)
     hours = round(total_minutes / 60.0, 2)
     if hours > 0:
-        si.append("items", {
-            "item_code": ro.labor_item,
-            "qty": hours,
-            "uom": "Hour",
-            "rate": flt(ro.labor_rate) if ro.get("labor_rate") else 0.0,
-            "description": f"Labor for {ro.name} ({int(total_minutes)} minutes)"
-        })
+        si.append(
+            "items",
+            {
+                "item_code": ro.labor_item,
+                "qty": hours,
+                "uom": "Hour",
+                "rate": flt(ro.labor_rate) if ro.get("labor_rate") else 0.0,
+                "description": f"Labor for {ro.name} ({int(total_minutes)} minutes)",
+            },
+        )
 
     si.insert(ignore_permissions=True)
     frappe.msgprint(_("Sales Invoice created: {0}").format(frappe.bold(si.name)))
@@ -560,6 +577,7 @@ def generate_sales_invoice_from_ro(repair_order: str) -> str:
 
 
 # ---- Internal utilities ----------------------------------------------------
+
 
 def _get_ro(name: str) -> Document:
     if not name:
@@ -580,7 +598,7 @@ def _get_total_minutes_from_tasks_or_aggregate(ro: Document) -> float:
     if ro.meta.has_field("total_actual_minutes") and ro.get("total_actual_minutes") is not None:
         return float(ro.total_actual_minutes)
     total = 0.0
-    for t in (ro.get("repair_tasks") or []):
+    for t in ro.get("repair_tasks") or []:
         total += float(t.get("actual_minutes") or 0)
     return total
 
@@ -592,19 +610,23 @@ def _mirror_se_items_into_actuals(ro_name: str, se_name: str) -> None:
 
     ro.set("actual_materials", [])
     for it in se.get("items", []):
-        ro.append("actual_materials", {
-            "item_code": it.item_code,
-            "description": it.description,
-            "qty": it.qty,
-            "uom": it.uom,
-            "valuation_rate": it.valuation_rate or 0,
-            "amount": flt(it.valuation_rate) * flt(it.qty),
-            "stock_entry": se.name
-        })
+        ro.append(
+            "actual_materials",
+            {
+                "item_code": it.item_code,
+                "description": it.description,
+                "qty": it.qty,
+                "uom": it.uom,
+                "valuation_rate": it.valuation_rate or 0,
+                "amount": flt(it.valuation_rate) * flt(it.qty),
+                "stock_entry": se.name,
+            },
+        )
     ro.save(ignore_permissions=True)
 
 
 # ---- Optional: hook target to auto-mirror on submit ------------------------
+
 
 def _on_submit_stock_entry(doc: Document, method: str | None = None) -> None:
     ro_name = _extract_ro_from_se(doc)

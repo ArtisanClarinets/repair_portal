@@ -30,7 +30,9 @@ def execute() -> None:
         try:
             _ensure_series(doctype, prefix)
         except Exception:
-            frappe.log_error("Failed to ensure naming series", frappe.as_json({"doctype": doctype, "prefix": prefix}))
+            frappe.log_error(
+                "Failed to ensure naming series", frappe.as_json({"doctype": doctype, "prefix": prefix})
+            )
 
     _ensure_unique_index(
         "Repair Material Movement",

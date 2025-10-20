@@ -42,7 +42,9 @@ class RepairQuotation(Document):
         discount_percent: DF.Float
         discount_type: DF.Literal[Percentage, Amount]
         grand_total: DF.Currency
-        instrument_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "C Clarinet", "Bass Clarinet"]
+        instrument_type: DF.Literal[
+            "B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "C Clarinet", "Bass Clarinet"
+        ]
         items: DF.Table[RepairQuotationItem]
         model: DF.Data | None
         owner_signature: DF.Link | None
@@ -139,25 +141,25 @@ class RepairQuotation(Document):
         if self.meta.has_field("accepted_by"):
             self.accepted_by = frappe.session.user
         if self.meta.has_field("acceptance_source"):
-            self.acceptance_source = source # type: ignore
+            self.acceptance_source = source  # type: ignore
 
     def _compute_item_amounts(self):
         currency_precision = frappe.get_precision(self, "grand_total") or 2  # type: ignore[arg-type]
-        for d in (self.items or []):  # type: ignore[attr-defined]
-            qty = flt(d.qty or 0.0) # type: ignore
-            rate = flt(d.rate or 0.0, currency_precision) # type: ignore
-            d.amount = flt(qty * rate, currency_precision) # type: ignore
+        for d in self.items or []:  # type: ignore[attr-defined]
+            qty = flt(d.qty or 0.0)  # type: ignore
+            rate = flt(d.rate or 0.0, currency_precision)  # type: ignore
+            d.amount = flt(qty * rate, currency_precision)  # type: ignore
 
     def _compute_totals(self):
         currency_precision = frappe.get_precision(self, "grand_total") or 2  # type: ignore[arg-type]
         total_labor = 0.0
         total_parts = 0.0
 
-        for d in (self.items or []):  # type: ignore[attr-defined]
-            if (d.item_type or "").lower() == "labor" or flt(d.hours) > 0: # type: ignore
-                total_labor += flt(d.amount) # type: ignore
+        for d in self.items or []:  # type: ignore[attr-defined]
+            if (d.item_type or "").lower() == "labor" or flt(d.hours) > 0:  # type: ignore
+                total_labor += flt(d.amount)  # type: ignore
             else:
-                total_parts += flt(d.amount) # type: ignore
+                total_parts += flt(d.amount)  # type: ignore
 
         self.total_labor = flt(total_labor, currency_precision)
         self.total_parts = flt(total_parts, currency_precision)

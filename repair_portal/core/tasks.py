@@ -16,7 +16,10 @@ except ImportError:  # pragma: no cover
 def _iter_open_orders() -> list[str]:
     if frappe is None or not frappe.db.table_exists("Repair Order"):
         return []
-    return [row.name for row in frappe.get_all("Repair Order", filters={"status": ["not in", ["Completed", "Delivered"]]})]
+    return [
+        row.name
+        for row in frappe.get_all("Repair Order", filters={"status": ["not in", ["Completed", "Delivered"]]})
+    ]
 
 
 def sla_breach_scan() -> None:
@@ -49,7 +52,9 @@ def finalize_billing_packets() -> None:
 
     if frappe is None:
         return
-    orders = frappe.get_all("Repair Order", filters={"billing_status": ["in", ["Ready", "Ready for Billing"]]}, pluck="name")
+    orders = frappe.get_all(
+        "Repair Order", filters={"billing_status": ["in", ["Ready", "Ready for Billing"]]}, pluck="name"
+    )
     for order in orders:
         labor = []
         parts = []
@@ -90,4 +95,6 @@ def send_feedback_requests() -> None:
                 "visible_in_portal": True,
             }
         )
-        frappe.db.set_value("Repair Order", order["name"], "feedback_requested_on", datetime.now(timezone.utc))
+        frappe.db.set_value(
+            "Repair Order", order["name"], "feedback_requested_on", datetime.now(timezone.utc)
+        )

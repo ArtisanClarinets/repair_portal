@@ -11,58 +11,59 @@ import frappe
 @frappe.whitelist(allow_guest=False)
 def get_my_instruments():
     """Return instrument list where the linked player belongs to the logged-in user."""
-    client = frappe.db.get_value('Customer', {'linked_user': frappe.session.user}, 'name')
+    client = frappe.db.get_value("Customer", {"linked_user": frappe.session.user}, "name")
     if not client:
         return []
 
-    player_names = frappe.get_all('Player Profile', {'customer': client}, pluck='name')
+    player_names = frappe.get_all("Player Profile", {"customer": client}, pluck="name")
     return frappe.get_all(
-        'Instrument Profile',
-        filters={'player_profile': ['in', player_names]},
-        fields=['name', 'instrument_type', 'serial_no'],
+        "Instrument Profile",
+        filters={"player_profile": ["in", player_names]},
+        fields=["name", "instrument_type", "serial_no"],
     )
 
 
 @frappe.whitelist(allow_guest=False)
 def get_my_repairs():
     """Return recent Repair Orders linked to instruments owned by this client."""
-    client = frappe.db.get_value('Customer', {'linked_user': frappe.session.user}, 'name')
+    client = frappe.db.get_value("Customer", {"linked_user": frappe.session.user}, "name")
     if not client:
         return []
 
-    player_names = frappe.get_all('Player Profile', {'customer': client}, pluck='name')
+    player_names = frappe.get_all("Player Profile", {"customer": client}, pluck="name")
     if not player_names:
         return []
 
     instrument_names = frappe.get_all(
-        'Instrument Profile', {'player_profile': ['in', player_names]}, pluck='name'
+        "Instrument Profile", {"player_profile": ["in", player_names]}, pluck="name"
     )
     if not instrument_names:
         return []
 
     instrument_meta = {
-        doc.name: doc for doc in frappe.get_all(
-            'Instrument Profile',
-            filters={'name': ['in', instrument_names]},
-            fields=['name', 'headline', 'instrument_category', 'serial_no'],
+        doc.name: doc
+        for doc in frappe.get_all(
+            "Instrument Profile",
+            filters={"name": ["in", instrument_names]},
+            fields=["name", "headline", "instrument_category", "serial_no"],
         )
     }
 
     repairs = frappe.get_all(
-        'Repair Order',
+        "Repair Order",
         filters={
-            'customer': client,
-            'instrument_profile': ['in', instrument_names],
+            "customer": client,
+            "instrument_profile": ["in", instrument_names],
         },
         fields=[
-            'name',
-            'workflow_state',
-            'instrument_profile',
-            'priority',
-            'target_delivery',
-            'modified',
+            "name",
+            "workflow_state",
+            "instrument_profile",
+            "priority",
+            "target_delivery",
+            "modified",
         ],
-        order_by='modified desc',
+        order_by="modified desc",
         limit=10,
     )
 

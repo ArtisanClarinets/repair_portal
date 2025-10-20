@@ -1,4 +1,3 @@
-
 # Absolute Path: /home/frappe/frappe-bench/apps/repair_portal/repair_portal/intake/api.py
 # Last Updated: 2025-10-10
 # Version: v2.0.0 (Intake wizard APIs, ownership enforcement, telemetry logging)
@@ -37,7 +36,6 @@ _ALLOWED_PLAYER_FIELDS = {
     "targeted_marketing_optin",
     "player_profile_id",
 }
-
 
 
 def _ensure_serial_field_type() -> str | None:
@@ -129,14 +127,18 @@ def _get_session(session_id: str | None, *, create: bool = False) -> Any:
     if not create:
         return None
 
-    doc = frappe.get_doc({
-        "doctype": "Intake Session",
-    })
+    doc = frappe.get_doc(
+        {
+            "doctype": "Intake Session",
+        }
+    )
     doc.insert()
     return doc
 
 
-def _update_session_payload(session: Any, payload: dict[str, Any], *, last_step: str | None = None, status: str | None = None) -> None:
+def _update_session_payload(
+    session: Any, payload: dict[str, Any], *, last_step: str | None = None, status: str | None = None
+) -> None:
     if not session:
         return
     if "customer" in payload:
@@ -190,8 +192,12 @@ def _build_intake_links(intake_doc: Any) -> dict[str, Any]:
     if instrument_name:
         links["instrument_form_route"] = f"/app/instrument/{instrument_name}"
     if getattr(intake_doc, "serial_no", None):
-        links["instrument_tag_print"] = _build_print_url("Instrument", instrument_name or intake_doc.name, "Instrument Tag")
-        links["instrument_qr_print"] = _build_print_url("Instrument", instrument_name or intake_doc.name, "Instrument QR Tag")
+        links["instrument_tag_print"] = _build_print_url(
+            "Instrument", instrument_name or intake_doc.name, "Instrument Tag"
+        )
+        links["instrument_qr_print"] = _build_print_url(
+            "Instrument", instrument_name or intake_doc.name, "Instrument QR Tag"
+        )
     return links
 
 
@@ -276,9 +282,7 @@ def get_instrument_inspection_name(intake_record_id: str) -> str | None:
     _ensure_intake_permission("read")
     if not intake_record_id:
         return None
-    return frappe.db.get_value(
-        "Instrument Inspection", {"intake_record_id": intake_record_id}, "name"
-    )
+    return frappe.db.get_value("Instrument Inspection", {"intake_record_id": intake_record_id}, "name")
 
 
 @frappe.whitelist(allow_guest=False)

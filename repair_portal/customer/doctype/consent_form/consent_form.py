@@ -23,6 +23,7 @@ def _get_settings() -> Document | None:
             return None
     return None
 
+
 def _log_consent_action(consent_form: Document, action: str, details: str = "") -> None:
     """Log consent form actions for audit trail."""
     try:
@@ -36,6 +37,7 @@ def _log_consent_action(consent_form: Document, action: str, details: str = "") 
     except Exception:
         # Don't fail the main operation if logging fails
         frappe.log_error(f"Failed to log consent action: {action}")
+
 
 class ConsentForm(Document):
     # Events ---------------------------------------------------------------
@@ -51,19 +53,19 @@ class ConsentForm(Document):
         # Validate required fields and permissions
         self._validate_permissions()
         self._validate_template_active()
-        
+
         # Keep child table in sync with template
         self._ensure_required_fields()
-        
+
         # Apply auto-fill to any blank values
         self._apply_auto_values()
-        
+
         # Render into HTML every time (Jinja)
         self.rendered_content = self._render_content()  # type: ignore
-        
+
         # Maintain human-readable status
         self._sync_status()
-        
+
         # Validate signature requirements
         self._validate_signature_requirements()
 
@@ -72,36 +74,36 @@ class ConsentForm(Document):
         # Signature must exist at submit time
         if not getattr(self, "signature", None):
             frappe.throw(_("Signature is required before submitting the Consent Form."))
-        
+
         # Timestamp and status on submit
         if not getattr(self, "signed_on", None):
             self.signed_on = now_datetime()  # type: ignore
-        
+
         self.status = "Signed"  # type: ignore
-        
+
         _log_consent_action(self, "Submitted", f"Form submitted with signature at {self.signed_on}")
 
     def on_submit(self):
         """Post-submission actions."""
         # Safety: lock critical fields post-submit (Customer, Template)
         self._lock_when_submitted()
-        
+
         # Create linked documents if needed
         self._create_linked_documents()
-        
+
         _log_consent_action(self, "Finalized", "Form finalized and locked")
 
     def on_cancel(self):
         """Handle cancellation."""
         # Keep status aligned
         self.status = "Cancelled"  # type: ignore
-        
+
         _log_consent_action(self, "Cancelled", f"Form cancelled by {frappe.session.user}")
 
     def after_insert(self):
         """Post-creation actions."""
         frappe.db.commit()  # Ensure we have a name
-        
+
     # API Methods ----------------------------------------------------------
 
     @frappe.whitelist()
@@ -109,23 +111,23 @@ class ConsentForm(Document):
         """Refresh required fields from template (useful if template changed)."""
         if not frappe.has_permission(self.doctype, "write", self):
             frappe.throw(_("Insufficient permissions to refresh form"))
-            
+
         if self.docstatus != 0:
             frappe.throw(_("Cannot refresh submitted or cancelled forms"))
-            
+
         old_count = len(self.consent_field_values or [])
         self._ensure_required_fields()
         new_count = len(self.consent_field_values or [])
-        
+
         self.save(ignore_permissions=True)
-        
+
         _log_consent_action(self, "Refreshed", f"Refreshed from template, fields: {old_count} -> {new_count}")
-        
+
         return {
             "status": "success",
             "old_field_count": old_count,
             "new_field_count": new_count,
-            "message": _("Form refreshed from template")
+            "message": _("Form refreshed from template"),
         }
 
     @frappe.whitelist()
@@ -137,19 +139,19 @@ class ConsentForm(Document):
     def get_available_variables(self) -> list[str]:
         """Get list of available template variables."""
         variables = ["date", "form"]
-        
+
         # Add child field variables
-        for row in (self.consent_field_values or []):
+        for row in self.consent_field_values or []:
             if row.field_label:
                 variables.append(frappe.scrub(row.field_label))
-        
+
         # Add settings variables
         settings = _get_settings()
         if settings:
-            for mapping in (settings.mappings or []):
+            for mapping in settings.mappings or []:
                 if mapping.variable_name and getattr(mapping, "enabled", 0):
                     variables.append(mapping.variable_name)
-        
+
         return sorted(variables)
 
     # Helpers --------------------------------------------------------------
@@ -164,7 +166,7 @@ class ConsentForm(Document):
         tmpl = self._get_template()
         existing = {frappe.scrub(r.field_label): r for r in (self.consent_field_values or [])}  # type: ignore
         changed = False
-        for req in (tmpl.required_fields or []):  # type: ignore
+        for req in tmpl.required_fields or []:  # type: ignore
             key = frappe.scrub(req.field_label or "")
             if key and key not in existing:
                 row = self.append("consent_field_values", {})  # type: ignore
@@ -193,7 +195,7 @@ class ConsentForm(Document):
 
         # 1) Template defaults (by original label)
         t_defaults: dict[str, str] = {}
-        for req in (tmpl.required_fields or []):  # type: ignore
+        for req in tmpl.required_fields or []:  # type: ignore
             lbl = (req.field_label or "").strip()
             if lbl:
                 t_defaults[lbl] = req.default_value or ""
@@ -202,7 +204,7 @@ class ConsentForm(Document):
         settings = _get_settings()
         var_values: dict[str, Any] = {}
         if settings and getattr(settings, "enable_auto_fill", 0):
-            for m in (settings.mappings or []):
+            for m in settings.mappings or []:
                 if not getattr(m, "enabled", 0):
                     continue
                 var = (m.variable_name or "").strip()
@@ -221,7 +223,7 @@ class ConsentForm(Document):
                     var_values[var] = fetched
 
         # Apply to child table rows if blank
-        for row in (self.consent_field_values or []):  # type: ignore
+        for row in self.consent_field_values or []:  # type: ignore
             if row.field_value:
                 continue
             # A) settings mapping keyed by scrub(label) -> variable_name
@@ -247,7 +249,7 @@ class ConsentForm(Document):
         }
 
         # Child values
-        for row in (self.consent_field_values or []):  # type: ignore
+        for row in self.consent_field_values or []:  # type: ignore
             key = frappe.scrub(row.field_label or "")
             if key:
                 ctx[key] = row.field_value or ""
@@ -255,7 +257,7 @@ class ConsentForm(Document):
         # Settings variables (variable_name) override or extend
         settings = _get_settings()
         if settings and getattr(settings, "enable_auto_fill", 0):
-            for m in (settings.mappings or []):
+            for m in settings.mappings or []:
                 if not getattr(m, "enabled", 0):
                     continue
                 var = (m.variable_name or "").strip()
@@ -304,7 +306,9 @@ class ConsentForm(Document):
         if any(k in changed for k in blocked):
             frappe.throw("Cannot modify Customer or Consent Template after submission.")
 
+
 # Public API ---------------------------------------------------------------
+
 
 @frappe.whitelist()
 def render_preview(name: str) -> str:

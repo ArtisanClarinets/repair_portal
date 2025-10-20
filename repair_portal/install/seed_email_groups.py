@@ -9,9 +9,7 @@ def ensure_email_groups() -> None:
     """Create required Email Group records before Singles defaults are applied."""
     frappe.db.commit()
 
-    required_groups: tuple[tuple[str, str], ...] = (
-        ("Player Newsletter", "Player Newsletter"),
-    )
+    required_groups: tuple[tuple[str, str], ...] = (("Player Newsletter", "Player Newsletter"),)
 
     has_email_group_name = frappe.db.has_column("Email Group", "email_group_name")
 
@@ -23,10 +21,12 @@ def ensure_email_groups() -> None:
         if existing:
             continue
 
-        doc = frappe.get_doc({
-            "doctype": "Email Group",
-            "title": title,
-        })
+        doc = frappe.get_doc(
+            {
+                "doctype": "Email Group",
+                "title": title,
+            }
+        )
 
         if has_email_group_name:
             doc.email_group_name = group_name  # type: ignore[attr-defined]

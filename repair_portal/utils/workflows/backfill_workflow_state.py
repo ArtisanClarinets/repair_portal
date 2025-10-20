@@ -2,6 +2,7 @@
 Backfills 'workflow_state' from legacy fields when values match existing Workflow State names.
 Run: bench execute repair_portal.utils.workflows.backfill_workflow_state:run --kwargs '{"doctype":"Clarinet Intake","legacy_fields":["intake_status","status"]}'
 """
+
 from __future__ import annotations
 
 import frappe
@@ -23,4 +24,3 @@ def run(doctype: str, legacy_fields: list[str]):
                 break
     frappe.msgprint(f"{doctype}: backfilled workflow_state on {updated} records.")
     return {"doctype": doctype, "updated": updated}
-

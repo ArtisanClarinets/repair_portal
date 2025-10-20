@@ -23,15 +23,15 @@ def handle_workflow_action(doc: Document, action: str):
     This function is called from the Customer DocType's `after_workflow_action` hook.
     It routes the action to the appropriate handler.
     """
-    if action == 'Activate':
+    if action == "Activate":
         handle_activation(doc)
-    elif action == 'Approve':
+    elif action == "Approve":
         handle_approval(doc)
-    elif action == 'Archive':
+    elif action == "Archive":
         archive_children(doc)
-    elif action == 'Restore':
+    elif action == "Restore":
         restore_children(doc)
-    elif action == 'Delete':
+    elif action == "Delete":
         handle_delete(doc)
 
 
@@ -49,40 +49,40 @@ def handle_activation(doc: Document):
     """
     _validate_activation_requirements(doc)
 
-    if not frappe.db.exists('Player Profile', {'customer': doc.name}):
+    if not frappe.db.exists("Player Profile", {"customer": doc.name}):
         frappe.get_doc(
             {
-                'doctype': 'Player Profile',
-                'customer': doc.name,
-                'player_name': frappe.db.get_value('Customer', doc.customer, 'customer_name'),  # type: ignore
+                "doctype": "Player Profile",
+                "customer": doc.name,
+                "player_name": frappe.db.get_value("Customer", doc.customer, "customer_name"),  # type: ignore
             }
         ).insert(ignore_permissions=True)
-        doc.add_comment('Workflow', 'Auto-created first Player Profile.')
+        doc.add_comment("Workflow", "Auto-created first Player Profile.")
 
-    email = frappe.db.get_value('Customer', doc.customer, 'email_id')  # type: ignore
+    email = frappe.db.get_value("Customer", doc.customer, "email_id")  # type: ignore
     if email:
         try:
             frappe.enqueue(
-                'frappe.core.doctype.communication.email.sendmail',
-                queue='short',
+                "frappe.core.doctype.communication.email.sendmail",
+                queue="short",
                 recipients=[email],
-                subject='Your Artisan Clarinets portal is live',
+                subject="Your Artisan Clarinets portal is live",
                 message=(
                     "Welcome! Manage your repairs online at "
                     f"<a href='{get_url('/login')}'>{get_url('/login')}</a>"
                 ),
             )
-            doc.add_comment('Workflow', 'Sent welcome email to client.')
+            doc.add_comment("Workflow", "Sent welcome email to client.")
         except Exception:
-            frappe.log_error(frappe.get_traceback(), 'Customer: welcome-email failure')
+            frappe.log_error(frappe.get_traceback(), "Customer: welcome-email failure")
 
 
 def handle_approval(doc: Document):
     """
     Handles the 'Approve' action.
     """
-    doc.add_comment('Workflow', 'Profile has been approved.')
-    frappe.msgprint('Customer approved.')
+    doc.add_comment("Workflow", "Profile has been approved.")
+    frappe.msgprint("Customer approved.")
 
 
 def archive_children(doc: Document):
@@ -90,17 +90,17 @@ def archive_children(doc: Document):
     Handles the 'Archive' action.
     - Archives all child Player and Instrument Profiles.
     """
-    players = frappe.get_all('Player Profile', {'customer': doc.name})
+    players = frappe.get_all("Player Profile", {"customer": doc.name})
     for p in players:
-        pp = frappe.get_doc('Player Profile', p.name)
-        _set_state(pp, 'Archived')
+        pp = frappe.get_doc("Player Profile", p.name)
+        _set_state(pp, "Archived")
 
-        instruments = frappe.get_all('Instrument Profile', {'player_profile': pp.name})
+        instruments = frappe.get_all("Instrument Profile", {"player_profile": pp.name})
         for i in instruments:
-            ip = frappe.get_doc('Instrument Profile', i.name)
-            _set_state(ip, 'Archived')
+            ip = frappe.get_doc("Instrument Profile", i.name)
+            _set_state(ip, "Archived")
 
-    doc.add_comment('Workflow', 'All child Player and Instrument Profiles have been archived.')
+    doc.add_comment("Workflow", "All child Player and Instrument Profiles have been archived.")
 
 
 def restore_children(doc: Document):
@@ -108,26 +108,24 @@ def restore_children(doc: Document):
     Handles the 'Restore' action.
     - Restores all child Player and Instrument Profiles to 'Active'.
     """
-    players = frappe.get_all('Player Profile', {'customer': doc.name})
+    players = frappe.get_all("Player Profile", {"customer": doc.name})
     for p in players:
-        pp = frappe.get_doc('Player Profile', p.name)
-        _set_state(pp, 'Active')  # Restoring to Active state
+        pp = frappe.get_doc("Player Profile", p.name)
+        _set_state(pp, "Active")  # Restoring to Active state
 
-        instruments = frappe.get_all('Instrument Profile', {'player_profile': pp.name})
+        instruments = frappe.get_all("Instrument Profile", {"player_profile": pp.name})
         for i in instruments:
-            ip = frappe.get_doc('Instrument Profile', i.name)
-            _set_state(ip, 'Active')  # Restoring to Active state
+            ip = frappe.get_doc("Instrument Profile", i.name)
+            _set_state(ip, "Active")  # Restoring to Active state
 
-    doc.add_comment(
-        'Workflow', 'All child Player and Instrument Profiles have been restored to Active.'
-    )
+    doc.add_comment("Workflow", "All child Player and Instrument Profiles have been restored to Active.")
 
 
 def handle_delete(doc: Document):
     """
     Handles the 'Delete' action.
     """
-    doc.add_comment('Workflow', 'Profile has been marked for deletion.')
+    doc.add_comment("Workflow", "Profile has been marked for deletion.")
 
 
 # ---------------------------------------------------------------------------
@@ -139,17 +137,17 @@ def _validate_activation_requirements(doc: Document):
     """
     Ensures that the customer has a name and email before activation.
     """
-    cust = frappe.get_doc('Customer', doc.customer)  # type: ignore
+    cust = frappe.get_doc("Customer", doc.customer)  # type: ignore
     missing = [
         label
-        for field, label in [('customer_name', 'Customer Name'), ('email_id', 'Email')]
+        for field, label in [("customer_name", "Customer Name"), ("email_id", "Email")]
         if not cust.get(field)
     ]
     if missing:
         frappe.throw(
-            'Cannot activate; fix Customer master:<br><ul>'
-            + ''.join(f'<li>{m}</li>' for m in missing)
-            + '</ul>'
+            "Cannot activate; fix Customer master:<br><ul>"
+            + "".join(f"<li>{m}</li>" for m in missing)
+            + "</ul>"
         )
 
 
@@ -157,7 +155,7 @@ def _set_state(doc: Document, state: str):
     """
     Helper to set a workflow state field consistently on a document.
     """
-    state_field = 'profile_status' if hasattr(doc, 'profile_status') else 'workflow_state'
+    state_field = "profile_status" if hasattr(doc, "profile_status") else "workflow_state"
     if hasattr(doc, state_field):
         setattr(doc, state_field, state)
         doc.save(ignore_permissions=True)  # removed frappe.db.commit() here

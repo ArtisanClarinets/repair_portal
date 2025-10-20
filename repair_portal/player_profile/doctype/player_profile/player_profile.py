@@ -417,11 +417,15 @@ class PlayerProfile(Document):
             frappe.log_error(title="PlayerProfile Cleanup Email", message=frappe.get_traceback())
 
         try:
-            instruments = frappe.get_all(
-                INSTRUMENT_PROFILE,
-                filters={"owner_player": self.name},
-                pluck="name",
-            ) if frappe.db.has_column(INSTRUMENT_PROFILE, "owner_player") else []
+            instruments = (
+                frappe.get_all(
+                    INSTRUMENT_PROFILE,
+                    filters={"owner_player": self.name},
+                    pluck="name",
+                )
+                if frappe.db.has_column(INSTRUMENT_PROFILE, "owner_player")
+                else []
+            )
             for instrument in instruments:
                 frappe.db.set_value(INSTRUMENT_PROFILE, instrument, "owner_player", "")
         except Exception:
@@ -560,7 +564,7 @@ class PlayerProfile(Document):
             contact_doc.mobile_no = self.primary_phone
 
         existing_links: set[tuple[str, str]] = set()
-        for link in (contact_doc.links or []):
+        for link in contact_doc.links or []:
             existing_links.add((link.link_doctype, link.link_name))
 
         def ensure_link(doctype: str, name: str) -> None:
@@ -600,9 +604,7 @@ def _ensure_profile_permission(
         if session_email and session_email.lower() == (doc.primary_email or "").lower():
             return
 
-    frappe.throw(
-        _("Insufficient permission to {0} Player Profile").format(action), frappe.PermissionError
-    )
+    frappe.throw(_("Insufficient permission to {0} Player Profile").format(action), frappe.PermissionError)
 
 
 @frappe.whitelist()
@@ -616,7 +618,9 @@ def get(player_email: Optional[str] = None) -> Dict[str, Any]:
 
     docname = frappe.db.get_value("Player Profile", {"primary_email": player_email}, "name")
     if not docname:
-        frappe.throw(_("No player profile found for email {0}").format(player_email), frappe.DoesNotExistError)
+        frappe.throw(
+            _("No player profile found for email {0}").format(player_email), frappe.DoesNotExistError
+        )
 
     doc = frappe.get_doc("Player Profile", docname)
     _ensure_profile_permission(doc, "read", allow_portal_self=True)

@@ -26,16 +26,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 # ───────────────────────── logging ─────────────────────────
-LOG = logging.getLogger('buffet_offline')
+LOG = logging.getLogger("buffet_offline")
 logging.basicConfig(
-    level=os.getenv('BUFFET_LOGLEVEL', 'INFO').upper(),
-    format='%(asctime)s  %(levelname)-8s %(name)s › %(message)s',
+    level=os.getenv("BUFFET_LOGLEVEL", "INFO").upper(),
+    format="%(asctime)s  %(levelname)-8s %(name)s › %(message)s",
 )
 
 # ───────────────────────── system binaries check ────────────
-for exe in ('tesseract', 'pdfinfo', 'pdftocairo'):
+for exe in ("tesseract", "pdfinfo", "pdftocairo"):
     if not shutil.which(exe):
-        LOG.critical('%s missing – install poppler-utils & tesseract-ocr', exe)
+        LOG.critical("%s missing – install poppler-utils & tesseract-ocr", exe)
         sys.exit(10)
 
 
@@ -46,7 +46,7 @@ class Config:
     pdf_dir: Path
     warehouse: str
     expense_account: str
-    supplier: str = 'Buffet Crampon Group USA'
+    supplier: str = "Buffet Crampon Group USA"
     make_purchase_invoice: bool = False
     due_days: int = 0
     skip_dupes: bool = True
@@ -58,12 +58,12 @@ import pytesseract
 import regex as re2
 from pdf2image import convert_from_path
 
-_num = lambda s: float(s.replace(',', ''))
+_num = lambda s: float(s.replace(",", ""))
 
 
 def ocr_pdf(pdf: Path) -> str:
     imgs = convert_from_path(pdf, dpi=300, thread_count=2)
-    return '\n'.join(pytesseract.image_to_string(i) for i in imgs)
+    return "\n".join(pytesseract.image_to_string(i) for i in imgs)
 
 
 # ────────────────────── data classes ──────────────────────
@@ -88,21 +88,21 @@ class InvoiceDoc:
     carrier: str | None
     tracking: list[str]
     freight: float | None
-    currency: str = 'USD'
+    currency: str = "USD"
     items: list[InvoiceItem] = field(default_factory=list)
 
 
 # ───────────────────────── regexes ─────────────────────────
-_HDR = re2.compile(r'(SINV\d{5,6}|SCN\d{6}).{0,40}(SO\d{6})?.{0,40}?(\d{1,2}/\d{1,2}/\d{4})', re2.S)
-_DATE = re2.compile(r'(\d{1,2})/(\d{1,2})/(\d{4})')
-_SKU = re2.compile(r'\b(BC(?=\d)[0-9A-Z\-]+)\b')
-_QTY = re2.compile(r'\b(\d+(?:\.\d+)?)\b')
-_PRICE = re2.compile(r'\$?([\d,]+\.\d{2})')
-_HTS = re2.compile(r'\b920[0-9]{4,}\b')
-_TRACK = re2.compile(r'\b\d{12,}\b')
-_PKG = re2.compile(r'\b(SPS\d{6})\b')
-_DESC_SPLIT = re2.compile(r'\s{2,}')
-SERIAL_RE = re2.compile(r'serial\s*(?:number|no\.?)\s*[:;]?\s*(.*)', re2.I)
+_HDR = re2.compile(r"(SINV\d{5,6}|SCN\d{6}).{0,40}(SO\d{6})?.{0,40}?(\d{1,2}/\d{1,2}/\d{4})", re2.S)
+_DATE = re2.compile(r"(\d{1,2})/(\d{1,2})/(\d{4})")
+_SKU = re2.compile(r"\b(BC(?=\d)[0-9A-Z\-]+)\b")
+_QTY = re2.compile(r"\b(\d+(?:\.\d+)?)\b")
+_PRICE = re2.compile(r"\$?([\d,]+\.\d{2})")
+_HTS = re2.compile(r"\b920[0-9]{4,}\b")
+_TRACK = re2.compile(r"\b\d{12,}\b")
+_PKG = re2.compile(r"\b(SPS\d{6})\b")
+_DESC_SPLIT = re2.compile(r"\s{2,}")
+SERIAL_RE = re2.compile(r"serial\s*(?:number|no\.?)\s*[:;]?\s*(.*)", re2.I)
 
 # instrument‐description extractor (for item_name)
 DESC_REGEX = re2.compile(
@@ -119,8 +119,8 @@ DESC_REGEX = re2.compile(
 
 # allow optional origin + HTS before code
 _PARTS_START = re2.compile(
-    r'^(?:(?P<origin>\S+)\s+(?P<hts>\d{6,})\s+)?'
-    r'(?P<code>\S+)\s+(?P<qty>\d+(?:\.\d+)?)\s+un\s+(?P<price>[\d,]+\.\d{2})',
+    r"^(?:(?P<origin>\S+)\s+(?P<hts>\d{6,})\s+)?"
+    r"(?P<code>\S+)\s+(?P<qty>\d+(?:\.\d+)?)\s+un\s+(?P<price>[\d,]+\.\d{2})",
     re2.I,
 )
 
@@ -129,7 +129,7 @@ def to_iso(m):
     mon, day, yr = int(m[1]), int(m[2]), int(m[3])
     if mon > 12:
         mon, day = day, mon
-    return f'{yr:04d}-{mon:02d}-{day:02d}'
+    return f"{yr:04d}-{mon:02d}-{day:02d}"
 
 
 def _parse_blocks(lines: list[str]) -> list[list[str]]:
@@ -142,7 +142,7 @@ def _parse_blocks(lines: list[str]) -> list[list[str]]:
     blocks, buf = [], []
     for ln in lines:
         low = ln.strip().lower()
-        if re2.search(r'page\s*\d+\s*of\s*\d+', low):
+        if re2.search(r"page\s*\d+\s*of\s*\d+", low):
             continue
         if _HDR.search(ln):
             continue
@@ -169,7 +169,7 @@ def _parse_blocks(lines: list[str]) -> list[list[str]]:
 def parse_invoice(txt: str, name: str) -> InvoiceDoc | None:
     m = _HDR.search(txt)
     if not m:
-        LOG.error('%s: header not found', name)
+        LOG.error("%s: header not found", name)
         return None
 
     inv_no, so_no, us_date = m.groups()
@@ -177,11 +177,11 @@ def parse_invoice(txt: str, name: str) -> InvoiceDoc | None:
 
     pack = _PKG.search(txt)
     tracks = _TRACK.findall(txt)
-    carrier = next((c for c in ('FedEx', 'UPS', 'DHL') if c.lower() in txt.lower()), None)
+    carrier = next((c for c in ("FedEx", "UPS", "DHL") if c.lower() in txt.lower()), None)
 
     # only grab "Total charges"
     freight = None
-    m_f = re2.search(r'Total\s+charges[\s\S]*?([\d,]+\.\d{2})', txt, re2.I)
+    m_f = re2.search(r"Total\s+charges[\s\S]*?([\d,]+\.\d{2})", txt, re2.I)
     if m_f:
         freight = _num(m_f.group(1))
 
@@ -202,11 +202,11 @@ def parse_invoice(txt: str, name: str) -> InvoiceDoc | None:
             hts_m = next((m for ln in blk for m in (_HTS.search(ln),) if m), None)
             hts = hts_m.group(0) if hts_m else None
         elif parts_m:
-            origin = parts_m.group('origin') or first.strip().split()[0]
-            hts = parts_m.group('hts')
-            code = parts_m.group('code')
-            qty = _num(parts_m.group('qty'))
-            rate = _num(parts_m.group('price'))
+            origin = parts_m.group("origin") or first.strip().split()[0]
+            hts = parts_m.group("hts")
+            code = parts_m.group("code")
+            qty = _num(parts_m.group("qty"))
+            rate = _num(parts_m.group("price"))
         else:
             continue
 
@@ -217,7 +217,7 @@ def parse_invoice(txt: str, name: str) -> InvoiceDoc | None:
                 break
             if not _SKU.search(ln) and not _PARTS_START.match(ln):
                 desc_lines.append(ln.strip())
-        desc = _DESC_SPLIT.sub(' ', ' '.join(desc_lines)).strip()
+        desc = _DESC_SPLIT.sub(" ", " ".join(desc_lines)).strip()
 
         # extract serials if present
         serials: list[str] = []
@@ -225,12 +225,12 @@ def parse_invoice(txt: str, name: str) -> InvoiceDoc | None:
             m_ser = SERIAL_RE.search(ln)
             if m_ser:
                 raw = m_ser.group(1)
-                serials = [s.strip() for s in re2.split(r'[,\s]+', raw) if s.strip()]
+                serials = [s.strip() for s in re2.split(r"[,\s]+", raw) if s.strip()]
                 break
 
         # skip missing serials on SKU lines
         if sku_m and not serials:
-            LOG.error('%s: serials missing for %s', name, code)
+            LOG.error("%s: serials missing for %s", name, code)
             continue
 
         # item_name: DESC_REGEX if SKU, else code
@@ -238,7 +238,7 @@ def parse_invoice(txt: str, name: str) -> InvoiceDoc | None:
         if sku_m:
             md = DESC_REGEX.search(desc)
             if md:
-                item_name = md.group('item_name')
+                item_name = md.group("item_name")
 
         items.append(
             InvoiceItem(
@@ -254,7 +254,7 @@ def parse_invoice(txt: str, name: str) -> InvoiceDoc | None:
         )
 
     if not items:
-        LOG.error('%s: no items parsed', name)
+        LOG.error("%s: no items parsed", name)
         return None
 
     return InvoiceDoc(
@@ -270,20 +270,20 @@ def parse_invoice(txt: str, name: str) -> InvoiceDoc | None:
 
 
 def load_invoices(dir: Path, show=False, one: str | None = None) -> list[InvoiceDoc]:
-    pdfs = [Path(one)] if one else sorted(dir.glob('*.pdf'))
+    pdfs = [Path(one)] if one else sorted(dir.glob("*.pdf"))
     docs = []
     for p in pdfs:
         try:
             raw = ocr_pdf(p)
             if show:
-                print('\n' + '=' * 80 + f'\n{p.name}\n' + raw[:800] + '\n' + '=' * 80 + '\n')
+                print("\n" + "=" * 80 + f"\n{p.name}\n" + raw[:800] + "\n" + "=" * 80 + "\n")
                 continue
             inv = parse_invoice(raw, p.name)
             if inv:
                 docs.append(inv)
-                LOG.info('✓ parsed %-30s %2d items', p.name, len(inv.items))
+                LOG.info("✓ parsed %-30s %2d items", p.name, len(inv.items))
         except Exception as e:
-            LOG.exception('OCR failed for %s – %s', p.name, e)
+            LOG.exception("OCR failed for %s – %s", p.name, e)
     return docs
 
 
@@ -291,29 +291,29 @@ def _bench_connect(site_name: str):
     import frappe
 
     bench_root = Path(__file__).resolve().parents[4]
-    site_path = (bench_root / 'sites' / site_name).resolve()
+    site_path = (bench_root / "sites" / site_name).resolve()
     if not site_path.is_dir():
         raise FileNotFoundError(site_path)
-    (site_path / 'logs').mkdir(parents=True, exist_ok=True)
+    (site_path / "logs").mkdir(parents=True, exist_ok=True)
     frappe.init(site=str(site_path))
     frappe.connect()
-    frappe.set_user('Administrator')
-    frappe.local.lang = 'en'
+    frappe.set_user("Administrator")
+    frappe.local.lang = "en"
     return frappe
 
 
 def _ensure_supplier(f, name: str):
-    if not f.db.exists('Supplier', name):
-        f.get_doc(
-            {'doctype': 'Supplier', 'supplier_name': name, 'supplier_type': 'Company'}
-        ).insert(ignore_permissions=True)
+    if not f.db.exists("Supplier", name):
+        f.get_doc({"doctype": "Supplier", "supplier_name": name, "supplier_type": "Company"}).insert(
+            ignore_permissions=True
+        )
 
 
 def _ensure_warehouse(f, wh: str):
-    if not f.db.exists('Warehouse', wh):
-        f.get_doc(
-            {'doctype': 'Warehouse', 'warehouse_name': wh, 'company': f.get_default('company')}
-        ).insert(ignore_permissions=True)
+    if not f.db.exists("Warehouse", wh):
+        f.get_doc({"doctype": "Warehouse", "warehouse_name": wh, "company": f.get_default("company")}).insert(
+            ignore_permissions=True
+        )
 
 
 # ─────────────── NEW: centralised Website-Item creation ────────────────
@@ -325,12 +325,12 @@ def _ensure_website_item(f, it: InvoiceItem):
         • published      = 1
     Safe to call repeatedly.
     """
-    where = {'item_code': it.item_code}
-    wi_name = f.db.exists('Website Item', where)
+    where = {"item_code": it.item_code}
+    wi_name = f.db.exists("Website Item", where)
     if wi_name:
-        wi = f.get_doc('Website Item', wi_name)
+        wi = f.get_doc("Website Item", wi_name)
     else:
-        wi = f.get_doc({'doctype': 'Website Item', **where})
+        wi = f.get_doc({"doctype": "Website Item", **where})
 
     # update / back-fill
     wi.web_item_name = it.item_name or it.item_code
@@ -345,21 +345,21 @@ def _ensure_item(f, it: InvoiceItem):
     ▸ Creates Item if missing.
     ▸ Ensures a Website Item exists with route == item_code.
     """
-    if not f.db.exists('Item', it.item_code):
+    if not f.db.exists("Item", it.item_code):
         f.get_doc(
             {
-                'doctype': 'Item',
-                'item_code': it.item_code,
-                'item_name': it.item_name[:140],
-                'has_serial_no': 1 if it.serial_numbers else 0,
-                'stock_uom': 'Nos',
-                'item_group': 'Clarinets' if _SKU.search(it.item_code) else 'Services',
+                "doctype": "Item",
+                "item_code": it.item_code,
+                "item_name": it.item_name[:140],
+                "has_serial_no": 1 if it.serial_numbers else 0,
+                "stock_uom": "Nos",
+                "item_group": "Clarinets" if _SKU.search(it.item_code) else "Services",
             }
         ).insert(ignore_permissions=True)
 
     # Only older (non-Webshop) sites still expose Item.route.
-    doc = f.get_doc('Item', it.item_code)
-    if hasattr(doc, 'route'):
+    doc = f.get_doc("Item", it.item_code)
+    if hasattr(doc, "route"):
         if not doc.route:
             doc.route = it.item_code
             doc.save(ignore_permissions=True)
@@ -369,162 +369,160 @@ def _ensure_item(f, it: InvoiceItem):
 
 
 def _ensure_freight_item(f):
-    if not f.db.exists('Item', 'Freight and Handling'):
+    if not f.db.exists("Item", "Freight and Handling"):
         f.get_doc(
             {
-                'doctype': 'Item',
-                'item_code': 'Freight and Handling',
-                'item_name': 'Freight and Handling',
-                'is_stock_item': 0,
-                'stock_uom': 'Nos',
-                'item_group': 'Services',
+                "doctype": "Item",
+                "item_code": "Freight and Handling",
+                "item_name": "Freight and Handling",
+                "is_stock_item": 0,
+                "stock_uom": "Nos",
+                "item_group": "Services",
             }
         ).insert(ignore_permissions=True)
 
 
 def _filter_new_serials(f, seen: set[str], serials: list[str]) -> list[str]:
-    return [s for s in serials if s not in seen and not f.db.exists('Serial No', s)]
+    return [s for s in serials if s not in seen and not f.db.exists("Serial No", s)]
 
 
 def _pr(f, cfg: Config, doc: InvoiceDoc, seen: set[str]) -> str | None:
     _ensure_freight_item(f)
-    pr = f.new_doc('Purchase Receipt')
+    pr = f.new_doc("Purchase Receipt")
     pr.update(
         {
-            'supplier': cfg.supplier,
-            'supplier_invoice_no': doc.invoice_no,
-            'supplier_sales_order_no': doc.sales_order,
-            'posting_date': doc.posting_date,
-            'custom_packing_slip_no': doc.packing_slip,
-            'custom_carrier': doc.carrier,
-            'tracking_number': doc.tracking[0] if doc.tracking else None,
-            'custom_tracking_list': '\n'.join(doc.tracking) if doc.tracking else None,
-            'currency': doc.currency,
-            'set_posting_time': 1,
-            'mode_of_payment': 'ACH',
-            'payment_terms_template': 'Net 30',
-            'shipping_charge': doc.freight,
+            "supplier": cfg.supplier,
+            "supplier_invoice_no": doc.invoice_no,
+            "supplier_sales_order_no": doc.sales_order,
+            "posting_date": doc.posting_date,
+            "custom_packing_slip_no": doc.packing_slip,
+            "custom_carrier": doc.carrier,
+            "tracking_number": doc.tracking[0] if doc.tracking else None,
+            "custom_tracking_list": "\n".join(doc.tracking) if doc.tracking else None,
+            "currency": doc.currency,
+            "set_posting_time": 1,
+            "mode_of_payment": "ACH",
+            "payment_terms_template": "Net 30",
+            "shipping_charge": doc.freight,
         }
     )
     for it in doc.items:
         _ensure_item(f, it)
-        serials = (
-            _filter_new_serials(f, seen, it.serial_numbers) if cfg.skip_dupes else it.serial_numbers
-        )
+        serials = _filter_new_serials(f, seen, it.serial_numbers) if cfg.skip_dupes else it.serial_numbers
         qty = len(serials) if serials else it.qty
         if qty <= 0:
-            LOG.warning('⤷ skipping zero-qty %s on %s', it.item_code, doc.invoice_no)
+            LOG.warning("⤷ skipping zero-qty %s on %s", it.item_code, doc.invoice_no)
             continue
 
         row = {
-            'item_code': it.item_code,
-            'item_name': it.item_name,
-            'description': it.description,
-            'qty': qty,
-            'uom': 'Nos',
-            'conversion_factor': 1,
-            'rate': it.rate,
-            'warehouse': cfg.warehouse,
-            'expense_account': cfg.expense_account,
-            'custom_origin_country': it.origin,
-            'custom_hts_code': it.hts,
-            'discount_percentage': 1,
-            'discount_amount': 0,
+            "item_code": it.item_code,
+            "item_name": it.item_name,
+            "description": it.description,
+            "qty": qty,
+            "uom": "Nos",
+            "conversion_factor": 1,
+            "rate": it.rate,
+            "warehouse": cfg.warehouse,
+            "expense_account": cfg.expense_account,
+            "custom_origin_country": it.origin,
+            "custom_hts_code": it.hts,
+            "discount_percentage": 1,
+            "discount_amount": 0,
         }
         if serials:
-            row['serial_no'] = '\n'.join(serials)
+            row["serial_no"] = "\n".join(serials)
             seen.update(serials)
-        pr.append('items', row)
+        pr.append("items", row)
 
     if doc.freight:
         pr.append(
-            'taxes',
+            "taxes",
             {
-                'charge_type': 'Actual',
-                'account_head': 'Freight & Shipping - MAI',
-                'tax_amount': doc.freight,
-                'description': 'Shipping & Handling',
+                "charge_type": "Actual",
+                "account_head": "Freight & Shipping - MAI",
+                "tax_amount": doc.freight,
+                "description": "Shipping & Handling",
             },
         )
 
     if not pr.items:
-        LOG.warning('⚠ nothing to receive for %s – PR skipped', doc.invoice_no)
+        LOG.warning("⚠ nothing to receive for %s – PR skipped", doc.invoice_no)
         return None
 
     pr.insert(ignore_permissions=True)
     pr.submit()
-    LOG.info('PR %s', pr.name)
+    LOG.info("PR %s", pr.name)
     return pr.name
 
 
 def _pi(f, cfg: Config, pr_name: str, doc: InvoiceDoc) -> str | None:
     from frappe.utils import add_days, getdate
 
-    pr = f.get_doc('Purchase Receipt', pr_name)
-    pi = f.new_doc('Purchase Invoice')
+    pr = f.get_doc("Purchase Receipt", pr_name)
+    pi = f.new_doc("Purchase Invoice")
     pi.update(
         {
-            'supplier': cfg.supplier,
-            'supplier_invoice_no': doc.invoice_no,
-            'supplier_sales_order_no': doc.sales_order,
-            'posting_date': doc.posting_date,
-            'bill_date': doc.posting_date,
-            'custom_packing_slip_no': doc.packing_slip,
-            'custom_carrier': doc.carrier,
-            'tracking_number': doc.tracking[0] if doc.tracking else None,
-            'custom_tracking_list': '\n'.join(doc.tracking) if doc.tracking else None,
-            'currency': doc.currency,
-            'mode_of_payment': 'ACH',
-            'payment_terms_template': 'Net 30',
-            'shipping_charge': doc.freight,
-            'update_stock': 0,
+            "supplier": cfg.supplier,
+            "supplier_invoice_no": doc.invoice_no,
+            "supplier_sales_order_no": doc.sales_order,
+            "posting_date": doc.posting_date,
+            "bill_date": doc.posting_date,
+            "custom_packing_slip_no": doc.packing_slip,
+            "custom_carrier": doc.carrier,
+            "tracking_number": doc.tracking[0] if doc.tracking else None,
+            "custom_tracking_list": "\n".join(doc.tracking) if doc.tracking else None,
+            "currency": doc.currency,
+            "mode_of_payment": "ACH",
+            "payment_terms_template": "Net 30",
+            "shipping_charge": doc.freight,
+            "update_stock": 0,
         }
     )
     for row in pr.items:
         pi.append(
-            'items',
+            "items",
             {
                 **{
                     k: row.get(k)
                     for k in (
-                        'item_code',
-                        'item_name',
-                        'description',
-                        'qty',
-                        'uom',
-                        'conversion_factor',
-                        'rate',
-                        'serial_no',
-                        'warehouse',
-                        'expense_account',
-                        'discount_percentage',
-                        'discount_amount',
-                        'custom_origin_country',
-                        'custom_hts_code',
+                        "item_code",
+                        "item_name",
+                        "description",
+                        "qty",
+                        "uom",
+                        "conversion_factor",
+                        "rate",
+                        "serial_no",
+                        "warehouse",
+                        "expense_account",
+                        "discount_percentage",
+                        "discount_amount",
+                        "custom_origin_country",
+                        "custom_hts_code",
                     )
                 },
-                **{'purchase_receipt': pr.name, 'purchase_receipt_item': row.name},
+                **{"purchase_receipt": pr.name, "purchase_receipt_item": row.name},
             },
         )
     if doc.freight:
         pi.append(
-            'taxes',
+            "taxes",
             {
-                'charge_type': 'Actual',
-                'account_head': 'Freight & Shipping - MAI',
-                'tax_amount': doc.freight,
-                'description': 'Shipping & Handling',
+                "charge_type": "Actual",
+                "account_head": "Freight & Shipping - MAI",
+                "tax_amount": doc.freight,
+                "description": "Shipping & Handling",
             },
         )
     pi.set_missing_values()
     pi.credit_days = max(0, cfg.due_days)
-    pi.credit_days_based_on = 'Day(s)'
-    pi.payment_terms_template = 'Net 30'
-    pi.set('payment_schedule', [])
+    pi.credit_days_based_on = "Day(s)"
+    pi.payment_terms_template = "Net 30"
+    pi.set("payment_schedule", [])
     pi.due_date = add_days(getdate(doc.posting_date), pi.credit_days)
     pi.insert(ignore_permissions=True)
     pi.submit()
-    LOG.info('PI %s', pi.name)
+    LOG.info("PI %s", pi.name)
     return pi.name
 
 
@@ -543,17 +541,17 @@ def push(f, cfg: Config, docs: list[InvoiceDoc]):
 
 
 def main(argv: Sequence[str] | None = None):
-    ap = argparse.ArgumentParser(description='Buffet → ERPNext importer')
-    ap.add_argument('--site', required=True)
-    ap.add_argument('--pdf-dir', required=True, type=Path)
-    ap.add_argument('--default-wh', dest='warehouse', default='Stores - HQ')
-    ap.add_argument('--expense-acct', dest='expense_account', default='Cost of Goods Sold - MAI')
-    ap.add_argument('--due-days', type=int, default=0)
-    ap.add_argument('--make-pi', action='store_true')
-    ap.add_argument('--skip-dupes', action=argparse.BooleanOptionalAction, default=True)
-    ap.add_argument('--commit-each', action=argparse.BooleanOptionalAction, default=False)
-    ap.add_argument('--show-ocr', action='store_true')
-    ap.add_argument('--one', metavar='PDF')
+    ap = argparse.ArgumentParser(description="Buffet → ERPNext importer")
+    ap.add_argument("--site", required=True)
+    ap.add_argument("--pdf-dir", required=True, type=Path)
+    ap.add_argument("--default-wh", dest="warehouse", default="Stores - HQ")
+    ap.add_argument("--expense-acct", dest="expense_account", default="Cost of Goods Sold - MAI")
+    ap.add_argument("--due-days", type=int, default=0)
+    ap.add_argument("--make-pi", action="store_true")
+    ap.add_argument("--skip-dupes", action=argparse.BooleanOptionalAction, default=True)
+    ap.add_argument("--commit-each", action=argparse.BooleanOptionalAction, default=False)
+    ap.add_argument("--show-ocr", action="store_true")
+    ap.add_argument("--one", metavar="PDF")
     args = ap.parse_args(argv)
 
     cfg = Config(
@@ -568,23 +566,23 @@ def main(argv: Sequence[str] | None = None):
     )
 
     if not cfg.pdf_dir.is_dir():
-        LOG.critical('%s not found', cfg.pdf_dir)
+        LOG.critical("%s not found", cfg.pdf_dir)
         sys.exit(2)
 
     invs = load_invoices(cfg.pdf_dir, args.show_ocr, args.one)
     if args.show_ocr:
         sys.exit(0)
     if not invs:
-        LOG.error('No invoices parsed')
+        LOG.error("No invoices parsed")
         sys.exit(3)
 
     f = _bench_connect(cfg.site)
     try:
         push(f, cfg, invs)
-        LOG.info('✓ Imported %d invoice(s).', len(invs))
+        LOG.info("✓ Imported %d invoice(s).", len(invs))
     finally:
         f.destroy()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

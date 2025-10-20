@@ -94,12 +94,11 @@ def audit_file(path: Path) -> List[ImportIssue]:
             ImportIssue(
                 module=module_name,
                 file=path,
-                lineno=getattr(exc, 'lineno', 0) or 0,
-                message=f'Syntax error during AST parse: {exc.msg}',
+                lineno=getattr(exc, "lineno", 0) or 0,
+                message=f"Syntax error during AST parse: {exc.msg}",
             )
         )
         return issues
-
 
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
