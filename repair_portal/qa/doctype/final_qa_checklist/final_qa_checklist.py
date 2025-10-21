@@ -16,24 +16,22 @@ class FinalQaChecklist(Document):
         incomplete = [i.description for i in self.items if not i.is_checked]  # type: ignore
         if incomplete:
             frappe.throw(
-                _('Cannot submit. The following items are incomplete:\n{0}').format(
-                    '\n'.join(incomplete)
-                )
+                _("Cannot submit. The following items are incomplete:\n{0}").format("\n".join(incomplete))
             )
 
     def on_submit(self):
         try:
             if self.instrument_profile:  # type: ignore
                 frappe.db.set_value(
-                    'Instrument Profile', self.instrument_profile, 'status', 'QA Complete' # type: ignore
+                    "Instrument Profile", self.instrument_profile, "status", "QA Complete"  # type: ignore
                 )  # type: ignore
                 # Optional: update workflow_state if field exists
-                if frappe.db.has_column('Instrument Profile', 'workflow_state'):
+                if frappe.db.has_column("Instrument Profile", "workflow_state"):
                     frappe.db.set_value(
-                        'Instrument Profile',
+                        "Instrument Profile",
                         self.instrument_profile,  # type: ignore
-                        'workflow_state',
-                        'QA Complete',
+                        "workflow_state",
+                        "QA Complete",
                     )
         except Exception:
-            frappe.log_error(frappe.get_traceback(), 'FinalQaChecklist: on_submit failed')
+            frappe.log_error(frappe.get_traceback(), "FinalQaChecklist: on_submit failed")

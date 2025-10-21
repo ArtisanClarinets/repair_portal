@@ -36,6 +36,7 @@ class RepairActualMaterial(Document):
         stock_entry: DF.Link | None
         uom: DF.Link | None
         valuation_rate: DF.Currency
+
     # end: auto-generated types
     def validate(self):
         self._apply_defaults()

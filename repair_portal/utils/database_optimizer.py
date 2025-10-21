@@ -16,9 +16,7 @@ class DatabaseOptimizer:
     """
 
     @staticmethod
-    def get_optimized_instrument_list(
-        filters: dict | None = None, limit: int = 50
-    ) -> list[dict[str, Any]]:
+    def get_optimized_instrument_list(filters: dict | None = None, limit: int = 50) -> list[dict[str, Any]]:
         """
         Optimized instrument profile queries with proper indexing and filtering.
 
@@ -34,28 +32,28 @@ class DatabaseOptimizer:
         conditions = []
         params = {}
 
-        if filters.get('customer'):
-            conditions.append('customer = %(customer)s')
-            params['customer'] = filters['customer']
+        if filters.get("customer"):
+            conditions.append("customer = %(customer)s")
+            params["customer"] = filters["customer"]
 
-        if filters.get('status'):
-            conditions.append('profile_status = %(status)s')
-            params['status'] = filters['status']
+        if filters.get("status"):
+            conditions.append("profile_status = %(status)s")
+            params["status"] = filters["status"]
 
-        if filters.get('instrument_category'):
-            conditions.append('instrument_category = %(category)s')
-            params['category'] = filters['instrument_category']
+        if filters.get("instrument_category"):
+            conditions.append("instrument_category = %(category)s")
+            params["category"] = filters["instrument_category"]
 
         # Date range filtering with indexed creation field
-        if filters.get('from_date'):
-            conditions.append('creation >= %(from_date)s')
-            params['from_date'] = getdate(filters['from_date'])
+        if filters.get("from_date"):
+            conditions.append("creation >= %(from_date)s")
+            params["from_date"] = getdate(filters["from_date"])
 
-        if filters.get('to_date'):
-            conditions.append('creation <= %(to_date)s')
-            params['to_date'] = getdate(filters['to_date'])
+        if filters.get("to_date"):
+            conditions.append("creation <= %(to_date)s")
+            params["to_date"] = getdate(filters["to_date"])
 
-        where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ''
+        where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
 
         result = frappe.db.sql(
             f"""
@@ -96,19 +94,19 @@ class DatabaseOptimizer:
 
         # Check if user has full access or needs filtering
         roles = frappe.get_roles(user)
-        user_filter = ''
+        user_filter = ""
         params = {}
 
-        if 'System Manager' not in roles and 'Repair Manager' not in roles:
-            if 'Technician' in roles:
-                user_filter = 'AND assigned_technician = %(user)s'
-                params['user'] = user
+        if "System Manager" not in roles and "Repair Manager" not in roles:
+            if "Technician" in roles:
+                user_filter = "AND assigned_technician = %(user)s"
+                params["user"] = user
             else:
                 # Customer access - filter by their instruments
-                customer = frappe.db.get_value('Customer', {'linked_user': user}, 'name')
+                customer = frappe.db.get_value("Customer", {"linked_user": user}, "name")
                 if customer:
-                    user_filter = 'AND customer = %(customer)s'
-                    params['customer'] = customer
+                    user_filter = "AND customer = %(customer)s"
+                    params["customer"] = customer
                 else:
                     return {}  # No access
 
@@ -133,9 +131,7 @@ class DatabaseOptimizer:
         return result_list[0] if result_list and isinstance(result_list[0], dict) else {}
 
     @staticmethod
-    def bulk_update_workflow_states(
-        updates: list[dict[str, str]], doctype: str = 'Repair Order'
-    ) -> int:
+    def bulk_update_workflow_states(updates: list[dict[str, str]], doctype: str = "Repair Order") -> int:
         """
         Optimized bulk updates for workflow state changes.
 
@@ -153,12 +149,12 @@ class DatabaseOptimizer:
 
             update_count = 0
             for update in updates:
-                if update.get('name') and update.get('workflow_state'):
+                if update.get("name") and update.get("workflow_state"):
                     frappe.db.set_value(
                         doctype,
-                        update['name'],
-                        'workflow_state',
-                        update['workflow_state'],
+                        update["name"],
+                        "workflow_state",
+                        update["workflow_state"],
                         update_modified=True,
                     )
                     update_count += 1
@@ -168,7 +164,7 @@ class DatabaseOptimizer:
 
         except Exception as e:
             frappe.db.rollback()
-            frappe.log_error(f'Bulk workflow update failed: {str(e)}')
+            frappe.log_error(f"Bulk workflow update failed: {str(e)}")
             raise
 
     @staticmethod
@@ -181,7 +177,7 @@ class DatabaseOptimizer:
         - Reduced database hits for frequent queries
         - Pair with invalidate_customer_cache for manual cache purges
         """
-        cache_key = f'customer_instruments:{customer}'
+        cache_key = f"customer_instruments:{customer}"
 
         # Try to get from cache first
         cached_data = frappe.cache().get_value(cache_key)
@@ -190,10 +186,10 @@ class DatabaseOptimizer:
 
         # Fetch from database if not cached
         instruments = frappe.get_all(
-            'Instrument Profile',
-            filters={'customer': customer, 'profile_status': ['!=', 'Archived']},
-            fields=['name', 'serial_no', 'instrument_category', 'brand', 'model', 'profile_status'],
-            order_by='modified desc',
+            "Instrument Profile",
+            filters={"customer": customer, "profile_status": ["!=", "Archived"]},
+            fields=["name", "serial_no", "instrument_category", "brand", "model", "profile_status"],
+            order_by="modified desc",
         )
 
         # Cache the result
@@ -205,9 +201,9 @@ class DatabaseOptimizer:
     def invalidate_customer_cache(customer: str):
         """Invalidate customer-related cache entries."""
         cache_keys = [
-            f'customer_instruments:{customer}',
-            f'customer_repairs:{customer}',
-            f'customer_metrics:{customer}',
+            f"customer_instruments:{customer}",
+            f"customer_repairs:{customer}",
+            f"customer_metrics:{customer}",
         ]
 
         for key in cache_keys:
@@ -224,26 +220,26 @@ def get_optimized_dashboard_data():
 
         # Get recent instruments with pagination and filtering
         recent_instruments = DatabaseOptimizer.get_optimized_instrument_list(
-            filters={'from_date': add_days(getdate(), -30)}, limit=20
+            filters={"from_date": add_days(getdate(), -30)}, limit=20
         )
 
-        return {'success': True, 'metrics': metrics, 'recent_instruments': recent_instruments}
+        return {"success": True, "metrics": metrics, "recent_instruments": recent_instruments}
 
     except Exception as e:
-        frappe.log_error(f'Dashboard data fetch failed: {str(e)}')
-        return {'success': False, 'error': 'Failed to fetch dashboard data'}
+        frappe.log_error(f"Dashboard data fetch failed: {str(e)}")
+        return {"success": False, "error": "Failed to fetch dashboard data"}
 
 
 # Database indexing recommendations:
 RECOMMENDED_INDEXES = [
     # High-traffic query indexes
-    'ALTER TABLE `tabInstrument Profile` ADD INDEX idx_customer_status (customer, profile_status);',
-    'ALTER TABLE `tabInstrument Profile` ADD INDEX idx_creation_desc (creation DESC);',
-    'ALTER TABLE `tabRepair Order` ADD INDEX idx_workflow_state (workflow_state);',
-    'ALTER TABLE `tabRepair Order` ADD INDEX idx_customer_modified (customer, modified DESC);',
-    'ALTER TABLE `tabClarinet Intake` ADD INDEX idx_workflow_customer (workflow_state, customer);',
+    "ALTER TABLE `tabInstrument Profile` ADD INDEX idx_customer_status (customer, profile_status);",
+    "ALTER TABLE `tabInstrument Profile` ADD INDEX idx_creation_desc (creation DESC);",
+    "ALTER TABLE `tabRepair Order` ADD INDEX idx_workflow_state (workflow_state);",
+    "ALTER TABLE `tabRepair Order` ADD INDEX idx_customer_modified (customer, modified DESC);",
+    "ALTER TABLE `tabClarinet Intake` ADD INDEX idx_workflow_customer (workflow_state, customer);",
     # Performance-critical composite indexes
-    'ALTER TABLE `tabRepair Log` ADD INDEX idx_customer_date (customer, creation DESC);',
-    'ALTER TABLE `tabPlayer Profile` ADD INDEX idx_customer_published (customer, published);',
-    'ALTER TABLE `tabSerial No` ADD INDEX idx_status_warehouse (status, warehouse);',
+    "ALTER TABLE `tabRepair Log` ADD INDEX idx_customer_date (customer, creation DESC);",
+    "ALTER TABLE `tabPlayer Profile` ADD INDEX idx_customer_published (customer, published);",
+    "ALTER TABLE `tabSerial No` ADD INDEX idx_status_warehouse (status, warehouse);",
 ]

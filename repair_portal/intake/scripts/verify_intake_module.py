@@ -54,6 +54,7 @@ VERIFICATION_RESULTS: dict[str, dict[str, list[str]]] = {
 # Helper Functions
 # ============================================================================
 
+
 def _record(category: str, passed: bool, message: str) -> None:
     VERIFICATION_RESULTS[category]["passed" if passed else "failed"].append(message)
 
@@ -67,6 +68,7 @@ def _print_section(title: str) -> None:
 # ============================================================================
 # Verification Functions
 # ============================================================================
+
 
 def verify_file_headers() -> bool:
     """Verify all Python and JavaScript files have mandatory 5-line headers."""
@@ -297,6 +299,7 @@ def print_summary() -> bool:
 # ============================================================================
 # Main Execution
 # ============================================================================
+
 
 def run_verification(site: str | None = None) -> int:
     """Run all verification checks."""

@@ -2,6 +2,7 @@
 Validates transition references, orphan states, missing masters.
 Run: bench execute repair_portal.utils.workflows.validate:run
 """
+
 from __future__ import annotations
 
 import json
@@ -13,11 +14,13 @@ import frappe
 APP_ROOT = Path("/home/frappe/frappe-bench/apps/repair_portal")
 CODE_ROOT = APP_ROOT / "repair_portal"
 
+
 def _load_json(p: Path):
     try:
         return json.loads(p.read_text(encoding="utf-8"))
     except Exception:
         return None
+
 
 def run() -> dict[str, Any]:
     issues = {
@@ -25,7 +28,7 @@ def run() -> dict[str, Any]:
         "missing_state_master": [],
         "missing_next_state": [],
         "missing_from_state": [],
-        "orphans_nonterminal": []
+        "orphans_nonterminal": [],
     }
     action_masters = set(x.name for x in frappe.get_all("Workflow Action Master", fields=["name"]))
     state_masters = set(x.name for x in frappe.get_all("Workflow State", fields=["name"]))
@@ -59,7 +62,7 @@ def run() -> dict[str, Any]:
                     issues["missing_next_state"].append((name, t))
 
             # orphans (no outgoing) except docstatus==2
-            out_map = {s:0 for s in sts}
+            out_map = {s: 0 for s in sts}
             for t in d.get("transitions") or []:
                 if t.get("state") in out_map:
                     out_map[t.get("state")] += 1

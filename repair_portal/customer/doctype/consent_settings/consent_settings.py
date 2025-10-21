@@ -18,6 +18,7 @@ CONSENT_FORM_DT = "Consent Form"
 
 _VALID_FIELDNAME = re.compile(r"^[a-z][a-z0-9_]{2,}$")
 
+
 class ConsentSettings(Document):
     def validate(self):
         """Comprehensive validation of all settings and mappings."""
@@ -28,14 +29,14 @@ class ConsentSettings(Document):
     def on_update(self):
         """Auto-apply changes when settings are updated."""
         frappe.logger("consent_settings").info(f"Consent Settings updated by {frappe.session.user}")
-        
+
         # Auto-apply linked sources when toggled
         if int(getattr(self, "apply_on_save", 0)) == 1:
             self.apply_linked_sources()
-        
+
         # Ensure workflow exists and is updated
         self._ensure_consent_workflow()
-        
+
         # Clear related caches
         self._clear_caches()
 
@@ -53,13 +54,13 @@ class ConsentSettings(Document):
     def apply_linked_sources(self) -> dict[str, Any]:
         """Create or update Link custom fields on Consent Form per Linked Sources."""
         created, updated, skipped = [], [], []
-        
+
         if not frappe.has_permission("Custom Field", "write"):
             frappe.throw(_("Insufficient permissions to create custom fields"))
-        
+
         meta = frappe.get_meta(CONSENT_FORM_DT)
 
-        for row in (self.linked_sources or []):
+        for row in self.linked_sources or []:
             if not getattr(row, "enabled", 0):
                 skipped.append((row.fieldname or "", "disabled"))
                 continue
@@ -74,13 +75,13 @@ class ConsentSettings(Document):
 
         # Clear cache to reflect new fields immediately
         frappe.clear_cache(doctype=CONSENT_FORM_DT)
-        
+
         return {
             "status": "success",
-            "created": created, 
-            "updated": updated, 
+            "created": created,
+            "updated": updated,
             "skipped": skipped,
-            "message": f"Applied {len(created)} new fields, updated {len(updated)} fields, skipped {len(skipped)} fields"
+            "message": f"Applied {len(created)} new fields, updated {len(updated)} fields, skipped {len(skipped)} fields",
         }
 
     @frappe.whitelist()
@@ -97,7 +98,7 @@ class ConsentSettings(Document):
     def get_available_variables(self) -> list[str]:
         """Return list of available template variables from mappings."""
         variables = []
-        for mapping in (self.mappings or []):
+        for mapping in self.mappings or []:
             if mapping.variable_name and getattr(mapping, "enabled", 0):
                 variables.append(mapping.variable_name)
         return sorted(variables)
@@ -118,14 +119,14 @@ class ConsentSettings(Document):
             ast = env.parse(template_content)
             undefined_vars = meta.find_undeclared_variables(ast)
             available_vars = set(self.get_available_variables())
-            
+
             missing_vars = undefined_vars - available_vars - {"date", "form"}
-            
+
             return {
                 "valid": len(missing_vars) == 0,
                 "missing_variables": list(missing_vars),
                 "available_variables": list(available_vars),
-                "template_variables": list(undefined_vars)
+                "template_variables": list(undefined_vars),
             }
         except Exception as e:
             return {
@@ -133,8 +134,9 @@ class ConsentSettings(Document):
                 "error": str(e),
                 "missing_variables": [],
                 "available_variables": self.get_available_variables(),
-                "template_variables": []
+                "template_variables": [],
             }
+
     # ------------------------------------------------------------------
     # Internal implementation methods
     # ------------------------------------------------------------------
@@ -161,11 +163,7 @@ class ConsentSettings(Document):
             return ("skipped", fieldname, "standard field exists")
 
         # Check if Custom Field already exists
-        cf_name = frappe.db.get_value(
-            "Custom Field",
-            {"dt": CONSENT_FORM_DT, "fieldname": fieldname},
-            "name"
-        )
+        cf_name = frappe.db.get_value("Custom Field", {"dt": CONSENT_FORM_DT, "fieldname": fieldname}, "name")
 
         props = {
             "fieldtype": "Link",
@@ -179,7 +177,7 @@ class ConsentSettings(Document):
             "in_list_view": int(getattr(row, "in_list_view", 0)),
             "depends_on": getattr(row, "depends_on", None) or "",
             "permlevel": int(getattr(row, "permlevel", 0)),
-            "description": getattr(row, "description", "") or f"Auto-generated link to {options}"
+            "description": getattr(row, "description", "") or f"Auto-generated link to {options}",
         }
 
         try:
@@ -221,8 +219,12 @@ class ConsentSettings(Document):
                 <p>Signature: ______________________</p>""",
                 "required_fields": [
                     {"field_label": "Customer Name", "field_type": "Data", "default_value": ""},
-                    {"field_label": "Company Name", "field_type": "Data", "default_value": "Artisan Clarinets"}
-                ]
+                    {
+                        "field_label": "Company Name",
+                        "field_type": "Data",
+                        "default_value": "Artisan Clarinets",
+                    },
+                ],
             },
             {
                 "title": "Repair Service Consent",
@@ -248,23 +250,29 @@ class ConsentSettings(Document):
                     {"field_label": "Customer Name", "field_type": "Data", "default_value": ""},
                     {"field_label": "Instrument Description", "field_type": "Data", "default_value": ""},
                     {"field_label": "Estimated Cost", "field_type": "Currency", "default_value": "0.00"},
-                    {"field_label": "Company Name", "field_type": "Data", "default_value": "Artisan Clarinets"}
-                ]
-            }
+                    {
+                        "field_label": "Company Name",
+                        "field_type": "Data",
+                        "default_value": "Artisan Clarinets",
+                    },
+                ],
+            },
         ]
 
         created = []
         for template_data in templates:
             if not frappe.db.exists("Consent Template", template_data["title"]):
                 try:
-                    template_doc = frappe.get_doc({
-                        "doctype": "Consent Template",
-                        "title": template_data["title"],
-                        "consent_type": template_data["consent_type"],
-                        "content": template_data["content"],
-                        "is_active": 1,
-                        "required_fields": template_data["required_fields"]
-                    })
+                    template_doc = frappe.get_doc(
+                        {
+                            "doctype": "Consent Template",
+                            "title": template_data["title"],
+                            "consent_type": template_data["consent_type"],
+                            "content": template_data["content"],
+                            "is_active": 1,
+                            "required_fields": template_data["required_fields"],
+                        }
+                    )
                     template_doc.insert(ignore_permissions=True)
                     created.append(template_data["title"])
                 except Exception as e:
@@ -279,6 +287,7 @@ class ConsentSettings(Document):
             from repair_portal.utils.install.install_consent_artifacts import (
                 install_or_update_consent_artifacts,
             )
+
             result = install_or_update_consent_artifacts()
             return result
         except ImportError:
@@ -298,11 +307,11 @@ class ConsentSettings(Document):
 
     def _validate_doctype_references(self) -> None:
         """Validate that all referenced DocTypes exist."""
-        for mapping in (self.mappings or []):
+        for mapping in self.mappings or []:
             if mapping.source_doctype and not frappe.db.exists("DocType", mapping.source_doctype):
                 frappe.throw(_("Source DocType '{0}' does not exist").format(mapping.source_doctype))
-        
-        for linked_source in (self.linked_sources or []):
+
+        for linked_source in self.linked_sources or []:
             if linked_source.source_doctype and not frappe.db.exists("DocType", linked_source.source_doctype):
                 frappe.throw(_("Source DocType '{0}' does not exist").format(linked_source.source_doctype))
 
@@ -312,12 +321,16 @@ class ConsentSettings(Document):
     def _validate_mapping_variables_unique(self) -> None:
         """Ensure mapping variable names are unique."""
         seen, dupes = set(), set()
-        for m in (self.mappings or []):
+        for m in self.mappings or []:
             var = (m.variable_name or "").strip()
             if not var:
                 frappe.throw(_("Each mapping row must have a Variable Name (snake_case)."))
             if not _VALID_FIELDNAME.match(var):
-                frappe.throw(_("Invalid variable name '{0}'. Must be snake_case, start with letter, 3+ chars").format(var))
+                frappe.throw(
+                    _("Invalid variable name '{0}'. Must be snake_case, start with letter, 3+ chars").format(
+                        var
+                    )
+                )
             if var in seen:
                 dupes.add(var)
             else:
@@ -328,7 +341,7 @@ class ConsentSettings(Document):
     def _validate_linked_sources_unique_and_sane(self) -> None:
         """Ensure linked source fieldnames are unique and valid."""
         seen_names, dupes = set(), set()
-        for r in (self.linked_sources or []):
+        for r in self.linked_sources or []:
             fname = (r.fieldname or "").strip()
             if not fname:
                 frappe.throw(_("Each linked source must have a fieldname (snake_case)."))
@@ -352,38 +365,44 @@ def get_consent_settings() -> dict[str, Any]:
         settings.insert(ignore_permissions=True)
     else:
         settings = frappe.get_single("Consent Settings")
-    
+
     return {
         "settings": settings.as_dict(),
         "available_doctypes": _get_available_doctypes(),
-        "available_fieldtypes": ["Data", "Text", "Int", "Float", "Currency", "Date", "Datetime", "Check", "Select"]
+        "available_fieldtypes": [
+            "Data",
+            "Text",
+            "Int",
+            "Float",
+            "Currency",
+            "Date",
+            "Datetime",
+            "Check",
+            "Select",
+        ],
     }
+
 
 @frappe.whitelist()
 def validate_field_mapping(source_doctype: str, source_fieldname: str) -> dict[str, Any]:
     """Validate that a field mapping is valid."""
     if not frappe.db.exists("DocType", source_doctype):
         return {"valid": False, "error": f"DocType '{source_doctype}' does not exist"}
-    
+
     meta = frappe.get_meta(source_doctype)
     field = meta.get_field(source_fieldname)
-    
+
     if not field:
         return {"valid": False, "error": f"Field '{source_fieldname}' does not exist in '{source_doctype}'"}
-    
+
     return {
         "valid": True,
-        "field_info": {
-            "fieldtype": field.fieldtype,
-            "label": field.label,
-            "options": field.options
-        }
+        "field_info": {"fieldtype": field.fieldtype, "label": field.label, "options": field.options},
     }
+
 
 def _get_available_doctypes() -> list[str]:
     """Get list of available DocTypes for field mappings."""
-    return frappe.get_all("DocType", 
-                         filters={"custom": 0, "is_child_table": 0}, 
-                         fields=["name"], 
-                         order_by="name",
-                         pluck="name")
+    return frappe.get_all(
+        "DocType", filters={"custom": 0, "is_child_table": 0}, fields=["name"], order_by="name", pluck="name"
+    )

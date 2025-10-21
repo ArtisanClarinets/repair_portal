@@ -21,7 +21,9 @@ class SLAEvent(BaseModel):
     repair_order: str = Field(..., description="Repair Order identifier")
     started_at: datetime = Field(..., description="UTC timestamp for event start")
     due_at: datetime = Field(..., description="Computed SLA due timestamp")
-    pause_reason: Optional[PauseReason] = Field(default=None, description="Reason for pause if state is paused")
+    pause_reason: Optional[PauseReason] = Field(
+        default=None, description="Reason for pause if state is paused"
+    )
 
 
 class SLATick(BaseModel):

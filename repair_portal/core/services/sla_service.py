@@ -25,7 +25,9 @@ def _log(message: str, **context: object) -> None:
 
 @require_roles(Role.REPAIR_MANAGER, Role.CUSTOMER_SERVICE)
 @rate_limited("sla-start", limit=30, window_seconds=60)
-def start_sla(repair_order: str, due_at: datetime, started_at: Optional[datetime] = None) -> sla_contracts.SLAEvent:
+def start_sla(
+    repair_order: str, due_at: datetime, started_at: Optional[datetime] = None
+) -> sla_contracts.SLAEvent:
     """Start an SLA clock for a repair order."""
 
     started = started_at or datetime.now(timezone.utc)
@@ -46,8 +48,12 @@ def pause_sla(repair_order: str, reason: sla_contracts.PauseReason) -> sla_contr
     due_at = now
     if frappe is not None:
         due_at = frappe.db.get_value("Repair Order", repair_order, "sla_due_on") or now
-        frappe.db.set_value("Repair Order", repair_order, {"sla_paused_on": now, "sla_pause_reason": reason.value})
-    event = sla_contracts.SLAEvent(repair_order=repair_order, started_at=now, due_at=due_at, pause_reason=reason)
+        frappe.db.set_value(
+            "Repair Order", repair_order, {"sla_paused_on": now, "sla_pause_reason": reason.value}
+        )
+    event = sla_contracts.SLAEvent(
+        repair_order=repair_order, started_at=now, due_at=due_at, pause_reason=reason
+    )
     _log("SLA paused", repair_order=repair_order, reason=reason.value)
     publish(EventTopic.SLA_PAUSED, event.dict())
     return event

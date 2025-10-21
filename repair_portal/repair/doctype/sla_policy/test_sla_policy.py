@@ -6,4 +6,4 @@ from frappe.tests.utils import FrappeTestCase
 
 
 class TestSLAPolicy(FrappeTestCase):
-	pass
+    pass

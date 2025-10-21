@@ -38,19 +38,18 @@ from frappe.exceptions import DuplicateEntryError, ValidationError
 
 def _ensure_site_context():
     """Ensure we're connected to a site when called via bench execute."""
-    if not getattr(frappe.local, 'site', None):
-        site = os.environ.get('FRAPPE_SITE') or os.environ.get('SITE_NAME')
+    if not getattr(frappe.local, "site", None):
+        site = os.environ.get("FRAPPE_SITE") or os.environ.get("SITE_NAME")
         if not site:
             raise RuntimeError(
-                'No site context. Use `bench --site <site> execute ...` '
-                'or set FRAPPE_SITE / SITE_NAME.'
+                "No site context. Use `bench --site <site> execute ...` " "or set FRAPPE_SITE / SITE_NAME."
             )
         frappe.init(site=site)
         frappe.connect()
 
 
 def _read_json_docs(json_path: str) -> list[dict[str, Any]]:
-    with open(json_path, encoding='utf-8') as f:
+    with open(json_path, encoding="utf-8") as f:
         raw = f.read().strip()
     if not raw:
         return []
@@ -68,7 +67,7 @@ def _read_json_docs(json_path: str) -> list[dict[str, Any]]:
     # Fallback: JSON Lines (one object per line)
     docs: list[dict[str, Any]] = []
     for ln in raw.splitlines():
-        ln = ln.strip().rstrip(',')  # tolerate trailing commas
+        ln = ln.strip().rstrip(",")  # tolerate trailing commas
         if not ln:
             continue
         docs.append(json.loads(ln))
@@ -80,20 +79,20 @@ def _read_json_docs(json_path: str) -> list[dict[str, Any]]:
 # -------------------------------
 
 _META_KEYS = {
-    'doctype',
-    'name',
-    '_match',
+    "doctype",
+    "name",
+    "_match",
     # ignore write-protected bookkeeping fields if present
-    'owner',
-    'creation',
-    'modified',
-    'modified_by',
-    'idx',
+    "owner",
+    "creation",
+    "modified",
+    "modified_by",
+    "idx",
 }
 
 
 def _require_doctype(doc: dict[str, Any]) -> str:
-    dt = doc.get('doctype')
+    dt = doc.get("doctype")
     if not dt:
         raise ValueError(f"Missing 'doctype' in document: {doc}")
     return dt
@@ -101,12 +100,12 @@ def _require_doctype(doc: dict[str, Any]) -> str:
 
 def _find_existing_name(doctype: str, doc: dict[str, Any]) -> str | None:
     """Choose an existing doc to update: by explicit name or by _match filters."""
-    if doc.get('name'):
-        return doc['name']
+    if doc.get("name"):
+        return doc["name"]
 
-    match = doc.get('_match')
+    match = doc.get("_match")
     if isinstance(match, dict) and match:
-        found = frappe.get_all(doctype, filters=match, pluck='name', limit=1)
+        found = frappe.get_all(doctype, filters=match, pluck="name", limit=1)
         return found[0] if found else None
     return None
 
@@ -139,17 +138,17 @@ def _apply_one(doc: dict[str, Any]) -> bool:
     try:
         if target_name and frappe.db.exists(doctype, target_name):
             _update_existing(doctype, target_name, doc)
-            print(f'  ↻ updated: {doctype} / {target_name}')
+            print(f"  ↻ updated: {doctype} / {target_name}")
         else:
             try:
                 newname = _insert_new(doc)
-                print(f'  ✓ created: {doctype} / {newname}')
+                print(f"  ✓ created: {doctype} / {newname}")
             except DuplicateEntryError:
                 # Another process created it, or name collision → update instead
-                name = doc.get('name')
+                name = doc.get("name")
                 if name and frappe.db.exists(doctype, name):
                     _update_existing(doctype, name, doc)
-                    print(f'  ↻ updated (after duplicate): {doctype} / {name}')
+                    print(f"  ↻ updated (after duplicate): {doctype} / {name}")
                 else:
                     raise
         frappe.db.commit()
@@ -164,7 +163,7 @@ def _apply_one(doc: dict[str, Any]) -> bool:
     except Exception as e:
         frappe.db.rollback()
         print(f"  ✗ error on {doctype} / {target_name or '(new)'}: {e}")
-        frappe.log_error(title=f'JSON Loader Error ({doctype})', message=traceback.format_exc())
+        frappe.log_error(title=f"JSON Loader Error ({doctype})", message=traceback.format_exc())
         # Re-raise to abort the run; comment out if you prefer best-effort
         raise
 
@@ -204,15 +203,15 @@ def load_from_file(json_path: str, max_passes: int = 5) -> None:
     _ensure_site_context()
     path = os.path.abspath(json_path)
     if not os.path.isfile(path):
-        raise FileNotFoundError(f'JSON not found: {path}')
+        raise FileNotFoundError(f"JSON not found: {path}")
 
-    print(f'📄 Loading docs from: {path}')
+    print(f"📄 Loading docs from: {path}")
     docs = _read_json_docs(path)
 
     # filter: require 'doctype'
     filtered = []
     for d in docs:
-        if d.get('doctype'):
+        if d.get("doctype"):
             filtered.append(d)
         else:
             print(f"  • skipping doc without 'doctype': {d}")
@@ -224,16 +223,16 @@ def load_from_file(json_path: str, max_passes: int = 5) -> None:
     total_applied = 0
 
     for p in range(1, max_passes + 1):
-        print(f'— pass {p}/{max_passes} —')
+        print(f"— pass {p}/{max_passes} —")
         applied, remaining = _apply_pass(remaining)
         total_applied += applied
-        print(f'   pass {p}: {applied} applied; {len(remaining)} pending')
+        print(f"   pass {p}: {applied} applied; {len(remaining)} pending")
         if not remaining:
             break
 
-    print(f'✅ Done. Applied {total_applied} change(s). Pending unresolved: {len(remaining)}')
+    print(f"✅ Done. Applied {total_applied} change(s). Pending unresolved: {len(remaining)}")
     if remaining:
-        print('   (Likely parent links or validation issues; check console and Error Log.)')
+        print("   (Likely parent links or validation issues; check console and Error Log.)")
 
 
 def load_from_folder(folder: str, max_passes: int = 5) -> None:
@@ -243,14 +242,14 @@ def load_from_folder(folder: str, max_passes: int = 5) -> None:
     _ensure_site_context()
     folder = os.path.abspath(folder)
     if not os.path.isdir(folder):
-        raise RuntimeError(f'Folder not found: {folder}')
+        raise RuntimeError(f"Folder not found: {folder}")
 
     # collect docs from all files
     from glob import glob
 
-    files = sorted(glob(os.path.join(folder, '*.json')))
+    files = sorted(glob(os.path.join(folder, "*.json")))
     if not files:
-        print(f'⚠️  No JSON files in {folder}')
+        print(f"⚠️  No JSON files in {folder}")
         return
 
     all_docs: list[dict[str, Any]] = []
@@ -258,33 +257,33 @@ def load_from_folder(folder: str, max_passes: int = 5) -> None:
         try:
             docs = _read_json_docs(fpath)
             for d in docs:
-                if d.get('doctype'):
+                if d.get("doctype"):
                     all_docs.append(d)
                 else:
-                    print(f'  • skipping (no doctype): {fpath}')
+                    print(f"  • skipping (no doctype): {fpath}")
         except Exception as e:
-            print(f'  ✗ error reading {fpath}: {e}')
+            print(f"  ✗ error reading {fpath}: {e}")
 
     if not all_docs:
         print("⚠️  No docs with 'doctype' found.")
         return
 
-    print(f'📁 Loading {len(all_docs)} docs from {len(files)} file(s) in {folder}')
+    print(f"📁 Loading {len(all_docs)} docs from {len(files)} file(s) in {folder}")
     remaining = all_docs[:]
     total_applied = 0
 
     for p in range(1, max_passes + 1):
-        print(f'— pass {p}/{max_passes} —')
+        print(f"— pass {p}/{max_passes} —")
         applied, remaining = _apply_pass(remaining)
         total_applied += applied
-        print(f'   pass {p}: {applied} applied; {len(remaining)} pending')
+        print(f"   pass {p}: {applied} applied; {len(remaining)} pending")
         if not remaining:
             break
 
-    print(f'✅ Done. Applied {total_applied} change(s). Pending unresolved: {len(remaining)}')
+    print(f"✅ Done. Applied {total_applied} change(s). Pending unresolved: {len(remaining)}")
 
 
-def load_from_default_schemas(dir_name: str = 'schemas', max_passes: int = 5) -> None:
+def load_from_default_schemas(dir_name: str = "schemas", max_passes: int = 5) -> None:
     """
     Convenience wrapper that looks for schemas under:
       1) scripts/<dir_name>   (preferred)
@@ -295,12 +294,12 @@ def load_from_default_schemas(dir_name: str = 'schemas', max_passes: int = 5) ->
     here = os.path.dirname(os.path.abspath(__file__))
     candidates = [
         os.path.join(here, dir_name),  # scripts/schemas
-        os.path.abspath(os.path.join(here, '..', dir_name)),  # ../schemas
+        os.path.abspath(os.path.join(here, "..", dir_name)),  # ../schemas
     ]
     folder = next((p for p in candidates if os.path.isdir(p)), None)
     if not folder:
         raise RuntimeError(
-            'No schemas folder found. Tried:\n' f'  - {candidates[0]}\n' f'  - {candidates[1]}'
+            "No schemas folder found. Tried:\n" f"  - {candidates[0]}\n" f"  - {candidates[1]}"
         )
-    print(f'📂 Loading from default schemas: {folder}')
+    print(f"📂 Loading from default schemas: {folder}")
     return load_from_folder(folder, max_passes=max_passes)

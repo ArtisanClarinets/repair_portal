@@ -65,6 +65,8 @@ def execute() -> None:
             try:
                 _migrate_row(row)
             except Exception:
-                frappe.log_error("Failed to migrate material row", frappe.as_json({"doctype": doctype, "row": row}))
+                frappe.log_error(
+                    "Failed to migrate material row", frappe.as_json({"doctype": doctype, "row": row})
+                )
         if frappe.db.has_column(doctype, "docstatus"):
             frappe.db.sql(f"update `tab{doctype}` set docstatus = 2")

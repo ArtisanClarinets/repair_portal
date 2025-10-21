@@ -17,14 +17,17 @@ CODE_ROOT = APP_ROOT / "repair_portal"
 # Roles to allow editing in Draft states when empty (safe defaults)
 DEFAULT_EDIT_ROLES = ["System Manager"]
 
+
 def _load_json(path: Path):
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception:
         return None
 
+
 def _dump_json(path: Path, data: Any):
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
 
 def _iter_workflow_docs() -> list[tuple[Path, dict[str, Any]]]:
     res = []
@@ -38,6 +41,7 @@ def _iter_workflow_docs() -> list[tuple[Path, dict[str, Any]]]:
                 res.append((p, d))
     return res
 
+
 def _iter_doctype_docs() -> dict[str, dict[str, Any]]:
     out = {}
     for p in CODE_ROOT.rglob("*.json"):
@@ -50,21 +54,25 @@ def _iter_doctype_docs() -> dict[str, dict[str, Any]]:
                 out[d.get("name")] = d
     return out
 
+
 def _ensure_custom_field(dt: str):
     """Ensure 'workflow_state' field exists (Link → Workflow State)."""
     if frappe.db.exists("Custom Field", {"dt": dt, "fieldname": "workflow_state"}):
         return
-    cf = frappe.get_doc({
-        "doctype": "Custom Field",
-        "dt": dt,
-        "fieldname": "workflow_state",
-        "label": "Workflow State",
-        "fieldtype": "Link",
-        "options": "Workflow State",
-        "read_only": 1,
-        "in_list_view": 1
-    })
+    cf = frappe.get_doc(
+        {
+            "doctype": "Custom Field",
+            "dt": dt,
+            "fieldname": "workflow_state",
+            "label": "Workflow State",
+            "fieldtype": "Link",
+            "options": "Workflow State",
+            "read_only": 1,
+            "in_list_view": 1,
+        }
+    )
     cf.insert(ignore_permissions=True)
+
 
 def dry_run() -> dict[str, Any]:
     """Report only—no changes."""
@@ -106,12 +114,13 @@ def dry_run() -> dict[str, Any]:
         "empty_allow_edit_on_draft": empty_edit,
     }
 
+
 def apply(fix_allow_edit: bool = True) -> dict[str, Any]:
     """Apply standardization:
-       - Set workflow_state_field='workflow_state'
-       - Ensure Custom Field exists on each target Doctype
-       - Convert string doc_status -> int (0/1/2)
-       - Optionally add DEFAULT_EDIT_ROLES to Draft states with empty allow_edit
+    - Set workflow_state_field='workflow_state'
+    - Ensure Custom Field exists on each target Doctype
+    - Convert string doc_status -> int (0/1/2)
+    - Optionally add DEFAULT_EDIT_ROLES to Draft states with empty allow_edit
     """
     report = {"updated_files": [], "created_custom_fields": [], "normalized_states": 0, "edit_roles_added": 0}
 
@@ -134,7 +143,7 @@ def apply(fix_allow_edit: bool = True) -> dict[str, Any]:
         # state docstatus ints + allow_edit defaults
         for s in wf.get("states") or []:
             ds = s.get("doc_status")
-            if isinstance(ds, str) and ds in ("0","1","2"):
+            if isinstance(ds, str) and ds in ("0", "1", "2"):
                 s["doc_status"] = int(ds)
                 changed = True
             if fix_allow_edit and s.get("doc_status") == 0 and not (s.get("allow_edit") or []):

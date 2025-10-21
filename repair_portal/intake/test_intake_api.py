@@ -241,7 +241,9 @@ class TestIntakeApi(FrappeTestCase):
     def test_create_intake_rollback_on_failure(self) -> None:
         session = intake_api.save_intake_session()
         with self.assertRaises(frappe.ValidationError):
-            intake_api.create_intake({"intake": {"intake_type": "New Inventory"}}, session_id=session["session_id"])
+            intake_api.create_intake(
+                {"intake": {"intake_type": "New Inventory"}}, session_id=session["session_id"]
+            )
         session_doc = frappe.get_doc("Intake Session", session["session_id"])
         self.assertEqual(session_doc.status, "Abandoned")
         self.assertTrue(session_doc.error_trace)

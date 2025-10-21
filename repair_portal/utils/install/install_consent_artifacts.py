@@ -32,6 +32,7 @@ PREFERRED_ROLES = ["System Manager", "Sales User"]
 # Utilities
 # ----------------------------
 
+
 def _site_log(msg: str) -> None:
     try:
         frappe.logger("repair_portal.install").info(msg)
@@ -87,6 +88,7 @@ def _safe_set(doc: Any, fieldname: str, value: Any) -> bool:
 # Upsert: Workflow Actions
 # ----------------------------
 
+
 def _upsert_workflow_actions() -> dict[str, str]:
     """
     Ensure the required actions exist in whichever DocType the transitions link to.
@@ -104,10 +106,10 @@ def _upsert_workflow_actions() -> dict[str, str]:
     # Candidate label fields
     nameish_fields = [
         "workflow_action_name",  # Workflow Action (v15)
-        "action",                # legacy variants
+        "action",  # legacy variants
         "action_name",
         "title",
-        "name",                  # fallback
+        "name",  # fallback
     ]
     usable_label_field: str | None = None
     for f in nameish_fields:
@@ -164,6 +166,7 @@ def _upsert_workflow_actions() -> dict[str, str]:
 # Upsert: Workflow States (masters)
 # ----------------------------
 
+
 def _upsert_workflow_states() -> None:
     """
     Ensure the Workflow State master rows exist and have correct doc_status/style.
@@ -171,10 +174,10 @@ def _upsert_workflow_states() -> None:
     """
     desired = [
         # (name,              doc_status, style)
-        ("Draft",              0,          "Primary"),
-        ("Pending Signature",  0,          "Warning"),
-        ("Signed",             1,          "Success"),
-        ("Cancelled",          2,          "Danger"),
+        ("Draft", 0, "Primary"),
+        ("Pending Signature", 0, "Warning"),
+        ("Signed", 1, "Success"),
+        ("Cancelled", 2, "Danger"),
     ]
 
     ws_meta = frappe.get_meta("Workflow State")
@@ -232,8 +235,9 @@ def _upsert_workflow_states() -> None:
 # Merge helpers for existing Workflow doc
 # ----------------------------
 
+
 def _find_state_row(wf: Any, state_name: str) -> Any | None:
-    for row in (wf.get("states") or []):
+    for row in wf.get("states") or []:
         if (row.get("state") or "") == state_name:
             return row
     return None
@@ -264,7 +268,7 @@ def _normalize_role_names(container_value: Any) -> set[str]:
     # list-like?
     if isinstance(container_value, list):
         for it in container_value:
-            if hasattr(it, "get") or isinstance(it, dict):             # child doc
+            if hasattr(it, "get") or isinstance(it, dict):  # child doc
                 val = it.get("role")
                 if isinstance(val, str) and val.strip():
                     roles.add(val.strip())
@@ -318,7 +322,7 @@ def _ensure_roles_on_row(row: Any, child_field: str, roles_to_add: list[str]) ->
 
 
 def _find_transition_row(wf: Any, state: str, action: str, next_state: str) -> Any | None:
-    for tr in (wf.get("transitions") or []):
+    for tr in wf.get("transitions") or []:
         if tr.get("state") == state and tr.get("action") == action and tr.get("next_state") == next_state:
             return tr
     return None
@@ -327,6 +331,7 @@ def _find_transition_row(wf: Any, state: str, action: str, next_state: str) -> A
 # ----------------------------
 # Upsert: Workflow definition (merge, don’t clobber)
 # ----------------------------
+
 
 def _upsert_workflow(link_actions: dict[str, str]) -> None:
     # Ensure target Document Type exists
@@ -339,15 +344,15 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
     # Ensure state masters first
     _upsert_workflow_states()
 
-    roles_draft     = _existing_roles(PREFERRED_ROLES)
-    roles_pending   = _existing_roles(PREFERRED_ROLES)
-    roles_signed    = _existing_roles(["System Manager"])
+    roles_draft = _existing_roles(PREFERRED_ROLES)
+    roles_pending = _existing_roles(PREFERRED_ROLES)
+    roles_signed = _existing_roles(["System Manager"])
     roles_cancelled = _existing_roles(["System Manager"])
 
     # Resolve action link names (safe even if docname != label)
-    action_request  = link_actions["Request Signature"]
-    action_submit   = link_actions["Submit (Requires Signature)"]
-    action_cancel   = link_actions["Cancel"]
+    action_request = link_actions["Request Signature"]
+    action_submit = link_actions["Submit (Requires Signature)"]
+    action_cancel = link_actions["Cancel"]
 
     # Load or create workflow skeleton
     if frappe.db.exists("Workflow", WF_NAME):
@@ -401,7 +406,12 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
 
             st = wf.append(
                 "states",
-                {"state": state_name, "doc_status": doc_status, "style": style, "allow_edit": allow_edit_value},
+                {
+                    "state": state_name,
+                    "doc_status": doc_status,
+                    "style": style,
+                    "allow_edit": allow_edit_value,
+                },
             )
             changed = True
         else:
@@ -425,9 +435,14 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
     meta_tr = frappe.get_meta("Workflow Transition")
     has_condition_field = meta_tr.has_field("condition")
 
-    def _ensure_transition(state: str, action_name: str, next_state: str,
-                           allow_self_approval: int = 1, condition: str | None = None,
-                           roles: list[str] | None = None) -> None:
+    def _ensure_transition(
+        state: str,
+        action_name: str,
+        next_state: str,
+        allow_self_approval: int = 1,
+        condition: str | None = None,
+        roles: list[str] | None = None,
+    ) -> None:
         nonlocal changed
         tr = _find_transition_row(wf, state, action_name, next_state)
         if not tr:
@@ -445,7 +460,9 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
                 roles_to_seed = ["System Manager"]
 
             # Determine child doctype for 'transitions' table on Workflow
-            trans_field = wf_meta.get_field("transitions") if (wf_meta := frappe.get_meta("Workflow")) else None
+            trans_field = (
+                wf_meta.get_field("transitions") if (wf_meta := frappe.get_meta("Workflow")) else None
+            )
             trans_child_doctype = getattr(trans_field, "options", None) if trans_field else None
 
             allowed_value = None
@@ -528,7 +545,12 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
 
         # Ensure role child rows exist on persisted rows
         # States
-        for state_name, roles in [("Draft", roles_draft), ("Pending Signature", roles_pending), ("Signed", roles_signed), ("Cancelled", roles_cancelled)]:
+        for state_name, roles in [
+            ("Draft", roles_draft),
+            ("Pending Signature", roles_pending),
+            ("Signed", roles_signed),
+            ("Cancelled", roles_cancelled),
+        ]:
             st = _find_state_row(wf, state_name)
             if st:
                 if _ensure_roles_on_row(st, "allow_edit", list(roles)):
@@ -560,6 +582,7 @@ def _upsert_workflow(link_actions: dict[str, str]) -> None:
 # Consent Settings defaults
 # ----------------------------
 
+
 def _ensure_settings_defaults() -> None:
     """
     Ensure singleton exists and seed baseline mappings without overwriting existing rows.
@@ -569,9 +592,24 @@ def _ensure_settings_defaults() -> None:
     settings = frappe.get_single("Consent Settings")
 
     desired_defaults = [
-        {"variable_name": "customer_name",  "source_doctype": "Customer", "form_link_field": "customer", "source_fieldname": "customer_name"},
-        {"variable_name": "customer_email", "source_doctype": "Customer", "form_link_field": "customer", "source_fieldname": "email_id"},
-        {"variable_name": "customer_phone", "source_doctype": "Customer", "form_link_field": "customer", "source_fieldname": "mobile_no"},
+        {
+            "variable_name": "customer_name",
+            "source_doctype": "Customer",
+            "form_link_field": "customer",
+            "source_fieldname": "customer_name",
+        },
+        {
+            "variable_name": "customer_email",
+            "source_doctype": "Customer",
+            "form_link_field": "customer",
+            "source_fieldname": "email_id",
+        },
+        {
+            "variable_name": "customer_phone",
+            "source_doctype": "Customer",
+            "form_link_field": "customer",
+            "source_fieldname": "mobile_no",
+        },
     ]
 
     existing = {m.get("variable_name", "") for m in (settings.get("mappings") or [])}
@@ -579,14 +617,17 @@ def _ensure_settings_defaults() -> None:
     changed = False
     for row in desired_defaults:
         if row["variable_name"] not in existing:
-            settings.append("mappings", {
-                "enabled": 1,
-                "variable_name": row["variable_name"],
-                "source_doctype": row["source_doctype"],
-                "form_link_field": row["form_link_field"],
-                "source_fieldname": row["source_fieldname"],
-                "default_value": "",
-            })
+            settings.append(
+                "mappings",
+                {
+                    "enabled": 1,
+                    "variable_name": row["variable_name"],
+                    "source_doctype": row["source_doctype"],
+                    "form_link_field": row["form_link_field"],
+                    "source_fieldname": row["source_fieldname"],
+                    "default_value": "",
+                },
+            )
             changed = True
 
     # Enable auto fill if the field exists
@@ -622,6 +663,7 @@ def _apply_linked_sources_if_available() -> None:
 # Public entry point
 # ----------------------------
 
+
 def install_or_update_consent_artifacts() -> dict[str, str]:
     """
     Orchestrates installer in a safe sequence:
@@ -636,4 +678,7 @@ def install_or_update_consent_artifacts() -> dict[str, str]:
     _upsert_workflow(link_actions)
     _ensure_settings_defaults()
     _apply_linked_sources_if_available()
-    return {"status": "ok", "message": "Consent workflow, actions, states, settings & links installed/updated."}
+    return {
+        "status": "ok",
+        "message": "Consent workflow, actions, states, settings & links installed/updated.",
+    }

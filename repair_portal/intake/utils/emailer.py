@@ -20,16 +20,16 @@ LOGGER = get_logger()
 #  Email copy templates
 # --------------------------------------------------------------------------- #
 _SUBJECTS: dict[str, str] = {
-    'submitted': _('Your instrument has been received – Intake #{name}'),
-    'state_change': _('Update on your instrument – Intake #{name}'),
-    'completed': _('Your instrument is ready – Intake #{name}'),
+    "submitted": _("Your instrument has been received – Intake #{name}"),
+    "state_change": _("Update on your instrument – Intake #{name}"),
+    "completed": _("Your instrument is ready – Intake #{name}"),
 }
 
 
 # --------------------------------------------------------------------------- #
 #  Public API
 # --------------------------------------------------------------------------- #
-def queue_intake_state_email(intake_name: str, event: str = 'state_change') -> None:
+def queue_intake_state_email(intake_name: str, event: str = "state_change") -> None:
     """Build and send a transactional email to a Clarinet-Intake customer.
 
     Designed for use with ``frappe.enqueue`` so the actual SMTP call runs in a
@@ -40,10 +40,10 @@ def queue_intake_state_email(intake_name: str, event: str = 'state_change') -> N
         event:      Reason for the notification. Supported values:
                     ``submitted`` | ``state_change`` | ``completed``.
     """
-    intake = frappe.get_doc('Clarinet Intake', intake_name)
+    intake = frappe.get_doc("Clarinet Intake", intake_name)
 
-    if not getattr(intake, 'customer_email', None):
-        LOGGER.warning('Intake %s has no customer_email; skipping notification', intake_name)
+    if not getattr(intake, "customer_email", None):
+        LOGGER.warning("Intake %s has no customer_email; skipping notification", intake_name)
         return
 
     subject = _build_subject(event, intake)
@@ -58,18 +58,18 @@ def queue_intake_state_email(intake_name: str, event: str = 'state_change') -> N
             reference_name=intake.name,
         )
         LOGGER.info(
-            'Customer email sent for Intake %s (event=%s) to %s',
+            "Customer email sent for Intake %s (event=%s) to %s",
             intake_name,
             event,
             intake.customer_email,  # type: ignore
         )
     except Exception:
         frappe.log_error(
-            title='Clarinet Intake email failure',
+            title="Clarinet Intake email failure",
             message=frappe.get_traceback(),
         )
         LOGGER.exception(
-            'Error while sending customer email for Intake %s (event=%s)',
+            "Error while sending customer email for Intake %s (event=%s)",
             intake_name,
             event,
         )
@@ -80,43 +80,44 @@ def queue_intake_state_email(intake_name: str, event: str = 'state_change') -> N
 # --------------------------------------------------------------------------- #
 def _build_subject(event: str, intake) -> str:
     """Return a translated, per-event email subject line."""
-    template = _SUBJECTS.get(event, _SUBJECTS['state_change'])
+    template = _SUBJECTS.get(event, _SUBJECTS["state_change"])
     return template.format(name=intake.name)
 
 
 def _build_message(event: str, intake) -> str:
     """Compose a minimal, brand-consistent HTML email body."""
     base_url = frappe.utils.get_url()  # type: ignore
-    intake_url = f'{base_url}/app/clarinet-intake/{intake.name}'
+    intake_url = f"{base_url}/app/clarinet-intake/{intake.name}"
 
     lines = [
-        _('<p>Hi {0},</p>').format(intake.customer_name or _('there')),
+        _("<p>Hi {0},</p>").format(intake.customer_name or _("there")),
     ]
 
-    if event == 'submitted':
+    if event == "submitted":
         lines.append(
             _(
-                '<p>We’ve logged your instrument into our system. '
-                'You can track progress at any time using the link below.</p>'
+                "<p>We’ve logged your instrument into our system. "
+                "You can track progress at any time using the link below.</p>"
             )
         )
-    elif event == 'completed':
+    elif event == "completed":
         lines.append(
             _(
-                '<p>Great news! Your instrument has passed final checks and is '
-                'ready for collection or shipment.</p>'
+                "<p>Great news! Your instrument has passed final checks and is "
+                "ready for collection or shipment.</p>"
             )
         )
     else:  # generic workflow update
         lines.append(
-            _(
-                '<p>Your instrument’s status has been updated to ' '<strong>{0}</strong>.</p>'
-            ).format(intake.workflow_state or _('Unknown'))
+            _("<p>Your instrument’s status has been updated to " "<strong>{0}</strong>.</p>").format(
+                intake.workflow_state or _("Unknown")
+            )
         )
 
     lines.append(_("<p><a href='{0}'>View your Intake record</a></p>").format(intake_url))
-    lines.append(_('<p>Thank you for choosing Artisan Clarinets!</p>'))
+    lines.append(_("<p>Thank you for choosing Artisan Clarinets!</p>"))
 
-    return '\n'.join(lines)
+    return "\n".join(lines)
+
+
 queue_intake_status_email = queue_intake_state_email  # Backward compatibility alias
-

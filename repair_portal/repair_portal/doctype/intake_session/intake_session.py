@@ -39,9 +39,7 @@ def _get_session_ttl_days() -> int:
             )
 
     try:
-        single_value = frappe.db.get_single_value(
-            "Repair Portal Settings", "intake_session_ttl_days"
-        )
+        single_value = frappe.db.get_single_value("Repair Portal Settings", "intake_session_ttl_days")
         if single_value:
             return max(1, int(single_value))
     except Exception:

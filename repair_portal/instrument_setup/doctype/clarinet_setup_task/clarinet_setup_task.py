@@ -48,40 +48,35 @@ class ClarinetSetupTask(Document):
     def validate(self):
         # Sanity: date ranges
         if self.exp_start_date and self.exp_end_date and self.exp_end_date < self.exp_start_date:  # type: ignore
-            frappe.throw(_('Expected End cannot be earlier than Expected Start.'))
+            frappe.throw(_("Expected End cannot be earlier than Expected Start."))
 
         # Dependency gating: cannot start/complete if predecessors not Completed
-        if (self.status in {'Working', 'Pending Review', 'Completed'} and 
-            self.depends_on):
-                # Bulk fetch all dependency statuses to avoid N+1 queries
-                dep_tasks = [dep.task for dep in self.depends_on]
-                if dep_tasks:
-                    dep_statuses = frappe.get_all(
-                        'Clarinet Setup Task',
-                        filters={'name': ['in', dep_tasks]},
-                        fields=['name', 'status']
-                    )
-                    status_map = {d['name']: d['status'] for d in dep_statuses}
-                    
-                    pending = []
-                    for dep in self.depends_on:
-                        status = status_map.get(dep.task, 'Unknown')
-                        if status != 'Completed':
-                            pending.append(f'{dep.task} ({status})')
-                    
-                    if pending:
-                        frappe.throw(
-                            _('This task depends on unfinished tasks: {0}').format(', '.join(pending))
-                        )
+        if self.status in {"Working", "Pending Review", "Completed"} and self.depends_on:
+            # Bulk fetch all dependency statuses to avoid N+1 queries
+            dep_tasks = [dep.task for dep in self.depends_on]
+            if dep_tasks:
+                dep_statuses = frappe.get_all(
+                    "Clarinet Setup Task", filters={"name": ["in", dep_tasks]}, fields=["name", "status"]
+                )
+                status_map = {d["name"]: d["status"] for d in dep_statuses}
+
+                pending = []
+                for dep in self.depends_on:
+                    status = status_map.get(dep.task, "Unknown")
+                    if status != "Completed":
+                        pending.append(f"{dep.task} ({status})")
+
+                if pending:
+                    frappe.throw(_("This task depends on unfinished tasks: {0}").format(", ".join(pending)))
 
         # Auto progress on Completed
-        if self.status == 'Completed':
+        if self.status == "Completed":
             self.progress = 100
 
         # Actual times quality-of-life
-        if self.status == 'Working' and not self.actual_start:
+        if self.status == "Working" and not self.actual_start:
             self.actual_start = now_datetime()
-        if self.status == 'Completed' and not self.actual_end:
+        if self.status == "Completed" and not self.actual_end:
             self.actual_end = now_datetime()
 
     def on_update(self):
@@ -89,9 +84,9 @@ class ClarinetSetupTask(Document):
         if self.clarinet_initial_setup:
             try:
                 frappe.enqueue(
-                    'repair_portal.repair_portal.instrument_setup.doctype.clarinet_initial_setup.clarinet_initial_setup.update_parent_progress',
+                    "repair_portal.repair_portal.instrument_setup.doctype.clarinet_initial_setup.clarinet_initial_setup.update_parent_progress",
                     initial_setup=self.clarinet_initial_setup,
-                    queue='short',
+                    queue="short",
                 )
             except Exception:
                 # Fallback if queue not available
@@ -105,12 +100,12 @@ class ClarinetSetupTask(Document):
 def update_parent_progress_inline(initial_setup: str):
     """Inline (non-queued) parent progress roll-up fallback."""
     tasks = frappe.get_all(
-        'Clarinet Setup Task',
-        filters={'clarinet_initial_setup': initial_setup},
-        fields=['name', 'progress'],
+        "Clarinet Setup Task",
+        filters={"clarinet_initial_setup": initial_setup},
+        fields=["name", "progress"],
     )
     if not tasks:
-        frappe.db.set_value('Clarinet Initial Setup', initial_setup, 'progress', 0)
+        frappe.db.set_value("Clarinet Initial Setup", initial_setup, "progress", 0)
         return
-    avg = round(sum((t.get('progress') or 0) for t in tasks) / len(tasks), 2)
-    frappe.db.set_value('Clarinet Initial Setup', initial_setup, 'progress', avg)
+    avg = round(sum((t.get("progress") or 0) for t in tasks) / len(tasks), 2)
+    frappe.db.set_value("Clarinet Initial Setup", initial_setup, "progress", avg)

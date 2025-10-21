@@ -17,12 +17,12 @@ class InstrumentPhoto(Document):
         from frappe.types import DF
 
         category: DF.Literal[
-            'Profile Picture',
-            'Service Before',
-            'Service After',
-            'Damage Documentation',
-            'Repair Documentation',
-            'Other',
+            "Profile Picture",
+            "Service Before",
+            "Service After",
+            "Damage Documentation",
+            "Repair Documentation",
+            "Other",
         ]
         description: DF.Data | None
         parent: DF.Data

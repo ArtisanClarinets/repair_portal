@@ -34,7 +34,7 @@ class RepairTask(Document):
         parenttype: DF.Data
         parts_cost: DF.Currency
         remarks: DF.SmallText | None
-        status: DF.Literal['', Pending, 'In Progress', Completed]
+        status: DF.Literal["", Pending, "In Progress", Completed]
         task_type: DF.Link
         technician: DF.Link | None
 

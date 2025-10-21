@@ -75,6 +75,7 @@ DOC_CONFIG = {
     "Repair Task": {},
 }
 
+
 def on_child_validate(doc, method=None):
     """Doc event handler for children: validate link & consistency and
     ensure presence under parent.related_documents."""
@@ -93,15 +94,16 @@ def on_child_validate(doc, method=None):
     child_customer = getattr(doc, cfg.get("customer", ""), None)
     child_instrument = getattr(doc, cfg.get("instrument", ""), None)
 
-    if parent.customer and child_customer and parent.customer != child_customer: # type: ignore
+    if parent.customer and child_customer and parent.customer != child_customer:  # type: ignore
         frappe.throw(_("Customer mismatch with Repair Order {0}.").format(parent.name))
 
-    if parent.instrument_profile and child_instrument and parent.instrument_profile != child_instrument: # type: ignore
+    if parent.instrument_profile and child_instrument and parent.instrument_profile != child_instrument:  # type: ignore
         frappe.throw(_("Instrument mismatch with Repair Order {0}.").format(parent.name))
 
     # 4) Append to parent.related_documents if missing
     _ensure_related(parent, doc.doctype, doc.name, desc="Auto-linked")
     parent.save(ignore_permissions=True)
+
 
 def _ensure_related(parent, doctype, name, desc=""):
     exists = any(
@@ -109,11 +111,15 @@ def _ensure_related(parent, doctype, name, desc=""):
         for row in (parent.related_documents or [])
     )
     if not exists:
-        parent.append("related_documents", {
-            "doctype_name": doctype,
-            "document_name": name,
-            "description": desc,
-        })
+        parent.append(
+            "related_documents",
+            {
+                "doctype_name": doctype,
+                "document_name": name,
+                "description": desc,
+            },
+        )
+
 
 # =============================================================================
 
@@ -138,6 +144,7 @@ __all__ = [
 
 class MappingError(frappe.ValidationError):
     """Explicit error type for mapping failures (missing targets, no child table, etc.)."""
+
     pass
 
 
@@ -195,6 +202,7 @@ def _child_map_fields(child_meta, src_row) -> dict:
     Transform a Repair Quotation Item row into a Repair Order child-row dict
     using flexible, meta-driven fieldname picking.
     """
+
     def pick(cands, default=None):
         name = _first_present_field(child_meta, cands)
         return name if name else default
@@ -279,7 +287,7 @@ def create_repair_order_from_quotation(quotation: str | Document, submit: bool =
     child_fieldname, child_dt = _find_child_table_and_doctype(order_meta)
     child_meta = frappe.get_meta(child_dt)
 
-    for s in (getattr(qdoc, "items", None) or []):
+    for s in getattr(qdoc, "items", None) or []:
         row_dict = _child_map_fields(child_meta, s.as_dict())
         order.append(child_fieldname, row_dict)
 
@@ -296,18 +304,15 @@ def create_repair_order_from_quotation(quotation: str | Document, submit: bool =
     return order
 
 
-
 def clear_material_logs_for_order(order_name: str) -> None:
     """Remove Actual Material child rows and dependent technician logs when deleting an order."""
     try:
-        doc = frappe.get_doc('Repair Order', order_name)
+        doc = frappe.get_doc("Repair Order", order_name)
     except Exception:
         return
-    if doc.meta.has_field('actual_materials'):
-        doc.set('actual_materials', [])
+    if doc.meta.has_field("actual_materials"):
+        doc.set("actual_materials", [])
         doc.save(ignore_permissions=True)
     # Also purge any legacy repair logging entries mapped to the order
-    if frappe.db.table_exists('Repair Parts Log'):
-        frappe.db.delete('Repair Parts Log', {'repair_order': order_name})
-
-
+    if frappe.db.table_exists("Repair Parts Log"):
+        frappe.db.delete("Repair Parts Log", {"repair_order": order_name})

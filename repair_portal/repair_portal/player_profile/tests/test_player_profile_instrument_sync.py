@@ -12,19 +12,23 @@ class TestPlayerProfileInstrumentSync(PlayerProfileTestCase):
         customer = create_customer(customer_name="Instrument Customer")
         profile = create_player_profile(customer=customer)
 
-        instrument = frappe.get_doc({
-            "doctype": "Instrument",
-            "instrument_name": "Clarinet",
-            "serial_no": "SYNC-001",
-        })
+        instrument = frappe.get_doc(
+            {
+                "doctype": "Instrument",
+                "instrument_name": "Clarinet",
+                "serial_no": "SYNC-001",
+            }
+        )
         instrument.insert(ignore_permissions=True)
         self.addCleanup(lambda: frappe.delete_doc("Instrument", instrument.name, force=True))
 
-        instrument_profile = frappe.get_doc({
-            "doctype": "Instrument Profile",
-            "instrument": instrument.name,
-            "customer": customer.name,
-        })
+        instrument_profile = frappe.get_doc(
+            {
+                "doctype": "Instrument Profile",
+                "instrument": instrument.name,
+                "customer": customer.name,
+            }
+        )
         instrument_profile.insert(ignore_permissions=True)
         self.addCleanup(lambda: frappe.delete_doc("Instrument Profile", instrument_profile.name, force=True))
 

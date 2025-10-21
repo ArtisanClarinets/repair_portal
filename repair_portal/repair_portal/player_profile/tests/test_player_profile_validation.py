@@ -13,13 +13,15 @@ from repair_portal.player_profile.tests.utils import (  # type: ignore
 
 class TestPlayerProfileValidation(PlayerProfileTestCase):
     def test_missing_required_fields(self) -> None:
-        doc = frappe.get_doc({
-            "doctype": "Player Profile",
-            "player_name": "",  # missing
-            "primary_email": "missing@example.com",
-            "primary_phone": "+15555550000",
-            "player_level": "Amateur/Hobbyist",
-        })
+        doc = frappe.get_doc(
+            {
+                "doctype": "Player Profile",
+                "player_name": "",  # missing
+                "primary_email": "missing@example.com",
+                "primary_phone": "+15555550000",
+                "player_level": "Amateur/Hobbyist",
+            }
+        )
         with self.assertRaises(ValidationError):
             doc.insert(ignore_permissions=True)
 

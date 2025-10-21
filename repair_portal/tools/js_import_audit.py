@@ -72,7 +72,7 @@ def audit_file(path: Path) -> List[ImportIssue]:
             specs.add(match.group(1))
 
     for spec in specs:
-        if spec.startswith(('.', '..')):
+        if spec.startswith((".", "..")):
             if not resolve_relative(path, spec):
                 issues.append(ImportIssue(path, spec, "Missing relative target"))
         elif spec.endswith(".bundle.js"):

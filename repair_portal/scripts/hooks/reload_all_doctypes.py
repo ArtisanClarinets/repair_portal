@@ -17,7 +17,7 @@ import os
 import frappe
 
 # Path to your app’s folder under apps/
-APP_PATH = '/home/frappe/frappe-bench/apps/repair_portal/repair_portal'
+APP_PATH = "/home/frappe/frappe-bench/apps/repair_portal/repair_portal"
 
 # Counters
 reload_count = 0
@@ -43,15 +43,15 @@ def sanitize_item(item):
     changed = False
 
     # Fix states
-    for state in item.get('states', []):
-        if isinstance(state.get('only_allow_edit_for'), list):
-            state['only_allow_edit_for'] = '\n'.join(state['only_allow_edit_for'])
+    for state in item.get("states", []):
+        if isinstance(state.get("only_allow_edit_for"), list):
+            state["only_allow_edit_for"] = "\n".join(state["only_allow_edit_for"])
             changed = True
 
     # Fix transitions
-    for transition in item.get('transitions', []):
-        if isinstance(transition.get('allowed'), list):
-            transition['allowed'] = '\n'.join(transition['allowed'])
+    for transition in item.get("transitions", []):
+        if isinstance(transition.get("allowed"), list):
+            transition["allowed"] = "\n".join(transition["allowed"])
             changed = True
 
     return changed
@@ -63,10 +63,10 @@ def sanitize_workflow_json(json_path):
     entries within, and write back if anything changed.
     """
     try:
-        with open(json_path, 'r') as f:  # noqa: UP015
+        with open(json_path, "r") as f:  # noqa: UP015
             data = json.load(f)
     except json.JSONDecodeError as e:
-        log(f'⚠️  Could not parse JSON in {json_path}: {e}')
+        log(f"⚠️  Could not parse JSON in {json_path}: {e}")
         return
 
     changed = False
@@ -77,7 +77,7 @@ def sanitize_workflow_json(json_path):
     elif isinstance(data, list):
         items = data
     else:
-        log(f'ℹ️  Unexpected JSON root (not dict or list) in {json_path}, skipping.')
+        log(f"ℹ️  Unexpected JSON root (not dict or list) in {json_path}, skipping.")
         return
 
     # Sanitize each workflow item
@@ -85,15 +85,15 @@ def sanitize_workflow_json(json_path):
         if not isinstance(item, dict):
             continue
         # Only process actual Workflow definitions
-        if item.get('doctype') in ('Workflow', 'Workflow State') and sanitize_item(item):
+        if item.get("doctype") in ("Workflow", "Workflow State") and sanitize_item(item):
             changed = True
 
     # Write back if anything changed
     if changed:
-        with open(json_path, 'w') as f:
+        with open(json_path, "w") as f:
             json.dump(data, f, indent=2, sort_keys=True)
-            f.write('\n')
-        log(f'✅ Sanitized workflow file: {json_path}')
+            f.write("\n")
+        log(f"✅ Sanitized workflow file: {json_path}")
 
 
 def reload_all_doctypes():
@@ -103,15 +103,15 @@ def reload_all_doctypes():
     """
     global count, reload_count, error_count
 
-    log('🔄 Reloading all documents in repair_portal...')
+    log("🔄 Reloading all documents in repair_portal...")
 
     for dirpath, _, filenames in os.walk(APP_PATH):
         for filename in filenames:
-            if not filename.endswith('.json'):
+            if not filename.endswith(".json"):
                 continue
 
             docname = os.path.basename(dirpath)
-            if filename != f'{docname}.json':
+            if filename != f"{docname}.json":
                 continue
 
             # Determine doctype_type and module from the path
@@ -125,22 +125,22 @@ def reload_all_doctypes():
             count += 1
 
             # Sanitize if this is a Workflow JSON directory
-            if doctype_type.lower() == 'workflow':
+            if doctype_type.lower() == "workflow":
                 sanitize_workflow_json(json_path)
 
             try:
-                frappe.logger().info(f'🔹 Reloading: {module} > {doctype_type} > {docname}')
+                frappe.logger().info(f"🔹 Reloading: {module} > {doctype_type} > {docname}")
                 frappe.reload_doc(module, doctype_type, docname, force=True)
                 reload_count += 1
             except Exception as e:
-                error_message = f'❌ Error reloading {module}/{doctype_type}/{docname}: {e}'
+                error_message = f"❌ Error reloading {module}/{doctype_type}/{docname}: {e}"
                 frappe.logger().error(error_message)
-                log(f'{error_message} 🔹 File Path: {json_path}')
+                log(f"{error_message} 🔹 File Path: {json_path}")
                 error_count += 1
 
-    log(f'🔄 Reloaded {reload_count} documents with {error_count} errors.')
-    log(f'✅ All {count} reload attempts completed.')
+    log(f"🔄 Reloaded {reload_count} documents with {error_count} errors.")
+    log(f"✅ All {count} reload attempts completed.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     reload_all_doctypes()

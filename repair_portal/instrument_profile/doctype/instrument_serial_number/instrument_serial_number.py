@@ -13,27 +13,30 @@ from frappe.model.document import Document
 from frappe.utils import now_datetime
 
 
-def _structured_log(channel: str, *, op: str, status: str, docname: str | None, extras: dict | None = None) -> None:
+def _structured_log(
+    channel: str, *, op: str, status: str, docname: str | None, extras: dict | None = None
+) -> None:
     """Emit a structured JSON log entry using the required instrument-profile channels."""
     payload = {
-        'ts': now_datetime().isoformat(),
-        'user': getattr(frappe.session, 'user', 'Guest'),
-        'doctype': 'Instrument Serial Number',
-        'docname': docname,
-        'op': op,
-        'status': status,
-        'latency_ms': 0,
-        'extras': extras or {},
+        "ts": now_datetime().isoformat(),
+        "user": getattr(frappe.session, "user", "Guest"),
+        "doctype": "Instrument Serial Number",
+        "docname": docname,
+        "op": op,
+        "status": status,
+        "latency_ms": 0,
+        "extras": extras or {},
     }
     frappe.logger(channel).info(payload)
 
 
 def _log_security(op: str, status: str, docname: str | None, extras: dict | None = None) -> None:
-    _structured_log('instrument_profile_security', op=op, status=status, docname=docname, extras=extras)
+    _structured_log("instrument_profile_security", op=op, status=status, docname=docname, extras=extras)
 
 
 def _log_audit(op: str, status: str, docname: str | None, extras: dict | None = None) -> None:
-    _structured_log('instrument_profile_audit', op=op, status=status, docname=docname, extras=extras)
+    _structured_log("instrument_profile_audit", op=op, status=status, docname=docname, extras=extras)
+
 
 from repair_portal.utils.serials import (
     attach_to_instrument as util_attach_isn,
@@ -65,13 +68,9 @@ class InstrumentSerialNumber(Document):
         photo: DF.AttachImage | None
         scan_code: DF.Data | None
         serial: DF.Data
-        serial_source: DF.Literal[
-            Stamped, Engraved, Etched, Label / Sticker, Handwritten, Unknown
-        ]
+        serial_source: DF.Literal[Stamped, Engraved, Etched, Label / Sticker, Handwritten, Unknown]
         status: DF.Literal[Active, Deprecated, Replaced, Error]
-        verification_status: DF.Literal[
-            Unverified, 'Verified by Technician', 'Customer Reported', Disputed
-        ]
+        verification_status: DF.Literal[Unverified, "Verified by Technician", "Customer Reported", Disputed]
         verified_by: DF.Link | None
         verified_on: DF.Datetime | None
     # end: auto-generated types
@@ -92,13 +91,13 @@ class InstrumentSerialNumber(Document):
         if self.instrument:
             try:
                 util_attach_isn(
-                    isn_name=self.name, instrument=self.instrument, link_on_instrument=True # type: ignore
+                    isn_name=self.name, instrument=self.instrument, link_on_instrument=True  # type: ignore
                 )  # type: ignore
             except Exception:
                 # Non-fatal: log for admin review
                 frappe.log_error(
                     frappe.get_traceback(),
-                    'InstrumentSerialNumber.after_insert: attach Instrument link failed',
+                    "InstrumentSerialNumber.after_insert: attach Instrument link failed",
                 )
 
     def on_update(self):
@@ -106,24 +105,24 @@ class InstrumentSerialNumber(Document):
         if self.instrument:
             try:
                 util_attach_isn(
-                    isn_name=self.name, instrument=self.instrument, link_on_instrument=True # type: ignore
+                    isn_name=self.name, instrument=self.instrument, link_on_instrument=True  # type: ignore
                 )  # type: ignore
             except Exception:
                 frappe.log_error(
                     frappe.get_traceback(),
-                    'InstrumentSerialNumber.on_update: attach Instrument link failed',
+                    "InstrumentSerialNumber.on_update: attach Instrument link failed",
                 )
 
     # -------- Helpers --------
     def _normalize(self):
         # Use utils.normalize_serial as canonical implementation
-        self.normalized_serial = util_normalize_serial(getattr(self, 'serial', None))
+        self.normalized_serial = util_normalize_serial(getattr(self, "serial", None))
 
     def _validate_requireds(self):
         if not self.serial:
-            frappe.throw(_('Serial Number is required.'))
+            frappe.throw(_("Serial Number is required."))
         if not self.normalized_serial:
-            frappe.throw(_('Normalized Serial could not be derived from the Serial Number.'))
+            frappe.throw(_("Normalized Serial could not be derived from the Serial Number."))
 
     def _validate_uniqueness(self):
         """
@@ -140,58 +139,58 @@ class InstrumentSerialNumber(Document):
         if not self.normalized_serial:
             return
         candidates = frappe.get_all(
-            'Instrument Serial Number',
-            filters={'normalized_serial': self.normalized_serial},
-            fields=['name', 'instrument'],
+            "Instrument Serial Number",
+            filters={"normalized_serial": self.normalized_serial},
+            fields=["name", "instrument"],
             limit=100,
         )
         # Remove self from candidates
-        candidates = [c for c in candidates if c.get('name') != self.name]
+        candidates = [c for c in candidates if c.get("name") != self.name]
 
         if not candidates:
             return
 
         if self.instrument:
             # Block same-instrument duplicates
-            same_instr = [c for c in candidates if c.get('instrument') == self.instrument]
+            same_instr = [c for c in candidates if c.get("instrument") == self.instrument]
             if same_instr:
                 frappe.throw(
-                    _('Duplicate serial for this Instrument already exists: {0}').format(
-                        same_instr[0]['name']
+                    _("Duplicate serial for this Instrument already exists: {0}").format(
+                        same_instr[0]["name"]
                     )
                 )
 
             # Compare brands across instruments
-            my_brand = frappe.db.get_value('Instrument', self.instrument, 'brand')
+            my_brand = frappe.db.get_value("Instrument", self.instrument, "brand")
             for c in candidates:
-                other_instr = c.get('instrument')
+                other_instr = c.get("instrument")
                 if not other_instr:
                     # Unlinked twin: advisory
                     frappe.msgprint(
-                        _(
-                            'Another unlinked serial record exists with the same serial number: {0}'
-                        ).format(c['name']),
+                        _("Another unlinked serial record exists with the same serial number: {0}").format(
+                            c["name"]
+                        ),
                         alert=True,
-                        indicator='orange',
+                        indicator="orange",
                     )
                     continue
-                other_brand = frappe.db.get_value('Instrument', other_instr, 'brand')
+                other_brand = frappe.db.get_value("Instrument", other_instr, "brand")
                 if my_brand and other_brand and my_brand == other_brand:
                     frappe.throw(
-                        _(
-                            "Duplicate serial for brand '{0}' detected across instruments: {1}"
-                        ).format(my_brand, c['name'])
+                        _("Duplicate serial for brand '{0}' detected across instruments: {1}").format(
+                            my_brand, c["name"]
+                        )
                     )
             # Otherwise permitted (different brands). UI can optionally set duplicate_of.
             return
 
         # No Instrument set: block exact unlinked duplicate
-        unlinked = [c for c in candidates if not c.get('instrument')]
+        unlinked = [c for c in candidates if not c.get("instrument")]
         if unlinked:
             frappe.throw(
-                _(
-                    'A serial record with the same value already exists without an Instrument: {0}'
-                ).format(unlinked[0]['name'])
+                _("A serial record with the same value already exists without an Instrument: {0}").format(
+                    unlinked[0]["name"]
+                )
             )
 
         # Only linked candidates exist — allow, but advise
@@ -200,11 +199,11 @@ class InstrumentSerialNumber(Document):
                 "Serial already exists on other instrument(s). Consider linking this record or using 'Duplicate Of'."
             ),
             alert=True,
-            indicator='orange',
+            indicator="orange",
         )
 
     def _set_verification_meta(self):
-        if self.verification_status == 'Verified by Technician':
+        if self.verification_status == "Verified by Technician":
             if not self.verified_by:
                 self.verified_by = frappe.session.user
             if not self.verified_on:
@@ -218,30 +217,30 @@ class InstrumentSerialNumber(Document):
         Security: Requires write permission on both ISN and Instrument.
         """
         # Security: Validate permissions BEFORE any operation
-        if not frappe.has_permission('Instrument Serial Number', 'write', self.name):
+        if not frappe.has_permission("Instrument Serial Number", "write", self.name):
             _log_security(
-                op='attach_to_instrument',
-                status='denied',
+                op="attach_to_instrument",
+                status="denied",
                 docname=self.name,
-                extras={'reason': 'no_isn_write_permission', 'target_instrument': instrument},
+                extras={"reason": "no_isn_write_permission", "target_instrument": instrument},
             )
-            frappe.throw(_('Insufficient permissions to attach serial number'), frappe.PermissionError)
+            frappe.throw(_("Insufficient permissions to attach serial number"), frappe.PermissionError)
 
-        if not frappe.has_permission('Instrument', 'write', instrument):
+        if not frappe.has_permission("Instrument", "write", instrument):
             _log_security(
-                op='attach_to_instrument',
-                status='denied',
+                op="attach_to_instrument",
+                status="denied",
                 docname=self.name,
-                extras={'reason': 'no_instrument_write_permission', 'target_instrument': instrument},
+                extras={"reason": "no_instrument_write_permission", "target_instrument": instrument},
             )
-            frappe.throw(_('Insufficient permissions to modify instrument'), frappe.PermissionError)
+            frappe.throw(_("Insufficient permissions to modify instrument"), frappe.PermissionError)
 
-        if not frappe.db.exists('Instrument', instrument):
+        if not frappe.db.exists("Instrument", instrument):
             _log_security(
-                op='attach_to_instrument',
-                status='error',
+                op="attach_to_instrument",
+                status="error",
                 docname=self.name,
-                extras={'reason': 'instrument_missing', 'target_instrument': instrument},
+                extras={"reason": "instrument_missing", "target_instrument": instrument},
             )
             frappe.throw(_("Instrument '{0}' not found.").format(instrument))
 
@@ -253,54 +252,53 @@ class InstrumentSerialNumber(Document):
 
         # Audit log: Track who attached what
         _log_audit(
-            op='attach_to_instrument',
-            status='success',
+            op="attach_to_instrument",
+            status="success",
             docname=self.name,
-            extras={'target_instrument': instrument},
+            extras={"target_instrument": instrument},
         )
-        return {'ok': True, 'instrument': instrument}
+        return {"ok": True, "instrument": instrument}
 
     @frappe.whitelist()
     def find_similar(self, limit: int = 20):
         """Return possible matches by normalized_serial, excluding self.
-        
+
         Security: Rate limited to 10 calls/minute per user to prevent enumeration attacks.
         """
         # Security: Rate limit to prevent enumeration attacks
         cache_key = f"find_similar_rate_limit:{frappe.session.user}"
         call_count = frappe.cache().get(cache_key) or 0
-        
+
         if call_count > 10:  # Max 10 calls per minute
             _log_security(
-                op='find_similar',
-                status='rate_limited',
+                op="find_similar",
+                status="rate_limited",
                 docname=self.name,
-                extras={'limit': 10, 'window_seconds': 60},
+                extras={"limit": 10, "window_seconds": 60},
             )
             frappe.throw(
-                _('Rate limit exceeded. Please wait before searching again.'),
-                frappe.ValidationError
+                _("Rate limit exceeded. Please wait before searching again."), frappe.ValidationError
             )
 
         frappe.cache().setex(cache_key, 60, call_count + 1)
 
         # Permission check: Must have read access to ISN
-        if not frappe.has_permission('Instrument Serial Number', 'read'):
+        if not frappe.has_permission("Instrument Serial Number", "read"):
             _log_security(
-                op='find_similar',
-                status='denied',
+                op="find_similar",
+                status="denied",
                 docname=self.name,
-                extras={'reason': 'no_read_permission'},
+                extras={"reason": "no_read_permission"},
             )
-            frappe.throw(_('Insufficient permissions'), frappe.PermissionError)
-        
+            frappe.throw(_("Insufficient permissions"), frappe.PermissionError)
+
         if not self.serial:
             return []
-        
+
         # Limit enforcement (prevent abuse)
         limit = min(int(limit), 50)  # Hard cap at 50
-        
+
         rows = util_candidates(self.serial, limit=limit)
         # Exclude self
-        rows = [r for r in (rows or []) if r.get('name') != self.name]
+        rows = [r for r in (rows or []) if r.get("name") != self.name]
         return rows

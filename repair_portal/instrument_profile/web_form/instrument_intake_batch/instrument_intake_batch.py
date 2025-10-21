@@ -10,8 +10,8 @@ import frappe
 def get_context(context):
     """Prefill default date and user-linked supplier if present."""
     user = frappe.session.user
-    if user and user != 'Guest':
-        default_supplier = frappe.db.get_value('Supplier', {'owner': user}, 'name')
+    if user and user != "Guest":
+        default_supplier = frappe.db.get_value("Supplier", {"owner": user}, "name")
         if default_supplier:
             context.supplier = default_supplier
     context.date = frappe.utils.nowdate()  # type: ignore

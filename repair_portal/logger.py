@@ -37,7 +37,7 @@ def get_logger(suffix: str | None = None) -> frappe.utils.logger.Logger:  # type
     Returns:
         frappe.utils.logger.Logger: A standard Frappe logger instance.
     """
-    namespace = 'repair_portal' if not suffix else f'repair_portal.{suffix}'
+    namespace = "repair_portal" if not suffix else f"repair_portal.{suffix}"
     return frappe.log_error(namespace)  # pyright: ignore[reportAttributeAccessIssue]
 
 
@@ -53,14 +53,14 @@ _ERROR_MAX_BYTES = 10 * 1024 * 1024  # 10 MB
 _BACKUP_COUNT = 10
 
 # Filenames inside the logs directory
-_DEBUG_FILENAME = 'repair_portal.debug.log'
-_ERROR_FILENAME = 'repair_portal.error.log'
+_DEBUG_FILENAME = "repair_portal.debug.log"
+_ERROR_FILENAME = "repair_portal.error.log"
 
 # Default log level for our base loggers
 _BASE_LEVEL = logging.DEBUG
 
 # Whether to also echo to stderr (useful during local dev)
-_ECHO_TO_STDERR = os.environ.get('REPAIR_PORTAL_LOG_STDERR', '0') in ('1', 'true', 'True')
+_ECHO_TO_STDERR = os.environ.get("REPAIR_PORTAL_LOG_STDERR", "0") in ("1", "true", "True")
 
 
 # --------------------------------------------------------------------------- #
@@ -76,7 +76,7 @@ def _resolve_logs_dir() -> str:
     """
     # This file lives at <app_root>/repair_portal/repair_portal/logger.py
     app_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    primary = os.path.join(app_root, 'repair_portal', 'logs')
+    primary = os.path.join(app_root, "repair_portal", "logs")
 
     tried = []
 
@@ -90,7 +90,7 @@ def _resolve_logs_dir() -> str:
 
     # Fallback: site-specific logs dir
     try:
-        site_logs = os.path.join(get_site_path('logs'), 'repair_portal')
+        site_logs = os.path.join(get_site_path("logs"), "repair_portal")
         tried.append(site_logs)
         os.makedirs(site_logs, exist_ok=True)
         return site_logs
@@ -98,13 +98,13 @@ def _resolve_logs_dir() -> str:
         pass
 
     # Last resort: /tmp
-    tmp_dir = '/tmp/repair_portal-logs'
+    tmp_dir = "/tmp/repair_portal-logs"
     tried.append(tmp_dir)
     os.makedirs(tmp_dir, exist_ok=True)
 
     # Inform once on stderr to help operators discover the location
     print(
-        'repair_portal.logger: using fallback logs directory. Tried: ' + ' | '.join(tried),
+        "repair_portal.logger: using fallback logs directory. Tried: " + " | ".join(tried),
         file=sys.stderr,
     )
     return tmp_dir
@@ -121,27 +121,27 @@ def _logs_dir() -> str:
 
 
 def _current_context() -> dict[str, Any]:
-    site = getattr(frappe.local, 'site', None) if hasattr(frappe, 'local') else None
+    site = getattr(frappe.local, "site", None) if hasattr(frappe, "local") else None
     user = None
     try:
-        user = frappe.session.user if getattr(frappe, 'session', None) else None
+        user = frappe.session.user if getattr(frappe, "session", None) else None
     except Exception:
         user = None
 
     # Best-effort IDs for jobs/requests if present
     req_id = (
-        getattr(getattr(frappe.local, '_request_ctx', None), 'request_id', None)
-        or getattr(frappe.local, 'request_id', None)
-        if hasattr(frappe, 'local')
+        getattr(getattr(frappe.local, "_request_ctx", None), "request_id", None)
+        or getattr(frappe.local, "request_id", None)
+        if hasattr(frappe, "local")
         else None
     )
-    job_id = getattr(frappe.local, 'task_id', None) if hasattr(frappe, 'local') else None
+    job_id = getattr(frappe.local, "task_id", None) if hasattr(frappe, "local") else None
 
     return {
-        'site': site or '-',
-        'user': user or '-',
-        'request_id': req_id or '-',
-        'job': job_id or '-',
+        "site": site or "-",
+        "user": user or "-",
+        "request_id": req_id or "-",
+        "job": job_id or "-",
     }
 
 
@@ -149,12 +149,12 @@ class _ContextAdapter(logging.LoggerAdapter):
     """Injects Frappe contextual fields into every log record."""
 
     def process(self, msg, kwargs):
-        extra = kwargs.get('extra') or {}
+        extra = kwargs.get("extra") or {}
         # Do not overwrite explicit extras supplied by caller
         base = _current_context()
         for k, v in base.items():
             extra.setdefault(k, v)
-        kwargs['extra'] = extra
+        kwargs["extra"] = extra
         return msg, kwargs
 
 
@@ -183,15 +183,15 @@ def _build_logger(namespace: str) -> logging.Logger:
 
     # Format includes site/user/job/request for ops visibility
     fmt = (
-        '%(asctime)s %(levelname)s [%(name)s] '
-        '[site=%(site)s user=%(user)s job=%(job)s req=%(request_id)s] '
-        '%(message)s'
+        "%(asctime)s %(levelname)s [%(name)s] "
+        "[site=%(site)s user=%(user)s job=%(job)s req=%(request_id)s] "
+        "%(message)s"
     )
-    formatter = logging.Formatter(fmt=fmt, datefmt='%Y-%m-%d %H:%M:%S%z')
+    formatter = logging.Formatter(fmt=fmt, datefmt="%Y-%m-%d %H:%M:%S%z")
 
     # DEBUG (all levels) → repair_portal.debug.log
     debug_handler = RotatingFileHandler(
-        debug_path, maxBytes=_DEBUG_MAX_BYTES, backupCount=_BACKUP_COUNT, encoding='utf-8'
+        debug_path, maxBytes=_DEBUG_MAX_BYTES, backupCount=_BACKUP_COUNT, encoding="utf-8"
     )
     debug_handler.setLevel(logging.DEBUG)
     debug_handler.setFormatter(formatter)
@@ -199,7 +199,7 @@ def _build_logger(namespace: str) -> logging.Logger:
 
     # ERROR+ → repair_portal.error.log
     error_handler = RotatingFileHandler(
-        error_path, maxBytes=_ERROR_MAX_BYTES, backupCount=_BACKUP_COUNT, encoding='utf-8'
+        error_path, maxBytes=_ERROR_MAX_BYTES, backupCount=_BACKUP_COUNT, encoding="utf-8"
     )
     error_handler.setLevel(logging.ERROR)
     error_handler.setFormatter(formatter)
@@ -253,7 +253,7 @@ def get_logger(suffix: str | None = None) -> logging.LoggerAdapter:
     Returns:
         logging.LoggerAdapter with contextual enrichment (site/user/request/job).
     """
-    namespace = 'repair_portal' if not suffix else f'repair_portal.{suffix}'
+    namespace = "repair_portal" if not suffix else f"repair_portal.{suffix}"
     base = _build_logger(namespace)
     return _ContextAdapter(base, {})
 
@@ -277,7 +277,7 @@ def audit(msg: str, *args, suffix: str | None = None, **kwargs) -> None:
     """
     Convenience helper to write a high-signal INFO line (e.g., migrations).
     """
-    get_logger(suffix).info('[AUDIT] ' + msg, *args, **kwargs)
+    get_logger(suffix).info("[AUDIT] " + msg, *args, **kwargs)
 
 
 def debug(msg: str, *args, suffix: str | None = None, **kwargs) -> None:
@@ -323,7 +323,7 @@ def log_exceptions(suffix: str | None = None, reraise: bool = False):
             try:
                 return fn(*args, **kwargs)
             except Exception:
-                logger.exception('Unhandled exception in %s', fn.__name__)
+                logger.exception("Unhandled exception in %s", fn.__name__)
                 if reraise:
                     raise
 

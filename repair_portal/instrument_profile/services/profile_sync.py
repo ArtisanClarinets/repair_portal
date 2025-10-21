@@ -30,7 +30,7 @@ except Exception:  # pragma: no cover
 # Meta/Schema helpers (safe selectors)
 # ---------------------------
 
-_STD_FIELDS = {'name', 'owner', 'creation', 'modified', 'modified_by', 'docstatus', 'idx'}
+_STD_FIELDS = {"name", "owner", "creation", "modified", "modified_by", "docstatus", "idx"}
 _PROFILE_FIELD_CACHE: set[str] | None = None
 
 
@@ -44,14 +44,14 @@ def _structured_log(
     extras: dict | None = None,
 ) -> None:
     payload = {
-        'ts': now_datetime().isoformat(),
-        'user': getattr(frappe.session, 'user', 'Guest'),
-        'doctype': doctype,
-        'docname': docname,
-        'op': op,
-        'status': status,
-        'latency_ms': 0,
-        'extras': extras or {},
+        "ts": now_datetime().isoformat(),
+        "user": getattr(frappe.session, "user", "Guest"),
+        "doctype": doctype,
+        "docname": docname,
+        "op": op,
+        "status": status,
+        "latency_ms": 0,
+        "extras": extras or {},
     }
     frappe.logger(channel).info(payload)
 
@@ -61,10 +61,10 @@ def _log_security(
     status: str,
     docname: str | None,
     extras: dict | None = None,
-    doctype: str = 'Instrument Profile',
+    doctype: str = "Instrument Profile",
 ) -> None:
     _structured_log(
-        'instrument_profile_security',
+        "instrument_profile_security",
         doctype=doctype,
         op=op,
         status=status,
@@ -80,8 +80,8 @@ def _log_job(
     extras: dict | None = None,
 ) -> None:
     _structured_log(
-        'instrument_profile_jobs',
-        doctype='Instrument Profile',
+        "instrument_profile_jobs",
+        doctype="Instrument Profile",
         op=op,
         status=status,
         docname=docname,
@@ -90,7 +90,7 @@ def _log_job(
 
 
 def _doctype_exists(doctype: str) -> bool:
-    return bool(frappe.db.exists('DocType', doctype))
+    return bool(frappe.db.exists("DocType", doctype))
 
 
 def _meta_fields(doctype: str) -> set[str]:
@@ -101,9 +101,9 @@ def _meta_fields(doctype: str) -> set[str]:
 def _safe_fields_for(doctype: str, candidates: Sequence[str]) -> list[str]:
     """Return only the candidate fields that actually exist on the doctype (always include name)."""
     existing = _meta_fields(doctype)
-    out = ['name']
+    out = ["name"]
     for f in candidates:
-        if f != 'name' and f in existing:
+        if f != "name" and f in existing:
             out.append(f)
     # dedupe, preserve order
     seen, uniq = set(), []
@@ -114,9 +114,7 @@ def _safe_fields_for(doctype: str, candidates: Sequence[str]) -> list[str]:
     return uniq
 
 
-def _safe_order_by(
-    doctype: str, preferred_fields: Sequence[str], default_direction: str = 'desc'
-) -> str:
+def _safe_order_by(doctype: str, preferred_fields: Sequence[str], default_direction: str = "desc") -> str:
     """
     Pick the first available field from preferred_fields; fall back to 'creation desc'.
     Always suffix with ', creation desc' for stable ordering.
@@ -124,8 +122,8 @@ def _safe_order_by(
     existing = _meta_fields(doctype)
     for f in preferred_fields:
         if f in existing:
-            return f'{f} {default_direction}, creation desc'
-    return 'creation desc'
+            return f"{f} {default_direction}, creation desc"
+    return "creation desc"
 
 
 def _safe_get_all(
@@ -139,10 +137,8 @@ def _safe_get_all(
     if not _doctype_exists(doctype):
         return []
     fields = _safe_fields_for(doctype, field_candidates)
-    order_by = _safe_order_by(doctype, order_candidates, 'desc')
-    return frappe.get_all(
-        doctype, filters=filters, fields=fields, order_by=order_by, as_list=as_list
-    )
+    order_by = _safe_order_by(doctype, order_candidates, "desc")
+    return frappe.get_all(doctype, filters=filters, fields=fields, order_by=order_by, as_list=as_list)
 
 
 # ---------------------------
@@ -156,18 +152,18 @@ def _selectable_instrument_fields() -> list[str]:
     Avoids OperationalError: Unknown column 'x' in 'SELECT'.
     """
     candidates = [
-        'customer',
-        'serial_no',
-        'instrument_type',
-        'brand',
-        'model',
-        'clarinet_type',
-        'current_status',
-        'purchase_date',
-        'purchase_order',
-        'purchase_receipt',
+        "customer",
+        "serial_no",
+        "instrument_type",
+        "brand",
+        "model",
+        "clarinet_type",
+        "current_status",
+        "purchase_date",
+        "purchase_order",
+        "purchase_receipt",
     ]
-    return _safe_fields_for('Instrument', candidates)
+    return _safe_fields_for("Instrument", candidates)
 
 
 def _ensure_keys(d: frappe._dict, keys: Sequence[str]) -> None:
@@ -178,23 +174,23 @@ def _ensure_keys(d: frappe._dict, keys: Sequence[str]) -> None:
 
 def _get_instrument_doc(instrument: str) -> frappe._dict:
     fields = _selectable_instrument_fields()
-    d = frappe.db.get_value('Instrument', instrument, fields, as_dict=True)  # type: ignore
+    d = frappe.db.get_value("Instrument", instrument, fields, as_dict=True)  # type: ignore
     if not d:
-        frappe.throw(_('Instrument {0} not found').format(instrument))
+        frappe.throw(_("Instrument {0} not found").format(instrument))
     # Ensure downstream keys exist even if not selected
     _ensure_keys(
         d,  # type: ignore
         [
-            'customer',
-            'serial_no',
-            'instrument_type',
-            'brand',
-            'model',
-            'clarinet_type',
-            'current_status',
-            'purchase_date',
-            'purchase_order',
-            'purchase_receipt',
+            "customer",
+            "serial_no",
+            "instrument_type",
+            "brand",
+            "model",
+            "clarinet_type",
+            "current_status",
+            "purchase_date",
+            "purchase_order",
+            "purchase_receipt",
         ],
     )
     return d  # type: ignore
@@ -206,7 +202,7 @@ def _get_instrument_doc(instrument: str) -> frappe._dict:
 
 
 def _get_isn(instrument: frappe._dict) -> frappe._dict | None:
-    serial_raw = (instrument.serial_no or '').strip()
+    serial_raw = (instrument.serial_no or "").strip()
     if not serial_raw:
         return None
 
@@ -221,16 +217,16 @@ def _get_isn(instrument: frappe._dict) -> frappe._dict | None:
         return None
 
     return frappe.db.get_value(  # type: ignore
-        'Instrument Serial Number',
+        "Instrument Serial Number",
         isn_name,
         [  # type: ignore
-            'name',
-            'serial',
-            'normalized_serial',
-            'warranty_start_date',
-            'warranty_end_date',
-            'status',
-            'verification_status',
+            "name",
+            "serial",
+            "normalized_serial",
+            "warranty_start_date",
+            "warranty_end_date",
+            "status",
+            "verification_status",
         ],
         as_dict=True,
     )
@@ -240,16 +236,16 @@ def _get_owner_details(customer: str | None) -> frappe._dict | None:
     if not customer:
         return None
     return frappe.db.get_value(  # type: ignore
-        'Customer',
+        "Customer",
         customer,
         [  # type: ignore
-            'name',
-            'customer_name',
-            'customer_group',
-            'territory',
-            'default_currency',
-            'mobile_no',
-            'email_id',
+            "name",
+            "customer_name",
+            "customer_group",
+            "territory",
+            "default_currency",
+            "mobile_no",
+            "email_id",
         ],
         as_dict=True,
     )
@@ -263,7 +259,7 @@ def _get_owner_details(customer: str | None) -> frappe._dict | None:
 def _profile_fieldnames() -> set[str]:
     global _PROFILE_FIELD_CACHE
     if _PROFILE_FIELD_CACHE is None:
-        meta = frappe.get_meta('Instrument Profile')
+        meta = frappe.get_meta("Instrument Profile")
         _PROFILE_FIELD_CACHE = {df.fieldname for df in meta.fields}
     return _PROFILE_FIELD_CACHE
 
@@ -282,29 +278,29 @@ def _safe_set_scalars(profile: Document, values: dict[str, object]) -> None:
     if not pending:
         return
 
-    frappe.db.set_value('Instrument Profile', profile.name, pending, update_modified=False)
+    frappe.db.set_value("Instrument Profile", profile.name, pending, update_modified=False)
     for field, value in pending.items():
         profile.set(field, value)
 
 
 def _ensure_profile(instrument: str) -> str:
-    existing = frappe.db.get_value('Instrument Profile', {'instrument': instrument}, 'name')
+    existing = frappe.db.get_value("Instrument Profile", {"instrument": instrument}, "name")
     if existing:
         return existing  # type: ignore
-    doc = frappe.get_doc({'doctype': 'Instrument Profile', 'instrument': instrument})
+    doc = frappe.get_doc({"doctype": "Instrument Profile", "instrument": instrument})
     # Insert without permissions so background jobs work
     doc.insert(ignore_permissions=True)
     return doc.name  # type: ignore
 
 
 def _headline(brand: str | None, model: str | None, serial_no: str | None) -> str:
-    b = (brand or '').strip()
-    m = (model or '').strip()
-    s = (serial_no or '').strip()
-    headline = ' '.join(x for x in [b, m] if x).strip()
+    b = (brand or "").strip()
+    m = (model or "").strip()
+    s = (serial_no or "").strip()
+    headline = " ".join(x for x in [b, m] if x).strip()
     if s:
-        headline = f'{headline} • {s}'.strip(' •')
-    return headline or (s or '').strip()
+        headline = f"{headline} • {s}".strip(" •")
+    return headline or (s or "").strip()
 
 
 def sync_profile(profile_name: str) -> dict[str, str]:
@@ -315,35 +311,35 @@ def sync_profile(profile_name: str) -> dict[str, str]:
     """
     try:
         frappe.flags.in_profile_sync = True  # controller guard
-        profile = frappe.get_doc('Instrument Profile', profile_name)
+        profile = frappe.get_doc("Instrument Profile", profile_name)
         instrument = _get_instrument_doc(profile.instrument)  # type: ignore
         owner = _get_owner_details(instrument.customer)
         isn = _get_isn(instrument)
 
         updates: dict[str, object] = {
-            'serial_no': instrument.serial_no,
-            'brand': instrument.brand,
-            'model': instrument.model,
-            'instrument_category': instrument.instrument_type or instrument.clarinet_type,
-            'customer': instrument.customer,
-            'owner_name': owner.customer_name if owner else None,
-            'purchase_date': instrument.purchase_date,
-            'purchase_order': instrument.purchase_order,
-            'purchase_receipt': instrument.purchase_receipt,
-            'status': instrument.current_status or 'Unknown',
-            'headline': _headline(instrument.brand, instrument.model, instrument.serial_no),
+            "serial_no": instrument.serial_no,
+            "brand": instrument.brand,
+            "model": instrument.model,
+            "instrument_category": instrument.instrument_type or instrument.clarinet_type,
+            "customer": instrument.customer,
+            "owner_name": owner.customer_name if owner else None,
+            "purchase_date": instrument.purchase_date,
+            "purchase_order": instrument.purchase_order,
+            "purchase_receipt": instrument.purchase_receipt,
+            "status": instrument.current_status or "Unknown",
+            "headline": _headline(instrument.brand, instrument.model, instrument.serial_no),
         }
 
         if isn:
-            updates['warranty_start_date'] = isn.warranty_start_date
-            updates['warranty_end_date'] = isn.warranty_end_date
+            updates["warranty_start_date"] = isn.warranty_start_date
+            updates["warranty_end_date"] = isn.warranty_end_date
         else:
-            updates['warranty_start_date'] = None
-            updates['warranty_end_date'] = None
+            updates["warranty_start_date"] = None
+            updates["warranty_end_date"] = None
 
         _safe_set_scalars(profile, updates)
 
-        return {'profile': profile.name, 'instrument': instrument.name}  # type: ignore
+        return {"profile": profile.name, "instrument": instrument.name}  # type: ignore
     finally:
         frappe.flags.in_profile_sync = False
 
@@ -351,48 +347,48 @@ def sync_profile(profile_name: str) -> dict[str, str]:
 @frappe.whitelist()
 def sync_now(profile: str | None = None, instrument: str | None = None) -> dict[str, str]:
     """Ensure a profile exists and sync scalar snapshot fields.
-    
+
     Security: Requires appropriate permissions on Instrument Profile or Instrument.
     """
     # Input validation
     if not profile and not instrument:
-        frappe.throw(_('Provide either profile or instrument'))
-    
+        frappe.throw(_("Provide either profile or instrument"))
+
     # Permission check BEFORE profile creation
     if profile:
-        if not frappe.has_permission('Instrument Profile', 'write', profile):
+        if not frappe.has_permission("Instrument Profile", "write", profile):
             _log_security(
-                op='sync_now',
-                status='denied',
+                op="sync_now",
+                status="denied",
                 docname=profile,
-                extras={'reason': 'no_profile_write_permission'},
+                extras={"reason": "no_profile_write_permission"},
             )
-            frappe.throw(_('Insufficient permissions to sync profile'), frappe.PermissionError)
+            frappe.throw(_("Insufficient permissions to sync profile"), frappe.PermissionError)
     elif instrument:
-        if not frappe.has_permission('Instrument', 'read', instrument):
+        if not frappe.has_permission("Instrument", "read", instrument):
             _log_security(
-                op='sync_now',
-                status='denied',
+                op="sync_now",
+                status="denied",
                 docname=instrument,
-                extras={'reason': 'no_instrument_read_permission'},
-                doctype='Instrument',
+                extras={"reason": "no_instrument_read_permission"},
+                doctype="Instrument",
             )
-            frappe.throw(_('Insufficient permissions to read instrument'), frappe.PermissionError)
+            frappe.throw(_("Insufficient permissions to read instrument"), frappe.PermissionError)
         profile = _ensure_profile(instrument)
         _log_job(
-            op='sync_now.ensure_profile',
-            status='success',
+            op="sync_now.ensure_profile",
+            status="success",
             docname=profile,
-            extras={'instrument': instrument},
+            extras={"instrument": instrument},
         )
 
     result = sync_profile(profile)  # type: ignore[arg-type]
 
     _log_job(
-        op='sync_now',
-        status='success',
+        op="sync_now",
+        status="success",
         docname=profile,
-        extras={'instrument': result.get('instrument')},
+        extras={"instrument": result.get("instrument")},
     )
 
     return result
@@ -404,10 +400,10 @@ def on_linked_doc_change(doc, method=None):
     linked record changes (Instrument / Instrument Serial Number / etc.)
     """
     instrument = None
-    if doc.doctype == 'Instrument':
+    if doc.doctype == "Instrument":
         instrument = doc.name
-    elif hasattr(doc, 'instrument'):
-        instrument = getattr(doc, 'instrument', None)
+    elif hasattr(doc, "instrument"):
+        instrument = getattr(doc, "instrument", None)
 
     if not instrument:
         return
@@ -416,14 +412,14 @@ def on_linked_doc_change(doc, method=None):
         profile = _ensure_profile(instrument)
         # run now to keep UX snappy; these are cheap scalar updates
         frappe.enqueue(
-            'repair_portal.instrument_profile.services.profile_sync.sync_profile',
-            queue='short',
+            "repair_portal.instrument_profile.services.profile_sync.sync_profile",
+            queue="short",
             profile_name=profile,
             now=True,
         )
     except Exception:
         frappe.log_error(
-            frappe.get_traceback(), f'Instrument Profile sync failed for instrument {instrument}'
+            frappe.get_traceback(), f"Instrument Profile sync failed for instrument {instrument}"
         )
 
 
@@ -437,7 +433,7 @@ def _collection_by_instrument(
     instrument_name: str,
     field_candidates: Sequence[str],
     order_candidates: Sequence[str],
-    instrument_link_field: str = 'instrument',
+    instrument_link_field: str = "instrument",
 ) -> list[frappe._dict]:
     """
     Return collection rows for a given instrument, but ONLY if:
@@ -476,60 +472,60 @@ def _aggregate_snapshot(instrument_name: str, profile_name: str) -> dict[str, ob
     isn = _get_isn(instrument)
 
     accessories = _collection_by_instrument(
-        doctype='Instrument Accessory',
+        doctype="Instrument Accessory",
         instrument_name=instrument_name,
         field_candidates=[
-            'accessory_type',
-            'type',
-            'description',
-            'acquired_on',
-            'removed_on',
-            'paired_with',
+            "accessory_type",
+            "type",
+            "description",
+            "acquired_on",
+            "removed_on",
+            "paired_with",
         ],
-        order_candidates=['acquired_on', 'creation'],
-        instrument_link_field='instrument',
+        order_candidates=["acquired_on", "creation"],
+        instrument_link_field="instrument",
     )
 
     media = _collection_by_instrument(
-        doctype='Instrument Media',
+        doctype="Instrument Media",
         instrument_name=instrument_name,
-        field_candidates=['type', 'image', 'file', 'description', 'taken_on'],
-        order_candidates=['taken_on', 'creation'],
-        instrument_link_field='instrument',
+        field_candidates=["type", "image", "file", "description", "taken_on"],
+        order_candidates=["taken_on", "creation"],
+        instrument_link_field="instrument",
     )
 
     conditions = _collection_by_instrument(
-        doctype='Instrument Condition Record',
+        doctype="Instrument Condition Record",
         instrument_name=instrument_name,
         field_candidates=[
-            'recorded_on',
-            'condition_score',
-            'notes',
-            'technician',
-            'workflow_state',
+            "recorded_on",
+            "condition_score",
+            "notes",
+            "technician",
+            "workflow_state",
         ],
-        order_candidates=['recorded_on', 'creation'],
-        instrument_link_field='instrument',
+        order_candidates=["recorded_on", "creation"],
+        instrument_link_field="instrument",
     )
 
     interactions = _collection_by_instrument(
-        doctype='Instrument Interaction Log',
+        doctype="Instrument Interaction Log",
         instrument_name=instrument_name,
-        field_candidates=['log_type', 'message', 'owner', 'creation'],
-        order_candidates=['creation'],
-        instrument_link_field='instrument',
+        field_candidates=["log_type", "message", "owner", "creation"],
+        order_candidates=["creation"],
+        instrument_link_field="instrument",
     )
 
     return {
-        'instrument': instrument,
-        'owner': owner,
-        'serial_record': isn,
-        'accessories': accessories,
-        'media': media,
-        'conditions': conditions,
-        'interactions': interactions,
-        'profile_name': profile_name,
-        'headline': _headline(instrument.brand, instrument.model, instrument.serial_no),
+        "instrument": instrument,
+        "owner": owner,
+        "serial_record": isn,
+        "accessories": accessories,
+        "media": media,
+        "conditions": conditions,
+        "interactions": interactions,
+        "profile_name": profile_name,
+        "headline": _headline(instrument.brand, instrument.model, instrument.serial_no),
     }
 
 
@@ -537,25 +533,25 @@ def _aggregate_snapshot(instrument_name: str, profile_name: str) -> dict[str, ob
 def get_snapshot(instrument: str | None = None, profile: str | None = None) -> dict[str, object]:
     """
     Public API helper: ensure profile exists + synced, then return the full snapshot.
-    
+
     Security: Requires read permission on the profile or instrument to prevent cross-customer data access.
     """
     # Input validation
     if not instrument and not profile:
-        frappe.throw(_('Provide instrument or profile'))
-    
+        frappe.throw(_("Provide instrument or profile"))
+
     # Permission validation BEFORE any operation
     if profile:
-        if not frappe.has_permission('Instrument Profile', 'read', profile):
-            frappe.throw(_('Insufficient permissions to read profile'), frappe.PermissionError)
+        if not frappe.has_permission("Instrument Profile", "read", profile):
+            frappe.throw(_("Insufficient permissions to read profile"), frappe.PermissionError)
     elif instrument:
-        if not frappe.has_permission('Instrument', 'read', instrument):
-            frappe.throw(_('Insufficient permissions to read instrument'), frappe.PermissionError)
+        if not frappe.has_permission("Instrument", "read", instrument):
+            frappe.throw(_("Insufficient permissions to read instrument"), frappe.PermissionError)
         profile = _ensure_profile(instrument)
-    
+
     # Additional check after profile creation (defensive)
-    if not frappe.has_permission('Instrument Profile', 'read', profile):
-        frappe.throw(_('Insufficient permissions to read profile'), frappe.PermissionError)
-    
+    if not frappe.has_permission("Instrument Profile", "read", profile):
+        frappe.throw(_("Insufficient permissions to read profile"), frappe.PermissionError)
+
     res = sync_profile(profile)  # sync scalars  # type: ignore
-    return _aggregate_snapshot(res['instrument'], res['profile'])
+    return _aggregate_snapshot(res["instrument"], res["profile"])

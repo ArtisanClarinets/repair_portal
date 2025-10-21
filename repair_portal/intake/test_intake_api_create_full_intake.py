@@ -120,8 +120,13 @@ class TestCreateFullIntake(FrappeTestCase):
         self.assertEqual(intake.docstatus, 1)
         self.assertIsNotNone(intake.promised_completion_date)
         self.assertEqual(intake.instrument, result["instrument"])
-        self.assertEqual(intake.player_profile, frappe.db.get_value("Player Profile", {"primary_email": "player.one@example.com"}, "name"))
-        inspection_name = frappe.db.get_value("Instrument Inspection", {"intake_record_id": intake.name}, "name")
+        self.assertEqual(
+            intake.player_profile,
+            frappe.db.get_value("Player Profile", {"primary_email": "player.one@example.com"}, "name"),
+        )
+        inspection_name = frappe.db.get_value(
+            "Instrument Inspection", {"intake_record_id": intake.name}, "name"
+        )
         self.assertIsNotNone(inspection_name)
         self.assertEqual(result.get("loaner"), "LOANER-AVAILABLE-SEED")
 

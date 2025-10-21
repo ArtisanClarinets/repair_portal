@@ -10,6 +10,7 @@ from frappe.utils import flt
 
 from repair_portal.player_profile.doctype.player_profile import player_profile
 
+
 def _as_bool(val):
     # Handles 0/1, '0'/'1', True/False
     return bool(int(val)) if isinstance(val, (int, str)) and str(val).isdigit() else bool(val)
@@ -21,10 +22,10 @@ def _listify(val):
     if isinstance(val, list):
         return val
     # Accepts comma- or newline-separated string
-    if ',' in val:
-        return [v.strip() for v in val.split(',') if v.strip()]
-    if '\n' in val:
-        return [v.strip() for v in val.split('\n') if v.strip()]
+    if "," in val:
+        return [v.strip() for v in val.split(",") if v.strip()]
+    if "\n" in val:
+        return [v.strip() for v in val.split("\n") if v.strip()]
     return [val.strip()]
 
 
@@ -32,68 +33,68 @@ def _listify(val):
 def get():
     user = frappe.session.user
     roles = set(frappe.get_roles(user))
-    staff_roles = {'Technician', 'Repair Manager', 'System Manager'}
+    staff_roles = {"Technician", "Repair Manager", "System Manager"}
     is_staff = bool(roles & staff_roles)
-    email = frappe.db.get_value('User', user, 'email')
-    profile_name = frappe.db.get_value('Player Profile', {'primary_email': email})
+    email = frappe.db.get_value("User", user, "email")
+    profile_name = frappe.db.get_value("Player Profile", {"primary_email": email})
     if not profile_name:
-        frappe.throw(_('No player profile linked to this user.'), frappe.PermissionError)
-    doc = frappe.get_doc('Player Profile', profile_name)  # type: ignore
+        frappe.throw(_("No player profile linked to this user."), frappe.PermissionError)
+    doc = frappe.get_doc("Player Profile", profile_name)  # type: ignore
 
     def safe_table(doc, fieldname):
         value = getattr(doc, fieldname, [])
         return [row.as_dict() for row in (value or [])]
 
     out = {
-        'player_profile_id': doc.name,
-        'player_name': doc.player_name,  # type: ignore
-        'preferred_name': doc.preferred_name,  # type: ignore
-        'primary_email': doc.primary_email,  # type: ignore
-        'primary_phone': doc.primary_phone,  # type: ignore
-        'mailing_address_line1': getattr(doc, 'mailing_address_line1', None),
-        'mailing_address_line2': getattr(doc, 'mailing_address_line2', None),
-        'city': getattr(doc, 'city', None),
-        'state': getattr(doc, 'state', None),
-        'postal_code': getattr(doc, 'postal_code', None),
-        'country': getattr(doc, 'country', None),
-        'profile_creation_date': doc.profile_creation_date,  # type: ignore
-        'profile_status': doc.profile_status,  # type: ignore
-        'player_level': doc.player_level,  # type: ignore
-        'primary_playing_styles': _listify(doc.primary_playing_styles),  # type: ignore
-        'affiliation': doc.affiliation,  # type: ignore
-        'primary_teacher': doc.primary_teacher,  # type: ignore
-        'intonation_notes': doc.intonation_notes,  # type: ignore
-        'instruments_owned': safe_table(doc, 'instruments_owned'),
-        'equipment_preferences': safe_table(doc, 'player_equipment_preferences'),
-        'last_visit_date': doc.last_visit_date,  # type: ignore
-        'customer_lifetime_value': flt(getattr(doc, 'customer_lifetime_value', 0)),
-        'communication_preference': doc.communication_preference,  # type: ignore
-        'newsletter_subscription': _as_bool(getattr(doc, 'newsletter_subscription', 0)),
-        'targeted_marketing_optin': _as_bool(getattr(doc, 'targeted_marketing_optin', 0)),
-        'referral_source': doc.referral_source,  # type: ignore
-        'is_staff': is_staff,
+        "player_profile_id": doc.name,
+        "player_name": doc.player_name,  # type: ignore
+        "preferred_name": doc.preferred_name,  # type: ignore
+        "primary_email": doc.primary_email,  # type: ignore
+        "primary_phone": doc.primary_phone,  # type: ignore
+        "mailing_address_line1": getattr(doc, "mailing_address_line1", None),
+        "mailing_address_line2": getattr(doc, "mailing_address_line2", None),
+        "city": getattr(doc, "city", None),
+        "state": getattr(doc, "state", None),
+        "postal_code": getattr(doc, "postal_code", None),
+        "country": getattr(doc, "country", None),
+        "profile_creation_date": doc.profile_creation_date,  # type: ignore
+        "profile_status": doc.profile_status,  # type: ignore
+        "player_level": doc.player_level,  # type: ignore
+        "primary_playing_styles": _listify(doc.primary_playing_styles),  # type: ignore
+        "affiliation": doc.affiliation,  # type: ignore
+        "primary_teacher": doc.primary_teacher,  # type: ignore
+        "intonation_notes": doc.intonation_notes,  # type: ignore
+        "instruments_owned": safe_table(doc, "instruments_owned"),
+        "equipment_preferences": safe_table(doc, "player_equipment_preferences"),
+        "last_visit_date": doc.last_visit_date,  # type: ignore
+        "customer_lifetime_value": flt(getattr(doc, "customer_lifetime_value", 0)),
+        "communication_preference": doc.communication_preference,  # type: ignore
+        "newsletter_subscription": _as_bool(getattr(doc, "newsletter_subscription", 0)),
+        "targeted_marketing_optin": _as_bool(getattr(doc, "targeted_marketing_optin", 0)),
+        "referral_source": doc.referral_source,  # type: ignore
+        "is_staff": is_staff,
     }
     return out
 
 
-@frappe.whitelist(allow_guest=False, methods=['POST'])
+@frappe.whitelist(allow_guest=False, methods=["POST"])
 def save():
     import json
 
     user = frappe.session.user
-    email = frappe.db.get_value('User', user, 'email')
-    profile_name = frappe.db.get_value('Player Profile', {'primary_email': email})
+    email = frappe.db.get_value("User", user, "email")
+    profile_name = frappe.db.get_value("Player Profile", {"primary_email": email})
     if not profile_name:
-        frappe.throw(_('No player profile linked to this user.'), frappe.PermissionError)
-    doc = frappe.get_doc('Player Profile', profile_name)  # type: ignore
-    data = frappe.local.form_dict or json.loads(frappe.request.data or '{}')
+        frappe.throw(_("No player profile linked to this user."), frappe.PermissionError)
+    doc = frappe.get_doc("Player Profile", profile_name)  # type: ignore
+    data = frappe.local.form_dict or json.loads(frappe.request.data or "{}")
     # Handle all editable fields
     allowed_fields = sorted(player_profile._ALLOWED_PORTAL_FIELDS)
-    payload = {'doctype': 'Player Profile', 'name': doc.name}
+    payload = {"doctype": "Player Profile", "name": doc.name}
     for field in allowed_fields:
         if field in data:
             payload[field] = data[field]
 
     player_profile.save(frappe.as_json(payload))
     frappe.db.commit()
-    return {'success': True}
+    return {"success": True}

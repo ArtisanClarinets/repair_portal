@@ -19,30 +19,30 @@ from repair_portal.instrument_profile.services.profile_sync import (
 def get(instrument_id=None):
     """Fetch a single Instrument by ID with basic fields (backward compatible)."""
     if not instrument_id:
-        frappe.throw(_('Instrument ID is required'))
+        frappe.throw(_("Instrument ID is required"))
 
     user = frappe.session.user
     roles = set(frappe.get_roles(user))
-    staff_roles = {'Technician', 'Repair Manager', 'System Manager'}
+    staff_roles = {"Technician", "Repair Manager", "System Manager"}
     is_staff = bool(roles & staff_roles)
     fields = [
-        'name',
-        'serial_no',
-        'instrument_type',
-        'brand',
-        'model',
-        'customer',
-        'current_status',
+        "name",
+        "serial_no",
+        "instrument_type",
+        "brand",
+        "model",
+        "customer",
+        "current_status",
     ]
 
     if is_staff:
-        return frappe.db.get_value('Instrument', instrument_id, fields, as_dict=True)  # type: ignore
+        return frappe.db.get_value("Instrument", instrument_id, fields, as_dict=True)  # type: ignore
 
-    email = frappe.db.get_value('User', user, 'email')
-    customer = frappe.db.get_value('Customer', {'email_id': email})
-    doc = frappe.db.get_value('Instrument', instrument_id, fields, as_dict=True)  # type: ignore
-    if not customer or not doc or doc.get('customer') != customer:  # type: ignore
-        frappe.throw(_('Not permitted'), frappe.PermissionError)
+    email = frappe.db.get_value("User", user, "email")
+    customer = frappe.db.get_value("Customer", {"email_id": email})
+    doc = frappe.db.get_value("Instrument", instrument_id, fields, as_dict=True)  # type: ignore
+    if not customer or not doc or doc.get("customer") != customer:  # type: ignore
+        frappe.throw(_("Not permitted"), frappe.PermissionError)
     return doc
 
 
@@ -51,24 +51,24 @@ def list_for_user():
     """List Instruments for current user. Staff see all; Customers see their own."""
     user = frappe.session.user
     roles = set(frappe.get_roles(user))
-    staff_roles = {'Technician', 'Repair Manager', 'System Manager'}
+    staff_roles = {"Technician", "Repair Manager", "System Manager"}
     is_staff = bool(roles & staff_roles)
 
     fields = [
-        'name',
-        'serial_no',
-        'instrument_type',
-        'brand',
-        'model',
-        'customer',
-        'current_status',
+        "name",
+        "serial_no",
+        "instrument_type",
+        "brand",
+        "model",
+        "customer",
+        "current_status",
     ]
-    docs = frappe.get_all('Instrument', fields=fields)
+    docs = frappe.get_all("Instrument", fields=fields)
     if is_staff:
         return docs
 
-    email = frappe.db.get_value('User', user, 'email')
-    customer = frappe.db.get_value('Customer', {'email_id': email})
+    email = frappe.db.get_value("User", user, "email")
+    customer = frappe.db.get_value("Customer", {"email_id": email})
     return [d for d in docs if (customer and d.customer and d.customer == customer)]
 
 
@@ -79,14 +79,14 @@ def get_profile(instrument=None, profile=None):
     For an aggregated "everything" snapshot, call get_profile_snapshot.
     """
     if not instrument and not profile:
-        frappe.throw(_('Provide instrument or profile'))
+        frappe.throw(_("Provide instrument or profile"))
     if not profile and instrument:
         res = _sync_now(instrument=instrument)
-        profile = res.get('profile')
+        profile = res.get("profile")
     else:
         _sync_now(profile=profile)
 
-    return frappe.get_doc('Instrument Profile', profile).as_dict()  # type: ignore
+    return frappe.get_doc("Instrument Profile", profile).as_dict()  # type: ignore
 
 
 @frappe.whitelist(allow_guest=False)
@@ -96,5 +96,5 @@ def get_profile_snapshot(instrument=None, profile=None):
     accessories, media, condition history, interactions (if doctypes exist).
     """
     if not instrument and not profile:
-        frappe.throw(_('Provide instrument or profile'))
+        frappe.throw(_("Provide instrument or profile"))
     return _get_snapshot(instrument=instrument, profile=profile)
