@@ -132,8 +132,8 @@ class CustomerType(Document):
             self.modified_date = frappe.utils.now()
 
     def _update_linked_customers(self) -> None:
-        """Update linked customers if customer type name changed"""
-        if self.has_value_changed("customer_type_name"):
+        """Update linked customers if customer type label changed"""
+        if self.has_value_changed("type_name"):
             # This would typically trigger cache updates
             frappe.cache().delete_keys("customer_type_*")
 
@@ -180,6 +180,6 @@ class CustomerType(Document):
         return frappe.db.get_list(
             "Customer Type",
             filters={"disabled": 0},
-            fields=["name", "customer_type_name", "description", "is_default"],
-            order_by="is_default desc, customer_type_name",
+            fields=["name", "type_name", "description", "is_default"],
+            order_by="is_default desc, type_name"
         )
