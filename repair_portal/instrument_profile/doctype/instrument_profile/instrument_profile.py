@@ -318,6 +318,29 @@ class InstrumentProfile(Document):
             schema = self._get_validation_schema()
             filtered_data = {k: v for k, v in validation_data.items() if k in schema}
 
+            # Ensure serial_no is populated for validation. Prefer the explicit value on
+            # the document, then any alternate field, and finally the linked Instrument.
+            if not filtered_data.get("serial_no"):
+                serial = (
+                    self.get("serial_no")
+                    or self.get("instrument_serial_number")
+                    or None
+                )
+
+                if not serial and self.get("instrument"):
+                    try:
+                        instrument_doc = frappe.get_doc("Instrument", self.instrument)
+                        serial = (
+                            instrument_doc.get("serial_no")
+                            or instrument_doc.get("serial_number")
+                            or instrument_doc.name
+                        )
+                    except frappe.DoesNotExistError:
+                        serial = None
+
+                if serial:
+                    filtered_data["serial_no"] = serial
+
             if filtered_data:
                 validated_data = validator.validate_and_sanitize(filtered_data, schema)
 
