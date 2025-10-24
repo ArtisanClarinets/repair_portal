@@ -118,6 +118,72 @@ class RepairOrder(Document):
                     )
                 )
 
+    def _dedupe_related(self) -> None:
+        """Remove duplicate Related Document rows while preserving the first occurrence."""
+        if not self.meta.has_field("related_documents"):
+            return
+
+        original_rows = list(self.get("related_documents") or [])
+        if not original_rows:
+            return
+
+        def _row_to_dict(row: object) -> dict[str, object]:
+            if hasattr(row, "as_dict"):
+                return getattr(row, "as_dict")()  # type: ignore[no-any-return]
+            if isinstance(row, dict):
+                return dict(row)
+            raise TypeError("Unsupported row type for related_documents")
+
+        seen: set[tuple[str, str]] = set()
+        cleaned: list[dict[str, object]] = []
+        for row in original_rows:
+            data = _row_to_dict(row)
+            doctype_name = (data.get("doctype_name") or "").strip()
+            document_name = (data.get("document_name") or "").strip()
+
+            if not doctype_name and not document_name:
+                cleaned.append(data)
+                continue
+
+            key = (doctype_name, document_name)
+            if key in seen:
+                continue
+
+            seen.add(key)
+            cleaned.append(data)
+
+        if len(cleaned) == len(original_rows):
+            return
+
+        self.set("related_documents", [])
+        for data in cleaned:
+            # Preserve the doctype for the child row but let Frappe regenerate name/idx
+            data.pop("name", None)
+            data.pop("idx", None)
+            self.append("related_documents", data)
+
+    def _normalize_links(self) -> None:
+        """Strip whitespace from key link fields and null them when blank."""
+        link_fields = (
+            "company",
+            "customer",
+            "instrument_profile",
+            "intake",
+            "labor_item",
+            "player_profile",
+            "warehouse_source",
+        )
+        for fieldname in link_fields:
+            if not self.meta.has_field(fieldname):
+                continue
+            value = self.get(fieldname)
+            if isinstance(value, str):
+                value = value.strip()
+            if value:
+                self.set(fieldname, value)
+            else:
+                self.set(fieldname, None)
+
     def _allowed_next_states(self, current: str) -> tuple[str, ...]:
         idx = WORKFLOW_SEQUENCE.index(current) if current in WORKFLOW_SEQUENCE else 0
         if current == "Requested":
