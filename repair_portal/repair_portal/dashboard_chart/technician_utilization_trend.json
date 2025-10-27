@@ -1,0 +1,14 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Technician Utilization Trend",
+  "chart_name": "Technician Utilization Trend",
+  "module": "Repair Portal",
+  "is_standard": 1,
+  "chart_type": "Average",
+  "document_type": "Repair Order",
+  "based_on": "modified",
+  "value_based_on": "capacity_score",
+  "time_interval": "Daily",
+  "timespan": "Last 30 days",
+  "filters_json": "{\"workflow_state\":{\"in\":[\"In Progress\",\"QC\",\"Ready to Ship\"]}}"
+}

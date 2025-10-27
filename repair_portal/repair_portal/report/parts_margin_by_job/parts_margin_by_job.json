@@ -1,0 +1,9 @@
+{
+  "doctype": "Report",
+  "name": "Parts Margin By Job",
+  "report_name": "Parts Margin By Job",
+  "ref_doctype": "Repair Order",
+  "module": "Repair Portal",
+  "is_standard": "Yes",
+  "report_type": "Script Report"
+}

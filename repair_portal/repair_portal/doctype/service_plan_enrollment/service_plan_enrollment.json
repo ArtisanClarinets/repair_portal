@@ -1,0 +1,106 @@
+{
+ "doctype": "DocType",
+ "name": "Service Plan Enrollment",
+ "module": "Repair Portal",
+ "custom": 0,
+ "istable": 0,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "naming_rule": "By Field",
+ "autoname": "naming_series:",
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "SRV-ENR-.YYYY.-.#####",
+   "reqd": 1,
+   "default": "SRV-ENR-.YYYY.-.#####"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument",
+   "reqd": 1
+  },
+  {
+   "fieldname": "service_plan",
+   "fieldtype": "Link",
+   "label": "Service Plan",
+   "options": "Service Plan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "billing_frequency",
+   "fieldtype": "Select",
+   "label": "Billing Frequency",
+   "options": "Monthly\nYearly",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nActive\nSuspended\nExpired",
+   "default": "Draft"
+  }
+ ],
+ "field_order": [
+  "naming_series",
+  "customer",
+  "instrument",
+  "service_plan",
+  "start_date",
+  "end_date",
+  "billing_frequency",
+  "status"
+ ],
+ "permissions": [
+  {
+   "role": "Owner/Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Front Desk",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounting",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Repair Technician",
+   "read": 1
+  },
+  {
+   "role": "Customer",
+   "read": 1
+  }
+ ]
+}

@@ -19,11 +19,60 @@ required_apps = ["frappe", "erpnext"]
 
 
 fixtures = [
-    {"doctype": "Role", "filters": [["role_name", "in", ["Intake Coordinator"]]]},
+    {"doctype": "Role", "filters": [["role_name", "in", [
+        "Intake Coordinator",
+        "Owner/Admin",
+        "Front Desk",
+        "Repair Technician",
+        "Inventory",
+        "Ecommerce/Marketing",
+        "Accounting",
+        "School/Teacher",
+        "Customer"
+    ]] ]},
     {"doctype": "Email Group", "filters": [["title", "=", "Player Newsletter"]]},
     {"doctype": "Series", "filters": [["name", "in", ["PLAYER-"]]]},
+    {"doctype": "Workflow", "filters": [["name", "in", [
+        "Repair Order Lifecycle",
+        "Mail-In Repair Request Lifecycle",
+        "Repair Estimate Approval"
+    ]]]},
+    {"doctype": "Notification", "filters": [["name", "in", [
+        "Repair Order Awaiting Arrival Guidance",
+        "Repair Order Checked-In Update",
+        "Repair Quote Ready",
+        "Repair Quote Approved",
+        "Repair Order Ready To Ship"
+    ]]]},
+    {"doctype": "Print Format", "filters": [["name", "in", [
+        "Clarinet Intake Receipt",
+        "Repair Order Job Traveler",
+        "Clarinet QC Checklist",
+        "Shipping Cover Sheet"
+    ]]]},
+    {"doctype": "Workspace", "filters": [["name", "in", [
+        "Repair Scheduling"
+    ]] ]},
+    {"doctype": "Number Card", "filters": [["name", "in", [
+        "Technician Utilization Snapshot",
+        "Orders At Risk"
+    ]] ]},
+    {"doctype": "Dashboard Chart", "filters": [["name", "in", [
+        "Technician Utilization Trend",
+        "Repair Cycle Time Trend",
+        "Parts Margin By Job"
+    ]] ]},
+    {"doctype": "Kanban Board", "filters": [["name", "=", "Repair Orders by Bench"]]},
 ]
 
+doctype_js = {
+    "Repair Order": "repair_portal/doctype/repair_order/repair_order.js",
+}
+
+has_permission = {
+    "Mail In Repair Request": "repair_portal.repair_portal.permissions.mail_in_request.has_permission",
+    "Repair Order": "repair_portal.repair_portal.permissions.repair_order.has_permission",
+}
 
 # fire this before any DDL, patches or fixtures run
 before_install = [
@@ -53,18 +102,31 @@ after_migrate = [
 
 doc_events = {
     "Repair Order": {
-        "on_submit": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_submit",
-        "on_cancel": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_cancel",
+        "validate": [
+            "repair_portal.repair_portal.utils.barcode.ensure_repair_order_barcode",
+            "repair_portal.repair_portal.doctype.repair_order.repair_order_capacity.update_capacity_fields"
+        ],
+        "before_submit": "repair_portal.repair_portal.inventory.material_planner.before_submit",
+        "on_submit": [
+            "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_submit",
+            "repair_portal.repair_portal.inventory.material_planner.on_submit"
+        ],
+        "on_update_after_submit": "repair_portal.repair_portal.doctype.repair_order.repair_order_capacity.on_update_after_submit",
+        "on_cancel": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_cancel"
     },
     "Clarinet Intake": {
         # after_insert will call our new function
         "after_insert": (
             "repair_portal.intake.doctype.clarinet_intake" + ".clarinet_intake_timeline.add_timeline_entries"
         ),
-        "validate": "repair_portal.repair.utils.on_child_validate",
+        "validate": [
+            "repair_portal.repair.utils.on_child_validate",
+            "repair_portal.repair_portal.utils.barcode.ensure_clarinet_intake_barcode"
+        ],
         "on_update": "repair_portal.repair.utils.on_child_validate",
     },
     "Instrument": {
+        "validate": "repair_portal.repair_portal.utils.barcode.ensure_instrument_barcode",
         "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
         "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
         "on_change": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
@@ -115,6 +177,9 @@ doc_events = {
         "validate": "repair_portal.repair.utils.on_child_validate",
         "on_update": "repair_portal.repair.utils.on_child_validate",
     },
+    "Sales Invoice": {
+        "before_insert": "repair_portal.repair_portal.utils.pos.suggest_repair_class_upsells",
+    },
     "Stock Entry": {
         "after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry",
     },
@@ -129,11 +194,19 @@ scheduler_events = {
     "daily": [
         "repair_portal.intake.tasks.cleanup_intake_sessions",
         "repair_portal.core.tasks.send_feedback_requests",
+        "repair_portal.repair_portal.doctype.repair_order.repair_order_capacity.recompute_capacity_snapshot",
     ],
 }
 
-# website_route_rules = [
-#     {'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},
-# ]
+website_route_rules = [
+    {"from_route": "/repair-status/<portal_token>", "to_route": "repair-status"},
+    {"from_route": "/quote/<name>", "to_route": "quote"},
+    {"from_route": "/scan", "to_route": "scan"},
+]
 
 # --- [BEGIN Repair Portal (Repair workflow) additions] ---
+
+portal_menu_items = [
+    {"title": "Mail-In Repair", "route": "/mail-in-repair", "role": "Customer"},
+    {"title": "Scan Tag", "route": "/scan", "role": "Repair Technician"},
+]

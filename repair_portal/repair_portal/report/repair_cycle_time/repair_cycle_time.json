@@ -1,0 +1,9 @@
+{
+  "doctype": "Report",
+  "name": "Repair Cycle Time",
+  "report_name": "Repair Cycle Time",
+  "ref_doctype": "Repair Order",
+  "module": "Repair Portal",
+  "is_standard": "Yes",
+  "report_type": "Script Report"
+}

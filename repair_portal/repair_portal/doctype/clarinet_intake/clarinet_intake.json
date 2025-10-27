@@ -1,0 +1,143 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Intake",
+  "module": "Repair Portal",
+  "custom": 0,
+  "istable": 0,
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "naming_rule": "By Field",
+  "autoname": "naming_series:",
+  "allow_import": 1,
+  "is_submittable": 0,
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "label": "Naming Series",
+      "options": "INTK-.YYYY.-.#####",
+      "reqd": 1,
+      "default": "INTK-.YYYY.-.#####"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument",
+      "fieldtype": "Link",
+      "label": "Instrument",
+      "options": "Instrument",
+      "reqd": 1
+    },
+    {
+      "fieldname": "concerns",
+      "fieldtype": "Small Text",
+      "label": "Customer Concerns"
+    },
+    {
+      "fieldname": "condition_grade",
+      "fieldtype": "Select",
+      "label": "Condition Grade",
+      "options": "A\nB\nC\nD",
+      "reqd": 1
+    },
+    {
+      "fieldname": "cracks",
+      "fieldtype": "Check",
+      "label": "Cracks Present",
+      "default": "0"
+    },
+    {
+      "fieldname": "pad_type",
+      "fieldtype": "Select",
+      "label": "Pad Type",
+      "options": "Cork\nBladder\nSynthetic"
+    },
+    {
+      "fieldname": "bore_notes",
+      "fieldtype": "Small Text",
+      "label": "Bore Notes"
+    },
+    {
+      "fieldname": "accessories_list",
+      "fieldtype": "Small Text",
+      "label": "Accessories Received"
+    },
+    {
+      "fieldname": "intake_photos",
+      "fieldtype": "Table",
+      "label": "Intake Photos",
+      "options": "Intake Photo"
+    },
+    {
+      "fieldname": "sla_class",
+      "fieldtype": "Select",
+      "label": "SLA Class",
+      "options": "Standard\nRush",
+      "default": "Standard"
+    },
+    {
+      "fieldname": "intake_channel",
+      "fieldtype": "Select",
+      "label": "Intake Channel",
+      "options": "Walk-in\nMail-in\nSchool",
+      "default": "Walk-in"
+    },
+    {
+      "fieldname": "kiosk_submission",
+      "fieldtype": "Check",
+      "label": "Submitted via Kiosk",
+      "default": "0"
+    },
+    {
+      "fieldname": "barcode",
+      "fieldtype": "Data",
+      "label": "Barcode",
+      "read_only": 1
+    }
+  ],
+  "field_order": [
+    "naming_series",
+    "customer",
+    "instrument",
+    "concerns",
+    "condition_grade",
+    "cracks",
+    "pad_type",
+    "bore_notes",
+    "accessories_list",
+    "intake_photos",
+    "sla_class",
+    "intake_channel",
+    "kiosk_submission",
+    "barcode"
+  ],
+  "permissions": [
+    {
+      "role": "Owner/Admin",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Front Desk",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Repair Technician",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "Customer",
+      "read": 1
+    }
+  ]
+}

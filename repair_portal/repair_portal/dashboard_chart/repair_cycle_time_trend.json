@@ -1,0 +1,13 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Repair Cycle Time Trend",
+  "chart_name": "Repair Cycle Time Trend",
+  "module": "Repair Portal",
+  "is_standard": 1,
+  "is_query_report": 1,
+  "report_name": "Repair Cycle Time",
+  "chart_type": "Line",
+  "timespan": "Last 180 days",
+  "time_interval": "Weekly",
+  "filters_json": "{}"
+}

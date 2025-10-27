@@ -771,3 +771,15 @@ All migrations are in `repair_portal/patches/` directory. They run automatically
 
 *This documentation was auto-generated on 2025-10-04 and provides 
 Fortune-500 quality onboarding materials for new engineers, auditors, and stakeholders.*
+
+## Repair Portal Scaffolding Setup
+
+Run these commands after pulling the scaffolding:
+
+```
+bench --site <your-site> migrate
+bench --site <your-site> clear-cache
+bench export-fixtures
+```
+
+Replace `<your-site>` with the fully qualified site name used in your bench environment.

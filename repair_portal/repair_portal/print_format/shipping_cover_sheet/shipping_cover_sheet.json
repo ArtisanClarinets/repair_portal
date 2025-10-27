@@ -1,0 +1,10 @@
+{
+  "doctype": "Print Format",
+  "module": "Repair Portal",
+  "name": "Shipping Cover Sheet",
+  "doc_type": "Mail In Repair Request",
+  "print_format_type": "Jinja",
+  "html": "{% include 'repair_portal/repair_portal/print_format/shipping_cover_sheet/shipping_cover_sheet.html' %}",
+  "standard": 1,
+  "disabled": 0
+}

@@ -1,0 +1,12 @@
+{% set qr = frappe.get_attr("repair_portal.utils.barcode.qr_data_uri") %}
+<div class="shipping-cover-sheet">
+  <h2>Mail-In Repair Cover Sheet</h2>
+  <img src="{{ qr(doc.barcode) }}" alt="QR" style="height:110px;float:right;">
+  <p><strong>Request:</strong> {{ doc.name }}</p>
+  <p><strong>Customer:</strong> {{ doc.customer }}</p>
+  <p><strong>Instrument:</strong> {{ doc.instrument }}</p>
+  <p><strong>Carrier:</strong> {{ doc.carrier }}</p>
+  <p><strong>Tracking:</strong> {{ doc.tracking_no or 'Assigned at drop-off' }}</p>
+  <p><strong>Insurance Value:</strong> ${{ '%.2f'|format(doc.insurance_value or 0) }}</p>
+  <p><strong>Arrival Notes:</strong> {{ doc.arrival_condition_notes or 'Pending inspection' }}</p>
+</div>

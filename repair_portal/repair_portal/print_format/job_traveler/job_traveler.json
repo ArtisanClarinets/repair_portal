@@ -1,0 +1,10 @@
+{
+  "doctype": "Print Format",
+  "module": "Repair Portal",
+  "name": "Repair Order Job Traveler",
+  "doc_type": "Repair Order",
+  "print_format_type": "Jinja",
+  "html": "{% include 'repair_portal/repair_portal/print_format/job_traveler/job_traveler.html' %}",
+  "standard": 1,
+  "disabled": 0
+}

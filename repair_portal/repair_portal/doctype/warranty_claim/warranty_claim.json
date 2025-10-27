@@ -1,0 +1,92 @@
+{
+ "doctype": "DocType",
+ "name": "Warranty Claim",
+ "module": "Repair Portal",
+ "custom": 0,
+ "istable": 0,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "naming_rule": "By Field",
+ "autoname": "naming_series:",
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "WARR-CLM-.YYYY.-.#####",
+   "reqd": 1,
+   "default": "WARR-CLM-.YYYY.-.#####"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sale_reference",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "claim_reason",
+   "fieldtype": "Small Text",
+   "label": "Claim Reason",
+   "reqd": 1
+  },
+  {
+   "fieldname": "claim_status",
+   "fieldtype": "Select",
+   "label": "Claim Status",
+   "options": "Open\nUnder Review\nApproved\nDenied\nFulfilled",
+   "default": "Open"
+  }
+ ],
+ "field_order": [
+  "naming_series",
+  "customer",
+  "instrument",
+  "sale_reference",
+  "claim_reason",
+  "claim_status"
+ ],
+ "permissions": [
+  {
+   "role": "Owner/Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Front Desk",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Repair Technician",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Accounting",
+   "read": 1
+  },
+  {
+   "role": "Customer",
+   "read": 1,
+   "create": 1
+  }
+ ]
+}

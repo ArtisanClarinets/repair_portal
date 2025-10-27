@@ -1,0 +1,113 @@
+{
+ "doctype": "Workflow",
+ "workflow_name": "Repair Estimate Approval",
+ "document_type": "Repair Estimate",
+ "workflow_state_field": "workflow_state",
+ "is_active": 1,
+ "send_email_alert": 0,
+ "override_status": 0,
+ "states": [
+  {
+   "state": "Draft",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk"
+  },
+  {
+   "state": "Sent",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk"
+  },
+  {
+   "state": "Awaiting Approval",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk"
+  },
+  {
+   "state": "Approved",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk"
+  },
+  {
+   "state": "Rejected",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk"
+  },
+  {
+   "state": "Converted",
+   "doc_status": 1,
+   "allow_edit": "Owner/Admin"
+  }
+ ],
+ "transitions": [
+  {
+   "state": "Draft",
+   "action": "Send Estimate",
+   "next_state": "Sent",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "Draft",
+   "action": "Send Estimate (Admin)",
+   "next_state": "Sent",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Sent",
+   "action": "Await Approval",
+   "next_state": "Awaiting Approval",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "Sent",
+   "action": "Await Approval (Admin)",
+   "next_state": "Awaiting Approval",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Awaiting Approval",
+   "action": "Approve",
+   "next_state": "Approved",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Awaiting Approval",
+   "action": "Record Customer Approval",
+   "next_state": "Approved",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "Awaiting Approval",
+   "action": "Reject",
+   "next_state": "Rejected",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Rejected",
+   "action": "Reopen",
+   "next_state": "Sent",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Approved",
+   "action": "Convert",
+   "next_state": "Converted",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Approved",
+   "action": "Convert (Front Desk)",
+   "next_state": "Converted",
+   "allowed": "Front Desk",
+   "condition": ""
+  }
+ ]
+}

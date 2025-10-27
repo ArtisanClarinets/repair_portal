@@ -1,0 +1,21 @@
+{
+  "doctype": "Notification",
+  "name": "Repair Order Awaiting Arrival Guidance",
+  "document_type": "Repair Order",
+  "event": "Value Change",
+  "value_changed": "workflow_state",
+  "condition": "doc.workflow_state == 'Awaiting Arrival'",
+  "subject": "Shipping instructions for your clarinet repair",
+  "message": "<p>Hi {{ doc.customer }},</p><p>Your repair order {{ doc.name }} is ready for inbound shipping. Please pack your instrument securely and include the cover sheet from the portal. </p><p>If you requested a prepaid label, it will arrive shortly.</p>",
+  "recipients": [
+    {
+      "doctype": "Notification Recipient",
+      "receiver_by_document_field": "customer"
+    }
+  ],
+  "enabled": 1,
+  "channel": "Email",
+  "send_system_notification": 0,
+  "send_to_all_assignees": 0,
+  "is_standard": 1
+}

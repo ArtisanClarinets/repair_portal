@@ -1,0 +1,21 @@
+{
+  "doctype": "Notification",
+  "name": "Repair Quote Approved",
+  "document_type": "Repair Estimate",
+  "event": "Value Change",
+  "value_changed": "workflow_state",
+  "condition": "doc.workflow_state == 'Approved'",
+  "subject": "Thank you for approving your clarinet repair",
+  "message": "<p>Hi {{ doc.customer }},</p><p>We received approval for estimate {{ doc.name }}. Your deposit receipt will arrive from Stripe shortly.</p>",
+  "recipients": [
+    {
+      "doctype": "Notification Recipient",
+      "receiver_by_document_field": "customer"
+    }
+  ],
+  "enabled": 1,
+  "channel": "Email",
+  "send_system_notification": 0,
+  "send_to_all_assignees": 0,
+  "is_standard": 1
+}
