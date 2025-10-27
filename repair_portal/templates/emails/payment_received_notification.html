@@ -1,0 +1,12 @@
+<table role="presentation" style="width:100%; border-collapse:collapse;">
+  <tr>
+    <td style="padding:16px; font-family:Arial, sans-serif; font-size:14px;">
+      <p style="margin:0 0 12px 0;">{{ _("Hello") }} {{ customer_name or _( "there") }},</p>
+      <p style="margin:0 0 12px 0;">
+        {{ _("We received your payment of {0} for Payment Request {1}.").format(frappe.utils.fmt_money(paid_amount), payment_request) }}
+      </p>
+      <p style="margin:0 0 12px 0;">{{ _("A receipt has been recorded in the system and our team will continue processing your repair.") }}</p>
+      <p style="margin:0;">{{ _("If you have any questions please reply to this email.") }}</p>
+    </td>
+  </tr>
+</table>

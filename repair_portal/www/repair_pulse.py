@@ -8,6 +8,8 @@
 import frappe
 from frappe import _
 
+from repair_portal.customer.security import ensure_customer_access
+
 login_required = True
 
 
@@ -19,8 +21,8 @@ def get_context(context):
 
     doc = frappe.get_doc("Repair Request", name)  # type: ignore
     user = frappe.session.user
-    if "Technician" not in frappe.get_roles(user) and doc.customer != user:  # type: ignore
-        frappe.throw(_("Not permitted"))
+    if "Technician" not in frappe.get_roles(user):
+        ensure_customer_access(getattr(doc, "customer", None), user)
 
     updates = frappe.get_all(
         "Pulse Update",

@@ -1,0 +1,157 @@
+{% extends "templates/web.html" %}
+{% block title %}{{ _(page_title) }}{% endblock %}
+
+{% block page_content %}
+<main id="approval-main" role="main" class="portal-approval" tabindex="-1">
+  <h1 id="approval-heading" data-focus="primary">{{ _(aria_title) }}</h1>
+
+  {% if success_message %}
+  <div class="alert alert-success" role="status" aria-live="polite">
+    {{ success_message }}
+  </div>
+  {% endif %}
+
+  {% if error_message %}
+  <div class="alert alert-danger" role="alert" aria-live="assertive">
+    {{ error_message }}
+  </div>
+  {% endif %}
+
+  <section aria-labelledby="reference-details" class="card">
+    <header class="card-header">
+      <h2 id="reference-details">{{ _("Repair reference") }}</h2>
+    </header>
+    <div class="card-body">
+      <p><strong>{{ _("Document") }}:</strong> {{ reference_doc.doctype }} {{ reference_doc.name }}</p>
+      {% if reference_link %}
+      <p><a href="{{ reference_link }}" target="_blank" rel="noopener">{{ _("View in portal") }}</a></p>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if not current_approval %}
+  <section aria-labelledby="decision-form" class="card">
+    <header class="card-header">
+      <h2 id="decision-form">{{ _("Provide your decision") }}</h2>
+    </header>
+    <form method="post" class="card-body" aria-describedby="terms-hint">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+      <div class="mb-3">
+        <label for="signer_full_name" class="form-label">{{ _("Full name") }}</label>
+        <input type="text" class="form-control" id="signer_full_name" name="signer_full_name" required aria-required="true" />
+      </div>
+      <div class="mb-3">
+        <label for="signer_email" class="form-label">{{ _("Email") }}</label>
+        <input type="email" class="form-control" id="signer_email" name="signer_email" />
+      </div>
+      <div class="mb-3">
+        <label for="signer_phone" class="form-label">{{ _("Phone") }}</label>
+        <input type="tel" class="form-control" id="signer_phone" name="signer_phone" />
+      </div>
+      <fieldset class="mb-3">
+        <legend>{{ _("Decision") }}</legend>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="action" id="approve" value="Approved" required aria-required="true" />
+          <label class="form-check-label" for="approve">{{ _("Approve repair scope and any listed charges") }}</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="action" id="decline" value="Declined" />
+          <label class="form-check-label" for="decline">{{ _("Decline and request follow-up") }}</label>
+        </div>
+      </fieldset>
+      <div class="mb-3">
+        <label for="payment_request" class="form-label">{{ _("Associated payment request (optional)") }}</label>
+        <select class="form-select" id="payment_request" name="payment_request">
+          <option value="">{{ _("No payment request") }}</option>
+          {% for pr in payment_requests %}
+          <option value="{{ pr.name }}">{{ pr.name }} — {{ pr.amount }} {{ pr.currency }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="note" class="form-label">{{ _("Notes for our technicians") }}</label>
+        <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+      </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" value="on" id="terms_consent" name="terms_consent" required aria-required="true" />
+        <label class="form-check-label" for="terms_consent">
+          {{ _("I have read and agree to the repair terms and understand that this approval is legally binding.") }}
+        </label>
+      </div>
+      <div class="mb-3">
+        <label for="terms_version" class="form-label">{{ _("Terms version") }}</label>
+        <input type="text" class="form-control" id="terms_version" name="terms_version" value="{{ frappe.utils.now_datetime().isoformat() }}" />
+        <div id="terms-hint" class="form-text">{{ _("Keep this version identifier for your records.") }}</div>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ _("Submit decision") }}</button>
+    </form>
+  </section>
+  {% else %}
+  <section aria-labelledby="decision-recorded" class="card">
+    <header class="card-header">
+      <h2 id="decision-recorded">{{ _("Decision recorded") }}</h2>
+    </header>
+    <div class="card-body">
+      <p><strong>{{ _("Status") }}:</strong> {{ _(current_approval.action) }}</p>
+      <p><strong>{{ _("Recorded on") }}:</strong> {{ frappe.utils.format_datetime(current_approval.approval_timestamp) }}</p>
+      <p><strong>{{ _("Signer") }}:</strong> {{ current_approval.signer_full_name }} ({{ current_approval.signer_email }})</p>
+      {% if current_approval.note %}
+      <p><strong>{{ _("Notes") }}:</strong> {{ current_approval.note }}</p>
+      {% endif %}
+      {% if current_approval.approval_pdf %}
+      <p>
+        <a href="{{ current_approval.approval_pdf }}" class="btn btn-outline-secondary">{{ _("Download certificate") }}</a>
+      </p>
+      {% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section aria-labelledby="payment-requests" class="card">
+    <header class="card-header">
+      <h2 id="payment-requests">{{ _("Payment requests") }}</h2>
+    </header>
+    <div class="card-body">
+      {% if payment_requests %}
+      <table class="table" role="grid">
+        <thead>
+          <tr>
+            <th scope="col">{{ _("Reference") }}</th>
+            <th scope="col">{{ _("Status") }}</th>
+            <th scope="col">{{ _("Amount") }}</th>
+            <th scope="col">{{ _("Pay") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in payment_requests %}
+          <tr>
+            <th scope="row">{{ request.name }}</th>
+            <td>{{ _(request.status) }}</td>
+            <td>{{ frappe.utils.fmt_money(request.amount, currency=request.currency) }}</td>
+            <td>
+              {% if request.payment_url %}
+              <a href="{{ request.payment_url }}" class="btn btn-success">{{ _("Pay now") }}</a>
+              {% else %}
+              <span class="text-muted">{{ _("Contact support") }}</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>{{ _("No payment requests are linked to this document.") }}</p>
+      {% endif %}
+    </div>
+  </section>
+</main>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const target = document.querySelector('[data-focus="primary"]');
+    if (target) {
+      target.setAttribute("tabindex", "-1");
+      target.focus({preventScroll: false});
+    }
+  });
+</script>
+{% endblock %}

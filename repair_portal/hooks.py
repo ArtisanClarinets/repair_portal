@@ -118,6 +118,9 @@ doc_events = {
     "Stock Entry": {
         "after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry",
     },
+    "Payment Request": {
+        "on_update": "repair_portal.repair_portal.doctype.customer_approval.payment_hooks.handle_payment_request_update",
+    },
 }
 
 
@@ -129,6 +132,7 @@ scheduler_events = {
     "daily": [
         "repair_portal.intake.tasks.cleanup_intake_sessions",
         "repair_portal.core.tasks.send_feedback_requests",
+        "repair_portal.customer.tasks.warranty.dispatch_warranty_reminders",
     ],
 }
 

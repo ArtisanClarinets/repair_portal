@@ -1,0 +1,182 @@
+# Repository Inventory
+
+## Modules
+- Inspection
+- Intake
+- Instrument Setup
+- QA
+- Repair Logging
+- Repair Portal
+- Service Planning
+- Tools
+- Enhancements
+- Instrument Profile
+- Repair
+- Lab
+
+## DocTypes
+- **Consent Autofill Mapping** (Module: Customer) — repair_portal/customer/doctype/consent_autofill_mapping/consent_autofill_mapping.json
+- **Consent Field Value** (Module: Customer) — repair_portal/customer/doctype/consent_field_value/consent_field_value.json
+- **Consent Form** (Module: Customer) — repair_portal/customer/doctype/consent_form/consent_form.json
+- **Consent Linked Source** (Module: Customer) — repair_portal/customer/doctype/consent_linked_source/consent_linked_source.json
+- **Consent Log Entry** (Module: Customer) — repair_portal/customer/doctype/consent_log_entry/consent_log_entry.json
+- **Consent Required Field** (Module: Customer) — repair_portal/customer/doctype/consent_required_field/consent_required_field.json
+- **Consent Settings** (Module: Customer) — repair_portal/customer/doctype/consent_settings/consent_settings.json
+- **Consent Template** (Module: Customer) — repair_portal/customer/doctype/consent_template/consent_template.json
+- **Customer Type** (Module: Customer) — repair_portal/customer/doctype/customer_type/customer_type.json
+- **Linked Players** (Module: Customer) — repair_portal/customer/doctype/linked_players/linked_players.json
+- **Customer Upgrade Request** (Module: Enhancements) — repair_portal/enhancements/doctype/customer_upgrade_request/customer_upgrade_request.json
+- **Upgrade Option** (Module: Enhancements) — repair_portal/enhancements/doctype/upgrade_option/upgrade_option.json
+- **Instrument Inspection** (Module: Inspection) — repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json
+- **Client Instrument Profile** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json
+- **Customer External Work Log** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/customer_external_work_log/customer_external_work_log.json
+- **Instrument** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/instrument/instrument.json
+- **Instrument Accessory** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/instrument_accessory/instrument_accessory.json
+- **Instrument Category** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/instrument_category/instrument_category.json
+- **Instrument Condition Record** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/instrument_condition_record/instrument_condition_record.json
+- **Instrument Model** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/instrument_model/instrument_model.json
+- **Instrument Photo** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/instrument_photo/instrument_photo.json
+- **Instrument Profile** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json
+- **Instrument Serial Number** (Module: Instrument Profile) — repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json
+- **Clarinet Initial Setup** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json
+- **Clarinet Pad Entry** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_pad_entry/clarinet_pad_entry.json
+- **Clarinet Pad Map** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_pad_map/clarinet_pad_map.json
+- **Clarinet Setup Log** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json
+- **Clarinet Setup Operation** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_setup_operation/clarinet_setup_operation.json
+- **Clarinet Setup Task** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json
+- **Clarinet Task Depends On** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_task_depends_on/clarinet_task_depends_on.json
+- **Clarinet Template Task** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json
+- **Clarinet Template Task Depends On** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/clarinet_template_task_depends_on/clarinet_template_task_depends_on.json
+- **Setup Checklist Item** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/setup_checklist_item/setup_checklist_item.json
+- **Setup Material Log** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/setup_material_log/setup_material_log.json
+- **Setup Template** (Module: Instrument Setup) — repair_portal/instrument_setup/doctype/setup_template/setup_template.json
+- **Brand Mapping Rule** (Module: Intake) — repair_portal/intake/doctype/brand_mapping_rule/brand_mapping_rule.json
+- **Clarinet Intake** (Module: Intake) — repair_portal/intake/doctype/clarinet_intake/clarinet_intake.json
+- **Intake Accessory Item** (Module: Intake) — repair_portal/intake/doctype/intake_accessory_item/intake_accessory_item.json
+- **Intake Session** (Module: Intake) — repair_portal/intake/doctype/intake_session/intake_session.json
+- **Intake Session** (Module: Intake) — repair_portal/repair_portal/doctype/intake_session/intake_session.json
+- **Loaner Agreement** (Module: Intake) — repair_portal/intake/doctype/loaner_agreement/loaner_agreement.json
+- **Loaner Agreement** (Module: Intake) — repair_portal/repair_portal/doctype/loaner_agreement/loaner_agreement.json
+- **Loaner Instrument** (Module: Intake) — repair_portal/intake/doctype/loaner_instrument/loaner_instrument.json
+- **Loaner Return Check** (Module: Intake) — repair_portal/intake/doctype/loaner_return_check/loaner_return_check.json
+- **Pad Count Intake** (Module: Inventory) — repair_portal/inventory/doctype/pad_count_intake/pad_count_intake.json
+- **Pad Count Log** (Module: Inventory) — repair_portal/inventory/doctype/pad_count_log/pad_count_log.json
+- **Environment Log** (Module: Lab) — repair_portal/lab/doctype/environment_log/environment_log.json
+- **Measurement Entry** (Module: Lab) — repair_portal/lab/doctype/measurement_entry/measurement_entry.json
+- **Measurement Session** (Module: Lab) — repair_portal/lab/doctype/measurement_session/measurement_session.json
+- **Instruments Owned** (Module: Player Profile) — repair_portal/player_profile/doctype/instruments_owned/instruments_owned.json
+- **Player Equipment Preference** (Module: Player Profile) — repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json
+- **Player Profile** (Module: Player Profile) — repair_portal/player_profile/doctype/player_profile/player_profile.json
+- **Player Profile Settings** (Module: Player Profile) — repair_portal/player_profile/doctype/player_profile_settings/player_profile_settings.json
+- **Final Qa Checklist** (Module: QA) — repair_portal/qa/doctype/final_qa_checklist/final_qa_checklist.json
+- **Final Qa Checklist Item** (Module: QA) — repair_portal/qa/doctype/final_qa_checklist_item/final_qa_checklist_item.json
+- **Default Operations** (Module: Repair) — repair_portal/repair/doctype/default_operations/default_operations.json
+- **Operation Template** (Module: Repair) — repair_portal/repair/doctype/operation_template/operation_template.json
+- **Pulse Update** (Module: Repair) — repair_portal/repair/doctype/pulse_update/pulse_update.json
+- **Repair Actual Material** (Module: Repair) — repair_portal/repair/doctype/repair_actual_material/repair_actual_material.json
+- **Repair Feedback** (Module: Repair) — repair_portal/repair/doctype/repair_feedback/repair_feedback.json
+- **Repair Issue** (Module: Repair) — repair_portal/repair/doctype/repair_issue/repair_issue.json
+- **Repair Labor Session** (Module: Repair) — repair_portal/repair/doctype/repair_labor_session/repair_labor_session.json
+- **Repair Order** (Module: Repair) — repair_portal/repair/doctype/repair_order/repair_order.json
+- **Repair Planned Material** (Module: Repair) — repair_portal/repair/doctype/repair_planned_material/repair_planned_material.json
+- **Repair Quotation** (Module: Repair) — repair_portal/repair/doctype/repair_quotation/repair_quotation.json
+- **Repair Quotation Item** (Module: Repair) — repair_portal/repair/doctype/repair_quotation_item/repair_quotation_item.json
+- **Repair Related Document** (Module: Repair) — repair_portal/repair/doctype/repair_related_document/repair_related_document.json
+- **Repair Request** (Module: Repair) — repair_portal/repair/doctype/repair_request/repair_request.json
+- **Repair Task** (Module: Repair) — repair_portal/repair/doctype/repair_task/repair_task.json
+- **SLA Policy** (Module: Repair) — repair_portal/repair/doctype/sla_policy/sla_policy.json
+- **SLA Policy Rule** (Module: Repair) — repair_portal/repair/doctype/sla_policy_rule/sla_policy_rule.json
+- **Barcode Scan Entry** (Module: Repair Logging) — repair_portal/repair_logging/doctype/barcode_scan_entry/barcode_scan_entry.json
+- **Diagnostic Metrics** (Module: Repair Logging) — repair_portal/repair_logging/doctype/diagnostic_metrics/diagnostic_metrics.json
+- **Instrument Interaction Log** (Module: Repair Logging) — repair_portal/repair_logging/doctype/instrument_interaction_log/instrument_interaction_log.json
+- **Key Measurement** (Module: Repair Logging) — repair_portal/repair_logging/doctype/key_measurement/key_measurement.json
+- **Material Use Log** (Module: Repair Logging) — repair_portal/repair_logging/doctype/material_use_log/material_use_log.json
+- **Pad Condition** (Module: Repair Logging) — repair_portal/repair_logging/doctype/pad_condition/pad_condition.json
+- **Related Instrument Interaction** (Module: Repair Logging) — repair_portal/repair_logging/doctype/related_instrument_interaction/related_instrument_interaction.json
+- **Repair Parts Used** (Module: Repair Logging) — repair_portal/repair_logging/doctype/repair_parts_used/repair_parts_used.json
+- **Repair Task Log** (Module: Repair Logging) — repair_portal/repair_logging/doctype/repair_task_log/repair_task_log.json
+- **Tenon Measurement** (Module: Repair Logging) — repair_portal/repair_logging/doctype/tenon_measurement/tenon_measurement.json
+- **Tone Hole Inspection Record** (Module: Repair Logging) — repair_portal/repair_logging/doctype/tone_hole_inspection_record/tone_hole_inspection_record.json
+- **Tool Usage Log** (Module: Repair Logging) — repair_portal/repair_logging/doctype/tool_usage_log/tool_usage_log.json
+- **Visual Inspection** (Module: Repair Logging) — repair_portal/repair_logging/doctype/visual_inspection/visual_inspection.json
+- **Warranty Modification Log** (Module: Repair Logging) — repair_portal/repair_logging/doctype/warranty_modification_log/warranty_modification_log.json
+- **Customer Approval** (Module: Repair Portal) — repair_portal/repair_portal/doctype/customer_approval/customer_approval.json
+- **Qa Checklist Item** (Module: Repair Portal) — repair_portal/repair_portal/doctype/qa_checklist_item/qa_checklist_item.json
+- **Technician** (Module: Repair Portal) — repair_portal/repair_portal/doctype/technician/technician.json
+- **Clarinet Intake Settings** (Module: Repair Portal Settings) — repair_portal/repair_portal_settings/doctype/clarinet_intake_settings/clarinet_intake_settings.json
+- **Repair Portal Settings** (Module: Repair Portal Settings) — repair_portal/repair_portal_settings/doctype/repair_portal_settings/repair_portal_settings.json
+- **Repair Settings** (Module: Repair Portal Settings) — repair_portal/repair_portal_settings/doctype/repair_settings/repair_settings.json
+- **Estimate Line Item** (Module: Service Planning) — repair_portal/service_planning/doctype/estimate_line_item/estimate_line_item.json
+- **Repair Estimate** (Module: Service Planning) — repair_portal/service_planning/doctype/repair_estimate/repair_estimate.json
+- **Service Plan** (Module: Service Planning) — repair_portal/service_planning/doctype/service_plan/service_plan.json
+- **Service Task** (Module: Service Planning) — repair_portal/service_planning/doctype/service_task/service_task.json
+- **Tasks** (Module: Service Planning) — repair_portal/service_planning/doctype/tasks/tasks.json
+- **Tool** (Module: Tools) — repair_portal/tools/doctype/tool/tool.json
+- **Tool Calibration Log** (Module: Tools) — repair_portal/tools/doctype/tool_calibration_log/tool_calibration_log.json
+
+## Pages
+- **technician_dashboard** (Module: Inspection) — repair_portal/inspection/page/technician_dashboard/technician_dashboard.json
+- **intake_wizard** (Module: Intake) — repair_portal/intake/page/intake_wizard/intake_wizard.json
+- **desk-tuner** (Module: Lab) — repair_portal/lab/page/desk_tuner/desk_tuner.json
+- **lab-console** (Module: Lab) — repair_portal/lab/page/lab_console/lab_console.json
+- **customer_approval** (Module: www) — repair_portal/www/customer_approval.py
+- **pad_map** (Module: www) — repair_portal/www/pad_map.py
+- **repair_pulse** (Module: www) — repair_portal/www/repair_pulse.py
+
+## Reports
+- **Overdue Tool Calibrations** (Module: None) — repair_portal/tools/report/overdue_tool_calibrations/overdue_tool_calibrations.json
+- **Repair Bay Utilization** (Module: None) — repair_portal/service_planning/report/repair_bay_utilization/repair_bay_utilization.json
+- **Repair Tasks By Type** (Module: None) — repair_portal/repair_logging/report/repair_tasks_by_type/repair_tasks_by_type.json
+- **Top Upgrade Requests** (Module: None) — repair_portal/enhancements/report/top_upgrade_requests/top_upgrade_requests.json
+- **Upgrade Conversion Rates** (Module: None) — repair_portal/enhancements/report/upgrade_conversion_rates/upgrade_conversion_rates.json
+- **Instrument Inventory Report** (Module: Instrument Profile) — repair_portal/instrument_profile/report/instrument_inventory_report/instrument_inventory_report.json
+- **Instrument Profile Report** (Module: Instrument Profile) — repair_portal/instrument_profile/report/instrument_profile_report/instrument_profile_report.json
+- **Instrument Service History** (Module: Instrument Profile) — repair_portal/instrument_profile/report/instrument_service_history/instrument_service_history.json
+- **Pending Client Instruments** (Module: Instrument Profile) — repair_portal/instrument_profile/report/pending_client_instruments/pending_client_instruments.json
+- **Warranty Status Report** (Module: Instrument Profile) — repair_portal/instrument_profile/report/warranty_status_report/warranty_status_report.json
+- **Parts Consumption** (Module: Instrument Setup) — repair_portal/instrument_setup/report/parts_consumption/parts_consumption.json
+- **Technician Performance** (Module: Instrument Setup) — repair_portal/instrument_setup/report/technician_performance/technician_performance.json
+- **Turnaround Time Analysis** (Module: Instrument Setup) — repair_portal/instrument_setup/report/turnaround_time_analysis/turnaround_time_analysis.json
+- **Repair Issue Report** (Module: Repair) — repair_portal/repair/report/repair_issue_report/repair_issue_report.json
+- **Repair Revenue Vs Cost** (Module: Repair) — repair_portal/repair/report/repair_revenue_vs_cost/repair_revenue_vs_cost.json
+- **SLA Compliance** (Module: Repair) — repair_portal/repair/report/sla_compliance/sla_compliance.json
+- **Technician Utilization** (Module: Repair) — repair_portal/repair/report/technician_utilization/technician_utilization.json
+- **Technician Task Summary** (Module: Repair Portal) — repair_portal/repair_portal/report/technician_task_summary/technician_task_summary.json
+
+## Web Assets (grouped by extension)
+- **.js**
+  - repair_portal/public/js/import_mapping_setting_autofill.bundle.js
+  - repair_portal/public/js/import_mapping_setting_autofill.js
+  - repair_portal/public/js/intake_wizard/intake_wizard.bundle.js
+  - repair_portal/public/js/note_autocorrect.js
+  - repair_portal/public/js/technician_dashboard/index.bundle.js
+  - repair_portal/public/js/technician_dashboard/technician_dashboard.bundle.js
+  - repair_portal/public/js/tone_processor.js
+- **.svg**
+  - repair_portal/public/images/favicon.svg
+  - repair_portal/public/images/svg_pad_maps/clarinet_upper_joint.svg
+- **.vue**
+  - repair_portal/public/js/intake_wizard/App.vue
+  - repair_portal/public/js/intake_wizard/components/SignaturePad.vue
+  - repair_portal/public/js/intake_wizard/steps/CustomerStep.vue
+  - repair_portal/public/js/intake_wizard/steps/InstrumentStep.vue
+  - repair_portal/public/js/intake_wizard/steps/PlayerStep.vue
+  - repair_portal/public/js/intake_wizard/steps/ReviewStep.vue
+  - repair_portal/public/js/intake_wizard/steps/ServiceStep.vue
+  - repair_portal/public/js/technician_dashboard/App.vue
+
+## Hooks
+- **app_name**: "repair_portal"
+- **app_title**: "Repair Portal"
+- **required_apps**: ["frappe", "erpnext"]
+- **fixtures**: [{"doctype": "Role", "filters": [["role_name", "in", ["Intake Coordinator"]]]}, {"doctype": "Email Group", "filters": [["title", "=", "Player Newsletter"]]}, {"doctype": "Series", "filters": [["name", "in", ["PLAYER-"]]]}]
+- **doc_events**: {"Repair Order": {"on_submit": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_submit", "on_cancel": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_cancel"}, "Clarinet Intake": {"after_insert": "repair_portal.intake.doctype.clarinet_intake.clarinet_intake_timeline.add_timeline_entries", "validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Instrument": {"after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_change": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Serial Number": {"on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Condition Record": {"after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Media": {"after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Interaction Log": {"after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Inspection": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Service Plan": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Repair Estimate": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Final QA Checklist": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Measurement Session": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Diagnostic Metrics": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Repair Task": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Stock Entry": {"after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry"}, "Payment Request": {"on_update": "repair_portal.repair_portal.doctype.customer_approval.payment_hooks.handle_payment_request_update"}}
+- **scheduler_events**: {"hourly": ["repair_portal.core.tasks.sla_breach_scan", "repair_portal.core.tasks.finalize_billing_packets"], "daily": ["repair_portal.intake.tasks.cleanup_intake_sessions", "repair_portal.core.tasks.send_feedback_requests", "repair_portal.customer.tasks.warranty.dispatch_warranty_reminders"]}
+- **before_install**: ["repair_portal.install.seed_email_groups.ensure_email_groups", "repair_portal.install.check_setup_complete", "repair_portal.install.seed_item_groups_after_migrate"]
+- **after_install**: ["repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes", "repair_portal.install.seed_all_from_schemas", "repair_portal.install.create_custom_fields", "repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts"]
+- **after_migrate**: ["repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes", "repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts", "repair_portal.patches.post_install.001_fix_player_profile_settings_email_group.execute"]
+
+## Fixtures
+- {"doctype": "Role", "filters": [["role_name", "in", ["Intake Coordinator"]]]}
+- {"doctype": "Email Group", "filters": [["title", "=", "Player Newsletter"]]}
+- {"doctype": "Series", "filters": [["name", "in", ["PLAYER-"]]]}

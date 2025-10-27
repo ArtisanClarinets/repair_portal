@@ -1,0 +1,53 @@
+<div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1c1c1c; padding: 24px;">
+  <header style="border-bottom: 2px solid #0b3d91; margin-bottom: 24px;">
+    <h1 style="margin: 0 0 8px 0; font-size: 24px;">{{ _("Signed Approval Certificate") }}</h1>
+    <p style="margin: 0 0 8px 0;">{{ frappe.utils.format_datetime(doc.approval_timestamp) }}</p>
+  </header>
+  <section aria-labelledby="approval-summary" style="margin-bottom: 16px;">
+    <h2 id="approval-summary" style="font-size: 18px; margin: 0 0 8px 0;">{{ _("Approval Summary") }}</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <th align="left" style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ _("Customer") }}</th>
+        <td style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ doc.customer }}</td>
+      </tr>
+      <tr>
+        <th align="left" style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ _("Portal User") }}</th>
+        <td style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ doc.portal_user }}</td>
+      </tr>
+      <tr>
+        <th align="left" style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ _("Reference") }}</th>
+        <td style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ doc.reference_doctype }} {{ doc.reference_name }}</td>
+      </tr>
+      <tr>
+        <th align="left" style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ _("Decision") }}</th>
+        <td style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ _(doc.action) }}</td>
+      </tr>
+      <tr>
+        <th align="left" style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ _("Signer") }}</th>
+        <td style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ doc.signer_full_name }} ({{ doc.signer_email }})</td>
+      </tr>
+      <tr>
+        <th align="left" style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ _("IP Address") }}</th>
+        <td style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ doc.signer_ip_address }}</td>
+      </tr>
+      <tr>
+        <th align="left" style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ _("Terms Version") }}</th>
+        <td style="padding: 6px; border-bottom: 1px solid #e0e0e0;">{{ doc.terms_version }}</td>
+      </tr>
+      <tr>
+        <th align="left" style="padding: 6px;">{{ _("Signature Hash") }}</th>
+        <td style="padding: 6px; font-family: 'Courier New', monospace;">{{ doc.signature_hash }}</td>
+      </tr>
+    </table>
+  </section>
+  {% if doc.note %}
+  <section aria-labelledby="customer-note" style="margin-bottom: 16px;">
+    <h2 id="customer-note" style="font-size: 18px; margin: 0 0 8px 0;">{{ _("Customer Note") }}</h2>
+    <p style="margin: 0; white-space: pre-wrap;">{{ doc.note }}</p>
+  </section>
+  {% endif %}
+  <footer style="border-top: 1px solid #e0e0e0; padding-top: 12px; font-size: 12px; color: #5c5c5c;">
+    <p style="margin: 0 0 4px 0;">{{ _("Generated from the Artisan Clarinets Repair Portal") }}</p>
+    <p style="margin: 0;">{{ _("Certificate ID") }}: {{ doc.name }}</p>
+  </footer>
+</div>
