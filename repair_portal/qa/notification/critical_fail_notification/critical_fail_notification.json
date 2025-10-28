@@ -1,15 +1,33 @@
 {
+  "attach_print": 0,
+  "channel": "Email",
+  "condition": "any(item.severity == 'Critical' and item.pass_fail == 'Fail' for item in doc.inspection_checklist)",
+  "creation": "2024-09-01 12:00:00.000000",
+  "days_in_advance": 0,
+  "docstatus": 0,
   "doctype": "Notification",
+  "document_type": "Inspection Report",
+  "enabled": 1,
+  "event": "Save",
+  "idx": 0,
+  "is_standard": 1,
+  "message": "A critical failure was detected on inspection {{ doc.name }} ({{ doc.instrument_id }}). Senior technician attention required.",
+  "message_type": "Markdown",
+  "modified": "2024-09-01 12:00:00.000000",
+  "modified_by": "Administrator",
   "module": "QA",
   "name": "Critical Fail Notification",
-  "notification_type": "Email",
-  "notification_name": "Critical Fail Notification",
-  "enabled": 1,
-  "document_type": "Inspection Report",
-  "condition": "any([item.severity == 'Critical' and item.pass_fail == 'Fail' for item in doc.inspection_checklist])",
-  "subject": "[QA Portal] Critical Fail Detected: {{ doc.name }}",
-  "message": "A critical failure was detected on inspection {{ doc.name }} ({{ doc.instrument_id }}). Senior technician attention required.",
+  "owner": "Administrator",
   "recipients": [
-    { "role": "Senior Technician" }
-  ]
+    {
+      "cc": "",
+      "bcc": "",
+      "condition": "",
+      "receiver_by_document_field": "",
+      "receiver_by_role": "Senior Technician"
+    }
+  ],
+  "send_system_notification": 0,
+  "send_to_all_assignees": 0,
+  "subject": "[QA Portal] Critical Fail Detected: {{ doc.name }}"
 }

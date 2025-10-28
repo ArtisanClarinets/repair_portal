@@ -1,21 +1,34 @@
 {
-  "doctype": "Notification",
-  "name": "Repair Order Ready To Ship",
-  "document_type": "Repair Order",
-  "event": "Value Change",
-  "value_changed": "workflow_state",
+  "attach_print": 0,
+  "channel": "Email",
   "condition": "doc.workflow_state == 'Ready to Ship'",
-  "subject": "Your clarinet is heading home",
-  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet repair order {{ doc.name }} has cleared QC and is ready to ship. Tracking: {{ frappe.db.get_value('Mail In Repair Request', {'repair_request': doc.repair_request}, "tracking_no") or "TBD" }}.</p>",
+  "creation": "2024-09-01 12:00:00.000000",
+  "days_in_advance": 0,
+  "docstatus": 0,
+  "doctype": "Notification",
+  "document_type": "Repair Order",
+  "enabled": 1,
+  "event": "Value Change",
+  "idx": 0,
+  "is_standard": 1,
+  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet repair order {{ doc.name }} has cleared QC and is ready to ship. Tracking: {{ frappe.db.get_value('Mail In Repair Request', {'repair_request': doc.repair_request}, 'tracking_no') or 'TBD' }}.</p>",
+  "message_type": "HTML",
+  "modified": "2024-09-01 12:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Repair Portal",
+  "name": "Ready To Ship Tracking",
+  "owner": "Administrator",
   "recipients": [
     {
-      "doctype": "Notification Recipient",
-      "receiver_by_document_field": "customer"
+      "cc": "",
+      "bcc": "",
+      "condition": "",
+      "receiver_by_document_field": "customer",
+      "receiver_by_role": ""
     }
   ],
-  "enabled": 1,
-  "channel": "Email",
   "send_system_notification": 0,
   "send_to_all_assignees": 0,
-  "is_standard": 1
+  "subject": "Your clarinet is heading home",
+  "value_changed": "workflow_state"
 }

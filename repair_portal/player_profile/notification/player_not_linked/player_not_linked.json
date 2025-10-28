@@ -1,17 +1,34 @@
 {
- "doctype": "Notification",
- "name": "player_not_linked",
- "document_type": "Player Profile",
- "event": "Days After",
- "send_after_days": 7,
- "channel": "Email",
- "subject": "Player Profile {{ doc.name }} Missing Customer",
- "message": "<p>Player Profile <strong>{{ doc.player_name }}</strong> ({{ doc.name }}) is active without a linked Customer.</p>\n<p>Please review the profile and link the appropriate Customer record.</p>",
- "condition": "doc.profile_status == 'Active' and not doc.customer",
- "recipients": [
-  {
-   "receiver_by_document_field": "owner"
-  }
- ],
- "enabled": 1
+  "attach_print": 0,
+  "channel": "Email",
+  "condition": "doc.profile_status == 'Active' and not doc.customer",
+  "creation": "2024-09-01 12:00:00.000000",
+  "days_in_advance": 0,
+  "docstatus": 0,
+  "doctype": "Notification",
+  "document_type": "Player Profile",
+  "enabled": 1,
+  "event": "Value Change",
+  "idx": 0,
+  "is_standard": 1,
+  "message": "<p>Player Profile <strong>{{ doc.player_name }}</strong> ({{ doc.name }}) is active without a linked Customer.</p>\n<p>Please review the profile and link the appropriate Customer record.</p>",
+  "message_type": "HTML",
+  "modified": "2024-09-01 12:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Player Profile",
+  "name": "Player Not Linked",
+  "owner": "Administrator",
+  "recipients": [
+    {
+      "cc": "",
+      "bcc": "",
+      "condition": "doc.profile_status == 'Active' and not doc.customer",
+      "receiver_by_document_field": "owner",
+      "receiver_by_role": ""
+    }
+  ],
+  "send_system_notification": 0,
+  "send_to_all_assignees": 0,
+  "subject": "Player Profile {{ doc.name }} Missing Customer",
+  "value_changed": "profile_status"
 }

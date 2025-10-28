@@ -1,14 +1,34 @@
 {
-  "doctype": "Notification",
-  "name": "Draft Customer",
-  "document_type": "Customer",
-  "subject": "Draft Customer",
-  "message": "Client {{ doc.name }} remains in Draft and must be verified.",
-  "event": "Value Change",
-  "send_alert_on": "profile_status",
-  "value_changed": "Draft",
-  "recipients": [{"receiver_by_role": "Repair Manager"}],
-  "enabled": 1,
+  "attach_print": 0,
   "channel": "Email",
-  "send_on": "Value Change"
+  "condition": "doc.profile_status == 'Draft'",
+  "creation": "2024-09-01 12:00:00.000000",
+  "days_in_advance": 0,
+  "docstatus": 0,
+  "doctype": "Notification",
+  "document_type": "Customer",
+  "enabled": 1,
+  "event": "Value Change",
+  "idx": 0,
+  "is_standard": 1,
+  "message": "Client {{ doc.name }} remains in Draft and must be verified.",
+  "message_type": "Markdown",
+  "modified": "2024-09-01 12:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Repair Portal",
+  "name": "Draft Customer",
+  "owner": "Administrator",
+  "recipients": [
+    {
+      "cc": "",
+      "bcc": "",
+      "condition": "",
+      "receiver_by_document_field": "",
+      "receiver_by_role": "Repair Manager"
+    }
+  ],
+  "send_system_notification": 0,
+  "send_to_all_assignees": 0,
+  "subject": "Draft Customer Requires Review",
+  "value_changed": "profile_status"
 }

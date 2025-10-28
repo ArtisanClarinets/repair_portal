@@ -1,21 +1,34 @@
 {
-  "doctype": "Notification",
-  "name": "Repair Order Checked-In Update",
-  "document_type": "Repair Order",
-  "event": "Value Change",
-  "value_changed": "workflow_state",
+  "attach_print": 0,
+  "channel": "Email",
   "condition": "doc.workflow_state == 'Checked-In'",
-  "subject": "Your clarinet arrived safely",
-  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet for repair order {{ doc.name }} has been checked in. Our technicians recorded arrival photos and will begin evaluation shortly.</p>",
+  "creation": "2024-09-01 12:00:00.000000",
+  "days_in_advance": 0,
+  "docstatus": 0,
+  "doctype": "Notification",
+  "document_type": "Repair Order",
+  "enabled": 1,
+  "event": "Value Change",
+  "idx": 0,
+  "is_standard": 1,
+  "message": "<p>Hi {{ doc.customer }},</p>\n<p>Your clarinet for repair order {{ doc.name }} has been checked in. Our technicians recorded arrival photos and will begin evaluation shortly.</p>",
+  "message_type": "HTML",
+  "modified": "2024-09-01 12:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Repair Portal",
+  "name": "Checked In Update",
+  "owner": "Administrator",
   "recipients": [
     {
-      "doctype": "Notification Recipient",
-      "receiver_by_document_field": "customer"
+      "cc": "",
+      "bcc": "",
+      "condition": "",
+      "receiver_by_document_field": "customer",
+      "receiver_by_role": ""
     }
   ],
-  "enabled": 1,
-  "channel": "Email",
   "send_system_notification": 0,
   "send_to_all_assignees": 0,
-  "is_standard": 1
+  "subject": "Your clarinet arrived safely",
+  "value_changed": "workflow_state"
 }
