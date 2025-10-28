@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Rental Utilization",
+  "chart_name": "Rental Utilization",
+  "module": "Repair Portal",
+  "is_standard": 1,
+  "is_query_report": 1,
+  "report_name": "Rental Utilization Snapshot",
+  "chart_type": "Bar",
+  "filters_json": "{}"
+}

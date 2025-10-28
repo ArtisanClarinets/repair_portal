@@ -1,0 +1,11 @@
+{
+  "doctype": "Number Card",
+  "name": "Orders At Risk",
+  "card_name": "Orders At Risk",
+  "label": "Orders At Risk",
+  "document_type": "Repair Order",
+  "function": "Count",
+  "filters_json": "{\"sla_risk\":\"High\"}",
+  "is_standard": 1,
+  "module": "Repair Portal"
+}

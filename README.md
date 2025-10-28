@@ -118,6 +118,32 @@ public/ (assets)
 - Path: `repair_portal/enhancements`
 - DocTypes:
   - `customer_upgrade_request` (py)
+
+## Feature Flags & Editions
+- **Feature toggles** are stored on the single DocType `Repair Portal Settings` (`enable_mail_in`, `enable_rentals`, `enable_service_plans`, `enable_trials`).
+- Editions:
+  - **Solo** – core intake, repair orders, quoting.
+  - **Shop** – enables mail-in, scheduling, BOM planning, teacher portal.
+  - **Multi-location** – activates rentals, service plans, analytics workspace.
+- Disable unused modules by unchecking the relevant flags; portal controllers and workspaces honor these settings at runtime.
+
+## Operational Readiness & Compliance
+- Data retention window (months) configurable via `data_retention_months`; scheduler `anonymize_closed_repairs` redacts closed repairs after the threshold.
+- Renewal reminders leverage `renewal_notice_days` to notify customers before service plan renewal.
+- Backups: run nightly `bench backup --with-files` and sync the `private/files` directory to off-site storage; document restore runbook in your SOPs.
+- Stripe gateway key configured via site config (`repair_portal_stripe_gateway`); shipping provider adapters use `repair_portal_shipping_provider` and `repair_portal_shipping_api_key` when present.
+
+## Go-Live Checklist
+1. Install app: `bench --site <site> install-app repair_portal`.
+2. Run migrations and apply patches: `bench --site <site> migrate`.
+3. Populate `Repair Portal Settings` (hourly rate, feature flags, retention window).
+4. Add Stripe gateway and enable Payment Request for deposits/autopay.
+5. Configure shipping provider credentials or confirm manual label workflow.
+6. Create company-warehouse defaults and seed intake/repair templates.
+7. Assign role profiles (`Repair Portal - *`) to each user.
+8. Verify mail-in, quote approval, rental, and service plan workflows end-to-end.
+9. Schedule backups and confirm `anonymize_closed_repairs` daily job is active.
+10. Review Shop Ops workspace dashboards for accurate metrics before launch.
   - `upgrade_option` (py)
 
 ### Instrument Profile
@@ -771,3 +797,15 @@ All migrations are in `repair_portal/patches/` directory. They run automatically
 
 *This documentation was auto-generated on 2025-10-04 and provides 
 Fortune-500 quality onboarding materials for new engineers, auditors, and stakeholders.*
+
+## Repair Portal Scaffolding Setup
+
+Run these commands after pulling the scaffolding:
+
+```
+bench --site <your-site> migrate
+bench --site <your-site> clear-cache
+bench export-fixtures
+```
+
+Replace `<your-site>` with the fully qualified site name used in your bench environment.

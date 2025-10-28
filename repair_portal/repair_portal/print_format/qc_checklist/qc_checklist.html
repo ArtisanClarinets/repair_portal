@@ -1,0 +1,21 @@
+{% set qr = frappe.get_attr("repair_portal.utils.barcode.qr_data_uri") %}
+<div class="qc-checklist">
+  <h2>Final QC Checklist</h2>
+  <img src="{{ qr(doc.barcode) }}" alt="QR" style="height:100px;float:right;">
+  <p><strong>Repair Order:</strong> {{ doc.repair_order }}</p>
+  <p><strong>Technician:</strong> {{ doc.technician }}</p>
+  <p><strong>Signed Off:</strong> {{ frappe.utils.format_datetime(doc.signoff_datetime) if doc.signoff_datetime else 'Pending' }}</p>
+  <table class="table table-bordered">
+    <thead><tr><th>Step</th><th>Result</th><th>Notes</th></tr></thead>
+    <tbody>
+      {% for step in doc.steps %}
+      <tr>
+        <td>{{ step.step_name }}</td>
+        <td>{{ step.result }}</td>
+        <td>{{ step.notes or '' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p><strong>Passed:</strong> {{ 'Yes' if doc.passed else 'No' }}</p>
+</div>

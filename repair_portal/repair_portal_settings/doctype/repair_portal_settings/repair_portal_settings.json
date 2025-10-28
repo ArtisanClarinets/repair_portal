@@ -9,7 +9,15 @@
     "standard_hourly_rate",
     "hours_per_day",
     "intake_session_settings_section",
-    "intake_session_ttl_days"
+    "intake_session_ttl_days",
+    "feature_flag_section",
+    "enable_mail_in",
+    "enable_rentals",
+    "enable_service_plans",
+    "enable_trials",
+    "data_retention_section",
+    "data_retention_months",
+    "renewal_notice_days"
   ],
   "fields": [
     {
@@ -40,6 +48,53 @@
       "fieldtype": "Int",
       "label": "Intake Session TTL (Days)",
       "reqd": 1
+    },
+    {
+      "fieldname": "feature_flag_section",
+      "fieldtype": "Section Break",
+      "label": "Feature Flags"
+    },
+    {
+      "default": "1",
+      "fieldname": "enable_mail_in",
+      "fieldtype": "Check",
+      "label": "Enable Mail-In Repairs"
+    },
+    {
+      "default": "1",
+      "fieldname": "enable_rentals",
+      "fieldtype": "Check",
+      "label": "Enable Rentals"
+    },
+    {
+      "default": "1",
+      "fieldname": "enable_service_plans",
+      "fieldtype": "Check",
+      "label": "Enable Service Plans"
+    },
+    {
+      "default": "0",
+      "fieldname": "enable_trials",
+      "fieldtype": "Check",
+      "label": "Enable Trials & Approvals"
+    },
+    {
+      "fieldname": "data_retention_section",
+      "fieldtype": "Section Break",
+      "label": "Compliance"
+    },
+    {
+      "default": "36",
+      "description": "Number of months to retain closed repair orders before anonymization.",
+      "fieldname": "data_retention_months",
+      "fieldtype": "Int",
+      "label": "Data Retention (Months)"
+    },
+    {
+      "default": "7",
+      "fieldname": "renewal_notice_days",
+      "fieldtype": "Int",
+      "label": "Service Plan Renewal Notice (Days)"
     }
   ],
   "grid_page_length": 50,

@@ -1,0 +1,81 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<section class="teacher-portal">
+  <div class="container">
+    <h1>{{ _('Teacher Portal') }}</h1>
+    <p class="text-muted">{{ _('School Account') }}: {{ school_customer }}</p>
+
+    <h2>{{ _('Active Rentals') }}</h2>
+    {% if rentals %}
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>{{ _('Contract') }}</th>
+            <th>{{ _('Instrument') }}</th>
+            <th>{{ _('Serial') }}</th>
+            <th>{{ _('Status') }}</th>
+            <th>{{ _('Due Date') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rentals %}
+          <tr>
+            <td><a href="/app/rental-contract/{{ row.name }}">{{ row.name }}</a></td>
+            <td>{{ row.instrument }}</td>
+            <td>{{ row.serial_no }}</td>
+            <td>{{ row.status }}</td>
+            <td>{{ row.due_date or '-' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="text-muted">{{ _('No active rentals at this time.') }}</p>
+    {% endif %}
+
+    <h2 class="mt-4">{{ _('Pending Quotes') }}</h2>
+    {% if quotes %}
+    <ul class="list-group">
+      {% for row in quotes %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span><strong>{{ row.name }}</strong> — {{ _('Deposit') }}: {{ row.deposit_amount or 0 }} </span>
+        <a class="btn btn-sm btn-primary" href="{{ row.approval_link or ('/quote/' + row.name) }}">{{ _('Review Quote') }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-muted">{{ _('No pending quotes require action.') }}</p>
+    {% endif %}
+
+    <h2 class="mt-4">{{ _('Repairs Ready for Pickup') }}</h2>
+    {% if ready_repairs %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>{{ _('Repair Order') }}</th>
+            <th>{{ _('Instrument') }}</th>
+            <th>{{ _('Status') }}</th>
+            <th>{{ _('Target Date') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in ready_repairs %}
+          <tr>
+            <td><a href="/app/repair-order/{{ row.name }}">{{ row.name }}</a></td>
+            <td>{{ row.instrument }}</td>
+            <td>{{ row.workflow_state }}</td>
+            <td>{{ row.sla_due or '-' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="text-muted">{{ _('No repairs waiting for pickup.') }}</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

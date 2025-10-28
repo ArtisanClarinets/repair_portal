@@ -1,0 +1,10 @@
+{
+  "doctype": "Print Format",
+  "module": "Repair Portal",
+  "name": "Clarinet Intake Receipt",
+  "doc_type": "Clarinet Intake",
+  "print_format_type": "Jinja",
+  "html": "{% include 'repair_portal/repair_portal/print_format/intake_receipt/intake_receipt.html' %}",
+  "standard": 1,
+  "disabled": 0
+}

@@ -1,0 +1,36 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<section class="service-plans">
+  <div class="container">
+    <h1>{{ _('Service Plans') }}</h1>
+    {% if not enrollments %}
+      <p class="text-muted">{{ _('No active service plans were found for your account.') }}</p>
+    {% else %}
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{{ _('Plan') }}</th>
+              <th>{{ _('Status') }}</th>
+              <th>{{ _('Next Billing') }}</th>
+              <th>{{ _('Last Billed') }}</th>
+              <th>{{ _('Auto Pay') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in enrollments %}
+            <tr>
+              <td><a href="/app/service-plan-enrollment/{{ row.name }}">{{ row.service_plan }}</a></td>
+              <td>{{ row.status }}</td>
+              <td>{{ row.next_billing_date or '-' }}</td>
+              <td>{{ row.last_billed_on or '-' }}</td>
+              <td>{% if row.auto_pay_enabled %}{{ _('Enabled') }}{% else %}{{ _('Disabled') }}{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

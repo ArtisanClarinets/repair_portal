@@ -1,0 +1,73 @@
+{
+ "doctype": "DocType",
+ "name": "Technician Availability",
+ "module": "Repair Portal",
+ "custom": 0,
+ "istable": 0,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "naming_rule": "By Field",
+ "autoname": "naming_series:",
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "TECH-AVAIL-.YYYY.-.#####",
+   "reqd": 1,
+   "default": "TECH-AVAIL-.YYYY.-.#####"
+  },
+  {
+   "fieldname": "technician",
+   "fieldtype": "Link",
+   "label": "Technician",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "available_minutes",
+   "fieldtype": "Int",
+   "label": "Available Minutes",
+   "reqd": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "field_order": [
+  "naming_series",
+  "technician",
+  "date",
+  "available_minutes",
+  "notes"
+ ],
+ "permissions": [
+  {
+   "role": "Owner/Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Repair Technician",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Front Desk",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  }
+ ]
+}

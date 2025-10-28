@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Parts Margin By Job",
+  "chart_name": "Parts Margin By Job",
+  "module": "Repair Portal",
+  "is_standard": 1,
+  "is_query_report": 1,
+  "report_name": "Parts Margin By Job",
+  "chart_type": "Bar",
+  "filters_json": "{}"
+}

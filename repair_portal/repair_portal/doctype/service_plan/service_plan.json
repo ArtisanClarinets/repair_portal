@@ -1,0 +1,97 @@
+{
+ "doctype": "DocType",
+ "name": "Service Plan",
+ "module": "Repair Portal",
+ "custom": 0,
+ "istable": 0,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "naming_rule": "By Field",
+ "autoname": "naming_series:",
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "SRV-PLAN-.#####",
+   "reqd": 1,
+   "default": "SRV-PLAN-.#####"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "billing_item",
+   "fieldtype": "Link",
+   "label": "Billing Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "coverage_months",
+   "fieldtype": "Int",
+   "label": "Coverage Months",
+   "reqd": 1
+  },
+  {
+   "fieldname": "included_services",
+   "fieldtype": "Small Text",
+   "label": "Included Services"
+  },
+  {
+   "fieldname": "pricing_tier",
+   "fieldtype": "Select",
+   "label": "Pricing Tier",
+   "options": "Basic\nPlus\nPro",
+   "reqd": 1
+  },
+  {
+   "fieldname": "auto_renew",
+   "fieldtype": "Check",
+   "label": "Auto Renew",
+   "default": "1"
+  },
+  {
+   "fieldname": "stripe_price_id",
+   "fieldtype": "Data",
+   "label": "Stripe Price ID"
+  }
+ ],
+ "field_order": [
+  "naming_series",
+  "item",
+  "billing_item",
+  "coverage_months",
+  "included_services",
+  "pricing_tier",
+  "auto_renew",
+  "stripe_price_id"
+ ],
+ "permissions": [
+  {
+   "role": "Owner/Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Front Desk",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Repair Technician",
+   "read": 1
+  },
+  {
+   "role": "Accounting",
+   "read": 1
+  }
+ ]
+}

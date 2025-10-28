@@ -1,0 +1,126 @@
+{
+ "doctype": "DocType",
+ "name": "Warranty Claim",
+ "module": "Repair Portal",
+ "custom": 0,
+ "istable": 0,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "naming_rule": "By Field",
+ "autoname": "naming_series:",
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "WARR-CLM-.YYYY.-.#####",
+   "reqd": 1,
+   "default": "WARR-CLM-.YYYY.-.#####"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument",
+   "reqd": 1
+  },
+  {
+   "fieldname": "service_plan_enrollment",
+   "fieldtype": "Link",
+   "label": "Service Plan Enrollment",
+   "options": "Service Plan Enrollment"
+  },
+  {
+   "fieldname": "repair_order",
+   "fieldtype": "Link",
+   "label": "Repair Order",
+   "options": "Repair Order"
+  },
+  {
+   "fieldname": "sale_reference",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "claim_reason",
+   "fieldtype": "Small Text",
+   "label": "Claim Reason",
+   "reqd": 1
+  },
+  {
+   "fieldname": "claim_status",
+   "fieldtype": "Select",
+   "label": "Claim Status",
+   "options": "Open\nUnder Review\nApproved\nDenied\nFulfilled",
+   "default": "Open"
+  },
+  {
+   "fieldname": "workflow_state",
+   "fieldtype": "Select",
+   "label": "Workflow State",
+   "options": "Open\nUnder Review\nApproved\nDenied\nFulfilled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "decision_date",
+   "fieldtype": "Date",
+   "label": "Decision Date"
+  },
+  {
+   "fieldname": "resolution_notes",
+   "fieldtype": "Small Text",
+   "label": "Resolution Notes"
+  }
+ ],
+ "field_order": [
+  "naming_series",
+  "customer",
+  "instrument",
+  "service_plan_enrollment",
+  "repair_order",
+  "sale_reference",
+  "claim_reason",
+  "claim_status",
+  "workflow_state",
+  "decision_date",
+  "resolution_notes"
+ ],
+ "permissions": [
+  {
+   "role": "Owner/Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Front Desk",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Repair Technician",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Accounting",
+   "read": 1
+  },
+  {
+   "role": "Customer",
+   "read": 1,
+   "create": 1
+  }
+ ]
+}

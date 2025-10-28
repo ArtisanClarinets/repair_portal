@@ -1,0 +1,12 @@
+{
+  "doctype": "Number Card",
+  "name": "Technician Utilization Snapshot",
+  "card_name": "Technician Utilization Snapshot",
+  "label": "Utilization %",
+  "document_type": "Repair Order",
+  "function": "Average",
+  "aggregate_function_based_on": "capacity_score",
+  "filters_json": "{\"workflow_state\":{\"in\":[\"In Progress\",\"QC\",\"Ready to Ship\",\"Approved\"]}}",
+  "is_standard": 1,
+  "module": "Repair Portal"
+}

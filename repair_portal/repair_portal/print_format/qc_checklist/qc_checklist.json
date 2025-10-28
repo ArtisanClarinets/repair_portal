@@ -1,0 +1,10 @@
+{
+  "doctype": "Print Format",
+  "module": "Repair Portal",
+  "name": "Clarinet QC Checklist",
+  "doc_type": "QA Checklist",
+  "print_format_type": "Jinja",
+  "html": "{% include 'repair_portal/repair_portal/print_format/qc_checklist/qc_checklist.html' %}",
+  "standard": 1,
+  "disabled": 0
+}

@@ -1,0 +1,9 @@
+{
+  "doctype": "Report",
+  "name": "Technician Utilization",
+  "report_name": "Technician Utilization",
+  "ref_doctype": "Repair Order",
+  "module": "Repair Portal",
+  "is_standard": "Yes",
+  "report_type": "Script Report"
+}

@@ -1,0 +1,94 @@
+{
+ "doctype": "Workflow",
+ "workflow_name": "Mail-In Repair Request Lifecycle",
+ "document_type": "Mail In Repair Request",
+ "workflow_state_field": "status",
+ "is_active": 1,
+ "send_email_alert": 0,
+ "override_status": 0,
+ "states": [
+  {
+   "state": "Draft",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk"
+  },
+  {
+   "state": "Label Issued",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk"
+  },
+  {
+   "state": "In Transit",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk"
+  },
+  {
+   "state": "Checked-In",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk\nRepair Technician"
+  },
+  {
+   "state": "Closed",
+   "doc_status": 1,
+   "allow_edit": "Owner/Admin"
+  }
+ ],
+ "transitions": [
+  {
+   "state": "Draft",
+   "action": "Issue Label",
+   "next_state": "Label Issued",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "Draft",
+   "action": "Issue Label (Admin)",
+   "next_state": "Label Issued",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Label Issued",
+   "action": "Mark In Transit",
+   "next_state": "In Transit",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "Label Issued",
+   "action": "Mark In Transit (Admin)",
+   "next_state": "In Transit",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "In Transit",
+   "action": "Confirm Arrival",
+   "next_state": "Checked-In",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "In Transit",
+   "action": "Confirm Arrival (Admin)",
+   "next_state": "Checked-In",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Checked-In",
+   "action": "Close Request",
+   "next_state": "Closed",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "Checked-In",
+   "action": "Close Request (Admin)",
+   "next_state": "Closed",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  }
+ ]
+}
