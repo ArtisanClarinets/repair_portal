@@ -69,6 +69,13 @@ bench --site "$SITE" execute repair_portal.tests.utils.portal_login_smoke --kwar
 bench --site "$SITE" execute repair_portal.tools.approval_demo.run
 ```
 
+## Clarinet Estimator Smoke Test
+```bash
+cd /home/frappe/frappe-bench
+bench --site "$SITE" execute repair_portal.service_planning.clarinet_estimator_cli.smoke --kwargs '{"serial": "PORTAL-BB-DEMO"}'
+bench --site "$SITE" execute repair_portal.service_planning.clarinet_estimator_cli.smoke --kwargs '{"instrument_family": "Bass Clarinet", "serial": "PORTAL-BASS-DEMO", "expedite": 1}'
+```
+
 ## Sanity Check
 ```bash
 source /home/frappe/frappe-bench/env/bin/activate

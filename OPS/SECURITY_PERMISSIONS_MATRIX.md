@@ -6,6 +6,9 @@ Barcode Scan Entry | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Barcode Scan Entry | Technician | ✅ | ✅ | - | - | - | - | - | -
 Brand Mapping Rule | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Brand Mapping Rule | Repair Manager | ✅ | ✅ | ✅ | - | - | - | - | -
+Clarinet Estimator Pricing Rule | System Manager | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | -
+Clarinet Estimator Pricing Rule | Repair Manager | ✅ | ✅ | ✅ | - | - | - | - | -
+Clarinet Estimator Pricing Rule | Technician | ✅ | ✅ | ✅ | - | - | - | - | -
 Clarinet Initial Setup | Technician | ✅ | ✅ | ✅ | - | - | - | - | -
 Clarinet Initial Setup | Service Manager | ✅ | ✅ | ✅ | ✅ | ✅ | - | - | -
 Clarinet Initial Setup | System Manager | ✅ | ✅ | ✅ | ✅ | ✅ | - | - | -
@@ -17,6 +20,10 @@ Clarinet Intake Settings | System Manager | ✅ | ✅ | ✅ | - | - | - | - | -
 Clarinet Intake Settings | Repair Manager | - | ✅ | ✅ | - | - | - | - | -
 Clarinet Pad Entry | (no roles) | - | - | - | - | - | - | - | -
 Clarinet Pad Map | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Clarinet Pad Map Artifact | System Manager | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | -
+Clarinet Pad Map Artifact | Repair Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Clarinet Pad Map Artifact | Technician | ✅ | ✅ | ✅ | - | - | - | - | -
+Clarinet Pad Map Artifact | Customer | ✅ | ✅ | ✅ | - | - | - | - | ✅
 Clarinet Setup Log | Technician | - | ✅ | - | - | - | - | - | -
 Clarinet Setup Log | Service Manager | ✅ | ✅ | ✅ | - | - | - | - | -
 Clarinet Setup Log | Customer | - | ✅ | - | - | - | - | - | ✅
@@ -57,8 +64,8 @@ Diagnostic Metrics | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Diagnostic Metrics | Technician | ✅ | ✅ | - | - | - | - | - | -
 Environment Log | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Estimate Line Item | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
-Estimate Line Item | Repair Manager | ✅ | ✅ | ✅ | - | - | - | - | -
-Estimate Line Item | Technician | ✅ | ✅ | - | - | - | - | - | -
+Estimate Line Item | Repair Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Estimate Line Item | Technician | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Final Qa Checklist | QA Technician | ✅ | ✅ | ✅ | - | ✅ | - | - | -
 Final Qa Checklist | Service Manager | ✅ | ✅ | ✅ | - | ✅ | ✅ | - | -
 Final Qa Checklist | System Manager | ✅ | ✅ | ✅ | - | ✅ | ✅ | - | -
@@ -125,6 +132,12 @@ Pad Count Intake | Inventory Manager | ✅ | ✅ | ✅ | - | - | - | - | -
 Pad Count Log | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Pad Count Log | Inventory User | ✅ | ✅ | ✅ | - | - | - | - | -
 Pad Count Log | Inventory Manager | ✅ | ✅ | ✅ | - | - | - | - | -
+Pad Map Artifact Photo | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Pad Map Artifact Photo | Repair Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Pad Map Artifact Photo | Technician | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Pad Map Artifact Selection | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Pad Map Artifact Selection | Repair Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Pad Map Artifact Selection | Technician | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Player Equipment Preference | (no roles) | - | - | - | - | - | - | - | -
 Player Profile | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Player Profile | Repair Manager | ✅ | ✅ | ✅ | - | - | - | - | -
@@ -143,9 +156,9 @@ Related Instrument Interaction | System Manager | ✅ | ✅ | ✅ | ✅ | - | - 
 Related Instrument Interaction | Technician | ✅ | ✅ | ✅ | - | - | - | - | -
 Repair Actual Material | (no roles) | - | - | - | - | - | - | - | -
 Repair Estimate | System Manager | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | -
-Repair Estimate | Repair Manager | ✅ | ✅ | ✅ | - | - | - | - | -
-Repair Estimate | Technician | ✅ | ✅ | - | - | - | - | - | -
-Repair Estimate | Customer | - | ✅ | - | - | - | - | - | ✅
+Repair Estimate | Repair Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
+Repair Estimate | Technician | ✅ | ✅ | ✅ | - | - | - | - | -
+Repair Estimate | Customer | ✅ | ✅ | ✅ | - | - | - | - | ✅
 Repair Feedback | Customer | ✅ | ✅ | ✅ | - | - | - | - | ✅
 Repair Feedback | System Manager | ✅ | ✅ | ✅ | ✅ | - | - | - | -
 Repair Issue | System Manager | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | -

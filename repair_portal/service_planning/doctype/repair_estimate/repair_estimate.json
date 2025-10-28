@@ -6,20 +6,42 @@
   "custom": 0,
   "istable": 0,
   "editable_grid": 1,
+  "field_order": [
+    "section_reference",
+    "repair_order",
+    "customer",
+    "instrument_profile",
+    "inspection_reference",
+    "estimated_completion",
+    "column_break_details",
+    "instrument_family",
+    "instrument_serial",
+    "condition_score",
+    "rush_service",
+    "eta_days",
+    "estimator_notes",
+    "pad_map_artifact",
+    "line_items",
+    "total_cost"
+  ],
   "fields": [
+    {
+      "fieldname": "section_reference",
+      "fieldtype": "Section Break",
+      "label": "Reference"
+    },
     {
       "fieldname": "repair_order",
       "label": "Repair Order",
       "fieldtype": "Link",
-      "options": "Repair Order",
-      "reqd": 1
+      "options": "Repair Order"
     },
     {
       "fieldname": "customer",
       "label": "Customer",
       "fieldtype": "Link",
-      "reqd": 1,
-      "options": "Customer"
+      "options": "Customer",
+      "reqd": 1
     },
     {
       "fieldname": "instrument_profile",
@@ -39,6 +61,52 @@
       "fieldtype": "Date"
     },
     {
+      "fieldname": "column_break_details",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "instrument_family",
+      "label": "Instrument Family",
+      "fieldtype": "Select",
+      "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nC Clarinet\nBass Clarinet",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument_serial",
+      "label": "Instrument Serial",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "condition_score",
+      "label": "Condition Score",
+      "fieldtype": "Int",
+      "reqd": 1
+    },
+    {
+      "fieldname": "rush_service",
+      "label": "Rush Service",
+      "fieldtype": "Check"
+    },
+    {
+      "fieldname": "eta_days",
+      "label": "ETA (days)",
+      "fieldtype": "Int",
+      "read_only": 1
+    },
+    {
+      "fieldname": "estimator_notes",
+      "label": "Estimator Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "pad_map_artifact",
+      "label": "Pad Map Artifact",
+      "fieldtype": "Link",
+      "options": "Clarinet Pad Map Artifact",
+      "read_only": 1
+    },
+    {
       "fieldname": "line_items",
       "label": "Line Items",
       "fieldtype": "Table",
@@ -49,7 +117,8 @@
       "label": "Total Cost",
       "fieldtype": "Currency",
       "read_only": 1,
-      "depends_on": "eval:doc.line_items"
+      "depends_on": "eval:doc.line_items",
+      "options": "Currency"
     }
   ],
   "permissions": [
@@ -66,16 +135,20 @@
       "role": "Repair Manager",
       "read": 1,
       "write": 1,
-      "create": 1
+      "create": 1,
+      "delete": 1
     },
     {
       "role": "Technician",
       "read": 1,
+      "write": 1,
       "create": 1
     },
     {
       "role": "Customer",
       "read": 1,
+      "create": 1,
+      "write": 1,
       "if_owner": 1
     }
   ]

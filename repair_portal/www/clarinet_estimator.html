@@ -1,0 +1,123 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<section class="clarinet-estimator" aria-labelledby="estimator-heading">
+  <h1 id="estimator-heading">{{ _("Clarinet Repair Estimator") }}</h1>
+  <p class="lead">{{ _("Select the affected regions to build a repair estimate with parts, labor, and a pad map artifact for QA.") }}</p>
+
+  <form id="estimator-form" class="estimator-form" enctype="multipart/form-data" novalidate>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="instrument-family">{{ _("Instrument family") }}</label>
+        <select id="instrument-family" name="instrument_family" required>
+          {% for family in instrument_families %}
+          <option value="{{ family }}">{{ _(family) }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="serial">{{ _("Instrument serial number") }}</label>
+        <input type="text" id="serial" name="serial" required aria-required="true" autocomplete="off" />
+        <small>{{ _("The serial number anchors the pad map artifact and estimate.") }}</small>
+      </div>
+      <div class="form-group">
+        <label for="condition-score">{{ _("Condition score (0-100)") }}</label>
+        <input type="number" min="0" max="100" step="1" id="condition-score" name="condition_score" required aria-required="true" />
+      </div>
+      <div class="form-group checkbox">
+        <input type="checkbox" id="expedite" name="expedite" value="1" />
+        <label for="expedite">{{ _("Rush service requested") }}</label>
+        <small>{{ _("Rush service applies configured multipliers and accelerates ETA when possible.") }}</small>
+      </div>
+      <div class="form-group full-width">
+        <label for="notes">{{ _("Notes for the bench (optional)") }}</label>
+        <textarea id="notes" name="notes" rows="3" maxlength="500"></textarea>
+      </div>
+      <div class="form-group full-width">
+        <label for="photos">{{ _("Upload inspection photos (minimum one)") }}</label>
+        <input type="file" id="photos" name="photos" accept="image/*" multiple aria-describedby="photo-hint" />
+        <small id="photo-hint">{{ _("Include barrel, joints, and key detail for accurate estimates.") }}</small>
+      </div>
+    </div>
+
+    <div class="diagram" role="group" aria-labelledby="diagram-heading">
+      <h2 id="diagram-heading">{{ _("Clarinet diagram") }}</h2>
+      <p class="diagram-instructions">{{ _("Use the keyboard or pointer to toggle affected regions. Press space or enter to toggle a highlighted button.") }}</p>
+      <div class="diagram-wrapper" data-diagram>
+        <img src="/assets/repair_portal/images/estimator/clarinet_estimator_diagram.svg" alt="{{ _("Clarinet diagram with interactive regions") }}" />
+        <div class="diagram-hotspots" role="presentation">
+          <button type="button" class="hotspot" data-region="upper_stack" style="top:12%;left:38%;" aria-pressed="false">{{ _("Upper stack pads") }}</button>
+          <button type="button" class="hotspot" data-region="lower_stack" style="top:40%;left:40%;" aria-pressed="false">{{ _("Lower stack pads") }}</button>
+          <button type="button" class="hotspot" data-region="register_key" style="top:24%;left:60%;" aria-pressed="false">{{ _("Register key") }}</button>
+          <button type="button" class="hotspot" data-region="bridge_key" style="top:52%;left:58%;" aria-pressed="false">{{ _("Bridge mechanism") }}</button>
+          <button type="button" class="hotspot" data-region="bell_tenon" style="top:76%;left:46%;" aria-pressed="false">{{ _("Bell tenon cork") }}</button>
+          <button type="button" class="hotspot" data-region="neck_receiver" style="top:6%;left:58%;" aria-pressed="false">{{ _("Barrel & neck receiver") }}</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="results" aria-live="polite">
+      <h2>{{ _("Estimate preview") }}</h2>
+      <table class="line-items" aria-describedby="table-caption">
+        <caption id="table-caption">{{ _("Calculated parts and labor for the selected regions") }}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{{ _("Region") }}</th>
+            <th scope="col">{{ _("Description") }}</th>
+            <th scope="col">{{ _("Role") }}</th>
+            <th scope="col">{{ _("Rate") }}</th>
+            <th scope="col">{{ _("Qty/Hrs") }}</th>
+            <th scope="col">{{ _("Line total") }}</th>
+          </tr>
+        </thead>
+        <tbody id="line-items-body">
+          <tr class="empty-state">
+            <td colspan="6">{{ _("Select a region to populate the estimate.") }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row" colspan="5">{{ _("Estimated turnaround (days)") }}</th>
+            <td id="eta-display">—</td>
+          </tr>
+          <tr>
+            <th scope="row" colspan="5">{{ _("Estimated total") }}</th>
+            <td id="total-display">—</td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary">{{ _("Generate estimate") }}</button>
+      <span id="form-status" role="status" aria-live="polite"></span>
+    </div>
+  </form>
+</section>
+{% endblock %}
+
+{% block styles %}
+<style>
+  .clarinet-estimator { max-width: 980px; margin: 0 auto; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .form-group { display: flex; flex-direction: column; }
+  .form-group.checkbox { flex-direction: row; align-items: center; gap: 0.5rem; }
+  .form-group.full-width { grid-column: 1 / -1; }
+  .diagram-wrapper { position: relative; margin-top: 1rem; }
+  .diagram-wrapper img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .diagram-hotspots { position: absolute; inset: 0; display: contents; }
+  .hotspot { position: absolute; transform: translate(-50%, -50%); padding: 0.35rem 0.5rem; border-radius: 999px; border: 2px solid var(--primary, #4b63ff); background: rgba(75,99,255,0.12); color: #14213d; font-size: 0.85rem; cursor: pointer; transition: box-shadow 0.2s ease, background-color 0.2s ease; }
+  .hotspot:focus { outline: 3px solid #14213d; outline-offset: 2px; }
+  .hotspot[aria-pressed="true"] { background: #4b63ff; color: #ffffff; box-shadow: 0 0 0 4px rgba(75,99,255,0.24); }
+  .line-items { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+  .line-items th, .line-items td { border: 1px solid #d7dce3; padding: 0.6rem; text-align: left; }
+  .line-items thead { background: #f6f8fb; }
+  .actions { margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  #form-status { min-height: 1.5rem; font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { .hotspot { transition: none; } }
+</style>
+{% endblock %}
+
+{% block script %}
+<script type="module" src="/assets/repair_portal/js/clarinet_estimator.js"></script>
+{% endblock %}

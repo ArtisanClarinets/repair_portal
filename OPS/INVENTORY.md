@@ -53,10 +53,10 @@
 - **Brand Mapping Rule** (Module: Intake) — repair_portal/intake/doctype/brand_mapping_rule/brand_mapping_rule.json
 - **Clarinet Intake** (Module: Intake) — repair_portal/intake/doctype/clarinet_intake/clarinet_intake.json
 - **Intake Accessory Item** (Module: Intake) — repair_portal/intake/doctype/intake_accessory_item/intake_accessory_item.json
-- **Intake Session** (Module: Intake) — repair_portal/intake/doctype/intake_session/intake_session.json
 - **Intake Session** (Module: Intake) — repair_portal/repair_portal/doctype/intake_session/intake_session.json
-- **Loaner Agreement** (Module: Intake) — repair_portal/intake/doctype/loaner_agreement/loaner_agreement.json
+- **Intake Session** (Module: Intake) — repair_portal/intake/doctype/intake_session/intake_session.json
 - **Loaner Agreement** (Module: Intake) — repair_portal/repair_portal/doctype/loaner_agreement/loaner_agreement.json
+- **Loaner Agreement** (Module: Intake) — repair_portal/intake/doctype/loaner_agreement/loaner_agreement.json
 - **Loaner Instrument** (Module: Intake) — repair_portal/intake/doctype/loaner_instrument/loaner_instrument.json
 - **Loaner Return Check** (Module: Intake) — repair_portal/intake/doctype/loaner_return_check/loaner_return_check.json
 - **Pad Count Intake** (Module: Inventory) — repair_portal/inventory/doctype/pad_count_intake/pad_count_intake.json
@@ -70,8 +70,11 @@
 - **Player Profile Settings** (Module: Player Profile) — repair_portal/player_profile/doctype/player_profile_settings/player_profile_settings.json
 - **Final Qa Checklist** (Module: QA) — repair_portal/qa/doctype/final_qa_checklist/final_qa_checklist.json
 - **Final Qa Checklist Item** (Module: QA) — repair_portal/qa/doctype/final_qa_checklist_item/final_qa_checklist_item.json
+- **Clarinet Pad Map Artifact** (Module: Repair) — repair_portal/repair/doctype/clarinet_pad_map_artifact/clarinet_pad_map_artifact.json
 - **Default Operations** (Module: Repair) — repair_portal/repair/doctype/default_operations/default_operations.json
 - **Operation Template** (Module: Repair) — repair_portal/repair/doctype/operation_template/operation_template.json
+- **Pad Map Artifact Photo** (Module: Repair) — repair_portal/repair/doctype/pad_map_artifact_photo/pad_map_artifact_photo.json
+- **Pad Map Artifact Selection** (Module: Repair) — repair_portal/repair/doctype/pad_map_artifact_selection/pad_map_artifact_selection.json
 - **Pulse Update** (Module: Repair) — repair_portal/repair/doctype/pulse_update/pulse_update.json
 - **Repair Actual Material** (Module: Repair) — repair_portal/repair/doctype/repair_actual_material/repair_actual_material.json
 - **Repair Feedback** (Module: Repair) — repair_portal/repair/doctype/repair_feedback/repair_feedback.json
@@ -106,6 +109,7 @@
 - **Clarinet Intake Settings** (Module: Repair Portal Settings) — repair_portal/repair_portal_settings/doctype/clarinet_intake_settings/clarinet_intake_settings.json
 - **Repair Portal Settings** (Module: Repair Portal Settings) — repair_portal/repair_portal_settings/doctype/repair_portal_settings/repair_portal_settings.json
 - **Repair Settings** (Module: Repair Portal Settings) — repair_portal/repair_portal_settings/doctype/repair_settings/repair_settings.json
+- **Clarinet Estimator Pricing Rule** (Module: Service Planning) — repair_portal/service_planning/doctype/clarinet_estimator_pricing_rule/clarinet_estimator_pricing_rule.json
 - **Estimate Line Item** (Module: Service Planning) — repair_portal/service_planning/doctype/estimate_line_item/estimate_line_item.json
 - **Repair Estimate** (Module: Service Planning) — repair_portal/service_planning/doctype/repair_estimate/repair_estimate.json
 - **Service Plan** (Module: Service Planning) — repair_portal/service_planning/doctype/service_plan/service_plan.json
@@ -119,6 +123,7 @@
 - **intake_wizard** (Module: Intake) — repair_portal/intake/page/intake_wizard/intake_wizard.json
 - **desk-tuner** (Module: Lab) — repair_portal/lab/page/desk_tuner/desk_tuner.json
 - **lab-console** (Module: Lab) — repair_portal/lab/page/lab_console/lab_console.json
+- **clarinet_estimator** (Module: www) — repair_portal/www/clarinet_estimator.py
 - **customer_approval** (Module: www) — repair_portal/www/customer_approval.py
 - **pad_map** (Module: www) — repair_portal/www/pad_map.py
 - **repair_pulse** (Module: www) — repair_portal/www/repair_pulse.py
@@ -145,6 +150,7 @@
 
 ## Web Assets (grouped by extension)
 - **.js**
+  - repair_portal/public/js/clarinet_estimator.js
   - repair_portal/public/js/import_mapping_setting_autofill.bundle.js
   - repair_portal/public/js/import_mapping_setting_autofill.js
   - repair_portal/public/js/intake_wizard/intake_wizard.bundle.js
@@ -153,6 +159,7 @@
   - repair_portal/public/js/technician_dashboard/technician_dashboard.bundle.js
   - repair_portal/public/js/tone_processor.js
 - **.svg**
+  - repair_portal/public/images/estimator/clarinet_estimator_diagram.svg
   - repair_portal/public/images/favicon.svg
   - repair_portal/public/images/svg_pad_maps/clarinet_upper_joint.svg
 - **.vue**
@@ -169,7 +176,7 @@
 - **app_name**: "repair_portal"
 - **app_title**: "Repair Portal"
 - **required_apps**: ["frappe", "erpnext"]
-- **fixtures**: [{"doctype": "Role", "filters": [["role_name", "in", ["Intake Coordinator"]]]}, {"doctype": "Email Group", "filters": [["title", "=", "Player Newsletter"]]}, {"doctype": "Series", "filters": [["name", "in", ["PLAYER-"]]]}]
+- **fixtures**: [{"doctype": "Role", "filters": [["role_name", "in", ["Intake Coordinator"]]]}, {"doctype": "Email Group", "filters": [["title", "=", "Player Newsletter"]]}, {"doctype": "Series", "filters": [["name", "in", ["PLAYER-"]]]}, {"doctype": "Clarinet Estimator Pricing Rule"}]
 - **doc_events**: {"Repair Order": {"on_submit": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_submit", "on_cancel": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_cancel"}, "Clarinet Intake": {"after_insert": "repair_portal.intake.doctype.clarinet_intake.clarinet_intake_timeline.add_timeline_entries", "validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Instrument": {"after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_change": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Serial Number": {"on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Condition Record": {"after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Media": {"after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Interaction Log": {"after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change", "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"}, "Instrument Inspection": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Service Plan": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Repair Estimate": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Final QA Checklist": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Measurement Session": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Diagnostic Metrics": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Repair Task": {"validate": "repair_portal.repair.utils.on_child_validate", "on_update": "repair_portal.repair.utils.on_child_validate"}, "Stock Entry": {"after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry"}, "Payment Request": {"on_update": "repair_portal.repair_portal.doctype.customer_approval.payment_hooks.handle_payment_request_update"}}
 - **scheduler_events**: {"hourly": ["repair_portal.core.tasks.sla_breach_scan", "repair_portal.core.tasks.finalize_billing_packets"], "daily": ["repair_portal.intake.tasks.cleanup_intake_sessions", "repair_portal.core.tasks.send_feedback_requests", "repair_portal.customer.tasks.warranty.dispatch_warranty_reminders"]}
 - **before_install**: ["repair_portal.install.seed_email_groups.ensure_email_groups", "repair_portal.install.check_setup_complete", "repair_portal.install.seed_item_groups_after_migrate"]
@@ -180,3 +187,4 @@
 - {"doctype": "Role", "filters": [["role_name", "in", ["Intake Coordinator"]]]}
 - {"doctype": "Email Group", "filters": [["title", "=", "Player Newsletter"]]}
 - {"doctype": "Series", "filters": [["name", "in", ["PLAYER-"]]]}
+- {"doctype": "Clarinet Estimator Pricing Rule"}

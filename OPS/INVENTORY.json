@@ -232,25 +232,25 @@
       "doctype": "DocType",
       "module": "Intake",
       "name": "Intake Session",
-      "path": "repair_portal/intake/doctype/intake_session/intake_session.json"
-    },
-    {
-      "doctype": "DocType",
-      "module": "Intake",
-      "name": "Intake Session",
       "path": "repair_portal/repair_portal/doctype/intake_session/intake_session.json"
     },
     {
       "doctype": "DocType",
       "module": "Intake",
-      "name": "Loaner Agreement",
-      "path": "repair_portal/intake/doctype/loaner_agreement/loaner_agreement.json"
+      "name": "Intake Session",
+      "path": "repair_portal/intake/doctype/intake_session/intake_session.json"
     },
     {
       "doctype": "DocType",
       "module": "Intake",
       "name": "Loaner Agreement",
       "path": "repair_portal/repair_portal/doctype/loaner_agreement/loaner_agreement.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Loaner Agreement",
+      "path": "repair_portal/intake/doctype/loaner_agreement/loaner_agreement.json"
     },
     {
       "doctype": "DocType",
@@ -333,6 +333,12 @@
     {
       "doctype": "DocType",
       "module": "Repair",
+      "name": "Clarinet Pad Map Artifact",
+      "path": "repair_portal/repair/doctype/clarinet_pad_map_artifact/clarinet_pad_map_artifact.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
       "name": "Default Operations",
       "path": "repair_portal/repair/doctype/default_operations/default_operations.json"
     },
@@ -341,6 +347,18 @@
       "module": "Repair",
       "name": "Operation Template",
       "path": "repair_portal/repair/doctype/operation_template/operation_template.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Pad Map Artifact Photo",
+      "path": "repair_portal/repair/doctype/pad_map_artifact_photo/pad_map_artifact_photo.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Pad Map Artifact Selection",
+      "path": "repair_portal/repair/doctype/pad_map_artifact_selection/pad_map_artifact_selection.json"
     },
     {
       "doctype": "DocType",
@@ -549,6 +567,12 @@
     {
       "doctype": "DocType",
       "module": "Service Planning",
+      "name": "Clarinet Estimator Pricing Rule",
+      "path": "repair_portal/service_planning/doctype/clarinet_estimator_pricing_rule/clarinet_estimator_pricing_rule.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Service Planning",
       "name": "Estimate Line Item",
       "path": "repair_portal/service_planning/doctype/estimate_line_item/estimate_line_item.json"
     },
@@ -623,6 +647,9 @@
           ]
         ]
       ]
+    },
+    {
+      "doctype": "Clarinet Estimator Pricing Rule"
     }
   ],
   "hooks": {
@@ -744,6 +771,9 @@
             ]
           ]
         ]
+      },
+      {
+        "doctype": "Clarinet Estimator Pricing Rule"
       }
     ],
     "required_apps": [
@@ -800,6 +830,12 @@
       "module": "Lab",
       "name": "lab-console",
       "path": "repair_portal/lab/page/lab_console/lab_console.json"
+    },
+    {
+      "doctype": null,
+      "module": "www",
+      "name": "clarinet_estimator",
+      "path": "repair_portal/www/clarinet_estimator.py"
     },
     {
       "doctype": null,
@@ -932,6 +968,7 @@
   ],
   "web_assets": {
     ".js": [
+      "repair_portal/public/js/clarinet_estimator.js",
       "repair_portal/public/js/import_mapping_setting_autofill.bundle.js",
       "repair_portal/public/js/import_mapping_setting_autofill.js",
       "repair_portal/public/js/intake_wizard/intake_wizard.bundle.js",
@@ -941,6 +978,7 @@
       "repair_portal/public/js/tone_processor.js"
     ],
     ".svg": [
+      "repair_portal/public/images/estimator/clarinet_estimator_diagram.svg",
       "repair_portal/public/images/favicon.svg",
       "repair_portal/public/images/svg_pad_maps/clarinet_upper_joint.svg"
     ],
