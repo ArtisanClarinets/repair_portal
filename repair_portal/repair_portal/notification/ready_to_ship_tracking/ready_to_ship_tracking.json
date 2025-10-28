@@ -6,7 +6,7 @@
   "value_changed": "workflow_state",
   "condition": "doc.workflow_state == 'Ready to Ship'",
   "subject": "Your clarinet is heading home",
-  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet repair order {{ doc.name }} has cleared QC and is ready to ship. Tracking: {{ frappe.db.get_value('Mail In Repair Request', {'repair_request': doc.repair_request}, "tracking_no") or "TBD" }}.</p>",
+  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet repair order {{ doc.name }} has cleared QC and is ready to ship. Tracking: {{ frappe.db.get_value('Mail In Repair Request', {'repair_request': doc.repair_request}, 'tracking_no') or 'TBD' }}.</p>",
   "recipients": [
     {
       "doctype": "Notification Recipient",

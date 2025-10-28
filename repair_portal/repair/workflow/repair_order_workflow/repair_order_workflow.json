@@ -1,14 +1,13 @@
-[
-  {
-    "doctype": "Workflow",
-    "name": "Repair Order Workflow",
-    "module": "Repair",
-    "workflow_name": "Repair Order Workflow",
-    "document_type": "Repair Order",
-    "is_active": 1,
-    "override_status": 1,
-    "send_email_alert": 1,
-    "workflow_state_field": "workflow_state",
+{
+  "doctype": "Workflow",
+  "name": "Repair Order Workflow",
+  "module": "Repair",
+  "workflow_name": "Repair Order Workflow",
+  "document_type": "Repair Order",
+  "is_active": 1,
+  "override_status": 1,
+  "send_email_alert": 1,
+  "workflow_state_field": "workflow_state",
     "states": [
       {
         "state": "Draft",
@@ -131,5 +130,4 @@
         "condition": ""
       }
     ]
-  }
-]
+}
