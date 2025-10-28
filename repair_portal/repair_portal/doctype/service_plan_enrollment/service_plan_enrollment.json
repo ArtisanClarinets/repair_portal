@@ -26,6 +26,12 @@
    "reqd": 1
   },
   {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
    "fieldname": "instrument",
    "fieldtype": "Link",
    "label": "Instrument",
@@ -63,17 +69,66 @@
    "label": "Status",
    "options": "Draft\nActive\nSuspended\nExpired",
    "default": "Draft"
+  },
+  {
+   "fieldname": "workflow_state",
+   "fieldtype": "Select",
+   "label": "Workflow State",
+   "options": "Draft\nActive\nSuspended\nExpired",
+   "read_only": 1
+  },
+  {
+   "fieldname": "subscription",
+   "fieldtype": "Link",
+   "label": "Subscription",
+   "options": "Subscription",
+   "read_only": 1
+  },
+  {
+   "fieldname": "auto_pay_enabled",
+   "fieldtype": "Check",
+   "label": "Auto Pay Enabled",
+   "default": "1"
+  },
+  {
+   "fieldname": "next_billing_date",
+   "fieldtype": "Date",
+   "label": "Next Billing Date"
+  },
+  {
+   "fieldname": "last_billed_on",
+   "fieldtype": "Date",
+   "label": "Last Billed On"
+  },
+  {
+   "fieldname": "portal_token",
+   "fieldtype": "Data",
+   "label": "Portal Token",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
   }
  ],
  "field_order": [
   "naming_series",
   "customer",
+  "company",
   "instrument",
   "service_plan",
   "start_date",
   "end_date",
   "billing_frequency",
-  "status"
+  "status",
+  "workflow_state",
+  "subscription",
+  "auto_pay_enabled",
+  "next_billing_date",
+  "last_billed_on",
+  "portal_token",
+  "notes"
  ],
  "permissions": [
   {

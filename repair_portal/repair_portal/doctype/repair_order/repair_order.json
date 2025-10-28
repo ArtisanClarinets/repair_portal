@@ -146,6 +146,12 @@
       "fieldtype": "Data",
       "label": "Barcode",
       "read_only": 1
+    },
+    {
+      "fieldname": "anonymized_on",
+      "fieldtype": "Datetime",
+      "label": "Anonymized On",
+      "read_only": 1
     }
   ],
   "field_order": [
@@ -170,7 +176,8 @@
     "capacity_score",
     "warranty_flag",
     "service_plan_claim",
-    "barcode"
+    "barcode",
+    "anonymized_on"
   ],
   "permissions": [
     {

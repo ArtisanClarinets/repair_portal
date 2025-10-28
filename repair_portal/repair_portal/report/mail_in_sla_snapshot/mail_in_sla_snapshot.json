@@ -1,0 +1,12 @@
+{
+ "doctype": "Report",
+ "is_standard": "Yes",
+ "module": "Repair Portal",
+ "name": "Mail-In SLA Snapshot",
+ "ref_doctype": "Mail In Repair Request",
+ "report_type": "Script Report",
+ "roles": [
+  {"role": "Owner/Admin"},
+  {"role": "Front Desk"}
+ ]
+}

@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Service Plan Coverage",
+  "chart_name": "Service Plan Coverage",
+  "module": "Repair Portal",
+  "is_standard": 1,
+  "is_query_report": 1,
+  "report_name": "Service Plan Coverage",
+  "chart_type": "Bar",
+  "filters_json": "{}"
+}

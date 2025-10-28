@@ -80,6 +80,32 @@
    "fieldtype": "Data",
    "label": "Approval Link",
    "read_only": 1
+  },
+  {
+   "fieldname": "sent_on",
+   "fieldtype": "Datetime",
+   "label": "Sent On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Datetime",
+   "label": "Approved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "deposit_payment_request",
+   "fieldtype": "Link",
+   "label": "Deposit Payment Request",
+   "options": "Payment Request",
+   "read_only": 1
+  },
+  {
+   "fieldname": "deposit_payment_entry",
+   "fieldtype": "Link",
+   "label": "Deposit Payment Entry",
+   "options": "Payment Entry",
+   "read_only": 1
   }
  ],
  "field_order": [
@@ -93,7 +119,11 @@
   "margin_pct",
   "workflow_state",
   "approval_token",
-  "approval_link"
+  "approval_link",
+  "sent_on",
+  "approved_on",
+  "deposit_payment_request",
+  "deposit_payment_entry"
  ],
  "permissions": [
   {

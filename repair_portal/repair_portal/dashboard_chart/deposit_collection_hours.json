@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Deposit Collection Hours",
+  "chart_name": "Deposit Collection Hours",
+  "module": "Repair Portal",
+  "is_standard": 1,
+  "is_query_report": 1,
+  "report_name": "Deposit Collection Summary",
+  "chart_type": "Line",
+  "filters_json": "{\"value_field\": \"hours_to_approve\", \"label_field\": \"name\"}"
+}

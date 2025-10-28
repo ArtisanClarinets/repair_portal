@@ -35,7 +35,10 @@ fixtures = [
     {"doctype": "Workflow", "filters": [["name", "in", [
         "Repair Order Lifecycle",
         "Mail-In Repair Request Lifecycle",
-        "Repair Estimate Approval"
+        "Repair Estimate Approval",
+        "Rental Contract Lifecycle",
+        "Service Plan Enrollment Lifecycle",
+        "Warranty Claim Lifecycle"
     ]]]},
     {"doctype": "Notification", "filters": [["name", "in", [
         "Repair Order Awaiting Arrival Guidance",
@@ -51,7 +54,9 @@ fixtures = [
         "Shipping Cover Sheet"
     ]]]},
     {"doctype": "Workspace", "filters": [["name", "in", [
-        "Repair Scheduling"
+        "Repair Scheduling",
+        "Shop Ops",
+        "School CRM"
     ]] ]},
     {"doctype": "Number Card", "filters": [["name", "in", [
         "Technician Utilization Snapshot",
@@ -60,8 +65,13 @@ fixtures = [
     {"doctype": "Dashboard Chart", "filters": [["name", "in", [
         "Technician Utilization Trend",
         "Repair Cycle Time Trend",
-        "Parts Margin By Job"
+        "Parts Margin By Job",
+        "Deposit Collection Hours",
+        "Mail-In SLA Hours",
+        "Rental Utilization",
+        "Service Plan Coverage"
     ]] ]},
+    {"doctype": "Role Profile", "filters": [["role_profile", "like", "Repair Portal - %"]]},
     {"doctype": "Kanban Board", "filters": [["name", "=", "Repair Orders by Bench"]]},
 ]
 
@@ -69,9 +79,20 @@ doctype_js = {
     "Repair Order": "repair_portal/doctype/repair_order/repair_order.js",
 }
 
+portal_menu_items = [
+    {"title": "Mail-In Repair", "route": "/mail-in-repair"},
+    {"title": "Service Plans", "route": "/service-plans", "reference_doctype": "Service Plan Enrollment"},
+    {"title": "Teacher Portal", "route": "/teacher-portal", "role": "School/Teacher"},
+]
+
 has_permission = {
     "Mail In Repair Request": "repair_portal.repair_portal.permissions.mail_in_request.has_permission",
     "Repair Order": "repair_portal.repair_portal.permissions.repair_order.has_permission",
+    "Instrument": "repair_portal.repair_portal.permissions.instrument.has_permission",
+    "Clarinet Intake": "repair_portal.repair_portal.permissions.clarinet_intake.has_permission",
+    "Repair Estimate": "repair_portal.repair_portal.permissions.repair_estimate.has_permission",
+    "Rental Contract": "repair_portal.repair_portal.permissions.rental_contract.has_permission",
+    "Service Plan Enrollment": "repair_portal.repair_portal.permissions.service_plan_enrollment.has_permission",
 }
 
 # fire this before any DDL, patches or fixtures run
@@ -190,11 +211,14 @@ scheduler_events = {
     "hourly": [
         "repair_portal.core.tasks.sla_breach_scan",
         "repair_portal.core.tasks.finalize_billing_packets",
+        "repair_portal.repair_portal.service_plans.automation.process_autopay",
     ],
     "daily": [
         "repair_portal.intake.tasks.cleanup_intake_sessions",
         "repair_portal.core.tasks.send_feedback_requests",
         "repair_portal.repair_portal.doctype.repair_order.repair_order_capacity.recompute_capacity_snapshot",
+        "repair_portal.repair_portal.service_plans.automation.queue_renewal_notifications",
+        "repair_portal.repair_portal.utils.compliance.anonymize_closed_repairs",
     ],
 }
 

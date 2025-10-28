@@ -26,6 +26,12 @@
    "reqd": 1
   },
   {
+   "fieldname": "billing_item",
+   "fieldtype": "Link",
+   "label": "Billing Item",
+   "options": "Item"
+  },
+  {
    "fieldname": "coverage_months",
    "fieldtype": "Int",
    "label": "Coverage Months",
@@ -42,14 +48,28 @@
    "label": "Pricing Tier",
    "options": "Basic\nPlus\nPro",
    "reqd": 1
+  },
+  {
+   "fieldname": "auto_renew",
+   "fieldtype": "Check",
+   "label": "Auto Renew",
+   "default": "1"
+  },
+  {
+   "fieldname": "stripe_price_id",
+   "fieldtype": "Data",
+   "label": "Stripe Price ID"
   }
  ],
  "field_order": [
   "naming_series",
   "item",
+  "billing_item",
   "coverage_months",
   "included_services",
-  "pricing_tier"
+  "pricing_tier",
+  "auto_renew",
+  "stripe_price_id"
  ],
  "permissions": [
   {

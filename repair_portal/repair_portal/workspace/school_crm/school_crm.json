@@ -1,0 +1,8 @@
+{
+ "name": "School CRM",
+ "module": "Repair Portal",
+ "label": "School CRM",
+ "public": 1,
+ "is_standard": 1,
+ "content": "[{\"id\": \"header-sch\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">School CRM</span>\", \"col\": 12}}, {\"id\": \"card-opps\", \"type\": \"shortcut\", \"data\": {\"label\": \"Opportunities\", \"link_to\": \"List/Opportunity/List\", \"col\": 4}}, {\"id\": \"card-rentals\", \"type\": \"shortcut\", \"data\": {\"label\": \"Rental Contracts\", \"link_to\": \"List/Rental Contract/List\", \"col\": 4}}, {\"id\": \"card-teacher\", \"type\": \"shortcut\", \"data\": {\"label\": \"Teacher Portal\", \"link_to\": \"/teacher-portal\", \"col\": 4}}]"
+}
