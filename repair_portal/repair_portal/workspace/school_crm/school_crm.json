@@ -1,8 +1,220 @@
 {
- "name": "School CRM",
- "module": "Repair Portal",
+ "charts": [],
+ "content": "[{\"id\": \"header-school\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\\\\\"h4\\\\\\\">School CRM</span>\", \"col\": 12}}, {\"id\": \"shortcut-opportunities\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Opportunities\", \"col\": 4}}, {\"id\": \"shortcut-rentals\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Rental Contracts\", \"col\": 4}}, {\"id\": \"shortcut-portal\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Teacher Portal\", \"col\": 4}}, {\"id\": \"spacer-1\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"card-recruitment\", \"type\": \"card\", \"data\": {\"card_name\": \"Recruitment\", \"col\": 4}}, {\"id\": \"card-rental-programs\", \"type\": \"card\", \"data\": {\"card_name\": \"Rental Programs\", \"col\": 4}}, {\"id\": \"card-account-management\", \"type\": \"card\", \"data\": {\"card_name\": \"Account Management\", \"col\": 4}}, {\"id\": \"card-engagement\", \"type\": \"card\", \"data\": {\"card_name\": \"Engagement\", \"col\": 4}}]",
+ "creation": "2024-10-29 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "customers",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
  "label": "School CRM",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Recruitment",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Opportunities",
+   "link_count": 0,
+   "link_to": "Opportunity",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Leads",
+   "link_count": 0,
+   "link_to": "Lead",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Communications",
+   "link_count": 0,
+   "link_to": "Communication",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rental Programs",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rental Contracts",
+   "link_count": 0,
+   "link_to": "Rental Contract",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Parts",
+   "link_count": 0,
+   "link_to": "Class Parts",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Upsell",
+   "link_count": 0,
+   "link_to": "Class Upsell",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Estimate Upsell",
+   "link_count": 0,
+   "link_to": "Estimate Upsell",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Account Management",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customers",
+   "link_count": 0,
+   "link_to": "Customer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contacts",
+   "link_count": 0,
+   "link_to": "Contact",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Addresses",
+   "link_count": 0,
+   "link_to": "Address",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Engagement",
+   "link_count": 3,
+   "link_type": "Route",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Teacher Portal",
+   "link_count": 0,
+   "link_to": "/teacher-portal",
+   "link_type": "Route",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Email Campaigns",
+   "link_count": 0,
+   "link_to": "Email Campaign",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Event",
+   "link_count": 0,
+   "link_to": "Event",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-10-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Repair Portal",
+ "name": "School CRM",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
  "public": 1,
- "is_standard": 1,
- "content": "[{\"id\": \"header-sch\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">School CRM</span>\", \"col\": 12}}, {\"id\": \"card-opps\", \"type\": \"shortcut\", \"data\": {\"label\": \"Opportunities\", \"link_to\": \"List/Opportunity/List\", \"col\": 4}}, {\"id\": \"card-rentals\", \"type\": \"shortcut\", \"data\": {\"label\": \"Rental Contracts\", \"link_to\": \"List/Rental Contract/List\", \"col\": 4}}, {\"id\": \"card-teacher\", \"type\": \"shortcut\", \"data\": {\"label\": \"Teacher Portal\", \"link_to\": \"/teacher-portal\", \"col\": 4}}]"
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Opportunities",
+   "link_to": "Opportunity",
+   "type": "DocType"
+  },
+  {
+   "color": "Purple",
+   "doc_view": "List",
+   "label": "Rental Contracts",
+   "link_to": "Rental Contract",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "",
+   "label": "Teacher Portal",
+   "link_to": "",
+   "type": "URL",
+   "url": "/teacher-portal"
+  }
+ ],
+ "title": "School CRM"
 }

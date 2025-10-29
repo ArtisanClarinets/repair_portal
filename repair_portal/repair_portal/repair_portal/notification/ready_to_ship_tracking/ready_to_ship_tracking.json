@@ -6,7 +6,7 @@
   "value_changed": "workflow_state",
   "condition": "doc.workflow_state == 'Ready to Ship'",
   "subject": "Your clarinet is heading home",
-  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet repair order {{ doc.name }} has cleared QC and is ready to ship. Tracking: {{ frappe.db.get_value('Mail In Repair Request', {'repair_request': doc.repair_request}, "tracking_no") or "TBD" }}.</p>",
+  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet repair order {{ doc.name }} has cleared QC and is ready to ship. Tracking: {{ frappe.db.get_value('Mail In Repair Request', {'repair_request': doc.repair_request}, 'tracking_no') or 'TBD' }}.</p>",
   "recipients": [
     {
       "doctype": "Notification Recipient",
@@ -17,5 +17,12 @@
   "channel": "Email",
   "send_system_notification": 0,
   "send_to_all_assignees": 0,
-  "is_standard": 1
+  "is_standard": 1,
+  "docstatus": 0,
+  "module": "Repair Portal",
+  "owner": "Administrator",
+  "modified_by": "Administrator",
+  "creation": "2024-10-29 00:00:00.000000",
+  "modified": "2024-10-29 00:00:00.000000",
+  "message_type": "HTML"
 }
