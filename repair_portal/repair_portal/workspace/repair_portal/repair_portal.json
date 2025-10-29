@@ -1,270 +1,502 @@
 {
-  "charts": [],
-  "content": "[{\"id\": \"rp-header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">Repair Portal</span>\", \"col\": 12}}, {\"id\": \"rp-shortcut-intake-wizard\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Intake Wizard\", \"col\": 3}}, {\"id\": \"rp-shortcut-clarinet-intake\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Clarinet Intake\", \"col\": 3}}, {\"id\": \"rp-shortcut-instrument-inspection\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Instrument Inspection\", \"col\": 3}}, {\"id\": \"rp-shortcut-repair-request\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Repair Request\", \"col\": 3}}, {\"id\": \"rp-shortcut-repair-estimate\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Repair Estimate\", \"col\": 3}}, {\"id\": \"rp-shortcut-repair-order\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Repair Order\", \"col\": 3}}, {\"id\": \"rp-shortcut-instrument-profile\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Instrument Profiles\", \"col\": 3}}, {\"id\": \"rp-shortcut-service-plan\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Service Plans\", \"col\": 3}}, {\"id\": \"rp-shortcut-service-enrollments\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Service Plan Enrollments\", \"col\": 3}}, {\"id\": \"rp-shortcut-measurement-session\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Measurement Sessions\", \"col\": 3}}, {\"id\": \"rp-shortcut-loaner\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Loaner Instruments\", \"col\": 3}}, {\"id\": \"rp-shortcut-repair-feedback\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Repair Feedback\", \"col\": 3}}]",
-  "creation": "2023-10-18 02:15:26.173709",
-  "custom_blocks": [],
-  "docstatus": 0,
-  "doctype": "Workspace",
-  "for_user": "",
-  "hide_custom": 0,
-  "icon": "wrench",
-  "idx": 0,
-  "indicator_color": "green",
-  "is_hidden": 0,
-  "is_standard": 1,
-  "label": "Repair Portal",
-  "links": [
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Intake",
-      "link_count": 3,
-      "onboard": 0,
-      "type": "Card Break"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Clarinet Intake",
-      "link_count": 0,
-      "link_to": "Clarinet Intake",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Instrument Inspection",
-      "link_count": 0,
-      "link_to": "Instrument Inspection",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Loaner Instrument",
-      "link_count": 0,
-      "link_to": "Loaner Instrument",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Repair",
-      "link_count": 4,
-      "onboard": 0,
-      "type": "Card Break"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Repair Request",
-      "link_count": 0,
-      "link_to": "Repair Request",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Repair Estimate",
-      "link_count": 0,
-      "link_to": "Repair Estimate",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Repair Order",
-      "link_count": 0,
-      "link_to": "Repair Order",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Repair Feedback",
-      "link_count": 0,
-      "link_to": "Repair Feedback",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Lab",
-      "link_count": 2,
-      "onboard": 0,
-      "type": "Card Break"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Measurement Session",
-      "link_count": 0,
-      "link_to": "Measurement Session",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Instrument Profile",
-      "link_count": 0,
-      "link_to": "Instrument Profile",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Service Planning",
-      "link_count": 2,
-      "onboard": 0,
-      "type": "Card Break"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Service Plans",
-      "link_count": 0,
-      "link_to": "Service Plan",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Service Plan Enrollment",
-      "link_count": 0,
-      "link_to": "Service Plan Enrollment",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    }
-  ],
-  "modified": "2024-09-01 12:00:00.000000",
-  "modified_by": "Administrator",
-  "module": "Repair Portal",
-  "name": "Repair Portal",
-  "number_cards": [],
-  "owner": "Administrator",
-  "parent_page": "",
-  "public": 1,
-  "quick_lists": [],
-  "roles": [],
-  "sequence_id": 1.0,
-  "shortcuts": [
-    {
-      "color": "Grey",
-      "doc_view": "Page",
-      "label": "Intake Wizard",
-      "link_to": "intake_wizard",
-      "stats_filter": "{}",
-      "type": "Page"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Clarinet Intake",
-      "link_to": "Clarinet Intake",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Instrument Inspection",
-      "link_to": "Instrument Inspection",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Repair Request",
-      "link_to": "Repair Request",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Repair Estimate",
-      "link_to": "Repair Estimate",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Repair Order",
-      "link_to": "Repair Order",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Instrument Profiles",
-      "link_to": "Instrument Profile",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Service Plans",
-      "link_to": "Service Plan",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Service Plan Enrollments",
-      "link_to": "Service Plan Enrollment",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Measurement Sessions",
-      "link_to": "Measurement Session",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Loaner Instruments",
-      "link_to": "Loaner Instrument",
-      "stats_filter": "{}",
-      "type": "DocType"
-    },
-    {
-      "color": "Grey",
-      "doc_view": "List",
-      "label": "Repair Feedback",
-      "link_to": "Repair Feedback",
-      "stats_filter": "{}",
-      "type": "DocType"
-    }
-  ],
-  "title": "Repair Portal"
+ "charts": [],
+ "content": "[{\"id\": \"2a9d0c0d9a\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">Repair Portal</span>\", \"col\": 12}}, {\"id\": \"3eb7c92c-4\", \"type\": \"card\", \"data\": {\"card_name\": \"Intake Wizard\", \"col\": 3}}, {\"id\": \"c3956c63e7\", \"type\": \"card\", \"data\": {\"card_name\": \"Inspection\", \"col\": 3}}, {\"id\": \"2f6c7b3b63\", \"type\": \"card\", \"data\": {\"card_name\": \"Intake\", \"col\": 3}}, {\"id\": \"a9c141f7b8\", \"type\": \"card\", \"data\": {\"card_name\": \"Instrument Setup\", \"col\": 3}}, {\"id\": \"e5f7c405dc\", \"type\": \"card\", \"data\": {\"card_name\": \"QA\", \"col\": 3}}, {\"id\": \"5c7b0a5e51\", \"type\": \"card\", \"data\": {\"card_name\": \"Repair Logging\", \"col\": 3}}, {\"id\": \"7a1b71e1a1\", \"type\": \"card\", \"data\": {\"card_name\": \"Repair Portal\", \"col\": 3}}, {\"id\": \"b9ed1f1f8d\", \"type\": \"card\", \"data\": {\"card_name\": \"Service Planning\", \"col\": 3}}, {\"id\": \"b5d1a9f2a3\", \"type\": \"card\", \"data\": {\"card_name\": \"Tools\", \"col\": 3}}, {\"id\": \"d1e3b5c4f7\", \"type\": \"card\", \"data\": {\"card_name\": \"Enhancements\", \"col\": 3}}, {\"id\": \"f3a2c9e1b0\", \"type\": \"card\", \"data\": {\"card_name\": \"Instrument Profile\", \"col\": 3}}, {\"id\": \"c0e7a3b1d5\", \"type\": \"card\", \"data\": {\"card_name\": \"Repair\", \"col\": 3}}, {\"id\": \"e1a3f5c9b2\", \"type\": \"card\", \"data\": {\"card_name\": \"Lab\", \"col\": 3}}]",
+ "creation": "2025-10-18 02:15:26.173709",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "quality",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Repair Portal",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Inspection",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Inspection",
+   "link_count": 0,
+   "link_to": "Instrument Inspection",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Intake Wizard",
+   "link_count": 1,
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Launch Wizard",
+   "link_count": 0,
+   "link_to": "intake_wizard",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Intake",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Intake",
+   "link_count": 0,
+   "link_to": "Clarinet Intake",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Instrument",
+   "link_count": 0,
+   "link_to": "Loaner Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Loaner Return Check",
+   "link_count": 0,
+   "link_to": "Loaner Return Check",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Setup",
+   "link_count": 5,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Initial Setup",
+   "link_count": 0,
+   "link_to": "Clarinet Initial Setup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Pad Map",
+   "link_count": 0,
+   "link_to": "Clarinet Pad Map",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Setup Log",
+   "link_count": 0,
+   "link_to": "Clarinet Setup Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clarinet Setup Task",
+   "link_count": 0,
+   "link_to": "Clarinet Setup Task",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setup Template",
+   "link_count": 0,
+   "link_to": "Setup Template",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "QA",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Final Qa Checklist",
+   "link_count": 0,
+   "link_to": "Final Qa Checklist",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Logging",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Barcode Scan Entry",
+   "link_count": 0,
+   "link_to": "Barcode Scan Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tool Usage Log",
+   "link_count": 0,
+   "link_to": "Tool Usage Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Portal",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Technician",
+   "link_count": 0,
+   "link_to": "Technician",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Service Planning",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Estimate",
+   "link_count": 0,
+   "link_to": "Repair Estimate",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Service Plan",
+   "link_count": 0,
+   "link_to": "Service Plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Service Task",
+   "link_count": 0,
+   "link_to": "Service Task",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tools",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tool",
+   "link_count": 0,
+   "link_to": "Tool",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tool Calibration Log",
+   "link_count": 0,
+   "link_to": "Tool Calibration Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Enhancements",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Upgrade Request",
+   "link_count": 0,
+   "link_to": "Customer Upgrade Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Profile",
+   "link_count": 6,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Client Instrument Profile",
+   "link_count": 0,
+   "link_to": "Client Instrument Profile",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument",
+   "link_count": 0,
+   "link_to": "Instrument",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Category",
+   "link_count": 0,
+   "link_to": "Instrument Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Model",
+   "link_count": 0,
+   "link_to": "Instrument Model",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Profile",
+   "link_count": 0,
+   "link_to": "Instrument Profile",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instrument Serial Number",
+   "link_count": 0,
+   "link_to": "Instrument Serial Number",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair",
+   "link_count": 6,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Default Operations",
+   "link_count": 0,
+   "link_to": "Default Operations",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Pulse Update",
+   "link_count": 0,
+   "link_to": "Pulse Update",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Feedback",
+   "link_count": 0,
+   "link_to": "Repair Feedback",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Issue",
+   "link_count": 0,
+   "link_to": "Repair Issue",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Order",
+   "link_count": 0,
+   "link_to": "Repair Order",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Repair Request",
+   "link_count": 0,
+   "link_to": "Repair Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Lab",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Measurement Session",
+   "link_count": 0,
+   "link_to": "Measurement Session",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-10-18 02:21:35.995946",
+ "modified_by": "Administrator",
+ "module": "Repair Portal",
+ "name": "Repair Portal",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Instrument Inspection",
+   "link_to": "Instrument Inspection",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Clarinet Initial Setup",
+   "link_to": "Clarinet Initial Setup",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Repair Order",
+   "link_to": "Repair Order",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Repair Portal"
 }

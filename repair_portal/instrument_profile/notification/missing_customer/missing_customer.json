@@ -1,34 +1,14 @@
 {
-  "attach_print": 0,
-  "channel": "Email",
-  "condition": "doc.workflow_state == 'Waiting on Client' and not doc.customer",
-  "creation": "2024-09-01 12:00:00.000000",
-  "days_in_advance": 0,
-  "docstatus": 0,
   "doctype": "Notification",
+  "name": "missing_customer",
   "document_type": "Instrument Profile",
-  "enabled": 1,
-  "event": "Value Change",
-  "idx": 0,
-  "is_standard": 1,
-  "message": "Instrument {{ doc.name }} is waiting on a Customer.",
-  "message_type": "Markdown",
-  "modified": "2024-09-01 12:00:00.000000",
-  "modified_by": "Administrator",
-  "module": "Instrument Profile",
-  "name": "Missing Customer",
-  "owner": "Administrator",
-  "recipients": [
-    {
-      "cc": "",
-      "bcc": "",
-      "condition": "",
-      "receiver_by_document_field": "",
-      "receiver_by_role": "Repair Manager"
-    }
-  ],
-  "send_system_notification": 0,
-  "send_to_all_assignees": 0,
   "subject": "Customer Missing",
-  "value_changed": "workflow_state"
+  "message": "Instrument {{ doc.name }} is waiting on a Customer.",
+  "event": "Value Change",
+  "send_alert_on": "profile_status",
+  "value_changed": "Waiting on Client",
+  "recipients": [{"receiver_by_role": "Repair Manager"}],
+  "enabled": 1,
+  "channel": "Email",
+  "send_on": "Value Change"
 }

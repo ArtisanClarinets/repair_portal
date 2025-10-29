@@ -1,34 +1,21 @@
 {
-  "attach_print": 0,
-  "channel": "Email",
-  "condition": "doc.workflow_state == 'Awaiting Arrival'",
-  "creation": "2024-09-01 12:00:00.000000",
-  "days_in_advance": 0,
-  "docstatus": 0,
   "doctype": "Notification",
+  "name": "Repair Order Awaiting Arrival Guidance",
   "document_type": "Repair Order",
-  "enabled": 1,
   "event": "Value Change",
-  "idx": 0,
-  "is_standard": 1,
-  "message": "<p>Hi {{ doc.customer }},</p>\n<p>Your repair order {{ doc.name }} is ready for inbound shipping. Please pack your instrument securely and include the cover sheet from the portal.</p>\n<p>If you requested a prepaid label, it will arrive shortly.</p>",
-  "message_type": "HTML",
-  "modified": "2024-09-01 12:00:00.000000",
-  "modified_by": "Administrator",
-  "module": "Repair Portal",
-  "name": "Awaiting Arrival Guidance",
-  "owner": "Administrator",
+  "value_changed": "workflow_state",
+  "condition": "doc.workflow_state == 'Awaiting Arrival'",
+  "subject": "Shipping instructions for your clarinet repair",
+  "message": "<p>Hi {{ doc.customer }},</p><p>Your repair order {{ doc.name }} is ready for inbound shipping. Please pack your instrument securely and include the cover sheet from the portal. </p><p>If you requested a prepaid label, it will arrive shortly.</p>",
   "recipients": [
     {
-      "cc": "",
-      "bcc": "",
-      "condition": "",
-      "receiver_by_document_field": "customer",
-      "receiver_by_role": ""
+      "doctype": "Notification Recipient",
+      "receiver_by_document_field": "customer"
     }
   ],
+  "enabled": 1,
+  "channel": "Email",
   "send_system_notification": 0,
   "send_to_all_assignees": 0,
-  "subject": "Shipping instructions for your clarinet repair",
-  "value_changed": "workflow_state"
+  "is_standard": 1
 }

@@ -1,34 +1,27 @@
 {
-  "attach_print": 0,
-  "channel": "Email",
-  "condition": "doc.re_order_level and doc.actual_qty <= doc.re_order_level",
-  "creation": "2024-09-01 12:00:00.000000",
-  "days_in_advance": 0,
-  "docstatus": 0,
   "doctype": "Notification",
-  "document_type": "Item",
-  "enabled": 1,
-  "event": "Value Change",
-  "idx": 0,
-  "is_standard": 1,
-  "message": "Stock level of {{ doc.item_name }} is at {{ doc.actual_qty }}. Please reorder soon.",
-  "message_type": "Markdown",
-  "modified": "2024-09-01 12:00:00.000000",
-  "modified_by": "Administrator",
   "module": "Repair",
+  "for_doctype": "Item",
+  "is_standard": 1,
+  "is_active": 1,
+  "is_system_notification": 1,
+  "is_email": 1,
+  "is_sms": 0,
+  "is_push": 0, 
+  "is_notification": 1,
+  "is_alert": 1,
+  "is_communication": 1,
+  "enabled": 1,
   "name": "Material Reorder Warning",
-  "owner": "Administrator",
-  "recipients": [
-    {
-      "cc": "",
-      "bcc": "",
-      "condition": "",
-      "receiver_by_document_field": "",
-      "receiver_by_role": "Inventory Manager"
-    }
-  ],
-  "send_system_notification": 0,
-  "send_to_all_assignees": 0,
   "subject": "Material Running Low: {{ doc.item_name }}",
-  "value_changed": "actual_qty"
+  "document_type": "Item",
+  "event": "Value Change",
+  "value_changed": "actual_qty",
+  "condition": "doc.re_order_level and doc.actual_qty <= doc.re_order_level",
+  "message": "Stock level of {{ doc.item_name }} is at {{ doc.actual_qty }}. Please reorder soon.",
+  "recipients": [
+    {"receiver_by_role": "Inventory Manager"}
+  ],
+  "channel": "Email",
+  "send_on": "Value Change"
 }

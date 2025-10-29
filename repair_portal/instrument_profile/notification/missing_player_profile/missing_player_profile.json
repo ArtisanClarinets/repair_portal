@@ -1,34 +1,17 @@
 {
-  "attach_print": 0,
-  "channel": "Email",
-  "condition": "not doc.owner_player",
-  "creation": "2024-09-01 12:00:00.000000",
-  "days_in_advance": 0,
-  "docstatus": 0,
-  "doctype": "Notification",
-  "document_type": "Instrument Profile",
-  "enabled": 1,
-  "event": "Value Change",
-  "idx": 0,
-  "is_standard": 1,
-  "message": "<p>Instrument Profile <strong>{{ doc.name }}</strong> for {{ doc.customer or 'unassigned customer' }} does not have an associated Player Profile.</p>\n<p>Please update the record and link the correct Player Profile to maintain ownership history.</p>",
-  "message_type": "HTML",
-  "modified": "2024-09-01 12:00:00.000000",
-  "modified_by": "Administrator",
-  "module": "Instrument Profile",
-  "name": "Missing Player Profile",
-  "owner": "Administrator",
-  "recipients": [
-    {
-      "cc": "",
-      "bcc": "",
-      "condition": "",
-      "receiver_by_document_field": "",
-      "receiver_by_role": "Repair Manager"
-    }
-  ],
-  "send_system_notification": 0,
-  "send_to_all_assignees": 0,
-  "subject": "Instrument {{ doc.name }} Missing Player Profile",
-  "value_changed": "owner_player"
+ "doctype": "Notification",
+ "name": "missing_player_profile",
+ "document_type": "Instrument Profile",
+ "event": "Value Change",
+ "condition": "not doc.owner_player",
+ "subject": "Instrument {{ doc.name }} Missing Player Profile",
+ "message": "<p>Instrument Profile <strong>{{ doc.name }}</strong> for {{ doc.customer or 'unassigned customer' }} does not have an associated Player Profile.</p>\n<p>Please update the record and link the correct Player Profile to maintain ownership history.</p>",
+ "recipients": [
+  {
+   "receiver_by_role": "Repair Manager"
+  }
+ ],
+ "enabled": 1,
+ "channel": "Email",
+ "value_changed": "owner_player"
 }

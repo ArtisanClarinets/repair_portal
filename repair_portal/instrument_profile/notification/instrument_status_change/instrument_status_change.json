@@ -1,34 +1,15 @@
 {
-  "attach_print": 0,
-  "channel": "Email",
-  "condition": "",
-  "creation": "2024-09-01 12:00:00.000000",
-  "days_in_advance": 0,
-  "docstatus": 0,
   "doctype": "Notification",
-  "document_type": "Instrument Profile",
-  "enabled": 1,
-  "event": "Value Change",
-  "idx": 0,
-  "is_standard": 1,
-  "message": "Instrument {{ doc.name }} status changed to {{ doc.status }}.",
-  "message_type": "Markdown",
-  "modified": "2024-09-01 12:00:00.000000",
-  "modified_by": "Administrator",
-  "module": "Instrument Profile",
   "name": "Instrument Status Change",
-  "owner": "Administrator",
-  "recipients": [
-    {
-      "cc": "",
-      "bcc": "",
-      "condition": "",
-      "receiver_by_document_field": "",
-      "receiver_by_role": "System Manager"
-    }
-  ],
-  "send_system_notification": 0,
-  "send_to_all_assignees": 0,
+  "enabled": 1,
+  "document_type": "Instrument Profile",
   "subject": "Instrument Status Changed",
-  "value_changed": "status"
+  "message": "Instrument {{ doc.name }} status changed to {{ doc.status }}.",
+  "event": "Value Change",
+  "value_changed": "status",
+  "channel": "Email",
+  "send_on": "Save",
+  "recipients": [
+    {"receiver_by_role": "System Manager"}
+  ]
 }

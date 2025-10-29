@@ -1,48 +1,17 @@
 {
-  "attach_print": 0,
-  "channel": "Email",
-  "condition": "doc.status == 'Passed'",
-  "creation": "2024-09-01 12:00:00.000000",
-  "days_in_advance": 90,
-  "docstatus": 0,
   "doctype": "Notification",
-  "document_type": "Inspection Report",
-  "enabled": 1,
-  "event": "Days After",
-  "idx": 0,
-  "is_standard": 1,
-  "message": "A complimentary post-sale follow-up QC is due for instrument {{ doc.instrument_id }}. Please contact the customer for scheduling.",
-  "message_type": "Markdown",
-  "modified": "2024-09-01 12:00:00.000000",
-  "modified_by": "Administrator",
   "module": "QA",
-  "name": "Follow Up Due Notification",
-  "owner": "Administrator",
-  "recipients": [
-    {
-      "cc": "",
-      "bcc": "",
-      "condition": "",
-      "receiver_by_document_field": "",
-      "receiver_by_role": "Client"
-    },
-    {
-      "cc": "",
-      "bcc": "",
-      "condition": "",
-      "receiver_by_document_field": "",
-      "receiver_by_role": "Technician"
-    },
-    {
-      "cc": "",
-      "bcc": "",
-      "condition": "",
-      "receiver_by_document_field": "",
-      "receiver_by_role": "Senior Technician"
-    }
-  ],
-  "send_system_notification": 0,
-  "send_to_all_assignees": 0,
+  "name": "Follow-up Due Notification",
+  "notification_type": "Email",
+  "notification_name": "Follow-up Due Notification",
+  "enabled": 1,
+  "document_type": "Inspection Report",
+  "condition": "frappe.utils.add_days(doc.inspection_date, 90) <= frappe.utils.nowdate() and doc.status == 'Passed'",
   "subject": "[QA Portal] Follow-up QC Recommended for {{ doc.instrument_id }}",
-  "date_changed": "inspection_date"
+  "message": "A complimentary post-sale follow-up QC is due for instrument {{ doc.instrument_id }}. Please contact the customer for scheduling.",
+  "recipients": [
+    { "role": "Client" },
+    { "role": "Technician" },
+    { "role": "Senior Technician" }
+  ]
 }
