@@ -1,0 +1,68 @@
+[
+  {
+    "doctype": "Role Profile",
+    "name": "Repair Portal - Owner/Admin",
+    "role_profile": "Repair Portal - Owner/Admin",
+    "roles": [
+      {"role": "Owner/Admin"},
+      {"role": "System Manager"}
+    ]
+  },
+  {
+    "doctype": "Role Profile",
+    "name": "Repair Portal - Front Desk",
+    "role_profile": "Repair Portal - Front Desk",
+    "roles": [
+      {"role": "Front Desk"},
+      {"role": "Intake Coordinator"}
+    ]
+  },
+  {
+    "doctype": "Role Profile",
+    "name": "Repair Portal - Repair Technician",
+    "role_profile": "Repair Portal - Repair Technician",
+    "roles": [
+      {"role": "Repair Technician"}
+    ]
+  },
+  {
+    "doctype": "Role Profile",
+    "name": "Repair Portal - Inventory",
+    "role_profile": "Repair Portal - Inventory",
+    "roles": [
+      {"role": "Inventory"}
+    ]
+  },
+  {
+    "doctype": "Role Profile",
+    "name": "Repair Portal - Ecommerce",
+    "role_profile": "Repair Portal - Ecommerce",
+    "roles": [
+      {"role": "Ecommerce/Marketing"}
+    ]
+  },
+  {
+    "doctype": "Role Profile",
+    "name": "Repair Portal - Accounting",
+    "role_profile": "Repair Portal - Accounting",
+    "roles": [
+      {"role": "Accounting"}
+    ]
+  },
+  {
+    "doctype": "Role Profile",
+    "name": "Repair Portal - School",
+    "role_profile": "Repair Portal - School",
+    "roles": [
+      {"role": "School/Teacher"}
+    ]
+  },
+  {
+    "doctype": "Role Profile",
+    "name": "Repair Portal - Customer",
+    "role_profile": "Repair Portal - Customer",
+    "roles": [
+      {"role": "Customer"}
+    ]
+  }
+]

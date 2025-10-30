@@ -1,0 +1,63 @@
+{
+  "doctype": "DocType",
+  "name": "Actual Material",
+  "module": "Repair Portal",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "item",
+      "fieldtype": "Link",
+      "label": "Item",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Data",
+      "label": "Description"
+    },
+    {
+      "fieldname": "uom",
+      "fieldtype": "Link",
+      "label": "UOM",
+      "options": "UOM"
+    },
+    {
+      "fieldname": "qty",
+      "fieldtype": "Float",
+      "label": "Quantity",
+      "default": "1"
+    },
+    {
+      "fieldname": "warehouse",
+      "fieldtype": "Link",
+      "label": "Warehouse",
+      "options": "Warehouse"
+    },
+    {
+      "fieldname": "valuation_rate",
+      "fieldtype": "Currency",
+      "label": "Valuation Rate"
+    },
+    {
+      "fieldname": "stock_entry",
+      "fieldtype": "Link",
+      "label": "Stock Entry",
+      "options": "Stock Entry",
+      "read_only": 1
+    }
+  ],
+  "field_order": [
+    "item",
+    "description",
+    "uom",
+    "qty",
+    "warehouse",
+    "valuation_rate",
+    "stock_entry"
+  ],
+  "permissions": []
+}

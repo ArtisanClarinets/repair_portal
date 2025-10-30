@@ -1,0 +1,11 @@
+{
+  "doctype": "Dashboard Chart",
+  "name": "Mail-In SLA Hours",
+  "chart_name": "Mail-In SLA Hours",
+  "module": "Repair Portal",
+  "is_standard": 1,
+  "is_query_report": 1,
+  "report_name": "Mail-In SLA Snapshot",
+  "chart_type": "Line",
+  "filters_json": "{\"value_field\": \"hours_open\", \"label_field\": \"name\"}"
+}

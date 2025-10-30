@@ -1,0 +1,28 @@
+{
+  "doctype": "Notification",
+  "name": "Repair Quote Ready",
+  "document_type": "Repair Estimate",
+  "event": "Value Change",
+  "value_changed": "workflow_state",
+  "condition": "doc.workflow_state == 'Awaiting Approval'",
+  "subject": "Review and approve your clarinet repair quote",
+  "message": "<p>Hello {{ doc.customer }},</p><p>Your repair estimate {{ doc.name }} is ready for review. Approve online at {{ doc.approval_link or frappe.utils.get_url('/quote/' + doc.name) }} to reserve bench time, or reply with questions about the scope.</p><p>We will hold pricing for seven days.</p>",
+  "recipients": [
+    {
+      "doctype": "Notification Recipient",
+      "receiver_by_document_field": "customer"
+    }
+  ],
+  "enabled": 1,
+  "channel": "Email",
+  "send_system_notification": 0,
+  "send_to_all_assignees": 0,
+  "is_standard": 1,
+  "docstatus": 0,
+  "module": "Repair Portal",
+  "owner": "Administrator",
+  "modified_by": "Administrator",
+  "creation": "2024-10-29 00:00:00.000000",
+  "modified": "2024-11-18 00:00:00.000000",
+  "message_type": "HTML"
+}

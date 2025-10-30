@@ -1,0 +1,214 @@
+{
+ "doctype": "DocType",
+ "name": "Rental Contract",
+ "module": "Repair Portal",
+ "custom": 0,
+ "istable": 0,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "naming_rule": "By Field",
+ "autoname": "naming_series:",
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "RENT-.YYYY.-.#####",
+   "reqd": 1,
+   "default": "RENT-.YYYY.-.#####"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Data",
+   "label": "Serial No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "return_date",
+   "fieldtype": "Date",
+   "label": "Return Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "billing_plan",
+   "fieldtype": "Select",
+   "label": "Billing Plan",
+   "options": "Monthly\nQuarterly\nYearly",
+   "reqd": 1
+  },
+  {
+   "fieldname": "billing_item",
+   "fieldtype": "Link",
+   "label": "Billing Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "damage_item",
+   "fieldtype": "Link",
+   "label": "Damage Fee Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "damage_waiver",
+   "fieldtype": "Check",
+   "label": "Damage Waiver",
+   "default": "0"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nActive\nOverdue\nReturned",
+   "default": "Draft"
+  },
+  {
+   "fieldname": "workflow_state",
+   "fieldtype": "Select",
+   "label": "Workflow State",
+   "options": "Draft\nActive\nOverdue\nReturned",
+   "read_only": 1
+  },
+  {
+   "fieldname": "subscription",
+   "fieldtype": "Link",
+   "label": "Subscription",
+   "options": "Subscription",
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivery_note",
+   "fieldtype": "Link",
+   "label": "Delivery Note",
+   "options": "Delivery Note",
+   "read_only": 1
+  },
+  {
+   "fieldname": "damage_invoice",
+   "fieldtype": "Link",
+   "label": "Damage Invoice",
+   "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "inspection_section",
+   "fieldtype": "Section Break",
+   "label": "Return Inspection"
+  },
+  {
+   "fieldname": "inspection_notes",
+   "fieldtype": "Small Text",
+   "label": "Inspection Notes"
+  },
+  {
+   "fieldname": "inspection_findings",
+   "fieldtype": "Table",
+   "label": "Inspection Findings",
+   "options": "Rental Inspection Finding"
+  },
+  {
+   "fieldname": "school_account",
+   "fieldtype": "Link",
+   "label": "School Account",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "barcode",
+   "fieldtype": "Data",
+   "label": "Barcode",
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "naming_series",
+  "customer",
+  "company",
+  "school_account",
+  "instrument",
+  "serial_no",
+  "warehouse",
+  "billing_item",
+  "damage_item",
+  "start_date",
+  "due_date",
+  "return_date",
+  "billing_plan",
+  "damage_waiver",
+  "status",
+  "workflow_state",
+  "subscription",
+  "delivery_note",
+  "damage_invoice",
+  "inspection_section",
+  "inspection_notes",
+  "inspection_findings",
+  "barcode"
+ ],
+ "permissions": [
+  {
+   "role": "Owner/Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Front Desk",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounting",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Repair Technician",
+   "read": 1
+  },
+  {
+   "role": "School/Teacher",
+   "read": 1
+  }
+ ]
+}

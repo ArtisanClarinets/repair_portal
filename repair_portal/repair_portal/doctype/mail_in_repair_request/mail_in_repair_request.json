@@ -1,0 +1,139 @@
+{
+ "doctype": "DocType",
+ "name": "Mail-In Repair Request",
+ "module": "Repair Portal",
+ "custom": 0,
+ "istable": 0,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "naming_rule": "By Field",
+ "autoname": "naming_series:",
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "MAIL-REP-.YYYY.-.#####",
+   "reqd": 1,
+   "default": "MAIL-REP-.YYYY.-.#####"
+  },
+  {
+   "fieldname": "repair_request",
+   "fieldtype": "Link",
+   "label": "Repair Request",
+   "options": "Repair Request"
+  },
+  {
+   "fieldname": "customer_address",
+   "fieldtype": "Link",
+   "label": "Customer Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument",
+   "reqd": 1
+  },
+  {
+   "fieldname": "requested_services",
+   "fieldtype": "Small Text",
+   "label": "Requested Services"
+  },
+  {
+   "fieldname": "carrier",
+   "fieldtype": "Select",
+   "label": "Carrier",
+   "options": "UPS\nUSPS\nFedEx"
+  },
+  {
+   "fieldname": "insurance_value",
+   "fieldtype": "Currency",
+   "label": "Insurance Value"
+  },
+  {
+   "fieldname": "label_file",
+   "fieldtype": "Attach",
+   "label": "Label File"
+  },
+  {
+   "fieldname": "tracking_no",
+   "fieldtype": "Data",
+   "label": "Tracking No"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nLabel Issued\nIn Transit\nChecked-In\nClosed",
+   "default": "Draft"
+  },
+  {
+   "fieldname": "arrival_photos",
+   "fieldtype": "Table",
+   "label": "Arrival Photos",
+   "options": "Arrival Photo"
+  },
+  {
+   "fieldname": "arrival_condition_notes",
+   "fieldtype": "Small Text",
+   "label": "Arrival Condition Notes"
+  },
+  {
+   "fieldname": "shipments",
+   "fieldtype": "Table",
+   "label": "Shipments",
+   "options": "Shipment"
+  }
+ ],
+ "field_order": [
+  "naming_series",
+  "repair_request",
+  "customer_address",
+  "customer",
+  "instrument",
+  "requested_services",
+  "carrier",
+  "insurance_value",
+  "label_file",
+  "tracking_no",
+  "status",
+  "arrival_photos",
+  "arrival_condition_notes",
+  "shipments"
+ ],
+ "permissions": [
+  {
+   "role": "Owner/Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Front Desk",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Repair Technician",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Customer",
+   "read": 1,
+   "create": 1
+  }
+ ]
+}

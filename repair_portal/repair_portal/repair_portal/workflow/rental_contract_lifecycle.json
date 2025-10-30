@@ -1,0 +1,68 @@
+{
+ "doctype": "Workflow",
+ "workflow_name": "Rental Contract Lifecycle",
+ "document_type": "Rental Contract",
+ "workflow_state_field": "workflow_state",
+ "is_active": 1,
+ "send_email_alert": 0,
+ "override_status": 0,
+ "states": [
+  {
+   "state": "Draft",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk\nAccounting"
+  },
+  {
+   "state": "Active",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk\nAccounting"
+  },
+  {
+   "state": "Overdue",
+   "doc_status": 0,
+   "allow_edit": "Owner/Admin\nFront Desk\nAccounting"
+  },
+  {
+   "state": "Returned",
+   "doc_status": 1,
+   "allow_edit": "Owner/Admin\nAccounting"
+  }
+ ],
+ "transitions": [
+  {
+   "state": "Draft",
+   "action": "Activate",
+   "next_state": "Active",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "Draft",
+   "action": "Activate (Admin)",
+   "next_state": "Active",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Active",
+   "action": "Flag Overdue",
+   "next_state": "Overdue",
+   "allowed": "Owner/Admin",
+   "condition": ""
+  },
+  {
+   "state": "Active",
+   "action": "Mark Returned",
+   "next_state": "Returned",
+   "allowed": "Front Desk",
+   "condition": ""
+  },
+  {
+   "state": "Overdue",
+   "action": "Return Instrument",
+   "next_state": "Returned",
+   "allowed": "Front Desk",
+   "condition": ""
+  }
+ ]
+}

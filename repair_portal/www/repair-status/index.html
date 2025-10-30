@@ -1,0 +1,53 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<section class="repair-status">
+  <h1>Repair Status</h1>
+  <p class="lead">Reference token: <strong>{{ portal_token }}</strong></p>
+  <div class="status-summary">
+    <h3>Instrument</h3>
+    <p>{{ repair_request.instrument }} &mdash; {{ repair_request.requested_services }}</p>
+    {% if mail_in_request %}
+    <p>Mail-In status: <span class="badge">{{ mail_in_request.status }}</span></p>
+    {% endif %}
+  </div>
+  <div class="timeline">
+    <h3>Timeline</h3>
+    <ol>
+      {% for event in timeline %}
+      <li>
+        <time>{{ event.display_ts }}</time>
+        <div class="event-title">{{ event.title }}</div>
+        {% if event.body %}<div class="event-body">{{ event.body }}</div>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+  {% if repair_orders %}
+  <div class="orders">
+    <h3>Repair Orders</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Repair Order</th><th>Stage</th><th>Technician</th><th>Bench</th><th>Planned Hours</th></tr>
+      </thead>
+      <tbody>
+        {% for order in repair_orders %}
+        <tr>
+          <td>{{ order.name }}</td>
+          <td>{{ order.workflow_state }}</td>
+          <td>{{ order.technician or "TBD" }}</td>
+          <td>{{ order.bench or "Bench 1" }}</td>
+          <td>{{ order.planned_hours or 0 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+  {% if mail_in_request and mail_in_request.tracking_no %}
+  <div class="tracking">
+    <h3>Tracking</h3>
+    <p>Tracking number: <strong>{{ mail_in_request.tracking_no }}</strong></p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

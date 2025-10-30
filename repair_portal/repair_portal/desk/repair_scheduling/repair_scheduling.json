@@ -1,0 +1,42 @@
+{
+  "doctype": "Workspace",
+  "name": "Repair Scheduling",
+  "label": "Repair Scheduling",
+  "module": "Repair Portal",
+  "is_standard": 1,
+  "for_user": "",
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Repair Scheduling</span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Technician Utilization Snapshot\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Orders At Risk\",\"col\":4}},{\"type\":\"chart\",\"data\":{\"chart_name\":\"Technician Utilization Trend\",\"col\":12}}]",
+  "links": [
+    {
+      "hidden": 0,
+      "type": "Card Break",
+      "label": "Scheduling Tools"
+    },
+    {
+      "hidden": 0,
+      "link_type": "Route",
+      "link_to": "/app/repair-order/view/calendar",
+      "link_label": "Calendar",
+      "link_count": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "link_type": "Route",
+      "link_to": "/app/repair-order/view/kanban/Repair%20Orders%20by%20Bench",
+      "link_label": "Kanban",
+      "link_count": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "link_type": "DocType",
+      "link_to": "Repair Order",
+      "link_label": "Repair Orders",
+      "link_count": 0,
+      "type": "Link"
+    }
+  ],
+  "charts": [],
+  "shortcuts": []
+}

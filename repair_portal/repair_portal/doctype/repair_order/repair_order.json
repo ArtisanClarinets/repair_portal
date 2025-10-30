@@ -1,0 +1,211 @@
+{
+  "doctype": "DocType",
+  "name": "Repair Order",
+  "module": "Repair Portal",
+  "custom": 0,
+  "istable": 0,
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "naming_rule": "By Field",
+  "autoname": "naming_series:",
+  "allow_import": 1,
+  "is_submittable": 0,
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "label": "Naming Series",
+      "options": "REP-ORD-.YYYY.-.#####",
+      "reqd": 1,
+      "default": "REP-ORD-.YYYY.-.#####"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instrument",
+      "fieldtype": "Link",
+      "label": "Instrument",
+      "options": "Instrument",
+      "reqd": 1
+    },
+    {
+      "fieldname": "repair_request",
+      "fieldtype": "Link",
+      "label": "Repair Request",
+      "options": "Repair Request"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Select",
+      "label": "Priority",
+      "options": "Low\nNormal\nHigh\nRush",
+      "default": "Normal"
+    },
+    {
+      "fieldname": "technician",
+      "fieldtype": "Link",
+      "label": "Technician",
+      "options": "User"
+    },
+    {
+      "fieldname": "bench",
+      "fieldtype": "Link",
+      "label": "Bench",
+      "options": "Bench"
+    },
+    {
+      "fieldname": "planned_hours",
+      "fieldtype": "Float",
+      "label": "Planned Hours"
+    },
+    {
+      "fieldname": "actual_hours",
+      "fieldtype": "Float",
+      "label": "Actual Hours",
+      "read_only": 1
+    },
+    {
+      "fieldname": "planned_materials",
+      "fieldtype": "Table",
+      "label": "Planned Materials",
+      "options": "Planned Material"
+    },
+    {
+      "fieldname": "actual_materials",
+      "fieldtype": "Table",
+      "label": "Actual Materials",
+      "options": "Actual Material"
+    },
+    {
+      "fieldname": "workflow_state",
+      "fieldtype": "Select",
+      "label": "Workflow State",
+      "read_only": 1,
+      "options": "Requested\nAwaiting Arrival\nChecked-In\nQuoted\nApproved\nIn Progress\nQC\nReady to Ship\nCompleted"
+    },
+    {
+      "fieldname": "warranty_flag",
+      "fieldtype": "Check",
+      "label": "Warranty Flag",
+      "default": "0"
+    },
+    {
+      "fieldname": "service_plan_claim",
+      "fieldtype": "Link",
+      "label": "Service Plan Enrollment",
+      "options": "Service Plan Enrollment"
+    },
+    {
+      "fieldname": "company",
+      "fieldtype": "Link",
+      "label": "Company",
+      "options": "Company"
+    },
+    {
+      "fieldname": "repair_class",
+      "fieldtype": "Link",
+      "label": "Repair Class",
+      "options": "Repair Class Template"
+    },
+    {
+      "fieldname": "scheduled_start",
+      "fieldtype": "Datetime",
+      "label": "Scheduled Start"
+    },
+    {
+      "fieldname": "scheduled_end",
+      "fieldtype": "Datetime",
+      "label": "Scheduled End"
+    },
+    {
+      "fieldname": "sla_due",
+      "fieldtype": "Datetime",
+      "label": "SLA Due"
+    },
+    {
+      "fieldname": "sla_risk",
+      "fieldtype": "Select",
+      "label": "SLA Risk",
+      "options": "Low\nMedium\nHigh",
+      "default": "Low",
+      "read_only": 1
+    },
+    {
+      "fieldname": "capacity_score",
+      "fieldtype": "Percent",
+      "label": "Capacity Utilization (%)",
+      "read_only": 1
+    },
+    {
+      "fieldname": "barcode",
+      "fieldtype": "Data",
+      "label": "Barcode",
+      "read_only": 1
+    },
+    {
+      "fieldname": "anonymized_on",
+      "fieldtype": "Datetime",
+      "label": "Anonymized On",
+      "read_only": 1
+    }
+  ],
+  "field_order": [
+    "naming_series",
+    "customer",
+    "company",
+    "instrument",
+    "repair_request",
+    "repair_class",
+    "priority",
+    "technician",
+    "bench",
+    "scheduled_start",
+    "scheduled_end",
+    "planned_hours",
+    "actual_hours",
+    "planned_materials",
+    "actual_materials",
+    "workflow_state",
+    "sla_due",
+    "sla_risk",
+    "capacity_score",
+    "warranty_flag",
+    "service_plan_claim",
+    "barcode",
+    "anonymized_on"
+  ],
+  "permissions": [
+    {
+      "role": "Owner/Admin",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Front Desk",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Repair Technician",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "Inventory",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "Accounting",
+      "read": 1
+    }
+  ]
+}

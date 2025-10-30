@@ -1,0 +1,24 @@
+{
+  "doctype": "Kanban Board",
+  "name": "Repair Orders by Bench",
+  "kanban_board_name": "Repair Orders by Bench",
+  "reference_doctype": "Repair Order",
+  "field_name": "bench",
+  "filters": "[[\"workflow_state\",\"in\",[\"Awaiting Arrival\",\"Checked-In\",\"In Progress\",\"QC\",\"Ready to Ship\"]]]",
+  "is_standard": 1,
+  "private": 0,
+  "columns": [
+    {
+      "doctype": "Kanban Board Column",
+      "column_name": "Primary Bench",
+      "order": 0,
+      "wip_limit": 5
+    },
+    {
+      "doctype": "Kanban Board Column",
+      "column_name": "Aux Bench",
+      "order": 1,
+      "wip_limit": 5
+    }
+  ]
+}

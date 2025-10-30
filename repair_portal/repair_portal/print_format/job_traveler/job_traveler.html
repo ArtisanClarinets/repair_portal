@@ -1,0 +1,29 @@
+{% set qr = frappe.get_attr("repair_portal.utils.barcode.qr_data_uri") %}
+<section class="job-traveler">
+  <h2>Bench Traveler</h2>
+  <img src="{{ qr(doc.barcode) }}" alt="QR" style="height:110px;float:right;">
+  <p><strong>Repair Order:</strong> {{ doc.name }}</p>
+  <p><strong>Instrument:</strong> {{ doc.instrument }}</p>
+  <p><strong>Customer:</strong> {{ doc.customer }}</p>
+  <p><strong>Priority:</strong> {{ doc.priority }}</p>
+  <p><strong>Technician:</strong> {{ doc.technician or 'Unassigned' }}</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr><th>Planned Material</th><th>Qty</th><th>Warehouse</th></tr>
+    </thead>
+    <tbody>
+      {% for row in doc.planned_materials %}
+      <tr><td>{{ row.item }}</td><td>{{ row.qty }}</td><td>{{ row.warehouse }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <table class="table table-bordered">
+    <thead><tr><th>Actual Material</th><th>Qty</th><th>Warehouse</th><th>Valuation</th></tr></thead>
+    <tbody>
+      {% for row in doc.actual_materials %}
+      <tr><td>{{ row.item }}</td><td>{{ row.qty }}</td><td>{{ row.warehouse }}</td><td>{{ row.valuation_rate }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="footer">Workflow stage: {{ doc.workflow_state }}</p>
+</section>

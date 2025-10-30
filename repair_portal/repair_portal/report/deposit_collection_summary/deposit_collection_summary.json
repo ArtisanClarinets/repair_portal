@@ -1,0 +1,13 @@
+{
+ "doctype": "Report",
+ "is_standard": "Yes",
+ "module": "Repair Portal",
+ "name": "Deposit Collection Summary",
+ "ref_doctype": "Repair Estimate",
+ "report_type": "Script Report",
+ "roles": [
+  {"role": "Owner/Admin"},
+  {"role": "Front Desk"},
+  {"role": "Accounting"}
+ ]
+}

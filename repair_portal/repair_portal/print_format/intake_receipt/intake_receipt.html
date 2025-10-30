@@ -1,0 +1,25 @@
+{% set qr = frappe.get_attr("repair_portal.utils.barcode.qr_data_uri") %}
+<div class="intake-receipt">
+  <h2>Clarinet Intake Receipt</h2>
+  <img src="{{ qr(doc.barcode) }}" alt="QR" style="height:120px;float:right;">
+  <p><strong>Customer:</strong> {{ doc.customer }}</p>
+  <p><strong>Instrument:</strong> {{ doc.instrument }}</p>
+  <p><strong>Condition Grade:</strong> {{ doc.condition_grade }}</p>
+  <p><strong>Concerns:</strong> {{ doc.concerns or 'N/A' }}</p>
+  <p><strong>Accessories Logged:</strong> {{ doc.accessories_list or 'None' }}</p>
+  <p><strong>Intake Channel:</strong> {{ doc.intake_channel }}</p>
+  <table class="table table-bordered" width="100%">
+    <thead>
+      <tr><th>Photo</th><th>Caption</th></tr>
+    </thead>
+    <tbody>
+      {% for row in doc.intake_photos %}
+      <tr>
+        <td>{% if row.image %}<img src="{{ row.image }}" style="max-height:140px">{% endif %}</td>
+        <td>{{ row.caption }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="timestamp">Generated on {{ frappe.utils.format_datetime(frappe.utils.now_datetime()) }}</p>
+</div>
