@@ -1,0 +1,166 @@
+{
+  "doctype": "DocType",
+  "name": "Clarinet Pad Map Artifact",
+  "module": "Repair",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "autoname": "PAD-ART-.YYYY.-.#####",
+  "field_order": [
+    "title",
+    "customer",
+    "repair_estimate",
+    "repair_quotation",
+    "instrument_family",
+    "instrument_serial",
+    "instrument_profile",
+    "condition_score",
+    "rush_service",
+    "eta_days",
+    "estimated_total",
+    "notes",
+    "section_photos",
+    "photos",
+    "section_selections",
+    "selections"
+  ],
+  "fields": [
+    {
+      "default": "Clarinet Pad Map Artifact",
+      "fieldname": "title",
+      "fieldtype": "Data",
+      "label": "Title",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "repair_estimate",
+      "fieldtype": "Link",
+      "label": "Repair Estimate",
+      "options": "Repair Estimate",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "repair_quotation",
+      "fieldtype": "Link",
+      "label": "Repair Quotation",
+      "options": "Repair Quotation",
+      "read_only": 1
+    },
+    {
+      "fieldname": "instrument_family",
+      "fieldtype": "Select",
+      "label": "Instrument Family",
+      "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nC Clarinet\nBass Clarinet",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "instrument_serial",
+      "fieldtype": "Data",
+      "label": "Instrument Serial",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "instrument_profile",
+      "fieldtype": "Link",
+      "label": "Instrument Profile",
+      "options": "Instrument Profile",
+      "read_only": 1
+    },
+    {
+      "fieldname": "condition_score",
+      "fieldtype": "Int",
+      "label": "Condition Score",
+      "reqd": 1
+    },
+    {
+      "fieldname": "rush_service",
+      "fieldtype": "Check",
+      "label": "Rush Service"
+    },
+    {
+      "fieldname": "eta_days",
+      "fieldtype": "Int",
+      "label": "Estimated Turnaround (days)",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "estimated_total",
+      "fieldtype": "Currency",
+      "label": "Estimated Total",
+      "options": "Currency",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Estimator Notes"
+    },
+    {
+      "fieldname": "section_photos",
+      "fieldtype": "Section Break",
+      "label": "Photo Evidence"
+    },
+    {
+      "fieldname": "photos",
+      "fieldtype": "Table",
+      "options": "Pad Map Artifact Photo",
+      "label": "Photos"
+    },
+    {
+      "fieldname": "section_selections",
+      "fieldtype": "Section Break",
+      "label": "Selections"
+    },
+    {
+      "fieldname": "selections",
+      "fieldtype": "Table",
+      "options": "Pad Map Artifact Selection",
+      "label": "Selection Detail"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    },
+    {
+      "role": "Repair Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Technician",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Customer",
+      "read": 1,
+      "create": 1,
+      "write": 1,
+      "if_owner": 1
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "doctype": "Print Format",
+  "module": "Repair Portal",
+  "name": "Signed Approval Certificate",
+  "doc_type": "Customer Approval",
+  "print_format_type": "Jinja",
+  "html": "{% include 'repair_portal/repair_portal/print_format/signed_approval_certificate/signed_approval_certificate.html' %}",
+  "standard": 0,
+  "disabled": 0
+}

@@ -1,0 +1,173 @@
+# Safety Snapshot
+
+## Platform Versions
+- Python: `3.12.10`
+- Node: `v20.19.4`
+- Frappe (pyproject): `Managed by bench (not pinned)`
+- ERPNext (pyproject): `Managed by bench (not pinned)`
+- Required Apps: frappe, erpnext
+
+## Scheduler Events
+- **hourly**:
+  - `repair_portal.core.tasks.sla_breach_scan`
+  - `repair_portal.core.tasks.finalize_billing_packets`
+- **daily**:
+  - `repair_portal.intake.tasks.cleanup_intake_sessions`
+  - `repair_portal.core.tasks.send_feedback_requests`
+  - `repair_portal.customer.tasks.warranty.dispatch_warranty_reminders`
+
+## Whitelisted Endpoints
+- `api.create_intake` — repair_portal/intake/api.py
+- `api.get_instrument_by_serial` — repair_portal/intake/api.py
+- `api.get_instrument_inspection_name` — repair_portal/intake/api.py
+- `api.get_instruments` — repair_portal/lab/api.py
+- `api.get_intake_session` — repair_portal/intake/api.py
+- `api.list_available_loaners` — repair_portal/intake/api.py
+- `api.load_intake_session` — repair_portal/intake/api.py
+- `api.save_impedance_snapshot` — repair_portal/lab/api.py
+- `api.save_intake_session` — repair_portal/intake/api.py
+- `api.save_intonation_session` — repair_portal/lab/api.py
+- `api.save_leak_test` — repair_portal/lab/api.py
+- `api.save_tone_fitness` — repair_portal/lab/api.py
+- `api.upsert_customer` — repair_portal/intake/api.py
+- `api.upsert_player_profile` — repair_portal/intake/api.py
+- `barcode_scan_entry.resolve_barcode` — repair_portal/repair_logging/doctype/barcode_scan_entry/barcode_scan_entry.py
+- `clarinet_initial_setup.create_tasks_from_template` — repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.py
+- `clarinet_initial_setup.generate_certificate` — repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.py
+- `clarinet_initial_setup.load_operations_from_template` — repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.py
+- `clarinet_initial_setup.update_parent_progress` — repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.py
+- `clarinet_intake.get_instrument_by_serial` — repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
+- `clarinet_intake.get_instrument_inspection_name` — repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
+- `clarinet_pad_map.populate_standard_pad_names` — repair_portal/instrument_setup/doctype/clarinet_pad_map/clarinet_pad_map.py
+- `client_portal.get_my_instruments` — repair_portal/api/client_portal.py
+- `client_portal.get_my_repairs` — repair_portal/api/client_portal.py
+- `consent_form.get_available_variables` — repair_portal/customer/doctype/consent_form/consent_form.py
+- `consent_form.preview_render` — repair_portal/customer/doctype/consent_form/consent_form.py
+- `consent_form.refresh_from_template` — repair_portal/customer/doctype/consent_form/consent_form.py
+- `consent_form.render_preview` — repair_portal/customer/doctype/consent_form/consent_form.py
+- `consent_required_field.get_field_definition` — repair_portal/customer/doctype/consent_required_field/consent_required_field.py
+- `consent_settings.apply_linked_sources` — repair_portal/customer/doctype/consent_settings/consent_settings.py
+- `consent_settings.create_default_templates` — repair_portal/customer/doctype/consent_settings/consent_settings.py
+- `consent_settings.ensure_workflow` — repair_portal/customer/doctype/consent_settings/consent_settings.py
+- `consent_settings.get_available_variables` — repair_portal/customer/doctype/consent_settings/consent_settings.py
+- `consent_settings.get_consent_settings` — repair_portal/customer/doctype/consent_settings/consent_settings.py
+- `consent_settings.validate_field_mapping` — repair_portal/customer/doctype/consent_settings/consent_settings.py
+- `consent_settings.validate_template_syntax` — repair_portal/customer/doctype/consent_settings/consent_settings.py
+- `consent_template.duplicate_template` — repair_portal/customer/doctype/consent_template/consent_template.py
+- `consent_template.get_available_variables` — repair_portal/customer/doctype/consent_template/consent_template.py
+- `consent_template.get_template_variables` — repair_portal/customer/doctype/consent_template/consent_template.py
+- `consent_template.get_usage_statistics` — repair_portal/customer/doctype/consent_template/consent_template.py
+- `consent_template.preview_with_sample_data` — repair_portal/customer/doctype/consent_template/consent_template.py
+- `consent_template.validate_template_content` — repair_portal/customer/doctype/consent_template/consent_template.py
+- `consent_template.validate_template_syntax` — repair_portal/customer/doctype/consent_template/consent_template.py
+- `customer_profile.get_customer_profile` — repair_portal/api/frontend/customer_profile.py
+- `customer_profile.update_customer_profile` — repair_portal/api/frontend/customer_profile.py
+- `customer_type.get_active_customer_types` — repair_portal/customer/doctype/customer_type/customer_type.py
+- `customer_type.get_customer_count` — repair_portal/customer/doctype/customer_type/customer_type.py
+- `customer_type.get_customer_list` — repair_portal/customer/doctype/customer_type/customer_type.py
+- `customer_type.get_default_customer_type` — repair_portal/customer/doctype/customer_type/customer_type.py
+- `database_optimizer.get_optimized_dashboard_data` — repair_portal/utils/database_optimizer.py
+- `diagnostic_metrics.recalculate_metrics` — repair_portal/repair_logging/doctype/diagnostic_metrics/diagnostic_metrics.py
+- `estimator.get_bootstrap` — repair_portal/api/estimator.py
+- `estimator.submit` — repair_portal/api/estimator.py
+- `instrument_interaction_log.add_follow_up_note` — repair_portal/repair_logging/doctype/instrument_interaction_log/instrument_interaction_log.py
+- `instrument_interaction_log.get_interaction_history` — repair_portal/repair_logging/doctype/instrument_interaction_log/instrument_interaction_log.py
+- `instrument_profile.get` — repair_portal/api/frontend/instrument_profile.py
+- `instrument_profile.get_instrument_profile_summary` — repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
+- `instrument_profile.get_profile` — repair_portal/api/frontend/instrument_profile.py
+- `instrument_profile.get_profile_snapshot` — repair_portal/api/frontend/instrument_profile.py
+- `instrument_profile.list_for_user` — repair_portal/api/frontend/instrument_profile.py
+- `instrument_profile.update_instrument_location` — repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
+- `instrument_serial_number.attach_to_instrument` — repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.py
+- `instrument_serial_number.find_similar` — repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.py
+- `intake_dashboard.get_intake_counts` — repair_portal/api/intake_dashboard.py
+- `intake_dashboard.get_recent_intakes` — repair_portal/api/intake_dashboard.py
+- `key_measurement.add_repeat_measurement` — repair_portal/repair_logging/doctype/key_measurement/key_measurement.py
+- `key_measurement.recalculate_statistics` — repair_portal/repair_logging/doctype/key_measurement/key_measurement.py
+- `linked_players.get_available_players` — repair_portal/customer/doctype/linked_players/linked_players.py
+- `linked_players.get_player_details` — repair_portal/customer/doctype/linked_players/linked_players.py
+- `linked_players.get_relationship_history` — repair_portal/customer/doctype/linked_players/linked_players.py
+- `loaner_instrument.set_loaner_status` — repair_portal/intake/doctype/loaner_instrument/loaner_instrument.py
+- `pad_condition.get_replacement_history` — repair_portal/repair_logging/doctype/pad_condition/pad_condition.py
+- `pad_condition.recalculate_condition` — repair_portal/repair_logging/doctype/pad_condition/pad_condition.py
+- `pad_count_intake.approve_count` — repair_portal/inventory/doctype/pad_count_intake/pad_count_intake.py
+- `pad_count_intake.generate_shooting_kit` — repair_portal/inventory/doctype/pad_count_intake/pad_count_intake.py
+- `pad_count_intake.process_image` — repair_portal/inventory/doctype/pad_count_intake/pad_count_intake.py
+- `pad_count_intake.update_inventory` — repair_portal/inventory/doctype/pad_count_intake/pad_count_intake.py
+- `pad_count_intake_api.generate_shooting_kit_preview` — repair_portal/inventory/doctype/pad_count_intake/pad_count_intake_api.py
+- `player_profile.get` — repair_portal/player_profile/doctype/player_profile/player_profile.py
+- `player_profile.get` — repair_portal/api/frontend/player_profile.py
+- `player_profile.get_service_history` — repair_portal/player_profile/doctype/player_profile/player_profile.py
+- `player_profile.save` — repair_portal/player_profile/doctype/player_profile/player_profile.py
+- `player_profile.save` — repair_portal/api/frontend/player_profile.py
+- `player_profile.sync_contact` — repair_portal/player_profile/doctype/player_profile/player_profile.py
+- `player_profile.update_marketing_preferences` — repair_portal/player_profile/doctype/player_profile/player_profile.py
+- `profile_sync.get_snapshot` — repair_portal/instrument_profile/services/profile_sync.py
+- `profile_sync.sync_now` — repair_portal/instrument_profile/services/profile_sync.py
+- `pulse_update.create_update` — repair_portal/repair_portal/doctype/pulse_update/pulse_update.py
+- `related_instrument_interaction.get_relationship_history` — repair_portal/repair_logging/doctype/related_instrument_interaction/related_instrument_interaction.py
+- `repair_order.consume_materials` — repair_portal/repair/doctype/repair_order/repair_order.py
+- `repair_order.generate_sales_invoice_from_ro` — repair_portal/repair/doctype/repair_order/repair_order.py
+- `repair_order.make_sales_invoice` — repair_portal/repair/doctype/repair_order/repair_order.py
+- `repair_order.pause_sla` — repair_portal/repair/doctype/repair_order/repair_order.py
+- `repair_quotation.accept_and_make_repair_order` — repair_portal/repair/doctype/repair_quotation/repair_quotation.py
+- `repair_quotation.make_repair_order` — repair_portal/repair/doctype/repair_quotation/repair_quotation.py
+- `repair_task.post_task_time` — repair_portal/repair/doctype/repair_task/repair_task.py
+- `repair_task_log.end_task` — repair_portal/repair_logging/doctype/repair_task_log/repair_task_log.py
+- `repair_task_log.start_task` — repair_portal/repair_logging/doctype/repair_task_log/repair_task_log.py
+- `setup_template.get_template_summary` — repair_portal/instrument_setup/doctype/setup_template/setup_template.py
+- `setup_template.recalc` — repair_portal/instrument_setup/doctype/setup_template/setup_template.py
+- `technician_dashboard.get_dashboard_data` — repair_portal/api/technician_dashboard.py
+- `tenon_measurement.calculate_fit_analysis` — repair_portal/repair_logging/doctype/tenon_measurement/tenon_measurement.py
+- `tenon_measurement.get_measurement_history` — repair_portal/repair_logging/doctype/tenon_measurement/tenon_measurement.py
+- `tool_usage_log.complete_usage` — repair_portal/repair_logging/doctype/tool_usage_log/tool_usage_log.py
+- `tool_usage_log.get_tool_usage_history` — repair_portal/repair_logging/doctype/tool_usage_log/tool_usage_log.py
+- `visual_inspection.calculate_condition_trends` — repair_portal/repair_logging/doctype/visual_inspection/visual_inspection.py
+- `visual_inspection.get_inspection_history` — repair_portal/repair_logging/doctype/visual_inspection/visual_inspection.py
+- `warranty_modification_log.calculate_warranty_timeline` — repair_portal/repair_logging/doctype/warranty_modification_log/warranty_modification_log.py
+- `warranty_modification_log.get_modification_history` — repair_portal/repair_logging/doctype/warranty_modification_log/warranty_modification_log.py
+
+## Permission-Sensitive Implementations
+- `has_permission` defined in repair_portal/api/customer.py
+- `has_permission` defined in repair_portal/customer/doctype/consent_form/consent_form.py
+- `has_permission` defined in repair_portal/customer/doctype/consent_settings/consent_settings.py
+- `has_permission` defined in repair_portal/customer/doctype/consent_template/consent_template.py
+- `has_permission` defined in repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.py
+- `has_permission` defined in repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.py
+- `has_permission` defined in repair_portal/instrument_profile/doctype/instrument_profile/test_instrument_profile.py
+- `has_permission` defined in repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.py
+- `has_permission` defined in repair_portal/instrument_profile/services/profile_sync.py
+- `has_permission` defined in repair_portal/instrument_profile/utils/input_validation.py
+- `has_permission` defined in repair_portal/intake/api.py
+- `has_permission` defined in repair_portal/intake/doctype/clarinet_intake/clarinet_intake.py
+- `get_permission_query_conditions` defined in repair_portal/intake/doctype/intake_session/intake_session.py
+- `has_permission` defined in repair_portal/intake/doctype/intake_session/intake_session.py
+- `has_permission` defined in repair_portal/intake/doctype/loaner_agreement/loaner_agreement.py
+- `has_permission` defined in repair_portal/intake/doctype/loaner_instrument/loaner_instrument.py
+- `get_permission_query_conditions` defined in repair_portal/intake/test_fortune500_suite.py
+- `has_permission` defined in repair_portal/intake/test_fortune500_suite.py
+- `has_permission` defined in repair_portal/player_profile/doctype/player_profile/player_profile.py
+- `get_permission_query_conditions` defined in repair_portal/repair/doctype/pulse_update/pulse_update.py
+- `has_permission` defined in repair_portal/repair/doctype/pulse_update/pulse_update.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/barcode_scan_entry/barcode_scan_entry.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/diagnostic_metrics/diagnostic_metrics.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/instrument_interaction_log/instrument_interaction_log.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/key_measurement/key_measurement.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/material_use_log/material_use_log.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/pad_condition/pad_condition.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/related_instrument_interaction/related_instrument_interaction.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/repair_parts_used/repair_parts_used.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/repair_task_log/repair_task_log.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/tenon_measurement/tenon_measurement.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/tool_usage_log/tool_usage_log.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/visual_inspection/visual_inspection.py
+- `has_permission` defined in repair_portal/repair_logging/doctype/warranty_modification_log/warranty_modification_log.py
+- `get_permission_query_conditions` defined in repair_portal/repair_portal/doctype/intake_session/intake_session.py
+- `has_permission` defined in repair_portal/repair_portal/doctype/intake_session/intake_session.py
+- `has_permission` defined in repair_portal/repair_portal/doctype/loaner_agreement/loaner_agreement.py
+- `has_permission` defined in repair_portal/tests/test_permissions.py
+- `has_permission` defined in repair_portal/tests/utils.py
+
+## Website / Portal Exposure Risks
+- Portal routes located under `repair_portal/www`. Review ownership enforcement in controllers such as `repair_pulse.py` and ensure DocType permissions prevent cross-customer data leaks.
+- Evaluate whitelisted APIs for CSRF protection and ownership checks before exposing additional portal functionality.

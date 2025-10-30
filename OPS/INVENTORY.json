@@ -1,0 +1,996 @@
+{
+  "doctypes": [
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Consent Autofill Mapping",
+      "path": "repair_portal/customer/doctype/consent_autofill_mapping/consent_autofill_mapping.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Consent Field Value",
+      "path": "repair_portal/customer/doctype/consent_field_value/consent_field_value.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Consent Form",
+      "path": "repair_portal/customer/doctype/consent_form/consent_form.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Consent Linked Source",
+      "path": "repair_portal/customer/doctype/consent_linked_source/consent_linked_source.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Consent Log Entry",
+      "path": "repair_portal/customer/doctype/consent_log_entry/consent_log_entry.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Consent Required Field",
+      "path": "repair_portal/customer/doctype/consent_required_field/consent_required_field.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Consent Settings",
+      "path": "repair_portal/customer/doctype/consent_settings/consent_settings.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Consent Template",
+      "path": "repair_portal/customer/doctype/consent_template/consent_template.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Customer Type",
+      "path": "repair_portal/customer/doctype/customer_type/customer_type.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Customer",
+      "name": "Linked Players",
+      "path": "repair_portal/customer/doctype/linked_players/linked_players.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Enhancements",
+      "name": "Customer Upgrade Request",
+      "path": "repair_portal/enhancements/doctype/customer_upgrade_request/customer_upgrade_request.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Enhancements",
+      "name": "Upgrade Option",
+      "path": "repair_portal/enhancements/doctype/upgrade_option/upgrade_option.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Inspection",
+      "name": "Instrument Inspection",
+      "path": "repair_portal/inspection/doctype/instrument_inspection/instrument_inspection.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Client Instrument Profile",
+      "path": "repair_portal/instrument_profile/doctype/client_instrument_profile/client_instrument_profile.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Customer External Work Log",
+      "path": "repair_portal/instrument_profile/doctype/customer_external_work_log/customer_external_work_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Instrument",
+      "path": "repair_portal/instrument_profile/doctype/instrument/instrument.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Instrument Accessory",
+      "path": "repair_portal/instrument_profile/doctype/instrument_accessory/instrument_accessory.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Instrument Category",
+      "path": "repair_portal/instrument_profile/doctype/instrument_category/instrument_category.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Instrument Condition Record",
+      "path": "repair_portal/instrument_profile/doctype/instrument_condition_record/instrument_condition_record.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Instrument Model",
+      "path": "repair_portal/instrument_profile/doctype/instrument_model/instrument_model.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Instrument Photo",
+      "path": "repair_portal/instrument_profile/doctype/instrument_photo/instrument_photo.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Instrument Profile",
+      "path": "repair_portal/instrument_profile/doctype/instrument_profile/instrument_profile.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Profile",
+      "name": "Instrument Serial Number",
+      "path": "repair_portal/instrument_profile/doctype/instrument_serial_number/instrument_serial_number.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Initial Setup",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_initial_setup/clarinet_initial_setup.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Pad Entry",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_pad_entry/clarinet_pad_entry.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Pad Map",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_pad_map/clarinet_pad_map.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Setup Log",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_setup_log/clarinet_setup_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Setup Operation",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_setup_operation/clarinet_setup_operation.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Setup Task",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_setup_task/clarinet_setup_task.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Task Depends On",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_task_depends_on/clarinet_task_depends_on.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Template Task",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_template_task/clarinet_template_task.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Clarinet Template Task Depends On",
+      "path": "repair_portal/instrument_setup/doctype/clarinet_template_task_depends_on/clarinet_template_task_depends_on.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Setup Checklist Item",
+      "path": "repair_portal/instrument_setup/doctype/setup_checklist_item/setup_checklist_item.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Setup Material Log",
+      "path": "repair_portal/instrument_setup/doctype/setup_material_log/setup_material_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Instrument Setup",
+      "name": "Setup Template",
+      "path": "repair_portal/instrument_setup/doctype/setup_template/setup_template.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Brand Mapping Rule",
+      "path": "repair_portal/intake/doctype/brand_mapping_rule/brand_mapping_rule.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Clarinet Intake",
+      "path": "repair_portal/intake/doctype/clarinet_intake/clarinet_intake.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Intake Accessory Item",
+      "path": "repair_portal/intake/doctype/intake_accessory_item/intake_accessory_item.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Intake Session",
+      "path": "repair_portal/repair_portal/doctype/intake_session/intake_session.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Intake Session",
+      "path": "repair_portal/intake/doctype/intake_session/intake_session.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Loaner Agreement",
+      "path": "repair_portal/repair_portal/doctype/loaner_agreement/loaner_agreement.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Loaner Agreement",
+      "path": "repair_portal/intake/doctype/loaner_agreement/loaner_agreement.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Loaner Instrument",
+      "path": "repair_portal/intake/doctype/loaner_instrument/loaner_instrument.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Intake",
+      "name": "Loaner Return Check",
+      "path": "repair_portal/intake/doctype/loaner_return_check/loaner_return_check.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Inventory",
+      "name": "Pad Count Intake",
+      "path": "repair_portal/inventory/doctype/pad_count_intake/pad_count_intake.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Inventory",
+      "name": "Pad Count Log",
+      "path": "repair_portal/inventory/doctype/pad_count_log/pad_count_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Lab",
+      "name": "Environment Log",
+      "path": "repair_portal/lab/doctype/environment_log/environment_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Lab",
+      "name": "Measurement Entry",
+      "path": "repair_portal/lab/doctype/measurement_entry/measurement_entry.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Lab",
+      "name": "Measurement Session",
+      "path": "repair_portal/lab/doctype/measurement_session/measurement_session.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Player Profile",
+      "name": "Instruments Owned",
+      "path": "repair_portal/player_profile/doctype/instruments_owned/instruments_owned.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Player Profile",
+      "name": "Player Equipment Preference",
+      "path": "repair_portal/player_profile/doctype/player_equipment_preference/player_equipment_preference.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Player Profile",
+      "name": "Player Profile",
+      "path": "repair_portal/player_profile/doctype/player_profile/player_profile.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Player Profile",
+      "name": "Player Profile Settings",
+      "path": "repair_portal/player_profile/doctype/player_profile_settings/player_profile_settings.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "QA",
+      "name": "Final Qa Checklist",
+      "path": "repair_portal/qa/doctype/final_qa_checklist/final_qa_checklist.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "QA",
+      "name": "Final Qa Checklist Item",
+      "path": "repair_portal/qa/doctype/final_qa_checklist_item/final_qa_checklist_item.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Clarinet Pad Map Artifact",
+      "path": "repair_portal/repair/doctype/clarinet_pad_map_artifact/clarinet_pad_map_artifact.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Default Operations",
+      "path": "repair_portal/repair/doctype/default_operations/default_operations.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Operation Template",
+      "path": "repair_portal/repair/doctype/operation_template/operation_template.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Pad Map Artifact Photo",
+      "path": "repair_portal/repair/doctype/pad_map_artifact_photo/pad_map_artifact_photo.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Pad Map Artifact Selection",
+      "path": "repair_portal/repair/doctype/pad_map_artifact_selection/pad_map_artifact_selection.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Pulse Update",
+      "path": "repair_portal/repair/doctype/pulse_update/pulse_update.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Actual Material",
+      "path": "repair_portal/repair/doctype/repair_actual_material/repair_actual_material.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Feedback",
+      "path": "repair_portal/repair/doctype/repair_feedback/repair_feedback.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Issue",
+      "path": "repair_portal/repair/doctype/repair_issue/repair_issue.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Labor Session",
+      "path": "repair_portal/repair/doctype/repair_labor_session/repair_labor_session.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Order",
+      "path": "repair_portal/repair/doctype/repair_order/repair_order.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Planned Material",
+      "path": "repair_portal/repair/doctype/repair_planned_material/repair_planned_material.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Quotation",
+      "path": "repair_portal/repair/doctype/repair_quotation/repair_quotation.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Quotation Item",
+      "path": "repair_portal/repair/doctype/repair_quotation_item/repair_quotation_item.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Related Document",
+      "path": "repair_portal/repair/doctype/repair_related_document/repair_related_document.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Request",
+      "path": "repair_portal/repair/doctype/repair_request/repair_request.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "Repair Task",
+      "path": "repair_portal/repair/doctype/repair_task/repair_task.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "SLA Policy",
+      "path": "repair_portal/repair/doctype/sla_policy/sla_policy.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair",
+      "name": "SLA Policy Rule",
+      "path": "repair_portal/repair/doctype/sla_policy_rule/sla_policy_rule.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Barcode Scan Entry",
+      "path": "repair_portal/repair_logging/doctype/barcode_scan_entry/barcode_scan_entry.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Diagnostic Metrics",
+      "path": "repair_portal/repair_logging/doctype/diagnostic_metrics/diagnostic_metrics.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Instrument Interaction Log",
+      "path": "repair_portal/repair_logging/doctype/instrument_interaction_log/instrument_interaction_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Key Measurement",
+      "path": "repair_portal/repair_logging/doctype/key_measurement/key_measurement.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Material Use Log",
+      "path": "repair_portal/repair_logging/doctype/material_use_log/material_use_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Pad Condition",
+      "path": "repair_portal/repair_logging/doctype/pad_condition/pad_condition.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Related Instrument Interaction",
+      "path": "repair_portal/repair_logging/doctype/related_instrument_interaction/related_instrument_interaction.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Repair Parts Used",
+      "path": "repair_portal/repair_logging/doctype/repair_parts_used/repair_parts_used.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Repair Task Log",
+      "path": "repair_portal/repair_logging/doctype/repair_task_log/repair_task_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Tenon Measurement",
+      "path": "repair_portal/repair_logging/doctype/tenon_measurement/tenon_measurement.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Tone Hole Inspection Record",
+      "path": "repair_portal/repair_logging/doctype/tone_hole_inspection_record/tone_hole_inspection_record.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Tool Usage Log",
+      "path": "repair_portal/repair_logging/doctype/tool_usage_log/tool_usage_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Visual Inspection",
+      "path": "repair_portal/repair_logging/doctype/visual_inspection/visual_inspection.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Logging",
+      "name": "Warranty Modification Log",
+      "path": "repair_portal/repair_logging/doctype/warranty_modification_log/warranty_modification_log.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Portal",
+      "name": "Customer Approval",
+      "path": "repair_portal/repair_portal/doctype/customer_approval/customer_approval.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Portal",
+      "name": "Qa Checklist Item",
+      "path": "repair_portal/repair_portal/doctype/qa_checklist_item/qa_checklist_item.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Portal",
+      "name": "Technician",
+      "path": "repair_portal/repair_portal/doctype/technician/technician.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Portal Settings",
+      "name": "Clarinet Intake Settings",
+      "path": "repair_portal/repair_portal_settings/doctype/clarinet_intake_settings/clarinet_intake_settings.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Portal Settings",
+      "name": "Repair Portal Settings",
+      "path": "repair_portal/repair_portal_settings/doctype/repair_portal_settings/repair_portal_settings.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Repair Portal Settings",
+      "name": "Repair Settings",
+      "path": "repair_portal/repair_portal_settings/doctype/repair_settings/repair_settings.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Service Planning",
+      "name": "Clarinet Estimator Pricing Rule",
+      "path": "repair_portal/service_planning/doctype/clarinet_estimator_pricing_rule/clarinet_estimator_pricing_rule.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Service Planning",
+      "name": "Estimate Line Item",
+      "path": "repair_portal/service_planning/doctype/estimate_line_item/estimate_line_item.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Service Planning",
+      "name": "Repair Estimate",
+      "path": "repair_portal/service_planning/doctype/repair_estimate/repair_estimate.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Service Planning",
+      "name": "Service Plan",
+      "path": "repair_portal/service_planning/doctype/service_plan/service_plan.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Service Planning",
+      "name": "Service Task",
+      "path": "repair_portal/service_planning/doctype/service_task/service_task.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Service Planning",
+      "name": "Tasks",
+      "path": "repair_portal/service_planning/doctype/tasks/tasks.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Tools",
+      "name": "Tool",
+      "path": "repair_portal/tools/doctype/tool/tool.json"
+    },
+    {
+      "doctype": "DocType",
+      "module": "Tools",
+      "name": "Tool Calibration Log",
+      "path": "repair_portal/tools/doctype/tool_calibration_log/tool_calibration_log.json"
+    }
+  ],
+  "fixtures": [
+    {
+      "doctype": "Role",
+      "filters": [
+        [
+          "role_name",
+          "in",
+          [
+            "Intake Coordinator"
+          ]
+        ]
+      ]
+    },
+    {
+      "doctype": "Email Group",
+      "filters": [
+        [
+          "title",
+          "=",
+          "Player Newsletter"
+        ]
+      ]
+    },
+    {
+      "doctype": "Series",
+      "filters": [
+        [
+          "name",
+          "in",
+          [
+            "PLAYER-"
+          ]
+        ]
+      ]
+    },
+    {
+      "doctype": "Clarinet Estimator Pricing Rule"
+    }
+  ],
+  "hooks": {
+    "after_install": [
+      "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
+      "repair_portal.install.seed_all_from_schemas",
+      "repair_portal.install.create_custom_fields",
+      "repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts"
+    ],
+    "after_migrate": [
+      "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
+      "repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts",
+      "repair_portal.patches.post_install.001_fix_player_profile_settings_email_group.execute"
+    ],
+    "app_name": "repair_portal",
+    "app_title": "Repair Portal",
+    "before_install": [
+      "repair_portal.install.seed_email_groups.ensure_email_groups",
+      "repair_portal.install.check_setup_complete",
+      "repair_portal.install.seed_item_groups_after_migrate"
+    ],
+    "doc_events": {
+      "Clarinet Intake": {
+        "after_insert": "repair_portal.intake.doctype.clarinet_intake.clarinet_intake_timeline.add_timeline_entries",
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+        "validate": "repair_portal.repair.utils.on_child_validate"
+      },
+      "Diagnostic Metrics": {
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+        "validate": "repair_portal.repair.utils.on_child_validate"
+      },
+      "Final QA Checklist": {
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+        "validate": "repair_portal.repair.utils.on_child_validate"
+      },
+      "Instrument": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_change": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"
+      },
+      "Instrument Condition Record": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"
+      },
+      "Instrument Inspection": {
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+        "validate": "repair_portal.repair.utils.on_child_validate"
+      },
+      "Instrument Interaction Log": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"
+      },
+      "Instrument Media": {
+        "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+        "on_trash": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"
+      },
+      "Instrument Serial Number": {
+        "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change"
+      },
+      "Measurement Session": {
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+        "validate": "repair_portal.repair.utils.on_child_validate"
+      },
+      "Payment Request": {
+        "on_update": "repair_portal.repair_portal.doctype.customer_approval.payment_hooks.handle_payment_request_update"
+      },
+      "Repair Estimate": {
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+        "validate": "repair_portal.repair.utils.on_child_validate"
+      },
+      "Repair Order": {
+        "on_cancel": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_cancel",
+        "on_submit": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_submit"
+      },
+      "Repair Task": {
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+        "validate": "repair_portal.repair.utils.on_child_validate"
+      },
+      "Service Plan": {
+        "on_update": "repair_portal.repair.utils.on_child_validate",
+        "validate": "repair_portal.repair.utils.on_child_validate"
+      },
+      "Stock Entry": {
+        "after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry"
+      }
+    },
+    "fixtures": [
+      {
+        "doctype": "Role",
+        "filters": [
+          [
+            "role_name",
+            "in",
+            [
+              "Intake Coordinator"
+            ]
+          ]
+        ]
+      },
+      {
+        "doctype": "Email Group",
+        "filters": [
+          [
+            "title",
+            "=",
+            "Player Newsletter"
+          ]
+        ]
+      },
+      {
+        "doctype": "Series",
+        "filters": [
+          [
+            "name",
+            "in",
+            [
+              "PLAYER-"
+            ]
+          ]
+        ]
+      },
+      {
+        "doctype": "Clarinet Estimator Pricing Rule"
+      }
+    ],
+    "required_apps": [
+      "frappe",
+      "erpnext"
+    ],
+    "scheduler_events": {
+      "daily": [
+        "repair_portal.intake.tasks.cleanup_intake_sessions",
+        "repair_portal.core.tasks.send_feedback_requests",
+        "repair_portal.customer.tasks.warranty.dispatch_warranty_reminders"
+      ],
+      "hourly": [
+        "repair_portal.core.tasks.sla_breach_scan",
+        "repair_portal.core.tasks.finalize_billing_packets"
+      ]
+    }
+  },
+  "modules": [
+    "Inspection",
+    "Intake",
+    "Instrument Setup",
+    "QA",
+    "Repair Logging",
+    "Repair Portal",
+    "Service Planning",
+    "Tools",
+    "Enhancements",
+    "Instrument Profile",
+    "Repair",
+    "Lab"
+  ],
+  "pages": [
+    {
+      "doctype": "Page",
+      "module": "Inspection",
+      "name": "technician_dashboard",
+      "path": "repair_portal/inspection/page/technician_dashboard/technician_dashboard.json"
+    },
+    {
+      "doctype": "Page",
+      "module": "Intake",
+      "name": "intake_wizard",
+      "path": "repair_portal/intake/page/intake_wizard/intake_wizard.json"
+    },
+    {
+      "doctype": "Page",
+      "module": "Lab",
+      "name": "desk-tuner",
+      "path": "repair_portal/lab/page/desk_tuner/desk_tuner.json"
+    },
+    {
+      "doctype": "Page",
+      "module": "Lab",
+      "name": "lab-console",
+      "path": "repair_portal/lab/page/lab_console/lab_console.json"
+    },
+    {
+      "doctype": null,
+      "module": "www",
+      "name": "clarinet_estimator",
+      "path": "repair_portal/www/clarinet_estimator.py"
+    },
+    {
+      "doctype": null,
+      "module": "www",
+      "name": "customer_approval",
+      "path": "repair_portal/www/customer_approval.py"
+    },
+    {
+      "doctype": null,
+      "module": "www",
+      "name": "pad_map",
+      "path": "repair_portal/www/pad_map.py"
+    },
+    {
+      "doctype": null,
+      "module": "www",
+      "name": "repair_pulse",
+      "path": "repair_portal/www/repair_pulse.py"
+    }
+  ],
+  "reports": [
+    {
+      "doctype": "Report",
+      "module": null,
+      "name": "Overdue Tool Calibrations",
+      "path": "repair_portal/tools/report/overdue_tool_calibrations/overdue_tool_calibrations.json"
+    },
+    {
+      "doctype": "Report",
+      "module": null,
+      "name": "Repair Bay Utilization",
+      "path": "repair_portal/service_planning/report/repair_bay_utilization/repair_bay_utilization.json"
+    },
+    {
+      "doctype": "Report",
+      "module": null,
+      "name": "Repair Tasks By Type",
+      "path": "repair_portal/repair_logging/report/repair_tasks_by_type/repair_tasks_by_type.json"
+    },
+    {
+      "doctype": "Report",
+      "module": null,
+      "name": "Top Upgrade Requests",
+      "path": "repair_portal/enhancements/report/top_upgrade_requests/top_upgrade_requests.json"
+    },
+    {
+      "doctype": "Report",
+      "module": null,
+      "name": "Upgrade Conversion Rates",
+      "path": "repair_portal/enhancements/report/upgrade_conversion_rates/upgrade_conversion_rates.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Instrument Profile",
+      "name": "Instrument Inventory Report",
+      "path": "repair_portal/instrument_profile/report/instrument_inventory_report/instrument_inventory_report.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Instrument Profile",
+      "name": "Instrument Profile Report",
+      "path": "repair_portal/instrument_profile/report/instrument_profile_report/instrument_profile_report.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Instrument Profile",
+      "name": "Instrument Service History",
+      "path": "repair_portal/instrument_profile/report/instrument_service_history/instrument_service_history.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Instrument Profile",
+      "name": "Pending Client Instruments",
+      "path": "repair_portal/instrument_profile/report/pending_client_instruments/pending_client_instruments.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Instrument Profile",
+      "name": "Warranty Status Report",
+      "path": "repair_portal/instrument_profile/report/warranty_status_report/warranty_status_report.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Instrument Setup",
+      "name": "Parts Consumption",
+      "path": "repair_portal/instrument_setup/report/parts_consumption/parts_consumption.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Instrument Setup",
+      "name": "Technician Performance",
+      "path": "repair_portal/instrument_setup/report/technician_performance/technician_performance.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Instrument Setup",
+      "name": "Turnaround Time Analysis",
+      "path": "repair_portal/instrument_setup/report/turnaround_time_analysis/turnaround_time_analysis.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Repair",
+      "name": "Repair Issue Report",
+      "path": "repair_portal/repair/report/repair_issue_report/repair_issue_report.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Repair",
+      "name": "Repair Revenue Vs Cost",
+      "path": "repair_portal/repair/report/repair_revenue_vs_cost/repair_revenue_vs_cost.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Repair",
+      "name": "SLA Compliance",
+      "path": "repair_portal/repair/report/sla_compliance/sla_compliance.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Repair",
+      "name": "Technician Utilization",
+      "path": "repair_portal/repair/report/technician_utilization/technician_utilization.json"
+    },
+    {
+      "doctype": "Report",
+      "module": "Repair Portal",
+      "name": "Technician Task Summary",
+      "path": "repair_portal/repair_portal/report/technician_task_summary/technician_task_summary.json"
+    }
+  ],
+  "web_assets": {
+    ".js": [
+      "repair_portal/public/js/clarinet_estimator.js",
+      "repair_portal/public/js/import_mapping_setting_autofill.bundle.js",
+      "repair_portal/public/js/import_mapping_setting_autofill.js",
+      "repair_portal/public/js/intake_wizard/intake_wizard.bundle.js",
+      "repair_portal/public/js/note_autocorrect.js",
+      "repair_portal/public/js/technician_dashboard/index.bundle.js",
+      "repair_portal/public/js/technician_dashboard/technician_dashboard.bundle.js",
+      "repair_portal/public/js/tone_processor.js"
+    ],
+    ".svg": [
+      "repair_portal/public/images/estimator/clarinet_estimator_diagram.svg",
+      "repair_portal/public/images/favicon.svg",
+      "repair_portal/public/images/svg_pad_maps/clarinet_upper_joint.svg"
+    ],
+    ".vue": [
+      "repair_portal/public/js/intake_wizard/App.vue",
+      "repair_portal/public/js/intake_wizard/components/SignaturePad.vue",
+      "repair_portal/public/js/intake_wizard/steps/CustomerStep.vue",
+      "repair_portal/public/js/intake_wizard/steps/InstrumentStep.vue",
+      "repair_portal/public/js/intake_wizard/steps/PlayerStep.vue",
+      "repair_portal/public/js/intake_wizard/steps/ReviewStep.vue",
+      "repair_portal/public/js/intake_wizard/steps/ServiceStep.vue",
+      "repair_portal/public/js/technician_dashboard/App.vue"
+    ]
+  }
+}

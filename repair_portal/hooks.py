@@ -32,47 +32,7 @@ fixtures = [
     ]] ]},
     {"doctype": "Email Group", "filters": [["title", "=", "Player Newsletter"]]},
     {"doctype": "Series", "filters": [["name", "in", ["PLAYER-"]]]},
-    {"doctype": "Workflow", "filters": [["name", "in", [
-        "Repair Order Lifecycle",
-        "Mail-In Repair Request Lifecycle",
-        "Repair Estimate Approval",
-        "Rental Contract Lifecycle",
-        "Service Plan Enrollment Lifecycle",
-        "Warranty Claim Lifecycle"
-    ]]]},
-    {"doctype": "Notification", "filters": [["name", "in", [
-        "Repair Order Awaiting Arrival Guidance",
-        "Repair Order Checked-In Update",
-        "Repair Quote Ready",
-        "Repair Quote Approved",
-        "Repair Order Ready To Ship"
-    ]]]},
-    {"doctype": "Print Format", "filters": [["name", "in", [
-        "Clarinet Intake Receipt",
-        "Repair Order Job Traveler",
-        "Clarinet QC Checklist",
-        "Shipping Cover Sheet"
-    ]]]},
-    {"doctype": "Workspace", "filters": [["name", "in", [
-        "Repair Scheduling",
-        "Shop Ops",
-        "School CRM"
-    ]] ]},
-    {"doctype": "Number Card", "filters": [["name", "in", [
-        "Technician Utilization Snapshot",
-        "Orders At Risk"
-    ]] ]},
-    {"doctype": "Dashboard Chart", "filters": [["name", "in", [
-        "Technician Utilization Trend",
-        "Repair Cycle Time Trend",
-        "Parts Margin By Job",
-        "Deposit Collection Hours",
-        "Mail-In SLA Hours",
-        "Rental Utilization",
-        "Service Plan Coverage"
-    ]] ]},
-    {"doctype": "Role Profile", "filters": [["role_profile", "like", "Repair Portal - %"]]},
-    {"doctype": "Kanban Board", "filters": [["name", "=", "Repair Orders by Bench"]]},
+    {"doctype": "Clarinet Estimator Pricing Rule"},
 ]
 
 doctype_js = {
@@ -204,6 +164,9 @@ doc_events = {
     "Stock Entry": {
         "after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry",
     },
+    "Payment Request": {
+        "on_update": "repair_portal.repair_portal.doctype.customer_approval.payment_hooks.handle_payment_request_update",
+    },
 }
 
 
@@ -216,6 +179,7 @@ scheduler_events = {
     "daily": [
         "repair_portal.intake.tasks.cleanup_intake_sessions",
         "repair_portal.core.tasks.send_feedback_requests",
+        "repair_portal.customer.tasks.warranty.dispatch_warranty_reminders",
         "repair_portal.repair_portal.doctype.repair_order.repair_order_capacity.recompute_capacity_snapshot",
         "repair_portal.repair_portal.service_plans.automation.queue_renewal_notifications",
         "repair_portal.repair_portal.utils.compliance.anonymize_closed_repairs",

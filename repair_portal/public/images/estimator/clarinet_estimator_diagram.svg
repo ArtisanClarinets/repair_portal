@@ -1,0 +1,39 @@
+<!--
+  NOTICE: Clarinet estimator diagram is an original vector created for repair_portal.
+  License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+  Author: Artisan Clarinets Engineering Team
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 900" role="img" aria-labelledby="clarinet-title clarinet-desc">
+  <title id="clarinet-title">Clarinet schematic</title>
+  <desc id="clarinet-desc">Stylized clarinet silhouette with highlighted pad regions for estimator interactions.</desc>
+  <defs>
+    <linearGradient id="bodyGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#1b2336" />
+      <stop offset="100%" stop-color="#0d111c" />
+    </linearGradient>
+    <linearGradient id="keyGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#dfe6f5" />
+      <stop offset="100%" stop-color="#b7c3e0" />
+    </linearGradient>
+  </defs>
+  <rect x="120" y="40" width="60" height="780" rx="18" fill="url(#bodyGradient)" />
+  <circle cx="150" cy="60" r="32" fill="#1a2130" stroke="#7a8bb5" stroke-width="3" />
+  <g fill="url(#keyGradient)" opacity="0.95">
+    <rect x="138" y="120" width="24" height="80" rx="8" />
+    <rect x="138" y="220" width="24" height="80" rx="8" />
+    <rect x="138" y="320" width="24" height="80" rx="8" />
+    <rect x="138" y="430" width="24" height="90" rx="8" />
+    <rect x="138" y="550" width="24" height="90" rx="8" />
+    <rect x="138" y="660" width="24" height="80" rx="8" />
+  </g>
+  <g fill="#f1f5ff" opacity="0.9">
+    <circle cx="120" cy="190" r="18" />
+    <circle cx="120" cy="260" r="18" />
+    <circle cx="120" cy="330" r="18" />
+    <circle cx="120" cy="470" r="18" />
+    <circle cx="120" cy="540" r="18" />
+    <circle cx="120" cy="610" r="18" />
+    <circle cx="120" cy="720" r="18" />
+  </g>
+  <circle cx="150" cy="820" r="40" fill="#141a29" stroke="#7a8bb5" stroke-width="4" />
+</svg>

@@ -1,0 +1,14 @@
+<table role="presentation" style="width:100%; border-collapse:collapse;">
+  <tr>
+    <td style="padding:16px; font-family:Arial, sans-serif; font-size:14px;">
+      <p style="margin:0 0 12px 0;">{{ _("Hello") }},</p>
+      <p style="margin:0 0 12px 0;">
+        {{ _("The warranty for instrument profile {0} ends on {1}.").format(profile_name, frappe.utils.format_date(warranty_end_date)) }}
+      </p>
+      <p style="margin:0 0 12px 0;">
+        {{ _("That is approximately {0} days from today. Please contact us if you would like to schedule aftercare service.").format(days_remaining) }}
+      </p>
+      <p style="margin:0;">{{ _("Thank you for trusting Artisan Clarinets with your instrument.") }}</p>
+    </td>
+  </tr>
+</table>
