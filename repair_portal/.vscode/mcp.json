@@ -1,11 +1,17 @@
 {
 	"inputs": [
 		{
+			"id": "filesystem_path",
+			"type": "promptString",
+			"description": "Path to the directory to use as filesystem context",
+			"password": false,
+			"default": "${workspaceFolder}"
+		},
+		{
 			"id": "memory_file_path",
 			"type": "promptString",
 			"description": "Path to the memory storage file (optional)",
-			"password": false,
-            "default": "/home/frappe/frappe-bench/apps/shopify_admin_sync/shopify_admin_sync/.vscode/memory.json"
+			"password": false
 		},
 		{
 			"id": "frappe_url",
@@ -17,16 +23,16 @@
 		{
 			"id": "frappe_api_key",
 			"type": "promptString",
-			"description": "Frappe API Key  - October 3, 2025 — 3:08 AM",
+			"description": "Frappe API Key",
 			"password": false,
-			"default": "719cd7c5b33206b"
+			"default": "f7f8c618768d08f"
 		},
 		{
 			"id": "frappe_api_secret",
 			"type": "promptString",
-			"description": "Frappe API Secret  - October 3, 2025 — 3:08 AM",
+			"description": "Frappe API Secret",
 			"password": true,
-			"default": "25bd5a3532139fb"
+			"default": "fe62f6ce3368401"
 		}
 	],
 	"servers": {
@@ -45,11 +51,10 @@
 				"@modelcontextprotocol/server-memory"
 			],
 			"env": {
-				"MEMORY_FILE_PATH": "${input:memory_file_path}"
+				"MEMORY_FILE_PATH": "/home/frappe/frappe-bench/apps/repair_portal/repair_portal/.vscode/memory.json"
 			},
 			"type": "stdio"
 		},
-		
 		"desktop-commander": {
 			"command": "npx",
 			"args": [
@@ -77,13 +82,6 @@
 			],
 			"command": "npx",
 			"type": "stdio"
-		},
-		"microsoft/playwright-mcp": {
-			"type": "stdio",
-			"command": "npx",
-			"args": [
-				"@playwright/mcp@latest"
-			],
-		}		
+		}
 	}
 }

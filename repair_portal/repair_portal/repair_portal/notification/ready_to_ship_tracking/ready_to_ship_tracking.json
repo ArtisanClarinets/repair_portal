@@ -1,0 +1,28 @@
+{
+  "doctype": "Notification",
+  "name": "Repair Order Ready To Ship",
+  "document_type": "Repair Order",
+  "event": "Value Change",
+  "value_changed": "workflow_state",
+  "condition": "doc.workflow_state == 'Ready to Ship'",
+  "subject": "Your clarinet is heading home",
+  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet repair order {{ doc.name }} cleared final QA and is ready to ship home.</p><p>We'll post the carrier and tracking details in your portal and send a separate shipping email as soon as the label is generated.</p><p>If delivery preferences changed, reply to this message before the instrument leaves our shop.</p>",
+  "recipients": [
+    {
+      "doctype": "Notification Recipient",
+      "receiver_by_document_field": "customer"
+    }
+  ],
+  "enabled": 1,
+  "channel": "Email",
+  "send_system_notification": 0,
+  "send_to_all_assignees": 0,
+  "is_standard": 1,
+  "docstatus": 0,
+  "module": "Repair Portal",
+  "owner": "Administrator",
+  "modified_by": "Administrator",
+  "creation": "2024-10-29 00:00:00.000000",
+  "modified": "2024-11-18 00:00:00.000000",
+  "message_type": "HTML"
+}
