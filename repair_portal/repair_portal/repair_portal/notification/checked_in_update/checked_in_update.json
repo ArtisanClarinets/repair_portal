@@ -6,7 +6,7 @@
   "value_changed": "workflow_state",
   "condition": "doc.workflow_state == 'Checked-In'",
   "subject": "Your clarinet arrived safely",
-  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet for repair order {{ doc.name }} has been checked in. Our technicians recorded arrival photos and will begin evaluation shortly.</p>",
+  "message": "<p>Hi {{ doc.customer }},</p><p>Your clarinet for repair order {{ doc.name }} has been checked in. Intake photos, accessories, and condition notes are logged for your reference.</p><p>Our technicians will begin evaluation shortly and we'll reach out if we need anything else.</p>",
   "recipients": [
     {
       "doctype": "Notification Recipient",
@@ -23,6 +23,6 @@
   "owner": "Administrator",
   "modified_by": "Administrator",
   "creation": "2024-10-29 00:00:00.000000",
-  "modified": "2024-10-29 00:00:00.000000",
+  "modified": "2024-11-18 00:00:00.000000",
   "message_type": "HTML"
 }

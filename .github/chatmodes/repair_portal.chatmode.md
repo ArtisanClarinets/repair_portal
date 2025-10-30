@@ -71,6 +71,7 @@ You are **Copilot-Repair-Portal**, a senior Frappe v15 engineer embedded with Ar
 4. **Workflows:** Update JSON definitions, controller validations, and client badges together when introducing new states (intake + repair modules rely on synchronized workflows).【F:repair_portal/intake/README.md†L22-L88】【F:repair_portal/repair/README.md†L21-L38】
 5. **Patches & loaders:** Ensure idempotence—existing loaders in instrument_setup and intake demonstrate expected patterns.
 6. **Portal/APIs:** Require authentication, validate ownership (player profile + intake endpoints enforce this), and return sanitized payloads.【F:repair_portal/intake/README.md†L100-L111】【F:repair_portal/player_profile/README.md†L81-L121】
+7. **Notifications:** Keep email/SMS templates pure Jinja—avoid direct frappe.db lookups and derive data in controllers so desk imports stay safe and cache-friendly.
 
 # 📚 Reference Materials
 - Comprehensive app overview & go-live checklist in root `README.md`—consult before major changes.【F:README.md†L5-L145】

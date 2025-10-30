@@ -5,8 +5,8 @@
   "event": "Value Change",
   "value_changed": "workflow_state",
   "condition": "doc.workflow_state == 'Awaiting Arrival'",
-  "subject": "Shipping instructions for your clarinet repair",
-  "message": "<p>Hi {{ doc.customer }},</p><p>Your repair order {{ doc.name }} is ready for inbound shipping. Please pack your instrument securely and include the cover sheet from the portal. </p><p>If you requested a prepaid label, it will arrive shortly.</p>",
+  "subject": "Clarinet repair inbound shipping checklist",
+  "message": "<p>Hi {{ doc.customer }},</p><p>Your repair order {{ doc.name }} is ready for inbound shipping. Pack the instrument with pads supported, add the printed cover sheet, and secure the case before boxing.</p><p>If you requested a prepaid label, we will send it within one business day. Reply to this email if you need help coordinating pickup.</p><p>You can always review the arrival checklist from your customer portal.</p>",
   "recipients": [
     {
       "doctype": "Notification Recipient",
@@ -23,6 +23,6 @@
   "owner": "Administrator",
   "modified_by": "Administrator",
   "creation": "2024-10-29 00:00:00.000000",
-  "modified": "2024-10-29 00:00:00.000000",
+  "modified": "2024-11-18 00:00:00.000000",
   "message_type": "HTML"
 }

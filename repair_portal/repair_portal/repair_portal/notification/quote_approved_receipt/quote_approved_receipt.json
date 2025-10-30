@@ -6,7 +6,7 @@
   "value_changed": "workflow_state",
   "condition": "doc.workflow_state == 'Approved'",
   "subject": "Thank you for approving your clarinet repair",
-  "message": "<p>Hi {{ doc.customer }},</p><p>We received approval for estimate {{ doc.name }}. Your deposit receipt will arrive from Stripe shortly.</p>",
+  "message": "<p>Hi {{ doc.customer }},</p><p>Thank you for approving estimate {{ doc.name }}. We've reserved bench time and generated your deposit receipt. A payment confirmation from Stripe will arrive separately.</p><p>You can monitor progress anytime from your repair portal.</p>",
   "recipients": [
     {
       "doctype": "Notification Recipient",
@@ -23,6 +23,6 @@
   "owner": "Administrator",
   "modified_by": "Administrator",
   "creation": "2024-10-29 00:00:00.000000",
-  "modified": "2024-10-29 00:00:00.000000",
+  "modified": "2024-11-18 00:00:00.000000",
   "message_type": "HTML"
 }
