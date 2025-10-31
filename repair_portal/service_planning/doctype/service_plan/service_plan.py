@@ -1,36 +1,48 @@
-# relative path: service_planning/doctype/service_plan/service_plan.py
-# last updated: 2025-07-01
-# version: 1.1
-# purpose: Controller for Service Plan DocType, handles submission and tracking linkage.
+"""Controller for Service Plan DocType."""
 from __future__ import annotations
 
+from typing import Final
+
 import frappe
+from frappe import _
 from frappe.model.document import Document
+
+_INTERACTION_TYPE: Final[str] = "Service Plan"
 
 
 class ServicePlan(Document):
-    def on_submit(self):
-        if not self.serial_no:  # type: ignore
+    """Handle lifecycle automation for service plans."""
+
+    def on_submit(self) -> None:
+        """Log the plan against the linked Instrument Profile when submitted."""
+        profile_name = (self.instrument or "").strip()
+        if not profile_name:
             return
 
-        # Ensure serial_no exists in ERPNext Serial No doctype
-        if not frappe.db.exists("Serial No", self.serial_no):  # type: ignore
+        if not frappe.db.exists("Instrument Profile", profile_name):
             frappe.throw(
-                f"Serial No '{self.serial_no}' does not exist in ERPNext. Please select a valid Serial No."  # type: ignore
+                _("Instrument Profile '{0}' was not found. Please select a valid profile.").format(
+                    profile_name
+                )
             )
 
-        if not frappe.db.exists("Instrument Tracker", {"serial_no": self.serial_no}):  # type: ignore
-            return
-
-        tracker = frappe.get_doc("Instrument Tracker", {"serial_no": self.serial_no})  # type: ignore
-        tracker.append(
+        profile = frappe.get_doc("Instrument Profile", profile_name)
+        profile.append(
             "interaction_logs",
             {
-                "interaction_type": "Service Plan",
-                "reference_doctype": "Service Plan",
+                "interaction_type": _INTERACTION_TYPE,
+                "reference_doctype": self.doctype,
                 "reference_name": self.name,
-                "date": self.plan_date,  # type: ignore
-                "notes": self.summary or "",  # type: ignore
+                "date": self.plan_date,
+                "notes": self._interaction_notes(),
             },
         )
-        tracker.save(ignore_permissions=True)
+        profile.save(ignore_permissions=True)
+
+    def _interaction_notes(self) -> str:
+        """Choose the best available summary text for the interaction log."""
+        for field in ("plan_summary", "notes"):
+            value = (getattr(self, field, None) or "").strip()
+            if value:
+                return value
+        return ""

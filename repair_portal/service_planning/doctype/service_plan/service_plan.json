@@ -2,14 +2,49 @@
   "doctype": "DocType",
   "name": "Service Plan",
   "module": "Service Planning",
-  "engine": "InnoDB",
   "custom": 0,
+  "istable": 0,
+  "track_changes": 1,
+  "is_submittable": 1,
+  "engine": "InnoDB",
+  "autoname": "naming_series:",
+  "field_order": [
+    "naming_series",
+    "customer",
+    "repair_order",
+    "plan_date",
+    "instrument",
+    "serial_no",
+    "plan_summary",
+    "section_break_billing",
+    "billing_frequency",
+    "coverage_months",
+    "billing_item",
+    "item",
+    "auto_renew",
+    "included_services",
+    "pricing_tier",
+    "estimated_cost",
+    "labor_hours",
+    "notes",
+    "tasks",
+    "plan_status"
+  ],
   "fields": [
+    {
+      "fieldname": "naming_series",
+      "label": "Naming Series",
+      "fieldtype": "Select",
+      "options": "SRV-PLAN-.YYYY.-.#####",
+      "default": "SRV-PLAN-.YYYY.-.#####",
+      "reqd": 1
+    },
     {
       "fieldname": "customer",
       "label": "Customer",
       "fieldtype": "Link",
-      "options": "Customer"
+      "options": "Customer",
+      "reqd": 1
     },
     {
       "fieldname": "repair_order",
@@ -27,7 +62,67 @@
       "fieldname": "instrument",
       "label": "Instrument",
       "fieldtype": "Link",
-      "options": "Instrument Profile"
+      "options": "Instrument Profile",
+      "reqd": 1
+    },
+    {
+      "fieldname": "serial_no",
+      "label": "Instrument Serial",
+      "fieldtype": "Link",
+      "options": "Instrument Serial Number"
+    },
+    {
+      "fieldname": "plan_summary",
+      "label": "Summary",
+      "fieldtype": "Small Text",
+      "in_preview": 1
+    },
+    {
+      "fieldname": "section_break_billing",
+      "fieldtype": "Section Break",
+      "label": "Billing"
+    },
+    {
+      "fieldname": "billing_frequency",
+      "label": "Billing Frequency",
+      "fieldtype": "Select",
+      "options": "Monthly\nYearly",
+      "reqd": 1,
+      "default": "Monthly"
+    },
+    {
+      "fieldname": "coverage_months",
+      "label": "Coverage (Months)",
+      "fieldtype": "Int",
+      "reqd": 1
+    },
+    {
+      "fieldname": "billing_item",
+      "label": "Billing Item",
+      "fieldtype": "Link",
+      "options": "Item"
+    },
+    {
+      "fieldname": "item",
+      "label": "Plan Item",
+      "fieldtype": "Link",
+      "options": "Item"
+    },
+    {
+      "fieldname": "auto_renew",
+      "label": "Auto Renew",
+      "fieldtype": "Check",
+      "default": "1"
+    },
+    {
+      "fieldname": "included_services",
+      "label": "Included Services",
+      "fieldtype": "Text Editor"
+    },
+    {
+      "fieldname": "pricing_tier",
+      "label": "Pricing Tier",
+      "fieldtype": "Data"
     },
     {
       "fieldname": "estimated_cost",
@@ -49,7 +144,7 @@
       "fieldname": "tasks",
       "label": "Planned Tasks",
       "fieldtype": "Table",
-      "options": "Repair Task Log"
+      "options": "Tasks"
     },
     {
       "fieldname": "plan_status",
@@ -68,19 +163,25 @@
       "read": 1,
       "write": 1,
       "create": 1,
-      "delete": 1
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
     },
     {
       "role": "Repair Manager",
       "read": 1,
       "write": 1,
       "create": 1,
-      "delete": 1
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
     },
     {
       "role": "Technician",
       "read": 1,
+      "write": 1,
       "create": 1
     }
-  ]
+  ],
+  "workflow_state_field": "plan_status"
 }
