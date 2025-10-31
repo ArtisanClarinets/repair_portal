@@ -36,13 +36,14 @@ fixtures = [
 ]
 
 doctype_js = {
-    "Repair Order": "repair_portal/doctype/repair_order/repair_order.js",
+    "Repair Order": "repair_portal/repair/doctype/repair_order/repair_order.js",
 }
 
 portal_menu_items = [
-    {"title": "Mail-In Repair", "route": "/mail-in-repair"},
+    {"title": "Mail-In Repair", "route": "/mail-in-repair", "role": "Customer"},
     {"title": "Service Plans", "route": "/service-plans", "reference_doctype": "Service Plan Enrollment"},
     {"title": "Teacher Portal", "route": "/teacher-portal", "role": "School/Teacher"},
+    {"title": "Scan Tag", "route": "/scan", "role": "Repair Technician"},
 ]
 
 has_permission = {
@@ -84,15 +85,13 @@ after_migrate = [
 doc_events = {
     "Repair Order": {
         "validate": [
-            "repair_portal.repair_portal.utils.barcode.ensure_repair_order_barcode",
-            "repair_portal.repair_portal.doctype.repair_order.repair_order_capacity.update_capacity_fields"
+            "repair_portal.repair_portal.utils.barcode.ensure_repair_order_barcode"
         ],
         "before_submit": "repair_portal.repair_portal.inventory.material_planner.before_submit",
         "on_submit": [
             "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_submit",
             "repair_portal.repair_portal.inventory.material_planner.on_submit"
         ],
-        "on_update_after_submit": "repair_portal.repair_portal.doctype.repair_order.repair_order_capacity.on_update_after_submit",
         "on_cancel": "repair_portal.repair.doctype.repair_order.repair_order.RepairOrder.on_cancel"
     },
     "Clarinet Intake": {
@@ -164,9 +163,7 @@ doc_events = {
     "Stock Entry": {
         "after_submit": "repair_portal.repair.hooks_stock_entry.after_submit_stock_entry",
     },
-    "Payment Request": {
-        "on_update": "repair_portal.repair_portal.doctype.customer_approval.payment_hooks.handle_payment_request_update",
-    },
+    "Payment Request": {},
 }
 
 
@@ -191,9 +188,3 @@ website_route_rules = [
     {"from_route": "/scan", "to_route": "scan"},
 ]
 
-# --- [BEGIN Repair Portal (Repair workflow) additions] ---
-
-portal_menu_items = [
-    {"title": "Mail-In Repair", "route": "/mail-in-repair", "role": "Customer"},
-    {"title": "Scan Tag", "route": "/scan", "role": "Repair Technician"},
-]

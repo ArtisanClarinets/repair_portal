@@ -147,8 +147,6 @@
     {
       "role": "Customer",
       "read": 1,
-      "create": 1,
-      "write": 1,
       "if_owner": 1
     }
   ]
