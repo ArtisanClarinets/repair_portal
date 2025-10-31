@@ -8,6 +8,7 @@
 **Type:** Master/Standard Document
 
 This doctype is used to:
+
 - Store and manage master or reference data
 - Provide configuration or lookup information
 - Support other business processes in the application
@@ -35,11 +36,13 @@ Suspended) | **Required**. Default: `Active` |
 The Python controller (`technician.py`) implements the following:
 
 **Lifecycle Hooks:**
+
 - **`before_save()`**: Executes logic before the document is saved
 - **`after_insert()`**: Executes after a new document is created
 - **`on_update()`**: Runs after document updates
 
 **Custom Methods:**
+
 - `validate_email()`: Custom business logic method
 - `validate_phone()`: Custom business logic method
 - `send_onboarding_email()`: Custom business logic method

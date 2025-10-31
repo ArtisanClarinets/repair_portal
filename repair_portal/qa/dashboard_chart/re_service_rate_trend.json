@@ -1,4 +1,5 @@
 {
+  "doctype": "Dashboard Chart",
   "chart_name": "Re-service Rate Trend",
   "document_type": "Inspection Report",
   "chart_type": "Bar",
