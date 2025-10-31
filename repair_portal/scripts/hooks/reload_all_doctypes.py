@@ -105,7 +105,7 @@ def reload_all_doctypes():
 
     log("🔄 Reloading all documents in repair_portal...")
 
-    for dirpath, _, filenames in os.walk(APP_PATH):
+    for dirpath, _, filenames in os.walk(APP_PATH): # type: ignore
         for filename in filenames:
             if not filename.endswith(".json"):
                 continue
@@ -117,7 +117,7 @@ def reload_all_doctypes():
             # Determine doctype_type and module from the path
             parent_dir = os.path.dirname(dirpath)
             doctype_type = os.path.basename(parent_dir)
-            relative_to_app = os.path.relpath(parent_dir, APP_PATH)
+            relative_to_app = os.path.relpath(parent_dir, APP_PATH) # type: ignore
             module = relative_to_app.split(os.sep)[0]
             json_path = os.path.join(dirpath, filename)
 

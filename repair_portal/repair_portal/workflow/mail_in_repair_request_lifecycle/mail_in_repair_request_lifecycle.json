@@ -1,6 +1,7 @@
 {
  "doctype": "Workflow",
  "workflow_name": "Mail-In Repair Request Lifecycle",
+ "name": "Mail-In Repair Request Lifecycle",
  "document_type": "Mail In Repair Request",
  "workflow_state_field": "status",
  "is_active": 1,
