@@ -1,0 +1,32 @@
+{
+  "doctype": "DocType",
+  "name": "Technician",
+  "module": "Repair",
+  "engine": "InnoDB",
+  "fields": [
+    { "fieldname": "first_name", "label": "First Name", "fieldtype": "Data", "reqd": 1 },
+    { "fieldname": "last_name", "label": "Last Name", "fieldtype": "Data", "reqd": 1 },
+    { "fieldname": "user", "label": "User Account", "fieldtype": "Link", "options": "User", "reqd": 1 },
+    { "fieldname": "email", "label": "Email Address", "fieldtype": "Data", "options": "Email", "reqd": 1 },
+    { "fieldname": "phone", "label": "Phone Number", "fieldtype": "Data", "reqd": 1 },
+    { "fieldname": "employment_status", "label": "Employment Status", "fieldtype": "Select", "options": "Active\nInactive\nSuspended", "default": "Active", "reqd": 1 },
+    { "fieldname": "hire_date", "label": "Hire Date", "fieldtype": "Date", "reqd": 1 },
+    { "fieldname": "notes", "label": "Notes", "fieldtype": "Small Text" },
+    { "fieldname": "last_active", "label": "Last Active", "fieldtype": "Datetime", "read_only": 1 }
+  ],
+  "permissions": [
+    { "role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1, "amend": 1 },
+    { "role": "Repair Manager", "read": 1, "write": 1, "create": 1, "delete": 1 },
+    { "role": "Technician", "read": 1, "write": 1, "create": 0, "delete": 0 }
+  ],
+  "links": [
+    { "link_doctype": "User", "group": "Account" }
+  ],
+  "search_fields": "first_name,last_name,email,phone",
+  "title_field": "first_name",
+  "image_field": "",
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "workflow_state_field": "employment_status",
+  "track_changes": 1
+}

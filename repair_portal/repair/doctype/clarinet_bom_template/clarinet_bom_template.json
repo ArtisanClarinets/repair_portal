@@ -1,0 +1,65 @@
+{
+ "doctype": "DocType",
+ "name": "Clarinet BOM Template",
+ "module": "Repair",
+ "custom": 0,
+ "istable": 0,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "naming_rule": "By Field",
+ "autoname": "naming_series:",
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "CL-BOM-.#####",
+   "reqd": 1,
+   "default": "CL-BOM-.#####"
+  },
+  {
+   "fieldname": "instrument_model",
+   "fieldtype": "Data",
+   "label": "Instrument Model",
+   "reqd": 1
+  },
+  {
+   "fieldname": "repair_class",
+   "fieldtype": "Link",
+   "label": "Repair Class",
+   "options": "Repair Class Template"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "label": "Lines",
+   "options": "Clarinet BOM Line"
+  }
+ ],
+ "field_order": [
+  "naming_series",
+  "instrument_model",
+  "repair_class",
+  "lines"
+ ],
+ "permissions": [
+  {
+   "role": "Owner/Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Inventory",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Repair Technician",
+   "read": 1
+  }
+ ]
+}

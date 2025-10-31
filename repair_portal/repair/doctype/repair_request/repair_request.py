@@ -19,7 +19,7 @@ class RepairRequest(Document):
         from repair_portal.repair_logging.doctype.repair_task_log.repair_task_log import (
             RepairTaskLog,
         )
-        from repair_portal.repair_portal.doctype.qa_checklist_item.qa_checklist_item import (
+        from repair_portal.qa.doctype.qa_checklist_item.qa_checklist_item import (
             QaChecklistItem,
         )
 

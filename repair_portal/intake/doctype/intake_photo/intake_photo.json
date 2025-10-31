@@ -1,0 +1,28 @@
+{
+ "doctype": "DocType",
+ "name": "Intake Photo",
+ "module": "Intake",
+ "custom": 0,
+ "istable": 1,
+ "editable_grid": 1,
+ "track_changes": 0,
+ "engine": "InnoDB",
+ "fields": [
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image",
+   "reqd": 1
+  },
+  {
+   "fieldname": "caption",
+   "fieldtype": "Data",
+   "label": "Caption"
+  }
+ ],
+ "field_order": [
+  "image",
+  "caption"
+ ],
+ "permissions": []
+}

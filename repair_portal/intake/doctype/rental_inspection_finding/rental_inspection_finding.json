@@ -1,0 +1,48 @@
+{
+ "doctype": "DocType",
+ "name": "Rental Inspection Finding",
+ "module": "Intake",
+ "custom": 0,
+ "istable": 1,
+ "track_changes": 0,
+ "engine": "InnoDB",
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "component",
+   "fieldtype": "Data",
+   "label": "Component",
+   "reqd": 1
+  },
+  {
+   "fieldname": "condition",
+   "fieldtype": "Select",
+   "label": "Condition",
+   "options": "Excellent\nGood\nFair\nPoor"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "bill_customer",
+   "fieldtype": "Check",
+   "label": "Bill Customer",
+   "default": "0"
+  },
+  {
+   "fieldname": "charge_amount",
+   "fieldtype": "Currency",
+   "label": "Charge Amount"
+  }
+ ],
+ "field_order": [
+  "component",
+  "condition",
+  "notes",
+  "bill_customer",
+  "charge_amount"
+ ],
+ "permissions": []
+}

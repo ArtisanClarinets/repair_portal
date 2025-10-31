@@ -1,0 +1,93 @@
+{
+  "doctype": "DocType",
+  "name": "Planned Material",
+  "module": "Repair",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "item",
+      "fieldtype": "Link",
+      "label": "Item",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Data",
+      "label": "Description"
+    },
+    {
+      "fieldname": "uom",
+      "fieldtype": "Link",
+      "label": "UOM",
+      "options": "UOM"
+    },
+    {
+      "fieldname": "qty",
+      "fieldtype": "Float",
+      "label": "Quantity",
+      "default": "1"
+    },
+    {
+      "fieldname": "warehouse",
+      "fieldtype": "Link",
+      "label": "Warehouse",
+      "options": "Warehouse"
+    },
+    {
+      "fieldname": "service_type",
+      "fieldtype": "Select",
+      "label": "Service Type",
+      "options": "\nComponent\nPlating\nPad Kit\nConsumable\nOther Service"
+    },
+    {
+      "fieldname": "vendor",
+      "fieldtype": "Link",
+      "label": "Preferred Vendor",
+      "options": "Supplier"
+    },
+    {
+      "fieldname": "lead_time_days",
+      "fieldtype": "Int",
+      "label": "Lead Time (Days)"
+    },
+    {
+      "fieldname": "material_request",
+      "fieldtype": "Link",
+      "label": "Material Request",
+      "options": "Material Request",
+      "read_only": 1
+    },
+    {
+      "fieldname": "reservation_entry_type",
+      "fieldtype": "Select",
+      "label": "Reservation Entry Type",
+      "options": "\nMaterial Request\nStock Reservation Entry",
+      "read_only": 1
+    },
+    {
+      "fieldname": "reservation_entry",
+      "fieldtype": "Dynamic Link",
+      "label": "Reservation Reference",
+      "options": "reservation_entry_type",
+      "read_only": 1
+    }
+  ],
+  "field_order": [
+    "item",
+    "description",
+    "uom",
+    "qty",
+    "warehouse",
+    "service_type",
+    "vendor",
+    "lead_time_days",
+    "material_request",
+    "reservation_entry_type",
+    "reservation_entry"
+  ],
+  "permissions": []
+}

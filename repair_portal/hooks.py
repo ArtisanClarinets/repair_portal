@@ -180,7 +180,6 @@ scheduler_events = {
         "repair_portal.intake.tasks.cleanup_intake_sessions",
         "repair_portal.core.tasks.send_feedback_requests",
         "repair_portal.customer.tasks.warranty.dispatch_warranty_reminders",
-        "repair_portal.repair_portal.doctype.repair_order.repair_order_capacity.recompute_capacity_snapshot",
         "repair_portal.repair_portal.service_plans.automation.queue_renewal_notifications",
         "repair_portal.repair_portal.utils.compliance.anonymize_closed_repairs",
     ],

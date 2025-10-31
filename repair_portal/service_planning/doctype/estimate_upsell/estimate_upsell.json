@@ -1,0 +1,41 @@
+{
+ "doctype": "DocType",
+ "name": "Estimate Upsell",
+ "module": "Service Planning",
+ "custom": 0,
+ "istable": 1,
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "accepted",
+   "fieldtype": "Check",
+   "label": "Accepted",
+   "default": "0"
+  }
+ ],
+ "field_order": [
+  "item",
+  "price",
+  "description",
+  "accepted"
+ ],
+ "permissions": []
+}
