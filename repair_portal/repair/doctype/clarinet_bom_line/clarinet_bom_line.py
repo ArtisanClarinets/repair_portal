@@ -1,5 +1,5 @@
 # Path: repair_portal/repair_portal/doctype/clarinet_bom_line/clarinet_bom_line.py
-# Date: 2025-01-28
+# Date: 2025-10-28
 # Version: 1.0.0
 # Description: Controller for Clarinet BOM Line child table - manages BOM line items.
 # Dependencies: frappe
