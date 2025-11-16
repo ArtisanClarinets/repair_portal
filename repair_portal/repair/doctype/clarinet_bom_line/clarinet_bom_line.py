@@ -11,7 +11,7 @@ from frappe import _
 from frappe.model.document import Document
 
 
-class ClarinetBomLine(Document):
+class ClarinetBOMLine(Document):
     """Child table controller for Clarinet BOM Line records."""
 
     def validate(self):
