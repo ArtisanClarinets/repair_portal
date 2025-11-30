@@ -55,6 +55,64 @@ PLAYER_PROFILE = "Player Profile"
 
 
 class ClarinetIntake(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+        from repair_portal.intake.doctype.intake_accessory_item.intake_accessory_item import IntakeAccessoryItem
+
+        accessory_id: DF.Table[IntakeAccessoryItem]
+        acquisition_cost: DF.Currency
+        acquisition_source: DF.Data | None
+        amended_from: DF.Link | None
+        body_material: DF.Data | None
+        bore_type: DF.Data | None
+        clarinet_type: DF.Literal["B\u266d Clarinet", "A Clarinet", "E\u266d Clarinet", "Bass Clarinet", "Alto Clarinet", "Contrabass Clarinet", "Other"]
+        consent_form: DF.Link | None
+        cork_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        customer: DF.Link | None
+        customer_approval: DF.Data | None
+        customer_email: DF.Data | None
+        customer_full_name: DF.Data | None
+        customer_phone: DF.Data | None
+        customer_type: DF.Literal["Professional", "Student", "University", "Collector"]
+        customers_stated_issue: DF.SmallText | None
+        deposit_paid: DF.Currency
+        employee: DF.Link | None
+        estimated_cost: DF.Currency
+        initial_assessment_notes: DF.SmallText | None
+        initial_intake_photos: DF.AttachImage | None
+        instrument: DF.Link | None
+        instrument_category: DF.Link
+        instrument_profile: DF.Link | None
+        intake_date: DF.Datetime | None
+        intake_record_id: DF.Data | None
+        intake_status: DF.Literal["Pending", "Received", "Inspection", "Setup", "Repair", "Awaiting Customer Approval", "Awaiting Payment", "In Transit", "Returned to Customer", "Complete", "Cancelled"]
+        intake_type: DF.Literal["New Inventory", "Repair", "Maintenance"]
+        item_code: DF.Data | None
+        item_name: DF.Data | None
+        key_plating: DF.Data | None
+        keywork_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        manufacturer: DF.Link
+        model: DF.Data
+        pad_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        pitch_standard: DF.Data | None
+        player_profile: DF.Link | None
+        promised_completion_date: DF.Date | None
+        repair_order: DF.Link
+        serial_no: DF.Data
+        service_type_requested: DF.Literal["COA", "Overhaul", "Crack Repair", "Play Condition"]
+        spring_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        store_asking_price: DF.Currency
+        thumb_rest_type: DF.Data | None
+        tone_hole_style: DF.Data | None
+        wood_body_condition: DF.Literal["Excellent", "Acceptable", "Needs Attention"]
+        work_order_number: DF.Link | None
+        year_of_manufacture: DF.Int
+    # end: auto-generated types
     """
     Clarinet Intake controller.
 

@@ -333,13 +333,38 @@ class RepairOrder(Document):
         - If today's date <= warranty_until: is_warranty = 1, else 0.
         - Safe no-op if fields or Instrument Profile are absent.
         """
+        # Check if warranty fields exist on this doctype
         if not self.meta.has_field("is_warranty") and not self.meta.has_field("warranty_until"):
             return
-        if not sla_rule.get("response_time"):
+        
+        # Skip if no instrument profile linked
+        if not self.instrument_profile:
             return
-        baseline = get_datetime(self.posting_date) if self.posting_date else now_datetime()
-        self.sla_due_date = baseline + sla_rule.response_time
-        self._update_sla_status()
+        
+        try:
+            # Try to get warranty date from Instrument Profile
+            warranty_date = None
+            for field_name in ("warranty_until", "warranty_end_date", "warranty_expiration"):
+                if frappe.db.has_column("Instrument Profile", field_name):
+                    warranty_date = frappe.db.get_value(
+                        "Instrument Profile", self.instrument_profile, field_name
+                    )
+                    if warranty_date:
+                        break
+            
+            if warranty_date:
+                from frappe.utils import getdate, today
+                
+                if self.meta.has_field("warranty_until"):
+                    self.warranty_until = warranty_date
+                
+                if self.meta.has_field("is_warranty"):
+                    self.is_warranty = 1 if getdate(warranty_date) >= getdate(today()) else 0
+        except Exception:
+            frappe.log_error(
+                title="RepairOrder Warranty Flags",
+                message=frappe.get_traceback()
+            )
 
     def _update_sla_status(self) -> None:
         if self.sla_status == "Paused":

@@ -1,556 +1,555 @@
 {
-  "doctype": "DocType",
-  "name": "Clarinet Intake",
-  "module": "Intake",
-  "engine": "InnoDB",
-  "autoname": "field:intake_record_id",
-  "naming_rule": "By fieldname",
-  "is_submittable": 1,
-  "actions": [],
-  "links": [],
-  "row_format": "Dynamic",
-  "track_changes": 1,
-  "track_seen": 1,
-  "track_views": 1,
-  "owner": "Administrator",
-  "modified_by": "Administrator",
-  "creation": "2025-07-21 04:17:12.653156",
-  "modified": "2025-09-19 17:00:00.000000",
-  "sort_field": "modified",
-  "sort_order": "DESC",
-  "title_field": "intake_record_id",
-  "image_field": "initial_intake_photos",
-  "search_fields": "intake_record_id, serial_no, customer, manufacturer, model, item_code, player_profile",
-  "field_order": [
-    "sec_overview",
-    "intake_record_id",
-    "intake_date",
-    "intake_type",
-    "col_overview_right",
-    "employee",
-    "instrument",
-    "instrument_profile",
-    "intake_status",
-    "repair_order",
-    "sec_instrument_identity",
-    "instrument_category",
-    "manufacturer",
-    "model",
-    "serial_no",
-    "clarinet_type",
-    "year_of_manufacture",
-    "col_inst_right",
-    "body_material",
-    "key_plating",
-    "pitch_standard",
-    "bore_type",
-    "tone_hole_style",
-    "thumb_rest_type",
-    "sec_inventory_pricing",
-    "item_code",
-    "item_name",
-    "acquisition_source",
-    "col_inventory_right",
-    "acquisition_cost",
-    "store_asking_price",
-    "sec_customer_service",
-    "customer",
-    "customer_full_name",
-    "customer_phone",
-    "customer_email",
-    "player_profile",
-    "customer_type",
-    "col_customer_right",
-    "customers_stated_issue",
-    "initial_assessment_notes",
-    "work_order_number",
-    "service_type_requested",
-    "estimated_cost",
-    "deposit_paid",
-    "customer_approval",
-    "promised_completion_date",
-    "consent_form",
-    "instrument_condition_section",
-    "wood_body_condition",
-    "col_cond_mid",
-    "keywork_condition",
-    "col_cond_right",
-    "pad_condition",
-    "spring_condition",
-    "cork_condition",
-    "sec_photos",
-    "initial_intake_photos",
-    "sec_accessories",
-    "accessory_id",
-    "sec_audit",
-    "amended_from"
-  ],
-  "fields": [
-    {
-      "fieldname": "sec_overview",
-      "fieldtype": "Section Break",
-      "label": "Intake Overview"
-    },
-    {
-      "fieldname": "intake_record_id",
-      "fieldtype": "Data",
-      "label": "Intake Record ID",
-      "in_filter": 1,
-      "in_list_view": 1,
-      "in_global_search": 1,
-      "read_only": 1,
-      "unique": 1,
-      "search_index": 1
-    },
-    {
-      "fieldname": "intake_date",
-      "fieldtype": "Datetime",
-      "label": "Intake Date & Time",
-      "default": "now",
-      "read_only": 1
-    },
-    {
-      "fieldname": "intake_type",
-      "fieldtype": "Select",
-      "label": "Intake Type",
-      "options": "New Inventory\nRepair\nMaintenance",
-      "default": "New Inventory",
-      "reqd": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "col_overview_right",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "employee",
-      "fieldtype": "Link",
-      "label": "Employee / Technician",
-      "options": "User",
-      "read_only": 1,
-      "in_list_view": 1,
-      "search_index": 1
-    },
-    {
-      "fieldname": "instrument",
-      "fieldtype": "Link",
-      "label": "Instrument",
-      "options": "Instrument",
-      "read_only": 1
-    },
-    {
-      "fieldname": "intake_status",
-      "fieldtype": "Select",
-      "label": "Status",
-      "options": "Pending\nReceived\nInspection\nSetup\nRepair\nAwaiting Customer Approval\nAwaiting Payment\nIn Transit\nReturned to Customer\nComplete\nCancelled",
-      "default": "Pending",
-      "read_only": 1,
-      "in_list_view": 1,
-      "in_standard_filter": 1
-    },
-    {
-      "fieldname": "sec_instrument_identity",
-      "fieldtype": "Section Break",
-      "label": "Instrument Identity"
-    },
-    {
-      "fieldname": "instrument_category",
-      "fieldtype": "Link",
-      "label": "Instrument Category",
-      "options": "Instrument Category",
-      "reqd": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "manufacturer",
-      "fieldtype": "Link",
-      "label": "Manufacturer",
-      "options": "Brand",
-      "reqd": 1,
-      "in_list_view": 1,
-      "search_index": 1
-    },
-    {
-      "fieldname": "model",
-      "fieldtype": "Data",
-      "label": "Model",
-      "reqd": 1,
-      "in_list_view": 1,
-      "search_index": 1
-    },
-    {
-      "fieldname": "serial_no",
-      "fieldtype": "Data",
-      "label": "Serial Number",
-      "reqd": 1,
-      "in_list_view": 1,
-      "in_global_search": 1,
-      "search_index": 1
-    },
-    {
-      "fieldname": "clarinet_type",
-      "fieldtype": "Select",
-      "label": "Type of Clarinet",
-      "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther",
-      "reqd": 1
-    },
-    {
-      "fieldname": "year_of_manufacture",
-      "fieldtype": "Int",
-      "label": "Year of Manufacture"
-    },
-    {
-      "fieldname": "col_inst_right",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "body_material",
-      "fieldtype": "Data",
-      "label": "Body Material",
-      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
-    },
-    {
-      "fieldname": "key_plating",
-      "fieldtype": "Data",
-      "label": "Keywork Plating",
-      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
-    },
-    {
-      "fieldname": "pitch_standard",
-      "fieldtype": "Data",
-      "label": "Pitch Standard",
-      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
-    },
-    {
-      "fieldname": "bore_type",
-      "fieldtype": "Data",
-      "label": "Bore Type / Size"
-    },
-    {
-      "fieldname": "tone_hole_style",
-      "fieldtype": "Data",
-      "label": "Tone Hole Style"
-    },
-    {
-      "fieldname": "thumb_rest_type",
-      "fieldtype": "Data",
-      "label": "Thumb Rest Type"
-    },
-    {
-      "fieldname": "sec_inventory_pricing",
-      "fieldtype": "Section Break",
-      "label": "Inventory & Pricing (New Inventory)",
-      "depends_on": "eval:doc.intake_type == 'New Inventory'",
-      "collapsible": 1
-    },
-    {
-      "fieldname": "item_code",
-      "fieldtype": "Data",
-      "label": "Item Code",
-      "depends_on": "eval:doc.intake_type == 'New Inventory'",
-      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'",
-      "search_index": 1
-    },
-    {
-      "fieldname": "item_name",
-      "fieldtype": "Data",
-      "label": "Item Name",
-      "depends_on": "eval:doc.intake_type == 'New Inventory'",
-      "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
-    },
-    {
-      "fieldname": "acquisition_source",
-      "fieldtype": "Data",
-      "label": "Acquisition Source",
-      "depends_on": "eval:doc.intake_type == 'New Inventory'"
-    },
-    {
-      "fieldname": "col_inventory_right",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "acquisition_cost",
-      "fieldtype": "Currency",
-      "label": "Acquisition Cost",
-      "depends_on": "eval:doc.intake_type == 'New Inventory'"
-    },
-    {
-      "fieldname": "store_asking_price",
-      "fieldtype": "Currency",
-      "label": "Store Asking Price",
-      "depends_on": "eval:doc.intake_type == 'New Inventory'"
-    },
-    {
-      "fieldname": "sec_customer_service",
-      "fieldtype": "Section Break",
-      "label": "Customer & Service (Repair/Maintenance)",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'",
-      "collapsible": 1
-    },
-    {
-      "fieldname": "customer",
-      "fieldtype": "Link",
-      "label": "Customer ID",
-      "options": "Customer",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'",
-      "mandatory_depends_on": "eval:doc.intake_type != 'New Inventory'",
-      "in_list_view": 1,
-      "in_global_search": 1,
-      "search_index": 1
-    },
-    {
-      "fieldname": "customer_full_name",
-      "fieldtype": "Data",
-      "label": "Customer Full Name",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "customer_phone",
-      "fieldtype": "Data",
-      "label": "Customer Phone",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "customer_email",
-      "fieldtype": "Data",
-      "label": "Customer Email",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "description": "Automatically linked Player Profile",
-      "fieldname": "player_profile",
-      "fieldtype": "Link",
-      "label": "Player Profile",
-      "options": "Player Profile",
-      "read_only": 1,
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "customer_type",
-      "fieldtype": "Select",
-      "label": "Customer Type",
-      "options": "Professional\nStudent\nUniversity\nCollector",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "col_customer_right",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "customers_stated_issue",
-      "fieldtype": "Small Text",
-      "label": "Customer's Stated Issue",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "initial_assessment_notes",
-      "fieldtype": "Small Text",
-      "label": "Initial Assessment Notes"
-    },
-    {
-      "fieldname": "work_order_number",
-      "fieldtype": "Link",
-      "label": "Work Order Number",
-      "options": "Work Order",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "service_type_requested",
-      "fieldtype": "Select",
-      "label": "Service Type Requested",
-      "options": "COA\nOverhaul\nCrack Repair\nPlay Condition",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "estimated_cost",
-      "fieldtype": "Currency",
-      "label": "Estimated Cost"
-    },
-    {
-      "fieldname": "deposit_paid",
-      "fieldtype": "Currency",
-      "label": "Deposit Paid"
-    },
-    {
-      "fieldname": "customer_approval",
-      "fieldtype": "Data",
-      "label": "Customer Approval",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "promised_completion_date",
-      "fieldtype": "Date",
-      "label": "Promised Completion Date",
-      "depends_on": "eval:doc.intake_type != 'New Inventory'"
-    },
-    {
-      "fieldname": "consent_form",
-      "fieldtype": "Link",
-      "label": "Consent Form",
-      "options": "Consent Form",
-      "depends_on": "eval:doc.intake_type != 'Repair'"
-    },
-    {
-      "fieldname": "instrument_condition_section",
-      "fieldtype": "Section Break",
-      "label": "Instrument Condition",
-      "collapsible": 1
-    },
-    {
-      "fieldname": "wood_body_condition",
-      "fieldtype": "Select",
-      "label": "Wood/Body Condition",
-      "options": "Excellent\nAcceptable\nNeeds Attention"
-    },
-    {
-      "fieldname": "col_cond_mid",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "keywork_condition",
-      "fieldtype": "Select",
-      "label": "Keywork Condition",
-      "options": "Excellent\nAcceptable\nNeeds Attention"
-    },
-    {
-      "fieldname": "col_cond_right",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "pad_condition",
-      "fieldtype": "Select",
-      "label": "Pad Condition",
-      "options": "Excellent\nAcceptable\nNeeds Attention"
-    },
-    {
-      "fieldname": "spring_condition",
-      "fieldtype": "Select",
-      "label": "Spring Condition",
-      "options": "Excellent\nAcceptable\nNeeds Attention"
-    },
-    {
-      "fieldname": "cork_condition",
-      "fieldtype": "Select",
-      "label": "Cork Condition",
-      "options": "Excellent\nAcceptable\nNeeds Attention"
-    },
-    {
-      "fieldname": "sec_photos",
-      "fieldtype": "Section Break",
-      "label": "Photos & Media",
-      "collapsible": 1
-    },
-    {
-      "fieldname": "initial_intake_photos",
-      "fieldtype": "Attach",
-      "label": "Initial Intake Photos"
-    },
-    {
-      "fieldname": "sec_accessories",
-      "fieldtype": "Section Break",
-      "label": "Accessories & Included Parts",
-      "collapsible": 1
-    },
-    {
-      "fieldname": "accessory_id",
-      "fieldtype": "Table",
-      "label": "Accessories & Included Parts",
-      "options": "Intake Accessory Item"
-    },
-    {
-      "fieldname": "sec_audit",
-      "fieldtype": "Section Break",
-      "label": "Audit & Reference",
-      "collapsible": 1
-    },
-    {
-      "fieldname": "amended_from",
-      "fieldtype": "Link",
-      "label": "Amended From",
-      "options": "Clarinet Intake",
-      "no_copy": 1,
-      "print_hide": 1,
-      "read_only": 1,
-      "search_index": 1
-    },
-    {
-      "fieldname": "instrument_profile",
-      "label": "Instrument Profile",
-      "fieldtype": "Link",
-      "options": "Instrument Profile",
-      "read_only": 0
-    },
-    {
-      "fieldname": "repair_order",
-      "label": "Repair Order",
-      "fieldtype": "Link",
-      "options": "Repair Order",
-      "reqd": 1
-    }
-  ],
-  "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "delete": 1,
-      "submit": 1
-    },
-    {
-      "role": "Repair Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "submit": 1
-    },
-    {
-      "role": "Technician",
-      "read": 1,
-      "write": 1,
-      "create": 1
-    }
-  ],
-  "states": [
-    {
-      "title": "Pending",
-      "color": "Light Blue"
-    },
-    {
-      "title": "Received",
-      "color": "Blue"
-    },
-    {
-      "title": "Inspection",
-      "color": "Green"
-    },
-    {
-      "title": "Setup",
-      "color": "Green"
-    },
-    {
-      "title": "Repair",
-      "color": "Green"
-    },
-    {
-      "title": "Awaiting Custom Approval",
-      "color": "Orange"
-    },
-    {
-      "title": "Awaiting Payment",
-      "color": "Yellow"
-    },
-    {
-      "title": "In Transit",
-      "color": "Light Blue"
-    },
-    {
-      "title": "Repair Complete",
-      "color": "Orange"
-    },
-    {
-      "title": "Returned to Customer",
-      "color": "Purple"
-    }
-  ]
+ "actions": [],
+ "autoname": "field:intake_record_id",
+ "creation": "2025-07-21 04:17:12.653156",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sec_overview",
+  "intake_record_id",
+  "intake_date",
+  "intake_type",
+  "col_overview_right",
+  "employee",
+  "instrument",
+  "instrument_profile",
+  "intake_status",
+  "repair_order",
+  "sec_instrument_identity",
+  "instrument_category",
+  "manufacturer",
+  "model",
+  "serial_no",
+  "clarinet_type",
+  "year_of_manufacture",
+  "col_inst_right",
+  "body_material",
+  "key_plating",
+  "pitch_standard",
+  "bore_type",
+  "tone_hole_style",
+  "thumb_rest_type",
+  "sec_inventory_pricing",
+  "item_code",
+  "item_name",
+  "acquisition_source",
+  "col_inventory_right",
+  "acquisition_cost",
+  "store_asking_price",
+  "sec_customer_service",
+  "customer",
+  "customer_full_name",
+  "customer_phone",
+  "customer_email",
+  "player_profile",
+  "customer_type",
+  "col_customer_right",
+  "customers_stated_issue",
+  "initial_assessment_notes",
+  "work_order_number",
+  "service_type_requested",
+  "estimated_cost",
+  "deposit_paid",
+  "customer_approval",
+  "promised_completion_date",
+  "consent_form",
+  "instrument_condition_section",
+  "wood_body_condition",
+  "col_cond_mid",
+  "keywork_condition",
+  "col_cond_right",
+  "pad_condition",
+  "spring_condition",
+  "cork_condition",
+  "sec_photos",
+  "initial_intake_photos",
+  "sec_accessories",
+  "accessory_id",
+  "sec_audit",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "sec_overview",
+   "fieldtype": "Section Break",
+   "label": "Intake Overview"
+  },
+  {
+   "fieldname": "intake_record_id",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Intake Record ID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "default": "now",
+   "fieldname": "intake_date",
+   "fieldtype": "Datetime",
+   "label": "Intake Date & Time",
+   "read_only": 1
+  },
+  {
+   "default": "New Inventory",
+   "fieldname": "intake_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Intake Type",
+   "options": "New Inventory\nRepair\nMaintenance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_overview_right",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee / Technician",
+   "options": "User",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "instrument",
+   "fieldtype": "Link",
+   "label": "Instrument",
+   "options": "Instrument",
+   "read_only": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "intake_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Pending\nReceived\nInspection\nSetup\nRepair\nAwaiting Customer Approval\nAwaiting Payment\nIn Transit\nReturned to Customer\nComplete\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sec_instrument_identity",
+   "fieldtype": "Section Break",
+   "label": "Instrument Identity"
+  },
+  {
+   "fieldname": "instrument_category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Instrument Category",
+   "options": "Instrument Category",
+   "reqd": 1
+  },
+  {
+   "fieldname": "manufacturer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Manufacturer",
+   "options": "Brand",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Model",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Serial Number",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "clarinet_type",
+   "fieldtype": "Select",
+   "label": "Type of Clarinet",
+   "options": "B\u266d Clarinet\nA Clarinet\nE\u266d Clarinet\nBass Clarinet\nAlto Clarinet\nContrabass Clarinet\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "year_of_manufacture",
+   "fieldtype": "Int",
+   "label": "Year of Manufacture"
+  },
+  {
+   "fieldname": "col_inst_right",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "body_material",
+   "fieldtype": "Data",
+   "label": "Body Material",
+   "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+  },
+  {
+   "fieldname": "key_plating",
+   "fieldtype": "Data",
+   "label": "Keywork Plating",
+   "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+  },
+  {
+   "fieldname": "pitch_standard",
+   "fieldtype": "Data",
+   "label": "Pitch Standard",
+   "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+  },
+  {
+   "fieldname": "bore_type",
+   "fieldtype": "Data",
+   "label": "Bore Type / Size"
+  },
+  {
+   "fieldname": "tone_hole_style",
+   "fieldtype": "Data",
+   "label": "Tone Hole Style"
+  },
+  {
+   "fieldname": "thumb_rest_type",
+   "fieldtype": "Data",
+   "label": "Thumb Rest Type"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:doc.intake_type == 'New Inventory'",
+   "fieldname": "sec_inventory_pricing",
+   "fieldtype": "Section Break",
+   "label": "Inventory & Pricing (New Inventory)"
+  },
+  {
+   "depends_on": "eval:doc.intake_type == 'New Inventory'",
+   "fieldname": "item_code",
+   "fieldtype": "Data",
+   "label": "Item Code",
+   "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'",
+   "search_index": 1
+  },
+  {
+   "depends_on": "eval:doc.intake_type == 'New Inventory'",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "mandatory_depends_on": "eval:doc.intake_type == 'New Inventory'"
+  },
+  {
+   "depends_on": "eval:doc.intake_type == 'New Inventory'",
+   "fieldname": "acquisition_source",
+   "fieldtype": "Data",
+   "label": "Acquisition Source"
+  },
+  {
+   "fieldname": "col_inventory_right",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.intake_type == 'New Inventory'",
+   "fieldname": "acquisition_cost",
+   "fieldtype": "Currency",
+   "label": "Acquisition Cost"
+  },
+  {
+   "depends_on": "eval:doc.intake_type == 'New Inventory'",
+   "fieldname": "store_asking_price",
+   "fieldtype": "Currency",
+   "label": "Store Asking Price"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "sec_customer_service",
+   "fieldtype": "Section Break",
+   "label": "Customer & Service (Repair/Maintenance)"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Customer ID",
+   "mandatory_depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "options": "Customer",
+   "search_index": 1
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "customer_full_name",
+   "fieldtype": "Data",
+   "label": "Customer Full Name"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "customer_phone",
+   "fieldtype": "Data",
+   "label": "Customer Phone"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "customer_email",
+   "fieldtype": "Data",
+   "label": "Customer Email"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "description": "Automatically linked Player Profile",
+   "fieldname": "player_profile",
+   "fieldtype": "Link",
+   "label": "Player Profile",
+   "options": "Player Profile",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "customer_type",
+   "fieldtype": "Select",
+   "label": "Customer Type",
+   "options": "Professional\nStudent\nUniversity\nCollector"
+  },
+  {
+   "fieldname": "col_customer_right",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "customers_stated_issue",
+   "fieldtype": "Small Text",
+   "label": "Customer's Stated Issue"
+  },
+  {
+   "fieldname": "initial_assessment_notes",
+   "fieldtype": "Small Text",
+   "label": "Initial Assessment Notes"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "work_order_number",
+   "fieldtype": "Link",
+   "label": "Work Order Number",
+   "options": "Work Order"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "service_type_requested",
+   "fieldtype": "Select",
+   "label": "Service Type Requested",
+   "options": "COA\nOverhaul\nCrack Repair\nPlay Condition"
+  },
+  {
+   "fieldname": "estimated_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Cost"
+  },
+  {
+   "fieldname": "deposit_paid",
+   "fieldtype": "Currency",
+   "label": "Deposit Paid"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "customer_approval",
+   "fieldtype": "Data",
+   "label": "Customer Approval"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'New Inventory'",
+   "fieldname": "promised_completion_date",
+   "fieldtype": "Date",
+   "label": "Promised Completion Date"
+  },
+  {
+   "depends_on": "eval:doc.intake_type != 'Repair'",
+   "fieldname": "consent_form",
+   "fieldtype": "Link",
+   "label": "Consent Form",
+   "options": "Consent Form"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "instrument_condition_section",
+   "fieldtype": "Section Break",
+   "label": "Instrument Condition"
+  },
+  {
+   "fieldname": "wood_body_condition",
+   "fieldtype": "Select",
+   "label": "Wood/Body Condition",
+   "options": "Excellent\nAcceptable\nNeeds Attention"
+  },
+  {
+   "fieldname": "col_cond_mid",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "keywork_condition",
+   "fieldtype": "Select",
+   "label": "Keywork Condition",
+   "options": "Excellent\nAcceptable\nNeeds Attention"
+  },
+  {
+   "fieldname": "col_cond_right",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pad_condition",
+   "fieldtype": "Select",
+   "label": "Pad Condition",
+   "options": "Excellent\nAcceptable\nNeeds Attention"
+  },
+  {
+   "fieldname": "spring_condition",
+   "fieldtype": "Select",
+   "label": "Spring Condition",
+   "options": "Excellent\nAcceptable\nNeeds Attention"
+  },
+  {
+   "fieldname": "cork_condition",
+   "fieldtype": "Select",
+   "label": "Cork Condition",
+   "options": "Excellent\nAcceptable\nNeeds Attention"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_photos",
+   "fieldtype": "Section Break",
+   "label": "Photos & Media"
+  },
+  {
+   "fieldname": "initial_intake_photos",
+   "fieldtype": "Attach Image",
+   "label": "Initial Intake Photos"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_accessories",
+   "fieldtype": "Section Break",
+   "label": "Accessories & Included Parts"
+  },
+  {
+   "fieldname": "accessory_id",
+   "fieldtype": "Table",
+   "label": "Accessories & Included Parts",
+   "options": "Intake Accessory Item"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_audit",
+   "fieldtype": "Section Break",
+   "label": "Audit & Reference"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Clarinet Intake",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "instrument_profile",
+   "fieldtype": "Link",
+   "label": "Instrument Profile",
+   "options": "Instrument Profile"
+  },
+  {
+   "fieldname": "repair_order",
+   "fieldtype": "Link",
+   "label": "Repair Order",
+   "options": "Repair Order",
+   "reqd": 1
+  }
+ ],
+ "image_field": "initial_intake_photos",
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-11-30 05:33:41.156416",
+ "modified_by": "Administrator",
+ "module": "Intake",
+ "name": "Clarinet Intake",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Repair Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Technician",
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "search_fields": "intake_record_id, serial_no, customer, manufacturer, model, item_code, player_profile",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Light Blue",
+   "title": "Pending"
+  },
+  {
+   "color": "Blue",
+   "title": "Received"
+  },
+  {
+   "color": "Green",
+   "title": "Inspection"
+  },
+  {
+   "color": "Green",
+   "title": "Setup"
+  },
+  {
+   "color": "Green",
+   "title": "Repair"
+  },
+  {
+   "color": "Orange",
+   "title": "Awaiting Custom Approval"
+  },
+  {
+   "color": "Yellow",
+   "title": "Awaiting Payment"
+  },
+  {
+   "color": "Light Blue",
+   "title": "In Transit"
+  },
+  {
+   "color": "Orange",
+   "title": "Repair Complete"
+  },
+  {
+   "color": "Purple",
+   "title": "Returned to Customer"
+  }
+ ],
+ "title_field": "intake_record_id",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

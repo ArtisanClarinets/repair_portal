@@ -362,23 +362,69 @@ class EnterpriseErrorHandler:
 
     @staticmethod
     def _evaluate_condition(doc, condition: str) -> bool:
-        """Safely evaluate validation condition."""
+        """
+        Safely evaluate validation condition WITHOUT using eval().
+        
+        Supported condition patterns:
+        - "doc.field_name" - truthy check
+        - "doc.field_name and len(doc.field_name) >= N" - length check
+        - "doc.field_name or doc.status == 'Draft'" - simple or with equality
+        - "doc.field_name in ['A', 'B', 'C']" - membership check
+        
+        Returns True (pass) if the condition cannot be safely evaluated.
+        """
+        import operator
+        import re
+        
         try:
-            # Create safe evaluation context
-            context = {
-                "doc": doc,
-                "frappe": frappe,
-                "_": _,
-                "len": len,
-                "str": str,
-                "int": int,
-                "float": float,
-                "bool": bool,
-            }
-
-            # Evaluate condition safely
-            return bool(eval(condition, {"__builtins__": {}}, context))
-
+            condition = condition.strip()
+            
+            # Pattern: doc.field_name in ['val1', 'val2']
+            in_match = re.match(r"doc\.(\w+)\s+in\s+\[(.+)\]", condition)
+            if in_match:
+                field_name = in_match.group(1)
+                values_str = in_match.group(2)
+                # Parse values safely - only allow string literals
+                values = [v.strip().strip("'\"") for v in values_str.split(",")]
+                field_value = getattr(doc, field_name, None)
+                return field_value in values
+            
+            # Pattern: doc.field_name and len(doc.field_name) >= N
+            len_match = re.match(r"doc\.(\w+)\s+and\s+len\(doc\.\1\)\s*(>=|>|<=|<|==)\s*(\d+)", condition)
+            if len_match:
+                field_name = len_match.group(1)
+                op_str = len_match.group(2)
+                threshold = int(len_match.group(3))
+                field_value = getattr(doc, field_name, None)
+                if not field_value:
+                    return False
+                ops = {">=": operator.ge, ">": operator.gt, "<=": operator.le, "<": operator.lt, "==": operator.eq}
+                return ops.get(op_str, operator.ge)(len(field_value), threshold)
+            
+            # Pattern: doc.field_name or doc.field2 == 'Value'
+            or_eq_match = re.match(r"doc\.(\w+)\s+or\s+doc\.(\w+)\s*==\s*['\"](.+)['\"]", condition)
+            if or_eq_match:
+                field1 = or_eq_match.group(1)
+                field2 = or_eq_match.group(2)
+                expected_value = or_eq_match.group(3)
+                val1 = getattr(doc, field1, None)
+                val2 = getattr(doc, field2, None)
+                return bool(val1) or (val2 == expected_value)
+            
+            # Pattern: simple truthy check - doc.field_name
+            simple_match = re.match(r"doc\.(\w+)$", condition)
+            if simple_match:
+                field_name = simple_match.group(1)
+                return bool(getattr(doc, field_name, None))
+            
+            # If we can't safely parse the condition, log and return True (pass)
+            frappe.log_error(
+                f"Unsupported condition pattern: {condition}. "
+                "Consider adding support for this pattern or simplifying the rule.",
+                "Condition Evaluation Warning"
+            )
+            return True
+            
         except Exception as e:
             frappe.log_error(f"Condition evaluation failed: {condition} - {str(e)}")
             return True  # Default to pass if evaluation fails

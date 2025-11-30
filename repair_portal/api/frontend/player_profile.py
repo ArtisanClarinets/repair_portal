@@ -96,5 +96,6 @@ def save():
             payload[field] = data[field]
 
     player_profile.save(frappe.as_json(payload))
-    frappe.db.commit()
+    # Note: frappe.db.commit() removed - Frappe v15 handles transactions automatically
+    # Explicit commits can cause issues with nested transactions and are discouraged
     return {"success": True}
