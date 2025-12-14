@@ -309,19 +309,19 @@ onMounted(() => {
 .section-header h2 {
   margin: 0;
   font-size: 1.5rem;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .section-hint {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: var(--muted);
   max-width: 620px;
 }
 
 .card {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -332,7 +332,7 @@ onMounted(() => {
   margin: 0;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .content-grid {
@@ -354,44 +354,44 @@ label {
   gap: 0.5rem;
   font-weight: 500;
   font-size: 0.875rem;
-  color: #334155;
+  color: var(--text);
 }
 
 input {
   padding: 0.65rem 0.875rem;
   border-radius: 0.5rem;
-  border: 1px solid #cbd5e1;
-  background-color: #ffffff;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
   font-size: 1rem;
-  color: #1e293b;
+  color: var(--text);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus-visible {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--focus);
 }
 
 .field-hint {
   font-weight: 400;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .field-error {
   margin: 0;
   font-size: 0.875rem;
-  color: #dc2626;
+  color: var(--danger);
 }
 
 .has-error input {
-  border-color: #fca5a5;
-  background-color: #fef2f2;
+  border-color: color-mix(in srgb, var(--danger) 30%, var(--border));
+  background-color: var(--danger-surface);
 }
 .has-error input:focus-visible {
-  border-color: #dc2626;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 20%, var(--surface));
 }
 
 /* --- Status & Lookup Styles --- */
@@ -402,21 +402,21 @@ input:focus-visible {
   font-weight: 500;
 }
 .status-pill.success {
-  background-color: #dcfce7;
-  color: #166534;
+  background-color: var(--success-surface);
+  color: var(--success);
 }
 .status-pill.neutral {
-  background-color: #f1f5f9;
-  color: #475569;
+  background-color: var(--surface);
+  color: var(--muted);
 }
 
 .lookup-card {
-  background-color: #f8fafc; /* Subtle background for lookup */
+  background-color: var(--bg); /* Subtle background for lookup */
 }
 
 .lookup-hint {
   margin: 0;
-  color: #64748b;
+  color: var(--muted);
   font-size: 0.875rem;
 }
 
@@ -436,8 +436,8 @@ input:focus-visible {
   height: 1.125rem;
   margin-top: -0.5625rem;
   border-radius: 50%;
-  border: 2px solid #cbd5e1;
-  border-top-color: #4f46e5;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
   animation: spin 0.8s linear infinite;
 }
 
@@ -453,10 +453,10 @@ input:focus-visible {
 }
 
 .result-button {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
   padding: 0.875rem;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   cursor: pointer;
   width: 100%;
   display: grid;
@@ -467,7 +467,7 @@ input:focus-visible {
 }
 
 .result-button:hover {
-  border-color: #4f46e5;
+  border-color: var(--primary);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
@@ -479,13 +479,13 @@ input:focus-visible {
 
 .result-name {
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .result-meta {
-  color: #64748b;
+  color: var(--muted);
   font-size: 0.8rem;
-  background-color: #f1f5f9;
+  background-color: color-mix(in srgb, var(--surface) 80%, var(--border));
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
 }
@@ -494,16 +494,16 @@ input:focus-visible {
   display: flex;
   flex-direction: column;
   font-size: 0.875rem;
-  color: #475569;
+  color: color-mix(in srgb, var(--text) 70%, var(--muted));
 }
 
 .lookup-empty {
   margin: 0;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
   text-align: center;
   padding: 1rem;
-  background-color: #f1f5f9;
+  background-color: var(--surface);
   border-radius: 0.5rem;
 }
 
@@ -515,7 +515,7 @@ input:focus-visible {
   gap: 1rem;
   margin-top: 1rem; /* Add some space above actions */
   padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border);
 }
 
 /* --- Shared Button Styles from App.vue are assumed --- */
@@ -529,19 +529,19 @@ input:focus-visible {
 }
 
 .primary {
-  background-color: #4f46e5;
-  color: #ffffff;
-  border: 1px solid #4f46e5;
+  background-color: var(--primary);
+  color: var(--card-bg);
+  border: 1px solid var(--primary);
 }
 .primary[disabled] {
-  background-color: #a5b4fc;
-  border-color: #a5b4fc;
+  background-color: color-mix(in srgb, var(--primary) 40%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--card-bg));
   cursor: not-allowed;
 }
 
 .secondary {
-  background-color: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #334155;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 </style>

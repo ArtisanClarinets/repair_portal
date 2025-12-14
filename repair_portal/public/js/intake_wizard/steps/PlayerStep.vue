@@ -335,19 +335,19 @@ function validate(show = true) {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
-.section-header h2 { margin: 0; font-size: 1.5rem; color: #1e293b; }
-.section-hint { margin: 0.25rem 0 0; color: #64748b; max-width: 620px; }
+.section-header h2 { margin: 0; font-size: 1.5rem; color: var(--text); }
+.section-hint { margin: 0.25rem 0 0; color: var(--muted); max-width: 620px; }
 
 .card {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
-.card h3 { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1e293b; }
+.card h3 { margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--text); }
 
 .content-grid {
   display: grid;
@@ -363,9 +363,9 @@ function validate(show = true) {
 
 /* --- Status Pill Styles --- */
 .status-pill { border-radius: 999px; padding: 0.375rem 0.875rem; font-size: 0.875rem; font-weight: 500; }
-.status-pill--success { background-color: #dcfce7; color: #166534; }
-.status-pill--neutral { background-color: #eef2ff; color: #4338ca; }
-.status-pill--muted { background-color: #f1f5f9; color: #475569; }
+.status-pill--success { background-color: var(--success-surface); color: var(--success); }
+.status-pill--neutral { background-color: color-mix(in srgb, var(--primary) 8%, var(--surface)); color: var(--primary-600); }
+.status-pill--muted { background-color: var(--surface); color: var(--muted); }
 
 /* --- Checkbox Switch --- */
 .checkbox {
@@ -373,32 +373,32 @@ function validate(show = true) {
   align-items: center;
   gap: 0.75rem;
   font-weight: 500;
-  background-color: #f8fafc;
+  background-color: var(--bg);
   padding: 0.75rem 1.25rem;
   border-radius: 0.5rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
 }
 .checkbox input { width: 1.25rem; height: 1.25rem; }
 
 /* --- Form Element Styles --- */
-label { display: flex; flex-direction: column; gap: 0.5rem; font-weight: 500; font-size: 0.875rem; color: #334155; }
-input, select { padding: 0.65rem 0.875rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: #ffffff; font-size: 1rem; color: #1e293b; }
-input:focus-visible, select:focus-visible { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
-.field-hint { font-weight: 400; font-size: 0.875rem; color: #64748b; }
-.field-error { margin: 0; font-size: 0.875rem; color: #dc2626; }
-.has-error input, .has-error select { border-color: #fca5a5; }
+label { display: flex; flex-direction: column; gap: 0.5rem; font-weight: 500; font-size: 0.875rem; color: color-mix(in srgb, var(--text) 92%, var(--muted)); }
+input, select { padding: 0.65rem 0.875rem; border-radius: 0.5rem; border: 1px solid var(--border); background-color: var(--card-bg); font-size: 1rem; color: var(--text); }
+input:focus-visible, select:focus-visible { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--focus); }
+.field-hint { font-weight: 400; font-size: 0.875rem; color: var(--muted); }
+.field-error { margin: 0; font-size: 0.875rem; color: var(--danger); }
+.has-error input, .has-error select { border-color: color-mix(in srgb, var(--danger) 30%, var(--border)); }
 
 /* --- Lookup Card --- */
-.lookup-card { background-color: #f8fafc; }
+.lookup-card { background-color: var(--bg); }
 .search-control { position: relative; }
-.loader { position: absolute; right: 0.875rem; top: 50%; width: 1.125rem; height: 1.125rem; margin-top: -0.5625rem; border-radius: 50%; border: 2px solid #cbd5e1; border-top-color: #4f46e5; animation: spin 0.8s linear infinite; }
+.loader { position: absolute; right: 0.875rem; top: 50%; width: 1.125rem; height: 1.125rem; margin-top: -0.5625rem; border-radius: 50%; border: 2px solid var(--border); border-top-color: var(--primary); animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .search-results { list-style: none; padding: 0; margin: 0.5rem 0 0; display: flex; flex-direction: column; gap: 0.5rem; }
-.result-button { border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem; background-color: #ffffff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-.result-name { font-weight: 600; }
-.result-email { display: block; font-size: 0.875rem; color: #64748b; }
-.result-meta { font-size: 0.8rem; color: #64748b; }
-.lookup-empty { margin: 0; color: #64748b; }
+.result-button { border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.75rem; background-color: var(--card-bg); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.result-name { font-weight: 600; color: var(--text); }
+.result-email { display: block; font-size: 0.875rem; color: var(--muted); }
+.result-meta { font-size: 0.8rem; color: var(--muted); }
+.lookup-empty { margin: 0; color: var(--muted); }
 
 /* --- Actions --- */
 .actions {
@@ -408,15 +408,15 @@ input:focus-visible, select:focus-visible { outline: none; border-color: #4f46e5
   flex-wrap: wrap;
   margin-top: auto; /* Push actions to the bottom of the card */
   padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border);
 }
 
 .primary, .secondary { border-radius: 0.5rem; padding: 0.65rem 1.25rem; font-size: 0.95rem; cursor: pointer; font-weight: 600; }
-.primary { background-color: #4f46e5; border: 1px solid #4f46e5; color: #ffffff; }
-.primary[disabled] { background-color: #a5b4fc; border-color: #a5b4fc; cursor: not-allowed; }
-.secondary { background-color: #ffffff; border: 1px solid #cbd5e1; color: #334155; }
+.primary { background-color: var(--primary); border: 1px solid var(--primary); color: var(--card-bg); }
+.primary[disabled] { background-color: color-mix(in srgb, var(--primary) 40%, var(--card-bg)); border-color: color-mix(in srgb, var(--primary) 40%, var(--card-bg)); cursor: not-allowed; }
+.secondary { background-color: var(--card-bg); border: 1px solid var(--border); color: var(--text); }
 
-.saved-pill { background-color: #dcfce7; color: #166534; padding: 0.375rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 500;}
+.saved-pill { background-color: var(--success-surface); color: var(--success); padding: 0.375rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 500;}
 
-.same-as-customer { background-color: #f8fafc; }
+.same-as-customer { background-color: var(--bg); }
 </style>

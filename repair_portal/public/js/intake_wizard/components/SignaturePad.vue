@@ -96,7 +96,9 @@ function ensureContext() {
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   ctx.lineWidth = 2.2;
-  ctx.strokeStyle = "#111827";
+  // Use theme ink color if available
+  const ink = getComputedStyle(document.documentElement).getPropertyValue("--text") || "#111827";
+  ctx.strokeStyle = ink.trim() || "#111827";
   return ctx;
 }
 
@@ -137,7 +139,7 @@ function renderDataUrl(value) {
   ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
   ctx.restore();
   if (!value) {
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--card-bg') || "#fff";
     ctx.fillRect(0, 0, canvas.value.width, canvas.value.height);
     isEmpty.value = true;
     blankSnapshot.value = canvas.value.toDataURL("image/png");
@@ -169,7 +171,7 @@ function resizeCanvas() {
   const ctx = ensureContext();
   if (!ctx) return;
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--card-bg') || "#fff";
   ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);
   blankSnapshot.value = canvasEl.toDataURL("image/png");
   if (props.modelValue) {
@@ -225,7 +227,7 @@ function clearPad() {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
   ctx.restore();
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--card-bg') || "#fff";
   ctx.fillRect(0, 0, canvas.value.width, canvas.value.height);
   blankSnapshot.value = canvas.value.toDataURL("image/png");
   emit("update:modelValue", "");
@@ -296,22 +298,22 @@ onBeforeUnmount(() => {
 <style scoped>
 .signature-pad { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; }
 .signature-header { display: flex; flex-direction: column; }
-.signature-label { font-weight: 500; font-size: 0.875rem; color: #334155; }
-.signature-instruction { font-size: 0.875rem; color: #64748b; }
+.signature-label { font-weight: 500; font-size: 0.875rem; color: var(--text); }
+.signature-instruction { font-size: 0.875rem; color: var(--muted); }
 
 .pad-wrapper {
   position: relative;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   height: 180px;
   overflow: hidden;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
   max-width: 100%;
 }
-.pad-wrapper:has(:focus-visible) { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
-.pad-wrapper--empty { background-color: #f8fafc; }
+.pad-wrapper:has(:focus-visible) { border-color: var(--primary); box-shadow: 0 0 0 3px var(--focus); }
+.pad-wrapper--empty { background-color: var(--bg); }
 
 .pad-canvas { width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
 
@@ -321,7 +323,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.875rem;
   pointer-events: none;
   text-transform: uppercase;
@@ -329,17 +331,17 @@ onBeforeUnmount(() => {
 }
 
 .pad-controls { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-.pad-controls .secondary { border: 1px solid #cbd5e1; background-color: #ffffff; color: #334155; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-weight: 600; }
+.pad-controls .secondary { border: 1px solid var(--border); background-color: var(--card-bg); color: var(--text); padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-weight: 600; }
 .pad-controls .secondary:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.upload-label { position: relative; display: inline-flex; align-items: center; padding: 0.5rem 1rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; background-color: #f8fafc; color: #334155; cursor: pointer; font-weight: 600; }
+.upload-label { position: relative; display: inline-flex; align-items: center; padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 0.5rem; background-color: var(--bg); color: var(--text); cursor: pointer; font-weight: 600; }
 .upload-label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-.size-hint { font-size: 0.8rem; color: #94a3b8; }
+.size-hint { font-size: 0.8rem; color: var(--muted); }
 
-.signature-error { margin: 0; font-size: 0.875rem; color: #dc2626; }
+.signature-error { margin: 0; font-size: 0.875rem; color: var(--danger); }
 .signature-preview { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-start; }
-.signature-preview img { max-width: 280px; max-height: 100px; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #ffffff; padding: 0.25rem; }
-.signature-preview figcaption { font-size: 0.8rem; color: #94a3b8; }
+.signature-preview img { max-width: 280px; max-height: 100px; border: 1px solid var(--border); border-radius: 0.5rem; background-color: var(--card-bg); padding: 0.25rem; }
+.signature-preview figcaption { font-size: 0.8rem; color: var(--muted); }
 
 .is-disabled { opacity: 0.6; pointer-events: none; }
 </style>

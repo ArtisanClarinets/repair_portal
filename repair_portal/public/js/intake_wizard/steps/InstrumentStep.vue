@@ -513,18 +513,18 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
 }
 
-.section-header h2 { margin: 0; font-size: 1.5rem; color: #1e293b; }
+.section-header h2 { margin: 0; font-size: 1.5rem; color: var(--text); }
 
 .section-hint {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: var(--muted);
   max-width: 620px;
 }
 
 .card {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -535,7 +535,7 @@ onBeforeUnmount(() => {
   margin: 0;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .content-grid {
@@ -557,30 +557,30 @@ label {
   gap: 0.5rem;
   font-weight: 500;
   font-size: 0.875rem;
-  color: #334155;
+  color: var(--text);
 }
 
 input,
 select {
   padding: 0.65rem 0.875rem;
   border-radius: 0.5rem;
-  border: 1px solid #cbd5e1;
-  background-color: #ffffff;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
   font-size: 1rem;
-  color: #1e293b;
+  color: var(--text);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus-visible,
 select:focus-visible {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--focus);
 }
 
-.field-hint { font-weight: 400; font-size: 0.875rem; color: #64748b; }
-.field-error { margin: 0; font-size: 0.875rem; color: #dc2626; }
-.has-error input, .has-error select { border-color: #fca5a5; }
+.field-hint { font-weight: 400; font-size: 0.875rem; color: var(--muted); }
+.field-error { margin: 0; font-size: 0.875rem; color: var(--danger); }
+.has-error input, .has-error select { border-color: color-mix(in srgb, var(--danger) 30%, var(--border)); }
 
 /* --- Status Pill Styles --- */
 .status-pill {
@@ -589,14 +589,14 @@ select:focus-visible {
   font-size: 0.875rem;
   font-weight: 500;
 }
-.status-pill--success { background-color: #dcfce7; color: #166534; }
-.status-pill--info { background-color: #dbeafe; color: #1d4ed8; }
-.status-pill--neutral { background-color: #eef2ff; color: #4338ca; }
-.status-pill--muted { background-color: #f1f5f9; color: #475569; }
+.status-pill--success { background-color: var(--success-surface); color: var(--success); }
+.status-pill--info { background-color: color-mix(in srgb, var(--primary) 12%, var(--surface)); color: var(--primary); }
+.status-pill--neutral { background-color: color-mix(in srgb, var(--primary) 8%, var(--surface)); color: var(--primary-600); }
+.status-pill--muted { background-color: var(--surface); color: var(--muted); }
 
 /* --- Insight Card --- */
 .insight-card {
-  background-color: #f8fafc; /* Subtle background */
+  background-color: var(--bg); /* Subtle background */
   position: sticky;
   top: 2rem;
 }
@@ -616,28 +616,25 @@ select:focus-visible {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .insight-value {
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text);
   font-size: 1.125rem;
 }
 
 .mapping-guidance {
   margin: 0;
   font-size: 0.875rem;
-  color: #4f46e5;
-}
-
-.mapping-pill {
+  color: var(--primary);
   display: inline-flex;
   font-size: 1rem;
   align-items: center;
   gap: 0.35rem;
-  background-color: #eef2ff;
-  color: #4338ca;
+  background-color: color-mix(in srgb, var(--surface) 85%, var(--primary));
+  color: var(--primary-600);
   padding: 0.25rem 0.65rem;
   border-radius: 999px;
 }
@@ -648,7 +645,7 @@ select:focus-visible {
   flex-direction: column;
   gap: 0.75rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border);
 }
 
 .accessory-fields {
@@ -665,10 +662,10 @@ select:focus-visible {
   top: 100%;
   left: 0;
   right: 0;
-  background-color: #ffffff;
-  border: 1px solid #cbd5e1;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  box-shadow: var(--shadow);
   list-style: none;
   margin-top: 0.25rem;
   padding: 0.25rem 0;
@@ -677,7 +674,7 @@ select:focus-visible {
   z-index: 10;
 }
 
-.lookup-list li + li { border-top: 1px solid #e2e8f0; }
+.lookup-list li + li { border-top: 1px solid var(--border); }
 
 .lookup-list button {
   width: 100%;
@@ -687,9 +684,9 @@ select:focus-visible {
   padding: 0.5rem 0.75rem;
   cursor: pointer;
 }
-.lookup-list button:hover { background-color: #f8fafc; }
-.lookup-primary { font-weight: 500; color: #1e293b; }
-.lookup-secondary { font-size: 0.8rem; color: #64748b; }
+.lookup-list button:hover { background-color: var(--bg); }
+.lookup-primary { font-weight: 500; color: var(--text); }
+.lookup-secondary { font-size: 0.8rem; color: var(--muted); }
 
 .accessory-table {
   width: 100%;
@@ -699,17 +696,17 @@ select:focus-visible {
 
 .accessory-table th, .accessory-table td {
   padding: 0.75rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border);
   text-align: left;
 }
 
 .accessory-table th {
-  background-color: #f8fafc;
+  background-color: var(--bg);
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .accessory-table td.actions, .accessory-table th.actions { text-align: right; }
@@ -717,7 +714,7 @@ select:focus-visible {
 .link-button {
   border: none;
   background: none;
-  color: #4f46e5;
+  color: var(--primary);
   cursor: pointer;
   font-weight: 600;
 }
@@ -726,23 +723,23 @@ select:focus-visible {
 .lookup-empty {
   margin: 1rem 0 0;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
   text-align: center;
   padding: 1rem;
-  background-color: #f8fafc;
+  background-color: var(--bg);
   border-radius: 0.5rem;
 }
 
 /* --- Shared Button Styles --- */
 .secondary {
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border);
   padding: 0.65rem 1rem;
   border-radius: 0.5rem;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   cursor: pointer;
   font-weight: 600;
-  color: #334155;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  color: var(--text);
+  box-shadow: var(--shadow);
 }
 .secondary:disabled { opacity: 0.6; cursor: not-allowed; }
 </style>

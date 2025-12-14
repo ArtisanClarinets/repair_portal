@@ -156,30 +156,30 @@ watch(
 /* --- Core Section & Card Styles --- */
 .wizard-section { display: flex; flex-direction: column; gap: 2rem; }
 .section-header { display: flex; justify-content: space-between; align-items: center; }
-.section-header h2 { margin: 0; font-size: 1.5rem; color: #1e293b; }
-.section-hint { margin: 0.25rem 0 0; color: #64748b; }
+.section-header h2 { margin: 0; font-size: 1.5rem; color: var(--text); }
+.section-hint { margin: 0.25rem 0 0; color: var(--muted); }
 
 /* --- Status & Badge Styles --- */
 .status-pill { border-radius: 999px; padding: 0.375rem 0.875rem; font-size: 0.875rem; font-weight: 500; }
-.status-pill--ready { background-color: #dcfce7; color: #166534; }
-.status-pill--warning { background-color: #fef3c7; color: #b45309; }
+.status-pill--ready { background-color: var(--success-surface); color: var(--success); }
+.status-pill--warning { background-color: var(--warning-surface); color: var(--warning); }
 .badge { border-radius: 999px; padding: 0.25rem 0.65rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
-.badge--ok { background-color: #dcfce7; color: #166534; }
-.badge--warn { background-color: #fee2e2; color: #b91c1c; }
+.badge--ok { background-color: var(--success-surface); color: var(--success); }
+.badge--warn { background-color: var(--danger-surface); color: var(--danger); }
 
 /* --- Summary Layout --- */
 .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-.summary-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
-.summary-card header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 0.75rem; border-bottom: 1px solid #e2e8f0; }
-.summary-card h3 { margin: 0; font-size: 1.125rem; font-weight: 600; }
-.summary-card p { margin: 0; color: #475569; line-height: 1.6; }
-.summary-card p strong { color: #1e293b; font-weight: 600; }
+.summary-card { background-color: var(--bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.summary-card header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.summary-card h3 { margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--text); }
+.summary-card p { margin: 0; color: color-mix(in srgb, var(--text) 70%, var(--muted)); line-height: 1.6; }
+.summary-card p strong { color: var(--text); font-weight: 600; }
 
 /* --- Accessory List in Review --- */
-.accessory-list { list-style: none; margin: 0.5rem 0 0; padding-top: 0.75rem; border-top: 1px dashed #cbd5e1; display: flex; flex-direction: column; gap: 0.5rem; }
-.accessory-label { font-size: 0.8rem; text-transform: uppercase; color: #64748b; font-weight: 500; }
-.accessory-value { display: block; font-weight: 500; color: #1e293b; }
+.accessory-list { list-style: none; margin: 0.5rem 0 0; padding-top: 0.75rem; border-top: 1px dashed var(--border); display: flex; flex-direction: column; gap: 0.5rem; }
+.accessory-label { font-size: 0.8rem; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.accessory-value { display: block; font-weight: 500; color: var(--text); }
 
 /* --- Alert Box --- */
-.alert { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 1rem 1.25rem; border-radius: 0.5rem; color: #92400e; }
+.alert { background-color: var(--warning-surface); border-left: 4px solid var(--warning); padding: 1rem 1.25rem; border-radius: 0.5rem; color: color-mix(in srgb, var(--warning) 60%, var(--muted)); }
 </style>

@@ -1,5 +1,16 @@
+// Path: repair_portal/public/js/clarinet_estimator.js
+// Date: 2025-12-14
+// Version: 1.0.0
+// Description: Client-side clarinet estimator — builds an estimate table from selected regions, validates user input, and submits to server-side estimator API. Improves accessibility, keyboard support, and resiliency.
+// Dependencies: frappe
+
 const __ = frappe._;
 const form = document.getElementById("estimator-form");
+// defensive: bail out early if page not present (helps embed pages and tests)
+if (!form) {
+  // Nothing to do on pages without the estimator form
+  console.warn("clarinet_estimator: estimator form not found; script will not run.");
+}
 const instrumentSelect = document.getElementById("instrument-family");
 const hotspots = Array.from(document.querySelectorAll(".hotspot"));
 const expediteInput = document.getElementById("expedite");
@@ -8,6 +19,7 @@ const lineItemsBody = document.getElementById("line-items-body");
 const totalDisplay = document.getElementById("total-display");
 const etaDisplay = document.getElementById("eta-display");
 const statusEl = document.getElementById("form-status");
+const submitBtn = form ? form.querySelector('[type="submit"], button[type="submit"]') : null;
 
 const state = {
   selected: new Set(),
@@ -17,6 +29,7 @@ const state = {
 
 const currency = (frappe.boot && frappe.boot.sysdefaults && frappe.boot.sysdefaults.currency) || "USD";
 const currencyFormatter = new Intl.NumberFormat(undefined, { style: "currency", currency });
+const EM_DASH = "—";
 
 function formatCurrency(amount) {
   if (!amount) {
@@ -28,7 +41,11 @@ function formatCurrency(amount) {
 async function loadBootstrap() {
   state.selected.clear();
   hotspots.forEach((btn) => btn.setAttribute("aria-pressed", "false"));
-  statusEl.textContent = "";
+  if (statusEl) {
+    statusEl.textContent = "";
+    statusEl.setAttribute("role", "status");
+    statusEl.setAttribute("aria-live", "polite");
+  }
   try {
     const response = await frappe.call({
       method: "repair_portal.api.estimator.get_bootstrap",
@@ -36,10 +53,10 @@ async function loadBootstrap() {
     });
     state.rules = (response && response.message && response.message.regions) || {};
     state.hasExistingPhotos = false;
-    renderPreview();
+    scheduleRender();
   } catch (error) {
     console.error(error);
-    statusEl.textContent = __("Unable to load pricing rules. Contact support.");
+    if (statusEl) statusEl.textContent = __("Unable to load pricing rules. Contact support.");
   }
 }
 
@@ -53,7 +70,7 @@ function toggleRegion(button) {
     state.selected.add(region);
     button.setAttribute("aria-pressed", "true");
   }
-  renderPreview();
+  scheduleRender();
 }
 
 function renderPreview() {
@@ -119,8 +136,8 @@ function renderPreview() {
     td.textContent = __("Select a region to populate the estimate.");
     empty.appendChild(td);
     lineItemsBody.appendChild(empty);
-    totalDisplay.textContent = "—";
-    etaDisplay.textContent = "—";
+    totalDisplay.textContent = EM_DASH;
+    etaDisplay.textContent = EM_DASH;
     return;
   }
 
@@ -144,24 +161,38 @@ function renderPreview() {
   });
   lineItemsBody.appendChild(fragment);
   totalDisplay.textContent = formatCurrency(total);
-  etaDisplay.textContent = etaDays ? `${etaDays}` : "—";
+  etaDisplay.textContent = etaDays ? `${etaDays}` : EM_DASH;
+}
+
+// Micro-throttle to avoid excessive table reflows when toggling many regions quickly
+let __raf = null;
+function scheduleRender() {
+  if (__raf) cancelAnimationFrame(__raf);
+  __raf = requestAnimationFrame(() => {
+    renderPreview();
+    __raf = null;
+  });
 }
 
 async function submitForm(event) {
   event.preventDefault();
-  statusEl.textContent = "";
+  if (statusEl) statusEl.textContent = "";
+  if (submitBtn) submitBtn.disabled = true;
 
   if (!form.reportValidity()) {
-    statusEl.textContent = __("Please fill out all required fields.");
+    if (statusEl) statusEl.textContent = __("Please fill out all required fields.");
+    if (submitBtn) submitBtn.disabled = false;
     return;
   }
   if (!state.selected.size) {
-    statusEl.textContent = __("Select at least one region before submitting.");
+    if (statusEl) statusEl.textContent = __("Select at least one region before submitting.");
+    if (submitBtn) submitBtn.disabled = false;
     return;
   }
   if (!state.hasExistingPhotos && photosInput.files.length === 0) {
-    statusEl.textContent = __("Upload at least one inspection photo.");
+    if (statusEl) statusEl.textContent = __("Upload at least one inspection photo.");
     photosInput.focus();
+    if (submitBtn) submitBtn.disabled = false;
     return;
   }
 
@@ -169,7 +200,7 @@ async function submitForm(event) {
   formData.append("selections", JSON.stringify(Array.from(state.selected)));
 
   try {
-    statusEl.textContent = __("Generating estimate...");
+    if (statusEl) statusEl.textContent = __("Generating estimate...");
     const response = await fetch("/api/method/repair_portal.api.estimator.submit", {
       method: "POST",
       headers: { "X-Frappe-CSRF-Token": frappe.csrf_token },
@@ -183,11 +214,13 @@ async function submitForm(event) {
     applyServerResult(message);
     state.hasExistingPhotos = true;
     photosInput.value = "";
-    statusEl.textContent = `${__("Estimate saved")}: ${message.estimate}`;
+    if (statusEl) statusEl.textContent = `${__("Estimate saved")}: ${message.estimate}`;
   } catch (error) {
     console.error(error);
     const detail = error && error.message ? ` ${error.message}` : "";
-    statusEl.textContent = `${__("Failed to generate estimate.")}${detail}`;
+    if (statusEl) statusEl.textContent = `${__("Failed to generate estimate.")}${detail}`;
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
   }
 }
 
@@ -220,15 +253,30 @@ function applyServerResult(message) {
     totalDisplay.textContent = formatCurrency(message.total);
   }
   if (message.eta_days !== undefined) {
-    etaDisplay.textContent = message.eta_days ? `${message.eta_days}` : "—";
+    etaDisplay.textContent = message.eta_days ? `${message.eta_days}` : EM_DASH;
   }
 }
 
 instrumentSelect.addEventListener("change", loadBootstrap);
-expediteInput.addEventListener("change", renderPreview);
+expediteInput.addEventListener("change", scheduleRender);
 hotspots.forEach((button) => {
   button.addEventListener("click", () => toggleRegion(button));
+  button.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleRegion(button);
+    }
+  });
 });
-form.addEventListener("submit", submitForm);
 
-loadBootstrap();
+// update state when user attaches files directly
+if (photosInput) {
+  photosInput.addEventListener("change", () => {
+    state.hasExistingPhotos = photosInput.files && photosInput.files.length > 0;
+  });
+}
+if (form) {
+  form.addEventListener("submit", submitForm);
+
+  loadBootstrap();
+}

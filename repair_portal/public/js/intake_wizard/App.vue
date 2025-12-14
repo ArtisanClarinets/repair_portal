@@ -963,8 +963,54 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+:root {
+  /* Design tokens — supports system & Frappe desk dark mode */
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #4f46e5;
+  --primary-600: #4338ca;
+  --focus: rgba(79, 70, 229, 0.2);
+  --success: #16a34a;
+  --success-surface: #dcfce7;
+  --warning: #ca8a04;
+  --warning-surface: #fef3c7;
+  --danger: #dc2626;
+  --danger-surface: #fee2e2;
+  --chip-bg: #1e293b;
+  --chip-text: #ffffff;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Respect system-level and desk themes */
+@media (prefers-color-scheme: dark), .theme-dark, .frappe-dark {
+  :root {
+    --bg: #0b1220;
+    --card-bg: #0f1724;
+    --surface: #0f1724;
+    --text: #e6eef8;
+    --muted: #94a3b8;
+    --border: #1f2937;
+    --primary: #6366f1;
+    --primary-600: #4f46e5;
+    --focus: rgba(99, 102, 241, 0.16);
+    --success: #4ade80;
+    --success-surface: #052e16;
+    --warning: #f59e0b;
+    --warning-surface: #3f2b00;
+    --danger: #f87171;
+    --danger-surface: #3b0a0a;
+    --chip-bg: #e2e8f0;
+    --chip-text: #0b1220;
+    --shadow: none;
+  }
+}
+
 :global(body) {
-  background-color: #f8fafc; /* Use new background color */
+  background-color: var(--bg);
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -977,7 +1023,7 @@ onBeforeUnmount(() => {
   padding: 2.5rem; /* Increased padding */
   max-width: 1400px; /* Wider max-width for enterprise feel */
   margin: 0 auto;
-  color: #1e293b; /* New primary text color */
+  color: var(--text);
 }
 
 .wizard-header {
@@ -991,7 +1037,7 @@ onBeforeUnmount(() => {
   font-size: 2.25rem; /* Larger heading */
   font-weight: 700;
   margin: 0;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .wizard-eyebrow {
@@ -999,13 +1045,13 @@ onBeforeUnmount(() => {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #4f46e5; /* Use primary color */
+  color: var(--primary);
   margin: 0 0 0.5rem;
 }
 
 .wizard-subtitle {
   margin: 0.5rem 0 0;
-  color: #64748b; /* New secondary text color */
+  color: var(--muted);
   max-width: 620px;
   font-size: 1rem;
 }
@@ -1014,7 +1060,7 @@ onBeforeUnmount(() => {
   display: flex;
   gap: 1.5rem;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
   margin-top: 1rem;
   flex-wrap: wrap;
 }
@@ -1031,8 +1077,8 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #1e293b; /* Darker, more professional chip */
-  color: #ffffff;
+  background-color: var(--chip-bg);
+  color: var(--chip-text);
   padding: 0.5rem 1rem;
   border-radius: 999px;
   font-size: 0.875rem;
@@ -1051,8 +1097,8 @@ onBeforeUnmount(() => {
   border-radius: 999px;
   font-size: 0.875rem;
   font-weight: 500;
-  background-color: #f1f5f9;
-  color: #475569;
+  background-color: var(--surface);
+  color: var(--muted);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -1064,19 +1110,19 @@ onBeforeUnmount(() => {
 }
 
 .autosave-status.status-saving {
-  background-color: #fef3c7;
-  color: #ca8a04;
+  background-color: var(--warning-surface);
+  color: var(--warning);
 }
 .autosave-status.status-success {
-  background-color: #dcfce7;
-  color: #16a34a;
+  background-color: var(--success-surface);
+  color: var(--success);
 }
 .autosave-status.status-error {
-  background-color: #fee2e2;
-  color: #dc2626;
+  background-color: var(--danger-surface);
+  color: var(--danger);
 }
 
-/* SLA Indicator Styles remain similar but with new palette */
+/* SLA Indicator Styles use theme tokens */
 .sla-indicator {
   border-radius: 999px;
   padding: 0.5rem 1rem;
@@ -1087,10 +1133,10 @@ onBeforeUnmount(() => {
 }
 .sla-label { text-transform: uppercase; font-size: 0.75rem; }
 .sla-text { font-size: 0.875rem; }
-.sla-good { background-color: #dcfce7; color: #15803d; }
-.sla-warning { background-color: #fef3c7; color: #b45309; }
-.sla-critical { background-color: #fee2e2; color: #b91c1c; }
-.sla-none, .sla-pending { background-color: #f1f5f9; color: #475569; }
+.sla-good { background-color: var(--success-surface); color: var(--success); }
+.sla-warning { background-color: var(--warning-surface); color: var(--warning); }
+.sla-critical { background-color: var(--danger-surface); color: var(--danger); }
+.sla-none, .sla-pending { background-color: var(--surface); color: var(--muted); }
 
 
 .wizard-layout {
@@ -1101,9 +1147,9 @@ onBeforeUnmount(() => {
 }
 
 .wizard-progress {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -1120,7 +1166,7 @@ onBeforeUnmount(() => {
 
 .progress-label {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .progress-value {
@@ -1130,18 +1176,18 @@ onBeforeUnmount(() => {
 
 .progress-steps {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .progress-bar {
   height: 0.5rem;
   border-radius: 999px;
-  background-color: #e2e8f0;
+  background-color: var(--border);
 }
 
 .progress-fill {
   height: 100%;
-  background-color: #4f46e5;
+  background-color: var(--primary);
   border-radius: 999px;
   transition: width 0.4s ease;
 }
@@ -1170,7 +1216,7 @@ onBeforeUnmount(() => {
 }
 
 .step-button:hover:not(:disabled) {
-  background-color: #f8fafc;
+  background-color: var(--surface);
 }
 
 .step-button:disabled {
@@ -1179,7 +1225,7 @@ onBeforeUnmount(() => {
 }
 
 .step-button:focus-visible {
-  outline: 2px solid #4f46e5;
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -1191,48 +1237,48 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #e2e8f0;
-  color: #475569;
+  background-color: var(--border);
+  color: var(--muted);
   font-weight: 600;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .step-label {
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .step-description {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .step-status {
   margin-left: auto;
   font-size: 0.8rem;
   font-weight: 500;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .active .step-button {
-  background-color: #eef2ff; /* Lighter active state */
-  border-color: #c7d2fe;
+  background-color: color-mix(in srgb, var(--primary) 8%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--primary) 20%, var(--border));
 }
 .active .step-index {
-  background-color: #4f46e5;
-  color: #ffffff;
+  background-color: var(--primary);
+  color: var(--card-bg);
 }
 .active .step-label {
-  color: #4f46e5;
+  color: var(--primary);
 }
 
 .complete .step-index {
-  background-color: #16a34a;
-  color: #ffffff;
+  background-color: var(--success);
+  color: var(--card-bg);
 }
 
 .progress-footer {
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border);
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
@@ -1242,13 +1288,13 @@ onBeforeUnmount(() => {
 .progress-help {
   margin: 0;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .link-button {
   border: none;
   background: none;
-  color: #4f46e5;
+  color: var(--primary);
   cursor: pointer;
   font-weight: 600;
   padding: 0;
@@ -1260,9 +1306,9 @@ onBeforeUnmount(() => {
 }
 
 .wizard-content {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   padding: 2.5rem; /* More padding */
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   min-height: 540px;
@@ -1286,10 +1332,10 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 0.75rem;
   padding: 1rem 1.5rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
@@ -1301,7 +1347,7 @@ onBeforeUnmount(() => {
 
 .support-label {
   font-weight: 500;
-  color: #475569;
+  color: var(--muted);
 }
 
 .footer-actions {
@@ -1321,30 +1367,30 @@ onBeforeUnmount(() => {
 }
 
 .primary {
-  background-color: #4f46e5;
-  color: #ffffff;
-  border: 1px solid #4f46e5;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  background-color: var(--primary);
+  color: var(--card-bg);
+  border: 1px solid var(--primary);
+  box-shadow: var(--shadow);
 }
 .primary:hover {
-  background-color: #4338ca;
+  background-color: var(--primary-600);
 }
 .primary[disabled] {
-  background-color: #a5b4fc;
-  border-color: #a5b4fc;
+  background-color: color-mix(in srgb, var(--primary) 40%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--card-bg));
   cursor: not-allowed;
   box-shadow: none;
 }
 
 .secondary {
-  background-color: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #334155;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: var(--shadow);
 }
 .secondary:hover {
-  border-color: #94a3b8;
-  color: #1e293b;
+  border-color: color-mix(in srgb, var(--border) 30%, var(--primary));
+  color: var(--text);
 }
 
 /* Submission Summary Styles */
@@ -1352,8 +1398,8 @@ onBeforeUnmount(() => {
 .submission-error {
   border-radius: 0.75rem;
   padding: 1.5rem 2rem;
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
 }
 
 .submission-summary h2, .submission-error h2 {
@@ -1361,8 +1407,8 @@ onBeforeUnmount(() => {
 }
 
 .submission-error {
-  border-left: 4px solid #dc2626;
-  background-color: #fef2f2;
+  border-left: 4px solid var(--danger);
+  background-color: var(--danger-surface);
 }
 
 .submission-summary ul {
@@ -1376,7 +1422,7 @@ onBeforeUnmount(() => {
 }
 
 .submission-summary a {
-  color: #4f46e5;
+  color: var(--primary);
   text-decoration: none;
   font-weight: 600;
 }
