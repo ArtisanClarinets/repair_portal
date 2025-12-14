@@ -1,0 +1,1 @@
+Stock level of {{ doc.item_name }} is at {{ doc.actual_qty }}. Please reorder soon.

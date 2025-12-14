@@ -29,5 +29,8 @@
     "@babel/preset-env": "^7.22.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "eslint": "^8.42.0"
+  },
+  "dependencies": {
+    "@genkit-ai/mcp": "^1.26.0"
   }
 }

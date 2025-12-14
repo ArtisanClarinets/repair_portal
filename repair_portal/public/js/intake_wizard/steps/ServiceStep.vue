@@ -34,7 +34,8 @@
           </label>
         </div>
         <p class="callout" v-if="local.intakeType !== 'New Inventory'">
-          <strong>Tip:</strong> Use the issue description to document how the instrument currently feels to the player (response,
+          <strong>Tip:</strong> Use the issue description to document how the instrument currently feels to the player
+          (response,
           tuning, resistance).
         </p>
       </article>
@@ -69,7 +70,8 @@
       <transition name="fade">
         <div v-if="local.loanerRequired" class="loaner-body">
           <div class="loaner-toolbar">
-            <button type="button" class="secondary" @click="fetchAvailableLoaners" :disabled="loading">Refresh List</button>
+            <button type="button" class="secondary" @click="fetchAvailableLoaners" :disabled="loading">Refresh
+              List</button>
             <span class="loaner-count" aria-live="polite">{{ loaners.length }} loaners available</span>
           </div>
           <label>
@@ -77,7 +79,8 @@
             <select v-model="local.loanerInstrument" @change="update">
               <option value="">Choose loaner</option>
               <option v-for="row in loaners" :key="row.loaner" :value="row.loaner">
-                {{ row.loaner }} — {{ row.instrument_details.manufacturer || 'Unknown' }} {{ row.instrument_details.model || '' }}
+                {{ row.loaner }} — {{ row.instrument_details.manufacturer || 'Unknown' }} {{
+                  row.instrument_details.model || '' }}
               </option>
             </select>
           </label>
@@ -85,36 +88,31 @@
             <h4>{{ selectedLoaner.loaner }}</h4>
             <p>
               {{ selectedLoaner.instrument_details.manufacturer || '—' }}
-              {{ selectedLoaner.instrument_details.model || '' }} · Serial {{ selectedLoaner.instrument_details.serial_no || '—' }}
+              {{ selectedLoaner.instrument_details.model || '' }} · Serial {{
+                selectedLoaner.instrument_details.serial_no || '—' }}
             </p>
           </div>
           <div class="loaner-agreement">
             <h4>Loaner Agreement</h4>
             <p class="section-hint">
-              Capture borrower and staff approvals. Signatures are stored as secure image data and surfaced on the agreement PDF.
+              Capture borrower and staff approvals. Signatures are stored as secure image data and surfaced on the
+              agreement PDF.
             </p>
             <label class="checkbox">
-              <input type="checkbox" v-model="local.loanerAgreement.terms_ack" @change="update" /> Borrower agrees to terms
+              <input type="checkbox" v-model="local.loanerAgreement.terms_ack" @change="update" /> Borrower agrees to
+              terms
             </label>
             <div :class="['signature-field', { 'has-error': signatureErrors.borrower || errors.borrower_signature }]">
-              <SignaturePad
-                v-model="local.loanerAgreement.borrower_signature"
-                label="Borrower Signature"
-                :max-bytes="MAX_SIGNATURE_BYTES"
-                @update:modelValue="setSignature('borrower_signature', $event)"
-                @invalid="handleSignatureError('borrower', $event)"
-              />
+              <SignaturePad v-model="local.loanerAgreement.borrower_signature" label="Borrower Signature"
+                :max-bytes="MAX_SIGNATURE_BYTES" @update:modelValue="setSignature('borrower_signature', $event)"
+                @invalid="handleSignatureError('borrower', $event)" />
               <p v-if="signatureErrors.borrower" class="field-error">{{ signatureErrors.borrower }}</p>
               <p v-else-if="errors.borrower_signature" class="field-error">{{ errors.borrower_signature }}</p>
             </div>
             <div :class="['signature-field', { 'has-error': signatureErrors.staff || errors.staff_signature }]">
-              <SignaturePad
-                v-model="local.loanerAgreement.staff_signature"
-                label="Staff Signature"
-                :max-bytes="MAX_SIGNATURE_BYTES"
-                @update:modelValue="setSignature('staff_signature', $event)"
-                @invalid="handleSignatureError('staff', $event)"
-              />
+              <SignaturePad v-model="local.loanerAgreement.staff_signature" label="Staff Signature"
+                :max-bytes="MAX_SIGNATURE_BYTES" @update:modelValue="setSignature('staff_signature', $event)"
+                @invalid="handleSignatureError('staff', $event)" />
               <p v-if="signatureErrors.staff" class="field-error">{{ signatureErrors.staff }}</p>
               <p v-else-if="errors.staff_signature" class="field-error">{{ errors.staff_signature }}</p>
             </div>
@@ -312,41 +310,197 @@ function validate(show = true) {
 
 <style scoped>
 /* --- Core Section & Card Styles --- */
-.wizard-section { display: flex; flex-direction: column; gap: 2rem; }
-.section-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
-.section-header h2 { margin: 0; font-size: 1.5rem; color: #1e293b; }
-.section-hint { margin: 0.25rem 0 0; color: #64748b; max-width: 620px; }
-.status-cluster { display: inline-flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-.card { background-color: #ffffff; border-radius: 0.75rem; border: 1px solid #e2e8f0; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
-.card h3 { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1e293b; }
-.content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-.field-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+.wizard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1e293b;
+}
+
+.section-hint {
+  margin: 0.25rem 0 0;
+  color: #64748b;
+  max-width: 620px;
+}
+
+.status-cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
 
 /* --- Status Pill Styles --- */
-.status-pill { border-radius: 999px; padding: 0.375rem 0.875rem; font-size: 0.875rem; font-weight: 500; }
-.status-pill--success { background-color: #dcfce7; color: #166534; }
-.status-pill--warning { background-color: #fef3c7; color: #b45309; }
-.status-pill--neutral { background-color: #eef2ff; color: #4338ca; }
+.status-pill {
+  border-radius: 999px;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-pill--success {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-pill--warning {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.status-pill--neutral {
+  background-color: #eef2ff;
+  color: #4338ca;
+}
 
 /* --- Form Element Styles --- */
-label { display: flex; flex-direction: column; gap: 0.5rem; font-weight: 500; font-size: 0.875rem; color: #334155; }
-input, select, textarea { padding: 0.65rem 0.875rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: #ffffff; font-size: 1rem; color: #1e293b; }
-input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
-textarea { resize: vertical; min-height: 80px; }
-.field-error { margin: 0; font-size: 0.875rem; color: #dc2626; }
-.has-error input, .has-error textarea { border-color: #fca5a5; }
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #334155;
+}
+
+input,
+select,
+textarea {
+  padding: 0.65rem 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.field-error {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #dc2626;
+}
+
+.has-error input,
+.has-error textarea {
+  border-color: #fca5a5;
+}
 
 /* --- Special Components --- */
-.callout { background-color: #f0f9ff; color: #075985; padding: 1rem; border-radius: 0.5rem; border: 1px solid #bae6fd; margin: 0; }
-.char-count { font-size: 0.875rem; color: #94a3b8; text-align: right; }
-.checkbox { display: inline-flex; align-items: center; gap: 0.75rem; font-weight: 500; }
+.callout {
+  background-color: #f0f9ff;
+  color: #075985;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #bae6fd;
+  margin: 0;
+}
+
+.char-count {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  text-align: right;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
 
 /* --- Loaner Section --- */
-.loaner-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
-.loaner-body { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; max-width: 100%; }
-.loaner-toolbar { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-.loaner-count { font-size: 0.875rem; color: #64748b; }
-.loaner-preview { background-color: #f8fafc; border-radius: 0.5rem; padding: 1rem; color: #475569; border: 1px solid #e2e8f0; word-break: break-word; }
+.loaner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.loaner-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  max-width: 100%;
+}
+
+.loaner-toolbar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.loaner-count {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.loaner-preview {
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  word-break: break-word;
+}
+
 .loaner-agreement {
   display: grid;
   gap: 1.25rem;
@@ -354,17 +508,53 @@ textarea { resize: vertical; min-height: 80px; }
   align-items: start;
   max-width: 100%;
 }
-.loaner-agreement > * { min-width: 0; }
-.signature-field { min-width: 0; }
-.signature-field :deep(.signature-pad) { width: 100%; }
-.signature-field :deep(.pad-wrapper) { width: 100%; max-width: 100%; }
-.signature-field :deep(canvas) { width: 100% !important; }
-.signature-field.has-error :deep(.pad-wrapper) { border-color: #fca5a5; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2); }
+
+.loaner-agreement>* {
+  min-width: 0;
+}
+
+.signature-field {
+  min-width: 0;
+}
+
+.signature-field :deep(.signature-pad) {
+  width: 100%;
+}
+
+.signature-field :deep(.pad-wrapper) {
+  width: 100%;
+  max-width: 100%;
+}
+
+.signature-field :deep(canvas) {
+  width: 100% !important;
+}
+
+.signature-field.has-error :deep(.pad-wrapper) {
+  border-color: #fca5a5;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
 
 /* --- Shared Button Styles --- */
-.secondary { border: 1px solid #cbd5e1; padding: 0.65rem 1rem; border-radius: 0.5rem; background-color: #ffffff; cursor: pointer; font-weight: 600; color: #334155; }
+.secondary {
+  border: 1px solid #cbd5e1;
+  padding: 0.65rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-weight: 600;
+  color: #334155;
+}
 
 /* --- Transitions --- */
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
-.fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(-10px); }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
 </style>
