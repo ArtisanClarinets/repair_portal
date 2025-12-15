@@ -10,9 +10,15 @@
     "workflow_state_field": "workflow_state",
     "states": [
       {
-        "state": "Draft",
+        "state": "Requested",
         "doc_status": 0,
-        "update_value": "Draft",
+        "update_value": "Requested",
+        "allow_edit": "Repair Manager"
+      },
+      {
+        "state": "Quoted",
+        "doc_status": 0,
+        "update_value": "Quoted",
         "allow_edit": "Repair Manager"
       },
       {
@@ -22,27 +28,21 @@
         "allow_edit": "Repair Manager"
       },
       {
-        "state": "QA",
+        "state": "Ready for QA",
         "doc_status": 1,
-        "update_value": "QA",
+        "update_value": "Ready for QA",
         "allow_edit": "Repair Manager"
       },
       {
-        "state": "Ready",
+        "state": "Completed",
         "doc_status": 1,
-        "update_value": "Ready",
+        "update_value": "Completed",
         "allow_edit": "Repair Manager"
       },
       {
         "state": "Delivered",
         "doc_status": 1,
         "update_value": "Delivered",
-        "allow_edit": "Repair Manager"
-      },
-      {
-        "state": "Closed",
-        "doc_status": 1,
-        "update_value": "Closed",
         "allow_edit": "Repair Manager"
       },
       {
@@ -54,7 +54,15 @@
     ],
     "transitions": [
       {
-        "state": "Draft",
+        "state": "Requested",
+        "action": "Quote",
+        "next_state": "Quoted",
+        "allowed": "Repair Manager",
+        "allow_self_approval": 0,
+        "condition": ""
+      },
+      {
+        "state": "Quoted",
         "action": "Start",
         "next_state": "In Progress",
         "allowed": "Repair Technician",
@@ -64,7 +72,7 @@
       {
         "state": "In Progress",
         "action": "Request QA",
-        "next_state": "QA",
+        "next_state": "Ready for QA",
         "allowed": "Repair Technician",
         "allow_self_approval": 0,
         "condition": ""
@@ -78,15 +86,15 @@
         "condition": ""
       },
       {
-        "state": "QA",
+        "state": "Ready for QA",
         "action": "Approve QA",
-        "next_state": "Ready",
+        "next_state": "Completed",
         "allowed": "Repair Manager",
         "allow_self_approval": 0,
         "condition": ""
       },
       {
-        "state": "QA",
+        "state": "Ready for QA",
         "action": "Send Back",
         "next_state": "In Progress",
         "allowed": "Repair Manager",
@@ -94,7 +102,7 @@
         "condition": ""
       },
       {
-        "state": "QA",
+        "state": "Ready for QA",
         "action": "Cancel",
         "next_state": "Cancelled",
         "allowed": "Repair Manager",
@@ -102,25 +110,9 @@
         "condition": ""
       },
       {
-        "state": "Ready",
+        "state": "Completed",
         "action": "Deliver",
         "next_state": "Delivered",
-        "allowed": "Repair Manager",
-        "allow_self_approval": 0,
-        "condition": ""
-      },
-      {
-        "state": "Ready",
-        "action": "Cancel",
-        "next_state": "Cancelled",
-        "allowed": "Repair Manager",
-        "allow_self_approval": 0,
-        "condition": ""
-      },
-      {
-        "state": "Delivered",
-        "action": "Close",
-        "next_state": "Closed",
         "allowed": "Repair Manager",
         "allow_self_approval": 0,
         "condition": ""

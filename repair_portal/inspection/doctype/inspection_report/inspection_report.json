@@ -1,0 +1,26 @@
+{
+  "doctype": "DocType",
+  "name": "Inspection Report",
+  "module": "Inspection",
+  "custom": 0,
+  "istable": 0,
+  "fields": [
+    {"fieldname": "inspection_date", "fieldtype": "Date", "label": "Inspection Date"},
+    {"fieldname": "instrument_profile", "fieldtype": "Link", "options": "Instrument Profile", "label": "Instrument Profile"},
+    {"fieldname": "instrument_id", "fieldtype": "Data", "label": "Instrument ID"},
+    {"fieldname": "serial_no", "fieldtype": "Data", "label": "Serial No"},
+    {"fieldname": "stock_entry", "fieldtype": "Link", "options": "Stock Entry", "label": "Stock Entry"},
+    {"fieldname": "inspection_type", "fieldtype": "Select", "options": "Clarinet Intake\nClarinet QA\nOther", "label": "Inspection Type"},
+    {"fieldname": "status", "fieldtype": "Select", "options": "Scheduled\nIn Progress\nPassed\nFailed\nPending Review", "label": "Status"},
+    {"fieldname": "customer_name", "fieldtype": "Data", "label": "Customer Name"},
+    {"fieldname": "customer", "fieldtype": "Link", "options": "Customer", "label": "Customer"},
+    {"fieldname": "preliminary_estimate", "fieldtype": "Currency", "label": "Preliminary Estimate"},
+    {"fieldname": "clarinet_intake_ref", "fieldtype": "Link", "options": "Clarinet Intake", "label": "Clarinet Intake Ref"},
+    {"fieldname": "legacy_clarinet_inspection_id", "fieldtype": "Data", "label": "Legacy Clarinet Inspection ID"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
+    {"role": "Repair Manager", "read": 1, "write": 1, "create": 1}
+  ],
+  "workflow": "Inspection QC Workflow"
+}

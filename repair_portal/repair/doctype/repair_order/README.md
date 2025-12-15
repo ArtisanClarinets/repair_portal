@@ -36,12 +36,12 @@ Critical) | Default: `Medium` |
 | `total_actual_minutes` | Int | Read-only |
 | `qa_required` | Check | Default: `1` |
 | `require_invoice_before_delivery` | Check | Default: `0` |
-| `workflow_state` | Select (Draft
+| `workflow_state` | Select (Requested
+Quoted
 In Progress
-QA
-Ready
-Delivered
-Closed) | Read-only. Default: `Draft` |
+Ready for QA
+Completed
+Delivered) | Read-only. Default: `Requested` |
 | `remarks` | Small Text | Remarks |
 | `related_documents` | Table (Repair Related Document) | Related Documents |
 | ... | ... | *3 more fields* |

@@ -36,5 +36,16 @@
   {"doctype": "Workflow State", "name": "Returned to Customer", "workflow_state_name": "Returned to Customer", "style": "Inverse"},
   {"doctype": "Workflow State", "name": "Setup", "workflow_state_name": "Setup", "style": "Info"},
   {"doctype": "Workflow State", "name": "Submitted", "workflow_state_name": "Submitted", "style": null},
-  {"doctype": "Workflow State", "name": "Waiting on Client", "workflow_state_name": "Waiting on Client", "style": "Warning"}
+  {"doctype": "Workflow State", "name": "Waiting on Client", "workflow_state_name": "Waiting on Client", "style": "Warning"},
+  {"doctype":"Workflow State","name":"Requested","workflow_state_name":"Requested","style":null},
+  {"doctype":"Workflow State","name":"Quoted","workflow_state_name":"Quoted","style":null},
+  {"doctype":"Workflow State","name":"In Progress","workflow_state_name":"In Progress","style":"Primary"},
+  {"doctype":"Workflow State","name":"Ready for QA","workflow_state_name":"Ready for QA","style":null},
+  {"doctype":"Workflow State","name":"Completed","workflow_state_name":"Completed","style":null},
+  {"doctype":"Workflow State","name":"Delivered","workflow_state_name":"Delivered","style":"Success"},
+  {"doctype":"Workflow State","name":"Cancelled","workflow_state_name":"Cancelled","style":null},
+  {"doctype":"Workflow State","name":"Awaiting Arrival","workflow_state_name":"Awaiting Arrival","style":"Warning"},
+  {"doctype": "Workflow State", "name": "Checked-In", "workflow_state_name": "Checked-In", "style": null},
+  {"doctype": "Workflow State", "name": "Ready to Ship", "workflow_state_name": "Ready to Ship", "style": "Info"}
+
 ]

@@ -227,6 +227,20 @@ class TestInstrumentProfile(FrappeTestCase):
         # Clean up
         frappe.delete_doc("Instrument Profile", profile.name, force=True, ignore_permissions=True)
 
+    def test_check_pending_updates_api(self):
+        """Ensure the server API for pending updates returns a boolean payload."""
+        # Create a fresh profile
+        profile = frappe.get_doc({"doctype": "Instrument Profile", "instrument": self.test_instrument.name})
+        profile.insert(ignore_permissions=True)
+
+        from repair_portal.instrument_profile import api
+
+        resp = api.check_pending_updates("")
+        assert isinstance(resp, dict)
+        assert "has_updates" in resp
+
+        frappe.delete_doc("Instrument Profile", profile.name, force=True, ignore_permissions=True)
+
 
 def create_test_fixtures():
     """Helper to create all test fixtures"""

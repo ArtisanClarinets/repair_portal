@@ -74,7 +74,7 @@ after_migrate = [
     "repair_portal.scripts.hooks.reload_all_doctypes.reload_all_doctypes",
     # use if update schemas in scripts/hooks/schemas/*
     #   "repair_portal.install.seed_item_groups_after_migrate",
-    #   "repair_portal.install.seed_all_from_schemas",
+    "repair_portal.install.seed_all_from_schemas",
     # Ensure Consent Artifacts are installed/updated
     # 'repair_portal.utils.install.ensure_workflow_prereqs.ensure_workflow_prereqs',
     "repair_portal.utils.install.install_consent_artifacts.install_or_update_consent_artifacts",
@@ -110,6 +110,9 @@ doc_events = {
         "after_insert": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
         "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
         "on_change": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
+    },
+    "Instrument Profile": {
+        "after_insert": "repair_portal.instrument_profile.events.utils.create_linked_documents",
     },
     "Instrument Serial Number": {
         "on_update": "repair_portal.instrument_profile.services.profile_sync.on_linked_doc_change",
