@@ -20,7 +20,8 @@
   "repair_notes",
   "section_qa",
   "qa_checklist",
-  "amended_from"
+  "amended_from",
+  "portal_token"
  ],
  "fields": [
   {
@@ -119,6 +120,16 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "portal_token",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Portal Token",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1,
+   "unique": 1
   }
  ],
  "is_submittable": 1,

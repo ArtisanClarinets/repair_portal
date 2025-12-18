@@ -136,10 +136,10 @@ def _ensure_customer(form: MailInForm) -> str:
 def _ensure_instrument(customer: str, form: MailInForm) -> str:
     existing = frappe.db.get_value("Instrument", {"serial_no": form.serial_no})
     if existing:
-        doc = frappe.get_doc("Instrument", existing)
-        if doc.customer != customer:
-            doc.customer = customer
-            doc.save(ignore_permissions=True)
+        # Security: Do not automatically transfer instrument ownership on public form submission.
+        # If the serial number exists but belongs to a different customer, we use the existing
+        # instrument record without updating the owner. The discrepancy will be visible
+        # to the repair shop in the Repair Request (Customer vs Instrument Owner).
         return existing
     instrument = frappe.get_doc(
         {
