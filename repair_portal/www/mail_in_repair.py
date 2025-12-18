@@ -170,6 +170,13 @@ def _ensure_address(customer: str, form: MailInForm) -> str:
         "name",
     )
     if existing:
+        # Security/Data Integrity: Ensure existing address is linked to this customer
+        # to prevent "orphan" usage where the customer cannot manage their address.
+        addr_doc = frappe.get_doc("Address", existing)
+        is_linked = any(l.link_name == customer for l in (addr_doc.links or []))
+        if not is_linked:
+            addr_doc.append("links", {"link_doctype": "Customer", "link_name": customer})
+            addr_doc.save(ignore_permissions=True)
         return existing
     address = frappe.get_doc(
         {

@@ -22,7 +22,8 @@
    "fieldname": "repair_request",
    "fieldtype": "Link",
    "label": "Repair Request",
-   "options": "Repair Request"
+   "options": "Repair Request",
+   "search_index": 1
   },
   {
    "fieldname": "customer_address",
