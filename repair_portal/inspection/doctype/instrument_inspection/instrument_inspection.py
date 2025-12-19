@@ -176,8 +176,26 @@ class InstrumentInspection(Document):
                 "current_status": self.current_status,
                 "current_location": self.current_location,
                 "profile_image": self.profile_image,
-                # TODO: map child tables (photos/media/accessories) as needed
             }
+
+            # Prepare child table data
+            def get_child_data(field):
+                return [
+                    {k: v for k, v in row.as_dict().items() if k not in ("name", "creation", "modified", "modified_by", "owner", "parent", "parentfield", "parenttype", "idx", "docstatus")}
+                    for row in self.get(field)
+                ]
+
+            # Map replacements
+            marketing_photos = get_child_data("marketing_photos")
+            if marketing_photos:
+                data["serial_photos"] = marketing_photos
+
+            accessory_log = get_child_data("accessory_log")
+            if accessory_log:
+                data["accessory_log"] = accessory_log
+
+            # Prepare appends
+            service_photos = get_child_data("service_photos")
 
             profile_name = frappe.db.get_value("Instrument Profile", {"instrument": target_instrument})
             if profile_name:
@@ -185,10 +203,20 @@ class InstrumentInspection(Document):
                 for k, v in data.items():
                     if v not in (None, "", []):
                         profile.set(k, v)
+
+                # Append service photos
+                for photo in service_photos:
+                    profile.append("service_photos", photo)
+
                 profile.save(ignore_permissions=True)
             else:
                 payload = {"doctype": "Instrument Profile", "instrument": target_instrument}
                 payload.update({k: v for k, v in data.items() if v not in (None, "", [])})
+
+                # For new profile, we can just set service_photos
+                if service_photos:
+                    payload["service_photos"] = service_photos
+
                 profile = frappe.get_doc(payload)
                 profile.insert(ignore_permissions=True)
         except Exception:

@@ -260,26 +260,42 @@ class CustomerExternalWorkLog(Document):
             if self.get("service_type") in significant_services:
                 # Get parent document to determine recipients
                 if self.get("parent") and self.get("parenttype"):
-                    parent_doc = frappe.get_doc(self.parenttype, self.parent)
-
-                    # Create notification for technicians
-                    notification_doc = frappe.get_doc(
-                        {
-                            "doctype": "Notification Log",
-                            "subject": f"External {self.service_type} Logged",
-                            "email_content": f"""
-                        A new external {self.service_type.lower()} has been logged:
+                    # Determine recipients (Repair Managers first, then Technicians)
+                    recipients = []
+                    for role in ["Repair Manager", "Technician"]:
+                        users_with_role = frappe.get_all("Has Role", filters={"role": role, "parenttype": "User"}, pluck="parent")
+                        if users_with_role:
+                            enabled_users = frappe.get_all("User", filters={"name": ["in", users_with_role], "enabled": 1}, pluck="name")
+                            recipients.extend(enabled_users)
                         
-                        Shop: {self.get('external_shop_name', 'Unknown')}
-                        Date: {self.get('service_date', 'Unknown')}
-                        Notes: {self.get('service_notes', 'None')}
-                        """,
-                            "document_type": self.parenttype,
-                            "document_name": self.parent,
-                            "for_user": "Administrator",  # TODO: Determine appropriate recipients
-                        }
-                    )
-                    notification_doc.insert(ignore_permissions=True)
+                        if recipients:
+                            break
+
+                    if not recipients:
+                        recipients = ["Administrator"]
+
+                    # Deduplicate
+                    recipients = list(set(recipients))
+
+                    # Create notification for each recipient
+                    for user in recipients:
+                        notification_doc = frappe.get_doc(
+                            {
+                                "doctype": "Notification Log",
+                                "subject": f"External {self.service_type} Logged",
+                                "email_content": f"""
+                            A new external {self.service_type.lower()} has been logged:
+
+                            Shop: {self.get('external_shop_name', 'Unknown')}
+                            Date: {self.get('service_date', 'Unknown')}
+                            Notes: {self.get('service_notes', 'None')}
+                            """,
+                                "document_type": self.parenttype,
+                                "document_name": self.parent,
+                                "for_user": user,
+                            }
+                        )
+                        notification_doc.insert(ignore_permissions=True)
 
         except Exception as e:
             frappe.logger("customer_external_work_log").warning(f"Failed to send notifications: {str(e)}")
