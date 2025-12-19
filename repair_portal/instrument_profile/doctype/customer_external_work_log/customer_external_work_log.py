@@ -271,9 +271,6 @@ class CustomerExternalWorkLog(Document):
                         if recipients:
                             break
 
-                    if not recipients:
-                        recipients = ["Administrator"]
-
                     # Deduplicate
                     recipients = list(set(recipients))
 
