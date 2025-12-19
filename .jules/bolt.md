@@ -1,0 +1,7 @@
+## 2025-12-18 - Add Index to Portal Token
+**Learning:** Lookup fields used in public endpoints (like `portal_token`) must be indexed to prevent full table scans and denial of service.
+**Action:** Added `portal_token` field to `Repair Request` with `unique: 1` to ensure database indexing.
+
+## 2025-12-18 - Index Mail In Repair Request Link
+**Learning:** `Mail In Repair Request` is queried by `repair_request` in public status pages. Missing index causes full table scans.
+**Action:** Added `search_index: 1` to `repair_request` field in `Mail In Repair Request` DocType.
