@@ -11,3 +11,4 @@ repair_portal.patches.v15.setup_school_crm_pipeline
 # Patches added in this section will be executed after doctypes are migrated
 # Read docs to understand patches: https://frappeframework.com/docs/v14/user/en/database-migrations
 
+repair_portal.patches.v15.add_core_indexes

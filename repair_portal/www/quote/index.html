@@ -52,6 +52,11 @@
   if (!form) return;
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Processing...';
+
     successEl.style.display = 'none';
     errorEl.style.display = 'none';
     const formData = new FormData(form);
@@ -80,6 +85,8 @@
       const message = (error && error.message) ? error.message : 'Unable to prepare deposit. Please contact the shop.';
       errorEl.textContent = message;
       errorEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = originalText;
     }
   });
 })();
