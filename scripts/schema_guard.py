@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json, os, sys, re, glob
 
-ROOT = "/home/frappe/frappe-bench/apps/repair_portal/repair_portal"
+ROOT = "repair_portal"
 errors = []
 
 
@@ -117,6 +117,9 @@ def main():
             "Email Group",
             "Quality Inspection",
             "Attachment Entry",
+            "Sales Invoice",
+            "Subscription",
+            "Material Request",
         ]
     )
 

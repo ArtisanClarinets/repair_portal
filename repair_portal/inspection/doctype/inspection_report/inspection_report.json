@@ -2,6 +2,7 @@
   "doctype": "DocType",
   "name": "Inspection Report",
   "module": "Inspection",
+  "engine": "InnoDB",
   "custom": 0,
   "istable": 0,
   "fields": [
