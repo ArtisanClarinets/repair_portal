@@ -12,15 +12,19 @@ frappe.ui.form.on('Tone Hole Inspection Record', {
         
         // Add custom buttons for inspection workflow
         if (frm.doc.docstatus === 0) {
-            frm.add_custom_button(__('Load Standard Inspection Template'), 
-                () => frm.events.load_inspection_template(frm));
+            frm.add_custom_button(__('Load Standard Inspection Template'),
+                () => frm.events.load_inspection_template(frm))
+                .attr('aria-label', __('Load a standard set of inspection criteria'));
         }
         
         if (frm.doc.docstatus === 1) {
-            frm.add_custom_button(__('View Inspection History'), 
-                () => frm.events.view_inspection_history(frm));
-            frm.add_custom_button(__('Calculate Condition Trends'), 
-                () => frm.events.calculate_condition_trends(frm));
+            frm.add_custom_button(__('View Inspection History'),
+                () => frm.events.view_inspection_history(frm))
+                .attr('aria-label', __('View the complete inspection history for this tone hole'));
+
+            frm.add_custom_button(__('Calculate Condition Trends'),
+                () => frm.events.calculate_condition_trends(frm))
+                .attr('aria-label', __('Analyze the historical data to calculate condition trends'));
         }
         
         // Set up field styling

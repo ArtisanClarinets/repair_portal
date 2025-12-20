@@ -6,6 +6,7 @@
 from typing import Any
 
 import frappe
+from frappe.query_builder import Order
 from frappe.utils import add_days, cint, getdate
 
 
@@ -27,58 +28,40 @@ class DatabaseOptimizer:
         - Proper parameter binding
         """
         filters = filters or {}
-
-        # Build conditions with proper indexing
-        conditions = []
-        params = {}
+        profile = frappe.qb.DocType("Instrument Profile")
+        query = (
+            frappe.qb.from_(profile)
+            .select(
+                profile.name,
+                profile.serial_no,
+                profile.instrument_category,
+                profile.brand,
+                profile.model,
+                profile.profile_status,
+                profile.customer,
+                profile.modified,
+            )
+            .orderby(profile.modified, order=Order.desc)
+            .limit(cint(limit))
+        )
 
         if filters.get("customer"):
-            conditions.append("customer = %(customer)s")
-            params["customer"] = filters["customer"]
+            query = query.where(profile.customer == filters["customer"])
 
         if filters.get("status"):
-            conditions.append("profile_status = %(status)s")
-            params["status"] = filters["status"]
+            query = query.where(profile.profile_status == filters["status"])
 
         if filters.get("instrument_category"):
-            conditions.append("instrument_category = %(category)s")
-            params["category"] = filters["instrument_category"]
+            query = query.where(profile.instrument_category == filters["instrument_category"])
 
-        # Date range filtering with indexed creation field
         if filters.get("from_date"):
-            conditions.append("creation >= %(from_date)s")
-            params["from_date"] = getdate(filters["from_date"])
+            query = query.where(profile.creation >= getdate(filters["from_date"]))
 
         if filters.get("to_date"):
-            conditions.append("creation <= %(to_date)s")
-            params["to_date"] = getdate(filters["to_date"])
+            query = query.where(profile.creation <= getdate(filters["to_date"]))
 
-        where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
-
-        result = frappe.db.sql(
-            f"""
-            SELECT 
-                name,
-                serial_no,
-                instrument_category,
-                brand,
-                model,
-                profile_status,
-                customer,
-                modified
-            FROM `tabInstrument Profile`
-            {where_clause}
-            ORDER BY modified DESC
-            LIMIT {cint(limit)}
-        """,
-            params,
-            as_dict=True,
-        )
-        # Ensure result is always a list of dicts
-        if isinstance(result, list):
-            # Filter out any non-dict items for type safety
-            return [row for row in result if isinstance(row, dict)]
-        return [row for row in list(result) if isinstance(row, dict)] if result else []
+        result = query.run(as_dict=True)
+        return result
 
     @staticmethod
     def get_repair_dashboard_metrics(user: str | None = None) -> dict[str, Any]:

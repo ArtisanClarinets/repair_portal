@@ -163,17 +163,32 @@ class ClarinetBOMTemplate(Document):
     def _update_related_repair_orders(self):
         """Update any repair orders using this template."""
         if self.has_value_changed("lines"):
-            related_orders = frappe.db.get_list("Repair Order", {
-                "bom_template": self.name,
-                "docstatus": 0  # Only draft orders
-            }, ["name"])
-            
-            for order in related_orders:
-                frappe.db.set_value("Repair Order", order.name, "bom_needs_update", 1)
-                
-            if related_orders:
-                frappe.msgprint(_("{0} repair order(s) marked for BOM update")
-                              .format(len(related_orders)))
+            related_order_names = [
+                d.name
+                for d in frappe.db.get_list(
+                    "Repair Order",
+                    {"bom_template": self.name, "docstatus": 0},
+                    ["name"],
+                )
+            ]
+
+            if not related_order_names:
+                return
+
+            # Performance: Use a single bulk update query to avoid N+1 database calls.
+            # This is significantly more efficient than calling `frappe.db.set_value` in a loop.
+            ro_doctype = frappe.qb.DocType("Repair Order")
+            frappe.qb.update(ro_doctype).set(
+                ro_doctype.bom_needs_update, 1
+            ).where(
+                ro_doctype.name.isin(related_order_names)
+            ).run()
+
+            frappe.msgprint(
+                _("{0} repair order(s) marked for BOM update").format(
+                    len(related_order_names)
+                )
+            )
 
     def _refresh_cost_cache(self):
         """Refresh cached cost calculations."""

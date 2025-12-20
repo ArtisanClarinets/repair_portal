@@ -60,6 +60,11 @@ def update_customer_profile(full_name, email, phone=None, address=None):
         if not email:
             frappe.throw(_("Email is required"), frappe.ValidationError)
         
+        # Security: Ensure the provided email address is a valid format before saving.
+        # This prevents malformed data from being stored, which could impact
+        # system functionality like sending notifications or password resets.
+        frappe.utils.validate_email_address(email, throw=True)
+
         # Check email uniqueness (only if email is changing)
         current_email = (profile.email or profile.name or "").strip().lower()
         if email != current_email:
