@@ -189,6 +189,11 @@ def save_tone_fitness(instrument=None, recording_base64=None, filename=None):
     Returns:
         dict: { "name": <Tone Fitness name> }
     """
+    user = frappe.session.user
+    roles = frappe.get_roles(user)
+    if "Technician" not in roles and "Lab" not in roles:
+        frappe.throw(_("Only Technicians can record tone fitness."), frappe.PermissionError)
+
     if not instrument:
         raise LabAPIError(_("Instrument is required."))
     if not recording_base64:
@@ -232,6 +237,11 @@ def save_leak_test(instrument=None, recording_base64=None, filename=None):
     Returns:
         dict: { "name": <Leak Test name> }
     """
+    user = frappe.session.user
+    roles = frappe.get_roles(user)
+    if "Technician" not in roles and "Lab" not in roles:
+        frappe.throw(_("Only Technicians can record leak tests."), frappe.PermissionError)
+
     if not instrument:
         raise LabAPIError(_("Instrument is required."))
 
