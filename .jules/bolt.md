@@ -8,3 +8,7 @@
 ## 2025-12-20 - [Medium] Optimize BOM Update
 **Learning:** Loops containing database updates are a common source of N+1 query problems, which can lead to significant performance degradation.
 **Action:** Refactored the `_update_related_repair_orders` function in the `ClarinetBOMTemplate` controller to use a single, efficient `frappe.qb` bulk `UPDATE` query, eliminating the N+1 issue.
+
+## 2025-12-19 - Add Core Performance Indexes
+**Learning:** High-traffic dashboards and list views were missing composite indexes for common filter combinations (e.g., Customer + Status), leading to suboptimal query plans.
+**Action:** Created patch `v15.add_core_indexes` to add recommended indexes for Instrument Profile, Repair Order, and Intake.

@@ -11,3 +11,8 @@
 **Vulnerability:** The `update_customer_profile` endpoint allowed users to save an email address without proper format validation.
 **Learning:** All user-provided data, especially critical information like email addresses, must be validated on the server side to ensure data integrity.
 **Prevention:** Added a call to `frappe.utils.validate_email_address` to enforce correct email formatting before saving.
+
+## 2025-12-19 - Safe Query Construction with Query Builder
+**Vulnerability:** Raw SQL queries using f-strings for WHERE clauses (even with parameters) can be flagged as potential injection vectors and are harder to maintain.
+**Learning:** Frappe's `frappe.qb` provides a safer, more readable abstraction for constructing complex queries with dynamic filters.
+**Prevention:** Refactored `get_optimized_instrument_list` to use `frappe.qb`, eliminating raw SQL string interpolation.
