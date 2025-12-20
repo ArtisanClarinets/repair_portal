@@ -5,3 +5,6 @@
 ## 2025-12-18 - Index Mail In Repair Request Link
 **Learning:** `Mail In Repair Request` is queried by `repair_request` in public status pages. Missing index causes full table scans.
 **Action:** Added `search_index: 1` to `repair_request` field in `Mail In Repair Request` DocType.
+## 2025-12-20 - [Medium] Optimize BOM Update
+**Learning:** Loops containing database updates are a common source of N+1 query problems, which can lead to significant performance degradation.
+**Action:** Refactored the `_update_related_repair_orders` function in the `ClarinetBOMTemplate` controller to use a single, efficient `frappe.qb` bulk `UPDATE` query, eliminating the N+1 issue.
