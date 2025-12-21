@@ -21,3 +21,8 @@
 **Vulnerability:** Raw SQL queries using f-strings for WHERE clauses (even with parameters) can be flagged as potential injection vectors and are harder to maintain.
 **Learning:** Frappe's `frappe.qb` provides a safer, more readable abstraction for constructing complex queries with dynamic filters.
 **Prevention:** Refactored `get_optimized_instrument_list` to use `frappe.qb`, eliminating raw SQL string interpolation.
+
+## 2025-10-16 - [High] IDOR in Technician Dashboard
+**Vulnerability:** `get_dashboard_data` endpoint allowed any logged-in user to fetch dashboard metrics for any technician by ID.
+**Learning:** API endpoints accepting a user ID parameter must validate that the requester is either that user or has privileged management roles.
+**Prevention:** Added explicit check comparing `technician` argument to `frappe.session.user` and requiring 'Repair Manager' or 'System Manager' role for mismatches.
