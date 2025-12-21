@@ -17,6 +17,12 @@ def get_dashboard_data(technician=None):
     if not technician:
         technician = frappe.session.user
 
+    if technician != frappe.session.user:
+        # Check for privileged roles
+        allowed_roles = {"Repair Manager", "System Manager"}
+        if not set(frappe.get_roles()).intersection(allowed_roles):
+            frappe.throw(_("Insufficient permissions to view this dashboard."), frappe.PermissionError)
+
     if "Technician" not in frappe.get_roles(technician):
         frappe.throw(_("User does not have the Technician role."), frappe.PermissionError)
 
