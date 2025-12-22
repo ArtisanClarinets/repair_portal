@@ -17,3 +17,6 @@
 ## 2025-12-21 - Accessible Technician Dashboard
 **Learning:** Single Page Applications (SPAs) must manage focus and announcements for loading/error states for screen reader users.
 **Action:** Added `role="status"`/`alert` and `aria-live` attributes to `App.vue` loading and error containers.
+## 2025-12-22 - SLA Status Accessibility
+**Learning:** Color alone is not sufficient to convey information for users with color vision deficiencies.
+**Action:** Added icons to the SLA status indicators in the Repair Order list view to provide a non-color-based visual cue.
