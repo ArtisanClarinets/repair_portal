@@ -13,3 +13,6 @@
 ## 2025-12-19 - Submit Button Loading State
 **Learning:** Users lack feedback during asynchronous form submission, leading to confusion or double-submission.
 **Action:** Added disabled state and "Processing..." text to the submit button in `quote/index.html` during API calls.
+## 2025-12-22 - SLA Status Accessibility
+**Learning:** Color alone is not sufficient to convey information for users with color vision deficiencies.
+**Action:** Added icons to the SLA status indicators in the Repair Order list view to provide a non-color-based visual cue.
