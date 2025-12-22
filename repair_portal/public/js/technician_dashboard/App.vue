@@ -1,7 +1,7 @@
 <template>
   <div class="technician-dashboard p-4">
-    <div v-if="loading" class="text-center text-muted">Loading dashboard...</div>
-    <div v-if="error" class="alert alert-danger">{{ error }}</div>
+    <div v-if="loading" class="text-center text-muted" role="status" aria-live="polite">Loading dashboard...</div>
+    <div v-if="error" class="alert alert-danger" role="alert" aria-live="assertive">{{ error }}</div>
 
     <div v-if="!loading && !error">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
