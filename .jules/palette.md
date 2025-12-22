@@ -13,3 +13,7 @@
 ## 2025-12-19 - Submit Button Loading State
 **Learning:** Users lack feedback during asynchronous form submission, leading to confusion or double-submission.
 **Action:** Added disabled state and "Processing..." text to the submit button in `quote/index.html` during API calls.
+
+## 2025-12-21 - Accessible Technician Dashboard
+**Learning:** Single Page Applications (SPAs) must manage focus and announcements for loading/error states for screen reader users.
+**Action:** Added `role="status"`/`alert` and `aria-live` attributes to `App.vue` loading and error containers.

@@ -26,3 +26,8 @@
 **Vulnerability:** `get_dashboard_data` endpoint allowed any logged-in user to fetch dashboard metrics for any technician by ID.
 **Learning:** API endpoints accepting a user ID parameter must validate that the requester is either that user or has privileged management roles.
 **Prevention:** Added explicit check comparing `technician` argument to `frappe.session.user` and requiring 'Repair Manager' or 'System Manager' role for mismatches.
+
+## 2025-12-21 - [High] Secure Intake Dashboard
+**Vulnerability:** The `get_intake_counts` endpoint exposed global intake statistics to all logged-in users without permission checks.
+**Learning:** `@frappe.whitelist(allow_guest=False)` does not imply data access permissions; explicit `frappe.has_permission` checks are required.
+**Prevention:** Added `frappe.has_permission("Clarinet Intake", "read")` check to `repair_portal/api/intake_dashboard.py`.
