@@ -4,18 +4,29 @@
 frappe.listview_settings["Repair Order"] = {
   add_fields: ["sla_status", "sla_progress_pct", "sla_due", "sla_breached"],
   get_indicator(doc) {
-    // Map SLA status to colors
+    // Map SLA status to colors and icons for accessibility
     const status = (doc.sla_status || "None").toLowerCase();
+    const get_label = (icon_name, text) => {
+        return `
+            <span class="indicator-label-with-icon">
+                <svg class="icon icon-sm" style="margin-right: 4px;">
+                    <use href="#icon-${icon_name}"></use>
+                </svg>
+                ${text}
+            </span>
+        `;
+    }
+
     if (status === "green") {
-      return [__("SLA Green"), "green", "sla_status,=,Green"];
+      return [get_label("check", __("SLA Green")), "green", "sla_status,=,Green"];
     }
     if (status === "yellow") {
-      return [__("SLA Yellow"), "orange", "sla_status,=,Yellow"];
+      return [get_label("warning", __("SLA Yellow")), "orange", "sla_status,=,Yellow"];
     }
     if (status === "red") {
-      return [__("SLA Red"), "red", "sla_status,=,Red"];
+      return [get_label("error", __("SLA Red")), "red", "sla_status,=,Red"];
     }
-    return [__("No SLA"), "grey", "sla_status,=,None"];
+    return [get_label("info", __("No SLA")), "grey", "sla_status,=,None"];
   },
   onload(listview) {
     // Add common SLA filters for convenience
