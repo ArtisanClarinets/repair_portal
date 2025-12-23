@@ -19,3 +19,8 @@
 **Vulnerability:** The `get_intake_counts` endpoint exposed global intake statistics to all logged-in users without permission checks.
 **Learning:** `@frappe.whitelist(allow_guest=False)` does not imply data access permissions; explicit `frappe.has_permission` checks are required.
 **Prevention:** Added `frappe.has_permission("Clarinet Intake", "read")` check to `repair_portal/api/intake_dashboard.py`.
+
+## 2025-12-22 - [Medium] Rate Limit DoS Vulnerability
+**Vulnerability:** The `rate_limited` decorator in `repair_portal/core/security.py` grouped all Guest users under a single "Guest" key, allowing one malicious IP to exhaust the rate limit for all public users.
+**Learning:** Rate limiting for unauthenticated users (Guests) must use IP address or another unique identifier, not the shared session user ID.
+**Prevention:** Updated `rate_limited` to use `frappe.local.request_ip` as the key when the user is "Guest".

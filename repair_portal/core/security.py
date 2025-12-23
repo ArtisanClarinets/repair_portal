@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import time
+from collections.abc import Callable, Iterable
 from functools import wraps
-from typing import Any, Callable, Iterable
+from typing import Any
 
 from .registry import Role
 
@@ -61,6 +62,8 @@ def rate_limited(key: str, limit: int, window_seconds: int = 60) -> Callable[[F]
                 return func(*args, **kwargs)
 
             user = frappe.session.user
+            if user == "Guest" and hasattr(frappe.local, "request_ip"):
+                user = frappe.local.request_ip
             cache = frappe.cache()
             bucket = int(time.time() // window_seconds)
             cache_key = f"rl::{key}::{user}::{bucket}"
