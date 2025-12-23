@@ -26,10 +26,11 @@
               required
               autocomplete="name"
               :aria-invalid="Boolean(errors.customer_name)"
+              aria-describedby="hint-customer-name"
               @input="onChange"
               @blur="validate"
             />
-            <small class="field-hint">Use the legal name for contracts. Nicknames can be stored in player profile.</small>
+            <small id="hint-customer-name" class="field-hint">Use the legal name for contracts. Nicknames can be stored in player profile.</small>
             <p v-if="errors.customer_name" class="field-error">{{ errors.customer_name }}</p>
           </label>
           <label :class="{ 'has-error': errors.email }">
@@ -40,10 +41,11 @@
               required
               autocomplete="email"
               :aria-invalid="Boolean(errors.email)"
+              aria-describedby="hint-email"
               @input="onChange"
               @blur="validate"
             />
-            <small class="field-hint">Confirmation receipts and repair updates will route here.</small>
+            <small id="hint-email" class="field-hint">Confirmation receipts and repair updates will route here.</small>
             <p v-if="errors.email" class="field-error">{{ errors.email }}</p>
           </label>
           <label :class="{ 'has-error': errors.phone }">
@@ -54,10 +56,11 @@
               required
               autocomplete="tel"
               :aria-invalid="Boolean(errors.phone)"
+              aria-describedby="hint-phone"
               @input="onChange"
               @blur="validate"
             />
-            <small class="field-hint">Include country code for international clients.</small>
+            <small id="hint-phone" class="field-hint">Include country code for international clients.</small>
             <p v-if="errors.phone" class="field-error">{{ errors.phone }}</p>
           </label>
         </div>

@@ -16,3 +16,7 @@
 ## 2025-12-21 - Optimize Intake Dashboard Counts
 **Learning:** Iterative database queries (N+1) for counting statuses significantly impact performance.
 **Action:** Refactored `get_intake_counts` to use a single `GROUP BY` SQL query, reducing 6 queries to 1.
+
+## 2025-12-22 - Optimize Instrument Profile List
+**Learning:** Fetching all records into memory (`get_all` without filters) and then filtering in Python is inefficient and can cause memory exhaustion (DoS).
+**Action:** Updated `list_for_user` to use database-level filtering (`filters` parameter) in `get_all`, ensuring only relevant records are fetched.

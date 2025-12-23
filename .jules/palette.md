@@ -20,3 +20,7 @@
 ## 2025-12-22 - SLA Status Accessibility
 **Learning:** Color alone is not sufficient to convey information for users with color vision deficiencies.
 **Action:** Added icons to the SLA status indicators in the Repair Order list view to provide a non-color-based visual cue.
+
+## 2025-12-22 - Accessible Form Hints
+**Learning:** Input hints (small text below inputs) are often skipped by screen readers unless explicitly linked.
+**Action:** Added `aria-describedby` to Customer Name, Email, and Phone inputs in `CustomerStep.vue` to programmaticly associate them with their hint text.

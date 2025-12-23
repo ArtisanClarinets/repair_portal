@@ -63,13 +63,16 @@ def list_for_user():
         "customer",
         "current_status",
     ]
-    docs = frappe.get_all("Instrument", fields=fields)
     if is_staff:
-        return docs
+        return frappe.get_all("Instrument", fields=fields)
 
     email = frappe.db.get_value("User", user, "email")
     customer = frappe.db.get_value("Customer", {"email_id": email})
-    return [d for d in docs if (customer and d.customer and d.customer == customer)]
+
+    if not customer:
+        return []
+
+    return frappe.get_all("Instrument", filters={"customer": customer}, fields=fields)
 
 
 @frappe.whitelist(allow_guest=False)
