@@ -30,6 +30,8 @@ def get_my_repairs():
     if not client:
         return []
 
+    # Get the user's instruments first to ensure we only query relevant repairs.
+    # This preserves the original business logic of showing repairs for owned instruments.
     player_names = frappe.get_all("Player Profile", {"customer": client}, pluck="name")
     if not player_names:
         return []
@@ -40,15 +42,7 @@ def get_my_repairs():
     if not instrument_names:
         return []
 
-    instrument_meta = {
-        doc.name: doc
-        for doc in frappe.get_all(
-            "Instrument Profile",
-            filters={"name": ["in", instrument_names]},
-            fields=["name", "headline", "instrument_category", "serial_no"],
-        )
-    }
-
+    # Fetch the 10 most recent repairs associated with the client and their instruments.
     repairs = frappe.get_all(
         "Repair Order",
         filters={
@@ -67,12 +61,33 @@ def get_my_repairs():
         limit=10,
     )
 
+    if not repairs:
+        return []
+
+    # From the limited list of repairs, get the unique instrument profile IDs.
+    # This avoids fetching metadata for all of a user's instruments.
+    instrument_profiles_in_repairs = list(set(r.instrument_profile for r in repairs if r.instrument_profile))
+
+    # Pre-fetch instrument metadata for only the instruments in the recent repairs.
+    # This is a performance optimization that avoids a potential N+1 query pattern
+    # and reduces the amount of data fetched if a user has many instruments but few recent repairs.
+    instrument_meta = {
+        doc.name: doc
+        for doc in frappe.get_all(
+            "Instrument Profile",
+            filters={"name": ["in", instrument_profiles_in_repairs]},
+            fields=["name", "headline", "instrument_category", "serial_no"],
+        )
+    } if instrument_profiles_in_repairs else {}
+
+
+    # Attach the descriptive instrument label to each repair entry.
     for entry in repairs:
         instrument = instrument_meta.get(entry.instrument_profile)
         if instrument:
             parts = [instrument.headline, instrument.instrument_category, instrument.serial_no]
             entry["instrument_label"] = " • ".join(filter(None, parts)) or instrument.name
         else:
-            entry["instrument_label"] = entry.instrument_profile
+            entry["instrument_label"] = entry.instrument_profile or ""
 
     return repairs
