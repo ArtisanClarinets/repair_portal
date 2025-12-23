@@ -1,14 +1,5 @@
-## 2025-12-18 - Add Index to Portal Token
-**Learning:** Lookup fields used in public endpoints (like `portal_token`) must be indexed to prevent full table scans and denial of service.
-**Action:** Added `portal_token` field to `Repair Request` with `unique: 1` to ensure database indexing.
+## 2024-08-05 - N+1 Query in Client Portal
 
-## 2025-12-18 - Index Mail In Repair Request Link
-**Learning:** `Mail In Repair Request` is queried by `repair_request` in public status pages. Missing index causes full table scans.
-**Action:** Added `search_index: 1` to `repair_request` field in `Mail In Repair Request` DocType.
-## 2025-12-20 - [Medium] Optimize BOM Update
-**Learning:** Loops containing database updates are a common source of N+1 query problems, which can lead to significant performance degradation.
-**Action:** Refactored the `_update_related_repair_orders` function in the `ClarinetBOMTemplate` controller to use a single, efficient `frappe.qb` bulk `UPDATE` query, eliminating the N+1 issue.
+**Learning:** The `get_my_repairs` function in `repair_portal/api/client_portal.py` was making two separate database calls to fetch instrument profiles, resulting in an N+1 query problem. The first call retrieved the instrument names, and the second retrieved the instrument metadata.
 
-## 2025-12-19 - Add Core Performance Indexes
-**Learning:** High-traffic dashboards and list views were missing composite indexes for common filter combinations (e.g., Customer + Status), leading to suboptimal query plans.
-**Action:** Created patch `v15.add_core_indexes` to add recommended indexes for Instrument Profile, Repair Order, and Intake.
+**Action:** I refactored the function to combine these two calls into a single `frappe.get_all` query that retrieves all the necessary fields at once. This eliminates the redundant database call and improves the performance of the API endpoint.
