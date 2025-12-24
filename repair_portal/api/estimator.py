@@ -41,7 +41,28 @@ def submit() -> dict:
     notes = data.get("notes")
 
     uploads: List[UploadedPhoto] = []
+    MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+    ALLOWED_MIME_TYPES = {"image/png", "image/jpeg", "image/jpg", "image/webp", "image/heic"}
+
     for file_key, storage in (frappe.request.files or {}).items():
+        # Security: Validate file size to prevent DoS (OOM)
+        storage.stream.seek(0, 2)
+        size = storage.stream.tell()
+        storage.stream.seek(0)
+
+        if size > MAX_FILE_SIZE:
+            frappe.throw(
+                _("File {0} is too large (Max 5MB)").format(storage.filename),
+                frappe.ValidationError
+            )
+
+        # Security: Validate mime type
+        if storage.mimetype not in ALLOWED_MIME_TYPES:
+            frappe.throw(
+                _("File {0} has invalid type {1}. Only images allowed.").format(storage.filename, storage.mimetype),
+                frappe.ValidationError
+            )
+
         content = storage.stream.read()
         uploads.append(
             UploadedPhoto(
