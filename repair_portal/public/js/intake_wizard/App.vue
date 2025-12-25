@@ -964,54 +964,56 @@ onBeforeUnmount(() => {
 
 <style scoped>
 :root {
-  /* Design tokens — supports system & Frappe desk dark mode */
-  --bg: #f8fafc;
+  /* Premium Design Tokens (Apple-caliber) */
+  --bg: #f5f5f7; /* Apple-like light gray */
   --card-bg: #ffffff;
   --surface: #ffffff;
-  --text: #1e293b;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --primary: #4f46e5;
-  --primary-600: #4338ca;
-  --focus: rgba(79, 70, 229, 0.2);
-  --success: #16a34a;
-  --success-surface: #dcfce7;
-  --warning: #ca8a04;
-  --warning-surface: #fef3c7;
-  --danger: #dc2626;
-  --danger-surface: #fee2e2;
-  --chip-bg: #1e293b;
-  --chip-text: #ffffff;
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --text: #1d1d1f; /* San Francisco optimized black */
+  --muted: #86868b;
+  --border: #d2d2d7;
+  --primary: #0071e3; /* Apple Blue */
+  --primary-600: #0077ed;
+  --focus: rgba(0, 113, 227, 0.3);
+  --success: #34c759;
+  --success-surface: #e8fceb;
+  --warning: #ff9f0a;
+  --warning-surface: #fff5e6;
+  --danger: #ff3b30;
+  --danger-surface: #ffe5e5;
+  --chip-bg: #1d1d1f;
+  --chip-text: #f5f5f7;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.06); /* Softer, deeper shadow */
+  --radius: 12px; /* Consistent corner radius */
+  --transition-curve: cubic-bezier(0.25, 1, 0.5, 1); /* "Snappy" physics */
 }
 
 /* Respect system-level and desk themes */
 @media (prefers-color-scheme: dark), .theme-dark, .frappe-dark {
   :root {
-    --bg: #0b1220;
-    --card-bg: #0f1724;
-    --surface: #0f1724;
-    --text: #e6eef8;
-    --muted: #94a3b8;
-    --border: #1f2937;
-    --primary: #6366f1;
-    --primary-600: #4f46e5;
-    --focus: rgba(99, 102, 241, 0.16);
-    --success: #4ade80;
-    --success-surface: #052e16;
-    --warning: #f59e0b;
-    --warning-surface: #3f2b00;
-    --danger: #f87171;
-    --danger-surface: #3b0a0a;
-    --chip-bg: #e2e8f0;
-    --chip-text: #0b1220;
-    --shadow: none;
+    --bg: #000000;
+    --card-bg: #1c1c1e;
+    --surface: #1c1c1e;
+    --text: #f5f5f7;
+    --muted: #86868b;
+    --border: #424245;
+    --primary: #2997ff;
+    --primary-600: #0071e3;
+    --focus: rgba(41, 151, 255, 0.3);
+    --success: #30d158;
+    --success-surface: #0a2e12;
+    --warning: #ff9f0a;
+    --warning-surface: #3d2600;
+    --danger: #ff453a;
+    --danger-surface: #3d0d0d;
+    --chip-bg: #f5f5f7;
+    --chip-text: #000000;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   }
 }
 
 :global(body) {
   background-color: var(--bg);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -1205,33 +1207,41 @@ onBeforeUnmount(() => {
   width: 100%;
   border: 1px solid transparent;
   background-color: transparent;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
+  padding: 1rem;
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   gap: 1rem;
   cursor: pointer;
   text-align: left;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: all 0.3s var(--transition-curve);
+  position: relative;
 }
 
 .step-button:hover:not(:disabled) {
   background-color: var(--surface);
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.step-button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .step-button:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.4;
+  filter: grayscale(100%);
 }
 
 .step-button:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus);
 }
 
 .step-index {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
@@ -1240,29 +1250,40 @@ onBeforeUnmount(() => {
   background-color: var(--border);
   color: var(--muted);
   font-weight: 600;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 1rem;
+  transition: all 0.3s var(--transition-curve);
 }
 
 .step-label {
   font-weight: 600;
+  font-size: 1.05rem;
   color: var(--text);
+  letter-spacing: -0.01em;
 }
 
 .step-description {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: var(--muted);
+  line-height: 1.4;
+  margin-top: 0.1rem;
 }
 
 .step-status {
   margin-left: auto;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--muted);
+  background-color: var(--bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
 }
 
 .active .step-button {
-  background-color: color-mix(in srgb, var(--primary) 8%, var(--card-bg));
-  border-color: color-mix(in srgb, var(--primary) 20%, var(--border));
+  background-color: var(--surface);
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px var(--focus);
 }
 .active .step-index {
   background-color: var(--primary);
@@ -1317,15 +1338,15 @@ onBeforeUnmount(() => {
 
 .step-fade-enter-active,
 .step-fade-leave-active {
-  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition: opacity 0.4s var(--transition-curve), transform 0.4s var(--transition-curve);
 }
 .step-fade-enter-from {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(15px) scale(0.99);
 }
 .step-fade-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-15px) scale(0.99);
 }
 
 .wizard-footer {
@@ -1333,10 +1354,11 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   align-items: center;
   background-color: var(--card-bg);
-  border-radius: 0.75rem;
-  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  padding: 1.25rem 2rem;
   border: 1px solid var(--border);
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
 }
 
 .footer-support {

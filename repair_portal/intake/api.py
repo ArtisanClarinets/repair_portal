@@ -14,7 +14,7 @@ from urllib.parse import quote
 
 import frappe
 from frappe import _
-from frappe.utils import get_link_to_form
+from frappe.utils import get_link_to_form, strip_html
 
 from repair_portal.intake.doctype.brand_mapping_rule.brand_mapping_rule import map_brand
 from repair_portal.intake.services import intake_sync
@@ -291,6 +291,12 @@ def upsert_customer(payload: dict[str, Any]) -> dict[str, Any]:
 
     _ensure_customer_permission("write")
     data = _coerce_dict(payload)
+
+    # Security: Sanitize all string inputs to prevent injection
+    for key, value in data.items():
+        if isinstance(value, str):
+            data[key] = strip_html(value)
+
     LOGGER.info("intake.upsert_customer", extra={"keys": list(data.keys())})
     customer_name = intake_sync.upsert_customer(data)
     return {
@@ -306,6 +312,12 @@ def upsert_player_profile(payload: dict[str, Any]) -> dict[str, Any]:
     _ensure_player_permission("write")
     data = _coerce_dict(payload)
     filtered = {k: v for k, v in data.items() if k in _ALLOWED_PLAYER_FIELDS}
+
+    # Security: Sanitize
+    for key, value in filtered.items():
+        if isinstance(value, str):
+            filtered[key] = strip_html(value)
+
     if not filtered.get("player_name") or not filtered.get("primary_email"):
         frappe.throw(_("Player name and primary email are required."))
 
