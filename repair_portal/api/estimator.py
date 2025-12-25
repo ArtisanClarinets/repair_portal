@@ -40,9 +40,24 @@ def submit() -> dict:
     selections = parse_selections(data.get("selections"))
     notes = data.get("notes")
 
+    # Security: Validate uploads (Sentinel)
+    ALLOWED_MIMETYPES = {"image/jpeg", "image/png", "image/webp"}
+    MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+
     uploads: List[UploadedPhoto] = []
     for file_key, storage in (frappe.request.files or {}).items():
-        content = storage.stream.read()
+        if storage.mimetype not in ALLOWED_MIMETYPES:
+            frappe.throw(_("Invalid file type: {0}. Allowed: JPEG, PNG, WebP.").format(storage.mimetype))
+
+        # Check content length if available from headers
+        if storage.content_length > MAX_FILE_SIZE:
+             frappe.throw(_("File {0} exceeds 5MB limit.").format(storage.filename))
+
+        # Safe read with limit to prevent OOM
+        content = storage.stream.read(MAX_FILE_SIZE + 1)
+        if len(content) > MAX_FILE_SIZE:
+            frappe.throw(_("File {0} exceeds 5MB limit.").format(storage.filename))
+
         uploads.append(
             UploadedPhoto(
                 filename=storage.filename,

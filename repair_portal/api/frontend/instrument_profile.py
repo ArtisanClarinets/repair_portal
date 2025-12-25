@@ -38,8 +38,12 @@ def get(instrument_id=None):
     if is_staff:
         return frappe.db.get_value("Instrument", instrument_id, fields, as_dict=True)  # type: ignore
 
-    email = frappe.db.get_value("User", user, "email")
-    customer = frappe.db.get_value("Customer", {"email_id": email})
+    # Bolt: Use linked_user for efficient lookup, fallback to email
+    customer = frappe.db.get_value("Customer", {"linked_user": user})
+    if not customer:
+        email = frappe.db.get_value("User", user, "email")
+        customer = frappe.db.get_value("Customer", {"email_id": email})
+
     doc = frappe.db.get_value("Instrument", instrument_id, fields, as_dict=True)  # type: ignore
     if not customer or not doc or doc.get("customer") != customer:  # type: ignore
         frappe.throw(_("Not permitted"), frappe.PermissionError)
@@ -66,8 +70,11 @@ def list_for_user():
     if is_staff:
         return frappe.get_all("Instrument", fields=fields)
 
-    email = frappe.db.get_value("User", user, "email")
-    customer = frappe.db.get_value("Customer", {"email_id": email})
+    # Bolt: Use linked_user for efficient lookup, fallback to email
+    customer = frappe.db.get_value("Customer", {"linked_user": user})
+    if not customer:
+        email = frappe.db.get_value("User", user, "email")
+        customer = frappe.db.get_value("Customer", {"email_id": email})
 
     if not customer:
         return []
