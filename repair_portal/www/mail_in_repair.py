@@ -89,6 +89,7 @@ def get_context(context: Dict[str, Any]) -> Dict[str, Any]:
 
 
 @frappe.whitelist(allow_guest=True)
+@frappe.rate_limit(key="ip", limit=5, seconds=60)
 def submit_mail_in_request(data: str) -> Dict[str, Any]:
     payload = json.loads(data)
     form = MailInForm.from_dict(payload)
