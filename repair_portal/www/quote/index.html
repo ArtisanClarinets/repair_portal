@@ -18,10 +18,15 @@
         {% for option in upsell_options %}
         <li>
           <label>
-            <input type="checkbox" name="upsell" value="{{ option.item }}" {% if option.item in [u.item for u in estimate.upsell_selected if u.accepted] %}checked{% endif %}>
+            <input type="checkbox" name="upsell" value="{{ option.item }}"
+                   aria-describedby="upsell-desc-{{ loop.index }}"
+                   {% if option.item in [u.item for u in estimate.upsell_selected if u.accepted] %}checked{% endif %}>
             <span class="upsell-title">{{ option.item }}</span>
-            <span class="upsell-price">${{ "%.2f"|format(option.price or 0) }}</span>
-            {% if option.description %}<span class="upsell-desc">{{ option.description }}</span>{% endif %}
+            <span class="upsell-price" id="upsell-price-{{ loop.index }}">${{ "%.2f"|format(option.price or 0) }}</span>
+            <span class="upsell-desc" id="upsell-desc-{{ loop.index }}">
+                {{ option.description }}
+                (Price: <span aria-hidden="true">${{ "%.2f"|format(option.price or 0) }}</span>)
+            </span>
           </label>
         </li>
         {% endfor %}
