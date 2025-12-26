@@ -1,115 +1,206 @@
-{% extends "templates/web.html" %}
-{% block page_content %}
+{% extends "templates/web.html" %} {% block page_content %}
 <section class="mail-in-repair">
-  <h1>Mail-In Clarinet Repair</h1>
-  <p class="lead">Complete the form below to generate a shipping kit and reserve a bench slot. We will email you detailed packing instructions immediately.</p>
-  <form id="mail-in-form" class="web-form" novalidate>
-    <div class="form-section">
-      <h3>Contact</h3>
-      <div class="form-group"><label for="full_name">Full name</label><input type="text" name="full_name" id="full_name" required></div>
-      <div class="form-group"><label for="email">Email</label><input type="email" name="email" id="email" required></div>
-      <div class="form-group"><label for="phone">Mobile phone</label><input type="tel" name="phone" id="phone" placeholder="Optional"></div>
-      <div class="form-group checkbox"><label><input type="checkbox" name="marketing_consent" value="1"> I agree to receive status updates and clarinet care tips.</label></div>
-      <div class="form-group checkbox"><label><input type="checkbox" name="consent_storage" value="1" required> I consent to data storage for repair processing (GDPR/CCPA compliant).</label></div>
-    </div>
-    <div class="form-section">
-      <h3>Instrument</h3>
-      <div class="form-group"><label for="serial_no">Serial number</label><input type="text" name="serial_no" id="serial_no" required></div>
-      <div class="form-group"><label for="make">Make</label><input type="text" name="make" id="make" required></div>
-      <div class="form-group"><label for="model">Model</label><input type="text" name="model" id="model" required></div>
-      <div class="form-group"><label for="family">Instrument family</label>
-        <select name="family" id="family" required>
-          <option value="">-- Select --</option>
-          <option value="Bb">Bb</option>
-          <option value="A">A</option>
-          <option value="Eb">Eb</option>
-          <option value="Bass">Bass</option>
-        </select>
-      </div>
-      <div class="form-group"><label for="finish">Finish</label>
-        <select name="finish" id="finish" required>
-          <option value="">-- Select --</option>
-          <option value="Silver">Silver</option>
-          <option value="Nickel">Nickel</option>
-          <option value="Gold">Gold</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      <div class="form-group"><label for="requested_services">Primary concerns</label><textarea name="requested_services" id="requested_services" rows="3" required></textarea></div>
-    </div>
-    <div class="form-section">
-      <h3>Shipping</h3>
-      <div class="form-group"><label for="preferred_carrier">Preferred carrier</label>
-        <select name="preferred_carrier" id="preferred_carrier" required>
-          <option value="UPS">UPS</option>
-          <option value="USPS">USPS</option>
-          <option value="FedEx">FedEx</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      <div class="form-group"><label for="insurance_value">Insurance value (USD)</label><input type="number" step="0.01" name="insurance_value" id="insurance_value" value="1000"></div>
-      <div class="form-group"><label for="address_line1">Pickup address line 1</label><input type="text" name="address_line1" id="address_line1" required></div>
-      <div class="form-group"><label for="address_line2">Pickup address line 2</label><input type="text" name="address_line2" id="address_line2"></div>
-      <div class="form-group"><label for="city">City</label><input type="text" name="city" id="city" required></div>
-      <div class="form-group"><label for="state">State/Province</label><input type="text" name="state" id="state"></div>
-      <div class="form-group"><label for="postal_code">Postal code</label><input type="text" name="postal_code" id="postal_code" required></div>
-      <div class="form-group"><label for="country">Country</label><input type="text" name="country" id="country" required></div>
-    </div>
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Generate label instructions</button>
-    </div>
-  </form>
-  <div id="mail-in-success" class="alert alert-success" style="display:none;" role="status" aria-live="polite"></div>
-  <div id="mail-in-error" class="alert alert-danger" style="display:none;" role="alert" aria-live="assertive"></div>
+	<h1>Mail-In Clarinet Repair</h1>
+	<p class="lead">
+		Complete the form below to generate a shipping kit and reserve a bench slot. We will email
+		you detailed packing instructions immediately.
+	</p>
+	<form id="mail-in-form" class="web-form" novalidate>
+		<div class="form-section">
+			<h3>Contact</h3>
+			<div class="form-group">
+				<label for="full_name">Full name</label
+				><input type="text" name="full_name" id="full_name" required />
+			</div>
+			<div class="form-group">
+				<label for="email">Email</label
+				><input type="email" name="email" id="email" required />
+			</div>
+			<div class="form-group">
+				<label for="phone">Mobile phone</label
+				><input type="tel" name="phone" id="phone" placeholder="Optional" />
+			</div>
+			<div class="form-group checkbox">
+				<label
+					><input type="checkbox" name="marketing_consent" value="1" /> I agree to
+					receive status updates and clarinet care tips.</label
+				>
+			</div>
+			<div class="form-group checkbox">
+				<label
+					><input type="checkbox" name="consent_storage" value="1" required /> I consent
+					to data storage for repair processing (GDPR/CCPA compliant).</label
+				>
+			</div>
+		</div>
+		<div class="form-section">
+			<h3>Instrument</h3>
+			<div class="form-group">
+				<label for="serial_no">Serial number</label
+				><input type="text" name="serial_no" id="serial_no" required />
+			</div>
+			<div class="form-group">
+				<label for="make">Make</label><input type="text" name="make" id="make" required />
+			</div>
+			<div class="form-group">
+				<label for="model">Model</label
+				><input type="text" name="model" id="model" required />
+			</div>
+			<div class="form-group">
+				<label for="family">Instrument family</label>
+				<select name="family" id="family" required>
+					<option value="">-- Select --</option>
+					<option value="Bb">Bb</option>
+					<option value="A">A</option>
+					<option value="Eb">Eb</option>
+					<option value="Bass">Bass</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="finish">Finish</label>
+				<select name="finish" id="finish" required>
+					<option value="">-- Select --</option>
+					<option value="Silver">Silver</option>
+					<option value="Nickel">Nickel</option>
+					<option value="Gold">Gold</option>
+					<option value="Other">Other</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="requested_services">Primary concerns</label
+				><textarea
+					name="requested_services"
+					id="requested_services"
+					rows="3"
+					required
+				></textarea>
+			</div>
+		</div>
+		<div class="form-section">
+			<h3>Shipping</h3>
+			<div class="form-group">
+				<label for="preferred_carrier">Preferred carrier</label>
+				<select name="preferred_carrier" id="preferred_carrier" required>
+					<option value="UPS">UPS</option>
+					<option value="USPS">USPS</option>
+					<option value="FedEx">FedEx</option>
+					<option value="Other">Other</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="insurance_value">Insurance value (USD)</label
+				><input
+					type="number"
+					step="0.01"
+					name="insurance_value"
+					id="insurance_value"
+					value="1000"
+				/>
+			</div>
+			<div class="form-group">
+				<label for="address_line1">Pickup address line 1</label
+				><input type="text" name="address_line1" id="address_line1" required />
+			</div>
+			<div class="form-group">
+				<label for="address_line2">Pickup address line 2</label
+				><input type="text" name="address_line2" id="address_line2" />
+			</div>
+			<div class="form-group">
+				<label for="city">City</label><input type="text" name="city" id="city" required />
+			</div>
+			<div class="form-group">
+				<label for="state">State/Province</label
+				><input type="text" name="state" id="state" />
+			</div>
+			<div class="form-group">
+				<label for="postal_code">Postal code</label
+				><input type="text" name="postal_code" id="postal_code" required />
+			</div>
+			<div class="form-group">
+				<label for="country">Country</label
+				><input type="text" name="country" id="country" required />
+			</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary" id="mail-in-submit">
+				Generate label instructions
+			</button>
+		</div>
+	</form>
+	<div
+		id="mail-in-success"
+		class="alert alert-success"
+		style="display: none"
+		role="status"
+		aria-live="polite"
+	></div>
+	<div
+		id="mail-in-error"
+		class="alert alert-danger"
+		style="display: none"
+		role="alert"
+		aria-live="assertive"
+	></div>
 </section>
 <script>
-(function() {
-  const form = document.getElementById('mail-in-form');
-  const successEl = document.getElementById('mail-in-success');
-  const errorEl = document.getElementById('mail-in-error');
-  if (!form) return;
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    successEl.style.display = 'none';
-    errorEl.style.display = 'none';
-    const formData = new FormData(form);
-    const payload = {};
-    formData.forEach((value, key) => {
-      if (payload[key]) {
-        return;
-      }
-      payload[key] = value;
-    });
-    const escapeHtml = (value) => {
-      const div = document.createElement('div');
-      div.innerText = value == null ? "" : String(value);
-      return div.innerHTML;
-    };
-    try {
-      const response = await frappe.call({
-        method: 'repair_portal.www.mail_in_repair.submit_mail_in_request',
-        type: 'POST',
-        args: { data: JSON.stringify(payload) }
-      });
-      if (response.message) {
-        const info = response.message;
-        let html = `<p>Your request is logged. Reference ID: <strong>${escapeHtml(info.mail_in_request)}</strong>.</p>`;
-        const statusUrl = escapeHtml(info.status_page);
-        html += `<p>Track progress at <a href="${statusUrl}">${statusUrl}</a>.</p>`;
-        if (info.payment_link) {
-          const paymentUrl = escapeHtml(info.payment_link);
-          html += `<p>Complete the $1 authorization hold via <a href="${paymentUrl}">Stripe Checkout</a> to finalize scheduling.</p>`;
-        }
-        successEl.innerHTML = html;
-        successEl.style.display = 'block';
-        form.reset();
-      }
-    } catch (error) {
-      const message = (error && error.message) ? error.message : 'Unexpected error. Please retry or call the shop.';
-      errorEl.textContent = message;
-      errorEl.style.display = 'block';
-    }
-  });
-})();
+	(function () {
+		const form = document.getElementById("mail-in-form");
+		const submitBtn = document.getElementById("mail-in-submit");
+		const successEl = document.getElementById("mail-in-success");
+		const errorEl = document.getElementById("mail-in-error");
+		if (!form) return;
+		form.addEventListener("submit", async (event) => {
+			event.preventDefault();
+			successEl.style.display = "none";
+			errorEl.style.display = "none";
+			submitBtn.disabled = true;
+			const originalText = submitBtn.textContent;
+			submitBtn.textContent = "Processing...";
+
+			const formData = new FormData(form);
+			const payload = {};
+			formData.forEach((value, key) => {
+				if (payload[key]) {
+					return;
+				}
+				payload[key] = value;
+			});
+			const escapeHtml = (value) => {
+				const div = document.createElement("div");
+				div.innerText = value == null ? "" : String(value);
+				return div.innerHTML;
+			};
+			try {
+				const response = await frappe.call({
+					method: "repair_portal.www.mail_in_repair.submit_mail_in_request",
+					type: "POST",
+					args: { data: JSON.stringify(payload) },
+				});
+				if (response.message) {
+					const info = response.message;
+					let html = `<p>Your request is logged. Reference ID: <strong>${escapeHtml(info.mail_in_request)}</strong>.</p>`;
+					const statusUrl = escapeHtml(info.status_page);
+					html += `<p>Track progress at <a href="${statusUrl}">${statusUrl}</a>.</p>`;
+					if (info.payment_link) {
+						const paymentUrl = escapeHtml(info.payment_link);
+						html += `<p>Complete the $1 authorization hold via <a href="${paymentUrl}">Stripe Checkout</a> to finalize scheduling.</p>`;
+					}
+					successEl.innerHTML = html;
+					successEl.style.display = "block";
+					form.reset();
+				}
+			} catch (error) {
+				const message =
+					error && error.message
+						? error.message
+						: "Unexpected error. Please retry or call the shop.";
+				errorEl.textContent = message;
+				errorEl.style.display = "block";
+			} finally {
+				submitBtn.disabled = false;
+				submitBtn.textContent = originalText;
+			}
+		});
+	})();
 </script>
 {% endblock %}

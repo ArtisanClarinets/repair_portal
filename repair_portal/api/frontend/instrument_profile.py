@@ -62,7 +62,8 @@ def list_for_user():
         'current_status',
     ]
     if is_staff:
-        return frappe.get_all('Instrument', fields=fields)
+        # Limit result set to prevent OOM on large datasets
+        return frappe.get_all('Instrument', fields=fields, limit=500)
 
     # Bolt: Optimized lookup using linked_user (1 query) instead of email (2 queries)
     customer = frappe.db.get_value('Customer', {'linked_user': user}, 'name')
