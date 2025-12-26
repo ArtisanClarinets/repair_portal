@@ -1,57 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<body>
-  <form id="mail-in-form">
-    <input name="test" value="1">
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary" id="mail-in-submit">Generate label instructions</button>
-    </div>
-  </form>
-  <div id="mail-in-success"></div>
-  <div id="mail-in-error"></div>
+	<body>
+		<form id="mail-in-form">
+			<input name="test" value="1" />
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary" id="mail-in-submit">
+					Generate label instructions
+				</button>
+			</div>
+		</form>
+		<div id="mail-in-success"></div>
+		<div id="mail-in-error"></div>
 
-  <script>
-    // Mock frappe
-    window.frappe = {
-        call: function() {
-            console.log("Mock frappe called");
-            return new Promise(resolve => setTimeout(() => resolve({message: {}}), 2000));
-        }
-    };
+		<script>
+			// Mock frappe
+			window.frappe = {
+				call: function () {
+					console.log("Mock frappe called");
+					return new Promise((resolve) =>
+						setTimeout(() => resolve({ message: {} }), 2000),
+					);
+				},
+			};
 
-    (function() {
-      const form = document.getElementById('mail-in-form');
-      const submitBtn = document.getElementById('mail-in-submit');
-      const successEl = document.getElementById('mail-in-success');
-      const errorEl = document.getElementById('mail-in-error');
-      if (!form) return;
-      form.addEventListener('submit', async (event) => {
-        console.log("Form submitted");
-        event.preventDefault();
-        successEl.style.display = 'none';
-        errorEl.style.display = 'none';
+			(function () {
+				const form = document.getElementById("mail-in-form");
+				const submitBtn = document.getElementById("mail-in-submit");
+				const successEl = document.getElementById("mail-in-success");
+				const errorEl = document.getElementById("mail-in-error");
+				if (!form) return;
+				form.addEventListener("submit", async (event) => {
+					console.log("Form submitted");
+					event.preventDefault();
+					successEl.style.display = "none";
+					errorEl.style.display = "none";
 
-        // START OF MY CHANGE
-        submitBtn.disabled = true;
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Processing...';
-        console.log("Button disabled");
-        // END OF MY CHANGE
+					// START OF MY CHANGE
+					submitBtn.disabled = true;
+					const originalText = submitBtn.textContent;
+					submitBtn.textContent = "Processing...";
+					console.log("Button disabled");
+					// END OF MY CHANGE
 
-        try {
-          await frappe.call({});
-          successEl.style.display = 'block';
-        } catch (error) {
-          errorEl.style.display = 'block';
-        } finally {
-          // START OF MY CHANGE
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-          console.log("Button re-enabled");
-          // END OF MY CHANGE
-        }
-      });
-    })();
-  </script>
-</body>
+					try {
+						await frappe.call({});
+						successEl.style.display = "block";
+					} catch (error) {
+						errorEl.style.display = "block";
+					} finally {
+						// START OF MY CHANGE
+						submitBtn.disabled = false;
+						submitBtn.textContent = originalText;
+						console.log("Button re-enabled");
+						// END OF MY CHANGE
+					}
+				});
+			})();
+		</script>
+	</body>
 </html>
