@@ -20,13 +20,12 @@ frappe.ui.form.on("Instrument Serial", {
 			frm.setup_status_indicators();
 			frm.check_duplicates_advisory();
 			frm.configure_field_behavior();
-			
 		} catch (error) {
 			console.error("Error in Instrument Serial refresh:", error);
 			frappe.msgprint({
 				title: __("Form Load Error"),
 				message: __("There was an error loading the form. Please refresh the page."),
-				indicator: "red"
+				indicator: "red",
 			});
 		}
 	},
@@ -62,18 +61,18 @@ frappe.ui.form.on("Instrument Serial", {
 	before_save(frm) {
 		return new Promise((resolve, reject) => {
 			frm.dashboard.show_progress(__("Validating Serial Number"), 50);
-			
+
 			frm.validate_all_fields()
 				.then(() => {
 					frm.dashboard.show_progress(__("Saving"), 90);
 					resolve();
 				})
-				.catch(error => {
+				.catch((error) => {
 					frm.dashboard.hide_progress();
 					frappe.msgprint({
 						title: __("Validation Error"),
 						message: error.message || __("Please check your inputs and try again."),
-						indicator: "red"
+						indicator: "red",
 					});
 					reject(error);
 				});
@@ -84,48 +83,54 @@ frappe.ui.form.on("Instrument Serial", {
 		frm.dashboard.hide_progress();
 		frappe.show_alert({
 			message: __("Instrument Serial Number saved successfully"),
-			indicator: "green"
+			indicator: "green",
 		});
 		frm.trigger_dependent_updates();
-	}
+	},
 });
 
 // Enhanced form methods
 $.extend(frappe.ui.form.Form.prototype, {
 	setup_accessibility() {
-		if (this.doctype !== 'Instrument Serial') return;
-		
+		if (this.doctype !== "Instrument Serial") return;
+
 		// Add ARIA labels for key fields
-		this.wrapper.attr('role', 'form');
-		this.wrapper.attr('aria-label', __('Instrument Serial Number Form'));
-		
+		this.wrapper.attr("role", "form");
+		this.wrapper.attr("aria-label", __("Instrument Serial Number Form"));
+
 		if (this.fields_dict.serial_no) {
-			this.fields_dict.serial_no.$wrapper.attr('aria-label', __('Enter instrument serial number'));
+			this.fields_dict.serial_no.$wrapper.attr(
+				"aria-label",
+				__("Enter instrument serial number"),
+			);
 		}
-		
+
 		if (this.fields_dict.brand) {
-			this.fields_dict.brand.$wrapper.attr('aria-label', __('Enter instrument brand'));
+			this.fields_dict.brand.$wrapper.attr("aria-label", __("Enter instrument brand"));
 		}
-		
+
 		if (this.fields_dict.model) {
-			this.fields_dict.model.$wrapper.attr('aria-label', __('Enter instrument model'));
+			this.fields_dict.model.$wrapper.attr("aria-label", __("Enter instrument model"));
 		}
-		
+
 		if (this.fields_dict.ownership_type) {
-			this.fields_dict.ownership_type.$wrapper.attr('aria-label', __('Select ownership type'));
+			this.fields_dict.ownership_type.$wrapper.attr(
+				"aria-label",
+				__("Select ownership type"),
+			);
 		}
 	},
 
 	setup_keyboard_shortcuts() {
-		if (this.doctype !== 'Instrument Serial') return;
-		
-		$(document).on('keydown', (e) => {
-			if (e.ctrlKey && e.key === 's') {
+		if (this.doctype !== "Instrument Serial") return;
+
+		$(document).on("keydown", (e) => {
+			if (e.ctrlKey && e.key === "s") {
 				e.preventDefault();
 				this.save();
 			}
-			
-			if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+
+			if (e.ctrlKey && e.shiftKey && e.key === "C") {
 				e.preventDefault();
 				this.create_setup_shortcut();
 			}
@@ -133,11 +138,11 @@ $.extend(frappe.ui.form.Form.prototype, {
 	},
 
 	setup_action_buttons() {
-		if (this.doctype !== 'Instrument Serial') return;
-		
+		if (this.doctype !== "Instrument Serial") return;
+
 		// Clear existing custom buttons
 		this.custom_buttons = {};
-		
+
 		if (this.is_new()) return;
 		if (this.__actions_added) return;
 
@@ -148,8 +153,10 @@ $.extend(frappe.ui.form.Form.prototype, {
 				() => {
 					this.create_clarinet_setup_enhanced();
 				},
-				__("Actions")
-			).addClass('btn-primary').attr('title', __('Create Clarinet Initial Setup (Ctrl+Shift+C)'));
+				__("Actions"),
+			)
+				.addClass("btn-primary")
+				.attr("title", __("Create Clarinet Initial Setup (Ctrl+Shift+C)"));
 
 			// View related documents button
 			this.add_custom_button(
@@ -157,7 +164,7 @@ $.extend(frappe.ui.form.Form.prototype, {
 				() => {
 					this.show_related_documents();
 				},
-				__("View")
+				__("View"),
 			);
 
 			// Duplicate check button
@@ -166,7 +173,7 @@ $.extend(frappe.ui.form.Form.prototype, {
 				() => {
 					this.run_duplicate_check();
 				},
-				__("Tools")
+				__("Tools"),
 			);
 
 			// Generate barcode button
@@ -175,11 +182,10 @@ $.extend(frappe.ui.form.Form.prototype, {
 				() => {
 					this.generate_barcode();
 				},
-				__("Tools")
+				__("Tools"),
 			);
 
 			this.__actions_added = true;
-
 		} catch (error) {
 			console.error("Error setting up action buttons:", error);
 		}
@@ -188,23 +194,18 @@ $.extend(frappe.ui.form.Form.prototype, {
 	create_clarinet_setup_enhanced() {
 		// Show confirmation dialog first
 		frappe.confirm(
-			__('Create a new Clarinet Initial Setup for this instrument?'),
+			__("Create a new Clarinet Initial Setup for this instrument?"),
 			() => {
 				this.execute_setup_creation();
 			},
 			() => {
 				// User cancelled
-			}
+			},
 		);
 	},
 
 	execute_setup_creation() {
-		const progress = frappe.show_progress(
-			__("Creating Setup"),
-			0,
-			100,
-			__("Initializing...")
-		);
+		const progress = frappe.show_progress(__("Creating Setup"), 0, 100, __("Initializing..."));
 
 		try {
 			progress.set_percent(30);
@@ -224,14 +225,18 @@ $.extend(frappe.ui.form.Form.prototype, {
 						this.save().then(() => {
 							progress.set_percent(100);
 							progress.set_message(__("Redirecting..."));
-							
+
 							setTimeout(() => {
 								progress.hide();
 								frappe.show_alert({
 									message: __("Setup created successfully"),
-									indicator: "green"
+									indicator: "green",
 								});
-								frappe.set_route("Form", "Clarinet Initial Setup", r.message.setup);
+								frappe.set_route(
+									"Form",
+									"Clarinet Initial Setup",
+									r.message.setup,
+								);
 							}, 1000);
 						});
 					} else {
@@ -239,35 +244,38 @@ $.extend(frappe.ui.form.Form.prototype, {
 						frappe.msgprint({
 							title: __("Setup Creation Failed"),
 							message: __("No setup was created. Please try again."),
-							indicator: "orange"
+							indicator: "orange",
 						});
 					}
 				},
 				error: (r) => {
 					progress.hide();
 					console.error("Setup creation error:", r);
-					
+
 					frappe.msgprint({
 						title: __("Setup Creation Failed"),
-						message: r.message || __("Failed to create setup. Please check the instrument data and try again."),
-						indicator: "red"
+						message:
+							r.message ||
+							__(
+								"Failed to create setup. Please check the instrument data and try again.",
+							),
+						indicator: "red",
 					});
-				}
+				},
 			});
-
 		} catch (error) {
 			progress.hide();
 			console.error("Setup creation error:", error);
 			frappe.msgprint({
 				title: __("Unexpected Error"),
 				message: __("An unexpected error occurred. Please try again."),
-				indicator: "red"
+				indicator: "red",
 			});
 		}
 	},
 
 	check_duplicates_advisory() {
-		if (this.doctype !== 'Instrument Serial') return;
+		if (this.doctype !== "Instrument Serial") return;
 		if (this.is_new()) return;
 
 		// Clear existing duplicate warnings
@@ -292,20 +300,22 @@ $.extend(frappe.ui.form.Form.prototype, {
 			error: (r) => {
 				// Silent error - don't disrupt user workflow
 				console.warn("Duplicate check failed:", r);
-			}
+			},
 		});
 	},
 
 	show_duplicate_warning(duplicates) {
 		const duplicate_list = duplicates
-			.map(d => `
+			.map(
+				(d) => `
 				<div class="duplicate-item">
 					<strong>${d.name}</strong> - 
-					${d.brand || ''} ${d.model || ''} 
-					(${d.instrument_type || ''})
+					${d.brand || ""} ${d.model || ""} 
+					(${d.instrument_type || ""})
 				</div>
-			`)
-			.join('');
+			`,
+			)
+			.join("");
 
 		this.dashboard.set_headline(`
 			<div class="alert alert-warning">
@@ -315,7 +325,7 @@ $.extend(frappe.ui.form.Form.prototype, {
 		`);
 
 		// Show detailed duplicate information
-		this.$wrapper.find('.duplicate-details').remove();
+		this.$wrapper.find(".duplicate-details").remove();
 		this.$wrapper.prepend(`
 			<div class="duplicate-details alert alert-warning">
 				<h4>${__("Potential Duplicate Instruments")}</h4>
@@ -328,59 +338,63 @@ $.extend(frappe.ui.form.Form.prototype, {
 		`);
 
 		// Add click handler for review button
-		this.$wrapper.find('.view-duplicates-btn').on('click', () => {
+		this.$wrapper.find(".view-duplicates-btn").on("click", () => {
 			this.show_duplicate_review_dialog(duplicates);
 		});
 	},
 
 	clear_duplicate_warnings() {
-		this.$wrapper.find('.duplicate-details').remove();
+		this.$wrapper.find(".duplicate-details").remove();
 		this.dashboard.clear_headline();
 	},
 
 	show_duplicate_review_dialog(duplicates) {
 		const dialog = new frappe.ui.Dialog({
-			title: __('Review Duplicate Instruments'),
+			title: __("Review Duplicate Instruments"),
 			fields: [
 				{
-					fieldtype: 'HTML',
+					fieldtype: "HTML",
 					options: `
 						<div class="duplicate-review">
-							<p>${__('The following instruments have similar characteristics:')}</p>
+							<p>${__("The following instruments have similar characteristics:")}</p>
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th>${__('Name')}</th>
-										<th>${__('Brand')}</th>
-										<th>${__('Model')}</th>
-										<th>${__('Type')}</th>
-										<th>${__('Action')}</th>
+										<th>${__("Name")}</th>
+										<th>${__("Brand")}</th>
+										<th>${__("Model")}</th>
+										<th>${__("Type")}</th>
+										<th>${__("Action")}</th>
 									</tr>
 								</thead>
 								<tbody>
-									${duplicates.map(d => `
+									${duplicates
+										.map(
+											(d) => `
 										<tr>
 											<td>${d.name}</td>
-											<td>${d.brand || ''}</td>
-											<td>${d.model || ''}</td>
-											<td>${d.instrument_type || ''}</td>
+											<td>${d.brand || ""}</td>
+											<td>${d.model || ""}</td>
+											<td>${d.instrument_type || ""}</td>
 											<td>
 												<a href="/app/instrument-serial/${d.name}" target="_blank" rel="noopener noreferrer">
-													${__('View')}
+													${__("View")}
 												</a>
 											</td>
 										</tr>
-									`).join('')}
+									`,
+										)
+										.join("")}
 								</tbody>
 							</table>
 						</div>
-					`
-				}
+					`,
+				},
 			],
-			primary_action_label: __('Continue Anyway'),
+			primary_action_label: __("Continue Anyway"),
 			primary_action: () => {
 				dialog.hide();
-			}
+			},
 		});
 		dialog.show();
 	},
@@ -389,21 +403,24 @@ $.extend(frappe.ui.form.Form.prototype, {
 		if (!this.doc.serial_no) return;
 
 		const serial = this.doc.serial_no.trim();
-		
+
 		// Basic format validation
 		if (serial.length < 3) {
-			this.show_field_error('serial_no', __("Serial number must be at least 3 characters"));
+			this.show_field_error("serial_no", __("Serial number must be at least 3 characters"));
 			return;
 		}
 
 		// Check for valid characters (alphanumeric, hyphens, underscores)
 		const valid_pattern = /^[A-Za-z0-9\-_]+$/;
 		if (!valid_pattern.test(serial)) {
-			this.show_field_error('serial_no', __("Serial number can only contain letters, numbers, hyphens, and underscores"));
+			this.show_field_error(
+				"serial_no",
+				__("Serial number can only contain letters, numbers, hyphens, and underscores"),
+			);
 			return;
 		}
 
-		this.clear_field_error('serial_no');
+		this.clear_field_error("serial_no");
 	},
 
 	validate_year_estimate() {
@@ -413,41 +430,47 @@ $.extend(frappe.ui.form.Form.prototype, {
 		const current_year = new Date().getFullYear();
 
 		if (year < 1800 || year > current_year + 1) {
-			this.show_field_error('year_estimate', 
-				__("Year estimate should be between 1800 and {0}", [current_year + 1]));
+			this.show_field_error(
+				"year_estimate",
+				__("Year estimate should be between 1800 and {0}", [current_year + 1]),
+			);
 			return;
 		}
 
-		this.clear_field_error('year_estimate');
+		this.clear_field_error("year_estimate");
 	},
 
 	handle_ownership_change() {
 		const ownership_type = this.doc.ownership_type;
-		
+
 		// Show/hide fields based on ownership type
 		if (["Customer Owned", "Consignment"].includes(ownership_type)) {
-			this.toggle_reqd('owner_name', true);
-			this.toggle_reqd('owner_contact', false);
+			this.toggle_reqd("owner_name", true);
+			this.toggle_reqd("owner_contact", false);
 		} else {
-			this.toggle_reqd('owner_name', false);
-			this.toggle_reqd('owner_contact', false);
+			this.toggle_reqd("owner_name", false);
+			this.toggle_reqd("owner_contact", false);
 		}
 
 		// Show helpful message
 		if (ownership_type === "Customer Owned") {
-			this.show_field_info('ownership_type', 
-				__("Please specify owner details for customer-owned instruments"));
+			this.show_field_info(
+				"ownership_type",
+				__("Please specify owner details for customer-owned instruments"),
+			);
 		} else if (ownership_type === "Consignment") {
-			this.show_field_info('ownership_type', 
-				__("Consignment instruments require owner tracking"));
+			this.show_field_info(
+				"ownership_type",
+				__("Consignment instruments require owner tracking"),
+			);
 		}
 	},
 
 	show_field_error(fieldname, message) {
 		const field = this.fields_dict[fieldname];
 		if (field) {
-			field.$wrapper.addClass('has-error');
-			field.$wrapper.find('.help-block').remove();
+			field.$wrapper.addClass("has-error");
+			field.$wrapper.find(".help-block").remove();
 			field.$wrapper.append(`<div class="help-block text-danger">${message}</div>`);
 		}
 	},
@@ -455,7 +478,7 @@ $.extend(frappe.ui.form.Form.prototype, {
 	show_field_info(fieldname, message) {
 		const field = this.fields_dict[fieldname];
 		if (field) {
-			field.$wrapper.find('.help-block').remove();
+			field.$wrapper.find(".help-block").remove();
 			field.$wrapper.append(`<div class="help-block text-info">${message}</div>`);
 		}
 	},
@@ -463,8 +486,8 @@ $.extend(frappe.ui.form.Form.prototype, {
 	clear_field_error(fieldname) {
 		const field = this.fields_dict[fieldname];
 		if (field) {
-			field.$wrapper.removeClass('has-error has-warning');
-			field.$wrapper.find('.help-block').remove();
+			field.$wrapper.removeClass("has-error has-warning");
+			field.$wrapper.find(".help-block").remove();
 		}
 	},
 
@@ -495,7 +518,7 @@ $.extend(frappe.ui.form.Form.prototype, {
 			}
 
 			if (errors.length > 0) {
-				reject(new Error(errors.join('\n')));
+				reject(new Error(errors.join("\n")));
 			} else {
 				resolve();
 			}
@@ -503,22 +526,25 @@ $.extend(frappe.ui.form.Form.prototype, {
 	},
 
 	setup_help_system() {
-		if (this.doctype !== 'Instrument Serial') return;
+		if (this.doctype !== "Instrument Serial") return;
 
 		// Add placeholder text and help
 		if (this.fields_dict.serial_no) {
-			this.fields_dict.serial_no.$wrapper.find('input')
-				.attr('placeholder', __('e.g., ABC123456, SN-2023-001'));
+			this.fields_dict.serial_no.$wrapper
+				.find("input")
+				.attr("placeholder", __("e.g., ABC123456, SN-2023-001"));
 		}
 
 		if (this.fields_dict.model) {
-			this.fields_dict.model.$wrapper.find('input')
-				.attr('placeholder', __('e.g., R13, E11, YCL-255'));
+			this.fields_dict.model.$wrapper
+				.find("input")
+				.attr("placeholder", __("e.g., R13, E11, YCL-255"));
 		}
 
 		if (this.fields_dict.year_estimate) {
-			this.fields_dict.year_estimate.$wrapper.find('input')
-				.attr('placeholder', __('e.g., 2020, 1995'));
+			this.fields_dict.year_estimate.$wrapper
+				.find("input")
+				.attr("placeholder", __("e.g., 2020, 1995"));
 		}
 	},
 
@@ -528,5 +554,5 @@ $.extend(frappe.ui.form.Form.prototype, {
 			return;
 		}
 		this.create_clarinet_setup_enhanced();
-	}
+	},
 });
