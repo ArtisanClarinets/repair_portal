@@ -133,10 +133,10 @@
         <p>Your intake has been logged and routed to inspection.</p>
         <ul>
           <li><a :href="submissionState.links.intake_form_route">Open Intake Record</a></li>
-          <li v-if="submissionState.links.intake_receipt_print"><a :href="submissionState.links.intake_receipt_print" target="_blank">Print Intake Receipt</a></li>
-          <li v-if="submissionState.links.instrument_tag_print"><a :href="submissionState.links.instrument_tag_print" target="_blank">Print Instrument Tag</a></li>
-          <li v-if="submissionState.links.instrument_qr_print"><a :href="submissionState.links.instrument_qr_print" target="_blank">Print Instrument QR</a></li>
-          <li><a :href="submissionState.links.create_repair_request_route" target="_blank">Create Repair Request</a></li>
+          <li v-if="submissionState.links.intake_receipt_print"><a :href="submissionState.links.intake_receipt_print" target="_blank" rel="noopener noreferrer">Print Intake Receipt</a></li>
+          <li v-if="submissionState.links.instrument_tag_print"><a :href="submissionState.links.instrument_tag_print" target="_blank" rel="noopener noreferrer">Print Instrument Tag</a></li>
+          <li v-if="submissionState.links.instrument_qr_print"><a :href="submissionState.links.instrument_qr_print" target="_blank" rel="noopener noreferrer">Print Instrument QR</a></li>
+          <li><a :href="submissionState.links.create_repair_request_route" target="_blank" rel="noopener noreferrer">Create Repair Request</a></li>
         </ul>
       </section>
     </transition>
