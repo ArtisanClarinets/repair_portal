@@ -45,6 +45,9 @@ def submit() -> dict:
     MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
     uploads: List[UploadedPhoto] = []
+    MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+    ALLOWED_MIME_TYPES = {"image/png", "image/jpeg", "image/jpg", "image/webp", "image/heic"}
+
     for file_key, storage in (frappe.request.files or {}).items():
         if storage.mimetype not in ALLOWED_MIMETYPES:
             frappe.throw(
