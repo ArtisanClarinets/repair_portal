@@ -351,14 +351,25 @@ def list_available_loaners(filters: dict[str, Any] | None = None) -> list[dict[s
         order_by="modified desc",
         limit_page_length=25,
     )
+    # --- Bolt Optimization: Pre-fetch instrument details to fix N+1 query ---
+    # Collect all unique, non-null instrument IDs from the loaner list.
+    instrument_ids = {row.instrument for row in loaners if row.instrument}
+    instrument_details_map = {}
+
+    # If there are any instruments to fetch, get all their details in a single query.
+    if instrument_ids:
+        instrument_docs = frappe.get_all(
+            "Instrument",
+            filters={"name": ("in", list(instrument_ids))},
+            fields=["name", "brand", "model", "serial_no"],
+        )
+        # Create a dictionary for quick lookups (instrument_name -> details).
+        instrument_details_map = {doc.name: doc for doc in instrument_docs}
+
     result: list[dict[str, Any]] = []
     for row in loaners:
-        instrument_doc = None
-        if row.get("instrument"):
-            try:
-                instrument_doc = frappe.get_doc("Instrument", row["instrument"])
-            except Exception:
-                instrument_doc = None
+        # Retrieve pre-fetched details from the map; this avoids a DB call inside the loop.
+        instrument_doc = instrument_details_map.get(row.instrument)
         result.append(
             {
                 "loaner": row["name"],
@@ -367,9 +378,9 @@ def list_available_loaners(filters: dict[str, Any] | None = None) -> list[dict[s
                 "due_date": row.get("due_date"),
                 "returned": row.get("returned"),
                 "instrument_details": {
-                    "manufacturer": getattr(instrument_doc, "brand", None) if instrument_doc else None,
-                    "model": getattr(instrument_doc, "model", None) if instrument_doc else None,
-                    "serial_no": getattr(instrument_doc, "serial_no", None) if instrument_doc else None,
+                    "manufacturer": instrument_doc.brand if instrument_doc else None,
+                    "model": instrument_doc.model if instrument_doc else None,
+                    "serial_no": instrument_doc.serial_no if instrument_doc else None,
                 },
             }
         )

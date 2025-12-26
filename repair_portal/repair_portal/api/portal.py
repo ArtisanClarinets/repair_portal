@@ -105,7 +105,9 @@ def _update_mail_in_status(mail_in: Document, tracking_no: str, label_url: str) 
     mail_in.save(ignore_permissions=True)
 
 
-@frappe.whitelist(allow_guest=True)
+# Rate limit to prevent abuse from anonymous users, which could lead to
+# resource exhaustion by creating numerous Repair Estimate and Payment Request docs.
+@frappe.whitelist(allow_guest=True, rate_limiter=frappe.rate_limiter(limit=10, seconds=60))
 def prepare_quote_and_deposit(
     repair_order: str,
     repair_class: str | None = None,

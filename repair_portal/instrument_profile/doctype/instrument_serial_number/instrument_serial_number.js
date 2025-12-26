@@ -365,7 +365,7 @@ $.extend(frappe.ui.form.Form.prototype, {
 											<td>${d.model || ''}</td>
 											<td>${d.instrument_type || ''}</td>
 											<td>
-												<a href="/app/instrument-serial/${d.name}" target="_blank">
+												<a href="/app/instrument-serial/${d.name}" target="_blank" rel="noopener noreferrer">
 													${__('View')}
 												</a>
 											</td>
