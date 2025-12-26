@@ -39,7 +39,8 @@ def get_recent_intakes():
     if not frappe.has_permission("Clarinet Intake", "read"):
         frappe.throw(_("Insufficient permissions to view intake dashboard."), frappe.PermissionError)
 
-    return frappe.get_all(
+    # Use get_list to enforce User Permissions (row-level security)
+    return frappe.get_list(
         "Clarinet Intake",
         fields=["name", "intake_status", "customer", "instrument", "modified"],
         order_by="modified desc",

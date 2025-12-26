@@ -24,3 +24,7 @@
 ## 2025-12-22 - Accessible Form Hints
 **Learning:** Input hints (small text below inputs) are often skipped by screen readers unless explicitly linked.
 **Action:** Added `aria-describedby` to Customer Name, Email, and Phone inputs in `CustomerStep.vue` to programmaticly associate them with their hint text.
+
+## 2025-12-22 - Mail-In Form Loading State
+**Learning:** Users need feedback when a form is submitting to avoid confusion and double submissions.
+**Action:** Added a loading state (disabled button + "Processing..." text) to the Mail-In Repair form submit button.

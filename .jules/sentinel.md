@@ -24,3 +24,8 @@
 **Vulnerability:** The `rate_limited` decorator in `repair_portal/core/security.py` grouped all Guest users under a single "Guest" key, allowing one malicious IP to exhaust the rate limit for all public users.
 **Learning:** Rate limiting for unauthenticated users (Guests) must use IP address or another unique identifier, not the shared session user ID.
 **Prevention:** Updated `rate_limited` to use `frappe.local.request_ip` as the key when the user is "Guest".
+
+## 2025-12-22 - [High] Secure Intake Dashboard List
+**Vulnerability:** The `get_recent_intakes` endpoint used `frappe.get_all` which bypasses User Permissions (row-level security), potentially exposing all intakes to users with global read access.
+**Learning:** `frappe.get_all` ignores User Permissions; `frappe.get_list` must be used when row-level security is required.
+**Prevention:** Replaced `frappe.get_all` with `frappe.get_list` in `repair_portal/api/intake_dashboard.py`.

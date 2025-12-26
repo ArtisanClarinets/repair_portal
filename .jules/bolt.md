@@ -14,3 +14,7 @@
 ## 2025-12-22 - Optimize Instrument Profile List
 **Learning:** Fetching all records into memory (`get_all` without filters) and then filtering in Python is inefficient and can cause memory exhaustion (DoS).
 **Action:** Updated `list_for_user` to use database-level filtering (`filters` parameter) in `get_all`, ensuring only relevant records are fetched.
+
+## 2025-12-22 - Prevent Unbounded Fetches
+**Learning:** Fetching all records without a limit can cause Out Of Memory (OOM) errors as data grows.
+**Action:** Added a safe limit of 500 to `list_for_user` in `repair_portal/api/frontend/instrument_profile.py` for staff users.
