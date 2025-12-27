@@ -100,7 +100,7 @@ def submit_mail_in_request(data: str) -> Dict[str, Any]:
 
     # Security: Add email-based rate limiting to prevent spamming from different IPs.
     # The IP-based limit can be bypassed, but this second layer makes abuse harder.
-    email_address = payload.get("email", "").strip().lower()
+    email_address = payload.get('email', '').strip().lower()
     if email_address:
         # Allow up to 5 mail-in requests per hour from a single email address.
         frappe.rate_limiter(key=email_address, limit=5, seconds=3600).update()
