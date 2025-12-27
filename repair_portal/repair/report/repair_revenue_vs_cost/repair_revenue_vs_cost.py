@@ -17,15 +17,21 @@ def execute(filters=None):
 
     where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
 
+    # Bolt: Fetch the default labor rate from Repair Settings once to avoid
+    # hardcoding it and to ensure a single source of truth. Using get_single_value
+    # is efficient as it caches the result.
+    labor_rate = frappe.db.get_single_value("Repair Settings", "default_labor_rate") or 50.0
+
     query = f"""
         SELECT
             ro.name AS repair_order,
             ro.total_parts_cost,
-            ro.total_labor_hours * 50 AS labor_value,
-            (ro.total_parts_cost + ro.total_labor_hours * 50) AS total_cost
+            ro.total_labor_hours * %(labor_rate)s AS labor_value,
+            (ro.total_parts_cost + ro.total_labor_hours * %(labor_rate)s) AS total_cost
         FROM `tabRepair Order` ro
         {where_clause}
     """
+    filters["labor_rate"] = labor_rate
 
     data = frappe.db.sql(query, filters, as_dict=True)
 

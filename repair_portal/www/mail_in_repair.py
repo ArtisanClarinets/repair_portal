@@ -97,6 +97,14 @@ def get_context(context: Dict[str, Any]) -> Dict[str, Any]:
 @frappe.rate_limit(key='ip', limit=5, seconds=60)
 def submit_mail_in_request(data: str) -> Dict[str, Any]:
     payload = json.loads(data)
+
+    # Security: Add email-based rate limiting to prevent spamming from different IPs.
+    # The IP-based limit can be bypassed, but this second layer makes abuse harder.
+    email_address = payload.get("email", "").strip().lower()
+    if email_address:
+        # Allow up to 5 mail-in requests per hour from a single email address.
+        frappe.rate_limiter(key=email_address, limit=5, seconds=3600).update()
+
     form = MailInForm.from_dict(payload)
     if not form.consent_storage:
         frappe.throw(_('Consent is required to process your mail-in repair.'))

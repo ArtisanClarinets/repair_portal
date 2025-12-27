@@ -217,7 +217,7 @@ function generate_shooting_kit(frm, marker_mm, aruco_dict) {
     frm.reload_doc().then(() => {
       if (r.message && r.message.pdf_url) {
         frappe.msgprint(
-          `Shooting kit attached: <a href="${r.message.pdf_url}" target="_blank">${r.message.pdf_url}</a><br/>` +
+          `Shooting kit attached: <a href="${r.message.pdf_url}" target="_blank" rel="noopener noreferrer">${r.message.pdf_url}</a><br/>` +
           `An instruction image was placed into the Photo field.`
         );
       }
