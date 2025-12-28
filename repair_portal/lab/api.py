@@ -29,6 +29,12 @@ def _attach_file(parent_doc, b64, fname):
     """Attach a decoded base64 file to a document (private, no public URL)."""
     if not b64:
         return
+
+    # Check approximate size before decoding (Base64 is ~1.33x larger)
+    # 20MB * 1.37 approx 27.4MB safety margin
+    if len(b64) > MAX_RECORDING_SIZE * 1.4:
+        raise LabAPIError(_("Recording file too large (>20MB)."))
+
     content = base64.b64decode(b64)
     if len(content) > MAX_RECORDING_SIZE:
         raise LabAPIError(_("Recording file too large (>20MB)."))
@@ -198,6 +204,10 @@ def save_tone_fitness(instrument=None, recording_base64=None, filename=None):
         raise LabAPIError(_("Instrument is required."))
     if not recording_base64:
         raise LabAPIError(_("No recording provided."))
+
+    # Sentinel: Check size before processing to prevent DoS
+    if len(recording_base64) > MAX_RECORDING_SIZE * 1.4:
+        raise LabAPIError(_("Recording file too large (>20MB)."))
 
     try:
         import io
