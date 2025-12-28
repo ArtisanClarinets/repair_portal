@@ -185,7 +185,7 @@ class InstrumentInspection(Document):
                     for row in self.get(field)
                 ]
 
-            # Map replacements
+            # Map replacements (sync rules: marketing->serial, accessory->accessory, service->append)
             marketing_photos = get_child_data("marketing_photos")
             if marketing_photos:
                 data["serial_photos"] = marketing_photos
