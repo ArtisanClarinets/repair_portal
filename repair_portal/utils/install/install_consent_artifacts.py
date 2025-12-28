@@ -41,10 +41,29 @@ def _site_log(msg: str) -> None:
 
 
 def _existing_roles(candidates: list[str]) -> list[str]:
-    present = [r for r in candidates if frappe.db.exists("Role", r)]
-    if not present and frappe.db.exists("Role", "System Manager"):
-        present = ["System Manager"]
-    return present
+    """
+    Performance: Filters a list of role names to return only those that exist in the database.
+    This function uses a single, efficient query to prevent N+1 performance issues that would
+    arise from checking for the existence of each role in a loop.
+    """
+    if not candidates:
+        return []
+
+    # Use a single query to find all existing roles from the candidate list.
+    existing_roles_docs = frappe.db.get_all(
+        "Role", filters={"name": ("in", candidates)}, fields=["name"]
+    )
+    present = {doc.name for doc in existing_roles_docs}
+
+    # If the filtered list is empty, fall back to "System Manager" if it exists.
+    # This preserves the original logic of ensuring a default role is always assigned.
+    if not present:
+        if frappe.db.exists("Role", "System Manager"):
+            return ["System Manager"]
+        return []
+
+    # The conversion to a set and back to a list handles uniqueness automatically.
+    return sorted(list(present))
 
 
 def _get_action_link_target_dt() -> str:
