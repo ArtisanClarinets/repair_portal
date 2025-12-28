@@ -7,7 +7,7 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 from repair_portal.instrument_profile.utils.input_validation import InputValidator, ValidationError
 
@@ -251,6 +251,21 @@ class CustomerExternalWorkLog(Document):
         except Exception as e:
             frappe.logger("customer_external_work_log").error(f"Post-insert processing failed: {str(e)}")
 
+    def _get_notification_recipients(self) -> List[str]:
+        """Determine appropriate recipients (Repair Managers first, then Technicians)"""
+        recipients = []
+        for role in ["Repair Manager", "Technician"]:
+            users_with_role = frappe.get_all("Has Role", filters={"role": role, "parenttype": "User"}, pluck="parent")
+            if users_with_role:
+                enabled_users = frappe.get_all("User", filters={"name": ["in", users_with_role], "enabled": 1}, pluck="name")
+                recipients.extend(enabled_users)
+
+            # If we found any recipients in this priority level, stop looking
+            if recipients:
+                break
+
+        return list(set(recipients))
+
     def _send_notifications(self):
         """Send notifications for new external work logs"""
         try:
@@ -260,19 +275,8 @@ class CustomerExternalWorkLog(Document):
             if self.get("service_type") in significant_services:
                 # Get parent document to determine recipients
                 if self.get("parent") and self.get("parenttype"):
-                    # Determine recipients (Repair Managers first, then Technicians)
-                    recipients = []
-                    for role in ["Repair Manager", "Technician"]:
-                        users_with_role = frappe.get_all("Has Role", filters={"role": role, "parenttype": "User"}, pluck="parent")
-                        if users_with_role:
-                            enabled_users = frappe.get_all("User", filters={"name": ["in", users_with_role], "enabled": 1}, pluck="name")
-                            recipients.extend(enabled_users)
-                        
-                        if recipients:
-                            break
 
-                    # Deduplicate
-                    recipients = list(set(recipients))
+                    recipients = self._get_notification_recipients()
 
                     # Create notification for each recipient
                     for user in recipients:
