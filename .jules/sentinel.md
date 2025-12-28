@@ -35,3 +35,9 @@
 **Vulnerability:** The `get_recent_intakes` endpoint used `frappe.get_all` which bypasses User Permissions (row-level security), potentially exposing all intakes to users with global read access.
 **Learning:** `frappe.get_all` ignores User Permissions; `frappe.get_list` must be used when row-level security is required.
 **Prevention:** Replaced `frappe.get_all` with `frappe.get_list` in `repair_portal/api/intake_dashboard.py`.
+
+## 2025-07-24 - Unbounded File Processing in Lab API
+
+**Vulnerability:** `save_tone_fitness` in `repair_portal/lab/api.py` decodes base64 input without size validation, leading to potential DoS/OOM.
+**Learning:** Always validate input size before processing, especially before expensive operations like base64 decoding or audio analysis.
+**Prevention:** Added pre-decode size checks to `_attach_file` and `save_tone_fitness` enforcing the existing 20MB limit.
