@@ -98,6 +98,22 @@ def get_context(context: Dict[str, Any]) -> Dict[str, Any]:
 def submit_mail_in_request(data: str) -> Dict[str, Any]:
     payload = json.loads(data)
     form = MailInForm.from_dict(payload)
+
+    # Security: Add a second rate-limit key by email to prevent abuse from distributed IPs.
+    # This is implemented manually because the email is nested inside the `data` JSON payload,
+    # making it incompatible with the standard decorator's keying mechanism.
+    # Limit: 3 submissions per hour per email address.
+    cache_key = f'mail_in_request_email:{form.email}'
+    if frappe.cache().get(cache_key) is None:
+        frappe.cache().set(cache_key, 1, 3600)
+    else:
+        count = frappe.cache().incr(cache_key)
+        if count > 3:
+            frappe.throw(
+                _('Too many requests from this email address. Please try again in an hour.'),
+                frappe.TooManyRequestsError,
+            )
+
     if not form.consent_storage:
         frappe.throw(_('Consent is required to process your mail-in repair.'))
     customer_name = _ensure_customer(form)
