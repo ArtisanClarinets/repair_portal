@@ -6,7 +6,7 @@ from typing import List
 
 import frappe
 from frappe import _
-from frappe.utils import get_link_to_form, now_datetime
+from frappe.utils import get_link_to_form, now_datetime, sanitize_html
 
 from repair_portal.repair_portal.doctype.customer_approval.customer_approval import (
     create_customer_approval,
@@ -76,7 +76,9 @@ def _payment_requests_for_reference(reference_doctype: str, reference_name: str)
 
 def _handle_submission(reference_doctype: str, reference_name: str):
     action = frappe.form_dict.get("action")
-    note = frappe.form_dict.get("note") or None
+    note_input = frappe.form_dict.get("note")
+    # Sanitize user input to prevent XSS. The note is displayed in the timeline and reports.
+    note = sanitize_html(note_input) if note_input else None
     terms_version = frappe.form_dict.get("terms_version") or now_datetime().isoformat()
     signer_full_name = frappe.form_dict.get("signer_full_name")
     signer_email = frappe.form_dict.get("signer_email") or frappe.db.get_value(
