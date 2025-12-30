@@ -6,7 +6,8 @@
 from typing import Any
 
 import frappe
-from frappe.query_builder import Order
+from frappe.query_builder import Case, Order
+from frappe.query_builder.functions import Avg, Count, Sum
 from frappe.utils import add_days, cint, getdate
 
 
@@ -72,46 +73,51 @@ class DatabaseOptimizer:
         - Single query with CASE statements for multiple counts
         - Uses indexed workflow_state field
         - Role-based filtering
+        - Secure query construction using Frappe QB to prevent SQL injection
         """
         user = user or frappe.session.user
-
-        # Check if user has full access or needs filtering
         roles = frappe.get_roles(user)
-        user_filter = ""
-        params = {}
 
+        repair_order = frappe.qb.DocType("Repair Order")
+
+        # Base query
+        query = (
+            frappe.qb.from_(repair_order)
+            .select(
+                Count(repair_order.name).as_("total_repairs"),
+                Sum(Case().when(repair_order.workflow_state == "Draft", 1).else_(0)).as_("draft_count"),
+                Sum(Case().when(repair_order.workflow_state == "In Progress", 1).else_(0)).as_(
+                    "in_progress_count"
+                ),
+                Sum(Case().when(repair_order.workflow_state == "QA", 1).else_(0)).as_("qa_count"),
+                Sum(Case().when(repair_order.workflow_state == "Completed", 1).else_(0)).as_(
+                    "completed_count"
+                ),
+                Avg(
+                    Case()
+                    .when(
+                        (repair_order.workflow_state == "Completed") & (repair_order.estimated_hours > 0),
+                        repair_order.actual_hours / repair_order.estimated_hours,
+                    )
+                    .else_(None)
+                ).as_("efficiency_ratio"),
+            )
+            .where(repair_order.docstatus != 2)
+        )
+
+        # Apply role-based filters securely
         if "System Manager" not in roles and "Repair Manager" not in roles:
             if "Technician" in roles:
-                user_filter = "AND assigned_technician = %(user)s"
-                params["user"] = user
+                query = query.where(repair_order.assigned_technician == user)
             else:
-                # Customer access - filter by their instruments
                 customer = frappe.db.get_value("Customer", {"linked_user": user}, "name")
                 if customer:
-                    user_filter = "AND customer = %(customer)s"
-                    params["customer"] = customer
+                    query = query.where(repair_order.customer == customer)
                 else:
                     return {}  # No access
 
-        result = frappe.db.sql(
-            f"""
-            SELECT
-                COUNT(*) AS total_repairs,
-                SUM(CASE WHEN workflow_state = 'Draft' THEN 1 ELSE 0 END) AS draft_count,
-                SUM(CASE WHEN workflow_state = 'In Progress' THEN 1 ELSE 0 END) AS in_progress_count,
-                SUM(CASE WHEN workflow_state = 'QA' THEN 1 ELSE 0 END) AS qa_count,
-                SUM(CASE WHEN workflow_state = 'Completed' THEN 1 ELSE 0 END) AS completed_count,
-                AVG(CASE WHEN workflow_state = 'Completed' AND estimated_hours > 0 
-                    THEN actual_hours / estimated_hours ELSE NULL END) AS efficiency_ratio
-            FROM `tabRepair Order`
-            WHERE docstatus != 2 {user_filter}
-        """,
-            params,
-            as_dict=True,
-        )
-        # Ensure result is a list and return first dict or empty dict
-        result_list = list(result) if result else []
-        return result_list[0] if result_list and isinstance(result_list[0], dict) else {}
+        result = query.run(as_dict=True)
+        return result[0] if result else {}
 
     @staticmethod
     def bulk_update_workflow_states(updates: list[dict[str, str]], doctype: str = "Repair Order") -> int:
