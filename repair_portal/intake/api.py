@@ -246,10 +246,12 @@ def get_instrument_by_serial(serial_no: str) -> dict[str, Any] | None:
         instrument_name = frappe.db.get_value('Instrument', {'serial_no': isn_doc['name']}, 'name')
         if instrument_name:
             instrument_doc = frappe.get_doc('Instrument', instrument_name)
+            instrument_doc.check_permission('read')
     if not instrument_doc:
         instrument_name = frappe.db.get_value('Instrument', {'serial_no': serial_no}, 'name')
         if instrument_name:
             instrument_doc = frappe.get_doc('Instrument', instrument_name)
+            instrument_doc.check_permission('read')
 
     normalized = normalize_serial(serial_no)
     response: dict[str, Any] = {
@@ -415,7 +417,7 @@ def save_intake_session(
     data = _coerce_dict(payload)
     session = _get_session(session_id, create=True)
     _update_session_payload(session, data, last_step=last_step, status=status)
-    _touch_session_event(session, 'api_call', {'operation': 'save_session', 'step': last_step})
+    _touch_session_event(session, 'api_call', {'operation': 'save_.session', 'step': last_step})
     return _serialize_session(session)
 
 
