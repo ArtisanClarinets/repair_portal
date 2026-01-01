@@ -14,6 +14,7 @@ from urllib.parse import quote
 
 import frappe
 from frappe import _
+from frappe.rate_limit import rate_limit
 from frappe.utils import get_link_to_form
 
 from repair_portal.intake.doctype.brand_mapping_rule.brand_mapping_rule import map_brand
@@ -231,9 +232,12 @@ def _resolve_player_docname(data: dict[str, Any]) -> str | None:
 
 
 @frappe.whitelist(allow_guest=False)
+@rate_limit(key='serial_lookup', limit=10, seconds=60)
 def get_instrument_by_serial(serial_no: str) -> dict[str, Any] | None:
     """Secure lookup of instrument details by serial with normalization and brand mapping."""
 
+    # Sentinel Enhancement: Rate limit this endpoint to prevent abuse, such as serial number enumeration attacks.
+    # Limit: 10 requests per minute per user.
     _ensure_intake_permission('read')
     if not serial_no:
         return None
