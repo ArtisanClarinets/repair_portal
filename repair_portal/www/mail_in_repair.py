@@ -98,11 +98,11 @@ def get_context(context: Dict[str, Any]) -> Dict[str, Any]:
 def submit_mail_in_request(data: str) -> Dict[str, Any]:
     try:
         payload = json.loads(data)
-        email = payload.get("email")
+        email = payload.get('email')
         if email:
             frappe.rate_limit(key=email, limit=1, seconds=300, throw=True)
     except json.JSONDecodeError:
-        frappe.throw(_("Invalid request data."), frappe.MalformedRequest)
+        frappe.throw(_('Invalid request data.'), frappe.MalformedRequest)
 
     form = MailInForm.from_dict(payload)
     if not form.consent_storage:
