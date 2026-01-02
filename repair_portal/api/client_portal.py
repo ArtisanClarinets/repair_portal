@@ -11,14 +11,26 @@ import frappe
 @frappe.whitelist(allow_guest=False)
 def get_my_instruments():
     """Return instrument list where the linked player belongs to the logged-in user."""
-    client = frappe.db.get_value("Customer", {"linked_user": frappe.session.user}, "name")
-    if not client:
-        return []
-
-    player_names = frappe.get_all("Player Profile", {"customer": client}, pluck="name")
+    # Performance: Single query to fetch instruments linked to the current user's
+    # customer profile, avoiding multiple database round trips.
     return frappe.get_all(
         "Instrument Profile",
-        filters={"player_profile": ["in", player_names]},
+        filters={
+            "player_profile": (
+                "in",
+                frappe.qb.from_("Player Profile")
+                .select("name")
+                .where(
+                    "customer",
+                    "=",
+                    (
+                        frappe.qb.from_("Customer")
+                        .select("name")
+                        .where("linked_user", "=", frappe.session.user)
+                    ),
+                ),
+            )
+        },
         fields=["name", "instrument_type", "serial_no"],
     )
 
