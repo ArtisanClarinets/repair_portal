@@ -96,7 +96,14 @@ def get_context(context: Dict[str, Any]) -> Dict[str, Any]:
 @frappe.whitelist(allow_guest=True)
 @frappe.rate_limit(key='ip', limit=5, seconds=60)
 def submit_mail_in_request(data: str) -> Dict[str, Any]:
-    payload = json.loads(data)
+    try:
+        payload = json.loads(data)
+    except json.JSONDecodeError:
+        frappe.throw(
+            _('Invalid request format. Please ensure you are sending valid JSON.'),
+            http_status_code=400,
+        )
+
     form = MailInForm.from_dict(payload)
     if not form.consent_storage:
         frappe.throw(_('Consent is required to process your mail-in repair.'))
