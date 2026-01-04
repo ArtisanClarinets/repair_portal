@@ -46,6 +46,8 @@ def get_dashboard_data(technician=None):
     )
 
     # 2. Get list of currently assigned repairs (not closed/resolved/cancelled)
+    # Optimized to fetch instrument details in a single query using dot notation
+    # to avoid the N+1 problem.
     assigned_repairs = frappe.get_list(
         "Repair Order",
         filters={
@@ -56,6 +58,9 @@ def get_dashboard_data(technician=None):
             "name",
             "customer",
             "instrument_profile",
+            "`tabInstrument Profile`.headline as instrument_headline",
+            "`tabInstrument Profile`.instrument_category as instrument_category",
+            "`tabInstrument Profile`.serial_no as instrument_serial_no",
             "workflow_state",
             "priority",
             "target_delivery",
@@ -64,24 +69,10 @@ def get_dashboard_data(technician=None):
         order_by="target_delivery asc",
         limit=20,
     )
-
-    if assigned_repairs:
-        instrument_names = [row.instrument_profile for row in assigned_repairs if row.instrument_profile]
-        instrument_meta = {
-            doc.name: doc
-            for doc in frappe.get_all(
-                "Instrument Profile",
-                filters={"name": ["in", instrument_names]},
-                fields=["name", "headline", "instrument_category", "serial_no"],
-            )
-        }
-        for row in assigned_repairs:
-            instrument = instrument_meta.get(row.instrument_profile)
-            if instrument:
-                parts = [instrument.headline, instrument.instrument_category, instrument.serial_no]
-                row["instrument_label"] = " • ".join(filter(None, parts)) or instrument.name
-            else:
-                row["instrument_label"] = row.instrument_profile
+    # Create the instrument_label from the fetched data
+    for row in assigned_repairs:
+        parts = [row.instrument_headline, row.instrument_category, row.instrument_serial_no]
+        row["instrument_label"] = " • ".join(filter(None, parts)) or row.instrument_profile
 
     # 3. Get recent activity feed (last 5 pulse updates for this tech's repairs)
     recent_activity = frappe.db.sql(
