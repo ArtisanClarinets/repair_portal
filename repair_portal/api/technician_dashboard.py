@@ -19,12 +19,14 @@ def get_dashboard_data(technician=None):
 
     if technician != frappe.session.user:
         # Check for privileged roles
-        allowed_roles = {"Repair Manager", "System Manager"}
+        allowed_roles = {'Repair Manager', 'System Manager'}
         if not set(frappe.get_roles()).intersection(allowed_roles):
-            frappe.throw(_("Insufficient permissions to view this dashboard."), frappe.PermissionError)
+            frappe.throw(
+                _('Insufficient permissions to view this dashboard.'), frappe.PermissionError
+            )
 
-    if "Technician" not in frappe.get_roles(technician):
-        frappe.throw(_("User does not have the Technician role."), frappe.PermissionError)
+    if 'Technician' not in frappe.get_roles(technician):
+        frappe.throw(_('User does not have the Technician role.'), frappe.PermissionError)
 
     # 1. Get KPIs from Repair Order
     kpis_result = frappe.db.sql(
@@ -36,52 +38,43 @@ def get_dashboard_data(technician=None):
         FROM `tabRepair Order`
         WHERE assigned_technician = %(technician)s
         """,
-        {"technician": technician, "today": nowdate()},
+        {'technician': technician, 'today': nowdate()},
         as_dict=True,
     )
     kpis = (
         list(kpis_result)[0]
         if kpis_result
-        else {"open_repairs": 0, "in_progress_repairs": 0, "overdue_repairs": 0}
+        else {'open_repairs': 0, 'in_progress_repairs': 0, 'overdue_repairs': 0}
     )
 
     # 2. Get list of currently assigned repairs (not closed/resolved/cancelled)
+    # Optimized to fetch instrument details in a single query using dot notation
+    # to avoid the N+1 problem.
     assigned_repairs = frappe.get_list(
-        "Repair Order",
+        'Repair Order',
         filters={
-            "assigned_technician": technician,
-            "workflow_state": ["not in", ["Delivered", "Closed"]],
+            'assigned_technician': technician,
+            'workflow_state': ['not in', ['Delivered', 'Closed']],
         },
         fields=[
-            "name",
-            "customer",
-            "instrument_profile",
-            "workflow_state",
-            "priority",
-            "target_delivery",
-            "remarks",
+            'name',
+            'customer',
+            'instrument_profile',
+            '`tabInstrument Profile`.headline as instrument_headline',
+            '`tabInstrument Profile`.instrument_category as instrument_category',
+            '`tabInstrument Profile`.serial_no as instrument_serial_no',
+            'workflow_state',
+            'priority',
+            'target_delivery',
+            'remarks',
         ],
-        order_by="target_delivery asc",
+        order_by='target_delivery asc',
         limit=20,
     )
-
-    if assigned_repairs:
-        instrument_names = [row.instrument_profile for row in assigned_repairs if row.instrument_profile]
-        instrument_meta = {
-            doc.name: doc
-            for doc in frappe.get_all(
-                "Instrument Profile",
-                filters={"name": ["in", instrument_names]},
-                fields=["name", "headline", "instrument_category", "serial_no"],
-            )
-        }
-        for row in assigned_repairs:
-            instrument = instrument_meta.get(row.instrument_profile)
-            if instrument:
-                parts = [instrument.headline, instrument.instrument_category, instrument.serial_no]
-                row["instrument_label"] = " • ".join(filter(None, parts)) or instrument.name
-            else:
-                row["instrument_label"] = row.instrument_profile
+    # Create the instrument_label from the fetched data
+    for row in assigned_repairs:
+        parts = [row.instrument_headline, row.instrument_category, row.instrument_serial_no]
+        row['instrument_label'] = ' • '.join(filter(None, parts)) or row.instrument_profile
 
     # 3. Get recent activity feed (last 5 pulse updates for this tech's repairs)
     recent_activity = frappe.db.sql(
@@ -97,12 +90,12 @@ def get_dashboard_data(technician=None):
         ORDER BY pu.timestamp DESC
         LIMIT 5
         """,
-        {"technician": technician},
+        {'technician': technician},
         as_dict=True,
     )
 
     return {
-        "kpis": kpis,
-        "assigned_repairs": assigned_repairs,
-        "recent_activity": recent_activity,
+        'kpis': kpis,
+        'assigned_repairs': assigned_repairs,
+        'recent_activity': recent_activity,
     }
