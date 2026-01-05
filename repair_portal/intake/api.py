@@ -38,6 +38,25 @@ _ALLOWED_PLAYER_FIELDS = {
 }
 
 
+# Sentinel: Allowed fields for the create_intake endpoint.
+# This is a security measure to prevent mass assignment vulnerabilities, ensuring
+# that users can only submit data for fields they are supposed to access.
+_ALLOWED_INTAKE_FIELDS = {
+    'intake_type', 'instrument_category', 'manufacturer', 'model', 'serial_no',
+    'clarinet_type', 'year_of_manufacture', 'body_material', 'key_plating',
+    'pitch_standard', 'bore_type', 'tone_hole_style', 'thumb_rest_type',
+    'item_code', 'item_name', 'acquisition_source', 'acquisition_cost',
+    'store_asking_price', 'customer', 'customer_full_name', 'customer_phone',
+    'customer_email', 'customer_type', 'customers_stated_issue',
+    'initial_assessment_notes', 'work_order_number', 'service_type_requested',
+    'estimated_cost', 'deposit_paid', 'customer_approval',
+    'promised_completion_date', 'consent_form', 'wood_body_condition',
+    'keywork_condition', 'pad_condition', 'spring_condition',
+    'cork_condition', 'initial_intake_photos', 'accessory_id',
+    'instrument_profile', 'repair_order',
+}
+
+
 def _ensure_serial_field_type() -> str | None:
     try:
         df = frappe.get_meta('Instrument').get_field('serial_no')
@@ -238,47 +257,53 @@ def get_instrument_by_serial(serial_no: str) -> dict[str, Any] | None:
     if not serial_no:
         return None
 
-    serial_field_type = _ensure_serial_field_type()
-    isn_doc = find_by_serial(serial_no)
-    instrument_doc = None
-
-    if serial_field_type == 'Link' and isn_doc and isn_doc.get('name'):
-        instrument_name = frappe.db.get_value('Instrument', {'serial_no': isn_doc['name']}, 'name')
-        if instrument_name:
-            instrument_doc = frappe.get_doc('Instrument', instrument_name)
-    if not instrument_doc:
-        instrument_name = frappe.db.get_value('Instrument', {'serial_no': serial_no}, 'name')
-        if instrument_name:
-            instrument_doc = frappe.get_doc('Instrument', instrument_name)
-
+    # Bolt: Consolidate multiple database lookups into a single efficient query.
+    # The original implementation performed up to 5 sequential DB calls, creating an N+1 issue.
+    # This version gathers all possible serial number variations and fetches the instrument
+    # with a single `frappe.get_all` call, significantly improving performance.
     normalized = normalize_serial(serial_no)
+    possible_serials = {serial_no, normalized}
+
+    # The `find_by_serial` function checks a separate "Instrument Serial Number" doctype,
+    # which may be linked in older schemas.
+    isn_doc = find_by_serial(serial_no)
+    if isn_doc and isn_doc.get('name'):
+        possible_serials.add(isn_doc['name'])
+
+    # Fetch the first matching instrument.
+    instrument_data = frappe.get_all(
+        'Instrument',
+        filters={'serial_no': ('in', list(possible_serials))},
+        fields=[
+            'name', 'brand', 'model', 'clarinet_type', 'body_material',
+            'key_plating', 'instrument_category'
+        ],
+        limit=1,
+    )
+    instrument_details = instrument_data[0] if instrument_data else None
+
     response: dict[str, Any] = {
         'serial_input': serial_no,
         'normalized_serial': normalized,
-        'match': bool(instrument_doc),
+        'match': bool(instrument_details),
         'instrument': None,
-        'instrument_name': getattr(instrument_doc, 'name', None),
+        'instrument_name': instrument_details.get('name') if instrument_details else None,
         'instrument_serial_number': isn_doc.get('name') if isn_doc else None,
         'brand_mapping': None,
     }
 
-    if instrument_doc:
-        data = {
-            'name': instrument_doc.name,
-            'manufacturer': getattr(instrument_doc, 'brand', None),
-            'model': getattr(instrument_doc, 'model', None),
-            'clarinet_type': getattr(instrument_doc, 'clarinet_type', None),
-            'body_material': getattr(instrument_doc, 'body_material', None),
-            'key_plating': getattr(instrument_doc, 'key_plating', None),
-            'instrument_category': getattr(instrument_doc, 'instrument_category', None),
-        }
-        if data.get('manufacturer'):
+    if instrument_details:
+        # Rename 'brand' to 'manufacturer' for API consistency.
+        instrument_details['manufacturer'] = instrument_details.pop('brand', None)
+
+        if instrument_details.get('manufacturer'):
+            mapped_brand = map_brand(instrument_details['manufacturer'])
             response['brand_mapping'] = {
-                'input': data['manufacturer'],
-                'mapped': map_brand(data['manufacturer']),
+                'input': instrument_details['manufacturer'],
+                'mapped': mapped_brand,
             }
-            data['manufacturer'] = response['brand_mapping']['mapped']
-        response['instrument'] = data
+            instrument_details['manufacturer'] = mapped_brand
+        response['instrument'] = instrument_details
 
     LOGGER.info(
         'intake.get_instrument_by_serial',
@@ -444,6 +469,11 @@ def create_intake(payload: dict[str, Any], session_id: str | None = None) -> dic
     if not intake_data:
         frappe.throw(_('Intake data is required.'))
 
+    # Sentinel: Filter the payload to prevent mass assignment.
+    filtered_intake_data = {
+        k: v for k, v in intake_data.items() if k in _ALLOWED_INTAKE_FIELDS
+    }
+
     session = _get_session(session_id, create=False)
     if session:
         session.check_permission('write')
@@ -454,7 +484,7 @@ def create_intake(payload: dict[str, Any], session_id: str | None = None) -> dic
 
     frappe.db.savepoint('intake_wizard')
     try:
-        intake_doc = frappe.get_doc({'doctype': 'Clarinet Intake', **intake_data})
+        intake_doc = frappe.get_doc({'doctype': 'Clarinet Intake', **filtered_intake_data})
         intake_doc.insert()
 
         loaner_response: dict[str, Any] | None = None

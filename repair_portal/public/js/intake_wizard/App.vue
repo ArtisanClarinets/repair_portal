@@ -111,9 +111,9 @@
           type="button"
           class="primary"
           @click="nextStep"
-          :disabled="!currentStepValid"
+          :disabled="!currentStepValid || loadingStates[currentStep.key]"
         >
-          Next →
+          {{ loadingStates[currentStep.key] ? 'Loading...' : 'Next →' }}
         </button>
         <button
           v-else
