@@ -37,23 +37,51 @@ _ALLOWED_PLAYER_FIELDS = {
     'player_profile_id',
 }
 
-
 # Sentinel: Allowed fields for the create_intake endpoint.
 # This is a security measure to prevent mass assignment vulnerabilities, ensuring
 # that users can only submit data for fields they are supposed to access.
 _ALLOWED_INTAKE_FIELDS = {
-    'intake_type', 'instrument_category', 'manufacturer', 'model', 'serial_no',
-    'clarinet_type', 'year_of_manufacture', 'body_material', 'key_plating',
-    'pitch_standard', 'bore_type', 'tone_hole_style', 'thumb_rest_type',
-    'item_code', 'item_name', 'acquisition_source', 'acquisition_cost',
-    'store_asking_price', 'customer', 'customer_full_name', 'customer_phone',
-    'customer_email', 'customer_type', 'customers_stated_issue',
-    'initial_assessment_notes', 'work_order_number', 'service_type_requested',
-    'estimated_cost', 'deposit_paid', 'customer_approval',
-    'promised_completion_date', 'consent_form', 'wood_body_condition',
-    'keywork_condition', 'pad_condition', 'spring_condition',
-    'cork_condition', 'initial_intake_photos', 'accessory_id',
-    'instrument_profile', 'repair_order',
+    'intake_type',
+    'instrument_category',
+    'manufacturer',
+    'model',
+    'serial_no',
+    'clarinet_type',
+    'year_of_manufacture',
+    'body_material',
+    'key_plating',
+    'pitch_standard',
+    'bore_type',
+    'tone_hole_style',
+    'thumb_rest_type',
+    'item_code',
+    'item_name',
+    'acquisition_source',
+    'acquisition_cost',
+    'store_asking_price',
+    'customer',
+    'customer_full_name',
+    'customer_phone',
+    'customer_email',
+    'customer_type',
+    'customers_stated_issue',
+    'initial_assessment_notes',
+    'work_order_number',
+    'service_type_requested',
+    'estimated_cost',
+    'deposit_paid',
+    'customer_approval',
+    'promised_completion_date',
+    'consent_form',
+    'wood_body_condition',
+    'keywork_condition',
+    'pad_condition',
+    'spring_condition',
+    'cork_condition',
+    'initial_intake_photos',
+    'accessory_id',
+    'instrument_profile',
+    'repair_order',
 }
 
 
@@ -275,8 +303,13 @@ def get_instrument_by_serial(serial_no: str) -> dict[str, Any] | None:
         'Instrument',
         filters={'serial_no': ('in', list(possible_serials))},
         fields=[
-            'name', 'brand', 'model', 'clarinet_type', 'body_material',
-            'key_plating', 'instrument_category'
+            'name',
+            'brand',
+            'model',
+            'clarinet_type',
+            'body_material',
+            'key_plating',
+            'instrument_category',
         ],
         limit=1,
     )
@@ -470,9 +503,7 @@ def create_intake(payload: dict[str, Any], session_id: str | None = None) -> dic
         frappe.throw(_('Intake data is required.'))
 
     # Sentinel: Filter the payload to prevent mass assignment.
-    filtered_intake_data = {
-        k: v for k, v in intake_data.items() if k in _ALLOWED_INTAKE_FIELDS
-    }
+    filtered_intake_data = {k: v for k, v in intake_data.items() if k in _ALLOWED_INTAKE_FIELDS}
 
     session = _get_session(session_id, create=False)
     if session:
